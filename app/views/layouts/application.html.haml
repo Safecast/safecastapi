@@ -4,12 +4,19 @@
     %title Safecast
     = csrf_meta_tag
     = stylesheet_link_tag :application
+    = javascript_include_tag 'http://use.typekit.com/tvi6mbv.js'
+    :javascript
+      try{Typekit.load();}catch(e){}
     /[if lt IE 9]
       = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
   %body
     %div.container
       %header
         %h1= link_to "Safecast", root_path
+        %nav
+          %ul
+            %li= link_to 'Maps', '/maps'
+            %li= link_to 'Submit', '/submit'
       
       = yield
       

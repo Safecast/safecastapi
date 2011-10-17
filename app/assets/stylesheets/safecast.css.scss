@@ -8,20 +8,27 @@ $ocean: #6ba5bd;
 body {
   background: #fff;
   color: #000;
-  font-family: sans-serif;
-  font-size: 12px;
+  font-size: 13px;
+  font-family: proxima-nova,sans-serif;
 }
 
 a, a:link, a:visited {
   color: $ocean;
   text-decoration: none;
+  &:hover {
+    color: darken($ocean,5%);
+  }
 }
 
 // header
 
 .container > header {
   padding: 15px 0;
+  overflow: hidden;
+  border-bottom: 1px solid desaturate(lighten($ocean,15%),15%);
+  clear: both;
   h1 {
+    float: left;
     a, a:link, a:visited {
       display: block;
       text-indent: -9999px;
@@ -32,6 +39,21 @@ a, a:link, a:visited {
       background-position: left top;
       background-repeat: no-repeat;
       background-image: url(image-path('h1.png'));
+    }
+  }
+  nav {
+    float: right;
+    ul {
+      margin: 0 -8px 0 8px;
+      list-style: none;
+      li {
+        float: left;
+        a, a:link, a:visited {
+          display: block;
+          padding: 2px 8px;
+          font-weight: bold;
+        }
+      }
     }
   }
 }
