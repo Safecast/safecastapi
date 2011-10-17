@@ -1,0 +1,16 @@
+!!! html5
+%html
+  %head
+    %title Safecast
+    = csrf_meta_tag
+    = stylesheet_link_tag :application
+    /[if lt IE 9]
+      = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
+  %body
+    %header
+      %h1 Safecast
+    
+    = yield
+    
+    %footer
+      %p Creative Commons Non-Commercial
