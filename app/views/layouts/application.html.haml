@@ -7,10 +7,11 @@
     /[if lt IE 9]
       = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
   %body
-    %header
-      %h1 Safecast
-    
-    = yield
-    
-    %footer
-      %p Creative Commons Non-Commercial
+    %div.container
+      %header
+        %h1= link_to "Safecast", root_path
+      
+      = yield
+      
+      %footer
+        %p Creative Commons Non-Commercial
