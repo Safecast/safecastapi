@@ -25,7 +25,6 @@ a, a:link, a:visited {
 .container > header {
   padding: 15px 0;
   overflow: hidden;
-  border-bottom: 1px solid desaturate(lighten($ocean,15%),15%);
   clear: both;
   h1 {
     float: left;
@@ -51,7 +50,8 @@ a, a:link, a:visited {
         a, a:link, a:visited {
           display: block;
           padding: 2px 8px;
-          font-weight: bold;
+          text-transform: uppercase;
+          letter-spacing: 1px;
         }
       }
     }
