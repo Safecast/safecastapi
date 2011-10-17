@@ -4,6 +4,7 @@
 // colors
 
 $ocean: #6ba5bd;
+$subtle: lighten(desaturate($ocean,25%),10%);
 
 body {
   background: #fff;
@@ -16,7 +17,7 @@ a, a:link, a:visited {
   color: $ocean;
   text-decoration: none;
   &:hover {
-    color: darken($ocean,5%);
+    color: darken($ocean,10%);
   }
 }
 
@@ -55,5 +56,16 @@ a, a:link, a:visited {
         }
       }
     }
+  }
+}
+
+// footer
+
+.container > footer {
+  padding: 15px 0;
+  p {
+    font-size: 11px;
+    line-height: 14px;
+    color: $subtle;
   }
 }
