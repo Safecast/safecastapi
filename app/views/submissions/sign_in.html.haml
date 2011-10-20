@@ -1,0 +1,15 @@
+%section.brief
+  %header
+    %h2 Register or Sign in
+    %nav= link_to(raw("(or continue anonymously) &rarr;"), "/reading")
+  %form{:action => "/reading", :autocomplete => "off"}
+    %fieldset.register
+      %div.field
+        %label.email{:for => 'email'} Email
+        %input{:type => 'email', :name => 'email', :id => 'email', :placeholder => 'sean@seanbonner.com'}
+      %div.field
+        %label{:for => 'password'} Password
+        %input{:type => 'password', :name => 'password', :id => 'password'}
+    %fieldset
+      %p.button
+        %input{:type => 'submit', :value => "Register"}

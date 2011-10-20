@@ -1,3 +1,6 @@
 Safecast::Application.routes.draw do
-  root :to => 'submissions#new'
+
+  match "reading", :to => 'submissions#reading'
+
+  root :to => 'submissions#sign_in'
 end
