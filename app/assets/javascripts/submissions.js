@@ -11,10 +11,8 @@ $(document).ready(function(){
 
   /* unit selector */
   $('.units li').click(function(){
-    $('.units li').addClass('unselected');
-    $('.units li').removeClass('selected');
+    $(this).siblings('li').removeClass('selected');
     $(this).addClass('selected');
-    $(this).removeClass('unselected');
     return false;
   });
 
