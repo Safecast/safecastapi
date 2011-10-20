@@ -215,15 +215,46 @@ section.brief {
   }
 }
 
+// sign in / sign up
+
+section.brief {
+  form {
+    fieldset.register {
+      div.field {
+        label {
+          float: left;
+          clear: left;
+          width: 36px;
+          height: 36px;
+          text-indent: -9999px;
+          overflow: hidden;
+          padding: 0;
+          background-color: transparent;
+          background-position: right top;
+          background-repeat: no-repeat;
+          &.email { background-image: url(image-path('email.png')); }
+          &.password { background-image: url(image-path('password.png')); }
+        }
+        input[type='text'], input[type='password'], input[type='email'] {
+          width: 264px;
+          float: right;
+          clear: right;
+        }
+        &.focus {
+          label { background-position: left top; }
+        }
+      }
+    }
+  }
+}
+
 // level reading
 
 section.brief {
   form {
     fieldset.level-reading {
       div.field {
-        label {
-          display: none;
-        }
+        label { display: none; }
         ul.units {
           float: right;
           padding: 0;
