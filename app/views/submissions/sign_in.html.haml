@@ -2,7 +2,7 @@
   %header
     %h2 Register or Sign in
     %nav= link_to(raw("(or continue anonymously) &rarr;"), "/reading")
-  %form{:action => "/reading", :autocomplete => "off"}
+  %form{:action => "/reading"}
     %fieldset.register
       %div.field
         %label.email{:for => 'email'} Email
