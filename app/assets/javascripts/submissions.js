@@ -8,6 +8,16 @@ $(document).ready(function(){
   $('.field input').blur(function(){
     $(this).parents('.field:first').removeClass('focus');
   });
+  
+  /* mock-up sign in / sign up thing */
+  $('input#email').blur(function(){
+    $('p.note').text("...");
+    $('input[type="submit"]').attr('value','...');
+    setTimeout(function(){
+      $('p.note').text("Welcome back, Sean.");
+      $('input[type="submit"]').attr('value','Sign in');
+    }, 750);
+  });
 
   /* unit selector */
   $('.units li').click(function(){

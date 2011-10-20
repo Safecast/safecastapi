@@ -200,6 +200,12 @@ section.brief {
         width: 312px;
       }
     }
+    
+    p.note {
+      float: left;
+      font-size: 13px;
+      padding: 10px 0 0;
+    }
 
     .button {
       float: right;
@@ -240,9 +246,7 @@ section.brief {
           float: right;
           clear: right;
         }
-        &.focus {
-          label { background-position: left top; }
-        }
+        &.focus { label { background-position: left top; } }
       }
     }
   }
