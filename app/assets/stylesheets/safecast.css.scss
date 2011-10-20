@@ -4,13 +4,44 @@
 // colors
 
 $ocean: #6ba5bd;
+$black: #202020;
 $subtle: lighten(desaturate($ocean,25%),10%);
+$sans: proxima-nova,sans-serif;
+
+// form
+
+@mixin ocean-button {
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border: 1px solid lighten($ocean,10%);
+  background: $ocean;
+  color: darken($ocean,35%);
+  text-shadow: 0 1px 0 lighten($ocean,15%);
+  font-size: 13px;
+  font-weight: bold;
+  padding: 5px 8px 4px;
+  -webkit-transition: all .125s ease-in-out;
+  -moz-transition: all 0.125s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    background: lighten($ocean,5%);
+    border: 1px solid lighten($ocean,12.5%);
+  }
+  &:active {
+    cursor: pointer;
+    color: darken($ocean,50%);
+    text-shadow: 0 1px 0 $ocean;
+    background: darken($ocean,20%);
+    border: 1px solid darken($ocean,10%);
+  }
+}
 
 body {
   background: #fff;
-  color: #000;
+  color: $black;
   font-size: 13px;
-  font-family: proxima-nova,sans-serif;
+  font-family: $sans;
 }
 
 a, a:link, a:visited {
@@ -19,6 +50,18 @@ a, a:link, a:visited {
   &:hover {
     color: darken($ocean,10%);
   }
+}
+
+input, textarea, select {
+  font-family: $sans;
+}
+
+// heading styles
+
+h2 {
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 400;
 }
 
 // header
@@ -67,5 +110,45 @@ a, a:link, a:visited {
     font-size: 11px;
     line-height: 14px;
     color: $subtle;
+  }
+}
+
+// form styles
+
+section.brief {
+  width: 360px;
+  margin: 15px auto;
+  header {
+    overflow: hidden;
+    clear: both;
+    h2, h3 {
+      padding: 0 0 .5em;
+    }
+  }
+  form {
+    overflow: hidden;
+    clear: both;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    background: $black url(image-path('noise.gif')) left top repeat;
+    color: #fff;
+    padding: 10px 15px;
+    
+    fieldset {
+      padding: 5px 0;
+    }
+
+    .button {
+      float: right;
+      background: #050505;
+      border: 1px solid #000;
+      border-radius: 3px;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      input[type='submit'], button {
+        @include ocean-button;
+      }
+    }
   }
 }
