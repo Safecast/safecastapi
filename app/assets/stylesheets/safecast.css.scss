@@ -331,3 +331,24 @@ section.brief {
     }
   }
 }
+
+// device details
+
+section.brief {
+  form {
+    fieldset.device-basics {
+      div.field {
+        label {
+          float: left;
+          clear: left;
+          width: 60px;
+        }
+        input[type='text'], input[type='password'], input[type='email'] {
+          float: right;
+          clear: right;
+          width: 240px;
+        }
+      }
+    }
+  }
+}
