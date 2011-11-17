@@ -1,9 +1,41 @@
-%section.manifest
+%section.brief
   %header
     %h2 Review your Submission
-  %form{:action => "/device"}
+  %form{:action => "/device", :class => "manifest"}
     %fieldset
+      %header
+        %h3 Reading
+      %div.field
+        %label{:for => 'reading'} Reading
+        %input.digit{:type => 'text', :name => 'reading', :id => 'reading', :placeholder => '000'}
+      %div.field
+        %label{:for => 'location'} Location
+        %input{:type => 'text', :name => 'location', :id => 'location', :placeholder => ''}
+
+    %fieldset
+      %header
+        %h3 Device
+      %div.field
+        %label{:for => 'make'} Make
+        %input{:type => 'text', :name => 'make', :id => 'make', :placeholder => 'Safecast'}
+      %div.field
+        %label{:for => 'model'} Model
+        %input{:type => 'text', :name => 'model', :id => 'model', :placeholder => ''}
+
+    %fieldset
+      %header
+        %h3 Environmental Details
+      %div.field
+        %label{:for => 'height'} Height
+        %input.digit{:type => 'text', :name => 'height', :id => 'height', :placeholder => '1m'}
+      %div.field
+        %label{:for => 'surface'} Surface type
+        %input{:type => 'text', :name => 'surface', :id => 'surface', :placeholder => 'Soil'}
+      %div.field
+        %label{:for => 'radiation'} Radiation type
+        %input{:type => 'text', :name => 'radiation', :id => 'radiation', :placeholder => 'Air'}
       
+                
     %fieldset
       %p.button
         %input{:type => 'submit'}

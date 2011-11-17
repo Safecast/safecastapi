@@ -352,3 +352,36 @@ section.brief {
     }
   }
 }
+
+// manifest
+
+form.manifest {
+  fieldset {
+    background: none;
+    header {
+      padding: 10px 0 5px
+    }
+    div.field {
+      background: none;
+      overflow: hidden;
+      clear: both;
+      padding: 5px 15px;
+      label {
+        float: left;
+        clear: left;
+        width: 60px;
+        color: #999
+      }
+      input[type='text'], input[type='password'], input[type='email'] {
+        float: right;
+        clear: right;
+        width: 240px;
+        background: transparent;
+        border: none;
+        padding: 0;
+        color: #eee;
+        text-shadow: 0 1px 0 #000;
+      }
+    }
+  }
+}
