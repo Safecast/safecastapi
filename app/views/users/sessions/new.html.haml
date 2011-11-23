@@ -1,0 +1,27 @@
+%section.brief
+  %header
+    %h2 Register or Sign in
+    %nav= link_to(raw("(or continue anonymously) &rarr;"), "/reading")
+  = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+    - if resource.errors.any?
+      %ul
+        - resource.errors.full_messages.each do |message|
+          %li= message
+    %fieldset.register
+      %div.field
+        = f.label :email
+        = f.email_field :email, :placeholder => 'sean@seanbonner.com'
+      %div.field
+        = f.label :name
+        = f.text_field :name, :placeholder => "Name"
+      %div.field
+        = f.label :password
+        = f.password_field :password, :placeholder => "Password"
+    %fieldset
+      %p.note Welcome.
+      %p.button
+        - if devise_mapping.rememberable?
+          = f.hidden_field :remember_me, :value => 1
+        =f.submit "Sign in"
+
+= render :partial => "devise/shared/links"      

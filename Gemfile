@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 
+gem 'devise'
 gem 'rails', '3.1.3'
 gem 'pg'
 gem 'json'
@@ -15,10 +16,11 @@ gem 'jquery-rails'
 gem 'thin'
 
 group :test do
-  gem 'rspec-rails'
-  gem 'turnip'
-  gem 'fabrication'
   gem 'capybara'
+  gem 'fabrication'
   gem 'launchy'
   gem 'pry'
+  gem 'rspec-rails'
+  gem 'spork', '~> 0.9.0.rc'
+  gem 'watchr'
 end

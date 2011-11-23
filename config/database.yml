@@ -15,9 +15,9 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: safey_development
+  database: safecast_development
   pool: 5
-  username: safey
+  username: safecast
   password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -41,15 +41,15 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: safey_test
+  database: safecast_test
   pool: 5
-  username: safey
+  username: safecast
   password:
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: safey_production
+  database: safecast_production
   pool: 5
-  username: safey
+  username: safecast
   password:
