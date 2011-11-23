@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.1'
-gem 'sqlite3'
+gem 'rails', '3.1.3'
+gem 'pg'
 gem 'json'
 gem 'haml'
 
@@ -13,3 +13,12 @@ end
 
 gem 'jquery-rails'
 gem 'thin'
+
+group :test do
+  gem 'rspec-rails'
+  gem 'turnip'
+  gem 'fabrication'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'pry'
+end
