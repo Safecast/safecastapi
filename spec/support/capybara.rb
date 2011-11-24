@@ -1,1 +1,1 @@
-Capybara.javascript_driver = :selenium
+Capybara.javascript_driver = :webkit
