@@ -1,4 +1,4 @@
 window.Submissions = {
   add: ->
-    $('#page').html(Templates['reading.html.mustache'])
+    $('#page').html(Templates['submissions/new.html.mustache'])
 }
