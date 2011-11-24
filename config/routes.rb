@@ -19,6 +19,7 @@ Safecast::Application.routes.draw do
         get "finger"
       end
     end
+    resources :measurements
   end
   
   match '/my/submissions/new', :to => 'my/dashboards#show'
