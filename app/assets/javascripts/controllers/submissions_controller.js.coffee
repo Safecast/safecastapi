@@ -1,11 +1,11 @@
 window.Submissions = {
   add: ->
-    $('#page').html(Templates['submissions/new.html.mustache'])
+    $('#page').html(Templates['submissions/new'])
   create: ->
-    Submissions.manifest()
+    route_to('/my/submissions/manifest')
     return false
   manifest: ->
-    $('#page').html(Templates['submissions/manifest.html.mustache'])
+    $('#page').html(Templates['submissions/manifest'])
 }
 
 jQuery ->

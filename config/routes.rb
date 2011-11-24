@@ -22,6 +22,7 @@ Safecast::Application.routes.draw do
   end
   
   match '/my/submissions/new', :to => 'my/dashboards#show'
+  match '/my/submissions/manifest', :to => 'my/dashboards#show'
 
   match "reading", :to => 'submissions#reading'
   match "device", :to => 'submissions#device'

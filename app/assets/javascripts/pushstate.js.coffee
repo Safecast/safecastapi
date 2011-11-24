@@ -1,8 +1,8 @@
 jQuery ->
 
-  route = ->
-    if(window.Routes[document.location.pathname])
-      window.Routes[document.location.pathname]['action']()
+  window.route_to = (route) ->
+    if(window.Routes[route])
+      window.Routes[route]['action']()
   
   handleClick = ->
     History.pushState({}, Routes[$(@).attr('href')]['title'], $(@).attr('href'))
@@ -10,4 +10,4 @@ jQuery ->
     return false
   $(document).delegate 'a', 'click', handleClick
   
-  route()
+  route_to(document.location.pathname)
