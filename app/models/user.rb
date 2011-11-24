@@ -12,13 +12,10 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   
   def serializable_hash(options = {})
-    {
-      :id => id,
-      :name => name,
-      :email => email,
-      :first_name => first_name,
-      :last_name => last_name
-    }
+    options ||= {}
+    options[:only] = [:id, :name, :email]
+    options[:methods] = [:first_name, :last_name]
+    super(options)
   end
   
 end
