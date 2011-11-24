@@ -3,6 +3,9 @@ Safecast::Application.routes.draw do
   devise_for :users, :controllers => {
     :sessions => "users/sessions"
   }
+  devise_scope :user do
+    get "/logout" => "devise/sessions#destroy", :as => :logout
+  end
   
   namespace :my do
     resource :dashboard

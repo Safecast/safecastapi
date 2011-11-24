@@ -2,16 +2,20 @@
   %header
     %h2 Register or Sign in
     %nav= link_to(raw("(or continue anonymously) &rarr;"), "/reading")
-  = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+  = form_for(resource, :as => resource_name,
+                       :url => session_path(resource_name),
+                       :html => { :id => 'signup-register-form'}) do |f|
     - if resource.errors.any?
       %ul
         - resource.errors.full_messages.each do |message|
           %li= message
     %fieldset.register
       %div.field
-        = f.label :email
-        = f.email_field :email, :placeholder => 'sean@seanbonner.com'
-      %div.field
+        = label_tag 'email-field', 'Email'
+        = f.email_field :email, :placeholder => 'sean@seanbonner.com',
+                                :id => 'email-field'
+      %div{:id => 'name-field',
+           :class => registering? ? 'field' : 'field hidden'}
         = f.label :name
         = f.text_field :name, :placeholder => "Name"
       %div.field
@@ -22,6 +26,7 @@
       %p.button
         - if devise_mapping.rememberable?
           = f.hidden_field :remember_me, :value => 1
-        =f.submit "Sign in"
+        =f.submit registering? ? 'Register' : "Sign in",
+                  :id => 'sign-in-register'
 
 = render :partial => "devise/shared/links"      
