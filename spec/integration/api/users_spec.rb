@@ -10,6 +10,7 @@ feature "/users API endpoint" do
     get('/api/users/finger.json', :email => 'paul@rslw.com')
     result = ActiveSupport::JSON.decode(response.body)
     result['name'].should == 'Paul Campbell'
+    result['first_name'].should == 'Paul'
   end
   
 end
