@@ -22,7 +22,7 @@
         = f.label :password
         = f.password_field :password, :placeholder => "Password"
     %fieldset
-      %p.note Welcome.
+      %p#note.note Enter your email to begin.
       %p.button
         - if devise_mapping.rememberable?
           = f.hidden_field :remember_me, :value => 1
