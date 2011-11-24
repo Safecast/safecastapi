@@ -14,7 +14,7 @@ feature 'guest signs up' do
   
   scenario 'signing up' do
     sign_up
-    last_response.should have_content('My Dashboard')
+    page.should have_content('My Dashboard')
   end
   
 end

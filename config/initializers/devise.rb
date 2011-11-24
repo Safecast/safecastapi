@@ -43,7 +43,7 @@ Devise.setup do |config|
   config.strip_whitespace_keys = [ :email ]
 
   # Tell if authentication through request.params is enabled. True by default.
-  # config.params_authenticatable = true
+  config.params_authenticatable = true
 
   # Tell if authentication through HTTP Basic Auth is enabled. False by default.
   # config.http_authenticatable = false

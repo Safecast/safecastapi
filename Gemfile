@@ -6,6 +6,8 @@ gem 'pg'
 gem 'json'
 gem 'haml'
 
+gem 'decent_exposure'
+
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
   gem 'coffee-rails', '~> 3.1.1'

@@ -7,6 +7,14 @@ Safecast::Application.routes.draw do
   namespace :my do
     resource :dashboard
   end
+  
+  namespace :api do
+    resources :users do
+      collection do
+        get "finger"
+      end
+    end
+  end
 
   match "reading", :to => 'submissions#reading'
   match "device", :to => 'submissions#device'
