@@ -19,6 +19,7 @@ gem 'thin'
 
 group :test do
   gem 'capybara'
+  gem 'capybara-webkit'
   gem 'fabrication'
   gem 'launchy'
   gem 'pry'

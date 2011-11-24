@@ -40,6 +40,8 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    capybara-webkit (0.7.2)
+      capybara (>= 1.0.0, < 1.2)
     childprocess (0.2.2)
       ffi (~> 1.0.6)
     coderay (0.9.8)
@@ -175,6 +177,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
+  capybara-webkit
   coffee-rails (~> 3.1.1)
   decent_exposure
   devise
