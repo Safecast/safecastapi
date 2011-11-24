@@ -11,6 +11,7 @@ Spork.prefork do
   require 'rspec/autorun'
   require 'capybara/rspec'
   require 'capybara/webkit'
+  require 'fileutils'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -42,10 +43,13 @@ Spork.prefork do
     # rspec-rails.
     config.infer_base_class_for_anonymous_controllers = false
     
+    config.before(:all) do
+      FileUtils.rm_rf Dir[Rails.root.join('tmp', 'cache', 'assets', '**', '*')]
+    end
+    
     config.after(:all) do
-      Dir[Rails.root.join('tmp', 'capybara', '**', '*')].each do |f|
-        File.unlink(f)
-      end
+      FileUtils.rm_f Rails.root.join('tmp', 'capybara', '*')
+      FileUtils.rm_rf Dir[Rails.root.join('tmp', 'cache', 'assets', '**', '*')]
     end
   end
 end
