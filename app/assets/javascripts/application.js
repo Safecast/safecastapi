@@ -7,5 +7,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.history
+//= require mustache
 //= require_directory ./controllers
 //= require_tree .
+
+window.Safecast = {}
