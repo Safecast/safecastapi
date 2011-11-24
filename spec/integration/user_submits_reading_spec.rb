@@ -9,6 +9,8 @@ feature "User Submits Reading" do
     fill_in('Radiation Level', :with => '123')
     fill_in('Location',        :with => '123, 123')
     click_button('Submit')
+    
+    
   end
   
 end
