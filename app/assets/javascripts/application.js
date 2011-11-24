@@ -6,4 +6,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.history
+//= require_directory ./controllers
 //= require_tree .

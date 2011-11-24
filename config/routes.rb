@@ -1,5 +1,7 @@
 Safecast::Application.routes.draw do
 
+  resources :posts
+
   devise_for :users, :controllers => {
     :sessions => "users/sessions"
   }
@@ -18,6 +20,8 @@ Safecast::Application.routes.draw do
       end
     end
   end
+  
+  match '/my/submissions/new', :to => 'my/dashboards#show'
 
   match "reading", :to => 'submissions#reading'
   match "device", :to => 'submissions#device'

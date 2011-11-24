@@ -5,7 +5,7 @@ describe User do
   
   describe "#first_name and #last_name" do
     subject { user }
-    its(:first_name) { should == 'Paul' }
-    its(:last_name) { should == 'Campbell' }
+    its(:first_name)  { should == 'Paul' }
+    its(:last_name)   { should == 'Campbell' }
   end
 end

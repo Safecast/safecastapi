@@ -1,0 +1,6 @@
+<% templates = {} %>
+<% Dir[Rails.root.join('app', 'assets','javascripts','views', '*.html*')].collect do |f|
+  templates[File.basename(f).gsub(File.extname(f),'')] = Rails.application.assets.find_asset(f).to_s
+end %>
+
+window.Templates = <%= templates.to_json %>
