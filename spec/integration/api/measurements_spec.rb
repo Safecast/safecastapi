@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-feature "/users API endpoint" do
+feature "/api/measurements API endpoint" do
 
   before do
     @user = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
   end
   let(:user) { @user.reload }
   
-  scenario "lookup user" do
+  scenario "lookup measurements" do
     post('/api/measurements.json',{
       :auth_token => user.authentication_token,
       :measurement => {

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "/users API endpoint" do
+feature "/api/users API endpoint" do
 
   before do
     Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')

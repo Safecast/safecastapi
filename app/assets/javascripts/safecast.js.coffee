@@ -4,8 +4,7 @@ jQuery ->
   window.AppView = Backbone.View.extend({
     el: $("#page"),
     render: ->
-      $(this.el).html("Welcome to Safecast");  
-  })
+      $(this.el).html("Welcome to Safecast")
   
   
   window.HomeRouter = Backbone.Router.extend
