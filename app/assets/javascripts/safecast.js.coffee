@@ -1,10 +1,15 @@
 jQuery ->
   window.Measurement = Backbone.Model.extend({})
   
-  window.AppView = Backbone.View.extend({
+  window.AppView = Backbone.View.extend
     el: $("#page"),
     render: ->
       $(this.el).html("Welcome to Safecast")
+
+  window.SubmissionsView = Backbone.View.extend
+    el: $("#page"),
+    render: ->
+      $(this.el).html(Templates['submissions/new'])
   
   
   window.HomeRouter = Backbone.Router.extend
@@ -19,9 +24,11 @@ jQuery ->
       "my/submissions/new": "new"
     
     new: ->
-      
+      submissionsView.render()
       
   
   appView = new AppView()
-  new HomeRouter()
+  submissionsView = new SubmissionsView()
+  window.homeRouter = new HomeRouter()
+  window.submissionsRouter = new SubmissionsRouter()
   Backbone.history.start({pushState: true, root: '/'})

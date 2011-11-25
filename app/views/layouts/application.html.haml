@@ -13,11 +13,11 @@
   %body
     %div.container
       %header
-        %h1= link_to "Safecast", root_path
+        %h1= link_to "Safecast", root_path, :data => { :pjax => true }
         %nav
           %ul
             %li= link_to 'Maps', '/maps'
-            %li= link_to 'Submit', '/my/submissions/new', :title => 'Submit a Reading'
+            %li= link_to 'Submit', '/my/submissions/new', :title => 'Submit a Reading', :data => { :pjax => true }
             %li= link_to 'Sign out', logout_path
       
       = yield
