@@ -6,8 +6,8 @@ gem 'pg'
 gem 'json'
 gem 'haml'
 
+gem 'backbone-rails'
 gem 'decent_exposure'
-gem 'pjax-rails'
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'

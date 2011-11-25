@@ -6,9 +6,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.history
 //= require mustache
-//= require_directory ./controllers
+//= require underscore
+//= require backbone
+//= require json2
 //= require_tree .
 
 window.Safecast = {}
