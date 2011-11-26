@@ -18,8 +18,11 @@ jQuery ->
       'submit #manifest'   : 'create'
     }
     
+    initialize: ->
+      @model.bind('change', @render, @)
+    
     templatePath: ->
-      return 'submissions/complete' if(@model.get('id'))
+      return 'submissions/complete' if @model.get('id')
       return 'submissions/manifest' if(@model.get('value') != '000')
       'submissions/new'
     
@@ -33,14 +36,10 @@ jQuery ->
     
     manifest: ->
       @model.set({value: $('#level').val()})
-      @render()
       false
     
     create: ->
-      @model.save {}, {
-          success: =>
-            @render()
-        }
+      @model.save {value: $('#level')}
       false
   
   
