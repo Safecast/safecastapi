@@ -18,14 +18,13 @@ jQuery ->
       'submit #manifest'   : 'create'
     }
     
+    templatePath: ->
+      return 'submissions/complete' if(@model.get('id'))
+      return 'submissions/manifest' if(@model.get('value') != '000')
+      'submissions/new'
+    
     template: ->
-      path = if(@model.get('id'))
-        'submissions/complete'
-      else if(@model.get('value') != '000')
-        'submissions/manifest'
-      else
-        'submissions/new'
-      Mustache.to_html(Templates[path], @model.toJSON())
+      Mustache.to_html(Templates[@templatePath()], @model.toJSON())
     
     render: ->
       $(this.el).html(@template())
