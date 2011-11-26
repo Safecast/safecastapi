@@ -8,8 +8,17 @@ jQuery ->
 
   window.SubmissionsView = Backbone.View.extend
     el: $("#page"),
+    
+    events: {
+      'submit #submission' : 'manifest'
+    }
+    
     render: ->
       $(this.el).html(Templates['submissions/new'])
+      return @
+    
+    manifest: ->
+      alert('woo')
   
   
   window.HomeRouter = Backbone.Router.extend
