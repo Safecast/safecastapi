@@ -12,7 +12,6 @@ feature "User Submits Reading" do
     click_button('Submit')
     click_button('Confirm')
     page.should have_content('Thanks for your submission')
-    pry
     user.should have(1).measurements
     user.measurements.first.value.should == 123
   end

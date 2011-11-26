@@ -1,5 +1,9 @@
 jQuery ->
-  window.Measurement = Backbone.Model.extend({})
+  window.Measurement = Backbone.Model.extend
+    defaults:
+      value: '000'
+    
+    url: '/api/measurements'
   
   window.AppView = Backbone.View.extend
     el: $("#page"),
@@ -10,25 +14,34 @@ jQuery ->
     el: $("#page"),
     
     events: {
-      'submit #submission' : 'manifest'
+      'submit #submission' : 'manifest',
+      'submit #manifest'   : 'create'
     }
     
     template: (file)->
       Mustache.to_html(Templates[file], @model.toJSON())
     
     render: ->
-      console.log(@model.get('level'))
-      if(@model.get('level') != '000')
+      if(@model.get('id'))
+        $(this.el).html(@template('submissions/complete'))
+      else if(@model.get('value') != '000')
         $(this.el).html(@template('submissions/manifest'))
       else
         $(this.el).html(@template('submissions/new'))
+      @.$('#level').select().focus()
       return @
     
     manifest: ->
-      console.log(@.$('#input').val())
-      @model.set({level: $('#level').val()})
+      @model.set({value: $('#level').val()})
       @render()
-      return false
+      false
+    
+    create: ->
+      @model.save {}, {
+          success: =>
+            @render()
+        }
+      false
   
   
   window.HomeRouter = Backbone.Router.extend
@@ -43,7 +56,7 @@ jQuery ->
       "my/submissions/new": "new"
     
     new: ->
-      measurement = new Measurement({level: '000'})
+      measurement = new Measurement()
       new SubmissionsView({model: measurement}).render()
       
   
