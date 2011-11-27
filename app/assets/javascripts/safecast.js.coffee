@@ -15,8 +15,9 @@ jQuery ->
   window.MeasurementView = Backbone.View.extend
     el: $("#page"),
     
-    template: ->
-      Mustache.to_html(Templates[@templatePath()], @model.toJSON())
+    template: (path)->
+      path = @templatePath() unless path
+      Mustache.to_html(Templates[path], @model.toJSON())
     
     initialize: ->
       @model.bind('change', @render, @)
@@ -46,6 +47,7 @@ jQuery ->
       @model.save {value: $('#level').val()},
         success: =>
           measurementsRouter.navigate("my/measurements/#{@model.id}", true)
+      $(@el).html(@template('measurements/complete'))
       false
   
   window.ShowMeasurementView = MeasurementView.extend
