@@ -2,10 +2,8 @@
   <header>
     <h2>Your Measurement</h2>
   </header>
-  {{#isNew}}
-    <p>Loading...</p>
-  {{/isNew}}
-  {{^isNew}}
-    <p>Submitted level is {{value}}</p>
-  {{/isNew}}
+  {{^id}}
+    <p>Saving...</p>
+  {{/id}}
+  <p>Submitted level is {{value}}</p>
 </section>

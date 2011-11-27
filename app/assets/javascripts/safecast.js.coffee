@@ -30,7 +30,6 @@ jQuery ->
     }
     
     templatePath: ->
-      return 'measurements/complete' if @model.get('id')
       return 'measurements/manifest' if(@model.get('value') != '000')
       'measurements/new'
     
@@ -47,7 +46,7 @@ jQuery ->
       @model.save {value: $('#level').val()},
         success: =>
           measurementsRouter.navigate("my/measurements/#{@model.id}", true)
-      $(@el).html(@template('measurements/complete'))
+      $(@el).html(@template('measurements/show'))
       false
   
   window.ShowMeasurementView = MeasurementView.extend

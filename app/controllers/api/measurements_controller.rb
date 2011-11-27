@@ -10,11 +10,8 @@ class Api::MeasurementsController < Api::ApplicationController
   
   def create
     measurement.user = current_user
-    if measurement.save
-      render :json => measurement
-    else
-      render :json => measurement.errors
-    end
+    measurement.save
+    respond_with measurement
   end
   
 end
