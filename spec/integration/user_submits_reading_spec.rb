@@ -13,6 +13,7 @@ feature "User Submits Reading" do
     click_button('Submit')
     click_button('Confirm')
     page.should have_content('Submitted level is 123')
+    sleep(0.25)
     user.should have(1).measurements
     user.measurements.first.value.should == 123
   end
