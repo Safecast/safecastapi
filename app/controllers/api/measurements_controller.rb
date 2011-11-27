@@ -4,6 +4,10 @@ class Api::MeasurementsController < Api::ApplicationController
   
   expose(:measurement)
   
+  def show
+    respond_with measurement
+  end
+  
   def create
     measurement.user = current_user
     if measurement.save

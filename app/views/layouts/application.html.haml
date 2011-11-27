@@ -4,7 +4,6 @@
     %title Safecast
     = csrf_meta_tag
     = stylesheet_link_tag :application
-    = javascript_include_tag :application
     = javascript_include_tag 'http://use.typekit.com/tvi6mbv.js'
     :javascript
       try{Typekit.load();}catch(e){}
@@ -17,10 +16,14 @@
         %nav
           %ul
             %li= link_to 'Maps', '/maps'
-            %li= link_to 'Submit', '/my/submissions/new', :title => 'Submit a Reading', :data => { :pjax => true }
+            %li= link_to 'Submit', '/my/measurements/new', :title => 'Submit a Reading', :data => { :pjax => true }
             %li= link_to 'Sign out', logout_path
       
       = yield
       
       %footer
         %p Creative Commons Non-Commercial
+    = javascript_include_tag :vendor
+    = javascript_include_tag :application
+    = yield :additional_javascripts
+    = javascript_include_tag :start

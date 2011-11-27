@@ -1,0 +1,60 @@
+<section class='brief'>
+  <header>
+    <h2>Review your Submission</h2>
+  </header>
+  <form action='/my/measurements' class='manifest' id="manifest">
+    <fieldset>
+      <header>
+        <h3>Reading</h3>
+      </header>
+      <div class='field'>
+        <label for='reading'>Reading</label>
+        <input class='digit'
+               id='level'
+               name='value'
+               placeholder='000'
+               type='text'
+               value="{{value}}"/>
+      </div>
+      <div class='field'>
+        <label for='location'>Location</label>
+        <input id='location' name='location' placeholder='' type='text' />
+      </div>
+    </fieldset>
+    <fieldset>
+      <header>
+        <h3>Device</h3>
+      </header>
+      <div class='field'>
+        <label for='make'>Make</label>
+        <input id='make' name='make' placeholder='Safecast' type='text' />
+      </div>
+      <div class='field'>
+        <label for='model'>Model</label>
+        <input id='model' name='model' placeholder='' type='text' />
+      </div>
+    </fieldset>
+    <fieldset>
+      <header>
+        <h3>Environmental Details</h3>
+      </header>
+      <div class='field'>
+        <label for='height'>Height</label>
+        <input class='digit' id='height' name='height' placeholder='1m' type='text' />
+      </div>
+      <div class='field'>
+        <label for='surface'>Surface type</label>
+        <input id='surface' name='surface' placeholder='Soil' type='text' />
+      </div>
+      <div class='field'>
+        <label for='radiation'>Radiation type</label>
+        <input id='radiation' name='radiation' placeholder='Air' type='text' />
+      </div>
+    </fieldset>
+    <fieldset>
+      <p class='button'>
+        <input type='submit' value="Confirm"/>
+      </p>
+    </fieldset>
+  </form>
+</section>

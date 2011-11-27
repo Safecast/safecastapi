@@ -6,12 +6,13 @@ feature "User Submits Reading" do
   let(:user) { User.find_by_email('paul@rslw.com') }
   
   scenario "First Reading", :js => true do
-    page.execute_script("document.location.href = '/my/submissions/new'")
+    visit('/')
+    click_link('Submit')
     fill_in('Radiation Level', :with => '123')
     fill_in('Location',        :with => '123, 123')
     click_button('Submit')
     click_button('Confirm')
-    page.should have_content('Thanks for your submission')
+    page.should have_content('Submitted level is 123')
     user.should have(1).measurements
     user.measurements.first.value.should == 123
   end

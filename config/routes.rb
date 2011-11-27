@@ -11,6 +11,8 @@ Safecast::Application.routes.draw do
   
   namespace :my do
     resource :dashboard
+    
+    resources :measurements
   end
   
   namespace :api do
@@ -22,8 +24,7 @@ Safecast::Application.routes.draw do
     resources :measurements
   end
   
-  match '/my/submissions/new', :to => 'my/dashboards#show'
-  match '/my/submissions/manifest', :to => 'my/dashboards#show'
+  match '/my/measurements/manifest', :to => 'my/dashboards#show'
 
   match "reading", :to => 'submissions#reading'
   match "device", :to => 'submissions#device'
