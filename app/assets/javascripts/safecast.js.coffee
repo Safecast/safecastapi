@@ -2,13 +2,29 @@ jQuery ->
   window.Measurement = Backbone.Model.extend
     defaults:
       value: '000'
-      
+    
+    valid: ->
+      !@validate(@attributes)
+    
     url: ->
       return "/api/measurements/#{@id}" if @id
       "/api/measurements"
+    
+    validate: (attrs) ->
+      errors = []
+      console.log(attrs)
+      if $.trim(attrs.value) == ''
+        errors.push('Value Required')
+
+      if parseInt(attrs.value) == 0
+        errors.push('Value must be greater than 0')
+        
+      if errors.length > 0
+        return errors
   
   window.AppView = Backbone.View.extend
     el: $("#page"),
+
     render: ->
       $(this.el).html("Welcome")
   
@@ -21,6 +37,7 @@ jQuery ->
     
     initialize: ->
       @model.bind('change', @render, @)
+      @model.bind('error', @alertError, @)
 
   window.NewMeasurementView = MeasurementView.extend
     
@@ -29,8 +46,12 @@ jQuery ->
       'submit #manifest'   : 'create'
     }
     
+    alertError: (model, errors)->
+      alert(errors)
+    
     templatePath: ->
-      return 'measurements/manifest' if(@model.get('value') != '000')
+      return 'measurements/show' if(@model.get('saving')?)
+      return 'measurements/manifest' if(@model.get('value') > 0)
       'measurements/new'
     
     render: ->
@@ -43,10 +64,10 @@ jQuery ->
       false
     
     create: ->
-      @model.save {value: $('#level').val()},
+      # @model.set {value: $('#level').val(), saving: true}
+      @model.save {value: $('#level').val(), saving: true},
         success: =>
           measurementsRouter.navigate("my/measurements/#{@model.id}", true)
-      $(@el).html(@template('measurements/show'))
       false
   
   window.ShowMeasurementView = MeasurementView.extend

@@ -1,5 +1,5 @@
 class Measurement < ActiveRecord::Base
-  validates_presence_of :value
+  validates :value, :presence => true
   
   belongs_to :user
   
