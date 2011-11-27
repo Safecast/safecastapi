@@ -4,10 +4,7 @@ class Measurement < ActiveRecord::Base
   belongs_to :user
   
   def serializable_hash(options = {})
-    options ||= {}
-    options[:only] = [:id, :value, :user_id]
-    options[:methods] = []
-    super(options)
+    super(options.merge(:only => [:id, :value, :user_id]))
   end
   
 end

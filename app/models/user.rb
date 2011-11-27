@@ -16,10 +16,10 @@ class User < ActiveRecord::Base
   before_save :ensure_authentication_token
   
   def serializable_hash(options = {})
-    options ||= {}
-    options[:only] = [:id, :name, :email]
-    options[:methods] = [:first_name, :last_name]
-    super(options)
+    super options.merge(
+      :only => [:id, :name, :email],
+      :methods => [:first_name, :last_name]
+    )
   end
   
 end
