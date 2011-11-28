@@ -7,5 +7,5 @@ jQuery ->
       else
         $('p#note').text("Welcome back, #{response.first_name}.")
         $('#name-field').hide()
-        
+        $('#sign-in-register').val('Sign in')
     )

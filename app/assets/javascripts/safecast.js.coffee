@@ -12,7 +12,6 @@ jQuery ->
     
     validate: (attrs) ->
       errors = []
-      console.log(attrs)
       if $.trim(attrs.value) == ''
         errors.push('Value Required')
 
@@ -31,7 +30,7 @@ jQuery ->
   window.MeasurementView = Backbone.View.extend
     el: $("#page"),
     
-    template: (path)->
+    template: (path) ->
       path = @templatePath() unless path
       Mustache.to_html(Templates[path], @model.toJSON())
     
@@ -64,7 +63,6 @@ jQuery ->
       false
     
     create: ->
-      # @model.set {value: $('#level').val(), saving: true}
       @model.save {value: $('#level').val(), saving: true},
         success: =>
           measurementsRouter.navigate("my/measurements/#{@model.id}", true)
@@ -96,7 +94,13 @@ jQuery ->
     new: ->
       measurement = new Measurement()
       App.current_measurement = measurement
-      new NewMeasurementView({model: measurement}).render()
+      if window.hasOwnProperty('newMeasurementView')
+        newMeasurementView.model = measurement
+        newMeasurementView.initialize()
+      else
+        window.newMeasurementView = new NewMeasurementView({model: measurement})
+      newMeasurementView.render()
     
     show: (id) ->
-      new ShowMeasurementView({model: App.current_measurement}).render()
+      window.showMeasurementView = new ShowMeasurementView({model: App.current_measurement})
+      showMeasurementView.render()
