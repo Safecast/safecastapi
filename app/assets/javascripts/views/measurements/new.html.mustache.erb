@@ -12,18 +12,24 @@
                id='level'
                value='{{value}}'>
         <ul class="units">
-          <li class="cpm selected">Clicks per Minute</li>
-          <li class="microsievert">MicroSieverts per Hour</li>
+          <li data-value="cpm" class="unit cpm selected">
+            Clicks per Minute
+          </li>
+          <li data-value="microsievert" class="unit microsievert">
+            MicroSieverts per Hour
+          </li>
         </ul>
       </div>
       <div class="field location">
         <label for='location'>Location</label>
-        <input type='text' name='location' id='location'>
+        <input type='text'
+               name='location'
+               id='location'
+               value="{{location}}">
         <ul class="units">
           <li class="gps selected">Location</li>
         </ul>
-        <div class="map">
-          <img src="<%= image_path 'mock-map.png' %>">
+        <div class="map" id="map_canvas">
         </div>
       </div>
     </fieldset>

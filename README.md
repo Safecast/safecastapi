@@ -36,3 +36,7 @@ All tests for this app use `rspec`, specifically rspec 2. The app has been confi
 You can also run an individual test this way:
 
     rspec spec/integration/api/users_spec.rb
+
+# Backbone Extras #
+
+https://github.com/n-time/backbone.validations

@@ -2,6 +2,8 @@ jQuery ->
   window.Measurement = Backbone.Model.extend
     defaults:
       value: '000'
+      location: 'Fukushima, Japan'
+      unit: 'cpm'
     
     valid: ->
       !@validate(@attributes)
@@ -10,16 +12,15 @@ jQuery ->
       return "/api/measurements/#{@id}" if @id
       "/api/measurements"
     
-    validate: (attrs) ->
-      errors = []
-      if $.trim(attrs.value) == ''
-        errors.push('Value Required')
-
-      if parseInt(attrs.value) == 0
-        errors.push('Value must be greater than 0')
-        
-      if errors.length > 0
-        return errors
+    validate:
+      unit:
+        required: true
+      value:
+        type: 'number'
+        required: true
+        min: 0
+      latitude:
+        required: true
   
   window.AppView = Backbone.View.extend
     el: $("#page"),
@@ -37,16 +38,79 @@ jQuery ->
     initialize: ->
       @model.bind('change', @render, @)
       @model.bind('error', @alertError, @)
+      latlng = new google.maps.LatLng(37.7607226, 140.47335610000005)
+      window.myOptions =
+        zoom: 17,
+        center: latlng,
+        navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      
 
   window.NewMeasurementView = MeasurementView.extend
     
-    events: {
-      'submit #submission' : 'manifest',
+    events:
+      'submit #submission' : 'manifest'
       'submit #manifest'   : 'create'
-    }
+      'click #location'    : 'showMap'
+      'keydown #location'  : 'geocodeSearch'
+      'click .gps'         : 'geocodeSearch'
+      'click .unit'        : 'setUnit'
+      
+    setUnit: (e) ->
+      @model.attributes.unit = $(e.target).data('value')
+      console.log(@model)
     
-    alertError: (model, errors)->
-      alert(errors)
+    alertError: (model, errors) ->
+      errorMessages = []
+      if errors.hasOwnProperty('status')
+        errorResponse = JSON.parse(errors.responseText)
+        for field of errorResponse
+          errorMessages.push("#{field} #{errorResponse[field]}")
+      else
+        for field of errors
+          if errors[field][0] == 'number'
+            errorMessages.push("#{field} must be a number")
+          else if errors[field][0] == 'required'
+            errorMessages.push("#{field} is required")
+      alert(errorMessages)
+    
+    showMap: (e)->
+      @.$('#map_canvas').show()
+      google.maps.event.trigger(map, 'resize')
+      @geocodeSearch(e)
+      
+    performGeocode: (model, value)->
+      geocoder = new google.maps.Geocoder()
+      geocoder.geocode {'address': value}, (results, status) ->
+        if (status == google.maps.GeocoderStatus.OK)
+          map.setCenter(results[0].geometry.location);
+          marker = new google.maps.Marker
+                            map: map, 
+                            position: results[0].geometry.location
+          model.set {
+              value:  $('#level').val()
+              location: $('#location').val()
+              unit: model.get('unit')
+              latitude: results[0].geometry.location.Pa
+              longitude: results[0].geometry.location.Qa
+            },
+            silent: true
+      
+    geocodeSearch: (e)->
+      if(e.hasOwnProperty('which'))
+        if e.which == 13
+          @performGeocode(@model, $('#location').val())
+          e.preventDefault()
+      return unless $.trim($('#location').val()) != ''
+      countdown = (model, value) =>
+        return =>
+          if $('#location').val() == value
+            @performGeocode(model, value)
+      setTimeout =>
+        setTimeout(countdown(@model, $('#location').val()) , 1000)
+      , 5
+      
+
     
     templatePath: ->
       return 'measurements/show' if(@model.get('saving')?)
@@ -100,6 +164,7 @@ jQuery ->
       else
         window.newMeasurementView = new NewMeasurementView({model: measurement})
       newMeasurementView.render()
+      window.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions)
     
     show: (id) ->
       window.showMeasurementView = new ShowMeasurementView({model: App.current_measurement})

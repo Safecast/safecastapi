@@ -15,4 +15,8 @@ $(document).ready(function(){
     $(this).addClass('selected');
     return false;
   });
+  
+  $(document).delegate('input', 'focus', function(){
+    $(this).select()
+  })
 });

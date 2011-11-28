@@ -313,17 +313,14 @@ section.brief {
             border-radius: 5px;
             -webkit-border-radius: 5px;
             -moz-border-radius: 5px;
+            width: 326px;
+            height: 200px;
             img {
               display: block;
               width: 322px;
               border-radius: 5px;
               -webkit-border-radius: 5px;
               -moz-border-radius: 5px;
-            }
-          }
-          &.focus {
-            div.map {
-              display: block;
             }
           }
         }
