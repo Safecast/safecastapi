@@ -11,7 +11,9 @@ feature "/api/measurements API endpoint" do
     post('/api/measurements.json',{
       :auth_token => user.authentication_token,
       :measurement => {
-        :value => 123
+        :value => 123,
+        :latitude => 1.1,
+        :longitude => 2.2
       }
     })
     result = ActiveSupport::JSON.decode(response.body)
