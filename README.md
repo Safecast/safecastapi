@@ -9,7 +9,7 @@ We're using postgresql, you'll need to install that locally.
 Then:
     createuser safecast
 
-To create a local user.
+To create a local user... making sure to agree to making the user a superuser.
 
 
 # Ruby Version #
@@ -25,6 +25,14 @@ The app includes a `.rvmrc` file, which defines the Ruby version and a gemset. K
 Rails's builtin command will do this:
 
     rake db:create
+
+Then bootstrap the schema:
+
+    rake db:schema:load
+    
+And finally the test database:
+
+    rake db:test:prepare
 
 # Tests #
 
