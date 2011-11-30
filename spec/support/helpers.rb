@@ -18,4 +18,9 @@ module Helpers
     fill_in("Password", :with => password)
     click_button('Sign in')
   end
+  
+  def api_get(*args)
+    get(*args)
+    ActiveSupport::JSON.decode(response.body)
+  end
 end

@@ -17,6 +17,7 @@ Safecast::Application.routes.draw do
   
   namespace :api do
     resources :users do
+      resources :measurements
       collection do
         get "finger"
       end
