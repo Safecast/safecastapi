@@ -57,6 +57,10 @@ All tests for this app use `rspec`, specifically rspec 2. The app has been confi
     spork
     rspec spec
 
+If you are offline, you can set the environment variable `CONNECTION_STATUS` to `offline`, eg:
+    
+    CONNECTION_STATUS=offline spork
+
 You can also run an individual test this way:
 
     rspec spec/integration/api/users_spec.rb
