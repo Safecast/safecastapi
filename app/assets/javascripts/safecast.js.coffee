@@ -2,7 +2,7 @@ jQuery ->
   window.Measurement = Backbone.Model.extend
     defaults:
       value: '000'
-      location: 'Fukushima, Japan'
+      location_name: 'Fukushima, Japan'
       unit: 'cpm'
       latitude: 0
       longitude: 0
@@ -61,7 +61,6 @@ jQuery ->
       
     setUnit: (e) ->
       @model.attributes.unit = $(e.target).data('value')
-      console.log(@model)
     
     alertError: (model, errors) ->
       errorMessages = []
@@ -94,7 +93,7 @@ jQuery ->
                               position: results[0].geometry.location
             model.set {
                 value:  $('#level').val()
-                location: $('#location').val()
+                location_name: $('#location').val()
                 unit: model.get('unit')
                 latitude: results[0].geometry.location.Pa
                 longitude: results[0].geometry.location.Qa
@@ -128,7 +127,7 @@ jQuery ->
       return @
     
     manifest: ->
-      @model.set({value: $('#level').val()})
+      @model.set({value: $('#level').val(), location_name: $('#location').val()})
       false
     
     create: ->
