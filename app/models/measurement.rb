@@ -1,7 +1,11 @@
 class Measurement < ActiveRecord::Base
-  validates :value, :presence => true
-  validates :latitude, :presence => true
+  
+  include MeasurementConcerns
+  
+  validates :latitude,  :presence => true
   validates :longitude, :presence => true
+  validates :value,     :presence => true
+  validates :unit,      :presence => true
   
   belongs_to :user
   

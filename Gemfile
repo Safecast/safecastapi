@@ -8,6 +8,7 @@ gem 'haml'
 
 gem 'backbone-rails'
 gem 'decent_exposure'
+gem 'spatial_adapter', :git => 'https://github.com/Empact/spatial_adapter.git'
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'

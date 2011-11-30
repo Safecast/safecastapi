@@ -34,6 +34,22 @@ And finally the test database:
 
     rake db:test:prepare
 
+### PostGIS ###
+
+Jeremy (copiousfreetime) recommended using PostGIS from the outset to ensure
+that our database is location aware.
+
+Here's the steps needed to get it going on OSX with homebrew:
+
+    brew install postgis
+    cd /usr/local/share/postgresql/contrib/postgis-1.5 && \
+    psql -d safecast_development -f postgis.sql -h localhost && \
+    psql -d safecast_development -f spatial_ref_sys.sql -h localhost && \
+    psql -d safecast_test -f postgis.sql -h localhost && \
+    psql -d safecast_test -f spatial_ref_sys.sql -h localhost && cd -
+
+That installs the PostGIS functions into the development and test databases.
+
 # Tests #
 
 All tests for this app use `rspec`, specifically rspec 2. The app has been configured to use `spork` for pre-loading the Rails environment and running tests in a forked process. The process for running the tests is:
@@ -45,6 +61,9 @@ You can also run an individual test this way:
 
     rspec spec/integration/api/users_spec.rb
 
-# Backbone Extras #
+# References #
 
+Backbone Validations
 https://github.com/n-time/backbone.validations
+Rails + PostGIS
+ http://lassebunk.dk/2011/09/10/creating-a-location-aware-website-using-ruby-on-rails-and-postgis/
