@@ -13,7 +13,8 @@
       %div.field
         = label_tag 'email-field', 'Email'
         = f.email_field :email, :placeholder => 'sean@seanbonner.com',
-                                :id => 'email-field'
+                                :id => 'email-field',
+                                :autofocus => true
       %div{:id => 'name-field',
            :class => registering? ? 'field' : 'field hidden'}
         = f.label :name

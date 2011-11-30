@@ -4,6 +4,8 @@ jQuery ->
       value: '000'
       location: 'Fukushima, Japan'
       unit: 'cpm'
+      latitude: 0
+      longitude: 0
     
     valid: ->
       !@validate(@attributes)
@@ -38,12 +40,13 @@ jQuery ->
     initialize: ->
       @model.bind('change', @render, @)
       @model.bind('error', @alertError, @)
-      latlng = new google.maps.LatLng(37.7607226, 140.47335610000005)
-      window.myOptions =
-        zoom: 17,
-        center: latlng,
-        navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+      if window.hasOwnProperty('google')
+        latlng = new window.google.maps.LatLng(37.7607226, 140.47335610000005)
+        window.myOptions =
+          zoom: 17,
+          center: latlng,
+          navigationControlOptions: {style: window.google.maps.NavigationControlStyle.SMALL},
+          mapTypeId: window.google.maps.MapTypeId.ROADMAP
       
 
   window.NewMeasurementView = MeasurementView.extend
@@ -76,25 +79,27 @@ jQuery ->
     
     showMap: (e)->
       @.$('#map_canvas').show()
-      google.maps.event.trigger(map, 'resize')
-      @geocodeSearch(e)
+      if window.hasOwnProperty('google')
+        window.google.maps.event.trigger(map, 'resize')
+        @geocodeSearch(e)
       
     performGeocode: (model, value)->
-      geocoder = new google.maps.Geocoder()
-      geocoder.geocode {'address': value}, (results, status) ->
-        if (status == google.maps.GeocoderStatus.OK)
-          map.setCenter(results[0].geometry.location);
-          marker = new google.maps.Marker
-                            map: map, 
-                            position: results[0].geometry.location
-          model.set {
-              value:  $('#level').val()
-              location: $('#location').val()
-              unit: model.get('unit')
-              latitude: results[0].geometry.location.Pa
-              longitude: results[0].geometry.location.Qa
-            },
-            silent: true
+      if window.hasOwnProperty('google')
+        geocoder = new window.google.maps.Geocoder()
+        geocoder.geocode {'address': value}, (results, status) ->
+          if (status == window.google.maps.GeocoderStatus.OK)
+            map.setCenter(results[0].geometry.location);
+            marker = new window.google.maps.Marker
+                              map: map, 
+                              position: results[0].geometry.location
+            model.set {
+                value:  $('#level').val()
+                location: $('#location').val()
+                unit: model.get('unit')
+                latitude: results[0].geometry.location.Pa
+                longitude: results[0].geometry.location.Qa
+              },
+              silent: true
       
     geocodeSearch: (e)->
       if(e.hasOwnProperty('which'))
@@ -164,7 +169,8 @@ jQuery ->
       else
         window.newMeasurementView = new NewMeasurementView({model: measurement})
       newMeasurementView.render()
-      window.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions)
+      if window.hasOwnProperty('map')
+        window.map = new window.google.maps.Map(document.getElementById("map_canvas"), myOptions)
     
     show: (id) ->
       window.showMeasurementView = new ShowMeasurementView({model: App.current_measurement})
