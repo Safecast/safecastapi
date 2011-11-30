@@ -32,6 +32,8 @@ Safecast::Application.routes.draw do
   match "device", :to => 'submissions#device'
   match "details", :to => 'submissions#details'
   match "manifest", :to => 'submissions#manifest'
+  
+  match "/js_templates.js", :to => "js_templates#show"
 
   root :to => 'my/dashboards#show'
 end

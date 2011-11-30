@@ -127,13 +127,26 @@ jQuery ->
       return @
     
     manifest: ->
-      @model.set({value: $('#level').val(), location_name: $('#location').val()})
+      @model.set
+        value: $('#level').val()
+        location_name: $('#location').val()
+        latitude: @model.get('latitude')
+        longitude: @model.get('longitude')
+        unit: @model.get('unit')
+        
       false
     
     create: ->
-      @model.save {value: $('#level').val(), saving: true},
-        success: =>
-          measurementsRouter.navigate("my/measurements/#{@model.id}", true)
+      @model.save {
+        value: $('#level').val()
+        location_name: $('#location').val()
+        latitude: $('#latitude').val()
+        longitude: $('#longitude').val()
+        unit: $('#unit').val()
+        saving: true
+      },
+      success: =>
+        measurementsRouter.navigate("my/measurements/#{@model.id}", true)
       false
   
   window.ShowMeasurementView = MeasurementView.extend

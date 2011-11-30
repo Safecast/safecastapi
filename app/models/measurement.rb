@@ -12,7 +12,8 @@ class Measurement < ActiveRecord::Base
   def serializable_hash(options)
     options ||= {}
     super(options.merge(:only => [
-      :id, :value, :user_id, :latitude, :longitude
+      :id, :value, :user_id, :latitude, :longitude,
+      :location_name
     ]))
   end
   
