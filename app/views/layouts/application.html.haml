@@ -22,7 +22,7 @@
     = javascript_include_tag :application
     = yield :additional_javascripts
     = javascript_include_tag :start
-    - if false
+    - if ENV['CONNECTION_STATUS'] != 'offline'
       = javascript_include_tag 'http://maps.googleapis.com/maps/api/js?key=AIzaSyA15g0-2g2c7LbKWwCJmJpQWbdntzXZshE&sensor=true'
       = javascript_include_tag 'http://use.typekit.com/tvi6mbv.js'
       :javascript
