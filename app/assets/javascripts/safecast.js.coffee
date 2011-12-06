@@ -79,6 +79,11 @@ jQuery ->
     showMap: (e)->
       @.$('#map_canvas').show()
       if window.hasOwnProperty('google')
+        if window.map == undefined
+          options = 
+            zoom: 6
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          window.map = new google.maps.Map(document.getElementById("map_canvas"), options)
         window.google.maps.event.trigger(map, 'resize')
         @geocodeSearch(e)
       
