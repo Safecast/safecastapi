@@ -58,15 +58,15 @@ The problem is that db:test:prepare wipes out everything from PostGIS in the saf
 
 A solution proposed at http://www.katrinaowen.com/2011/01/13/postgresql-template-tables-and-rake-db-test-prepare is to create a template in psql and then use that template in the db config.  The db config part is done for you, but you still need to create the template yourself
 
-  psql -d postgres
-  CREATE DATABASE template_postgis WITH TEMPLATE=template1 ENCODING='UTF8';
-  \c template_postgis;
-  CREATE LANGUAGE plpgsql;
-  \i /usr/local/share/postgresql/contrib/postgis-1.5/postgis.sql
-  \i /usr/local/share/postgresql/contrib/postgis-1.5/spatial_ref_sys.sql
-  UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template_postgis';
-  GRANT ALL ON geometry_columns TO PUBLIC;
-  GRANT ALL ON spatial_ref_sys TO PUBLIC;
+    psql -d postgres
+    CREATE DATABASE template_postgis WITH TEMPLATE=template1 ENCODING='UTF8';
+    \c template_postgis;
+    CREATE LANGUAGE plpgsql;
+    \i /usr/local/share/postgresql/contrib/postgis-1.5/postgis.sql
+    \i /usr/local/share/postgresql/contrib/postgis-1.5/spatial_ref_sys.sql
+    UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template_postgis';
+    GRANT ALL ON geometry_columns TO PUBLIC;
+    GRANT ALL ON spatial_ref_sys TO PUBLIC;
 
 So far, this seems to work.
 
