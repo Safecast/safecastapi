@@ -56,7 +56,7 @@ If you've been following along at home, everything probably went fine until that
 
 The problem is that db:test:prepare wipes out everything from PostGIS in the safecast_test database.
 
-A solution proposed at http://www.katrinaowen.com/2011/01/13/postgresql-template-tables-and-rake-db-test-prepare is to create a template in psql and then use that template in the db config.  The db config part is done for you, but you still need to create the template yourself
+Katrina Owen proposed [a solution](http://www.katrinaowen.com/2011/01/13/postgresql-template-tables-and-rake-db-test-prepare) to create a template in psql and then use that template in the db config.  The db config part is already committed, but you still need to create the template on your local db.
 
     psql -d postgres
     CREATE DATABASE template_postgis WITH TEMPLATE=template1 ENCODING='UTF8';
