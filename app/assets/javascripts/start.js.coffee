@@ -1,5 +1,4 @@
 jQuery ->
-  window.appView = new AppView()
-  window.homeRouter = new HomeRouter()
-  window.measurementsRouter = new MeasurementsRouter()
+  App.homeRouter = new App.Routers.Home()
+  App.measurementsRouter = new App.Routers.Measurements()
   Backbone.history.start({pushState: true, root: '/'});

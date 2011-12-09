@@ -7,4 +7,5 @@
 //= require users
 //= require submissions
 //= require pushstate
-//= require safecast
+//= require_tree ./views
+//= require_tree ./routers

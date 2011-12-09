@@ -10,18 +10,21 @@
         %h1= link_to "Safecast", root_path, :data => { :pjax => true }
         %nav
           %ul
-            %li= link_to 'Maps', '/maps'
+            %li= link_to 'My Measurements', [:my, :measurements],
+                                            :title => 'My Measurements',
+                                            :data => { :pjax => true }
             %li= link_to 'Submit', '/my/measurements/new', :title => 'Submit a Reading', :data => { :pjax => true }
             %li= link_to 'Sign out', logout_path
-      
+      %div#page
       = yield
       
       %footer
         %p Creative Commons Non-Commercial
     = javascript_include_tag :vendor
     = javascript_include_tag '/js_templates.js'
-    = javascript_include_tag :application
+    = javascript_include_tag :models
     = yield :additional_javascripts
+    = javascript_include_tag :application
     = javascript_include_tag :start
     - if ENV['CONNECTION_STATUS'] != 'offline'
       = javascript_include_tag 'http://maps.googleapis.com/maps/api/js?key=AIzaSyA15g0-2g2c7LbKWwCJmJpQWbdntzXZshE&sensor=true'
