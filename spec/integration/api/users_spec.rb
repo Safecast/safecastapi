@@ -26,4 +26,10 @@ feature "/api/users API endpoint" do
     hasAuth.should == true
   end
   
+  scenario "authentication fails with invalid password" do
+    get('/api/users/auth.json', :email => 'paul@rslw.com', :password => 'monekys')
+    result = ActiveSupport::JSON.decode(response.body)
+    result['message'].should == "Couldn't sign in"
+  end
+  
 end

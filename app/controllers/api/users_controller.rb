@@ -18,9 +18,14 @@ class Api::UsersController < Api::ApplicationController
   end
   
   def auth
-    binding.pry
-    result = sign_in(:user)
-    render :json => result
+    result = sign_in(user)
+    if result
+      output = {:message => "Signed in successfully", :auth_token => result[:authentication_token]}
+    else
+      output = {:message => "Couldn't sign in"}
+    end
+    
+    render :json => output
   end
   
 end
