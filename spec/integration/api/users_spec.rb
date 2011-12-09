@@ -13,4 +13,10 @@ feature "/api/users API endpoint" do
     result['first_name'].should == 'Paul'
   end
   
+  scenario "create user" do
+    post('/api/users', :email => 'kevin@rkn.la', :name => 'Kevin Nelson', :password => 'testing123')
+    result = ActiveSupport::JSON.decode(response.body)
+    result["message"].should == "User created successfully"
+  end
+  
 end
