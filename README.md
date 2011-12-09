@@ -20,20 +20,6 @@ Ruby 1.9.3 is the latest Ruby version, and includes performance fixes for requir
 
 The app includes a `.rvmrc` file, which defines the Ruby version and a gemset. Keeping things in a gemset allows safely running of gem binaries without version conflicts.
 
-### Bootstrapping the database ###
-
-Rails's builtin command will do this:
-
-    rake db:create
-
-Then bootstrap the schema:
-
-    rake db:schema:load
-    
-And finally the test database:
-
-    rake db:test:prepare
-
 ### PostGIS ###
 
 Jeremy (copiousfreetime) recommended using PostGIS from the outset to ensure
@@ -49,6 +35,40 @@ Here's the steps needed to get it going on OSX with homebrew:
     psql -d safecast_test -f spatial_ref_sys.sql -h localhost && cd -
 
 That installs the PostGIS functions into the development and test databases.
+
+### Bootstrapping the database ###
+
+Rails's builtin command will do this:
+
+    rake db:create
+
+Then bootstrap the schema:
+
+    rake db:schema:load
+    
+And finally the test database:
+
+    rake db:test:prepare
+
+### db:test:prepare ###
+
+If you've been following along at home, everything probably went fine until that last line.
+
+The problem is that db:test:prepare wipes out everything from PostGIS in the safecast_test database.
+
+Katrina Owen proposed [a solution](http://www.katrinaowen.com/2011/01/13/postgresql-template-tables-and-rake-db-test-prepare) to create a template in psql and then use that template in the db config.  The db config part is already committed, but you still need to create the template on your local db.
+
+    psql -d postgres
+    CREATE DATABASE template_postgis WITH TEMPLATE=template1 ENCODING='UTF8';
+    \c template_postgis;
+    CREATE LANGUAGE plpgsql;
+    \i /usr/local/share/postgresql/contrib/postgis-1.5/postgis.sql
+    \i /usr/local/share/postgresql/contrib/postgis-1.5/spatial_ref_sys.sql
+    UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template_postgis';
+    GRANT ALL ON geometry_columns TO PUBLIC;
+    GRANT ALL ON spatial_ref_sys TO PUBLIC;
+
+So far, this seems to work.
 
 # Tests #
 
