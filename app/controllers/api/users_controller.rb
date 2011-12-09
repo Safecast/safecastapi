@@ -17,4 +17,10 @@ class Api::UsersController < Api::ApplicationController
     end
   end
   
+  def auth
+    binding.pry
+    result = sign_in(:user)
+    render :json => result
+  end
+  
 end

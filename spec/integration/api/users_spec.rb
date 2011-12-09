@@ -16,7 +16,14 @@ feature "/api/users API endpoint" do
   scenario "create user" do
     post('/api/users', :email => 'kevin@rkn.la', :name => 'Kevin Nelson', :password => 'testing123')
     result = ActiveSupport::JSON.decode(response.body)
-    result["message"].should == "User created successfully"
+    result['message'].should == 'User created successfully'
+  end
+  
+  scenario "authenticate existing user" do
+    get('/api/users/auth.json', :email => 'paul@rslw.com', :password => 'monkeys')
+    result = ActiveSupport::JSON.decode(response.body)
+    hasAuth = result.include?('auth_token')
+    hasAuth.should == true
   end
   
 end
