@@ -8,6 +8,7 @@ class Measurement < ActiveRecord::Base
   validates :unit,      :presence => true
   
   belongs_to :user
+  belongs_to :group
   
   def serializable_hash(options)
     options ||= {}

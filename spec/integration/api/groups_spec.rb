@@ -27,15 +27,41 @@ feature "/api/groups API endpoint" do
   end
   
   scenario "empty post" do
-    post('/api/measurements.json',{ :auth_token => user.authentication_token })
+    post('/api/groups.json',{ :auth_token => user.authentication_token })
     
     result = ActiveSupport::JSON.decode(response.body)
     result['description'].should == ["can't be blank"]
     #mfg, model, and sensor are optional, but description is required
   end
   
+end
+
+feature "/api/groups with existing groups and measurements" do
+
+  let(:user) { Fabricate(:user) }
+  let!(:a_group) { Fabricate(:group, :description => "A test group", :user => user) }
+  let!(:b_group) { Fabricate(:group, :description => "Another test group")}
+  let!(:a_measurement) { Fabricate(:measurement, :value => 66, :user => user) }
+  
+  scenario "all groups (/api/groups)" do
+    result = api_get("/api/groups.json")
+    result.length.should == 2
+    result.map { |obj| obj['description'] }.should == ['A test group', 'Another test group']
+  end
+  
+  scenario "get my groups (/api/users/X/groups)" do
+    result = api_get("/api/users/#{user.id}/measurements.json")
+    result.length.should == 1
+    result.first['value'].should == 12
+  end
+  
   scenario "get my groups" do
+    get('/api/groups.json', {
+      :auth_token => user.authentication_token
+    })
+    result = ActiveSupport.JSON.decode(response.body)
     
+    result['groups'].should 
   end
   
   scenario "create new measurement as a part of a group" do
@@ -58,28 +84,8 @@ feature "/api/groups API endpoint" do
     
   end
   
-  scenario "add a measurement to an existing group" do
+  scenario "add an existing measurement to a group" do
     
-  end
-  
-end
-
-feature "/api/measurements" do
-
-  let(:user) { Fabricate(:user) }
-  let!(:first_measurement) { Fabricate(:measurement, :value => 10) }
-  let!(:second_measurement) { Fabricate(:measurement, :value => 12, :user => user) }
-  
-  scenario "all measurements (/api/measurements)" do
-    result = api_get("/api/measurements.json")
-    result.length.should == 2
-    result.map { |obj| obj['value'] }.should == [10, 12]
-  end
-  
-  scenario "get my measurements (/api/users/X/measurements)" do
-    result = api_get("/api/users/#{user.id}/measurements.json")
-    result.length.should == 1
-    result.first['value'].should == 12
   end
   
 end

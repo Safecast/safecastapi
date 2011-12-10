@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111130132854) do
+ActiveRecord::Schema.define(:version => 20111210075847) do
+
+  create_table "groups", :force => true do |t|
+    t.string   "description"
+    t.string   "device_mfg"
+    t.string   "device_model"
+    t.string   "device_sensor"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "measurements", :force => true do |t|
     t.integer  "user_id"
