@@ -50,29 +50,16 @@ feature "/api/groups with existing groups and measurements" do
   end
   
   scenario "get my groups (/api/users/X/groups)" do
-    result = api_get("/api/users/#{user.id}/measurements.json")
+    result = api_get("/api/users/#{user.id}/groups.json")
     result.length.should == 1
-    result.first['value'].should == 12
-  end
-  
-  scenario "get my groups" do
-    get('/api/groups.json', {
-      :auth_token => user.authentication_token
-    })
-    result = ActiveSupport.JSON.decode(response.body)
-    
-    result['groups'].should 
+    result.first['description'].should == 'A test group'
   end
   
   scenario "create new measurement as a part of a group" do
-    post('/api/groups.json',{
-      :auth_token     => user.authentication_token,
-      :description    => "A test group",
-    })
-    result = ActiveSupport::JSON.decode(response.body)
-    result['description'].should == "A test group"
+    result = api_get("/api/users/#{user.id}/groups.json")
+    gid = result.first['group_id']
     
-    post("/api/groups/#{result.group_id}/measurements.json", {
+    post("/api/groups/#{gid}/measurements.json", {
       :auth_token     => user.authentication_token,
       :measurement    => {
         :value          => 334,
@@ -81,10 +68,32 @@ feature "/api/groups with existing groups and measurements" do
         :longitude      => 4.4
       }
     })
+    meas = ActiveSupport::JSON.decode(response.body)
+    meas['value'].should == 334
+    meas['user_id'].should == user.id
     
+    grp = api_get("/api/users/#{user.id}/groups.json")
+    presence = grp.include?(meas)   #might need to be tweaked to be proper
+    presence.should == true
   end
   
   scenario "add an existing measurement to a group" do
+    result = api_get("/api/users/#{user.id}/groups.json")
+    gid = result.first['group_id']
+    
+    result = api_get("/api/measurements.json")
+    meas = result.first
+    
+    post("/api/groups/#{gid}/measurements.json", {
+      :auth_token     => user.authentication_token,
+      :measurement_id => meas.id
+    })
+    result = ActiveSupport::JSON.decode(response.body)
+    result['value'].should == meas.value
+    
+    grp = api_get("/api/users/#{user.id}/groups.json")
+    presence = grp.include?(meas)   #might need to be tweaked to be proper
+    presence.should == true
     
   end
   
