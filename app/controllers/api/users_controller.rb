@@ -8,17 +8,18 @@ class Api::UsersController < Api::ApplicationController
   
   def create
     u = User.create(:email => params[:email], :name => params[:name], :password => params[:password])
-    begin
-      u.save!
-      output = {:message => "User created successfully", :login => u[:email], :auth_key => u[:authentication_token]}
-      render :json => output
-    rescue
-      render :json => {:errors => u.errors.messages}
+    
+    result = u.save
+    if result
+      output = {:message => "User created successfully", :login => u[:email], :auth_token => u[:authentication_token]}
+    else
+      output = {:errors => u.errors.messages}
     end
+    render :json => output
   end
   
-  def auth
-    
+  
+  def auth  
     #todo -- authenticate instead of just signing in anyone who has an email address
     result = sign_in user
     
@@ -28,7 +29,7 @@ class Api::UsersController < Api::ApplicationController
       output = {:message => "Couldn't sign in"}
     end
     
-    render :json => output
+    respond_with output
   end
   
 end

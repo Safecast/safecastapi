@@ -19,8 +19,8 @@ Safecast::Application.routes.draw do
     resources :users do
       resources :measurements
       collection do
-        get "finger"
-        get "auth"
+        get 'finger'
+        get 'auth'
       end
     end
     resources :measurements
