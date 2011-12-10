@@ -31,4 +31,4 @@ group :test do
   gem 'watchr'
 end
 
-gem 'pry', group => :development
+gem 'pry', :group => :development

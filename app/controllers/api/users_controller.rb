@@ -18,7 +18,9 @@ class Api::UsersController < Api::ApplicationController
   end
   
   def auth
-    binding.pry
+    
+    #todo -- authenticate instead of just signing in anyone who has an email address
+    result = sign_in user
     
     if result
       output = {:message => "Signed in successfully", :auth_token => result[:authentication_token]}
