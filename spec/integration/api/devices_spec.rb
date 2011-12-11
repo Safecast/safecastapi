@@ -36,13 +36,3 @@ feature "/api/devices API endpoint" do
   
 end
 
-feature "/api/devices with existing devices" do
-  before do
-    @user = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
-    @device = Fabricate(:device, :mfg => 'Safecast', :model => 'bGeigie', :sensor => 'LND-7317')
-  end
-  let(:user) { @user.reload }
-  let(:device) { @device.reload }
-  
-  
-end
