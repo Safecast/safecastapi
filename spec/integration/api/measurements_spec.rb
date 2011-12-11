@@ -7,7 +7,7 @@ feature "/api/measurements API endpoint" do
   end
   let(:user) { @user.reload }
   
-  scenario "lookup measurements" do
+  scenario "post a new measurement" do
     post('/api/measurements.json',{
       :auth_token => user.authentication_token,
       :measurement => {

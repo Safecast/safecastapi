@@ -5,4 +5,11 @@ class Group < ActiveRecord::Base
   
   validates :description, :presence => true
   
+  def serializable_hash(options)
+    options ||= {}
+    super(options.merge(:only => [
+      :id, :description, :device_id, :measurements
+    ]))
+  end
+  
 end

@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   
   def serializable_hash(options = {})
     super options.merge(
-      :only => [:id, :name, :email],
+      :only => [:id, :name, :email, :authentication_token],
       :methods => [:first_name, :last_name]
     )
   end

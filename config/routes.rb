@@ -18,12 +18,16 @@ Safecast::Application.routes.draw do
   namespace :api do
     resources :users do
       resources :measurements
+      resources :groups
       collection do
         get 'finger'
         get 'auth'
       end
+      
     end
+    resources :devices
     resources :measurements
+    resources :groups
   end
   
   resources :measurements

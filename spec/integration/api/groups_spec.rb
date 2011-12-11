@@ -39,7 +39,10 @@ end
 feature "/api/groups with existing groups and measurements" do
 
   let(:user) { Fabricate(:user) }
-  let!(:a_group) { Fabricate(:group, :description => "A test group", :user => user) }
+  let!(:a_group) { Fabricate(:group, {
+    :description => "A test group",
+    :user => user
+  }) }
   let!(:b_group) { Fabricate(:group, :description => "Another test group")}
   let!(:a_measurement) { Fabricate(:measurement, :value => 66, :user => user) }
   

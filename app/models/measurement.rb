@@ -10,6 +10,8 @@ class Measurement < ActiveRecord::Base
   belongs_to :user
   belongs_to :group
   
+  has_one :device
+  
   def serializable_hash(options)
     options ||= {}
     super(options.merge(:only => [

@@ -11,15 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111210075847) do
+ActiveRecord::Schema.define(:version => 20111210235259) do
+
+  create_table "devices", :force => true do |t|
+    t.string   "mfg"
+    t.string   "model"
+    t.string   "sensor"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "groups", :force => true do |t|
     t.string   "description"
-    t.string   "device_mfg"
-    t.string   "device_model"
-    t.string   "device_sensor"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "device_id"
   end
 
   create_table "measurements", :force => true do |t|
@@ -30,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20111210075847) do
     t.string   "unit"
     t.point    "location",      :limit => 0, :srid => 4326, :geographic => true
     t.string   "location_name"
+    t.integer  "device_id"
   end
 
   create_table "users", :force => true do |t|
