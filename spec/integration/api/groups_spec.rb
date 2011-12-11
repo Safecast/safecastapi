@@ -10,19 +10,24 @@ feature "/api/groups API endpoint" do
   scenario "create a measurement group" do
     post('/api/groups.json',{
       :auth_token     => user.authentication_token,
-      :description    => "This group contains test measurements",
-      :device_mfg     => "Safecast",
-      :device_model   => "bGeigie",
-      :device_sensor  => "LND-7317"
+      :group          => {
+        :description    => "This group contains test measurements",
+        :device         => {
+          :mfg     => "Safecast",
+          :model   => "bGeigie",
+          :sensor  => "LND-7317"
+        }
+      }
+      
     })
     result = ActiveSupport::JSON.decode(response.body)
     result['description'].should == 'This group contains test measurements'
-    result['device_mfg'].should == 'Safecast'
-    result['device_model'].should == 'bGeigie'
-    result['device_sensor'].should == 'LND-7317'
+    result['device']['mfg'].should == 'Safecast'
+    result['device']['model'].should == 'bGeigie'
+    result['device']['sensor'].should == 'LND-7317'
     result['user_id'].should == user.id
     
-    idCreated = result.include?('group_id')
+    idCreated = result.include?('id')
     idCreated.should == true
   end
   
