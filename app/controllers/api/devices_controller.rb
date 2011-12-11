@@ -5,7 +5,11 @@ class Api::DevicesController < Api::ApplicationController
   expose(:device)
   
   expose(:devices) do
-    Device.page(params[:page])
+    if params[:where].present?
+      Device.where(params[:where])
+    else
+      Device.page(params[:page])
+    end
   end
   
   def index
