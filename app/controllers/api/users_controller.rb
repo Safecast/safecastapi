@@ -15,7 +15,7 @@ class Api::UsersController < Api::ApplicationController
     else
       output = {:errors => u.errors.messages}
     end
-    render :json => output
+    respond_with(:api, output)
   end
   
   

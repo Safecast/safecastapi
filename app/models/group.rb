@@ -10,8 +10,9 @@ class Group < ActiveRecord::Base
   def serializable_hash(options)
     options ||= {}
     super(options.merge(:only => [
-      :id, :description, :device_id, :measurements
+      :id, :description, :device_id, :measurements, :user_id
     ]))
   end
+
   
 end

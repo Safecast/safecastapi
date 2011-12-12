@@ -21,9 +21,16 @@ class Api::GroupsController < Api::ApplicationController
   end
   
   def create
+    pg = params[:group]
+    if pg && pg['device']
+      d = Device.get_or_create(pg['device'])
+      pg['device_id'] = d.id
+      pg.delete('device')
+    end
+    group = Group.new(pg)
     group.user = current_user
     group.save
-    respond_with group
+    respond_with(:api, group)
   end
   
 

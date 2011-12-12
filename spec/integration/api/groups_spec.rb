@@ -21,10 +21,17 @@ feature "/api/groups API endpoint" do
       
     })
     result = ActiveSupport::JSON.decode(response.body)
+    
+    d = api_get('/api/devices.json', {
+      :device => {
+        :mfg     => "Safecast",
+        :model   => "bGeigie",
+        :sensor  => "LND-7317"
+      }
+    })
+    binding.pry
     result['description'].should == 'This group contains test measurements'
-    result['device']['mfg'].should == 'Safecast'
-    result['device']['model'].should == 'bGeigie'
-    result['device']['sensor'].should == 'LND-7317'
+    result['device_id'].should == d.first['id']
     result['user_id'].should == user.id
     
     idCreated = result.include?('id')
