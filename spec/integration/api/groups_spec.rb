@@ -29,7 +29,6 @@ feature "/api/groups API endpoint" do
         :sensor  => "LND-7317"
       }
     })
-    binding.pry
     result['description'].should == 'This group contains test measurements'
     result['device_id'].should == d.first['id']
     result['user_id'].should == user.id
@@ -48,15 +47,16 @@ feature "/api/groups API endpoint" do
   
 end
 
-feature "/api/groups with existing groups and measurements" do
+feature "/api/groups with existing resources" do
 
-  let(:user) { Fabricate(:user) }
-  let!(:a_group) { Fabricate(:group, {
-    :description => "A test group",
-    :user => user
-  }) }
-  let!(:b_group) { Fabricate(:group, :description => "Another test group")}
-  let!(:a_measurement) { Fabricate(:measurement, :value => 66, :user => user) }
+  before do
+    @u = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
+  end
+  let(:u) { @u.reload }
+  
+  let!(:a_group) { Fabricate(:group, :description => "A test group")}
+  let!(:b_group) { Fabricate(:group, :description => "Another test group", :user => u)}
+  let!(:a_measurement) { Fabricate(:measurement, :value => 66, :user => u) }
   
   scenario "all groups (/api/groups)" do
     result = api_get("/api/groups.json")
@@ -67,7 +67,7 @@ feature "/api/groups with existing groups and measurements" do
   scenario "get my groups (/api/users/X/groups)" do
     result = api_get("/api/users/#{user.id}/groups.json")
     result.length.should == 1
-    result.first['description'].should == 'A test group'
+    result.first['description'].should == 'Another test group'
   end
   
   scenario "create new measurement as a part of a group" do
@@ -75,7 +75,7 @@ feature "/api/groups with existing groups and measurements" do
     gid = result.first['group_id']
     
     post("/api/groups/#{gid}/measurements.json", {
-      :auth_token     => user.authentication_token,
+      :auth_token     => u.authentication_token,
       :measurement    => {
         :value          => 334,
         :unit           => 'cpm',
@@ -85,7 +85,7 @@ feature "/api/groups with existing groups and measurements" do
     })
     meas = ActiveSupport::JSON.decode(response.body)
     meas['value'].should == 334
-    meas['user_id'].should == user.id
+    meas['user_id'].should == u.id
     
     grp = api_get("/api/users/#{user.id}/groups.json")
     presence = grp.include?(meas)   #might need to be tweaked to be proper
@@ -100,7 +100,7 @@ feature "/api/groups with existing groups and measurements" do
     meas = result.first
     
     post("/api/groups/#{gid}/measurements.json", {
-      :auth_token     => user.authentication_token,
+      :auth_token     => u.authentication_token,
       :measurement_id => meas.id
     })
     result = ActiveSupport::JSON.decode(response.body)

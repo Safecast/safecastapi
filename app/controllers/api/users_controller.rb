@@ -9,13 +9,9 @@ class Api::UsersController < Api::ApplicationController
   def create
     u = User.create(:email => params[:email], :name => params[:name], :password => params[:password])
     
-    result = u.save
-    if result
-      output = {:message => "User created successfully", :login => u[:email], :auth_token => u[:authentication_token]}
-    else
-      output = {:errors => u.errors.messages}
-    end
-    respond_with(:api, output)
+    u.save
+    
+    respond_with u
   end
   
   
