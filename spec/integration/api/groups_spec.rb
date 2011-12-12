@@ -61,8 +61,8 @@ feature "/api/groups with existing resources" do
   end
   
   scenario "get my groups (/api/users/X/groups)" do
-    uid = user.id
-    result = api_get("/api/users/#{uid}/groups.json")
+    binding.pry
+    result = api_get("/api/users/#{user.id}/groups.json")
     result.length.should == 1
     result.first['description'].should == 'Another test group'
   end
@@ -72,7 +72,7 @@ feature "/api/groups with existing resources" do
     gid = result.first['group_id']
     
     post("/api/groups/#{gid}/measurements.json", {
-      :auth_token     => u.authentication_token,
+      :auth_token     => user.authentication_token,
       :measurement    => {
         :value          => 334,
         :unit           => 'cpm',
@@ -97,7 +97,7 @@ feature "/api/groups with existing resources" do
     meas = result.first
     
     post("/api/groups/#{gid}/measurements.json", {
-      :auth_token     => u.authentication_token,
+      :auth_token     => user.authentication_token,
       :measurement_id => meas.id
     })
     result = ActiveSupport::JSON.decode(response.body)

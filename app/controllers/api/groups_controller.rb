@@ -11,6 +11,7 @@ class Api::GroupsController < Api::ApplicationController
       Group.page(params[:page])
     end
   end
+  expose(:user) { User.find(params[:user_id]) }
   
   def index
     respond_with groups
