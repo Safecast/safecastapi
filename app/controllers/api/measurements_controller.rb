@@ -4,7 +4,9 @@ class Api::MeasurementsController < Api::ApplicationController
   
   expose(:measurement)
   expose(:measurements) do
-    if params[:user_id].present?
+    if params[:group_id].present?
+      group.measurements
+    elsif params[:user_id].present?
       user.measurements
     else
       Measurement.page(params[:page])
@@ -25,9 +27,13 @@ class Api::MeasurementsController < Api::ApplicationController
   end
   
   def create
-    measurement.user = current_user
-    measurement.group_id = params[:group_id] if params[:group_id]
-    measurement.save
+    if params[:measurement_id] && params[:group_id]
+      group.measurements<< measurement
+    else
+      measurement.user = current_user
+      measurement.group_id = params[:group_id] if params[:group_id]
+      measurement.save
+    end
     respond_with measurement
   end
   

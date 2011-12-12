@@ -90,17 +90,16 @@ feature "/api/groups with existing resources" do
   
   scenario "add an existing measurement to a group" do
     result = api_get("/api/users/#{user.id}/groups.json")
-    gid = result.first['group_id']
+    gid = result.first['id']
     
     result = api_get("/api/measurements.json")
-    measurement = result.first
-    
+    measurement = result.first  
     post("/api/groups/#{gid}/measurements.json", {
       :auth_token     => user.authentication_token,
-      :measurement_id => measurement.id
+      :measurement_id => measurement['id']
     })
     result = ActiveSupport::JSON.decode(response.body)
-    result['value'].should == measurement.value
+    result['value'].should == measurement['value']
     
     grp = api_get("/api/users/#{user.id}/groups.json")
     presence = grp.include?(measurement)   #might need to be tweaked to be proper

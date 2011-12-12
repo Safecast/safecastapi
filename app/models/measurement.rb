@@ -8,7 +8,8 @@ class Measurement < ActiveRecord::Base
   validates :unit,      :presence => true
   
   belongs_to :user
-  has_and_belongs_to_many :group
+  
+  has_and_belongs_to_many :groups
   
   has_one :device
   
