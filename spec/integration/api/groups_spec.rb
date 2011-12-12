@@ -61,7 +61,8 @@ feature "/api/groups with existing resources" do
   end
   
   scenario "get my groups (/api/users/X/groups)" do
-    result = api_get("/api/users/#{user.id}/groups.json")
+    uid = user.id
+    result = api_get("/api/users/#{uid}/groups.json")
     result.length.should == 1
     result.first['description'].should == 'Another test group'
   end
