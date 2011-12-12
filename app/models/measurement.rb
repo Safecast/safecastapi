@@ -8,14 +8,14 @@ class Measurement < ActiveRecord::Base
   validates :unit,      :presence => true
   
   belongs_to :user
-  belongs_to :group
+  has_and_belongs_to_many :group
   
   has_one :device
   
   def serializable_hash(options)
     options ||= {}
     super(options.merge(:only => [
-      :id, :value, :user_id, :latitude, :longitude,
+      :id, :value, :user_id, :latitude, :longitude, :unit, :device_id, :group_id,
       :location_name
     ]))
   end

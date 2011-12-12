@@ -7,11 +7,9 @@ class Api::UsersController < Api::ApplicationController
   end
   
   def create
-    u = User.create(:email => params[:email], :name => params[:name], :password => params[:password])
-    
-    u.save
-    
-    respond_with u
+    user = User.create(:email => params[:email], :name => params[:name], :password => params[:password])
+    user.save
+    respond_with(:api, user)
   end
   
   

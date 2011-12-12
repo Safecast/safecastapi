@@ -13,6 +13,10 @@ class Api::GroupsController < Api::ApplicationController
   end
   expose(:user) { User.find(params[:user_id]) }
   
+  expose(:measurements)
+  expose(:measurement) { Measurement.find(params[:measurement_id]) }
+  
+  
   def index
     respond_with groups
   end

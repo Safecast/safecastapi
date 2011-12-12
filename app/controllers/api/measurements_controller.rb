@@ -12,6 +12,10 @@ class Api::MeasurementsController < Api::ApplicationController
   end
   expose(:user) { User.find(params[:user_id]) }
   
+  expose(:group) { Group.find(params[:group_id]) }
+  
+  expose(:groups)
+  
   def index
     respond_with measurements
   end
@@ -22,6 +26,7 @@ class Api::MeasurementsController < Api::ApplicationController
   
   def create
     measurement.user = current_user
+    measurement.group_id = params[:group_id] if params[:group_id]
     measurement.save
     respond_with measurement
   end

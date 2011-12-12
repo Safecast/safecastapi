@@ -61,7 +61,6 @@ feature "/api/groups with existing resources" do
   end
   
   scenario "get my groups (/api/users/X/groups)" do
-    binding.pry
     result = api_get("/api/users/#{user.id}/groups.json")
     result.length.should == 1
     result.first['description'].should == 'Another test group'
@@ -69,7 +68,7 @@ feature "/api/groups with existing resources" do
   
   scenario "create new measurement as a part of a group" do
     result = api_get("/api/users/#{user.id}/groups.json")
-    gid = result.first['group_id']
+    gid = result.first['id']
     
     post("/api/groups/#{gid}/measurements.json", {
       :auth_token     => user.authentication_token,
@@ -80,12 +79,12 @@ feature "/api/groups with existing resources" do
         :longitude      => 4.4
       }
     })
-    meas = ActiveSupport::JSON.decode(response.body)
-    meas['value'].should == 334
-    meas['user_id'].should == user.id
+    measurement = ActiveSupport::JSON.decode(response.body)
+    measurement['value'].should == 334
+    measurement['user_id'].should == user.id
     
-    grp = api_get("/api/users/#{user.id}/groups.json")
-    presence = grp.include?(meas)   #might need to be tweaked to be proper
+    group = api_get("/api/users/#{user.id}/groups.json").first
+    presence = group.include?(measurement)   #might need to be tweaked to be proper
     presence.should == true
   end
   
@@ -94,17 +93,17 @@ feature "/api/groups with existing resources" do
     gid = result.first['group_id']
     
     result = api_get("/api/measurements.json")
-    meas = result.first
+    measurement = result.first
     
     post("/api/groups/#{gid}/measurements.json", {
       :auth_token     => user.authentication_token,
-      :measurement_id => meas.id
+      :measurement_id => measurement.id
     })
     result = ActiveSupport::JSON.decode(response.body)
-    result['value'].should == meas.value
+    result['value'].should == measurement.value
     
     grp = api_get("/api/users/#{user.id}/groups.json")
-    presence = grp.include?(meas)   #might need to be tweaked to be proper
+    presence = grp.include?(measurement)   #might need to be tweaked to be proper
     presence.should == true
     
   end

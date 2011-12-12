@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111210235259) do
+ActiveRecord::Schema.define(:version => 20111212215619) do
 
   create_table "devices", :force => true do |t|
     t.string   "mfg"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20111210235259) do
     t.point    "location",      :limit => 0, :srid => 4326, :geographic => true
     t.string   "location_name"
     t.integer  "device_id"
+    t.integer  "group_id"
   end
 
   create_table "users", :force => true do |t|

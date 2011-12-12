@@ -20,7 +20,8 @@ feature "/api/users API endpoint" do
       :password => 'testing123'
     })
     result = ActiveSupport::JSON.decode(response.body)
-    result['message'].should == 'User created successfully'
+    result['email'].should == 'kevin@rkn.la'
+    result['id'].should_not == nil
   end
   
   scenario "authenticate existing user" do
