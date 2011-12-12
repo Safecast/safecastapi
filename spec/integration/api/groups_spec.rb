@@ -49,14 +49,10 @@ end
 
 feature "/api/groups with existing resources" do
 
-  before do
-    @u = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
-  end
-  let(:u) { @u.reload }
-  
+  let(:user) { Fabricate(:user) }
   let!(:a_group) { Fabricate(:group, :description => "A test group")}
-  let!(:b_group) { Fabricate(:group, :description => "Another test group", :user => u)}
-  let!(:a_measurement) { Fabricate(:measurement, :value => 66, :user => u) }
+  let!(:b_group) { Fabricate(:group, :description => "Another test group", :user_id => user.id)}
+  let!(:a_measurement) { Fabricate(:measurement, :value => 66, :user_id => user.id) }
   
   scenario "all groups (/api/groups)" do
     result = api_get("/api/groups.json")
@@ -85,7 +81,7 @@ feature "/api/groups with existing resources" do
     })
     meas = ActiveSupport::JSON.decode(response.body)
     meas['value'].should == 334
-    meas['user_id'].should == u.id
+    meas['user_id'].should == user.id
     
     grp = api_get("/api/users/#{user.id}/groups.json")
     presence = grp.include?(meas)   #might need to be tweaked to be proper

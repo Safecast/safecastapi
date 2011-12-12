@@ -7,7 +7,7 @@ class Api::GroupsController < Api::ApplicationController
   expose(:groups) do
     if params[:user_id].present?
       user.groups
-    elsif
+    else
       Group.page(params[:page])
     end
   end
