@@ -90,13 +90,15 @@ feature "/api/groups with existing resources" do
   
   scenario "add an existing measurement to a group" do
     result = api_get("/api/users/#{user.id}/groups.json")
-    gid = result.first['id']
+    group = result.first
+    group_id = group['id']
     
     result = api_get("/api/measurements.json")
-    measurement = result.first  
-    post("/api/groups/#{gid}/measurements.json", {
-      :auth_token     => user.authentication_token,
-      :measurement_id => measurement['id']
+    binding.pry 
+    measurement = result.first
+    measurement_id = measurement['id']
+    post("/api/groups/#{group_id}/measurements/#{measurement_id}/add.json", {
+      :auth_token     => user.authentication_token
     })
     result = ActiveSupport::JSON.decode(response.body)
     result['value'].should == measurement['value']

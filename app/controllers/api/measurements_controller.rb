@@ -3,37 +3,48 @@ class Api::MeasurementsController < Api::ApplicationController
   before_filter :authenticate_user!, :only => :create
   
   expose(:measurement)
+  
   expose(:measurements) do
-    if params[:group_id].present?
-      group.measurements
-    elsif params[:user_id].present?
+    if params[:user_id].present?
       user.measurements
     else
-      Measurement.page(params[:page])
+      Measurement.all
     end
   end
+  
   expose(:user) { User.find(params[:user_id]) }
   
-  expose(:group) { Group.find(params[:group_id]) }
+  expose(:group) do
+    if params[:group_id].present?
+      Group.find(params[:group_id])
+    else
+      nil
+    end
+  end
   
   expose(:groups)
   
   def index
-    respond_with measurements
+    if group
+      respond_with group.measurements
+    else
+      respond_with measurements
+    end
   end
   
   def show
     respond_with measurement
   end
   
+  def add_to_group
+    group.measurements<< measurement if group
+    respond_with measurement
+  end
+  
   def create
-    if params[:measurement_id] && params[:group_id]
-      group.measurements<< measurement
-    else
-      measurement.user = current_user
-      measurement.group_id = params[:group_id] if params[:group_id]
-      measurement.save
-    end
+    measurement.user = current_user
+    measurement.save
+    group.measurements<< measurement if group   #this could be done by calling add_to_group, but that seems misleading
     respond_with measurement
   end
   

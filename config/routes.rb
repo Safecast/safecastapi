@@ -34,7 +34,11 @@ Safecast::Application.routes.draw do
     resources :measurements
     
     resources :groups do
-      resources :measurements
+      resources :measurements do
+        collection do
+          post 'add_to_group', :path => ':id/add'
+        end
+      end
     end
     
   end
