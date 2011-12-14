@@ -50,6 +50,7 @@ Spork.prefork do
     config.after(:all) do
       FileUtils.rm_f Rails.root.join('tmp', 'capybara', '*')
       FileUtils.rm_rf Dir[Rails.root.join('tmp', 'cache', 'assets', '**', '*')]
+      FileUtils.rm_rf Dir[Rails.root.join('public', 'uploads', '**', '*')]
     end
   end
 end

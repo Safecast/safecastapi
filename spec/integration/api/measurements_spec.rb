@@ -2,10 +2,12 @@ require 'spec_helper'
 
 feature "/api/measurements API endpoint" do
 
-  before do
-    @user = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
-  end
-  let(:user) { @user.reload }
+  let!(:user) do
+    @user ||= Fabricate(:user,
+                      :email => 'paul@rslw.com',
+                      :name => 'Paul Campbell')
+  end 
+
   
   scenario "lookup measurements" do
     post('/api/measurements.json',{
@@ -34,7 +36,9 @@ feature "/api/measurements" do
 
   let(:user) { Fabricate(:user) }
   let!(:first_measurement) { Fabricate(:measurement, :value => 10) }
-  let!(:second_measurement) { Fabricate(:measurement, :value => 12, :user => user) }
+  let!(:second_measurement) do 
+    Fabricate(:measurement, :value => 12, :user_id => user.id)
+  end
   
   scenario "all measurements (/api/measurements)" do
     result = api_get("/api/measurements.json")
