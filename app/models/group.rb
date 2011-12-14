@@ -14,6 +14,6 @@ class Group < ActiveRecord::Base
       :id, :description, :device_id, :measurements, :user_id
     ]))
   end
-
+  
   
 end

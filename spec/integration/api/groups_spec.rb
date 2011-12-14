@@ -68,9 +68,10 @@ feature "/api/groups with existing resources" do
   
   scenario "create new measurement as a part of a group" do
     result = api_get("/api/users/#{user.id}/groups.json")
-    gid = result.first['id']
+    group = result.first
+    group_id = group['id']
     
-    post("/api/groups/#{gid}/measurements.json", {
+    post("/api/groups/#{group_id}/measurements.json", {
       :auth_token     => user.authentication_token,
       :measurement    => {
         :value          => 334,
@@ -83,8 +84,8 @@ feature "/api/groups with existing resources" do
     measurement['value'].should == 334
     measurement['user_id'].should == user.id
     
-    group = api_get("/api/users/#{user.id}/groups.json").first
-    presence = group.include?(measurement)   #might need to be tweaked to be proper
+    group_measurements = api_get("/api/groups/#{group_id}/measurements.json")
+    presence = group_measurements.include?(measurement)   #might need to be tweaked to be proper
     presence.should == true
   end
   
@@ -94,7 +95,6 @@ feature "/api/groups with existing resources" do
     group_id = group['id']
     
     result = api_get("/api/measurements.json")
-    binding.pry 
     measurement = result.first
     measurement_id = measurement['id']
     post("/api/groups/#{group_id}/measurements/#{measurement_id}/add.json", {
@@ -103,8 +103,8 @@ feature "/api/groups with existing resources" do
     result = ActiveSupport::JSON.decode(response.body)
     result['value'].should == measurement['value']
     
-    grp = api_get("/api/users/#{user.id}/groups.json")
-    presence = grp.include?(measurement)   #might need to be tweaked to be proper
+    group_measurements = api_get("/api/groups/#{group_id}/measurements.json")
+    presence = group_measurements.include?(measurement)   #might need to be tweaked to be proper
     presence.should == true
     
   end

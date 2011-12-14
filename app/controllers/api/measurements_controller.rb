@@ -8,7 +8,7 @@ class Api::MeasurementsController < Api::ApplicationController
     if params[:user_id].present?
       user.measurements
     else
-      Measurement.all
+      Measurement.all #using Measurement.page(params[:page]) wound up being problematic
     end
   end
   
