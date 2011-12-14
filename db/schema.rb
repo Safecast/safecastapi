@@ -11,7 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111214154833) do
+ActiveRecord::Schema.define(:version => 20111214162214) do
+
+  create_table "bgeigie_logs", :force => true do |t|
+    t.string   "device_tag"
+    t.string   "device_serial_id"
+    t.datetime "captured_at"
+    t.integer  "cpm"
+    t.integer  "counts_per_five_seconds"
+    t.integer  "total_counts"
+    t.string   "cpm_validity"
+    t.float    "latitude_nmea"
+    t.string   "north_south_indicator"
+    t.float    "longitude_nmea"
+    t.string   "east_west_indicator"
+    t.float    "altitude"
+    t.string   "gps_fix_indicator"
+    t.float    "horizontal_dilution_of_precision"
+    t.string   "gps_fix_quality_indicator"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -50,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20111214154833) do
     t.string  "md5sum"
     t.string  "type"
     t.string  "status"
+    t.integer "measurements_count"
   end
 
   create_table "measurements", :force => true do |t|

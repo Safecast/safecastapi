@@ -26,10 +26,14 @@ feature "/api/bgeigie_imports API endpoint" do
   end
   
   context "after processing" do
-    before { Delayed::Worker.new.work_off }
+    before(:all) { Delayed::Worker.new.work_off }
     scenario "response should be processed" do
       updated_result = api_get("/api/bgeigie_imports/#{result['id']}.json")
       updated_result['status'].should == 'done'
+    end
+    
+    scenario "it should have imported a bunch of measurements" do
+      updated_result['measurements_count'].should == 23
     end
   end
   
