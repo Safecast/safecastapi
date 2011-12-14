@@ -23,4 +23,9 @@ module Helpers
     get(*args)
     ActiveSupport::JSON.decode(response.body)
   end
+
+  def api_post(*args)
+    post(*args)
+    ActiveSupport::JSON.decode(response.body)
+  end
 end

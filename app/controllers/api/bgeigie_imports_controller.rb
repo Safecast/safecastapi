@@ -1,0 +1,13 @@
+class Api::BgeigieImportsController < Api::ApplicationController
+ 
+  expose(:bgeigie_import)
+  
+  def create
+    if bgeigie_import.save 
+      respond_with bgeigie_import, :location => [:api, bgeigie_import]
+    else
+      respond_with bgeigie_import.errors
+    end
+  end
+
+end

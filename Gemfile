@@ -6,6 +6,7 @@ gem 'pg'
 gem 'json'
 gem 'haml'
 
+gem "carrierwave", "~> 0.5.8"
 gem 'backbone-rails'
 gem 'decent_exposure'
 gem 'spatial_adapter', :git => 'https://github.com/Empact/spatial_adapter.git'

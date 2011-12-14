@@ -11,7 +11,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111130132854) do
+ActiveRecord::Schema.define(:version => 20111214134716) do
+
+  create_table "devices", :force => true do |t|
+    t.string   "mfg"
+    t.string   "model"
+    t.string   "sensor"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "groups", :force => true do |t|
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "device_id"
+  end
+
+  create_table "measurement_imports", :force => true do |t|
+    t.integer "user_id"
+    t.string  "source"
+    t.string  "md5sum"
+    t.string  "type"
+    t.string  "status"
+  end
 
   create_table "measurements", :force => true do |t|
     t.integer  "user_id"
@@ -21,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20111130132854) do
     t.string   "unit"
     t.point    "location",      :limit => 0, :srid => 4326, :geographic => true
     t.string   "location_name"
+    t.integer  "device_id"
   end
 
   create_table "users", :force => true do |t|

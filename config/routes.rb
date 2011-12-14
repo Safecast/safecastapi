@@ -16,6 +16,7 @@ Safecast::Application.routes.draw do
   end
   
   namespace :api do
+    resources :bgeigie_imports
     resources :users do
       resources :measurements
       collection do

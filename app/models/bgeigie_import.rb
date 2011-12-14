@@ -1,0 +1,3 @@
+class BgeigieImport < MeasurementImport
+
+end
