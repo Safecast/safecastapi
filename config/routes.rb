@@ -26,8 +26,6 @@ Safecast::Application.routes.draw do
     resources :measurements
   end
   
-  resources :measurements
-  
   match '/my/measurements/manifest', :to => 'my/dashboards#show'
 
   match "reading", :to => 'submissions#reading'

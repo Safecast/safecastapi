@@ -23,7 +23,7 @@ class Api::MeasurementsController < Api::ApplicationController
   def create
     measurement.user = current_user
     measurement.save
-    respond_with measurement
+    respond_with measurement, :location => [:api, measurement]
   end
   
 end
