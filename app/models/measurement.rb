@@ -19,9 +19,29 @@ class Measurement < ActiveRecord::Base
     options ||= {}
     super(options.merge(:only => [
       :id, :value, :user_id, :latitude, :longitude,
-      :unit, :device_id, :location_name
+      :unit, :device_id, :location_name, :original_id
     ]))
   end
   
+  
+  def revise(new_params)
+    new_measurement = self.dup
+    new_measurement.original_id = self.id unless new_measurement.original_id
+    
+    new_measurement.update_attributes(new_params)
+
+    transaction do
+      new_measurement.save
+      self.expired_at = new_measurement.created_at
+      self.replaced_by = new_measurement.id
+      self.save
+    end
+    
+    new_measurement
+  end
+  
+  def self.most_recent(original_id)
+    Measurement.where(:replaced_by => nil, :original_id => original_id).first
+  end
   
 end

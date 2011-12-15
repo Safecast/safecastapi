@@ -57,14 +57,17 @@ feature "/api/measurements" do
     })
     
     result = ActiveSupport::JSON.decode(response.body)
-    binding.pry
+    
     result['value'].should == 15
     result['original_id'].should == second_measurement.id
+
     
     #the above is pretty normal, now we do some gets to check that it was non-destructive
-    result = api_get("/api/measurements/#{first_measurement.id}.json", :withHistory => true)
-    originalIsPresent = result.include?(second_measurement)
-    originalIsPresent.should == true
+    result = api_get("/api/measurements/#{second_measurement.id}.json", :withHistory => true)
+    result.length.should == 2
+    result.sort_by! { |obj| obj['value']}
+    result.map { |obj| obj['value'] }.should == [12, 15]
+    
     
     #withHistory defaults to false, returns latest value
     result = api_get("/api/measurements/#{second_measurement.id}.json")
