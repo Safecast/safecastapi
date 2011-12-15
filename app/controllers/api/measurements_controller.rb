@@ -1,6 +1,6 @@
 class Api::MeasurementsController < Api::ApplicationController
   
-  before_filter :authenticate_user!, :only => :create
+  before_filter :authenticate_user!, :only => [:create, :update]
   
   expose(:measurement)
   
@@ -33,7 +33,17 @@ class Api::MeasurementsController < Api::ApplicationController
   end
   
   def show
+    binding.pry
     respond_with measurement
+  end
+  
+  def update
+    measurement = Measurement.find(params[:id])
+    new_measurement = measurement.dup
+    
+    
+    binding.pry
+    respond_with new_measurement
   end
   
   def add_to_group
@@ -47,5 +57,6 @@ class Api::MeasurementsController < Api::ApplicationController
     group.measurements<< measurement if group   #this could be done by calling add_to_group, but that seems misleading
     respond_with measurement
   end
+  
   
 end

@@ -48,4 +48,27 @@ feature "/api/measurements" do
     result.first['value'].should == 12
   end
   
+  scenario "updating is non-destructive" do
+    put("/api/measurements/#{second_measurement.id}.json", {
+      :auth_token => user.authentication_token,
+      :measurement => {
+        :value => 15
+      }
+    })
+    
+    result = ActiveSupport::JSON.decode(response.body)
+    binding.pry
+    result['value'].should == 15
+    result['original_id'].should == second_measurement.id
+    
+    #the above is pretty normal, now we do some gets to check that it was non-destructive
+    result = api_get("/api/measurements/#{first_measurement.id}.json", :withHistory => true)
+    originalIsPresent = result.include?(second_measurement)
+    originalIsPresent.should == true
+    
+    #withHistory defaults to false, returns latest value
+    result = api_get("/api/measurements/#{second_measurement.id}.json")
+    result['value'].should == 15
+  end
+  
 end

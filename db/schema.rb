@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111213000431) do
+ActiveRecord::Schema.define(:version => 20111214224611) do
 
   create_table "devices", :force => true do |t|
     t.string   "mfg"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20111213000431) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "device_id"
+    t.string   "name"
   end
 
   create_table "groups_measurements", :id => false, :force => true do |t|
@@ -44,7 +45,13 @@ ActiveRecord::Schema.define(:version => 20111213000431) do
     t.string   "location_name"
     t.integer  "device_id"
     t.integer  "group_id"
+    t.integer  "original_id"
+    t.datetime "expired_at"
+    t.integer  "replaced_by"
+    t.integer  "updated_by"
   end
+
+  add_index "measurements", ["original_id"], :name => "index_measurements_on_original_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
