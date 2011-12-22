@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111214162214) do
+ActiveRecord::Schema.define(:version => 20111214224611) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -62,6 +62,12 @@ ActiveRecord::Schema.define(:version => 20111214162214) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "device_id"
+    t.string   "name"
+  end
+
+  create_table "groups_measurements", :id => false, :force => true do |t|
+    t.integer "group_id"
+    t.integer "measurement_id"
   end
 
   create_table "measurement_imports", :force => true do |t|
@@ -82,7 +88,14 @@ ActiveRecord::Schema.define(:version => 20111214162214) do
     t.point    "location",      :limit => 0, :srid => 4326, :geographic => true
     t.string   "location_name"
     t.integer  "device_id"
+    t.integer  "group_id"
+    t.integer  "original_id"
+    t.datetime "expired_at"
+    t.integer  "replaced_by"
+    t.integer  "updated_by"
   end
+
+  add_index "measurements", ["original_id"], :name => "index_measurements_on_original_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

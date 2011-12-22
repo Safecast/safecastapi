@@ -32,3 +32,5 @@ group :test do
   gem 'spork', '~> 0.9.0.rc'
   gem 'watchr'
 end
+
+gem 'pry', :group => :development
