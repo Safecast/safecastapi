@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   include UserConcerns
   
   has_many :measurements
-  has_many :groups
+  has_many :maps
   
   # Include default devise modules. Others available are:
   # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable

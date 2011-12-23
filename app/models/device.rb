@@ -1,6 +1,6 @@
 class Device < ActiveRecord::Base
   has_and_belongs_to_many :measurements
-  has_and_belongs_to_many :groups
+  has_and_belongs_to_many :maps
   
   
   validates :mfg,    :presence => true

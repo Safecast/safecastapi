@@ -11,7 +11,7 @@ class Measurement < ActiveRecord::Base
   belongs_to :last_updater, :class_name => "User", :foreign_key => "updated_by"
   
   
-  has_and_belongs_to_many :groups
+  has_and_belongs_to_many :maps
   
   has_one :device
   
