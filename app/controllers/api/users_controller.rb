@@ -1,5 +1,5 @@
 class Api::UsersController < Api::ApplicationController
-  
+
   expose(:user) { User.find_by_email(params[:email]) }
   
   def finger
@@ -13,9 +13,7 @@ class Api::UsersController < Api::ApplicationController
   end
   
   
-  def auth  
-    #todo -- authenticate instead of just signing in anyone who has an email address
-    result = sign_in user
+  def auth
     
     if result
       output = {:message => "Signed in successfully", :auth_token => result[:authentication_token]}
