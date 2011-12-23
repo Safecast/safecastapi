@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(:version => 20111214224611) do
     t.datetime "updated_at"
   end
 
-  create_table "groups", :force => true do |t|
+  create_table "maps", :force => true do |t|
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -65,8 +65,11 @@ ActiveRecord::Schema.define(:version => 20111214224611) do
     t.string   "name"
   end
 
-  create_table "groups_measurements", :id => false, :force => true do |t|
-    t.integer "group_id"
+  add_index "maps", ["device_id"], :name => "index_maps_on_device_id"
+  add_index "maps", ["user_id"], :name => "index_maps_on_user_id"
+
+  create_table "maps_measurements", :id => false, :force => true do |t|
+    t.integer "map_id"
     t.integer "measurement_id"
   end
 
@@ -88,14 +91,15 @@ ActiveRecord::Schema.define(:version => 20111214224611) do
     t.point    "location",      :limit => 0, :srid => 4326, :geographic => true
     t.string   "location_name"
     t.integer  "device_id"
-    t.integer  "group_id"
     t.integer  "original_id"
     t.datetime "expired_at"
     t.integer  "replaced_by"
     t.integer  "updated_by"
   end
 
+  add_index "measurements", ["device_id"], :name => "index_measurements_on_device_id"
   add_index "measurements", ["original_id"], :name => "index_measurements_on_original_id"
+  add_index "measurements", ["user_id"], :name => "index_measurements_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

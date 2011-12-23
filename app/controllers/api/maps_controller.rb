@@ -1,16 +1,16 @@
-class Api::GroupsController < Api::ApplicationController
+class Api::MapsController < Api::ApplicationController
   
   before_filter :authenticate_user!, :only => :create
   
-  expose(:group)
+  expose(:map)
   
-  expose(:groups) do
+  expose(:maps) do
     if params[:user_id].present?
-      user.groups
+      user.maps
     elsif params[:page].present?
-      Group.page(params[:page])
+      Map.page(params[:page])
     else
-      Group.all
+      Map.all
     end
   end
   expose(:user) { User.find(params[:user_id]) }
@@ -20,24 +20,24 @@ class Api::GroupsController < Api::ApplicationController
   
   
   def index
-    respond_with groups
+    respond_with maps
   end
   
   def show
-    respond_with group
+    respond_with map
   end
   
   def create
-    pg = params[:group]
+    pg = params[:map]
     if pg && pg['device']
       d = Device.get_or_create(pg['device'])
       pg['device_id'] = d.id
       pg.delete('device')
     end
-    group = Group.new(pg)
-    group.user = current_user
-    group.save
-    respond_with(:api, group)
+    map = Map.new(pg)
+    map.user = current_user
+    map.save
+    respond_with(:api, map)
   end
   
 

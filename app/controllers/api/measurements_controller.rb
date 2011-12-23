@@ -14,19 +14,19 @@ class Api::MeasurementsController < Api::ApplicationController
   
   expose(:user) { User.find(params[:user_id]) }
   
-  expose(:group) do
-    if params[:group_id].present?
-      Group.find(params[:group_id])
+  expose(:map) do
+    if params[:map_id].present?
+      Map.find(params[:map_id])
     else
       nil
     end
   end
   
-  expose(:groups)
+  expose(:maps)
   
   def index
-    if group
-      respond_with group.measurements
+    if map
+      respond_with map.measurements
     else
       respond_with measurements
     end
@@ -51,8 +51,8 @@ class Api::MeasurementsController < Api::ApplicationController
     render :text => new_measurement.to_json, :status => :ok
   end
   
-  def add_to_group
-    group.measurements<< measurement if group
+  def add_to_map
+    map.measurements<< measurement if map
     respond_with measurement, :location => [:api, measurement]
   end
   
@@ -63,7 +63,7 @@ class Api::MeasurementsController < Api::ApplicationController
       measurement.original_id = measurement.id
       measurement.save
     end
-    group.measurements<< measurement if group   #this could be done by calling add_to_group, but that seems misleading
+    map.measurements<< measurement if map   #this could be done by calling add_to_map, but that seems misleading
     respond_with measurement, :location => [:api, measurement]
   end
   

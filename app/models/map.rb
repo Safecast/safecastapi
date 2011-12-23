@@ -1,4 +1,4 @@
-class Group < ActiveRecord::Base
+class Map < ActiveRecord::Base
   
   has_and_belongs_to_many :measurements
   

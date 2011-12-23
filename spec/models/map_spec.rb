@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Group do
-  let(:group) { Fabricate(:group, {
+describe Map do
+  let(:map) { Fabricate(:map, {
     :description    => 'Measurements around Fukushima',
   })}
-  subject { group }
+  subject { map }
   
   its(:description)   { should == 'Measurements around Fukushima' }
 
