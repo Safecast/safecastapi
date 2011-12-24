@@ -6,9 +6,12 @@ class BgeigieImport < MeasurementImport
   
   def process
     strip_comments_from_top_of_file
-    import_to_bgeigie_logs
+    result = import_to_bgeigie_logs
     delete_tmp_file
-    self.update_attribute(:status, 'done')
+    self.update_attributes({
+      :status => 'done',
+      :measurements_count => result.cmd_tuples
+    })
   end
   
   def create_tmp_file

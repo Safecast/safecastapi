@@ -26,9 +26,13 @@ feature "/api/bgeigie_imports API endpoint" do
   end
   
   context "after processing" do
-    before(:all) { Delayed::Worker.new.work_off }
+    
+    let!(:updated_result) do
+      Delayed::Worker.new.work_off
+      @updated_result = api_get("/api/bgeigie_imports/#{result['id']}.json")
+    end
+    
     scenario "response should be processed" do
-      updated_result = api_get("/api/bgeigie_imports/#{result['id']}.json")
       updated_result['status'].should == 'done'
     end
     
