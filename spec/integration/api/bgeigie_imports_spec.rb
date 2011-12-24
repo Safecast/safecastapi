@@ -34,7 +34,6 @@ feature "/api/bgeigie_imports API endpoint" do
     
     scenario "response should be processed" do
       updated_result['status'].should == 'done'
-      binding.pry
     end
     
     scenario "it should have imported a bunch of measurements" do
