@@ -29,11 +29,12 @@ feature "/api/bgeigie_imports API endpoint" do
     
     let!(:updated_result) do
       Delayed::Worker.new.work_off
-      @updated_result = api_get("/api/bgeigie_imports/#{result['id']}.json")
+      api_get("/api/bgeigie_imports/#{result['id']}.json")
     end
     
     scenario "response should be processed" do
       updated_result['status'].should == 'done'
+      binding.pry
     end
     
     scenario "it should have imported a bunch of measurements" do
