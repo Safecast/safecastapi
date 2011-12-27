@@ -13,6 +13,10 @@ Safecast::Application.routes.draw do
     resource :dashboard
     
     resources :measurements
+    
+    resources :maps
+    
+    resource :account
   end
   
   namespace :api do

@@ -3,6 +3,7 @@ window.App = {
   Views: {
     Home: {}
     Measurements:{}
+    Maps:{}
   }
   Routers: {}
 }

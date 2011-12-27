@@ -11,7 +11,7 @@ class Map < ActiveRecord::Base
   def serializable_hash(options)
     options ||= {}
     super(options.merge(:only => [
-      :id, :description, :device_id, :measurements, :user_id
+      :id, :name, :description, :device_id, :measurements, :user_id
     ]))
   end
   
