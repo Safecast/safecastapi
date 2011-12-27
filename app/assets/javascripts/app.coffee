@@ -4,6 +4,7 @@ window.App = {
     Home: {}
     Measurements:{}
     Maps:{}
+    Users: {}
   }
   Routers: {}
 }
