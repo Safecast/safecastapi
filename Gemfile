@@ -13,6 +13,8 @@ gem 'decent_exposure'
 gem 'spatial_adapter', :git => 'https://github.com/Empact/spatial_adapter.git'
 gem 'will_paginate', '3.0.2'
 
+gem 'remotipart', '~> 0.4'
+
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
   gem 'coffee-rails', '~> 3.1.1'

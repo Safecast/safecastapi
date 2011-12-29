@@ -3,6 +3,8 @@ App.Views.Maps.New = App.Views.App.extend
   initialize: ->
     @model.bind('change', @render, @)
     @model.bind('error', @alertError, @)
+    
+    @fileHandle = 0
 
     if window.hasOwnProperty('google')
       latlng = new window.google.maps.LatLng(37.7607226, 140.47335610000005)
@@ -14,15 +16,23 @@ App.Views.Maps.New = App.Views.App.extend
     return @
   
   events:
-    'submit #submission' : 'manifest'
+    #'submit #file'       : 'manifest'
     'submit #manifest'   : 'create'
     'click #location'    : 'showMap'
     'keydown #location'  : 'geocodeSearch'
     'click .gps'         : 'geocodeSearch'
     'click .unit'        : 'setUnit'
+
     
+  manifest: (e, data) ->
+    
+    false
+
+    
+  
   setUnit: (e) ->
     @model.attributes.unit = $(e.target).data('value')
+  
   
   alertError: (model, errors) ->
     errorMessages = []
@@ -77,23 +87,13 @@ App.Views.Maps.New = App.Views.App.extend
     , 5
 
   templatePath: ->
-    return 'measurements/show' if(@model.get('saving')?)
-    return 'measurements/manifest' if(@model.get('value') > 0)
-    'measurements/new'
+    return 'maps/show' if(@model.get('saving')?)
+    return 'maps/manifest' if(@fileHandle)
+    'maps/new'
   
   render: ->
     $(@el).html(@template())
-    @.$('#level').select().focus()
     return @
-  
-  manifest: ->
-    @model.set
-      value: $('#level').val()
-      location_name: $('#location').val()
-      latitude: @model.get('latitude')
-      longitude: @model.get('longitude')
-      unit: @model.get('unit')
-    false
   
   create: ->
     @model.save {

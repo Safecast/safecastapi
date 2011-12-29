@@ -7,6 +7,7 @@ class Api::BgeigieImportsController < Api::ApplicationController
   end
   
   def create
+    binding.pry
     if bgeigie_import.save 
       bgeigie_import.delay.process
       respond_with bgeigie_import, :location => [:api, bgeigie_import]

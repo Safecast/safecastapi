@@ -1,6 +1,7 @@
 %section.brief
   %header
     %h2 Contribute your Measurement
+    %h3= link_to 'Submitting measurements from a file?', '/my/maps/new', :title => 'Submit a Map', :data => { :pjax => true }
   %form#submission{:action => "/my/measurements", :autocomplete => "off"}
     %fieldset.level-reading
       .field.reading
