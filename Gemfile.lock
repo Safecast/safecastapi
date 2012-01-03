@@ -77,6 +77,7 @@ GEM
       execjs
     coffee-script-source (1.2.0)
     daemons (1.1.5)
+    database_cleaner (0.7.0)
     decent_exposure (1.0.1)
     delayed_job (2.1.4)
       activesupport (~> 3.0)
@@ -201,6 +202,7 @@ DEPENDENCIES
   capybara-webkit
   carrierwave (~> 0.5.8)
   coffee-rails
+  database_cleaner
   decent_exposure
   delayed_job (~> 2.1.4)
   devise

@@ -52,6 +52,19 @@ Spork.prefork do
       FileUtils.rm_rf Dir[Rails.root.join('tmp', 'cache', 'assets', '**', '*')]
       FileUtils.rm_rf Dir[Rails.root.join('public', 'uploads', '**', '*')]
     end
+    
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
+    end
+
+    config.before(:each) do
+      DatabaseCleaner.start
+    end
+
+    config.after(:each) do
+      DatabaseCleaner.clean
+    end
   end
 end
 
