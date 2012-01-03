@@ -14,7 +14,7 @@ class BgeigieImport < MeasurementImport
     import_to_bgeigie_logs
     import_measurements
     delete_tmp_file
-    self.update_attribute(:status, 'done')
+    self.update_attribute 'status', 'done'
   end
   
   def create_tmp_file
@@ -46,7 +46,7 @@ class BgeigieImport < MeasurementImport
   end
   
   def import_measurements
-    self.connection.execute("insert into measurements (user_id, value, unit) select #{self.user_id},cpm,'cpm'
+    self.connection.execute("insert into measurements (user_id, value, unit, created_at, updated_at) select #{self.user_id},cpm,'cpm', now(), now()
                              from bgeigie_logs WHERE bgeigie_import_id = #{self.id}")
   end
   

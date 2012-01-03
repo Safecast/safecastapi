@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature "/api/bgeigie_imports API endpoint" do
 
-  before(:all) do
+  before(:each) do
     User.destroy_all
     @user ||= Fabricate(:user,
                       :email => 'paul@rslw.com',
@@ -25,7 +25,8 @@ feature "/api/bgeigie_imports API endpoint" do
   end
   
   context "after processing" do
-    before(:all) { Delayed::Worker.new.work_off }
+
+    before(:each) { Delayed::Worker.new.work_off }
     let!(:updated_result) { api_get("/api/bgeigie_imports/#{@result['id']}.json") }
     subject { updated_result }
 

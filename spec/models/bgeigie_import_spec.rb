@@ -1,15 +1,18 @@
 require 'spec_helper'
 
 describe BgeigieImport do
+  
+  let!(:user) { User.first || Fabricate(:user) }
+  
   let!(:bgeigie_import) do
     Fabricate(:bgeigie_import,
               :source => File.new(Rails.root + 'spec/fixtures/bgeigie.log'),
-              :user => Fabricate(:user)
+              :user_id => user.id
              )
   end
   
   describe "#process" do
-    before(:all) do
+    before(:each) do
       bgeigie_import.process
     end
 
@@ -27,5 +30,5 @@ describe BgeigieImport do
     
   end
   
-  after(:all) { BgeigieLog.destroy_all }
+  after(:each) { BgeigieLog.destroy_all }
 end

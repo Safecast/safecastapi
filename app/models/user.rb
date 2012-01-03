@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   include UserConcerns
   
   has_many :measurements
+  has_many :maps
   
   # Include default devise modules. Others available are:
   # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -17,7 +18,7 @@ class User < ActiveRecord::Base
   
   def serializable_hash(options = {})
     super options.merge(
-      :only => [:id, :name, :email],
+      :only => [:id, :name, :email, :authentication_token],
       :methods => [:first_name, :last_name]
     )
   end

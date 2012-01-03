@@ -6,5 +6,7 @@ class CreateMeasurements < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    add_index :measurements, :user_id
   end
 end

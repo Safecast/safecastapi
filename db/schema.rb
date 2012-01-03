@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120103182931) do
+ActiveRecord::Schema.define(:version => 20120103213502) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(:version => 20120103182931) do
     t.string   "gps_fix_indicator"
     t.float    "horizontal_dilution_of_precision"
     t.string   "gps_fix_quality_indicator"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                       :default => '1970-01-01 00:00:00', :null => false
+    t.datetime "updated_at",                       :default => '1970-01-01 00:00:00', :null => false
     t.integer  "bgeigie_import_id"
   end
 
@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(:version => 20120103182931) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
@@ -53,16 +53,25 @@ ActiveRecord::Schema.define(:version => 20120103182931) do
     t.string   "mfg"
     t.string   "model"
     t.string   "sensor"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  create_table "groups", :force => true do |t|
+  create_table "maps", :force => true do |t|
     t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "user_id"
     t.integer  "device_id"
+    t.string   "name"
+  end
+
+  add_index "maps", ["device_id"], :name => "index_maps_on_device_id"
+  add_index "maps", ["user_id"], :name => "index_maps_on_user_id"
+
+  create_table "maps_measurements", :id => false, :force => true do |t|
+    t.integer "map_id"
+    t.integer "measurement_id"
   end
 
   create_table "measurement_imports", :force => true do |t|
@@ -77,13 +86,21 @@ ActiveRecord::Schema.define(:version => 20120103182931) do
   create_table "measurements", :force => true do |t|
     t.integer  "user_id"
     t.integer  "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.string   "unit"
-    t.point    "location",      :limit => 0, :srid => 4326, :geographic => true
+    t.point    "location",      :limit => 0,                 :srid => 4326, :geographic => true
     t.string   "location_name"
     t.integer  "device_id"
+    t.integer  "original_id"
+    t.datetime "expired_at"
+    t.integer  "replaced_by"
+    t.integer  "updated_by"
   end
+
+  add_index "measurements", ["device_id"], :name => "index_measurements_on_device_id"
+  add_index "measurements", ["original_id"], :name => "index_measurements_on_original_id"
+  add_index "measurements", ["user_id"], :name => "index_measurements_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -97,8 +114,8 @@ ActiveRecord::Schema.define(:version => 20120103182931) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "authentication_token"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
     t.string   "name"
   end
 

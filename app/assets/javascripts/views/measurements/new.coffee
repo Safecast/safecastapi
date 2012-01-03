@@ -57,7 +57,7 @@ App.Views.Measurements.New = App.Views.App.extend
               value:  $('#level').val()
               location_name: $('#location').val()
               unit: model.get('unit')
-              latitude: results[0].geometry.location.Pa
+              latitude: results[0].geometry.location.Ra
               longitude: results[0].geometry.location.Qa
             },
             silent: true
