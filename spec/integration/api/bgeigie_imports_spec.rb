@@ -2,15 +2,14 @@ require 'spec_helper'
 
 feature "/api/bgeigie_imports API endpoint" do
 
-  let!(:user) do
+  before(:all) do
+    User.destroy_all
     @user ||= Fabricate(:user,
                       :email => 'paul@rslw.com',
                       :name => 'Paul Campbell')
-  end 
-
-  before(:all) do
+    
     @result ||= api_post('/api/bgeigie_imports.json',{
-      :auth_token => user.authentication_token,
+      :auth_token => @user.authentication_token,
       :bgeigie_import => {
         :source => fixture_file_upload('spec/fixtures/bgeigie.log')
       }

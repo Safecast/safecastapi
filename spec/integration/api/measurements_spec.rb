@@ -3,14 +3,14 @@ require 'spec_helper'
 feature "/api/measurements API endpoint" do
 
   let!(:user) do
-    @user ||= Fabricate(:user,
+    User.first || Fabricate(:user,
                       :email => 'paul@rslw.com',
                       :name => 'Paul Campbell')
   end 
 
   
   scenario "lookup measurements" do
-    post('/api/measurements.json',{
+    result = api_post('/api/measurements.json',{
       :auth_token => user.authentication_token,
       :measurement => {
         :value      => 123,
@@ -19,7 +19,6 @@ feature "/api/measurements API endpoint" do
         :longitude  => 2.2
       }
     })
-    result = ActiveSupport::JSON.decode(response.body)
     result['value'].should == 123
     result['user_id'].should == user.id
   end
@@ -31,8 +30,10 @@ feature "/api/measurements API endpoint" do
 end
 
 feature "/api/measurements" do
+  
+  before(:all) { Measurement.destroy_all }
 
-  let(:user) { Fabricate(:user) }
+  let!(:user) { User.first || Fabricate(:user) }
   let!(:first_measurement) { Fabricate(:measurement, :value => 10) }
   let!(:second_measurement) do 
     Fabricate(:measurement, :value => 12, :user_id => user.id)
