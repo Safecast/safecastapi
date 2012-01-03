@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111214162214) do
+ActiveRecord::Schema.define(:version => 20120103182931) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20111214162214) do
     t.string   "gps_fix_quality_indicator"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "bgeigie_import_id"
   end
 
   create_table "delayed_jobs", :force => true do |t|

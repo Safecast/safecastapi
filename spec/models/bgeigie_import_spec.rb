@@ -16,6 +16,10 @@ describe BgeigieImport do
       BgeigieLog.count.should == 23
     end
     
+    it "should set the id" do
+      BgeigieLog.all.collect { |bl| bl.bgeigie_import_id }.uniq.should == [bgeigie_import.id]
+    end
+    
   end
   
   after(:all) { BgeigieLog.destroy_all }
