@@ -28,6 +28,8 @@ that our database is location aware.
 Here's the steps needed to get it going on OSX with homebrew:
 
     brew install postgis
+    createdb safecast_development
+    createdb safecast_test
     cd /usr/local/share/postgresql/contrib/postgis-1.5 && \
     psql -d safecast_development -f postgis.sql -h localhost && \
     psql -d safecast_development -f spatial_ref_sys.sql -h localhost && \

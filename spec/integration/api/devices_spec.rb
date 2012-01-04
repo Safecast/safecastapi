@@ -29,9 +29,9 @@ feature "/api/devices API endpoint" do
     post('/api/devices.json', :auth_token => user.authentication_token)
     
     result = ActiveSupport::JSON.decode(response.body)
-    result['mfg'].should == ["can't be blank"]
-    result['model'].should == ["can't be blank"]
-    result['sensor'].should == ["can't be blank"]
+    result['errors']['mfg'].should == ["can't be blank"]
+    result['errors']['model'].should == ["can't be blank"]
+    result['errors']['sensor'].should == ["can't be blank"]
   end
   
 end

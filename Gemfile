@@ -1,14 +1,14 @@
 source 'http://rubygems.org'
 
 gem 'devise'
-gem 'rails', '3.1.3'
+gem 'rails', '3.2.0rc1'
 gem 'pg'
 gem 'json'
 gem 'haml'
 
+gem 'backbone-rails'
 gem "carrierwave", "~> 0.5.8"
 gem "delayed_job", "~> 2.1.4"
-gem 'backbone-rails'
 gem 'decent_exposure'
 gem 'spatial_adapter', :git => 'https://github.com/Empact/spatial_adapter.git'
 gem 'will_paginate', '3.0.2'
@@ -16,9 +16,9 @@ gem 'will_paginate', '3.0.2'
 gem 'remotipart', '~> 0.4'
 
 group :assets do
-  gem 'sass-rails',   '~> 3.1.4'
-  gem 'coffee-rails', '~> 3.1.1'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
 end
 
 gem 'jquery-rails'
@@ -27,10 +27,11 @@ gem 'thin'
 group :test do
   gem 'capybara'
   gem 'capybara-webkit'
+  gem 'database_cleaner'
   gem 'fabrication'
   gem 'launchy'
   gem 'pry'
-  gem 'rspec-rails'
+  gem 'rspec-rails', :git => 'https://github.com/rspec/rspec-rails.git'
   gem 'spork', '~> 0.9.0.rc'
   gem 'watchr'
 end

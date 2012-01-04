@@ -8,6 +8,7 @@
     %div.container
       %header
         %h1= link_to "Safecast", root_path, :data => { :pjax => true }
+        - if user_signed_in?
         %nav
           %ul
             %li= link_to 'Submit', '/my/measurements/new', :title => 'Submit a Reading', :data => { :pjax => true }

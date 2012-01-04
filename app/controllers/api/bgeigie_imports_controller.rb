@@ -7,15 +7,12 @@ class Api::BgeigieImportsController < Api::ApplicationController
   end
   
   def create
-    if params[:qqfile].present?
-      binding.pry
-    end
+    bgeigie_import.user = current_user
     if bgeigie_import.save
-      binding.pry
       bgeigie_import.delay.process
       respond_with bgeigie_import, :location => [:api, bgeigie_import]
     else
-      respond_with bgeigie_import.errors
+      respond_with bgeigie_import, :location => [:api, bgeigie_import]
     end
   end
 

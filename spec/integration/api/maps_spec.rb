@@ -41,7 +41,7 @@ feature "/api/maps API endpoint" do
     post('/api/maps.json',{ :auth_token => user.authentication_token })
     
     result = ActiveSupport::JSON.decode(response.body)
-    result['description'].should == ["can't be blank"]
+    result['errors']['description'].should == ["can't be blank"]
     #mfg, model, and sensor are optional, but description is required
   end
   
