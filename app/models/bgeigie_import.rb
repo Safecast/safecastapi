@@ -19,6 +19,7 @@ class BgeigieImport < MeasurementImport
   end
   
   def strip_comments_from_top_of_file
+    binding.pry
     system(%Q[cat #{source.path}  | sed "/^#/d" > #{tmp_file}])
   end
   

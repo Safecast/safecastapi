@@ -5,4 +5,4 @@
 //= require backbone
 //= require backbone.validations
 //= require json2
-//= require fileuploader
+//= require plupload.full

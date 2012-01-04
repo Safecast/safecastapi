@@ -16,15 +16,16 @@ App.Views.Maps.New = App.Views.App.extend
     return @
   
   events:
-    #'submit #file'       : 'manifest'
+    'submit #file'       : 'manifest'
     'submit #manifest'   : 'create'
-    'click #location'    : 'showMap'
-    'keydown #location'  : 'geocodeSearch'
-    'click .gps'         : 'geocodeSearch'
-    'click .unit'        : 'setUnit'
+    '#click #location'    : 'showMap'
+    '#keydown #location'  : 'geocodeSearch'
+    '#click .gps'         : 'geocodeSearch'
+    '#click .unit'        : 'setUnit'
 
     
   manifest: (e, data) ->
+    console.log data
     
     false
 

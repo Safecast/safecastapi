@@ -24,20 +24,7 @@ App.Routers.Maps = Backbone.Router.extend
     #if window.hasOwnProperty('google')
     #  window.map = new window.google.maps.Map(document.getElementById("map_canvas"), myOptions)
     #don't really like this logic here, but it's the only way to guarantee that the DOM elements are there
-    @newMapView.uploader = new qq.FileUploader
-      element: document.getElementById('valumUploader')
-      action: '/api/bgeigie_imports.json'
-      allowedExtensions: ['log']
-      debug: true
-      multiple: false
-      onSubmit: (id, file) ->
-        @params = 
-          auth_token: 'f000'
-          bgeigie_import: 
-            source: 'shouldbedifferent'
-        true
-      onComplete: (id, file, response) ->
-        console.log(response)
+    
         
   
   index: ->

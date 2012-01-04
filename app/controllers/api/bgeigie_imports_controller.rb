@@ -7,8 +7,11 @@ class Api::BgeigieImportsController < Api::ApplicationController
   end
   
   def create
-    binding.pry
-    if bgeigie_import.save 
+    if params[:qqfile].present?
+      binding.pry
+    end
+    if bgeigie_import.save
+      binding.pry
       bgeigie_import.delay.process
       respond_with bgeigie_import, :location => [:api, bgeigie_import]
     else
