@@ -1,0 +1,22 @@
+%section.brief
+  %header
+    %h2 Contribute your Measurement
+  = form_for [:my, Measurement.new], :url => [:my, :measurements, :manifest], :html => {:method => :get, :autocomplete => 'off'} do |f|
+    %fieldset.level-reading
+      .field.reading
+        = f.label :value, 'Radiation Level'
+        = f.text_field :value, { :class => 'level digit', :value => '{{value}}' }
+        %ul.units
+          %li.unit.cpm.selected{"data-value" => "cpm"}
+            Clicks per Minute
+          %li.unit.microsievert{"data-value" => "microsievert"}
+            MicroSieverts per Hour
+      .field.location
+        = f.label :location_name, "Location"
+        = f.text_field :location_name, { :id => 'location', :value => '{{location_name}}' }
+        %ul.units
+          %li.gps.selected Location
+        #map_canvas.map
+    %fieldset
+      %p.button
+        %input{:type => "submit", :value => "Submit"}

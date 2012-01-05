@@ -6,7 +6,7 @@ feature "User Submits Reading" do
   let(:user) { User.find_by_email('paul@rslw.com') }
   let(:measurement) { user.measurements.last }
   
-  scenario "First Reading", :js => true do
+  scenario "First Reading" do
     visit('/')
     click_link('Submit')
     fill_in('Radiation Level', :with => '123')

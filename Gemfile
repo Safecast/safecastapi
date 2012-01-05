@@ -10,6 +10,7 @@ gem 'backbone-rails'
 gem "carrierwave", "~> 0.5.8"
 gem "delayed_job", "~> 2.1.4"
 gem 'decent_exposure'
+gem 'mustache'
 gem 'spatial_adapter', :git => 'https://github.com/Empact/spatial_adapter.git'
 gem 'will_paginate', '3.0.2'
 
