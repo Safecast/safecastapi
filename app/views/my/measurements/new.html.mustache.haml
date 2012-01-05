@@ -6,6 +6,7 @@
       .field.reading
         = f.label :value, 'Radiation Level'
         = f.text_field :value, { :class => 'level digit', :value => '{{value}}' }
+        = f.hidden_field :unit, :value => '{{unit}}'
         %ul.units
           %li.unit.cpm.selected{"data-value" => "cpm"}
             Clicks per Minute
@@ -13,7 +14,7 @@
             MicroSieverts per Hour
       .field.location
         = f.label :location_name, "Location"
-        = f.text_field :location_name, { :id => 'location', :value => '{{location_name}}' }
+        = f.text_field :location_name, { :value => '{{location_name}}' }
         %ul.units
           %li.gps.selected Location
         #map_canvas.map

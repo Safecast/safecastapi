@@ -6,4 +6,8 @@ class My::Measurements::New < Mustachio
   def location_name
     measurement.location_name || 'Tokyo'
   end
+  
+  def unit
+    measurement.unit || 'cpm'
+  end
 end

@@ -2,18 +2,23 @@
   %header
     %h2 Review your Submission
   %form#manifest.manifest{:action => "/my/measurements"}
+  = form_for [:my, Measurement.new(params[:measurement])] do |f|
+    \{{#error_messages}}
+    \  {{message}}
+    \{{/error_messages}}
     %fieldset
       %header
         %h3 Reading
       .field
         %label{:for => "reading"} Reading
-        %input#level.digit{:name => "value", :placeholder => "000", :type => "text", :value => "{{value}}"}/
+        = f.text_field :value, :placeholder => '000', :value => '{{value}}'
       .field
         %label{:for => "unit"} Units
-        %input#unit{:name => "unit", :placeholder => "", :type => "text", :value => "{{unit}}"}/
+        = f.text_field :unit, :placeholder => '', :value => '{{unit}}'
       .field
         %label{:for => "location"} Location
-        %input#location{:name => "location", :placeholder => "", :type => "text", :value => "{{location_name}}"}/
+        = f.text_field :location_name, {:placeholder => '',
+                                       :value => '{{location_name}}'}
       .field
         %label{:for => "latitude"} Latitude
         %input#latitude{:name => "latitude", :placeholder => "", :type => "text", :value => "{{latitude}}"}/
