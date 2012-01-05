@@ -1,7 +1,0 @@
-<%= content_for :additional_javascripts do %>
-  <script>
-    jQuery(function(){
-      App.currentMeasurement = new App.Models.Measurement(<%= raw measurement.to_json %>)
-    })
-  </script>
-<%- end -%>
