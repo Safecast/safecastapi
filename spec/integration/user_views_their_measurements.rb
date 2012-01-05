@@ -6,7 +6,7 @@ feature "User Submits Reading" do
   let(:user) { User.find_by_email('paul@rslw.com') }
   let!(:measurement) { Fabricate(:measurement, :user => user, :value => 10101) }
   
-  scenario "First Reading", :js => true do
+  scenario "First Reading" do
     visit('/')
     click_link('My Measurements')
     page.should have_content('10101')

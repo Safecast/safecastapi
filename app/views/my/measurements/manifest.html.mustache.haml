@@ -1,7 +1,6 @@
 %section.brief
   %header
     %h2 Review your Submission
-  %form#manifest.manifest{:action => "/my/measurements"}
   = form_for [:my, Measurement.new(params[:measurement])] do |f|
     \{{#error_messages}}
     \  {{message}}

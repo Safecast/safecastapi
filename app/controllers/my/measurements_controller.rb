@@ -1,9 +1,16 @@
 class My::MeasurementsController < ApplicationController
 
   expose(:measurement)
+  expose(:measurements) { current_user.measurements.page(params[:page]) }
   
   def show
     render :inline => Mustache.render(render_to_string, measurement.attributes)
+  end
+
+  def index
+    render :inline => Mustache.render(render_to_string, {
+      :measurements => measurements.collect { |m| m.attributes }
+    })
   end
   
   def new
