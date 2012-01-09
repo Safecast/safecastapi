@@ -1,33 +1,26 @@
 class My::MeasurementsController < ApplicationController
 
   expose(:measurement)
-  expose(:measurements) { current_user.measurements.page(params[:page]) }
+  expose(:measurements) { current_user.measurements }
   
   def show
-    render :inline => Mustache.render(render_to_string, measurement.attributes)
+    render :inline => Mustache.render(render_to_string, measurement.serializable_hash)
   end
 
   def index
     render :inline => Mustache.render(render_to_string, {
-      :measurements => measurements.collect { |m| m.attributes }
+      :measurements => measurements.collect { |m| m.serializable_hash }
     })
   end
   
   def new
-    render :inline => My::Measurements::New.new(self).render(render_to_string)
+    measurement.value = '000'
+    measurement.location_name = 'Tokyo'
+    measurement.unit = 'cpm'
+    render :inline => Mustache.render(render_to_string, measurement.serializable_hash)
   end
   
   def manifest
-    render :inline => Mustache.render(render_to_string, measurement.attributes)
-  end
-  
-  def create
-    measurement.user = current_user
-    if measurement.save
-      redirect_to [:my, measurement]
-    else
-      error_messages = measurement.errors.full_messages.map { |m| {:message => m}}
-      render :inline => Mustache.render(render_to_string(:action => :manifest), measurement.attributes.merge({:error_messages => error_messages}))
-    end
+    render :inline => Mustache.render(render_to_string, measurement.serializable_hash)
   end
 end

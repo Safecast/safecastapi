@@ -15,7 +15,7 @@ class Measurement < ActiveRecord::Base
   
   has_one :device
   
-  def serializable_hash(options)
+  def serializable_hash(options = {})
     options ||= {}
     super(options.merge(:only => [
       :id, :value, :user_id, :latitude, :longitude,

@@ -1,6 +1,7 @@
 class Api::MeasurementsController < Api::ApplicationController
   
   before_filter :authenticate_user!, :only => [:create, :update]
+  respond_to :html, :only => :create
   
   expose(:measurement)
   
@@ -64,7 +65,7 @@ class Api::MeasurementsController < Api::ApplicationController
       measurement.save
     end
     map.measurements<< measurement if map   #this could be done by calling add_to_map, but that seems misleading
-    respond_with measurement, :location => [:api, measurement]
+    respond_with measurement, :location => [:my, measurement]
   end
   
   

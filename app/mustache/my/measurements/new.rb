@@ -1,4 +1,9 @@
 class My::Measurements::New < Mustachio
+  
+  def id
+    measurement.id
+  end
+  
   def value
     measurement.value || '000'
   end
