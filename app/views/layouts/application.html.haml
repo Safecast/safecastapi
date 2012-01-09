@@ -11,10 +11,12 @@
         - if user_signed_in?
           %nav
             %ul
-              %li= link_to 'My Measurements', [:my, :measurements],
-                                              :title => 'My Measurements',
-                                              :data => { :pjax => true }
-              %li= link_to 'Submit', '/my/measurements/new', :title => 'Submit a Reading', :data => { :pjax => true }
+              %li
+                = link_to [:my, :measurements], :title => 'Measurements' do
+                  Measurements
+              %li
+                = link_to '/my/measurements/new', :title => 'Submit a Reading' do
+                  Submit
               %li= link_to 'Sign out', logout_path
       %div#page
       = yield
