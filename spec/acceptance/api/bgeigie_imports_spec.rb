@@ -16,7 +16,7 @@ feature "/api/bgeigie_imports API endpoint" do
     })
   end
   
-  context "just an uplaod" do
+  context "just an upload" do
     scenario "response should be unprocessed" do
       @result['id'].should_not be_blank
       @result['status'].should == 'unprocessed'

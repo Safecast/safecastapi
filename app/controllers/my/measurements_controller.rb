@@ -30,8 +30,4 @@ class My::MeasurementsController < ApplicationController
       render :inline => Mustache.render(render_to_string(:action => :manifest), measurement.attributes.merge({:error_messages => error_messages}))
     end
   end
-  
-  
-  
-  
 end
