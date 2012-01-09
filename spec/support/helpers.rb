@@ -12,11 +12,12 @@ module Helpers
   def sign_in_user(email = 'paul@rslw.com',
                    name = 'Paul Campbell',
                    password = 'mynewpassword')
-    Fabricate(:user, :email => email, :name => name, :password => password)
+    user = Fabricate(:user, :email => email, :name => name, :password => password)
     visit('/')
     fill_in("Email",    :with => email)
     fill_in("Password", :with => password)
     click_button('Sign in')
+    user
   end
   
   def api_get(*args)

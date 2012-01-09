@@ -11,6 +11,7 @@ Safecast::Application.routes.draw do
   
   namespace :my do
     resource :dashboard
+    resource :profile
     
     resources :measurements do
       collection do
