@@ -111,7 +111,10 @@ GEM
       ruby_parser (>= 2.3.1)
     mime-types (1.17.2)
     multi_json (1.0.4)
+<<<<<<< HEAD
     mustache (0.99.4)
+=======
+>>>>>>> kevin
     nokogiri (1.5.0)
     orm_adapter (0.0.5)
     pg (0.12.1)
@@ -215,9 +218,22 @@ DEPENDENCIES
   mustache
   pg
   pry
+<<<<<<< HEAD
   rails (= 3.2.0rc1)
   rspec-rails!
   sass-rails
+=======
+<<<<<<< HEAD
+  rails (= 3.1.3)
+  remotipart (~> 0.4)
+  rspec-rails
+  sass-rails (~> 3.1.4)
+=======
+  rails (= 3.2.0rc1)
+  rspec-rails!
+  sass-rails
+>>>>>>> master
+>>>>>>> kevin
   spatial_adapter!
   spork (~> 0.9.0.rc)
   thin

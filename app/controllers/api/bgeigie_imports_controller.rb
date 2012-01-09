@@ -8,7 +8,7 @@ class Api::BgeigieImportsController < Api::ApplicationController
   
   def create
     bgeigie_import.user = current_user
-    if bgeigie_import.save 
+    if bgeigie_import.save
       bgeigie_import.delay.process
       respond_with bgeigie_import, :location => [:api, bgeigie_import]
     else

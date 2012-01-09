@@ -13,6 +13,7 @@ Safecast::Application.routes.draw do
     resource :dashboard
     resource :profile
     
+    resources :maps
     resources :measurements do
       collection do
         get :manifest

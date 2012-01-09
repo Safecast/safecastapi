@@ -6,3 +6,4 @@
 //= require backbone
 //= require backbone.validations
 //= require json2
+//= require plupload.full

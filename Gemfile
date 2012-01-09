@@ -14,6 +14,8 @@ gem 'mustache'
 gem 'spatial_adapter', :git => 'https://github.com/Empact/spatial_adapter.git'
 gem 'will_paginate', '3.0.2'
 
+gem 'remotipart', '~> 0.4'
+
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
@@ -35,4 +37,6 @@ group :test do
   gem 'watchr'
 end
 
-gem 'pry', :group => :development
+group :development do
+  gem 'pry'
+end

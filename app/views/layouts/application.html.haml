@@ -18,6 +18,9 @@
                 = link_to [:my, :measurements], :title => 'Measurements' do
                   Measurements
               %li
+                = link_to [:my, :maps], :title => 'Maps'
+                Maps
+              %li
                 = link_to '/my/measurements/new', :title => 'Submit a Reading' do
                   Submit
               %li= link_to 'Sign out', logout_path
