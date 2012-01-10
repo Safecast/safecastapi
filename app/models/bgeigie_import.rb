@@ -12,6 +12,7 @@ class BgeigieImport < MeasurementImport
   def process
     strip_comments_from_top_of_file
     import_to_bgeigie_logs
+    infer_lat_lng_into_bgeigie_logs_from_nmea_location
     import_measurements
     delete_tmp_file
     self.update_attribute 'status', 'done'
@@ -46,11 +47,44 @@ class BgeigieImport < MeasurementImport
   end
   
   def import_measurements
-    self.connection.execute("insert into measurements (user_id, value, unit, created_at, updated_at) select #{self.user_id},cpm,'cpm', now(), now()
+    execution_result = self.connection.execute("insert into measurements (user_id, value, unit, location, created_at, updated_at) select #{self.user_id},cpm,'cpm', computed_location, now(), now()
                              from bgeigie_logs WHERE bgeigie_import_id = #{self.id}")
+  end
+  
+  def infer_lat_lng_into_bgeigie_logs_from_nmea_location
+    bgeigie_logs.each() do |log_entry|
+      latlng = nmea_to_lat_lng(
+        log_entry.latitude_nmea,
+        log_entry.north_south_indicator,
+        log_entry.longitude_nmea,
+        log_entry.east_west_indicator
+      )
+      log_entry.computed_location = Point.new
+      log_entry.computed_location.x = latlng[:longitude]
+      log_entry.computed_location.y = latlng[:latitude]
+      log_entry.save
+    end
   end
   
   def delete_tmp_file
     File.unlink(tmp_file)
   end
+  
+  
+  private
+  
+  def nmea_to_lat_lng(latitude_nmea, north_south_indicator, longitude_nmea, east_west_indicator)
+    #algorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
+    lat_degrees = (latitude_nmea / 100).to_i
+    lng_degrees = (longitude_nmea / 100).to_i
+    
+    lat_decimal = (latitude_nmea % 100) / 60
+    lng_decimal = (longitude_nmea % 100) / 60
+    
+    {
+      :latitude => lat_degrees + lat_decimal,
+      :longitude => lng_degrees + lng_decimal
+    }
+  end
+  
 end
