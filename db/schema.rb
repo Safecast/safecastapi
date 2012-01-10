@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120103213502) do
+ActiveRecord::Schema.define(:version => 20120110185237) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -29,9 +29,10 @@ ActiveRecord::Schema.define(:version => 20120103213502) do
     t.string   "gps_fix_indicator"
     t.float    "horizontal_dilution_of_precision"
     t.string   "gps_fix_quality_indicator"
-    t.datetime "created_at",                       :default => '1970-01-01 00:00:00', :null => false
-    t.datetime "updated_at",                       :default => '1970-01-01 00:00:00', :null => false
+    t.datetime "created_at",                                    :default => '1970-01-01 00:00:00', :null => false
+    t.datetime "updated_at",                                    :default => '1970-01-01 00:00:00', :null => false
     t.integer  "bgeigie_import_id"
+    t.point    "computed_location",                :limit => 0,                                                    :srid => 4326, :geographic => true
   end
 
   create_table "delayed_jobs", :force => true do |t|
