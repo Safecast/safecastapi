@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120116133915) do
+ActiveRecord::Schema.define(:version => 20120116134744) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -33,7 +33,10 @@ ActiveRecord::Schema.define(:version => 20120116133915) do
     t.datetime "updated_at",                                    :default => '1970-01-01 00:00:00', :null => false
     t.integer  "bgeigie_import_id"
     t.point    "computed_location",                :limit => 0,                                                    :srid => 4326, :geographic => true
+    t.string   "md5sum"
   end
+
+  add_index "bgeigie_logs", ["md5sum"], :name => "index_bgeigie_logs_on_md5sum", :unique => true
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -98,9 +101,11 @@ ActiveRecord::Schema.define(:version => 20120116133915) do
     t.integer  "replaced_by"
     t.integer  "updated_by"
     t.integer  "measurement_import_id"
+    t.string   "md5sum"
   end
 
   add_index "measurements", ["device_id"], :name => "index_measurements_on_device_id"
+  add_index "measurements", ["md5sum"], :name => "index_measurements_on_md5sum", :unique => true
   add_index "measurements", ["measurement_import_id"], :name => "index_measurements_on_measurement_import_id"
   add_index "measurements", ["original_id"], :name => "index_measurements_on_original_id"
   add_index "measurements", ["user_id"], :name => "index_measurements_on_user_id"

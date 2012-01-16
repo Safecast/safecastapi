@@ -27,12 +27,11 @@ class BgeigieImport < MeasurementImport
     })
   end
   
-  def create_tmp_file
-    
-  end
-  
   def strip_comments_from_top_of_file
-    system(%Q[cat #{source.path}  | sed "/^#/d" > #{tmp_file}])
+    system(%Q[cat #{source.path}  | sed "/^#/d" | #{Rails.root.join(
+      'script',
+      'add_checksum_to_each_line'
+      )} > #{tmp_file}])
   end
   
   def import_to_bgeigie_logs
@@ -46,18 +45,21 @@ class BgeigieImport < MeasurementImport
                             north_south_indicator, longitude_nmea,
                             east_west_indicator, altitude, gps_fix_indicator,
                             horizontal_dilution_of_precision,
-                            gps_fix_quality_indicator)
+                            gps_fix_quality_indicator,md5sum)
                             FROM '#{tmp_file}' CSV
                             ])
    self.connection.execute(%Q[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
-   self.connection.execute(%Q[INSERT INTO bgeigie_logs SELECT * FROM bgeigie_logs_tmp])
+   self.connection.execute(%Q[INSERT INTO bgeigie_logs SELECT * FROM bgeigie_logs_tmp where md5sum not in (select md5sum from bgeigie_logs)])
    self.connection.execute("DROP TABLE bgeigie_logs_tmp")
    self.update_attribute(:measurements_count, self.bgeigie_logs.count)
   end
   
   def import_measurements
-    self.connection.execute("insert into measurements (user_id, value, unit, created_at, updated_at, measurement_import_id) select #{self.user_id},cpm,'cpm', now(), now(), #{self.id}
-                             from bgeigie_logs WHERE bgeigie_import_id = #{self.id}")
+    self.connection.execute("insert into measurements
+                             (user_id, value, unit, created_at, updated_at,
+                             measurement_import_id, md5sum)
+                             select #{self.user_id},cpm,'cpm', now(), now(), #{self.id}, md5sum
+                             from bgeigie_logs WHERE bgeigie_import_id = #{self.id} and md5sum not in (select md5sum from measurements)")
   end
   
   def add_measurements_to_map

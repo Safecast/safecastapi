@@ -28,6 +28,11 @@ describe BgeigieImport do
       Measurement.count.should == 23
     end
     
+    it "should not load them twice" do
+      bgeigie_import.process
+      Measurement.count.should == 23
+    end
+    
   end
   
   after(:each) { BgeigieLog.destroy_all }
