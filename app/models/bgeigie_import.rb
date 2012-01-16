@@ -10,11 +10,20 @@ class BgeigieImport < MeasurementImport
   end
   
   def process
+    create_map
     strip_comments_from_top_of_file
     import_to_bgeigie_logs
     import_measurements
+    add_measurements_to_map
     delete_tmp_file
     self.update_attribute 'status', 'done'
+  end
+  
+  def create_map
+    @map = user.maps.create!({
+      :name => 'bGeigie Import',
+      :description => 'bGeigie Import'
+    })
   end
   
   def create_tmp_file
@@ -46,8 +55,14 @@ class BgeigieImport < MeasurementImport
   end
   
   def import_measurements
-    self.connection.execute("insert into measurements (user_id, value, unit, created_at, updated_at) select #{self.user_id},cpm,'cpm', now(), now()
+    self.connection.execute("insert into measurements (user_id, value, unit, created_at, updated_at, measurement_import_id) select #{self.user_id},cpm,'cpm', now(), now(), #{self.id}
                              from bgeigie_logs WHERE bgeigie_import_id = #{self.id}")
+  end
+  
+  def add_measurements_to_map
+    self.connection.execute(%Q[insert into maps_measurements (map_id, measurement_id)
+                                select #{@map.id}, id from measurements
+                                where measurement_import_id = #{self.id}])
   end
   
   def delete_tmp_file

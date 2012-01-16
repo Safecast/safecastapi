@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120103213502) do
+ActiveRecord::Schema.define(:version => 20120116133915) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -86,19 +86,21 @@ ActiveRecord::Schema.define(:version => 20120103213502) do
   create_table "measurements", :force => true do |t|
     t.integer  "user_id"
     t.integer  "value"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "unit"
-    t.point    "location",      :limit => 0,                 :srid => 4326, :geographic => true
+    t.point    "location",              :limit => 0,                 :srid => 4326, :geographic => true
     t.string   "location_name"
     t.integer  "device_id"
     t.integer  "original_id"
     t.datetime "expired_at"
     t.integer  "replaced_by"
     t.integer  "updated_by"
+    t.integer  "measurement_import_id"
   end
 
   add_index "measurements", ["device_id"], :name => "index_measurements_on_device_id"
+  add_index "measurements", ["measurement_import_id"], :name => "index_measurements_on_measurement_import_id"
   add_index "measurements", ["original_id"], :name => "index_measurements_on_original_id"
   add_index "measurements", ["user_id"], :name => "index_measurements_on_user_id"
 
