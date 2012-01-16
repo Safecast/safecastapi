@@ -1,4 +1,6 @@
 class Api::BgeigieImportsController < Api::ApplicationController
+  
+  respond_to :html, :only => :create
  
   expose(:bgeigie_import)
   
@@ -10,9 +12,9 @@ class Api::BgeigieImportsController < Api::ApplicationController
     bgeigie_import.user = current_user
     if bgeigie_import.save
       bgeigie_import.delay.process
-      respond_with bgeigie_import, :location => [:api, bgeigie_import]
+      respond_with bgeigie_import, :location => [:my, bgeigie_import]
     else
-      respond_with bgeigie_import, :location => [:api, bgeigie_import]
+      respond_with bgeigie_import.errors, :location => [:my, bgeigie_import]
     end
   end
 

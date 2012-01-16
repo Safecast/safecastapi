@@ -1,0 +1,5 @@
+%h2= @map.name
+
+- @map.measurements.each do |measurement|
+  = measurement.latitude
+  = measurement.longitude

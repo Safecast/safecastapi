@@ -9,10 +9,13 @@ Safecast::Application.routes.draw do
     get "/logout" => "devise/sessions#destroy", :as => :logout
   end
   
+  resources :maps
+  
   namespace :my do
     resource :dashboard
     resource :profile
     
+    resources :bgeigie_imports
     resources :maps
     resources :measurements do
       collection do
