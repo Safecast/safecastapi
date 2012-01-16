@@ -73,9 +73,9 @@ class BgeigieImport < MeasurementImport
   
   def import_measurements
     self.connection.execute("insert into measurements
-                             (user_id, value, unit, created_at, updated_at,
+                             (user_id, value, unit, created_at, updated_at, captured_at,
                              measurement_import_id, md5sum, location)
-                             select #{self.user_id},cpm,'cpm', now(), now(),
+                             select #{self.user_id},cpm,'cpm', now(), now(), captured_at,
                              #{self.id}, md5sum, computed_location
                              from bgeigie_logs WHERE
                              bgeigie_import_id = #{self.id}

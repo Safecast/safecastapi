@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120116144757) do
+ActiveRecord::Schema.define(:version => 20120116150229) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(:version => 20120116144757) do
     t.integer  "updated_by"
     t.integer  "measurement_import_id"
     t.string   "md5sum"
+    t.datetime "captured_at"
   end
 
   add_index "measurements", ["device_id"], :name => "index_measurements_on_device_id"

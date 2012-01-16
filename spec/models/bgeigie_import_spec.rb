@@ -37,9 +37,10 @@ describe BgeigieImport do
       bgeigie_import.reload.map.should have(23).measurements
     end
     
-    it "should set location" do
+    it "should set measurement attributes" do
       measurement = Measurement.find_by_md5sum('6750a7cf2a630c2dde416dc7d138fa74')
       measurement.location.should_not be_blank
+      measurement.captured_at.should_not be_blank
     end
     
   end

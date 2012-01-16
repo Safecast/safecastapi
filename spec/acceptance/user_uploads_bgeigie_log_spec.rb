@@ -9,8 +9,8 @@ feature "User uploads bgeigie log" do
     visit('/')
     click_link('Measurements')
     click_link('Upload bGeigie log file')
-    attach_file("File", path)
-    click_button("Submit")
+    attach_file("File", Rails.root.join('spec', 'fixtures', 'bgeigie.log'))
+    click_button("Upload")
     Delayed::Worker.new.work_off 
     click_link('Maps')
     page.should have_content("bGeigie Import")
