@@ -67,10 +67,6 @@ class Api::MeasurementsController < Api::ApplicationController
     map.measurements<< measurement if map   #this could be done by calling add_to_map, but that seems misleading
     respond_with measurement, :location => [:my, measurement]
   end
-  
-  
-  @api_doc = {
-    :test = "An API doc test for Measurements"
-  }
+
   
 end

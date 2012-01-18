@@ -24,8 +24,4 @@ class Api::UsersController < Api::ApplicationController
     respond_with output
   end
   
-  @api_doc = {
-    :test = "An API doc test for Users"
-  }
-  
 end

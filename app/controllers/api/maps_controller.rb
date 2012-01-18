@@ -39,10 +39,7 @@ class Api::MapsController < Api::ApplicationController
     map.save
     respond_with(:api, map)
   end
-  
-  @api_doc = {
-    :test = "An API doc test for Maps"
-  }
+
 
   
 end

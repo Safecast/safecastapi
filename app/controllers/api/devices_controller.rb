@@ -31,10 +31,6 @@ class Api::DevicesController < Api::ApplicationController
     respond_with device
   end
   
-  
-  @api_doc = {
-    :test = "An API doc test for Devices"
-  }
 
   
 end
