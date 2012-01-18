@@ -12,6 +12,12 @@ class Api::DevicesController < Api::ApplicationController
     end
   end
   
+  # Public: List all devices in the Safecast database
+  #
+  # page              - Page number to retrieve
+  # devices_per_page  - Number of devices to include in one page
+  # where             - Hash of search parameters a device must match to be returned:
+  #                     :manufacturer - The device's manufacturer
   def index
     respond_with devices
   end
@@ -25,6 +31,10 @@ class Api::DevicesController < Api::ApplicationController
     respond_with device
   end
   
+  
+  @api_doc = {
+    :test = "An API doc test for Devices"
+  }
 
   
 end

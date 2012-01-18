@@ -34,7 +34,6 @@ Safecast::Application.routes.draw do
         get 'finger'
         get 'auth'
       end
-      
     end
     
     resources :devices
@@ -47,6 +46,8 @@ Safecast::Application.routes.draw do
         end
       end
     end
+    
+    root :to => "Application#api_root"
     
   end
   

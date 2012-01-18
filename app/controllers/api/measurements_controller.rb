@@ -69,4 +69,8 @@ class Api::MeasurementsController < Api::ApplicationController
   end
   
   
+  @api_doc = {
+    :test = "An API doc test for Measurements"
+  }
+  
 end
