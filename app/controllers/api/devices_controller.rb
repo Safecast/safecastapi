@@ -7,25 +7,48 @@ class Api::DevicesController < Api::ApplicationController
   expose(:devices) do
     if params[:where].present?
       Device.where(params[:where])
-    else
+    elsif params[:page].present?
       Device.page(params[:page])
+    else
+      Device.page(0)
     end
   end
   
-  # Public: List all devices in the Safecast database
+  ##
+  # List all of the *device* resources in the Safecast database
   #
-  # page              - Page number to retrieve
-  # devices_per_page  - Number of devices to include in one page
-  # where             - Hash of search parameters a device must match to be returned:
-  #                     :manufacturer - The device's manufacturer
+  # @url [GET] /api/devices
+  #
+  # @argument [String] where Hash of search parameters a device must match to be returned:
+  #   Valid fields in the hash are "manufacturer", "model", and "sensor"
+  # @argument [Integer] page Results are paginated 
+  # @argument [Integer] page_size Number of devices to include in one page
+  #
   def index
     respond_with devices
   end
   
+  ##
+  # Retrieve the *device* resource referenced by the provided id
+  #
+  # @url [GET] /api/devices/:id[.format]
+  #
+  # @response_field [String] manufacturer The device's manufacturer
+  # @response_field [String] model The model number of the device, provided by the manufacturer
+  # @response_field [String] sensor The type or model of sensor element used in the device
+  #
   def show
     respond_with device
   end
   
+  ##
+  # Create a new *device* resource
+  #
+  # @url [POST] /api/devices
+  #
+  # @argument [String] manufacturer The device's manufacturer
+  # @argument [String] model The model number of the device, provided by the manufacturer
+  # @argument [String] sensor The type or model of sensor element used in the device
   def create
     device = Device.get_or_create(params[:device])
     respond_with device
