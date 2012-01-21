@@ -1,3 +1,8 @@
+##
+# The Measurement service facilitates posting and retrieving Safecast Measurements.
+# @url /api/measurements
+# @topic Measurements
+#
 class Api::MeasurementsController < Api::ApplicationController
   
   before_filter :authenticate_user!, :only => [:create, :update]

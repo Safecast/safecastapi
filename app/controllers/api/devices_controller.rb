@@ -1,3 +1,8 @@
+##
+# The Device service facilitates creation and retrieval of measurement devices.
+# @url /api/devices
+# @topic Devices
+#
 class Api::DevicesController < Api::ApplicationController
   
   before_filter :authenticate_user!, :only => :create

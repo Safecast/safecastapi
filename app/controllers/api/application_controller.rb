@@ -1,3 +1,9 @@
+##
+# The Safecast API allows developers and devices to access our measurement database
+# @url /api
+# @topic Safecast API Root
+#
+# 
 module Api
   class ApplicationController < ::ApplicationController
     respond_to :json, :xml, :safecast_api_v1_json, :safecast_api_v1_xml

@@ -1,5 +1,5 @@
 ##
-# The bGeigie Import service let you upload bGeigie log files.  The service
+# The bGeigie Import facilitates bGeigie log file uploading.  The service
 # automatically generates Measurement resources for each measurement in the
 # log file, and a Map that contains all of the measurements.
 # @url /api/bgeigie_imports
