@@ -1,0 +1,7 @@
+%h2 Upload a bGeigie log file
+
+= form_for [:api, @bgeigie_import] do |f|
+  
+  = f.label :source, 'File'
+  = f.file_field :source
+  = f.submit 'Upload'

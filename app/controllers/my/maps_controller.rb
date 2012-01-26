@@ -4,5 +4,8 @@ class My::MapsController < ApplicationController
   def new
     render 'my/dashboards/show'
   end
-  alias_method :index, :new
+  
+  def index
+    @maps = current_user.maps
+  end
 end

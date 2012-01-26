@@ -1,0 +1,8 @@
+%h2 My maps
+
+- if @maps.empty?
+  %p No maps found.
+- else
+  %ul
+    - @maps.each do |map|
+      %li= link_to(map.name, map)

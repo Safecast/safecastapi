@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   
   include UserConcerns
-  
+
+  has_many :bgeigie_imports
   has_many :measurements
   has_many :maps
   

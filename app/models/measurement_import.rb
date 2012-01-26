@@ -1,5 +1,7 @@
 class MeasurementImport < ActiveRecord::Base
   validates :source, :presence => true
+  
+  belongs_to :map
 
   mount_uploader :source, FileUploader
 

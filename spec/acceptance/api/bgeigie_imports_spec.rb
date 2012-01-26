@@ -44,6 +44,12 @@ feature "/api/bgeigie_imports API endpoint" do
     scenario "it should have imported a bunch of measurements" do
       updated_result['measurements_count'].should == 23
     end
+    
+    it "should create a map" do
+      @user.should have(1).maps
+      map = @user.maps.first
+      map.name.should == "bGeigie Import"
+      map.should have(23).measurements
+    end
   end
-  
 end

@@ -1,6 +1,7 @@
 class BgeigieImport < MeasurementImport
   
   validates :user, :presence => true
+  validates :source, :presence => true
   
   belongs_to :user
   has_many :bgeigie_logs
@@ -10,20 +11,29 @@ class BgeigieImport < MeasurementImport
   end
   
   def process
+    create_map
     strip_comments_from_top_of_file
     import_to_bgeigie_logs
     infer_lat_lng_into_bgeigie_logs_from_nmea_location
     import_measurements
+    add_measurements_to_map
     delete_tmp_file
     self.update_attribute 'status', 'done'
   end
   
-  def create_tmp_file
-    
+  def create_map
+    @map = user.maps.create!({
+      :name => 'bGeigie Import',
+      :description => 'bGeigie Import'
+    })
+    self.update_attribute(:map, @map)
   end
   
   def strip_comments_from_top_of_file
-    system(%Q[cat #{source.path}  | sed "/^#/d" > #{tmp_file}])
+    system(%Q[cat #{source.path}  | sed "/^#/d" | #{Rails.root.join(
+      'script',
+      'add_checksum_to_each_line'
+      )} > #{tmp_file}])
   end
   
   def import_to_bgeigie_logs
@@ -37,18 +47,13 @@ class BgeigieImport < MeasurementImport
                             north_south_indicator, longitude_nmea,
                             east_west_indicator, altitude, gps_fix_indicator,
                             horizontal_dilution_of_precision,
-                            gps_fix_quality_indicator)
+                            gps_fix_quality_indicator,md5sum)
                             FROM '#{tmp_file}' CSV
                             ])
    self.connection.execute(%Q[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
-   self.connection.execute(%Q[INSERT INTO bgeigie_logs SELECT * FROM bgeigie_logs_tmp])
+   self.connection.execute(%Q[INSERT INTO bgeigie_logs SELECT * FROM bgeigie_logs_tmp where md5sum not in (select md5sum from bgeigie_logs)])
    self.connection.execute("DROP TABLE bgeigie_logs_tmp")
    self.update_attribute(:measurements_count, self.bgeigie_logs.count)
-  end
-  
-  def import_measurements
-    self.connection.execute("insert into measurements (user_id, value, unit, location, created_at, updated_at) select #{self.user_id},cpm,'cpm', computed_location, now(), now()
-                             from bgeigie_logs WHERE bgeigie_import_id = #{self.id}")
   end
   
   def infer_lat_lng_into_bgeigie_logs_from_nmea_location
@@ -64,6 +69,23 @@ class BgeigieImport < MeasurementImport
       log_entry.computed_location.y = latlng[:latitude]
       log_entry.save
     end
+  end
+  
+  def import_measurements
+    self.connection.execute("insert into measurements
+                             (user_id, value, unit, created_at, updated_at, captured_at,
+                             measurement_import_id, md5sum, location)
+                             select #{self.user_id},cpm,'cpm', now(), now(), captured_at,
+                             #{self.id}, md5sum, computed_location
+                             from bgeigie_logs WHERE
+                             bgeigie_import_id = #{self.id}
+                             and md5sum not in (select md5sum from measurements)")
+  end
+  
+  def add_measurements_to_map
+    self.connection.execute(%Q[insert into maps_measurements (map_id, measurement_id)
+                                select #{@map.id}, id from measurements
+                                where measurement_import_id = #{self.id}])
   end
   
   def delete_tmp_file

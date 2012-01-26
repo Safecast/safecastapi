@@ -28,6 +28,21 @@ describe BgeigieImport do
       Measurement.count.should == 23
     end
     
+    it "should not load them twice" do
+      bgeigie_import.process
+      Measurement.count.should == 23
+    end
+    
+    it "should add measurements to the map" do
+      bgeigie_import.reload.map.should have(23).measurements
+    end
+    
+    it "should set measurement attributes" do
+      measurement = Measurement.find_by_md5sum('6750a7cf2a630c2dde416dc7d138fa74')
+      measurement.location.should_not be_blank
+      measurement.captured_at.should_not be_blank
+    end
+    
   end
   
   after(:each) { BgeigieLog.destroy_all }

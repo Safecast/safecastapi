@@ -1,6 +1,11 @@
+= link_to 'Upload bGeigie log file', [:new, :my, :bgeigie_import]
+
 %section.brief
   %h2 My Measurements
   %ul
+    \{{^measurements}}
+    %li You haven't submitted any yet.
+    \{{/measurements}}
     \{{#measurements}}
     %li {{value}} {{location_name}}
     \{{/measurements}}
