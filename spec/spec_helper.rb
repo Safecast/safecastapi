@@ -70,7 +70,7 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
-
+  load "#{Rails.root}/config/routes.rb"
 end
 
 # --- Instructions ---
