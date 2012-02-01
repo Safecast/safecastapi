@@ -15,7 +15,7 @@ class Api::DevicesController < Api::ApplicationController
     elsif params[:page].present?
       Device.page(params[:page])
     else
-      Device.page(0)
+      Device.page(1)
     end
   end
   

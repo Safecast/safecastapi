@@ -8,20 +8,10 @@ GIT
 
 GIT
   remote: https://github.com/rknLA/yard-rest-plugin.git
-  revision: fe897567639ab0b7cc8f980c94bc4aa6e5787bad
+  revision: d973badbebe352457ea9e6a21fe16c53184b5bed
   specs:
-    yard-rest-plugin (0.3.0)
+    yard-rest-plugin (0.2.9)
       yard (~> 0.7.4)
-
-GIT
-  remote: https://github.com/rspec/rspec-rails.git
-  revision: 50a27f2568147a573a69310183c3cd418bea2729
-  specs:
-    rspec-rails (2.8.1)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec (~> 2.8.0)
 
 GEM
   remote: http://rubygems.org/
@@ -75,11 +65,7 @@ GEM
     childprocess (0.3.0)
       ffi (~> 1.0.6)
     coderay (1.0.5)
-<<<<<<< HEAD
-    coffee-rails (3.2.1)
-=======
     coffee-rails (3.2.2)
->>>>>>> 74818bb4b1132c9934e2a7b16a4a22361dbbd348
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
     coffee-script (2.2.0)
@@ -130,11 +116,7 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.7)
       slop (>= 2.4.3, < 3)
-<<<<<<< HEAD
-    rack (1.3.6)
-=======
     rack (1.4.1)
->>>>>>> 74818bb4b1132c9934e2a7b16a4a22361dbbd348
     rack-cache (1.1)
       rack (>= 0.4)
     rack-ssl (1.3.2)
@@ -168,12 +150,6 @@ GEM
     rspec-expectations (2.8.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
-<<<<<<< HEAD
-    rubyzip (0.9.5)
-    sass (3.1.12)
-    sass-rails (3.2.3)
-      railties (~> 3.2.0.beta)
-=======
     rspec-rails (2.8.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -183,7 +159,6 @@ GEM
     sass (3.1.12)
     sass-rails (3.2.4)
       railties (~> 3.2.0)
->>>>>>> 74818bb4b1132c9934e2a7b16a4a22361dbbd348
       sass (>= 3.1.10)
       tilt (~> 1.3)
     selenium-webdriver (2.18.0)
