@@ -3,9 +3,13 @@
 %section.brief
   %h2 My Measurements
   %ul
-    \{{^measurements}}
-    %li You haven't submitted any yet.
-    \{{/measurements}}
-    \{{#measurements}}
-    %li {{value}} {{location_name}}
-    \{{/measurements}}
+    - if @measurements.empty?
+      %li You haven't submitted any yet.
+    - else
+      - @measurements.each do |measurement|
+        %li
+          Value: #{measurement.value}#{measurement.unit} #{measurement.location_name}
+          Latitude: #{measurement.latitude}
+          Longitude: #{measurement.longitude}
+          #{measurement.captured_at}
+  = will_paginate(@measurements)
