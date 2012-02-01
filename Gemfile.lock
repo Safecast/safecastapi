@@ -27,33 +27,31 @@ GEM
   remote: http://rubygems.org/
   specs:
     GeoRuby (1.3.4)
-    actionmailer (3.2.0.rc1)
-      actionpack (= 3.2.0.rc1)
-      mail (~> 2.3.0)
-    actionpack (3.2.0.rc1)
-      activemodel (= 3.2.0.rc1)
-      activesupport (= 3.2.0.rc1)
+    actionmailer (3.2.1)
+      actionpack (= 3.2.1)
+      mail (~> 2.4.0)
+    actionpack (3.2.1)
+      activemodel (= 3.2.1)
+      activesupport (= 3.2.1)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
-      i18n (~> 0.6)
-      journey (~> 1.0.0.rc1)
-      rack (~> 1.3.5)
+      journey (~> 1.0.1)
+      rack (~> 1.4.0)
       rack-cache (~> 1.1)
       rack-test (~> 0.6.1)
       sprockets (~> 2.1.2)
-    activemodel (3.2.0.rc1)
-      activesupport (= 3.2.0.rc1)
+    activemodel (3.2.1)
+      activesupport (= 3.2.1)
       builder (~> 3.0.0)
-      i18n (~> 0.6)
-    activerecord (3.2.0.rc1)
-      activemodel (= 3.2.0.rc1)
-      activesupport (= 3.2.0.rc1)
-      arel (~> 3.0.0.rc1)
+    activerecord (3.2.1)
+      activemodel (= 3.2.1)
+      activesupport (= 3.2.1)
+      arel (~> 3.0.0)
       tzinfo (~> 0.3.29)
-    activeresource (3.2.0.rc1)
-      activemodel (= 3.2.0.rc1)
-      activesupport (= 3.2.0.rc1)
-    activesupport (3.2.0.rc1)
+    activeresource (3.2.1)
+      activemodel (= 3.2.1)
+      activesupport (= 3.2.1)
+    activesupport (3.2.1)
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.2.6)
@@ -77,9 +75,13 @@ GEM
     childprocess (0.3.0)
       ffi (~> 1.0.6)
     coderay (1.0.5)
+<<<<<<< HEAD
     coffee-rails (3.2.1)
+=======
+    coffee-rails (3.2.2)
+>>>>>>> 74818bb4b1132c9934e2a7b16a4a22361dbbd348
       coffee-script (>= 2.2.0)
-      railties (~> 3.2.0.beta)
+      railties (~> 3.2.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -112,7 +114,7 @@ GEM
     json (1.6.5)
     launchy (2.0.5)
       addressable (~> 2.2.6)
-    mail (2.3.0)
+    mail (2.4.1)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -128,24 +130,28 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.7)
       slop (>= 2.4.3, < 3)
+<<<<<<< HEAD
     rack (1.3.6)
+=======
+    rack (1.4.1)
+>>>>>>> 74818bb4b1132c9934e2a7b16a4a22361dbbd348
     rack-cache (1.1)
       rack (>= 0.4)
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
-    rails (3.2.0.rc1)
-      actionmailer (= 3.2.0.rc1)
-      actionpack (= 3.2.0.rc1)
-      activerecord (= 3.2.0.rc1)
-      activeresource (= 3.2.0.rc1)
-      activesupport (= 3.2.0.rc1)
+    rails (3.2.1)
+      actionmailer (= 3.2.1)
+      actionpack (= 3.2.1)
+      activerecord (= 3.2.1)
+      activeresource (= 3.2.1)
+      activesupport (= 3.2.1)
       bundler (~> 1.0)
-      railties (= 3.2.0.rc1)
-    railties (3.2.0.rc1)
-      actionpack (= 3.2.0.rc1)
-      activesupport (= 3.2.0.rc1)
+      railties (= 3.2.1)
+    railties (3.2.1)
+      actionpack (= 3.2.1)
+      activesupport (= 3.2.1)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
@@ -162,10 +168,22 @@ GEM
     rspec-expectations (2.8.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
+<<<<<<< HEAD
     rubyzip (0.9.5)
     sass (3.1.12)
     sass-rails (3.2.3)
       railties (~> 3.2.0.beta)
+=======
+    rspec-rails (2.8.1)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec (~> 2.8.0)
+    rubyzip (0.9.5)
+    sass (3.1.12)
+    sass-rails (3.2.4)
+      railties (~> 3.2.0)
+>>>>>>> 74818bb4b1132c9934e2a7b16a4a22361dbbd348
       sass (>= 3.1.10)
       tilt (~> 1.3)
     selenium-webdriver (2.18.0)
@@ -212,7 +230,7 @@ DEPENDENCIES
   database_cleaner
   decent_exposure
   delayed_job (~> 2.1.4)
-  devise
+  devise (~> 2.0.0)
   fabrication
   haml
   jquery-rails
@@ -221,9 +239,9 @@ DEPENDENCIES
   mustache
   pg
   pry
-  rails (= 3.2.0rc1)
+  rails (= 3.2.1)
   remotipart (~> 0.4)
-  rspec-rails!
+  rspec-rails (~> 2.8.1)
   sass-rails
   spatial_adapter!
   spork (~> 0.9.0.rc)
