@@ -57,17 +57,19 @@ class BgeigieImport < MeasurementImport
   end
   
   def infer_lat_lng_into_bgeigie_logs_from_nmea_location
-    bgeigie_logs.each() do |log_entry|
-      latlng = nmea_to_lat_lng(
-        log_entry.latitude_nmea,
-        log_entry.north_south_indicator,
-        log_entry.longitude_nmea,
-        log_entry.east_west_indicator
-      )
-      log_entry.computed_location = Point.new
-      log_entry.computed_location.x = latlng[:longitude]
-      log_entry.computed_location.y = latlng[:latitude]
-      log_entry.save
+    transaction do
+      bgeigie_logs.each do |log_entry|
+        latlng = nmea_to_lat_lng(
+          log_entry.latitude_nmea,
+          log_entry.north_south_indicator,
+          log_entry.longitude_nmea,
+          log_entry.east_west_indicator
+        )
+        log_entry.computed_location = Point.new
+        log_entry.computed_location.x = latlng[:longitude]
+        log_entry.computed_location.y = latlng[:latitude]
+        log_entry.save
+      end
     end
   end
   

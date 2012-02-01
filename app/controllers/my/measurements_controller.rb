@@ -6,11 +6,9 @@ class My::MeasurementsController < ApplicationController
   def show
     render :inline => Mustache.render(render_to_string, measurement.serializable_hash)
   end
-
+  
   def index
-    render :inline => Mustache.render(render_to_string, {
-      :measurements => measurements.collect { |m| m.serializable_hash }
-    })
+    @measurements = current_user.measurements.page(params[:page])
   end
   
   def new
