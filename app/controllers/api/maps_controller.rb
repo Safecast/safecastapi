@@ -1,3 +1,8 @@
+# The Map is a way to organize Measurements into sets.  Users can create,
+# customize, and share their own maps.
+# @url /api/maps
+# @topic Maps
+#
 class Api::MapsController < Api::ApplicationController
   
   before_filter :authenticate_user!, :only => :create
@@ -19,10 +24,20 @@ class Api::MapsController < Api::ApplicationController
   expose(:measurement) { Measurement.find(params[:measurement_id]) }
   
   
+  ##
+  # List the available *maps* in the database.
+  #
+  # @url [GET] /api/maps
+  #
   def index
     respond_with maps
   end
   
+  ##
+  # Retrieve the *map* resource referenced by the provided id
+  #
+  # @url [GET] /api/maps/:id
+  #
   def show
     respond_with map
   end

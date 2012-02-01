@@ -26,8 +26,8 @@ gem 'jquery-rails'
 gem 'thin'
 
 # for documentation
-gem 'yard', '0.6.8'
-gem 'yard-rest-plugin', :git => 'https://github.com/AlekSi/yard-rest-plugin.git'
+gem 'yard', '~> 0.7.4'
+gem 'yard-rest-plugin', :git => 'https://github.com/rknLA/yard-rest-plugin.git'
 
 
 group :test do
