@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'devise'
-gem 'rails', '3.2.0rc1'
+gem 'devise', '~> 2.0.0'
+gem 'rails', '3.2.1'
 gem 'pg'
 gem 'json'
 gem 'haml'
@@ -32,7 +32,7 @@ group :test do
   gem 'fabrication'
   gem 'launchy'
   gem 'pry'
-  gem 'rspec-rails', :git => 'https://github.com/rspec/rspec-rails.git'
+  gem 'rspec-rails', '~> 2.8.1'
   gem 'spork', '~> 0.9.0.rc'
   gem 'watchr'
 end
