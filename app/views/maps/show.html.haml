@@ -1,5 +1,7 @@
 %h2= @map.name
 
+= @map.measurements.group("date")
+
 - @map.measurements.each do |measurement|
   = measurement.latitude
   = measurement.longitude

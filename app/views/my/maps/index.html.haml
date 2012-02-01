@@ -5,4 +5,7 @@
 - else
   %ul
     - @maps.each do |map|
-      %li= link_to(map.name, map)
+      %li
+        #{link_to(map.name, map)}
+        #{map.created_at}
+        #{map.measurements.count} measurements
