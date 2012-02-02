@@ -26,6 +26,7 @@ gem 'jquery-rails'
 gem 'thin'
 
 # for documentation
+gem 'redcarpet' #this is a yard-rest dependency apparently, that bundle doesn't seem to see otherwise
 gem 'yard', '~> 0.7.4'
 gem 'yard-rest-plugin', :git => 'https://github.com/rknLA/yard-rest-plugin.git'
 
