@@ -12,7 +12,7 @@ class BgeigieImport < MeasurementImport
 
   def process
     create_map
-    strip_comments_from_top_of_file
+    process_source_file_to_hashed_v2_format
     import_to_bgeigie_logs
     infer_lat_lng_into_bgeigie_logs_from_nmea_location
     import_measurements
@@ -28,12 +28,89 @@ class BgeigieImport < MeasurementImport
     })
     self.update_attribute(:map, @map)
   end
-  
-  def strip_comments_from_top_of_file
-    system(%Q[cat #{source.path}  | sed "/^#/d" | #{Rails.root.join(
-      'script',
-      'add_checksum_to_each_line'
-      )} > #{tmp_file}])
+
+  def get_format_processor(first_non_comment_line)
+    # we infer the file format version from the csv width,
+    # files created with format 1.1 are not correctly detected with
+    # this heuristic...
+    # we need to take a deeper look at the first line
+    # type = version.major * 10 + version.minor
+
+    csv_width_to_type = {13 => 1, 14 => 10, 16 => 12, 15 => 1120}
+    first_line = first_non_comment_line.strip.split(',')
+    @type = csv_width_to_type[first_line.size]
+    if @type == 1120
+      if first_line[2] =~ /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/ # this looks like iso8601
+        @type = 20
+      else
+        @type = 11
+      end
+    end
+
+    case @type
+    when 20
+      return lambda {|line| line}
+    when 12
+      return lambda {|line|
+        l = line.split(",")
+        l[2] = "#{l[1]}T#{l[2]}Z"
+        l[1] = nil
+        l.compact*","
+      }
+    when 11
+      return lambda {|line|
+        l = line.split(",")
+        l[2] = "#{l[1]}T#{l[2]}Z"
+        l[1] = 911 # fake device id
+        l*","
+      }
+    when 10
+      return lambda {|line|
+        l = line.split(",")
+        l[2] = "#{l[1]}T#{l[2]}Z"
+        l[1] = 910 # fake device id
+        l.insert(11, 0) # fake altitude
+        l*","
+      }
+    when 1
+      return lambda {|line|
+        l = line.split(",")
+        cpm = l[2].to_f
+        [
+         "$formatv1",
+         901,
+         "#{l[1]}T#{l[2]}Z",
+         l[2],
+         (cpm / 10.0).to_s,
+         (cpm * 5.0).to_s,
+         "A",
+         l[3..6],
+         l[10],
+        "A",
+         l[9],
+         1
+       ].flatten*","
+      }
+    end
+  end
+
+  def process_source_file_to_hashed_v2_format
+    to_v2 = nil
+    File::open(source.path) do |f_in|
+      File::open(tmp_file, 'w') do |f_out|
+        f_in.each do |line|
+          next if line =~ /^#/
+          line.strip!
+          to_v2 = get_format_processor(line) if to_v2.nil?
+          p_line = to_v2(line)
+          f_out.puts([p_line, Digest::MD5.hexdigest(p_line)]*",")
+        end
+      end
+    end
+    #system(%Q[cat #{source.path} | sed "/^#/d" | #{Rails.root.join(
+    #  'script',
+    #  'add_checksum_to_each_line'
+    #  )} > #{tmp_file}])
   end
 
   def import_to_bgeigie_logs
