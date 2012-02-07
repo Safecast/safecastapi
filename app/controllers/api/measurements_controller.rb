@@ -1,3 +1,8 @@
+##
+# The Measurement service facilitates posting and retrieving Safecast Measurements.
+# @url /api/measurements
+# @topic Measurements
+#
 class Api::MeasurementsController < Api::ApplicationController
   
   before_filter :authenticate_user!, :only => [:create, :update]
@@ -25,6 +30,17 @@ class Api::MeasurementsController < Api::ApplicationController
   
   expose(:maps)
   
+  ##
+  # List all of the *measurement* resources in the Safecast database.  There are a lot of measurements in
+  # the system (on the order of millions), so something this general may not actually be what you want.
+  #
+  # @url [GET] /api/measurements
+  #
+  # @argument [Integer] user_id Indicate that results should only include measurements created by this user
+  #   This can be provided manually, or by calling [GET] /api/users/:id/measurements
+  # @argument [Integer] page Results are paginated automatically.  Default is page 1.
+  # @argument [Integer] page_size Number of devices to include in one page.  Default is 10.
+  #
   def index
     if map
       respond_with map.measurements
@@ -33,6 +49,16 @@ class Api::MeasurementsController < Api::ApplicationController
     end
   end
   
+  ##
+  # Retrieve the *measurement* resource indicated by the provided id.
+  #
+  # @url [GET] /api/measurements/:id
+  #
+  # @argument [Integer] user_id Indicate that results should only include measurements created by this user
+  #   This can be provided manually, or by calling [GET] /api/users/:id/measurements
+  # @argument [Integer] page Results are paginated automatically.  Default is page 1.
+  # @argument [Integer] page_size Number of devices to include in one page.  Default is 10.
+  #
   def show
     if params[:withHistory].present? and params[:withHistory]
       measurements = Measurement.where("id = #{params[:id]} OR original_id = #{params[:id]}")
@@ -67,6 +93,6 @@ class Api::MeasurementsController < Api::ApplicationController
     map.measurements<< measurement if map   #this could be done by calling add_to_map, but that seems misleading
     respond_with measurement, :location => [:my, measurement]
   end
-  
+
   
 end

@@ -3,14 +3,14 @@ class Device < ActiveRecord::Base
   has_and_belongs_to_many :maps
   
   
-  validates :mfg,    :presence => true
-  validates :model,  :presence => true, :uniqueness => { :scope => :mfg }
-  validates :sensor, :presence => true
+  validates :manufacturer,    :presence => true
+  validates :model,           :presence => true, :uniqueness => { :scope => :manufacturer }
+  validates :sensor,          :presence => true
   
   def serializable_hash(options)
     options ||= {}
     super(options.merge(:only => [
-      :id, :mfg, :model, :sensor
+      :id, :manufacturer, :model, :sensor
     ]))
   end
   
@@ -20,9 +20,9 @@ class Device < ActiveRecord::Base
       device.save
     else
       d = self.where(
-        :mfg    => device.mfg,
-        :model  => device.model,
-        :sensor => device.sensor
+        :manufacturer   => device.manufacturer,
+        :model          => device.model,
+        :sensor         => device.sensor
       )
       unless d.empty?
         device = d.first

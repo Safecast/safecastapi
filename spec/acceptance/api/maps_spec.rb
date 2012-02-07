@@ -13,20 +13,19 @@ feature "/api/maps API endpoint" do
       :map          => {
         :description    => "This map contains test measurements",
         :device         => {
-          :mfg     => "Safecast",
-          :model   => "bGeigie",
-          :sensor  => "LND-7317"
+          :manufacturer     => "Safecast",
+          :model            => "bGeigie",
+          :sensor           => "LND-7317"
         }
       }
-      
     })
     result = ActiveSupport::JSON.decode(response.body)
     
     d = api_get('/api/devices.json', {
       :device => {
-        :mfg     => "Safecast",
-        :model   => "bGeigie",
-        :sensor  => "LND-7317"
+        :manufacturer     => "Safecast",
+        :model            => "bGeigie",
+        :sensor           => "LND-7317"
       }
     })
     result['description'].should == 'This map contains test measurements'
@@ -42,7 +41,7 @@ feature "/api/maps API endpoint" do
     
     result = ActiveSupport::JSON.decode(response.body)
     result['errors']['description'].should == ["can't be blank"]
-    #mfg, model, and sensor are optional, but description is required
+    #manufacturer, model, and sensor are optional, but description is required
   end
   
 end

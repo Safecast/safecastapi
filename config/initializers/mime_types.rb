@@ -3,3 +3,6 @@
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register_alias "text/html", :iphone
+
+Mime::Type.register "application/safecast.v1+json", :safecast_api_v1_json
+Mime::Type.register "application/safecast.v1+xml",  :safecast_api_v1_xml

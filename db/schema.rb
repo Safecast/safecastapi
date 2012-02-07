@@ -54,11 +54,11 @@ ActiveRecord::Schema.define(:version => 20120116150229) do
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "devices", :force => true do |t|
-    t.string   "mfg"
+    t.string   "manufacturer"
     t.string   "model"
     t.string   "sensor"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "maps", :force => true do |t|
