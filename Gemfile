@@ -32,8 +32,6 @@ gem 'yard-rest-plugin', :git => 'https://github.com/rknLA/yard-rest-plugin.git'
 
 
 group :test do
-  gem 'capybara'
-  gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'fabrication'
   gem 'launchy'
@@ -46,3 +44,5 @@ end
 group :development do
   gem 'pry'
 end
+
+gem 'therubyracer'

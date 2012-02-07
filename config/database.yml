@@ -18,7 +18,7 @@ development:
   encoding: unicode
   database: safecast_development
   pool: 5
-  username: safecast
+  username: boris
   password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -45,7 +45,7 @@ test:
   encoding: unicode
   database: safecast_test
   pool: 5
-  username: safecast
+  username: boris
   password:
 
 production:
@@ -53,5 +53,5 @@ production:
   encoding: unicode
   database: safecast_production
   pool: 5
-  username: safecast
+  username: boris
   password:
