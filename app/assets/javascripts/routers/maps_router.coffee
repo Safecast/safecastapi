@@ -21,7 +21,7 @@ App.Routers.Maps = Backbone.Router.extend
     App.currentMap = map
     @newMapView.model = map
     @newMapView.initialize().render()
-    #if window.hasOwnProperty('google')
+    # if window.hasOwnProperty('google')
     #  window.map = new window.google.maps.Map(document.getElementById("map_canvas"), myOptions)
     #don't really like this logic here, but it's the only way to guarantee that the DOM elements are there
     

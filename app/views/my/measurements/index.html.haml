@@ -1,0 +1,15 @@
+= link_to 'Upload bGeigie log file', [:new, :my, :bgeigie_import]
+
+%section.brief
+  %h2 My Measurements
+  %ul
+    - if @measurements.empty?
+      %li You haven't submitted any yet.
+    - else
+      - @measurements.each do |measurement|
+        %li
+          Value: #{measurement.value}#{measurement.unit} #{measurement.location_name}
+          Latitude: #{measurement.latitude}
+          Longitude: #{measurement.longitude}
+          #{measurement.captured_at}
+  = will_paginate(@measurements)

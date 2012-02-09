@@ -6,7 +6,6 @@ gem 'pg'
 gem 'json'
 gem 'haml'
 
-gem 'backbone-rails'
 gem "carrierwave", "~> 0.5.8"
 gem "delayed_job", "~> 2.1.4"
 gem 'decent_exposure'

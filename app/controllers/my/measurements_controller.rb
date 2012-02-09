@@ -13,7 +13,7 @@ class My::MeasurementsController < ApplicationController
   
   def new
     measurement.value = '000'
-    measurement.location_name = 'Tokyo'
+    measurement.location_name = 'Fukushima, Japan'
     measurement.unit = 'cpm'
     render :inline => Mustache.render(render_to_string, measurement.serializable_hash)
   end

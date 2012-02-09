@@ -1,5 +1,5 @@
 App.Views.App = Backbone.View.extend
-  el: $("#page"),
+  el: $("div#page"),
   
   template: (path) ->
     path = @templatePath() unless path

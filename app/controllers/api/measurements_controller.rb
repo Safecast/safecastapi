@@ -8,28 +8,6 @@ class Api::MeasurementsController < Api::ApplicationController
   before_filter :authenticate_user!, :only => [:create, :update]
   respond_to :html, :only => :create
   
-  expose(:measurement)
-  
-  expose(:measurements) do
-    if params[:user_id].present?
-      user.measurements
-    else
-      Measurement.all #using Measurement.page(params[:page]) wound up being problematic
-    end
-  end
-  
-  expose(:user) { User.find(params[:user_id]) }
-  
-  expose(:map) do
-    if params[:map_id].present?
-      Map.find(params[:map_id])
-    else
-      nil
-    end
-  end
-  
-  expose(:maps)
-  
   ##
   # List all of the *measurement* resources in the Safecast database.  There are a lot of measurements in
   # the system (on the order of millions), so something this general may not actually be what you want.
@@ -42,10 +20,18 @@ class Api::MeasurementsController < Api::ApplicationController
   # @argument [Integer] page_size Number of devices to include in one page.  Default is 10.
   #
   def index
-    if map
-      respond_with map.measurements
+    if params[:map_id].present?
+      @map = Map.find(params[:map_id])
+    end
+    if params[:user_id].present?
+      @user = User.find params[:user_id]
+    end
+    if @map
+      respond_with @map.measurements.page(params[:page])
+    elsif @user
+      respond_with @user.measurements.page(params[:page])
     else
-      respond_with measurements
+      respond_with Measurement.all(params[:page])
     end
   end
   
@@ -79,20 +65,23 @@ class Api::MeasurementsController < Api::ApplicationController
   end
   
   def add_to_map
-    map.measurements<< measurement if map
-    respond_with measurement, :location => [:api, measurement]
+    @map = Map.find params[:map_id]
+    @measurement = Measurement.new(params[:measurement])
+    @map.measurements<< @measurement
+    respond_with @measurement, :location => [:api, @measurement]
   end
   
   def create
-    measurement.user = current_user
+    @map = Map.find params[:map_id] if params[:map_id].present?
+    @measurement = Measurement.new(params[:measurement])
+    @measurement.user = current_user
     Measurement.transaction do
-      measurement.save
-      measurement.original_id = measurement.id
-      measurement.save
+      @measurement.save
+      @measurement.original_id = @measurement.id
+      @measurement.save
     end
-    map.measurements<< measurement if map   #this could be done by calling add_to_map, but that seems misleading
-    respond_with measurement, :location => [:my, measurement]
+    @map.measurements<< measurement if @map   #this could be done by calling add_to_map, but that seems misleading
+    respond_with @measurement, :location => [:my, @measurement]
   end
-
   
 end
