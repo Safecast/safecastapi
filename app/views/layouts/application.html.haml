@@ -4,6 +4,13 @@
     %title Safecast
     = csrf_meta_tag
     = stylesheet_link_tag :application
+    - if ENV['CONNECTION_STATUS'] != 'offline'
+      = javascript_include_tag 'http://maps.googleapis.com/maps/api/js?key=AIzaSyA15g0-2g2c7LbKWwCJmJpQWbdntzXZshE&sensor=true'
+      = javascript_include_tag 'http://use.typekit.com/tvi6mbv.js'
+      :javascript
+        try{Typekit.load();}catch(e){}
+    /[if lt IE 9]
+      = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
   %body
     %div.container
       %header
@@ -29,16 +36,4 @@
       
       %footer
         %p Creative Commons Non-Commercial
-    = javascript_include_tag :vendor
-    = javascript_include_tag '/js_templates.js'
-    = javascript_include_tag :models
-    = yield :additional_javascripts
     = javascript_include_tag :application
-    = javascript_include_tag :start
-    - if ENV['CONNECTION_STATUS'] != 'offline'
-      = javascript_include_tag 'http://maps.googleapis.com/maps/api/js?key=AIzaSyA15g0-2g2c7LbKWwCJmJpQWbdntzXZshE&sensor=true'
-      = javascript_include_tag 'http://use.typekit.com/tvi6mbv.js'
-      :javascript
-        try{Typekit.load();}catch(e){}
-    /[if lt IE 9]
-      = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
