@@ -10,6 +10,7 @@ Safecast::Application.routes.draw do
   end
   
   resources :maps
+  resource :worldmap
   
   namespace :my do
     resource :dashboard

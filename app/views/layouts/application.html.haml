@@ -4,10 +4,17 @@
     %title Safecast
     = csrf_meta_tag
     = stylesheet_link_tag :application
+    - if ENV['CONNECTION_STATUS'] != 'offline'
+      = javascript_include_tag 'http://maps.googleapis.com/maps/api/js?key=AIzaSyA15g0-2g2c7LbKWwCJmJpQWbdntzXZshE&sensor=true'
+      = javascript_include_tag 'http://use.typekit.com/tvi6mbv.js'
+      :javascript
+        try{Typekit.load();}catch(e){}
+    /[if lt IE 9]
+      = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
   %body
     %div.container
       %header
-        %h1= link_to "Safecast", root_path, :data => { :pjax => true }
+        %h1= link_to "Safecast", root_path
         - if user_signed_in?
           %nav
             %ul
@@ -21,24 +28,12 @@
                 = link_to [:my, :maps], :title => 'Maps' do
                   Maps
               %li
-                = link_to '/my/measurements/new', :title => 'Submit a Reading' do
+                = link_to '/my/measurements/new', :title => 'Submit a Reading', :data => {:pjax => true} do
                   Submit
               %li= link_to 'Sign out', logout_path
       %div#page
-      = yield
+        = yield
       
       %footer
         %p Creative Commons Non-Commercial
-    //= javascript_include_tag :vendor
-    //= javascript_include_tag '/js_templates.js'
-    //= javascript_include_tag :models
-    //= yield :additional_javascripts
-    //= javascript_include_tag :application
-    //= javascript_include_tag :start
-    - if ENV['CONNECTION_STATUS'] != 'offline'
-      = javascript_include_tag 'http://maps.googleapis.com/maps/api/js?key=AIzaSyA15g0-2g2c7LbKWwCJmJpQWbdntzXZshE&sensor=true'
-      = javascript_include_tag 'http://use.typekit.com/tvi6mbv.js'
-      :javascript
-        try{Typekit.load();}catch(e){}
-    /[if lt IE 9]
-      = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
+    = javascript_include_tag :application

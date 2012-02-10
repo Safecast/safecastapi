@@ -20,10 +20,14 @@
                                        :value => '{{location_name}}'}
       .field
         %label{:for => "latitude"} Latitude
-        %input#latitude{:name => "latitude", :placeholder => "", :type => "text", :value => "{{latitude}}"}/
+        = f.text_field :latitude, {:placeholder => "",
+                                    :id => :latitide,
+                                    :value => "{{latitude}}"}
       .field
-        %label{:for => "latitude"} Longitude
-        %input#longitude{:name => "longitude", :placeholder => "", :type => "text", :value => "{{longitude}}"}/
+        %label{:for => "longitude"} Longitude
+        = f.text_field :longitude, {:placeholder => "",
+                                    :id => :longitude,
+                                    :value => "{{longitude}}"}
     %fieldset
       %header
         %h3 Device

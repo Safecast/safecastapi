@@ -6,7 +6,6 @@ gem 'pg'
 gem 'json'
 gem 'haml'
 
-gem 'backbone-rails'
 gem "carrierwave", "~> 0.5.8"
 gem "delayed_job", "~> 2.1.4"
 gem 'decent_exposure'
@@ -34,8 +33,4 @@ group :test do
   gem 'rspec-rails', '~> 2.8.1'
   gem 'spork', '~> 0.9.0.rc'
   gem 'watchr'
-end
-
-group :development do
-  gem 'pry'
 end

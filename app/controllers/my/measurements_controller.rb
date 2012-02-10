@@ -12,10 +12,11 @@ class My::MeasurementsController < ApplicationController
   end
   
   def new
-    measurement.value = '000'
-    measurement.location_name = 'Tokyo'
-    measurement.unit = 'cpm'
-    render :inline => Mustache.render(render_to_string, measurement.serializable_hash)
+    render :inline => Mustache.render(render_to_string, measurement.serializable_hash.merge!({
+      :value => '000',
+      :location_name => 'Fukushima, Japan',
+      :unit => 'cpm'
+    }))
   end
   
   def manifest

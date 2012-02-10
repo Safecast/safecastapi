@@ -15,12 +15,17 @@ class Measurement < ActiveRecord::Base
   
   has_one :device
   
+  def self.grouped_by_hour
+    select("date_trunc('hour', captured_at) as date").
+    group("date_trunc('hour', captured_at)")
+  end
+  
   def serializable_hash(options = {})
     options ||= {}
     super(options.merge(:only => [
-      :id, :value, :user_id, :latitude, :longitude,
+      :id, :value, :user_id,
       :unit, :device_id, :location_name, :original_id
-    ]))
+    ], :methods => [:latitude, :longitude]))
   end
   
   

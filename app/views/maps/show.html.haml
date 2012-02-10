@@ -1,7 +1,6 @@
 %h2= @map.name
 
-= @map.measurements.group("date")
-
-- @map.measurements.each do |measurement|
-  = measurement.latitude
-  = measurement.longitude
+- @map.measurements.grouped_by_hour.each do |measurement|
+    
+    #{Time.parse(measurement.date).to_date}
+    #{Time.parse(measurement.date).hour}

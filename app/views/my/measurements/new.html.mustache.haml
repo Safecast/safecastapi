@@ -1,12 +1,12 @@
 %section.brief
   %header
     %h2 Contribute your Measurement
-  = form_for [:my, Measurement.new], :url => [:my, :measurements, :manifest], :html => {:method => :get, :autocomplete => 'off'} do |f|
+  = form_for [:my, Measurement.new], :url => [:my, :measurements, :manifest], :html => {:method => :get, :autocomplete => 'off', :id => 'submission'} do |f|
     %fieldset.level-reading
       .field.reading
         = f.label :value, 'Radiation Level'
         = f.text_field :value, { :class => 'level digit', :value => '{{value}}' }
-        = f.hidden_field :unit, :value => '{{unit}}'
+        = f.hidden_field :unit, :value => '{{unit}}', :id => 'unit'
         %ul.units
           %li.unit.cpm.selected{"data-value" => "cpm"}
             Clicks per Minute
@@ -14,10 +14,12 @@
             MicroSieverts per Hour
       .field.location
         = f.label :location_name, "Location"
-        = f.text_field :location_name, { :value => '{{location_name}}' }
+        = f.text_field :location_name, { :value => '{{location_name}}', :id => :location }
         %ul.units
           %li.gps.selected Location
         #map_canvas.map
     %fieldset
       %p.button
+        = f.hidden_field :latitude, :value => '{{latitude}}', :id => 'latitude'
+        = f.hidden_field :longitude, :value => '{{longitude}}', :id => 'longitude'
         %input{:type => "submit", :value => "Submit"}
