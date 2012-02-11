@@ -7,9 +7,8 @@
 #
 class Api::BgeigieImportsController < Api::ApplicationController
   
-  respond_to :html, :only => :create
- 
   expose(:bgeigie_import)
+  expose(:bgeigie_imports)
 
   ##
   # Retrieve the *bgeigie_import* resource referenced by the provided id
@@ -19,7 +18,12 @@ class Api::BgeigieImportsController < Api::ApplicationController
   # @response_field [String] status The post-processing status of the import
   #
   def show
-    respond_with bgeigie_import
+    respond_with @result = bgeigie_import
+  end
+
+
+  def index
+    respond_with @result = bgeigie_imports
   end
   
   ##
@@ -38,10 +42,11 @@ class Api::BgeigieImportsController < Api::ApplicationController
     bgeigie_import.user = current_user
     if bgeigie_import.save
       bgeigie_import.delay.process
-      respond_with bgeigie_import, :location => [:my, bgeigie_import]
+      respond_with @result = bgeigie_import, :location => [:my, bgeigie_import]
     else
-      respond_with bgeigie_import.errors, :location => [:my, bgeigie_import]
+      respond_with @result = bgeigie_import.errors, :location => [:my, bgeigie_import]
     end
   end
+
   
 end

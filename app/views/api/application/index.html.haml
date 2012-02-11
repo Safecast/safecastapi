@@ -1,10 +1,22 @@
+// There's definitely a way to DRY these up, but for now, bruting them a bit to get shit done.
 %h1
   Safecast API documentation
 
-%div
-  API documentation goes here.  It would be nice to be able to pull in text from descriptions
-  local to each controller and/or method.
+#endpoint
+  .url
+    %h3 URL
+    = request.url
+  .params
+    %h3 Params
+    =request.params
+  .description
+    %h3 Description
+    This is the Safecast API's root URL.  
+
 
 #result
-  = @result
+  .json
+    = render :partial => 'json'
+  .xml
+    = render :partial => 'xml'
   
