@@ -11,13 +11,22 @@ module Api
     
     def index
       result = {
-        :urls => {
-          :bgeigie_imports => api_bgeigie_imports_path(:format => params[:format]),
-          :devices => api_devices_path(:format => params[:format]),
-          :maps => api_maps_path(:format => params[:format]),
-          :measurements => api_measurements_path(:format => params[:format]),
-          :users => api_users_path(:format => params[:format])
-        }
+        :links => [
+          { :rel => 'bgeigie_imports',
+            :href => api_bgeigie_imports_path(:format => params[:format]) },
+
+          { :rel => 'devices',
+            :href => api_devices_path(:format => params[:format]) },
+
+          { :rel => 'maps',
+            :href => api_maps_path(:format => params[:format]) },
+
+          { :rel => 'measurements',
+            :href => api_measurements_path(:format => params[:format]) },
+
+          { :rel => 'users',
+            :href => api_users_path(:format => params[:format]) }
+        ]
       }
       respond_with @result = result
     end
