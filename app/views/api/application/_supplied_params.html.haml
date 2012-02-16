@@ -1,0 +1,11 @@
+- query_params = request.query_parameters
+- if !query_params or query_params.empty?
+  This request did not contain any parameters.
+- else
+  %dl
+  - request.query_parameters.each do |key, value|
+    %dt= key
+    %dd= value
+
+
+

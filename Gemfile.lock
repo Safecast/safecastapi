@@ -40,7 +40,6 @@ GEM
     addressable (2.2.6)
     arel (3.0.0)
     bcrypt-ruby (3.0.1)
-    bluecloth (2.2.0)
     builder (3.0.0)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -187,7 +186,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bluecloth
   capybara
   capybara-webkit
   carrierwave (~> 0.5.8)

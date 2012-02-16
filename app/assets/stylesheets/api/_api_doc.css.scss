@@ -1,0 +1,21 @@
+dl {
+  dt {
+    display: inline-block;
+
+    margin-right: 0;
+    padding: 0.5em 1em 0.5em 1em;
+
+    border: 1px solid;
+  }
+
+  dd {
+    display: inline-block;
+
+    margin-left: 0;
+    padding: 0.5em 1em 0.5em 1em;
+
+    border: 1px solid;
+    border-left: none;
+  }
+}
+
