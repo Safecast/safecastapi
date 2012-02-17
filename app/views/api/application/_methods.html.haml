@@ -1,4 +1,7 @@
 %table
-  %tr
-    %td GET
-    %td Get information about the API.  For the root endpoint, this is mostly just for links.
+  - docs = Api::ApplicationController.doc
+  - binding.pry
+  - docs[:methods].each do |method|
+    %tr
+      %td= method[:method]
+      %td= method[:description]

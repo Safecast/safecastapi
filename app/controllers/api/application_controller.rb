@@ -9,6 +9,21 @@ module Api
     respond_to :html, :json, :xml, :safecast_api_v1_json, :safecast_api_v1_xml
     layout 'api_doc'
 
+    def self.doc
+      {
+        :methods => [
+          {
+            :method => "GET",
+            :description => "This is the Safecast API's root URL. It provides information about the API, namely, links to resources.",
+            :params => {
+              :required => [],
+              :optional => []
+            }
+          }
+        ],
+      }
+    end
+
     
     def index
       result = {
