@@ -8,6 +8,7 @@ module Api
   class ApplicationController < ::ApplicationController
     respond_to :html, :json, :xml, :safecast_api_v1_json, :safecast_api_v1_xml
     layout 'api_doc'
+
     
     def index
       result = {

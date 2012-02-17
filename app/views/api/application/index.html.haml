@@ -9,9 +9,7 @@
     = request.path
   .methods
     %h3 Supported Methods
-    %dl
-      %dt>< GET
-      %dd Get information about the API.  For the root endpoint, this is mostly just for links.
+    = render :partial => 'methods' 
   .required-params
     %h3 Required Params
     = render :partial => 'required_params'
@@ -21,6 +19,9 @@
   .description
     %h3 Description
     This is the Safecast API's root URL.  
+  .links
+    %h3 Links
+    = render :partial => 'links'
 
 #request
   %h2 Your Request

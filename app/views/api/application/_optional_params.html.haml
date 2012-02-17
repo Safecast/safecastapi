@@ -1,10 +1,11 @@
 - if !@optional_params or @optional_params.empty?
   This endpoint does not support any optional parameters.
 - else
-  %dl
-  - @optional_params.each do |key, value|
-    %dt= key
-    %dd= value
+  %table
+    - @optional_params.each do |key, value|
+      %tr
+        %td= key
+        %td= value
 
 
 

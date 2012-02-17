@@ -2,10 +2,10 @@
 - if !query_params or query_params.empty?
   This request did not contain any parameters.
 - else
-  %dl
-  - request.query_parameters.each do |key, value|
-    %dt= key
-    %dd= value
-
+  %table
+    - request.query_parameters.each do |key, value|
+      %tr
+        %td= key
+        %td= value
 
 
