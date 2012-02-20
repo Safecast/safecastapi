@@ -107,10 +107,6 @@ class BgeigieImport < MeasurementImport
         end
       end
     end
-    #system(%Q[cat #{source.path} | sed "/^#/d" | #{Rails.root.join(
-    #  'script',
-    #  'add_checksum_to_each_line'
-    #  )} > #{tmp_file}])
   end
 
   def import_to_bgeigie_logs
