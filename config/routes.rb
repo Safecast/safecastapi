@@ -65,5 +65,5 @@ Safecast::Application.routes.draw do
   
   match "/js_templates.js", :to => "js_templates#show"
 
-  root :to => 'my/dashboards#show'
+  root :to => 'api/application#index'
 end

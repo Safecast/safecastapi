@@ -6,19 +6,30 @@
 # 
 module Api
   class ApplicationController < ::ApplicationController
-    respond_to :json, :xml, :safecast_api_v1_json, :safecast_api_v1_xml
-    layout false
+    respond_to :html, :json, :xml, :safecast_api_v1_json, :safecast_api_v1_xml
+    layout 'api_doc'
+
     
     def index
-      render :json => {
-        :urls => {
-          :bgeigie_imports => api_bgeigie_imports_path(:format => params[:format]),
-          :devices => api_devices_path(:format => params[:format]),
-          :maps => api_maps_path(:format => params[:format]),
-          :measurements => api_measurements_path(:format => params[:format]),
-          :users => api_users_path(:format => params[:format])
-        }
+      result = {
+        :links => [
+          { :rel => 'bgeigie_imports',
+            :href => api_bgeigie_imports_path(:format => params[:format]) },
+
+          { :rel => 'devices',
+            :href => api_devices_path(:format => params[:format]) },
+
+          { :rel => 'maps',
+            :href => api_maps_path(:format => params[:format]) },
+
+          { :rel => 'measurements',
+            :href => api_measurements_path(:format => params[:format]) },
+
+          { :rel => 'users',
+            :href => api_users_path(:format => params[:format]) }
+        ]
       }
+      respond_with @result = result
     end
     
     protected

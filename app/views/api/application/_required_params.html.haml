@@ -1,0 +1,11 @@
+- if !@required_params or @required_params.empty?
+  This endpoint does not have any required parameters.
+- else
+  %table
+    - @required_params.each do |key, value|
+      %tr
+        %td= key
+        %td= value
+
+
+
