@@ -1,0 +1,22 @@
+#!/bin/sh
+rsync -arvH * deploy@api.safecast.org:/data/teamdata/current/ --exclude 'log' --exclude 'bgeigie_logs' --exclude 'config/database.yml' --exclude 'tmp' --exclude 'public/uploads' --exclude 'public/cache'
+ssh deploy@api.safecast.org "touch /data/teamdata/current/tmp/restart.txt"
+while getopts ":mpc" opt; do
+  case $opt in
+    m)
+      echo "migrating" >&2
+      ssh deploy@api.safecast.org "cd /data/teamdata/current/ && RAILS_ENV=production bundle exec rake db:migrate"
+      ;;
+    p)
+      echo "precompiling assets" >&2
+      ssh deploy@api.safecast.org "cd /data/teamdata/current/ && RAILS_ENV=production bundle exec rake assets:precompile"
+      ;;
+    c)
+      echo "clearing cache" >&2
+      ssh deploy@api.safecast.org "cd /data/teamdata/current/ && rm -r public/cache"
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      ;;
+  esac
+done

@@ -7,6 +7,7 @@ This is the Safecast API app, implemented using Ruby / Ruby on Rails.
 We're using postgresql, you'll need to install that locally.
 
 Then:
+
     createuser safecast
 
 To create a local user... making sure to agree to making the user a superuser.
