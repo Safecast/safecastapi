@@ -30,7 +30,7 @@ class Api::DevicesController < Api::ApplicationController
   # @argument [Integer] page_size Number of devices to include in one page
   #
   def index
-    respond_with devices
+    respond_with @result = devices
   end
   
   ##
@@ -43,7 +43,7 @@ class Api::DevicesController < Api::ApplicationController
   # @response_field [String] sensor The type or model of sensor element used in the device
   #
   def show
-    respond_with device
+    respond_with @result = device
   end
   
   ##
@@ -56,7 +56,7 @@ class Api::DevicesController < Api::ApplicationController
   # @argument [String] sensor The type or model of sensor element used in the device
   def create
     device = Device.get_or_create(params[:device])
-    respond_with device
+    respond_with @result = device
   end
   
 
