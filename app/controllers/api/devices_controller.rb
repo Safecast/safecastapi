@@ -4,7 +4,7 @@
 # @topic Devices
 #
 class Api::DevicesController < Api::ApplicationController
-  
+
   before_filter :authenticate_user!, :only => :create
   
   expose(:device)
@@ -58,7 +58,30 @@ class Api::DevicesController < Api::ApplicationController
     device = Device.get_or_create(params[:device])
     respond_with @result = device
   end
-  
 
+
+
+  private
+
+  def set_doc
+    @doc = {
+      :name => "Device",
+      :description => "A device used to take a measurement.",
+      :properties => {
+        :manufacturer => {
+          :type => "String",
+          :description => "The manufacturer of the device."
+        },
+        :model => {
+          :type => "String",
+          :description => "The model number (or string) of the device provided by the device's manufacturer."
+        },
+        :sensor => {
+          :type => "String",
+          :description => "The model number of the sensing element present in the device."
+        }
+      }
+    }
+  end
   
 end

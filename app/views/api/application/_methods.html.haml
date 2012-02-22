@@ -1,7 +1,12 @@
-%table
-  - docs = Api::ApplicationController.doc
-  - binding.pry
-  - docs[:methods].each do |method|
-    %tr
-      %td= method[:method]
-      %td= method[:description]
+- docs = Api::ApplicationController.doc
+%h2 Supported Methods
+- docs[:methods].each do |method|
+  .method-details
+    %h3.method-type= method[:method]
+    .method-description= method[:description]
+    .required-params
+      %h3 Required Params
+      = render :partial => 'required_params'
+    .optional-params
+      %h3 Optional Params
+      = render :partial => 'optional_params'

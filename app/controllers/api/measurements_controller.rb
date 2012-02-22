@@ -48,10 +48,10 @@ class Api::MeasurementsController < Api::ApplicationController
   def show
     if params[:withHistory].present? and params[:withHistory]
       measurements = Measurement.where("id = #{params[:id]} OR original_id = #{params[:id]}")
-      respond_with measurements
+      respond_with @result = measurements
     else
       measurement = Measurement.most_recent(params[:id])
-      respond_with measurement
+      respond_with @result = measurement
     end
   end
   
@@ -61,7 +61,7 @@ class Api::MeasurementsController < Api::ApplicationController
     
     # respond_with typically doesn't pass the resource for PUT, but since we're being non-destructive, our PUT actually returns a new resource
     # see: https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/5199-respond_with-returns-on-put-and-delete-verb#ticket-5199-14
-    render :text => new_measurement.to_json, :status => :ok
+    respond_with @result = new_measurement, :status => :created
   end
   
   def add_to_map
@@ -81,7 +81,7 @@ class Api::MeasurementsController < Api::ApplicationController
       @measurement.save
     end
     @map.measurements<< measurement if @map   #this could be done by calling add_to_map, but that seems misleading
-    respond_with @measurement, :location => [:my, @measurement]
+    respond_with @result = @measurement, :location => [:api, @measurement]
   end
   
 end

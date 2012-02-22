@@ -1,0 +1,4 @@
+%ul.resources
+  - @doc[:resources].each do |obj|
+    %li= link_to obj[:resource], obj[:url]
+
