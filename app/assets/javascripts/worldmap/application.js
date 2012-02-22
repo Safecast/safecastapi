@@ -1,3 +1,15 @@
-jQuery(function(){
-  alert("start here! find me in app/assets/javascripts/worldmap/application.js")
+// NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
+// IT'S ALL JUST JUNK FOR OUR DOCS!
+// ++++++++++++++++++++++++++++++++++++++++++
+
+!function ($) {
+
+  $(function(){
+
+    $('#test').click(function () {
+      console.log('hi');
+    })
+
 })
+
+}(window.jQuery)
