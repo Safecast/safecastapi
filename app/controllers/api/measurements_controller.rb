@@ -80,7 +80,7 @@ class Api::MeasurementsController < Api::ApplicationController
       @measurement.original_id = @measurement.id
       @measurement.save
     end
-    @map.measurements<< measurement if @map   #this could be done by calling add_to_map, but that seems misleading
+    @map.measurements<< @measurement if @map   #this could be done by calling add_to_map, but that seems misleading
     respond_with @result = @measurement, :location => [:api, @measurement]
   end
   
