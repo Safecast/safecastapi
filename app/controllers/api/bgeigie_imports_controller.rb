@@ -12,7 +12,7 @@ class Api::BgeigieImportsController < Api::ApplicationController
     if params[:page].present?
       BgeigieImport.page(params[:page])
     else
-      BgeigieImport.page(1)
+      BgeigieImport.all()
     end
   end
 
