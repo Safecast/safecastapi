@@ -12,10 +12,8 @@ class Api::DevicesController < Api::ApplicationController
   expose(:devices) do
     if params[:where].present?
       Device.where(params[:where])
-    elsif params[:page].present?
-      Device.page(params[:page])
     else
-      Device.page(1)
+      Device.page(params[:page] || 1)
     end
   end
   

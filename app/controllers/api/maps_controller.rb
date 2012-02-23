@@ -12,10 +12,8 @@ class Api::MapsController < Api::ApplicationController
   expose(:maps) do
     if params[:user_id].present?
       user.maps
-    elsif params[:page].present?
-      Map.page(params[:page])
     else
-      Map.all
+      Map.page(params[:page] || 1)
     end
   end
   expose(:user) { User.find(params[:user_id]) }

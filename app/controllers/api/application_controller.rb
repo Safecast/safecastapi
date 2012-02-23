@@ -9,7 +9,8 @@ module Api
     respond_to :html, :json, :safecast_api_v1_json 
     layout 'api_doc'
 
-    before_filter :set_doc
+    before_filter :set_doc 
+
 
     def index
       result = { }

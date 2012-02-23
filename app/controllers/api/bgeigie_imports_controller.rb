@@ -8,13 +8,7 @@
 class Api::BgeigieImportsController < Api::ApplicationController
   
   expose(:bgeigie_import)
-  expose(:bgeigie_imports) do
-    if params[:page].present?
-      BgeigieImport.page(params[:page])
-    else
-      BgeigieImport.all()
-    end
-  end
+  expose(:bgeigie_imports) { BgeigieImport.page(params[:page] || 1) }
 
   def self.doc
     {
