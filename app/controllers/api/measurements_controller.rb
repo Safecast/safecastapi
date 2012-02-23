@@ -66,7 +66,11 @@ class Api::MeasurementsController < Api::ApplicationController
   
   def add_to_map
     @map = Map.find params[:map_id]
-    @measurement = Measurement.new(params[:measurement])
+    if params[:id]
+      @measurement = Measurement.find(params[:id])
+    else
+      @measurement = Measurement.create(params[:measurement])
+    end
     @map.measurements<< @measurement
     respond_with @measurement, :location => [:api, @measurement]
   end
