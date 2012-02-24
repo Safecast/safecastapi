@@ -39,13 +39,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
+			
+
           </a>
-          <a class="brand" href="#">Project name</a>
+          <a class="brand" href="#">Safecast</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+				<a class="btn" data-toggle="modal" href="#myModal" >Launch Modal</a>
+				<!--           
+				<li class="active"><a href="#">link</a></li>
+              	<li><a href="#link">link</a></li>
+              	<li><a href="#link">link</a></li>
+				-->
             </ul>
             <p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>
           </div><!--/.nav-collapse -->
@@ -53,81 +58,61 @@
       </div>
     </div>
 
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li class="active"><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span9">
-          <div class="hero-unit">
-            <h1>Hello, world!</h1>
-            <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-            <p><a data-toggle="modal" href="#myModal" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-          </div>
-          <div class="row-fluid">
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-          </div><!--/row-->
-          <div class="row-fluid">
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-          </div><!--/row-->
-        </div><!--/span-->
-      </div><!--/row-->
+	<div class="app-view">
+		<div class="loading-window" id="loading-window"></div>
+		<div class="settings-view">
+			<input class="search" id="search" placeholder="Search a location..."></input>
+			<div class="buttons-share">
+				<button class="btn-facebook">Facebook</button>
+				<button class="btn-twitter">Twitter</button>
+			</div>
+			<div class="controls">
+				<div class="divider-line"></div>
+				<div class="control-container safecast">
+					<div class="control-title safecast">Safecast Data</div>
+					<div class="logo" id="logo"></div>
+					<div class="toggle safecast" id="toggle-safecastdata">Mobile Collection</div>
+					<!--<div class="toggle static" id="toggle-staticdata">Static Sensors</div>-->	
+				</div>
+				<div class="toggle-container census">
+					<div class="control-title external">External Data</div>
+					<div class="toggle" id="toggle-census">Census data</div>
+					<input class="color-picker" id="color-picker"></input>
+				</div>
+			</div>
+			
+			<div class="theme">
+				<div class="control-title">Map Theme</div>
+				<div class="theme-toggle dark-on" id="toggle-dark"></div><div class="theme-toggle light-off" id="toggle-light"></div><div class="theme-toggle standard-off" id="toggle-standard"></div>
+			</div>
+		</div>
+		<div class="settings-toggle" id="settings-toggle"></div>
+		<div class="zoom-buttons" id="zoom-buttons">
+			<div class="zoom-out" id="zoom-out"></div><div class="zoom-in" id="zoom-in"></div>
+		</div>
+		<div class='info-hit-area'></div>
+		<div class="info-pane">
+			<div class="legend"></div>
+			<div class='dre'>DRE, &#956;Sv/h</div>
+			<div class='reading'></div>
+			<div class='cpm'></div>
+			<div class='samples'></div>
+			<div class='date-range'></div>	
+		</div>
+		<div class="map-container" id="map-container">
+			<div class="map-left-edge" id="map-left-edge">
+				<div class="top"></div>
+				<div class="mid"></div>
+				<div class="bottom"></div>
+			</div>
+			<div class="map-view" id="map-view"></div>
+			<div class="title-bar"> sdf</div>
 
-      <hr>
+		</div>
+	</div>
 
-      <footer>
-        <p>&copy; Company 2012</p>
-      </footer>
-
-    </div><!--/.fluid-container-->    
-
+	</div>
+	<!-- Boostrap scripts -->
     <script src="assets/bootstrap/bootstrap-transition.js"></script>
     <script src="assets/bootstrap/bootstrap-alert.js"></script>
     <script src="assets/bootstrap/bootstrap-modal.js"></script>
@@ -141,5 +126,29 @@
     <script src="assets/bootstrap/bootstrap-carousel.js"></script>
     <script src="assets/bootstrap/bootstrap-typeahead.js"></script>
 
+	<!-- Worldmap App scripts -->
+	<script src="assets/worldmap/config.js"></script>
+	<script type="text/javascript" src="https://use.typekit.com/fkf6mtk.js"></script>
+	<script >try{Typekit.load();}catch(e){}</script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
+	<script src="assets/worldmap/infobox.js"></script>
+	<script src="assets/worldmap/jquery.miniColors.js"></script>
+	<script src="assets/jquery-ui.min.js"></script>
+	
+	<!-- Analytics -->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-831620-4']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	
   </body>
 </html>
