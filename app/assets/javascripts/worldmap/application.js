@@ -733,7 +733,19 @@ $(document).ready(function() {
 		app.twitterButtonClicked();
 	});
 	
+	
+	
 	/* Roll Over Events */
+	
+	$('#toggle-safecastdata').mouseover(function() {
+		var options = {
+			animation: true,
+            placement: 'right',
+			title: 'Toggle mobile data',
+			content: 'Display the #### of readings gathered from the Safecast community'
+        };
+		$('#toggle-safecastdata').popover(options);
+	});
 	
 	$('.info-hit-area').mouseover(function() {
 		$('.info-pane').fadeTo('fast',1);
