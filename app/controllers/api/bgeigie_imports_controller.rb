@@ -43,7 +43,6 @@ class Api::BgeigieImportsController < Api::ApplicationController
 
 
   def index
-    binding.pry
     respond_with @result = bgeigie_imports
   end
   

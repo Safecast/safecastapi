@@ -58,10 +58,12 @@ class Api::MeasurementsController < Api::ApplicationController
   def update
     measurement = Measurement.find(params[:id])
     new_measurement = measurement.revise(params[:measurement])
-    
+
     # respond_with typically doesn't pass the resource for PUT, but since we're being non-destructive, our PUT actually returns a new resource
     # see: https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/5199-respond_with-returns-on-put-and-delete-verb#ticket-5199-14
-    respond_with @result = new_measurement, :status => :created
+    respond_with (@result = new_measurement) do |format|
+      format.json  { render :json => @result.to_json, :status => :accepted }
+    end
   end
   
   def add_to_map
