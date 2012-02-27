@@ -26,7 +26,6 @@ Safecast::Application.routes.draw do
   end
   
   namespace :api do
-    root :to => 'application#index'
     resources :bgeigie_imports
     resources :users do
       resources :measurements
@@ -51,9 +50,7 @@ Safecast::Application.routes.draw do
         end
       end
     end
-    
-    root :to => "Application#api_root"
-    
+
   end
   
   match '/my/measurements/manifest', :to => 'my/dashboards#show'
@@ -65,5 +62,6 @@ Safecast::Application.routes.draw do
   
   match "/js_templates.js", :to => "js_templates#show"
 
-  root :to => 'api/application#index'
+  match '/'  => 'api/application#options', :via => :options
+  match '/' => 'api/application#index', :via => :get
 end

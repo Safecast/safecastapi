@@ -9,18 +9,31 @@ module Api
     respond_to :html, :json, :safecast_api_v1_json 
     layout 'api_doc'
 
-    before_filter :set_doc 
+    before_filter :set_doc
 
 
     def index
+      cors_set_access_control_headers
       result = { }
-      respond_with @result = result, :template => 'api/application/root'
+      respond_with @result = @doc, :template => 'api/application/root'
+    end
+
+    def options
+      cors_set_access_control_headers
+      render :text => '', :content_type => 'application/json'
     end
     
     protected
     
     def rescue_action(env)
       render :json => "Error", :status => 500
+    end
+
+    def cors_set_access_control_headers
+      headers['Access-Control-Allow-Origin'] = '*'
+      headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+      headers['Access-Control-Allow-Headers'] = '*, X-Requested-With'
+      headers['Access-Control-Max-Age'] = '100000'
     end
 
     private
