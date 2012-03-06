@@ -15,9 +15,11 @@
     %div.container
       %header
         %h1= link_to "Safecast", root_path
-        - if user_signed_in?
-          %nav
-            %ul
+        %nav
+          %ul
+            %li
+              = link_to "Api Docs", root_path
+            - if user_signed_in?
               %li
                 = link_to [:my, :profile], :title => 'Profile' do
                   Profile
@@ -31,6 +33,9 @@
                 = link_to '/my/measurements/new', :title => 'Submit a Reading', :data => {:pjax => true} do
                   Submit
               %li= link_to 'Sign out', logout_path
+            - else
+              %li
+                = link_to "Sign up / Sign in", new_user_session_path
       %div#page
         = yield
       

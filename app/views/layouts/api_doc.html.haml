@@ -11,6 +11,10 @@
     %div.container
       %header
         %h1= link_to "Safecast", root_path, :data => { :pjax => true }
+        %nav
+          %ul
+            %li
+              =link_to "Submit", [:my, :dashboard]
       %div#page
       = yield
       
