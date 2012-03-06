@@ -157,7 +157,6 @@ section {
     }
   }
   form {
-
     fieldset {
       padding: 5px 0;
       .field {
@@ -175,7 +174,7 @@ section {
         padding: 0 3px 5px;
       }
       
-      input[type='text'], input[type='password'], input[type='email'] {
+      input[type='text'], input[type='password'], input[type='email'], textarea {
         @include positive-field;
       }
       
@@ -351,6 +350,39 @@ section.dashboard {
     margin-bottom: 20px;
     text-decoration: none;
     font-style: normal;
+  }
+}
+
+ul.measurement {
+  margin-top: 42px;
+  li{
+    text-align: center;
+    display: inline;
+    float: left;
+    margin-bottom: 1em;
+  }
+  li{
+    color: #999;
+    em {
+      color: #000;
+      font-style: normal;
+    }
+  }
+  li.value {
+    float: left;
+    width: 400px;
+    em {
+      font-size: 72px;
+    }
+  }
+  li.lat-lng {
+    text-align: center;
+    width: 200px;
+    em {
+      display: block;
+      color: #666;
+      font-size: 24px;
+    }
   }
 }
 

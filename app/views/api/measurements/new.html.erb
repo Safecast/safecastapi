@@ -47,6 +47,13 @@
               <%= f.select :unit, ['cpm', 'microsievert'], :id => 'unit' %>
             </div>
           </div>
+          
+          <div class="control-group">
+            <%= f.label :captured_at, "Date taken", :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :captured_at %>
+            </div>
+          </div>
 
           <div class="control-group">
             <%= label_tag :location, "Location", :class => 'control-label' %>
@@ -55,6 +62,7 @@
                     :id => :location,
                     :style => "height: 50px" %>
             </div>
+            <p class="help-block">Start typing an address : the map will update as you type, then drag the map to pinpoint the location.</p>
           </div>
         </fieldset>
       </div>

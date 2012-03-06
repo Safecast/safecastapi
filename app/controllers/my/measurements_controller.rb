@@ -20,6 +20,7 @@ class My::MeasurementsController < ApplicationController
         :location_name => 'Fukushima City Office'
       )
     end
+    @measurement.captured_at = Time.now.strftime("%d %B %Y, %H:%M:%S")
     render 'api/measurements/new'
   end
   

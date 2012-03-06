@@ -1,17 +1,32 @@
-<section>
-  <header>
+<div class="row">
+  <div class="span12">
     <h2>Your Measurement</h2>
-    <p>Submitted level is <%= @measurement.value %> <%= @measurement.unit %></p>
-    
-    <p>Location is <%= @measurement.location_name %></p>
-    
-    <p>
-      Latitude is <%= @measurement.latitude %>
-    </p>
-    
-    <p>
-      Longitude is <%= @measurement.longitude %>
-    </p>
-    
-  </header> 
-</section>
+  </div>
+</div>
+<div class="row">
+  <section class="span6">
+    <ul class="measurement unstyled">
+      <li class="value">
+        <em><%= @measurement.value %></em>
+        <%= @measurement.unit %>
+      </li>
+      <li class="lat-lng">
+        <em><%= @measurement.latitude %>&deg;</em>
+        lat
+      </li>
+      <li class="lat-lng">
+        <em><%= @measurement.longitude %>&deg;</em>
+        lng
+      </li>
+      <li><%= @measurement.location_name %></li>
+      <%- if @measurement.captured_at.present? -%>
+        <li>
+          taken on <%= @measurement.captured_at.strftime("%b %F") %>
+        </li>
+      <%- end -%>
+    </ul>
+  </section>
+  <section class="span6">
+    <div id="map_canvas"></div>
+  </section>
+</div>
