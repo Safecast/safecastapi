@@ -177,6 +177,10 @@ section {
       input[type='text'], input[type='password'], input[type='email'] {
         @include positive-field;
       }
+      
+      legend {
+        margin-bottom: 0;
+      }
     }
     
     p.note {
@@ -311,7 +315,8 @@ section.brief {
 
 #map_canvas, div.map-container {
   width: 460px;
-  height: 460px;
+  height: 230px;
+  margin-bottom: 32px;
 }
 div.map {
   position: relative;
@@ -320,7 +325,7 @@ div.map {
 div.map-crosshair {
   z-index: 1;
   position: relative;
-  top: 230px;
+  top: 115px;
   height: 19px;
   width: 19px;
   left: 50%;

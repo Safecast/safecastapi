@@ -6,9 +6,6 @@ jQuery ->
       geocoder.geocode {'address': value}, (results, status) ->
         if (status == window.google.maps.GeocoderStatus.OK)
           map.setCenter(results[0].geometry.location);
-          marker = new google.maps.Marker
-                            map: map, 
-                            position: results[0].geometry.location
           console.log(results[0].geometry.location)
           $('#latitude').val(results[0].geometry.location.lat())
           $('#longitude').val(results[0].geometry.location.lng())

@@ -1,13 +1,13 @@
 <section>
-  <div class="row">
-    <div class="span6">
-      <h2>Contribute your Measurement</h2>
-      <%= form_for [:api, @measurement],
-          :html => {
-            :autocomplete => 'off',
-            :class => 'form-horizontal',
-            :id => 'submission'
-          } do |f| %>
+  <%= form_for [:api, @measurement],
+      :html => {
+        :autocomplete => 'off',
+        :class => 'form-horizontal',
+        :id => 'submission'
+      } do |f| %>
+    <div class="row">
+      <div class="span6">
+        <h2>Contribute your Measurement</h2>
         <%- if @measurement.errors.any? -%>  
           <div class="alert">
             <ul>
@@ -18,6 +18,9 @@
           </div>
         <%- end -%>
         <fieldset>
+          <legend>
+            Required information
+          </legend>
           <div class="control-group">
             <%= f.label :value, 'Radiation Level', :class => 'control-label' %>
             <div class="controls">
@@ -38,7 +41,67 @@
               <%= f.text_field :location_name, { :id => :location } %>
             </div>
           </div>
-
+        </fieldset>
+        <fieldset>
+          <p class="button">
+            <input type="submit" value="Submit">
+          </p>
+        </fieldset>
+      
+        <fieldset>
+          <legend>
+            Device
+          </legend>
+          <div class="control-group">
+            <%= f.label :device_id, 'Device', :class => 'control-label' %>
+            <div class="controls">
+              <%= f.select :device_id, Device.all.collect { |d| [d.name, d.id]},
+                    :id => 'longitude' %>
+            </div>
+          </div>
+        </fieldset>        
+      
+        <fieldset>
+          <legend>
+            Environmental Details
+          </legend>
+        
+          <div class="control-group">
+            <%= f.label :height, :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :height, :placeholder => "1m" %>
+            </div>
+          </div>
+        
+          <div class="control-group">
+            <%= f.label :surface, "Surface type",
+                  :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :surface, :placeholder => "Soil" %>
+            </div>
+          </div>
+        
+          <div class="control-group">
+            <%= f.label :radiation, "Radiation type",
+                  :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :radiation, :placeholder => "Air" %>
+            </div>
+          </div>
+        </fieldset>
+      
+        <fieldset>
+          <p class="button">
+            <input type="submit" value="Submit">
+          </p>
+        </fieldset>
+      </div>
+      <div class="span6">
+        <div class="map-container">
+          <div class="map-crosshair"></div>
+          <div id="map_canvas" class="map"></div>
+        </div>
+        <fieldset>
           <div class="control-group">
             <%= label_tag :latitude, 'Latitude', :class => 'control-label' %>
 
@@ -54,58 +117,7 @@
             </div>
           </div>
         </fieldset>
-        
-        <fieldset>
-            <div class="control-group">
-              <%= f.label :device_id, 'Device', :class => 'control-label' %>
-              <div class="controls">
-                <%= f.select :device_id, Device.all.collect { |d| [d.name, d.id]},
-                      :id => 'longitude' %>
-              </div>
-            </div>
-        </fieldset>        
-        
-        <fieldset>
-          <legend>
-            Environmental Details
-          </legend>
-          
-          <div class="control-group">
-            <%= f.label :height, :class => 'control-label' %>
-            <div class="controls">
-              <%= f.text_field :height, :placeholder => "1m" %>
-            </div>
-          </div>
-          
-          <div class="control-group">
-            <%= f.label :surface, "Surface type",
-                  :class => 'control-label' %>
-            <div class="controls">
-              <%= f.text_field :surface, :placeholder => "Soil" %>
-            </div>
-          </div>
-          
-          <div class="control-group">
-            <%= f.label :radiation, "Radiation type",
-                  :class => 'control-label' %>
-            <div class="controls">
-              <%= f.text_field :radiation, :placeholder => "Air" %>
-            </div>
-          </div>
-        </fieldset>
-        
-        <fieldset>
-          <p class="button">
-            <input type="submit" value="Submit">
-          </p>
-        </fieldset>
-      <%- end -%>
-    </div>
-    <div class="span6">
-      <div class="map-container">
-        <div class="map-crosshair"></div>
-        <div id="map_canvas" class="map"></div>
       </div>
     </div>
-  </div>
+  <%- end -%>
 </section>

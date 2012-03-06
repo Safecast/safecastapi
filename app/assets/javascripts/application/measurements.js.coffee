@@ -13,6 +13,8 @@ jQuery ->
       $('#longitude').val(center.lng())
     google.maps.event.addListener map, 'center_changed', centerMap
     centerMap()
+    google.maps.event.addDomListener $('.map-crosshair')[0], 'dblclick', () ->
+        map.setZoom(map.getZoom() + 1)
   
   # focus
   $(document).delegate '.field input', 'click', ->
