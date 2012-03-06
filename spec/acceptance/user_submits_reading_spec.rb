@@ -12,9 +12,7 @@ feature "User Submits Reading" do
     fill_in('Radiation Level', :with => '123')
     fill_in('Location',        :with => 'Colwyn Bay, Wales')
     click_button('Submit')
-    click_button('Confirm')
     page.should have_content('Submitted level is 123')
-    sleep(0.25)
     user.should have(1).measurements
     measurement.value.should == 123
     measurement.location_name.should == 'Colwyn Bay, Wales'

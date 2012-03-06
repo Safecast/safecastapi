@@ -1,0 +1,56 @@
+<div class="row">
+  <section class="span6 offset3">
+    <header>
+      <h2>Register or Sign in</h2>
+      <nav>
+        <%= link_to(raw("(or continue anonymously) &rarr;"), "/reading") %>
+      </nav>
+    </header>
+    <%= form_for(resource, :as => resource_name,
+                         :url => session_path(resource_name),
+                         :html => { :id => 'signup-register-form',
+                                    :class => 'form-horizontal'}) do |f| %>
+      <%- if resource.errors.any? -%>
+        <ul>
+          <%- resource.errors.full_messages.each do |message| -%>
+            <li><%= message %></li>
+          <%- end -%>
+        </ul>
+      <%- end -%>
+      <fieldset class="register">
+        <div class="control-group">
+          <%= label_tag 'email-field', 'Email', :class => 'control-label' %>
+          <div class="controls">
+            <%= f.email_field :email, :placeholder => 'sean@seanbonner.com',
+                                    :id => 'email-field',
+                                    :autofocus => true %>
+          </div>
+        </div>
+        
+        <div id="name-field" class="control-group <%= registering? ? '' : 'hidden' %>">
+          <%= f.label :name, :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :name, :placeholder => "Name" %>
+          </div>
+        </div>
+        
+        <div class="control-group">
+          <%= f.label :password, :class => 'control-label' %>
+          <div class="controls">
+            <%= f.password_field :password, :placeholder => "Password" %>
+          </div>
+        </div>
+
+      </fieldset>
+      <fieldset>
+        <p id="note" class="note">Enter your email to begin.</p>
+        <p class="button">
+          <%- if devise_mapping.rememberable? -%>
+            <%= f.hidden_field :remember_me, :value => 1 %>
+          <%- end -%>
+          <%= f.submit registering? ? 'Register' : "Sign in", :id => 'sign-in-register' %>
+      </fieldset>
+    <%- end -%>
+    <%= render :partial => "devise/shared/links" %>
+  </section>
+</div>

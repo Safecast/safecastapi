@@ -2,7 +2,7 @@ class My::MeasurementsController < ApplicationController
   expose(:measurements) { current_user.measurements }
   
   def show
-    render :inline => Mustache.render(render_to_string, measurement.serializable_hash)
+    @measurement = current_user.measurements.find(params[:id])
   end
   
   def index

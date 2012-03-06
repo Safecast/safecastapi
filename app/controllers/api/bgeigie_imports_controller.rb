@@ -38,7 +38,8 @@ class Api::BgeigieImportsController < Api::ApplicationController
   # @response_field [String] status The post-processing status of the import
   #
   def show
-    respond_with @result = bgeigie_import
+    @bgeigie_import = BgeigieImport.find(params[:id])
+    respond_with @result = @bgeigie_import
   end
 
 

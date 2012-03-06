@@ -5,7 +5,7 @@
 #
 class Api::MeasurementsController < Api::ApplicationController
   
-  before_filter :authenticate_user!, :only => [:create, :update]
+  before_filter :authenticate_user!, :only => [:new, :create, :update]
   layout :choose_layout
   
   ##
@@ -91,7 +91,7 @@ class Api::MeasurementsController < Api::ApplicationController
       @measurement.save
     end
     @map.measurements<< @measurement if @map   #this could be done by calling add_to_map, but that seems misleading
-    respond_with @result = @measurement
+    respond_with @result = @measurement, :location => [:my, @measurement]
   end
 
 protected
