@@ -310,9 +310,12 @@ section.brief {
 // map
 
 #map_canvas, div.map-container {
-  width: 460px;
+  width: 100%;
   height: 230px;
   margin-bottom: 32px;
+  &.high {
+    height: 460px;
+  }
 }
 div.map {
   position: relative;
@@ -372,8 +375,15 @@ ul.measurement {
   li.value {
     float: left;
     width: 400px;
+    &.thin {
+      width: 200px;
+    }
     em {
       font-size: 72px;
+      &.block {
+        display: block;
+        margin-bottom: 20px;
+      }
     }
   }
   li.lat-lng {
