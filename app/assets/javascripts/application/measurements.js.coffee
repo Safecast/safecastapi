@@ -1,5 +1,4 @@
 jQuery ->
-  
   if window.hasOwnProperty('google') && $('#map_canvas').length > 0
     latlng = new window.google.maps.LatLng(37.7607226, 140.47335610000005)
     myOptions =
@@ -7,7 +6,6 @@ jQuery ->
       center: latlng,
       navigationControlOptions: {style: window.google.maps.NavigationControlStyle.SMALL},
       mapTypeId: window.google.maps.MapTypeId.ROADMAP
-
     window.map = new window.google.maps.Map(document.getElementById("map_canvas"), myOptions)
   
   # focus

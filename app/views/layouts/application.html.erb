@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Safecast</title>
+    <%= csrf_meta_tag %>
+    <%= stylesheet_link_tag :application %>
+    <%- if ENV['CONNECTION_STATUS'] != 'offline' -%>
+      <%= javascript_include_tag 'http://maps.googleapis.com/maps/api/js?key=AIzaSyA15g0-2g2c7LbKWwCJmJpQWbdntzXZshE&sensor=true' %>
+    <%- end -%>
+      <%= javascript_include_tag 'http://use.typekit.com/tvi6mbv.js' %>
+      <script type="text/javascript" charset="utf-8">
+        try{Typekit.load();}catch(e){}
+      </script>
+      <!-- [if lt IE 9] -->
+      <%= javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js" %>
+      <!--[endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1><%= link_to "Safecast", root_path %></h1>
+        <nav>
+          <ul>
+            <li>
+              <%= link_to "Api Docs", root_path %>
+            </li>
+            <%- if user_signed_in? -%>
+              <li>
+                <%= link_to [:my, :profile], :title => 'Profile' do %>
+                  Profile
+                <%- end -%>
+              </li>
+              <li>
+                <%= link_to [:my, :measurements], :title => 'Measurements' do %>
+                  Measurements
+                <%- end -%>
+              </li>
+              <li>
+                <%= link_to [:my, :maps], :title => 'Maps' do %>
+                  Maps
+                <%- end -%>
+              </li>
+              <li>
+                <%= link_to '/my/measurements/new', :title => 'Submit a Reading', :data => {:pjax => true} do %>
+                  Submit
+                <%- end -%>
+              </li>
+              <li>
+                <%= link_to 'Sign out', logout_path %>
+              </li>
+            <%- else -%>
+              <li>
+                <%= link_to "Sign up / Sign in", new_user_session_path %>
+              </li>
+            <%- end -%>
+          </ul>
+        </nav>
+      </header>
+      <div id="page">
+        <%= yield %>
+      </div>
+      
+      <footer>
+        <p>Creative Commons Non-Commercial</p>
+      </footer>
+    </div>
+    <%= javascript_include_tag :application %>
+  </body>
+</html>
