@@ -9,8 +9,9 @@ jQuery ->
           marker = new google.maps.Marker
                             map: map, 
                             position: results[0].geometry.location
-          $('#latitude').val(results[0].geometry.location.Pa)
-          $('#longitude').val(results[0].geometry.location.Qa)
+          console.log(results[0].geometry.location)
+          $('#latitude').val(results[0].geometry.location.lat())
+          $('#longitude').val(results[0].geometry.location.lng())
 
     geocodeSearch: (e) ->
       if(e.hasOwnProperty('which'))
