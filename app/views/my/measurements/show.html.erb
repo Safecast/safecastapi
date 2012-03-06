@@ -11,19 +11,23 @@
         <%= @measurement.unit %>
       </li>
       <li class="lat-lng">
-        <em><%= @measurement.latitude %>&deg;</em>
+        <em title="<%= @measurement.latitude %>">
+          <%= truncate(@measurement.latitude.to_s, :length => 15) %>&deg;
+        </em>
         lat
       </li>
       <li class="lat-lng">
-        <em><%= @measurement.longitude %>&deg;</em>
+        <em title="<%= @measurement.longitude %>">
+          <%= truncate(@measurement.longitude.to_s, :length => 15) %>&deg;
+        </em>
         lng
       </li>
-      <li><%= @measurement.location_name %></li>
       <%- if @measurement.captured_at.present? -%>
         <li>
-          taken on <%= @measurement.captured_at.strftime("%b %F") %>
+          <%= @measurement.captured_at.strftime("%e %B, %Y %H:%M:%S") %>
         </li>
       <%- end -%>
+      <li><%= @measurement.location_name %></li>
     </ul>
   </section>
   <section class="span6">

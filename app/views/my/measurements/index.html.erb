@@ -1,0 +1,44 @@
+<div class="row">
+  <section class="span10 offset1">
+    <%- if @measurements.empty? -%>
+      <p>You haven't submitted any measurements yet.</p>
+    <%- else -%>
+      <ul class="unstyled measurement-list">
+        <%- @measurements.each do |measurement| -%>
+          <li class="measurement">
+            <%= link_to [:my, measurement] do %>
+              <ul class="measurement-listed">
+                <li class="value">
+                  <em><%= measurement.value %></em>
+                  <%= measurement.unit %>
+                </li>
+                <li class="lat-lng">
+                  <em title="<%= measurement.latitude %>">
+                    <%= truncate measurement.latitude.to_s, :length => 15 %>
+                  </em>
+                  lat
+                </li>
+                
+                <li class="lat-lng">
+                  <em title="<%= measurement.longitude %>">
+                    <%= truncate measurement.longitude.to_s, :length => 15 %>
+                  </em>
+                  lng
+                </li>
+                <%- if measurement.captured_at.present? -%>
+                  <li>
+                    <%= measurement.captured_at.strftime("%e %B, %Y %H:%M:%S") %>
+                  </li>
+                <%- end -%>
+                <%- if measurement.location_name.present? -%>
+                  <li><%= measurement.location_name %></li>
+                <%- end -%>
+                
+              </ul>
+            <%- end -%>
+          </li>
+        <%- end -%>
+      </ul>
+    <%- end -%>
+  </section>
+</div>

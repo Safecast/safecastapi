@@ -360,6 +360,7 @@ ul.measurement {
     display: inline;
     float: left;
     margin-bottom: 1em;
+    width: 400px;
   }
   li{
     color: #999;
@@ -377,6 +378,53 @@ ul.measurement {
   }
   li.lat-lng {
     text-align: center;
+    width: 200px;
+    em {
+      display: block;
+      color: #666;
+      font-size: 24px;
+    }
+  }
+}
+
+
+ul.measurement-list {
+  margin-top: 36px;
+  li.measurement {
+    width: 780px;
+  }
+  li:hover {
+  }
+}
+ul.measurement-listed {
+  border-bottom: 1px dashed #999;
+  display: inline-block;
+  &:hover{
+    background-color: #eee;
+  }
+  li{
+    padding-top: 1em;
+    padding-left: 1em;
+    text-align: left;
+    display: inline;
+    float: left;
+    margin-bottom: 1em;
+  }
+  li{
+    color: #999;
+    em {
+      color: #000;
+      font-style: normal;
+    }
+  }
+  li.value {
+    float: left;
+    width: 200px;
+    em {
+      font-size: 36px;
+    }
+  }
+  li.lat-lng {
     width: 200px;
     em {
       display: block;
