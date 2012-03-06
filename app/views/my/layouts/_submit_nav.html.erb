@@ -1,0 +1,20 @@
+<ul class="nav nav-tabs">
+  <li
+    <%- if controller_name == 'measurements' && action_name == 'new' -%>
+      class="active"
+    <%- end -%>
+  >
+    <%= link_to [:new, :my, :measurement] do %>
+      Submit a single measurement
+    <%- end -%>
+  </li>
+  <li
+    <%- if controller_name == 'bgeigie_imports' && action_name == 'new' -%>
+      class="active"
+    <%- end -%>
+  >
+    <%= link_to [:new, :my, :bgeigie_import] do %>
+      Upload a bGeigie log file
+    <%- end -%>
+  </li>
+</ul>

@@ -8,13 +8,13 @@
     <%- if ENV['CONNECTION_STATUS'] != 'offline' -%>
       <%= javascript_include_tag 'http://maps.googleapis.com/maps/api/js?key=AIzaSyA15g0-2g2c7LbKWwCJmJpQWbdntzXZshE&sensor=true' %>
     <%- end -%>
-      <%= javascript_include_tag 'http://use.typekit.com/tvi6mbv.js' %>
-      <script type="text/javascript" charset="utf-8">
-        try{Typekit.load();}catch(e){}
-      </script>
-      <!-- [if lt IE 9] -->
-      <%= javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js" %>
-      <!--[endif]-->
+    <%= javascript_include_tag 'http://use.typekit.com/tvi6mbv.js' %>
+    <script type="text/javascript" charset="utf-8">
+      try{Typekit.load();}catch(e){}
+    </script>
+    <!-- [if lt IE 9] -->
+    <%= javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js" %>
+    <!--[endif]-->
   </head>
   <body>
     <div class="container">
