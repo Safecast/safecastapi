@@ -1,4 +1,6 @@
 Safecast::Application.routes.draw do
+  
+  root :to => 'api/application#index'
 
   resources :posts
 
