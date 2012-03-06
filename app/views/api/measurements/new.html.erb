@@ -36,7 +36,8 @@
             <%= f.label :value, 'Radiation Level', :class => 'control-label' %>
             <div class="controls">
               <%= f.text_field :value,
-                    :class => 'digit level' %>
+                    :class => 'digit level',
+                    :value => @measurement.value.presence || '000' %>
             </div>
           </div>
 

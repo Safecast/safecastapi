@@ -30,7 +30,7 @@ jQuery ->
     $('#unit').val($(this).data('value'))
     return false
   
-  $('input').on 'focus', ->
+  $('input').on 'click', ->
     $(this).select()
   
   $('#location').on 'click', (e) ->
