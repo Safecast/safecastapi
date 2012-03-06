@@ -78,7 +78,7 @@ class Api::MeasurementsController < Api::ApplicationController
   end
   
   def new
-    @measurement = Measurement.new
+    @measurement = Measurement.new(:location_name => 'Fukushima City Office')
   end
   
   def create

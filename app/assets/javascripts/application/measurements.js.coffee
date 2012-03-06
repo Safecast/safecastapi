@@ -7,6 +7,12 @@ jQuery ->
       navigationControlOptions: {style: window.google.maps.NavigationControlStyle.SMALL},
       mapTypeId: window.google.maps.MapTypeId.ROADMAP
     window.map = new window.google.maps.Map(document.getElementById("map_canvas"), myOptions)
+    centerMap = () ->
+      center = map.getCenter()
+      $('#latitude').val(center.lat())
+      $('#longitude').val(center.lng())
+    google.maps.event.addListener map, 'center_changed', centerMap
+    centerMap()
   
   # focus
   $(document).delegate '.field input', 'click', ->
