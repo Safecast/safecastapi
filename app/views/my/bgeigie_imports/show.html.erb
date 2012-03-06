@@ -19,7 +19,7 @@
       </div>
     <%- end -%>
 
-    <ul class="unstyled">
+    <ul class="nav nav-pills nav-stacked">
       <li><%= link_to "Download Original File",
                        @bgeigie_import.source.url %></li>
     </ul>
@@ -33,6 +33,24 @@
     <%- end -%>
   </section>
   <section class="span9">
+    <input type="hidden" id="zoomlevel" value="12">
+    <input id="latitude"
+           type="hidden"
+           value="<%= @bgeigie_import.bgeigie_logs.first.latitude %>"></input>
+    <input id="longitude"
+           type="hidden"
+           value="<%= @bgeigie_import.bgeigie_logs.first.longitude %>"></input>
     <div id="map_canvas" class="high"></div>
   </section>
 </div>
+
+<%= content_for(:additional_javascripts) do %>
+  <script>
+    $(function(){
+      var points = <%= raw(@bgeigie_import.bgeigie_logs.collect do |b|
+                          {:lat => b.latitude, :lng => b.longitude}
+                       end.to_json) %>
+      console.log(GoogleMap.addPoints(points))
+    })
+  </script>
+<%- end -%>

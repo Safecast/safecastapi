@@ -2,7 +2,7 @@ jQuery ->
   if window.hasOwnProperty('google') && $('#map_canvas').length > 0
     latlng = new window.google.maps.LatLng($('#latitude').val(), $('#longitude').val())
     myOptions =
-      zoom: 17,
+      zoom: parseInt($('#zoomlevel').val() or 17),
       center: latlng,
       navigationControlOptions: {style: window.google.maps.NavigationControlStyle.SMALL},
       mapTypeId: window.google.maps.MapTypeId.ROADMAP
@@ -13,7 +13,8 @@ jQuery ->
       $('#longitude').val(center.lng())
     google.maps.event.addListener map, 'center_changed', centerMap
     centerMap()
-    google.maps.event.addDomListener $('.map-crosshair')[0], 'dblclick', () ->
+    if $('.map-crosshair').length > 0
+      google.maps.event.addDomListener $('.map-crosshair')[0], 'dblclick', () ->
         map.setZoom(map.getZoom() + 1)
   
   # focus
