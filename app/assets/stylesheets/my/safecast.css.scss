@@ -234,61 +234,57 @@ section.brief {
 
 // level reading
 
-section.brief {
-  form {
-    fieldset.level-reading {
-      div.field {
-        label { display: none; }
-        ul.units {
-          float: right;
-          padding: 0;
-          width: 48px;
-          & > li {
-            overflow: hidden;
-            clear: both;
-            margin: 0 auto;
-            width: 36px;
-            height: 36px;
-            text-indent: -9999px;
-            overflow: hidden;
-            background-color: transparent;
-            background-repeat: no-repeat;
-            background-position: -72px 0px;
-            &.cpm { background-image: url(image-path('cpm.png')); }
-            &.microsievert { background-image: url(image-path('microsievert.png')); }
-            &.gps { background-image: url(image-path('gps.png')); }
-            &:hover { cursor: pointer; background-position: -108px 0px; }
-            &.selected { background-position: -36px 0px; }
-          }
+form.submission {
+  fieldset.level-reading {
+    div.control-group {
+      ul.units {
+        float: right;
+        padding: 0;
+        width: 48px;
+        & > li {
+          overflow: hidden;
+          clear: both;
+          margin: 0 auto;
+          width: 36px;
+          height: 36px;
+          text-indent: -9999px;
+          overflow: hidden;
+          background-color: transparent;
+          background-repeat: no-repeat;
+          background-position: -72px 0px;
+          &.cpm { background-image: url(image-path('cpm.png')); }
+          &.microsievert { background-image: url(image-path('microsievert.png')); }
+          &.gps { background-image: url(image-path('gps.png')); }
+          &:hover { cursor: pointer; background-position: -108px 0px; }
+          &.selected { background-position: -36px 0px; }
         }
-        &.reading {
-          background: transparent url(image-path('ridge.png')) bottom left repeat-x;
-          
-          input[type='text'], input[type='password'], input[type='email'] {
-            font-size: 72px;
-            text-shadow: 0 0 3px #fff;
-            text-align: center;
-            width: 274px;
-            margin: 0;
-            padding: 10px 0 2px;
-            float: left;
-            background-position: 0px -8px;
-          }
+      }
+      &.reading {
+        
+        input[type='text'], input[type='password'], input[type='email'] {
+          font-size: 72px;
+          text-shadow: 0 0 3px #fff;
+          text-align: center;
+          width: 274px;
+          margin: 0;
+          padding: 10px 0 2px;
+          float: left;
+          background-position: 0px -8px;
+          height: 99px;
         }
-        &.location {
-          background: transparent url(image-path('ridge.png')) bottom left repeat-x;
-          input[type='text'], input[type='password'], input[type='email'] {
-            width: 264px;
-            float: left;
-            clear: left;
-          }
-          ul.units { clear: right; }
+      }
+      &.location {
+        background: transparent url(image-path('ridge.png')) bottom left repeat-x;
+        input[type='text'], input[type='password'], input[type='email'] {
+          width: 264px;
+          float: left;
+          clear: left;
         }
+        ul.units { clear: right; }
       }
     }
   }
 }
-
 // device details
 
 section.brief {

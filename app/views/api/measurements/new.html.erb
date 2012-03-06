@@ -2,7 +2,7 @@
   <%= form_for [:api, @measurement],
       :html => {
         :autocomplete => 'off',
-        :class => 'form-horizontal',
+        :class => 'form-horizontal submission',
         :id => 'submission'
       } do |f| %>
     <div class="row">
@@ -28,14 +28,15 @@
             </ul>
           </div>
         <%- end -%>
-        <fieldset>
+        <fieldset class="level-reading">
           <legend>
             Basics
           </legend>
-          <div class="control-group">
+          <div class="control-group reading">
             <%= f.label :value, 'Radiation Level', :class => 'control-label' %>
             <div class="controls">
-              <%= f.text_field :value, { :class => 'level digit' } %>
+              <%= f.text_field :value,
+                    :class => 'digit level' %>
             </div>
           </div>
 
