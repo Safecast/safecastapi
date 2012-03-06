@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120306150302) do
+ActiveRecord::Schema.define(:version => 20120306202021) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(:version => 20120306150302) do
     t.datetime "created_at",                                            :null => false
     t.datetime "updated_at",                                            :null => false
     t.string   "name"
+    t.string   "time_zone"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

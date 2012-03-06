@@ -1,11 +1,18 @@
 <div class="row">
-  <section class="span6 offset3">
+  <section class="span1 offset2">
+    <ul class="nav nav-pills">
+      <li><%= link_to "Edit", [:edit, :my, :profile] %></li>
+    </ul>
+  </section>
+  <section class="span6">
     <h2>
       Profile
     </h2>
     <ul>
       <dt>Name</dt>
       <dd><%= @user.name %></dd>
+      <dt>Time zone</dt>
+      <dd><%= @user.time_zone %></dd>
     </ul>
     <dl class="well">
       <dt>Your API Key</dt>
