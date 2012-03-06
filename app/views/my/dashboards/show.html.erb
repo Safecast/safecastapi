@@ -1,0 +1,57 @@
+<div class="row">
+  <section class="span6">
+    <h2>Hello <%= current_user.name  %></h2>
+
+    <p>
+      Welcome to the Safecast API Center.
+    </p>
+
+    <ul class="nav nav-pills nav-stacked well">
+      <li class="nav-header">
+        From here you can:
+      </li>
+      <li>
+        <%= link_to 'Submit a reading from your device', [:new, :my, :measurement] %>
+      </li>
+      <li>
+        <%= link_to 'View your submission history', [:my, :measurements] %>
+      </li>
+      <li>
+        <%= link_to 'Explore maps of your submissions', [:my, :maps] %>
+      </li>
+      <li class="nav-header">
+        If you have a bGeigie:
+      </li>
+      <li>
+        <%= link_to 'Upload a bGeigie log file', [:new, :my, :bgeigie_import] %>
+      </li>
+      <li>
+        <%= link_to 'Review your bGeigie log file submissions' %>
+      </li>
+    </ul>
+  </section>
+
+  <section class="span6 dashboard">
+    <ul class="unstyled">
+        <li>
+          <%= link_to [:my, :measurements] do %>
+            <em><%= current_user.measurements.count  %></em>
+            submission<%= 's' if current_user.measurements.count != 1 %>
+          <%- end -%>
+        </td>
+      </li>
+      <li>
+          <%= link_to [:my, :maps] do %>
+            <em><%= current_user.maps.count  %></em>
+            map<%= 's' if current_user.maps.count != 1 %>
+          <%- end -%>
+      </li>
+      <li>
+          <%= link_to [:my, :bgeigie_imports] do %>
+            <em><%= current_user.bgeigie_imports.count  %></em>
+            bGeigie import<%= 's' if current_user.bgeigie_imports.count != 1 %>
+          <%- end -%>
+      </li>
+    </table>
+  </section>
+</div>

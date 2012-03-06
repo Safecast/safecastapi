@@ -42,7 +42,7 @@
                 <%- end -%>
               </li>
               <li>
-                <%= link_to [:new, :api, :measurement],
+                <%= link_to [:new, :my, :measurement],
                       :title => 'Submit a Reading' do %>
                   Submit
                 <%- end -%>
@@ -58,7 +58,7 @@
           </ul>
         </nav>
       </header>
-      <div id="page">
+      <div id="page" class="container">
         <%= yield %>
       </div>
       

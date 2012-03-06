@@ -1,0 +1,29 @@
+<div class="row">
+  <section class="span6">
+    <h2>My maps</h2>
+
+    <%- if @maps.empty? -%>
+      <p>No maps found.</p>
+    <%- else -%>
+      <ul class="nav nav-pills nav-stacked">
+        <%- @maps.each do |map| -%>
+          <li <%= 'class="active"'.html_safe if @map == map %>>
+            <%= link_to([:my, map]) do %>
+            <%= map.name %>
+            <%= map.created_at %>
+            <%= map.measurements.count %> measurements
+            <%- end -%>
+          </li>
+        <%- end -%>
+      </ul>
+    <%- end -%>
+  </section>
+  <%- if content_for?(:viewer) -%>
+    <div class="span6">
+      <%= content_for(:viewer) %>
+    </div>
+  <%- end -%>
+</div>
+<div class="row span12">
+  <%= will_paginate @maps %>
+</div>

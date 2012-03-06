@@ -51,7 +51,9 @@
           <div class="control-group">
             <%= label_tag :location, "Location", :class => 'control-label' %>
             <div class="controls">
-              <%= f.text_field :location_name, { :id => :location } %>
+              <%= f.text_area :location_name,
+                    :id => :location,
+                    :style => "height: 50px" %>
             </div>
           </div>
         </fieldset>

@@ -1,6 +1,6 @@
 jQuery ->
   if window.hasOwnProperty('google') && $('#map_canvas').length > 0
-    latlng = new window.google.maps.LatLng(37.7607226, 140.47335610000005)
+    latlng = new window.google.maps.LatLng($('#latitude').val(), $('#longitude').val())
     myOptions =
       zoom: 17,
       center: latlng,
@@ -30,7 +30,7 @@ jQuery ->
     $('#unit').val($(this).data('value'))
     return false
   
-  $('input').on 'click', ->
+  $('input, textarea').on 'click', ->
     $(this).select()
   
   $('#location').on 'click', (e) ->

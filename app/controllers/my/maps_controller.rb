@@ -1,11 +1,12 @@
-class My::MapsController < ApplicationController
-  expose(:map)
+class My::MapsController < My::ApplicationController  
+  before_filter :get_maps
   
-  def new
-    render 'my/dashboards/show'
+  def show
+    @map = current_user.maps.find(params[:id])
   end
   
-  def index
-    @maps = current_user.maps
+protected
+  def get_maps
+    @maps = current_user.maps.page(params[:page])
   end
 end
