@@ -42,7 +42,8 @@
                 <%- end -%>
               </li>
               <li>
-                <%= link_to '/my/measurements/new', :title => 'Submit a Reading', :data => {:pjax => true} do %>
+                <%= link_to [:new, :api, :measurement],
+                      :title => 'Submit a Reading' do %>
                   Submit
                 <%- end -%>
               </li>

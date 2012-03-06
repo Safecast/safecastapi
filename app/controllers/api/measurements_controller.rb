@@ -6,7 +6,7 @@
 class Api::MeasurementsController < Api::ApplicationController
   
   before_filter :authenticate_user!, :only => [:create, :update]
-  respond_to :html, :only => :create
+  layout :choose_layout
   
   ##
   # List all of the *measurement* resources in the Safecast database.  There are a lot of measurements in
@@ -31,7 +31,7 @@ class Api::MeasurementsController < Api::ApplicationController
     elsif @user
       respond_with @user.measurements.page(params[:page])
     else
-      respond_with Measurement.all(params[:page])
+      respond_with Measurement.page(params[:page])
     end
   end
   
@@ -77,6 +77,10 @@ class Api::MeasurementsController < Api::ApplicationController
     respond_with @measurement, :location => [:api, @measurement]
   end
   
+  def new
+    @measurement = Measurement.new
+  end
+  
   def create
     @map = Map.find params[:map_id] if params[:map_id].present?
     @measurement = Measurement.new(params[:measurement])
@@ -87,7 +91,14 @@ class Api::MeasurementsController < Api::ApplicationController
       @measurement.save
     end
     @map.measurements<< @measurement if @map   #this could be done by calling add_to_map, but that seems misleading
-    respond_with @result = @measurement, :location => [:api, @measurement]
+    respond_with @result = @measurement
+  end
+
+protected
+
+  def choose_layout
+    return 'application' if ['new', 'create'].include?(action_name)
+    'api_doc'
   end
   
 end

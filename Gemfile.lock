@@ -90,10 +90,6 @@ GEM
       thor (~> 0.14)
     json (1.6.5)
     json_pure (1.6.5)
-    kaminari (0.13.0)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      railties (>= 3.0.0)
     launchy (2.0.5)
       addressable (~> 2.2.6)
     mail (2.4.1)
@@ -183,6 +179,7 @@ GEM
     warden (1.1.1)
       rack (>= 1.0)
     watchr (0.7)
+    will_paginate (3.0.3)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
@@ -202,7 +199,6 @@ DEPENDENCIES
   haml
   jquery-rails
   json
-  kaminari
   launchy
   mustache
   pg
@@ -215,3 +211,4 @@ DEPENDENCIES
   thin
   uglifier
   watchr
+  will_paginate (~> 3.0.3)

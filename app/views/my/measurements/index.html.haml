@@ -12,4 +12,4 @@
           Latitude: #{measurement.latitude}
           Longitude: #{measurement.longitude}
           #{measurement.captured_at}
-  = paginate(@measurements)
+  = will_paginate(@measurements)

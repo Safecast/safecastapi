@@ -1,0 +1,70 @@
+<section>
+  <div class="row">
+    <div class="span6 offset3">
+      <h2>Contribute your Measurement</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span6 offset3">
+      <%= form_for [:api, @measurement],
+          :html => {
+            :autocomplete => 'off',
+            :class => 'form-horizontal',
+            :id => 'submission'
+          } do |f| %>
+          <%- if @measurement.errors.any? -%>  
+            <div class="alert">
+              <ul>
+                <%- @measurement.errors.full_messages.each do |message| -%>
+                  <li><%= message %></li>
+                <%- end -%>
+              </ul>
+            </div>
+          <%- end -%>
+          <div class="control-group">
+            <%= f.label :value, 'Radiation Level', :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :value, { :class => 'level digit' } %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :unit, :class => 'control-label' %>
+            <div class="controls">
+              <%= f.select :unit, ['cpm', 'microsievert'], :id => 'unit' %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :location_name, "Location", :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :location_name, { :id => :location } %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= label_tag :latitude, 'Latitude', :class => 'control-label' %>
+
+            <div class="controls">
+              <%= f.text_field :latitude, :id => 'latitude' %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= label_tag :longitude, 'Longitude', :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :longitude, :id => 'longitude' %>
+            </div>
+          </div>
+
+
+          <div id="map_canvas" class="map"></div>
+          <fieldset>
+            <p class="button">
+              <input type="submit" value="Submit">
+            </p>
+          </fieldset>
+      <%- end -%>
+    </div>
+  </div>
+</section>
