@@ -4,7 +4,7 @@
 # @topic Devices
 #
 class Api::DevicesController < Api::ApplicationController
-  
+
   before_filter :authenticate_user!, :only => :create
   
   expose(:device)
@@ -12,10 +12,8 @@ class Api::DevicesController < Api::ApplicationController
   expose(:devices) do
     if params[:where].present?
       Device.where(params[:where])
-    elsif params[:page].present?
-      Device.page(params[:page])
     else
-      Device.page(1)
+      Device.page(params[:page] || 1)
     end
   end
   
@@ -30,7 +28,7 @@ class Api::DevicesController < Api::ApplicationController
   # @argument [Integer] page_size Number of devices to include in one page
   #
   def index
-    respond_with devices
+    respond_with @result = devices
   end
   
   ##
@@ -43,7 +41,7 @@ class Api::DevicesController < Api::ApplicationController
   # @response_field [String] sensor The type or model of sensor element used in the device
   #
   def show
-    respond_with device
+    respond_with @result = device
   end
   
   ##
@@ -56,9 +54,32 @@ class Api::DevicesController < Api::ApplicationController
   # @argument [String] sensor The type or model of sensor element used in the device
   def create
     device = Device.get_or_create(params[:device])
-    respond_with device
+    respond_with @result = device
   end
-  
 
+
+
+  private
+
+  def set_doc
+    @doc = {
+      :name => "Device",
+      :description => "A device used to take a measurement.",
+      :properties => {
+        :manufacturer => {
+          :type => "String",
+          :description => "The manufacturer of the device."
+        },
+        :model => {
+          :type => "String",
+          :description => "The model number (or string) of the device provided by the device's manufacturer."
+        },
+        :sensor => {
+          :type => "String",
+          :description => "The model number of the sensing element present in the device."
+        }
+      }
+    }
+  end
   
 end

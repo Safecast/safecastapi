@@ -8,7 +8,27 @@
 class Api::BgeigieImportsController < Api::ApplicationController
   
   expose(:bgeigie_import)
-  expose(:bgeigie_imports)
+  expose(:bgeigie_imports) { BgeigieImport.page(params[:page] || 1) }
+
+  def self.doc
+    {
+      :methods => [
+        {
+          :method => "GET",
+          :description => "Retrieve a collection of bGeigie Import resources",
+          :params => {
+            :required => [],
+            :optional => [
+              {
+                :id => "Only retrieve the resource with this id"
+              }
+            ]
+          }
+        }
+
+      ],
+    }
+  end
 
   ##
   # Retrieve the *bgeigie_import* resource referenced by the provided id

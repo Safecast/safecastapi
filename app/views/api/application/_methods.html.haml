@@ -1,4 +1,12 @@
-%table
-  %tr
-    %td GET
-    %td Get information about the API.  For the root endpoint, this is mostly just for links.
+- docs = Api::ApplicationController.doc
+%h2 Supported Methods
+- docs[:methods].each do |method|
+  .method-details
+    %h3.method-type= method[:method]
+    .method-description= method[:description]
+    .required-params
+      %h3 Required Params
+      = render :partial => 'required_params'
+    .optional-params
+      %h3 Optional Params
+      = render :partial => 'optional_params'

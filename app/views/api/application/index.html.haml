@@ -1,27 +1,9 @@
-// There's definitely a way to DRY these up, but for now, bruting them a bit to get shit done.
 %h1
   Safecast API documentation
 
-#endpoint
-  %h2 Endpoint details
-  .url
-    %h3 URL
-    = request.path
-  .methods
-    %h3 Supported Methods
-    = render :partial => 'methods' 
-  .required-params
-    %h3 Required Params
-    = render :partial => 'required_params'
-  .optional-params
-    %h3 Optional Params
-    = render :partial => 'optional_params'
-  .description
-    %h3 Description
-    This is the Safecast API's root URL.  
-  .links
-    %h3 Links
-    = render :partial => 'links'
+#resource
+  %h2 Resource:  #{@doc[:name]}
+  #{@doc[:description]}
 
 #request
   %h2 Your Request
@@ -37,9 +19,4 @@
   This is the result of your query.
 
   .json
-    %h4 JSON
     = render :partial => 'json'
-  .xml
-    %h4 XML
-    = render :partial => 'xml'
-  

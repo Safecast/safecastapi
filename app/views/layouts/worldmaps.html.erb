@@ -1,11 +1,154 @@
 <!DOCTYPE html>
 <html>
   <head>
+  	<meta charset="utf-8">
     <title>Safecast Worldmaps</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
     <%= javascript_include_tag 'worldmap' %>
+ 	<%=stylesheet_link_tag 'worldmap/worldmap' %>
+
+    <!-- for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
   </head>
   <body>
-    I am in app/views/layouts/worldmaps.html.erb
-    <%= yield %>
+
+	<div class="modal fade" id="myModal">
+	  <div class="modal-header">
+	    <a class="close" data-dismiss="modal">×</a>
+	    <h3>Modal header</h3>
+	  </div>
+	  <div class="modal-body">
+	    <p>One fine body…</p>
+	  </div>
+	  <div class="modal-footer">
+	    <a href="#" class="btn btn-primary">Save changes</a>
+	    <a href="#" class="btn">Close</a>
+	  </div>
+	</div>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+			
+
+          </a>
+          <a class="brand" href="#">Safecast</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+				<a class="btn" data-toggle="modal" href="#myModal" >Launch Modal</a>
+				<!--           
+				<li class="active"><a href="#">link</a></li>
+              	<li><a href="#link">link</a></li>
+              	<li><a href="#link">link</a></li>
+				-->
+            </ul>
+            <p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	<div class="app-view">
+		<div class="loading-window" id="loading-window"></div>
+		<div class="settings-view">
+			<input class="search" id="search" placeholder="Search a location..."></input>
+			<div class="buttons-share">
+				<button class="btn-facebook">Facebook</button>
+				<button class="btn-twitter">Twitter</button>
+			</div>
+			<div class="controls">
+				<div class="divider-line"></div>
+				<div class="control-container safecast">
+					<div class="control-title safecast">Safecast Data</div>
+					<div class="logo" id="logo"></div>
+					<div class="toggle safecast" id="toggle-safecastdata">Mobile Collection</div>
+					<!--<div class="toggle static" id="toggle-staticdata">Static Sensors</div>-->	
+				</div>
+				<div class="toggle-container census">
+					<div class="control-title external">External Data</div>
+					<div class="toggle" id="toggle-census">Census data</div>
+					<input class="color-picker" id="color-picker"></input>
+				</div>
+			</div>
+			
+			<div class="theme">
+				<div class="control-title">Map Theme</div>
+				<div class="theme-toggle dark-on" id="toggle-dark"></div><div class="theme-toggle light-off" id="toggle-light"></div><div class="theme-toggle standard-off" id="toggle-standard"></div>
+			</div>
+		</div>
+		<div class="settings-toggle" id="settings-toggle"></div>
+		<div class="zoom-buttons" id="zoom-buttons">
+			<div class="zoom-out" id="zoom-out"></div><div class="zoom-in" id="zoom-in"></div>
+		</div>
+		<div class='info-hit-area'></div>
+		<div class="info-pane">
+			<div class="legend"></div>
+			<div class='dre'>DRE, &#956;Sv/h</div>
+			<div class='reading'></div>
+			<div class='cpm'></div>
+			<div class='samples'></div>
+			<div class='date-range'></div>	
+		</div>
+		<div class="map-container" id="map-container">
+			<div class="map-left-edge" id="map-left-edge">
+				<div class="top"></div>
+				<div class="mid"></div>
+				<div class="bottom"></div>
+			</div>
+			<div class="map-view" id="map-view"></div>
+			<div class="title-bar"> sdf</div>
+
+		</div>
+	</div>
+
+	</div>
+	<!-- Boostrap scripts -->
+    <script src="assets/bootstrap/bootstrap-transition.js"></script>
+    <script src="assets/bootstrap/bootstrap-alert.js"></script>
+    <script src="assets/bootstrap/bootstrap-modal.js"></script>
+    <script src="assets/bootstrap/bootstrap-dropdown.js"></script>
+    <script src="assets/bootstrap/bootstrap-scrollspy.js"></script>
+    <script src="assets/bootstrap/bootstrap-tab.js"></script>
+    <script src="assets/bootstrap/bootstrap-tooltip.js"></script>
+    <script src="assets/bootstrap/bootstrap-popover.js"></script>
+    <script src="assets/bootstrap/bootstrap-button.js"></script>
+    <script src="assets/bootstrap/bootstrap-collapse.js"></script>
+    <script src="assets/bootstrap/bootstrap-carousel.js"></script>
+    <script src="assets/bootstrap/bootstrap-typeahead.js"></script>
+
+	<!-- Worldmap App scripts -->
+	<script src="assets/worldmap/config.js"></script>
+	<script type="text/javascript" src="https://use.typekit.com/fkf6mtk.js"></script>
+	<script >try{Typekit.load();}catch(e){}</script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
+	<script src="assets/worldmap/infobox.js"></script>
+	<script src="assets/worldmap/jquery.miniColors.js"></script>
+	<script src="assets/jquery-ui.min.js"></script>
+	
+	<!-- Analytics -->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-831620-4']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	
   </body>
 </html>

@@ -1,2 +1,0 @@
-%code.prettyprint
-  = JSON.pretty_generate(@result)
