@@ -1,5 +1,6 @@
 <%= content_for(:viewer) do %>
   <h2><%= @map.name %></h2>
   <p><%= @map.created_at %></p>
+  <div id="map_canvas"></div>
 <%- end -%>
 <%= render :template => 'my/maps/index' %>
