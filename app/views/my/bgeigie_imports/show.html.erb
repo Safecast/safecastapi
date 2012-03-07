@@ -2,16 +2,20 @@
   <section class="span3">
     <h2>
       bGeigie Import
-      <%- if @bgeigie_import.status == 'done' -%>
-        <span class="label label-info">
-          Processed
-        </span>
-      <%- else -%>
-        <span class="label label-info">
-          <%= @bgeigie_import.status %>
-        </span>
-      <%- end -%>
     </h2>
+    <%- if @bgeigie_import.status == 'done' -%>
+      <span class="label label-success">
+        Processed
+      </span>
+    <%- elsif @bgeigie_import.status == 'awaiting_approval' -%>
+      <span class="label label-warning">
+        Awaiting approval
+      </span>
+    <%- else -%>
+      <span class="label label-info">
+        <%= @bgeigie_import.status.humanize %>
+      </span>
+    <%- end -%>
     <%- if @bgeigie_import.status == 'processing' -%>
       <div class="progress progress-info progress-striped active">
         <div class="bar"

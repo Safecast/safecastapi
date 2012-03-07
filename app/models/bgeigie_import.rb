@@ -5,6 +5,9 @@ class BgeigieImport < MeasurementImport
   
   belongs_to :user
   has_many :bgeigie_logs
+
+  scope :unapproved, where(:approved => false)
+  scope :awaiting_approval, where(:status => 'awaiting_approval')
   
   store :status_details, :accessors => [
     :process_file,
@@ -31,6 +34,7 @@ class BgeigieImport < MeasurementImport
     confirm_status(:import_bgeigie_logs)
     infer_lat_lng_into_bgeigie_logs_from_nmea_location
     confirm_status(:compute_latlng)
+    self.update_attribute(:status, 'awaiting_approval')
   end
   
   def authorize!

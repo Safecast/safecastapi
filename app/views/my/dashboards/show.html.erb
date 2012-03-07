@@ -58,6 +58,18 @@
             bGeigie import<%= 's' if current_user.bgeigie_imports.count != 1 %>
           <%- end -%>
       </li>
-    </table>
+    </ul>
+    <%- if current_user.moderator? -%>
+      <%- if @unapproved_bgeigie_imports.any? -%>
+        <ul class="unstyled">
+          <li>
+            <%= link_to [:my, :bgeigie_imports]  do -%>
+              <em><%= @unapproved_bgeigie_imports.count -%></em>
+              awaiting approval
+            <%- end -%>
+          </li>
+        </ul>
+      <%- end -%>
+    <%- end -%>
   </section>
 </div>

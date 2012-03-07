@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307130803) do
+ActiveRecord::Schema.define(:version => 20120307150105) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(:version => 20120307130803) do
     t.integer "measurements_count"
     t.integer "map_id"
     t.text    "status_details"
-    t.boolean "approved"
+    t.boolean "approved",           :default => false
   end
 
   create_table "measurements", :force => true do |t|
@@ -118,8 +118,8 @@ ActiveRecord::Schema.define(:version => 20120307130803) do
   add_index "measurements", ["user_id"], :name => "index_measurements_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                                 :default => "",    :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -129,10 +129,11 @@ ActiveRecord::Schema.define(:version => 20120307130803) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "authentication_token"
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.datetime "created_at",                                               :null => false
+    t.datetime "updated_at",                                               :null => false
     t.string   "name"
     t.string   "time_zone"
+    t.boolean  "moderator",                             :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
