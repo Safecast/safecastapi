@@ -5,4 +5,8 @@ class BgeigieLog < ActiveRecord::Base
   def location
     computed_location
   end
+  
+  def location=(value)
+    computed_location=value
+  end
 end

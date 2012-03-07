@@ -23,6 +23,59 @@
       <li><%= link_to "Download Original File",
                        @bgeigie_import.source.url %></li>
     </ul>
+    <ul class="unstyled nav">
+      <li class="nav-header">
+        Progress
+      </li>
+      <li>
+        Process file
+        <%- if @bgeigie_import.status_details[:process_file].present? -%>
+          <i class="icon-ok pull-right"></i>
+        <%- else -%>
+          <span class="pull-right">&hellip;</span>
+        <%- end -%>
+      </li>
+      <li>
+        Import bGeigie logs
+        <%- if @bgeigie_import.status_details[:import_bgeigie_logs].present? -%>
+          <i class="icon-ok pull-right"></i>
+        <%- else -%>
+          <span class="pull-right">&hellip;</span>
+        <%- end -%>
+      </li>
+      <li>
+        Compute latitudes &amp; longitudes
+        <%- if @bgeigie_import.status_details[:compute_latlng].present? -%>
+          <i class="icon-ok pull-right"></i>
+        <%- else -%>
+          <span class="pull-right">&hellip;</span>
+        <%- end -%>
+      </li>
+      <li>
+        Approved by moderator
+        <%- if @bgeigie_import.approved? -%>
+          <i class="icon-ok pull-right"></i>
+        <%- else -%>
+          <span class="pull-right">&hellip;</span>
+        <%- end -%>
+      </li>
+      <li>
+        Added to Safecast database
+        <%- if @bgeigie_import.status_details[:measurements_added].present? -%>
+          <i class="icon-ok pull-right"></i>
+        <%- else -%>
+          <span class="pull-right">&hellip;</span>
+        <%- end -%>
+      </li>
+      <li>
+        Map created
+        <%- if @bgeigie_import.status_details[:create_map].present? -%>
+          <i class="icon-ok pull-right"></i>
+        <%- else -%>
+          <span class="pull-right">&hellip;</span>
+        <%- end -%>
+      </li>
+    </ul>
     <%- if @bgeigie_import.status == 'done' -%>
       <ul class="measurement bgeigie-log unstyled">
         <li class="value thin">
@@ -33,14 +86,20 @@
     <%- end -%>
   </section>
   <section class="span9">
-    <input type="hidden" id="zoomlevel" value="12">
-    <input id="latitude"
-           type="hidden"
-           value="<%= @bgeigie_import.bgeigie_logs.first.latitude %>"></input>
-    <input id="longitude"
-           type="hidden"
-           value="<%= @bgeigie_import.bgeigie_logs.first.longitude %>"></input>
-    <div id="map_canvas" class="high"></div>
+    <%- if @bgeigie_import.bgeigie_logs.any? -%>
+      <input type="hidden" id="zoomlevel" value="12">
+      <input id="latitude"
+             type="hidden"
+             value="<%= @bgeigie_import.bgeigie_logs.first.latitude %>"></input>
+      <input id="longitude"
+             type="hidden"
+             value="<%= @bgeigie_import.bgeigie_logs.first.longitude %>"></input>
+      <div id="map_canvas" class="high"></div>
+    <%- else -%>
+      <p class="well">
+        A map will be displayed once this file has processed.
+      </p>
+    <%- end -%>
   </section>
 </div>
 

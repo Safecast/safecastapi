@@ -7,11 +7,13 @@ feature "User uploads bgeigie log" do
   
   scenario "Uploading a bgeigie log file" do
     visit('/')
-    click_link('Measurements')
-    click_link('Upload bGeigie log file')
+    click_link('Submit')
+    click_link('Upload a bGeigie log file')
     attach_file("File", Rails.root.join('spec', 'fixtures', 'bgeigie.log'))
     click_button("Upload")
+    page.should have_content('unprocessed')
     Delayed::Worker.new.work_off 
+    page.should have_content('Awaiting approval')
     click_link('Maps')
     page.should have_content("bGeigie Import")
   end

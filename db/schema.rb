@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120306202021) do
+ActiveRecord::Schema.define(:version => 20120307130803) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(:version => 20120306202021) do
     t.string  "status"
     t.integer "measurements_count"
     t.integer "map_id"
+    t.text    "status_details"
+    t.boolean "approved"
   end
 
   create_table "measurements", :force => true do |t|

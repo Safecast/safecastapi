@@ -6,18 +6,39 @@ class BgeigieImport < MeasurementImport
   belongs_to :user
   has_many :bgeigie_logs
   
+  store :status_details, :accessors => [
+    :process_file,
+    :import_bgeigie_logs,
+    :compute_latlng,
+    :approved_by_moderator,
+    :measurements_added,
+    :create_map
+  ]
+  
   def tmp_file
     '/tmp/bgeigie.log'
   end
   
+  def confirm_status(item)
+    self.status_details[item] = true
+    self.save!
+  end
+  
   def process
-    create_map
     strip_comments_from_top_of_file
+    confirm_status(:process_file)
     import_to_bgeigie_logs
+    confirm_status(:import_bgeigie_logs)
     infer_lat_lng_into_bgeigie_logs_from_nmea_location
+    confirm_status(:compute_latlng)
+  end
+  
+  def authorize!
     import_measurements
+    create_map
     add_measurements_to_map
-    delete_tmp_file
+    confirm_status(:create_map)
+    confirm_status(:measurements_added)
     self.update_attribute 'status', 'done'
   end
   
