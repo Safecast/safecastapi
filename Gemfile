@@ -11,6 +11,7 @@ gem "carrierwave", "~> 0.5.8"
 gem 'configurable_engine'
 gem "delayed_job", "~> 2.1.4"
 gem 'decent_exposure'
+gem 'fog'
 gem 'mustache'
 gem 'spatial_adapter', :git => 'https://github.com/Empact/spatial_adapter.git'
 gem "twitter-bootstrap-rails"
