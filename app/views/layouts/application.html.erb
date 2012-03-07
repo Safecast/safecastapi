@@ -60,11 +60,11 @@
       </header>
       <div id="page" class="container">
         <%= yield %>
+
+        <footer class="span12">
+          <p>Creative Commons Non-Commercial</p>
+        </footer>
       </div>
-      
-      <footer>
-        <p>Creative Commons Non-Commercial</p>
-      </footer>
     </div>
     <%= javascript_include_tag :application %>
     <%= content_for :additional_javascripts %>
