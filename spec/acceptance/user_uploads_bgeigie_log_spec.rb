@@ -36,6 +36,12 @@ feature "User uploads bgeigie log" do
     scenario "approving a bGeigie log file" do
       visit('/')
       page.should have_content('1 awaiting approval')
+      click_link '1 awaiting approval'
+      click_link 'bGeigie Import'
+      click_button 'Approve'
+      Delayed::Worker.new.work_off 
+      visit(current_path)
+      page.should have_content('Done')
     end
   end
   

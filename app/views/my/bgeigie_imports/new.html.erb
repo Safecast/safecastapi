@@ -1,6 +1,11 @@
 <%= render 'my/layouts/submit_nav' %>
 <div class="row">
-  <section class="span8 offset2">
+  <section class="span3">
+    <ul class="nav nav-stacked nav-pills">
+      <li><%= link_to 'View your bGeigie log uploads', [:my, :bgeigie_imports] -%></li>
+    </ul>
+  </section>
+  <section class="span9">
     <h2>Upload a bGeigie log file</h2>
 
     <%= form_for [:api, @bgeigie_import], :html =>{

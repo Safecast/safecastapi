@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307150105) do
+ActiveRecord::Schema.define(:version => 20120307175658) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -79,15 +79,17 @@ ActiveRecord::Schema.define(:version => 20120307150105) do
   end
 
   create_table "measurement_imports", :force => true do |t|
-    t.integer "user_id"
-    t.string  "source"
-    t.string  "md5sum"
-    t.string  "type"
-    t.string  "status"
-    t.integer "measurements_count"
-    t.integer "map_id"
-    t.text    "status_details"
-    t.boolean "approved",           :default => false
+    t.integer  "user_id"
+    t.string   "source"
+    t.string   "md5sum"
+    t.string   "type"
+    t.string   "status"
+    t.integer  "measurements_count"
+    t.integer  "map_id"
+    t.text     "status_details"
+    t.boolean  "approved",           :default => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
   end
 
   create_table "measurements", :force => true do |t|

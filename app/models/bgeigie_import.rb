@@ -36,8 +36,13 @@ class BgeigieImport < MeasurementImport
     confirm_status(:compute_latlng)
     self.update_attribute(:status, 'awaiting_approval')
   end
+
+  def approve!
+    self.update_attribute :approved, true
+    self.delay.finalize!
+  end
   
-  def authorize!
+  def finalize!
     import_measurements
     create_map
     add_measurements_to_map

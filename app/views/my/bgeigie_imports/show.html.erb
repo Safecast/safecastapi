@@ -1,93 +1,6 @@
 <div class="row">
-  <section class="span3">
-    <h2>
-      bGeigie Import
-    </h2>
-    <%- if @bgeigie_import.status == 'done' -%>
-      <span class="label label-success">
-        Processed
-      </span>
-    <%- elsif @bgeigie_import.status == 'awaiting_approval' -%>
-      <span class="label label-warning">
-        Awaiting approval
-      </span>
-    <%- else -%>
-      <span class="label label-info">
-        <%= @bgeigie_import.status.humanize %>
-      </span>
-    <%- end -%>
-    <%- if @bgeigie_import.status == 'processing' -%>
-      <div class="progress progress-info progress-striped active">
-        <div class="bar"
-             style="width: 100%;"></div>
-      </div>
-    <%- end -%>
-
-    <ul class="nav nav-pills nav-stacked">
-      <li><%= link_to "Download Original File",
-                       @bgeigie_import.source.url %></li>
-    </ul>
-    <ul class="unstyled nav">
-      <li class="nav-header">
-        Progress
-      </li>
-      <li>
-        Process file
-        <%- if @bgeigie_import.status_details[:process_file].present? -%>
-          <i class="icon-ok pull-right"></i>
-        <%- else -%>
-          <span class="pull-right">&hellip;</span>
-        <%- end -%>
-      </li>
-      <li>
-        Import bGeigie logs
-        <%- if @bgeigie_import.status_details[:import_bgeigie_logs].present? -%>
-          <i class="icon-ok pull-right"></i>
-        <%- else -%>
-          <span class="pull-right">&hellip;</span>
-        <%- end -%>
-      </li>
-      <li>
-        Compute latitudes &amp; longitudes
-        <%- if @bgeigie_import.status_details[:compute_latlng].present? -%>
-          <i class="icon-ok pull-right"></i>
-        <%- else -%>
-          <span class="pull-right">&hellip;</span>
-        <%- end -%>
-      </li>
-      <li>
-        Approved by moderator
-        <%- if @bgeigie_import.approved? -%>
-          <i class="icon-ok pull-right"></i>
-        <%- else -%>
-          <span class="pull-right">&hellip;</span>
-        <%- end -%>
-      </li>
-      <li>
-        Added to Safecast database
-        <%- if @bgeigie_import.status_details[:measurements_added].present? -%>
-          <i class="icon-ok pull-right"></i>
-        <%- else -%>
-          <span class="pull-right">&hellip;</span>
-        <%- end -%>
-      </li>
-      <li>
-        Map created
-        <%- if @bgeigie_import.status_details[:create_map].present? -%>
-          <i class="icon-ok pull-right"></i>
-        <%- else -%>
-          <span class="pull-right">&hellip;</span>
-        <%- end -%>
-      </li>
-    </ul>
-    <%- if @bgeigie_import.status == 'done' -%>
-      <ul class="measurement bgeigie-log unstyled">
-        <li class="value thin">
-          <em class="block"><%= @bgeigie_import.bgeigie_logs.count %></em>
-          measurements
-        </li>
-      </ul>
-    <%- end -%>
+  <section class="span3" id="bgeigie-status" data-status="<%= @bgeigie_import.status -%>">
+    <%= render 'my/bgeigie_imports/status' -%>
   </section>
   <section class="span9">
     <%- if @bgeigie_import.bgeigie_logs.any? -%>
@@ -104,16 +17,17 @@
         A map will be displayed once this file has processed.
       </p>
     <%- end -%>
+    </div>
+
+    <%= content_for(:additional_javascripts) do %>
+      <script>
+        $(function(){
+          var points = <%= raw(@bgeigie_import.bgeigie_logs.collect do |b|
+                              {:lat => b.latitude, :lng => b.longitude}
+                           end.to_json) %>
+          console.log(GoogleMap.addPoints(points))
+        })
+      </script>
+    <%- end -%>
   </section>
 </div>
-
-<%= content_for(:additional_javascripts) do %>
-  <script>
-    $(function(){
-      var points = <%= raw(@bgeigie_import.bgeigie_logs.collect do |b|
-                          {:lat => b.latitude, :lng => b.longitude}
-                       end.to_json) %>
-      console.log(GoogleMap.addPoints(points))
-    })
-  </script>
-<%- end -%>

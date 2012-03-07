@@ -12,13 +12,19 @@ Safecast::Application.routes.draw do
   end
   
   resources :maps
+  resources :users
+
   resource :worldmap
   
   namespace :my do
     resource :dashboard
     resource :profile
     
-    resources :bgeigie_imports
+    resources :bgeigie_imports do
+      member do
+        put :approve
+      end
+    end
     resources :maps
     resources :measurements do
       collection do

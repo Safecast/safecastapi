@@ -1,0 +1,46 @@
+<h2>
+  bGeigie Import
+</h2>
+<%- if @bgeigie_import.status == 'done' -%>
+  <span class="label label-success">
+    Processed
+  </span>
+<%- elsif @bgeigie_import.status == 'awaiting_approval' -%>
+  <span class="label label-warning">
+    Awaiting approval
+  </span>
+<%- else -%>
+  <span class="label label-info">
+    <%= @bgeigie_import.status.humanize %>
+  </span>
+<%- end -%>
+<%- if @bgeigie_import.status == 'processing' -%>
+  <div class="progress progress-info progress-striped active">
+    <div class="bar"
+         style="width: 100%;"></div>
+  </div>
+<%- end -%>
+
+<ul class="nav nav-pills nav-stacked">
+  <li><%= link_to "Download Original File",
+                   @bgeigie_import.source.url %></li>
+</ul>
+<%- if @bgeigie_import.status == 'done' -%>
+  <ul class="measurement bgeigie-log unstyled">
+    <li class="value thin">
+      <em class="block"><%= @bgeigie_import.bgeigie_logs.count %></em>
+      measurements
+    </li>
+  </ul>
+<%- end -%>
+<%- if !@bgeigie_import.approved? && current_user.moderator? -%>
+  <%= form_for @bgeigie_import, :url => [:approve, :my, :bgeigie_import] do |f| -%>
+    <fieldset>
+      <p class="button">
+        <%= f.submit "Approve" -%>
+      </p>
+    </fieldset>
+    
+  <%- end -%>
+<%- end -%>
+<%= render 'my/bgeigie_imports/progress' -%>
