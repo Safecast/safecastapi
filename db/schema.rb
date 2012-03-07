@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307175658) do
+ActiveRecord::Schema.define(:version => 20120307232457) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -37,6 +37,15 @@ ActiveRecord::Schema.define(:version => 20120307175658) do
   end
 
   add_index "bgeigie_logs", ["md5sum"], :name => "index_bgeigie_logs_on_md5sum", :unique => true
+
+  create_table "configurables", :force => true do |t|
+    t.string   "name"
+    t.string   "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "configurables", ["name"], :name => "index_configurables_on_name"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0

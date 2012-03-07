@@ -65,6 +65,9 @@ GEM
     coffee-script-source (1.2.0)
     commonjs (0.2.0)
       therubyracer (~> 0.9.9)
+    configurable_engine (0.2.9)
+      activerecord (~> 3)
+      rails (~> 3)
     daemons (1.1.8)
     database_cleaner (0.7.1)
     decent_exposure (1.0.1)
@@ -206,6 +209,7 @@ DEPENDENCIES
   capybara-webkit
   carrierwave (~> 0.5.8)
   coffee-rails
+  configurable_engine
   database_cleaner
   decent_exposure
   delayed_job (~> 2.1.4)
