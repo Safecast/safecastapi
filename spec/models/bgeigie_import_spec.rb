@@ -14,6 +14,7 @@ describe BgeigieImport do
   describe "#process" do
     before(:each) do
       bgeigie_import.process
+      bgeigie_import.finalize!
     end
 
     it "should create 23 Bgeigie Logs" do
