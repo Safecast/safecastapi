@@ -71,8 +71,10 @@ class BgeigieImport < MeasurementImport
   
   def import_to_bgeigie_logs
     self.connection.execute("DROP TABLE IF EXISTS bgeigie_logs_tmp")
-    self.connection.execute(%Q[create temporary table bgeigie_logs_tmp (like bgeigie_logs including defaults)])
-    self.connection.execute(%Q[
+    conn = ActiveRecord::Base.connection_pool.checkout
+    raw  = conn.raw_connection
+    raw.exec "create temporary table bgeigie_logs_tmp (like bgeigie_logs including defaults)"
+    raw.exec(%Q[
                             COPY bgeigie_logs_tmp
                              (device_tag, device_serial_id, captured_at, 
                             cpm, counts_per_five_seconds, total_counts,  
@@ -81,12 +83,17 @@ class BgeigieImport < MeasurementImport
                             east_west_indicator, altitude, gps_fix_indicator,
                             horizontal_dilution_of_precision,
                             gps_fix_quality_indicator,md5sum)
-                            FROM '#{tmp_file}' CSV
+                            FROM STDIN CSV
                             ])
-   self.connection.execute(%Q[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
-   self.connection.execute(%Q[INSERT INTO bgeigie_logs SELECT * FROM bgeigie_logs_tmp where md5sum not in (select md5sum from bgeigie_logs)])
-   self.connection.execute("DROP TABLE bgeigie_logs_tmp")
-   self.update_attribute(:measurements_count, self.bgeigie_logs.count)
+    file_contents = File.open(tmp_file, 'r') { |f| f.read }
+    file_contents.each_line { |line| raw.put_copy_data line }
+    raw.put_copy_end
+    while res = raw.get_result do; end # very important to do this after a copy
+    raw.exec(%Q[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
+    raw.exec(%Q[INSERT INTO bgeigie_logs SELECT * FROM bgeigie_logs_tmp where md5sum not in (select md5sum from bgeigie_logs)])
+    raw.exec("DROP TABLE bgeigie_logs_tmp")
+    self.update_attribute(:measurements_count, self.bgeigie_logs.count)
+    ActiveRecord::Base.connection_pool.checkin(conn)
   end
   
   def infer_lat_lng_into_bgeigie_logs_from_nmea_location
