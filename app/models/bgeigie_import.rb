@@ -19,7 +19,7 @@ class BgeigieImport < MeasurementImport
   ]
   
   def tmp_file
-    '/tmp/bgeigie.log'
+    @tmp_file ||= "/tmp/bgeigie-#{Kernel.rand}"
   end
   
   def confirm_status(item)
@@ -35,6 +35,7 @@ class BgeigieImport < MeasurementImport
     infer_lat_lng_into_bgeigie_logs_from_nmea_location
     confirm_status(:compute_latlng)
     self.update_attribute(:status, 'awaiting_approval')
+    delete_tmp_file
   end
 
   def approve!
@@ -60,10 +61,12 @@ class BgeigieImport < MeasurementImport
   end
   
   def strip_comments_from_top_of_file
-    system(%Q[cat #{source.path}  | sed "/^#/d" | #{Rails.root.join(
-      'script',
-      'add_checksum_to_each_line'
-      )} > #{tmp_file}])
+    File.open(tmp_file, 'a') do |file|
+      source.read.split("\n").each_with_index do |line|
+        next if line.first == '#'
+        file.write "#{line.strip},#{Digest::MD5.hexdigest(line.strip)}\n"
+      end
+    end
   end
   
   def import_to_bgeigie_logs
