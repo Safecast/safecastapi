@@ -1,4 +1,4 @@
-<section class="span4<%= ' offset4' if @bgeigie_import.status_details[:import_bgeigie_logs].blank? -%>"
+<section class="span4<%= ' offset4' if @bgeigie_import.status_details[:compute_latlng].blank? -%>"
            id="bgeigie-status"
            data-status="<%= @bgeigie_import.status -%>">
     <%- if @bgeigie_import.bgeigie_logs.empty? -%>
@@ -10,7 +10,7 @@
     <%- end -%>
     <%= render 'my/bgeigie_imports/status' -%>
   </section>
-  <%- if @bgeigie_import.status_details[:import_bgeigie_logs].present? -%>
+  <%- if @bgeigie_import.status_details[:compute_latlng].present? -%>
     <section class="span8">
       <%- if @bgeigie_import.bgeigie_logs.any? -%>
         <input type="hidden" id="zoomlevel" value="12">
