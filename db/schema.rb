@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307232457) do
+ActiveRecord::Schema.define(:version => 20120315211955) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -99,6 +99,8 @@ ActiveRecord::Schema.define(:version => 20120307232457) do
     t.boolean  "approved",           :default => false
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
+    t.string   "name"
+    t.text     "description"
   end
 
   create_table "measurements", :force => true do |t|

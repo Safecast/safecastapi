@@ -178,6 +178,10 @@ section {
         @include positive-field;
       }
       
+      textarea {
+        height: 5em;
+      }
+
       legend {
         margin-bottom: 0;
       }
@@ -376,7 +380,7 @@ ul.measurement {
     float: left;
     width: 400px;
     &.thin {
-      width: 200px;
+      width: 300px;
     }
     em {
       font-size: 72px;

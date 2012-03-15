@@ -15,7 +15,13 @@ class My::BgeigieImportsController < My::ApplicationController
     @bgeigie_import = BgeigieImport.find(params[:id])
     respond_to do |wants|
       wants.html
-      wants.js { render :partial => 'my/bgeigie_imports/status' }
+      wants.js do
+        if @bgeigie_import.bgeigie_logs.any?
+          render :partial => 'my/bgeigie_imports/status'
+        else
+          render :partial => 'my/bgeigie_imports/show'
+        end
+      end
     end
   end
 

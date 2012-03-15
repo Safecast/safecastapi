@@ -12,6 +12,11 @@
       </li>
       <li>
         Import bGeigie logs
+        <%- if @bgeigie_import.bgeigie_logs.any? -%>
+          (<%= @bgeigie_import.bgeigie_logs.count -%> found)
+        <%- else -%>
+          (none found)
+        <%- end -%>
         <%- if @bgeigie_import.status_details[:import_bgeigie_logs].present? -%>
           <i class="icon-ok pull-right"></i>
         <%- else -%>

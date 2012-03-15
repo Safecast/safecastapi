@@ -18,6 +18,20 @@
             <%= f.file_field :source %>
           </div>
         </div>
+        
+        <div class="control-group">
+          <%= f.label :source, 'Title (optional)', :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :name %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :source, 'Description (optional)', :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_area :description %>
+          </div>
+        </div>
       </fieldset>
       
       <fieldset>

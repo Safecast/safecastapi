@@ -1,0 +1,42 @@
+<section class="span4<%= ' offset4' if @bgeigie_import.status_details[:import_bgeigie_logs].blank? -%>"
+           id="bgeigie-status"
+           data-status="<%= @bgeigie_import.status -%>">
+    <%- if @bgeigie_import.bgeigie_logs.empty? -%>
+      <p class="alert">
+        <strong>Please note</strong>
+        This file is queued for processing.
+        It may take a few minutes to process.
+      </p>
+    <%- end -%>
+    <%= render 'my/bgeigie_imports/status' -%>
+  </section>
+  <%- if @bgeigie_import.status_details[:import_bgeigie_logs].present? -%>
+    <section class="span8">
+      <%- if @bgeigie_import.bgeigie_logs.any? -%>
+        <input type="hidden" id="zoomlevel" value="12">
+        <input id="latitude"
+               type="hidden"
+               value="<%= @bgeigie_import.bgeigie_logs.first.latitude %>"></input>
+        <input id="longitude"
+               type="hidden"
+               value="<%= @bgeigie_import.bgeigie_logs.first.longitude %>"></input>
+        <div id="map_canvas" class="high"></div>
+      <%- else -%>
+        <p class="well">
+          A map will be displayed once this file has processed.
+        </p>
+      <%- end -%>
+      </div>
+
+      <%= content_for(:additional_javascripts) do %>
+        <script>
+          $(function(){
+            var points = <%= raw(@bgeigie_import.bgeigie_logs.collect do |b|
+                                {:lat => b.latitude, :lng => b.longitude}
+                             end.to_json) %>
+            console.log(GoogleMap.addPoints(points))
+          })
+        </script>
+      <%- end -%>
+    </section>
+  <%- end -%>

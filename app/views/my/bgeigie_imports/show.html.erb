@@ -1,33 +1,3 @@
-<div class="row">
-  <section class="span3" id="bgeigie-status" data-status="<%= @bgeigie_import.status -%>">
-    <%= render 'my/bgeigie_imports/status' -%>
-  </section>
-  <section class="span9">
-    <%- if @bgeigie_import.bgeigie_logs.any? -%>
-      <input type="hidden" id="zoomlevel" value="12">
-      <input id="latitude"
-             type="hidden"
-             value="<%= @bgeigie_import.bgeigie_logs.first.latitude %>"></input>
-      <input id="longitude"
-             type="hidden"
-             value="<%= @bgeigie_import.bgeigie_logs.first.longitude %>"></input>
-      <div id="map_canvas" class="high"></div>
-    <%- else -%>
-      <p class="well">
-        A map will be displayed once this file has processed.
-      </p>
-    <%- end -%>
-    </div>
-
-    <%= content_for(:additional_javascripts) do %>
-      <script>
-        $(function(){
-          var points = <%= raw(@bgeigie_import.bgeigie_logs.collect do |b|
-                              {:lat => b.latitude, :lng => b.longitude}
-                           end.to_json) %>
-          console.log(GoogleMap.addPoints(points))
-        })
-      </script>
-    <%- end -%>
-  </section>
+<div class="row" id="bgeigie-import-show">
+  <%= render 'my/bgeigie_imports/show' -%>
 </div>
