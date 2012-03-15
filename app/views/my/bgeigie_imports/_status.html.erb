@@ -33,7 +33,7 @@
     </li>
   </ul>
 <%- end -%>
-<%- if !@bgeigie_import.approved? && current_user.moderator? -%>
+<%- if user_signed_in? && !@bgeigie_import.approved? && current_user.moderator? -%>
   <%= form_for @bgeigie_import, :url => [:approve, :my, :bgeigie_import] do |f| -%>
     <fieldset>
       <p class="button">

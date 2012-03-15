@@ -1,6 +1,7 @@
 class My::BgeigieImportsController < My::ApplicationController
 
   before_filter :require_moderator, :only => :approve
+  skip_before_filter :authenticate_user!, :only => :show
 
   def index
       @unapproved_bgeigie_imports = BgeigieImport.unapproved.awaiting_approval
