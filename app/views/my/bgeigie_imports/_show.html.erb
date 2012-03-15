@@ -34,7 +34,7 @@
             var points = <%= raw(@bgeigie_import.bgeigie_logs.collect do |b|
                                 {:lat => b.latitude, :lng => b.longitude}
                              end.to_json) %>
-            console.log(GoogleMap.addPoints(points))
+            GoogleMap.addPoints(points)
           })
         </script>
       <%- end -%>
