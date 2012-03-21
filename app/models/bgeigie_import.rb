@@ -137,6 +137,17 @@ class BgeigieImport < MeasurementImport
   
   def nmea_to_lat_lng(latitude_nmea, north_south_indicator, longitude_nmea, east_west_indicator)
     #algorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
+
+    lat_sign = 1
+    if north_south_indicator == 'S'
+      lat_sign = -1
+    end
+
+    lng_sign = 1
+    if east_west_indicator == 'W'
+      lng_sign = -1
+    end
+
     lat_degrees = (latitude_nmea / 100).to_i
     lng_degrees = (longitude_nmea / 100).to_i
     
@@ -144,8 +155,8 @@ class BgeigieImport < MeasurementImport
     lng_decimal = (longitude_nmea % 100) / 60
     
     {
-      :latitude => lat_degrees + lat_decimal,
-      :longitude => lng_degrees + lng_decimal
+      :latitude => (lat_degrees + lat_decimal) * lat_sign,
+      :longitude => (lng_degrees + lng_decimal) * lng_sign
     }
   end
   
