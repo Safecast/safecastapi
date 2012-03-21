@@ -135,8 +135,6 @@ class BgeigieImport < MeasurementImport
   end
   
   
-  private
-  
   def nmea_to_lat_lng(latitude_nmea, north_south_indicator, longitude_nmea, east_west_indicator)
     #algorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
     lat_degrees = (latitude_nmea / 100).to_i
