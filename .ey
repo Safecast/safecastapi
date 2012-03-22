@@ -1,0 +1,10 @@
+# Place this file in the root of your project directory
+
+# eg. APPNAME=tito
+APPNAME=teamdata
+
+# eg. APP_SERVERS=(deploy@app1.tito.io deploy@app2.tito.io)
+APP_SERVERS=(api.safecast.org)
+
+# eg. CACHE_DIRS=(public/cache)
+CACHE_DIRS=()
