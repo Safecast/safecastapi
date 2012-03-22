@@ -4,7 +4,9 @@
 APPNAME=teamdata
 
 # eg. APP_SERVERS=(deploy@app1.tito.io deploy@app2.tito.io)
-APP_SERVERS=(api.safecast.org)
+APP_SERVERS=(deploy@api.safecast.org)
 
 # eg. CACHE_DIRS=(public/cache)
 CACHE_DIRS=()
+
+RSYNCFLAGS='--exclude bgeigie_logs'
