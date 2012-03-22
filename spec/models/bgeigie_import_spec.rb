@@ -43,6 +43,20 @@ describe BgeigieImport do
       measurement.location.should_not be_blank
       measurement.captured_at.should_not be_blank
     end
+
+    it "should calculate measurements to the correct hemisphere" do
+      bgeigie_nyc = Fabricate(:bgeigie_import,
+                              :source => File.new(Rails.root + 'spec/fixtures/bgeigie_nyc.log'),
+                              :user_id => user.id
+                             )
+      bgeigie_nyc.process
+      bgeigie_nyc.finalize!
+
+      measurement = Measurement.find_by_md5sum('c435ff4da6a7a16e92282bd10381b6d7')
+
+      measurement.location.x.should == -73.92277166666666
+      measurement.location.y.should == 41.69807833333333
+    end
     
   end
   
