@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120323115733) do
+ActiveRecord::Schema.define(:version => 20120323181147) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(:version => 20120323115733) do
   end
 
   create_table "drive_logs", :force => true do |t|
-    t.integer  "measurement_import_id"
+    t.integer  "drive_import_id"
     t.datetime "reading_date"
     t.float    "reading_value"
     t.integer  "unit_id"
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(:version => 20120323115733) do
     t.point    "location",              :limit => 0,                 :srid => 4326, :geographic => true
   end
 
-  add_index "drive_logs", ["measurement_import_id"], :name => "index_drive_logs_on_measurement_import_id"
+  add_index "drive_logs", ["drive_import_id"], :name => "index_drive_logs_on_measurement_import_id"
 
   create_table "maps", :force => true do |t|
     t.string   "description"
