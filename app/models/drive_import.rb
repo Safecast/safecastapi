@@ -4,7 +4,7 @@ class DriveImport < MeasurementImport
     transaction do
       self.find_each do |drive_import|
         drive_import.drive_logs.find_each do |drive_log|
-          drive_log.update_location
+          drive_log.update_location rescue nil
         end
       end
     end
