@@ -1,5 +1,5 @@
 class DriveImport < MeasurementImport
-  has_many :drive_logs, :
+  has_many :drive_logs
   def self.update_locations
     transaction do
       self.find_each do |drive_import|
