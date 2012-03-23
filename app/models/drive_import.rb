@@ -1,0 +1,2 @@
+class DriveImport < MeasurementImport
+end
