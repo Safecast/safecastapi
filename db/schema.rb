@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120315220809) do
+ActiveRecord::Schema.define(:version => 20120323105044) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -69,6 +69,30 @@ ActiveRecord::Schema.define(:version => 20120315220809) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
+
+  create_table "drive_logs", :force => true do |t|
+    t.integer  "measurement_import_id"
+    t.datetime "reading_date"
+    t.float    "reading_value"
+    t.integer  "unit_id"
+    t.float    "alt_reading_value"
+    t.integer  "alt_unit_id"
+    t.integer  "rolling_count"
+    t.integer  "total_count"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "gps_quality_indicator"
+    t.integer  "satellite_num"
+    t.float    "gps_precision"
+    t.float    "gps_altitude"
+    t.string   "gps_device_name"
+    t.string   "measurement_type"
+    t.string   "zoom_7_grid"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "drive_logs", ["measurement_import_id"], :name => "index_drive_logs_on_measurement_import_id"
 
   create_table "maps", :force => true do |t|
     t.string   "description"
