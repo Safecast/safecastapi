@@ -18,9 +18,9 @@ class Measurement < ActiveRecord::Base
   def self.nearby_to(lat, lng, distance)
     return self unless lat.present? && lng.present? && distance.present?
     location = Point.new
-    location.x  = lng
-    location.y = lat
-    where("ST_DWithin(location, ?, ?)", location, distance)
+    location.x  = lng.to_f
+    location.y = lat.to_f
+    where("ST_DWithin(location, ?, ?)", location, distance.to_i)
   end
   
   def self.grouped_by_hour
