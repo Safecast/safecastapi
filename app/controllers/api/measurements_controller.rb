@@ -18,6 +18,9 @@ class Api::MeasurementsController < Api::ApplicationController
   #   This can be provided manually, or by calling [GET] /api/users/:id/measurements
   # @argument [Integer] page Results are paginated automatically.  Default is page 1.
   # @argument [Integer] page_size Number of devices to include in one page.  Default is 10.
+  # @argument [Double] latitude Latitude of center point
+  # @argument [Double] longitude Longitude of center point
+  # @argument [Integer] distance Distance in meters within which to include points around the center point.
   #
   def index
     if params[:map_id].present?
