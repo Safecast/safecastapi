@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120323181147) do
+ActiveRecord::Schema.define(:version => 20120324025600) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20120323181147) do
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.point    "location",              :limit => 0,                 :srid => 4326, :geographic => true
+    t.string   "md5sum"
   end
 
   add_index "drive_logs", ["drive_import_id"], :name => "index_drive_logs_on_measurement_import_id"
