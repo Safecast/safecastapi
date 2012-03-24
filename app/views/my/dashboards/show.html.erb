@@ -41,7 +41,7 @@
     <ul class="unstyled">
         <li>
           <%= link_to [:my, :measurements] do %>
-            <em><%= current_user.measurements.count  %></em>
+            <em><%= number_with_delimiter current_user.measurements.count  %></em>
             submission<%= 's' if current_user.measurements.count != 1 %>
           <%- end -%>
         </td>

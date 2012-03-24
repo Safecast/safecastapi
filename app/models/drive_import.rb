@@ -29,7 +29,7 @@ class DriveImport < MeasurementImport
     self.connection.execute("insert into measurements
                              (user_id, value, unit, created_at, updated_at, captured_at,
                              measurement_import_id, md5sum, location)
-                             select #{self.user_id},reading_value,'cpm', created_at, updated_at, reading_date,
+                             select #{self.user_id},alt_reading_value,'cpm', created_at, updated_at, reading_date,
                              #{self.id}, md5sum, location
                              from drive_logs WHERE
                              drive_import_id = #{self.id}")
