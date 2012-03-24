@@ -25,7 +25,7 @@ class DriveImport < MeasurementImport
   end
 
   def import_measurements
-    self.connection.execute("delete from measurements where drive_import_id = #{self.id}")
+    self.connection.execute("delete from measurements where measurement_import_id = #{self.id}")
     self.connection.execute("insert into measurements
                              (user_id, value, unit, created_at, updated_at, captured_at,
                              measurement_import_id, md5sum, location)
