@@ -14,6 +14,14 @@ class Measurement < ActiveRecord::Base
   has_and_belongs_to_many :maps
   
   has_one :device
+
+  def self.nearby_to(lat, lng, distance)
+    return self unless lat.present? && lng.present? && distance.present?
+    location = Point.new
+    location.x  = lng
+    location.y = lat
+    where("ST_DWithin(location, ?, ?)", location, distance)
+  end
   
   def self.grouped_by_hour
     select("date_trunc('hour', captured_at) as date").

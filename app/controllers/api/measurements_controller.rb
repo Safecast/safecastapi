@@ -27,11 +27,11 @@ class Api::MeasurementsController < Api::ApplicationController
       @user = User.find params[:user_id]
     end
     if @map
-      respond_with @map.measurements.page(params[:page])
+      respond_with @map.measurements.nearby_to(params[:latitude], params[:longitude], params[:distance]).page(params[:page])
     elsif @user
-      respond_with @user.measurements.page(params[:page])
+      respond_with @user.measurements.nearby_to(params[:latitude], params[:longitude], params[:distance]).page(params[:page])
     else
-      respond_with Measurement.page(params[:page])
+      respond_with Measurement.nearby_to(params[:latitude], params[:longitude], params[:distance]).page(params[:page])
     end
   end
   

@@ -10,14 +10,28 @@ class DriveImport < MeasurementImport
     end
   end
 
+  def self.update_md5sums
+    self.find_each do |drive_import|
+      transaction do
+        drive_import.drive_logs.find_each do |drive_log|
+          drive_log.update_md5sum
+        end
+      end
+    end
+  end
+
+  def user_id
+    1
+  end
+
   def import_measurements
     self.connection.execute("insert into measurements
                              (user_id, value, unit, created_at, updated_at, captured_at,
                              measurement_import_id, md5sum, location)
-                             select #{self.user_id},cpm,'cpm', created_at, updated_at, reading_date,
-                             #{self.id}, md5sum, computed_location
-                             from bgeigie_logs WHERE
-                             bgeigie_import_id = #{self.id}
+                             select #{self.user_id},reading_value,'cpm', created_at, updated_at, reading_date,
+                             #{self.id}, md5sum, location
+                             from drive_logs WHERE
+                             drive_log_id = #{self.id}
                              and md5sum not in (select md5sum from measurements)")
   end
   
