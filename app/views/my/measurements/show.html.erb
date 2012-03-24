@@ -34,3 +34,15 @@
     <div id="map_canvas"></div>
   </section>
 </div>
+
+<%= content_for(:additional_javascripts) do %>
+        <script>
+          $(function(){
+            var points = [<%= {
+              :lat => @measurement.latitude,
+              :lng => @measurement.longitude
+            }.to_json) %>]
+            GoogleMap.addPoints(points)
+          })
+        </script>
+      <%- end -%>
