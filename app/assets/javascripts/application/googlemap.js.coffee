@@ -1,5 +1,9 @@
 jQuery -> 
   window.GoogleMap = 
+
+    setCenter: (lat, lng) ->
+      position = new window.google.maps.LatLng(lat, lng)
+      map.setCenter position
   
     addPoints: (points) ->
       for point in points

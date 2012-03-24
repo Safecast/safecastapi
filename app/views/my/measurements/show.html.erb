@@ -38,11 +38,8 @@
 <%= content_for(:additional_javascripts) do %>
         <script>
           $(function(){
-            var points = <%= raw [{
-                          :lat => @measurement.latitude,
-                          :lng => @measurement.longitude
-                        }].to_json %>
-            GoogleMap.addPoints(points)
+            GoogleMap.setCenter(<%= @measurement.latitude %>,<%= @measurement.longitude %>)
+
           })
         </script>
       <%- end -%>
