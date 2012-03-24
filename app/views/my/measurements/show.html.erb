@@ -38,10 +38,10 @@
 <%= content_for(:additional_javascripts) do %>
         <script>
           $(function(){
-            var points = [<%= {
-              :lat => @measurement.latitude,
-              :lng => @measurement.longitude
-            }.to_json) %>]
+            var points = <%= raw [{
+                          :lat => @measurement.latitude,
+                          :lng => @measurement.longitude
+                        }].to_json %>
             GoogleMap.addPoints(points)
           })
         </script>
