@@ -32,7 +32,7 @@ class DriveImport < MeasurementImport
                              select #{self.user_id},reading_value,'cpm', created_at, updated_at, reading_date,
                              #{self.id}, md5sum, location
                              from drive_logs WHERE
-                             drive_import_id = #{self.id})")
+                             drive_import_id = #{self.id}")
   end
   
   def add_measurements_to_map
