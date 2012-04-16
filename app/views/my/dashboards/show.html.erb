@@ -1,6 +1,8 @@
 <div class="row">
   <section class="span6">
-    <h2>Hello <%= current_user.name  %></h2>
+    <%- if current_user.name.present? %>
+      <h2>Hello <%= current_user.name  %></h2>
+    <%- end -%>
 
     <p>
       Welcome to the Safecast API Center.
