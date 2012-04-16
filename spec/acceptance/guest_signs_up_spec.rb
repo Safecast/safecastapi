@@ -1,12 +1,10 @@
-require 'spec_helper'
+require "spec_helper"
 
-feature 'guest signs up' do
-  
-  context("new user") do
-    scenario 'signing up' do
+feature "Guest signs up" do
+  context "as a new user" do
+    scenario "signing up" do
       sign_up
-      page.should have_content('Sign out')
+      page.should have_content("Sign out")
     end
   end
-
 end

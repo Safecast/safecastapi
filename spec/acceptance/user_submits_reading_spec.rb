@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-feature "User Submits Reading" do
-  
-  before { sign_in_user('paul@rslw.com') }
-  let(:user) { User.find_by_email('paul@rslw.com') }
+feature "User submits a reading" do
+  let(:user) { Fabricate(:user) }
   let(:measurement) { user.measurements.last }
+
+  before { sign_in(user) }
   
-  scenario "First Reading" do
+  scenario "first reading" do
     visit('/')
     click_link('Submit')
     select('cpm', :from => 'Unit')
@@ -18,5 +18,4 @@ feature "User Submits Reading" do
     measurement.value.should == 123
     measurement.location_name.should == 'Colwyn Bay, Wales'
   end
-  
 end

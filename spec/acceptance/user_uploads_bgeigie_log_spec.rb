@@ -1,12 +1,13 @@
-require 'spec_helper'
+require "spec_helper"
 
 feature "User uploads bgeigie log" do
-  
-  before { sign_in_user('paul@rslw.com') }
-  let(:user) { User.find_by_email('paul@rslw.com') }
-  
-  context "regular user" do
-    scenario "Uploading a bgeigie log file" do
+  let!(:user) { Fabricate(:user) }
+  let!(:moderator) { Fabricate(:user, :moderator => true) }
+
+
+  context "as a regular user" do
+    scenario "uploading a bgeigie log file" do
+      sign_in(user)
       visit('/')
       click_link('Submit')
       click_link('Upload a bGeigie log file')
@@ -16,24 +17,24 @@ feature "User uploads bgeigie log" do
       Delayed::Worker.new.work_off 
       visit(current_path)
       page.should have_content('Awaiting approval')
+      find_email(moderator.email, 
+        :with_subject => 'A Safecast import is awaiting approval').should be_present
     end
   end
   
-  context "moderator" do
-    let!(:other_user) { Fabricate(:user) }
+  context "as a moderator" do
     let!(:bgeigie_import) do
       Fabricate(:bgeigie_import,
-                :source => File.new(Rails.root + 'spec/fixtures/bgeigie.log'),
-                :user_id => other_user.id)
+        :source => File.new(Rails.root + 'spec/fixtures/bgeigie.log'),
+        :user => user)
     end
 
     before do
-      user.moderator = true
-      user.save!
       bgeigie_import.process
     end
 
     scenario "approving a bGeigie log file" do
+      sign_in(moderator)
       visit('/')
       page.should have_content('1 awaiting approval')
       click_link '1 awaiting approval'
@@ -42,7 +43,8 @@ feature "User uploads bgeigie log" do
       Delayed::Worker.new.work_off 
       visit(current_path)
       page.should have_content('Processed')
+      find_email(user.email, 
+        :with_subject => 'Your Safecast import has been approved').should be_present
     end
   end
-  
 end

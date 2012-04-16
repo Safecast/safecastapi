@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   has_many :bgeigie_imports
   has_many :measurements
   has_many :maps
+
+  scope :moderator, where(:moderator => true)
   
   # Include default devise modules. Others available are:
   # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable

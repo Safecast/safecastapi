@@ -36,11 +36,13 @@ class BgeigieImport < MeasurementImport
     confirm_status(:compute_latlng)
     self.update_attribute(:status, 'awaiting_approval')
     delete_tmp_file
+    Notifications.import_awaiting_approval(self).deliver
   end
 
   def approve!
     self.update_attribute :approved, true
     self.delay.finalize!
+    Notifications.import_approved(self).deliver
   end
   
   def finalize!
@@ -49,7 +51,7 @@ class BgeigieImport < MeasurementImport
     add_measurements_to_map
     confirm_status(:create_map)
     confirm_status(:measurements_added)
-    self.update_attribute 'status', 'done'
+    self.update_attribute(:status, 'done')
   end
   
   def create_map

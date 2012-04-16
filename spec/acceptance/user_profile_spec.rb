@@ -1,11 +1,11 @@
-require 'spec_helper'
+require "spec_helper"
 
 feature "User Profile" do
-  
-  scenario "Viewing User Profile" do
-    user = sign_in_user
-    click_link('Profile')
+  let(:user) { Fabricate(:user) }
+  before { sign_in(user) }
+
+  scenario "viewing a user profile" do
+    click_link("Profile")
     page.should have_content(user.authentication_token)
   end
-  
 end
