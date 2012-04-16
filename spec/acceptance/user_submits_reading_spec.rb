@@ -9,6 +9,7 @@ feature "User Submits Reading" do
   scenario "First Reading" do
     visit('/')
     click_link('Submit')
+    select('cpm', :from => 'Unit')
     fill_in('Radiation Level', :with => '123')
     fill_in('Location',        :with => 'Colwyn Bay, Wales')
     click_button('Submit')
