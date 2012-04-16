@@ -35,7 +35,7 @@ feature "/api/measurements" do
   let!(:user) { User.first || Fabricate(:user) }
   let!(:first_measurement) { Fabricate(:measurement, :value => 10) }
   let!(:second_measurement) do 
-    Fabricate(:measurement, :value => 12, :user_id => user.id)
+    Fabricate(:measurement, :value => 12, :user => user)
   end
   
   scenario "all measurements (/api/measurements)" do

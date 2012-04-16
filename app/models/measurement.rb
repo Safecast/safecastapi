@@ -16,16 +16,16 @@ class Measurement < ActiveRecord::Base
   has_one :device
 
   def self.nearby_to(lat, lng, distance)
-    return self unless lat.present? && lng.present? && distance.present?
+    return scoped unless lat.present? && lng.present? && distance.present?
     location = Point.new
     location.x  = lng.to_f
     location.y = lat.to_f
     where("ST_DWithin(location, ?, ?)", location, distance.to_i)
   end
-  
+
   def self.grouped_by_hour
     select("date_trunc('hour', captured_at) as date").
-    group("date_trunc('hour', captured_at)")
+      group("date_trunc('hour', captured_at)")
   end
   
   def serializable_hash(options = {})
