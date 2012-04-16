@@ -1,7 +1,7 @@
 <div class="row">
   <section class="span6">
     <%- if current_user.name.present? %>
-      <h2>Hello <%= current_user.name  %></h2>
+      <h2>Hello <%= current_user.first_name %></h2>
     <%- end -%>
 
     <p>
