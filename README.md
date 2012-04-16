@@ -31,7 +31,7 @@ Here's the steps needed to get it going on OSX with homebrew:
     brew install postgis
     createdb safecast_development
     createdb safecast_test
-    cd /usr/local/share/postgresql/contrib/postgis-1.5 && \
+    cd /usr/local/share/postgis && \
     psql -d safecast_development -f postgis.sql -h localhost && \
     psql -d safecast_development -f spatial_ref_sys.sql -h localhost && \
     psql -d safecast_test -f postgis.sql -h localhost && \
@@ -65,8 +65,8 @@ Katrina Owen proposed [a solution](http://www.katrinaowen.com/2011/01/13/postgre
     CREATE DATABASE template_postgis WITH TEMPLATE=template1 ENCODING='UTF8';
     \c template_postgis;
     CREATE LANGUAGE plpgsql;
-    \i /usr/local/share/postgresql/contrib/postgis-1.5/postgis.sql
-    \i /usr/local/share/postgresql/contrib/postgis-1.5/spatial_ref_sys.sql
+    \i /usr/local/share/postgis/postgis.sql
+    \i /usr/local/share/postgis/spatial_ref_sys.sql
     UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template_postgis';
     GRANT ALL ON geometry_columns TO PUBLIC;
     GRANT ALL ON spatial_ref_sys TO PUBLIC;
