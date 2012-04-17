@@ -3,4 +3,15 @@
   <p><%= @map.created_at %></p>
   <div id="map_canvas"></div>
 <%- end -%>
+<%= content_for(:additional_javascripts) do %>
+  <script>
+    $(function(){
+      var points = <%= raw(@map.measurements.collect do |m|
+                          {:lat => m.latitude, :lng => m.longitude}
+                       end.to_json) %>
+      GoogleMap.addPoints(points)
+      GoogleMap.setCenter(points[0].lat, points[1].lng)
+    })
+  </script>
+<%- end -%>
 <%= render :template => 'my/maps/index' %>

@@ -6,14 +6,14 @@
     <%= csrf_meta_tag %>
     <%= stylesheet_link_tag :application %>
     <%- if ENV['CONNECTION_STATUS'] != 'offline' -%>
-      <%= javascript_include_tag raw "#{request.protocol}maps.googleapis.com/maps/api/js?key=AIzaSyA15g0-2g2c7LbKWwCJmJpQWbdntzXZshE&sensor=true" %>
+      <%= javascript_include_tag "#{request.protocol}maps.googleapis.com/maps/api/js?key=AIzaSyA15g0-2g2c7LbKWwCJmJpQWbdntzXZshE&sensor=true" %>
     <%- end -%>
     <%= javascript_include_tag "#{request.protocol}use.typekit.com/tvi6mbv.js" %>
     <script type="text/javascript" charset="utf-8">
       try{Typekit.load();}catch(e){}
     </script>
     <!-- [if lt IE 9] -->
-    <%= javascript_include_tag "#{request.protocol}://html5shim.googlecode.com/svn/trunk/html5.js" %>
+    <%= javascript_include_tag "#{request.protocol}html5shim.googlecode.com/svn/trunk/html5.js" %>
     <!--[endif]-->
   </head>
   <body>
