@@ -19,10 +19,10 @@ en-US:
   Hello: Hello
   Import bGeigie logs: Import bGeigie logs
   It may take a few minutes to process.: It may take a few minutes to process.
-  Maps: Maps
+  Maps: maps
   maps: maps
   Map created: Map created
-  Measurements: Measurements
+  Measurements: measurements
   measurements: measurements
   My maps: My maps
   none found: none found
@@ -49,10 +49,34 @@ en-US:
   uploaded by: uploaded by
   You haven't uploaded any bGeigie log files.: You haven't uploaded any bGeigie log
     files.
-  You haven't submitted any measurements yet.: You haven't submitted any measurements yet.
+  You haven't submitted any measurements yet.: You haven't submitted any measurements
+    yet.
   Yours: Yours
   View your bGeigie log uploads: View your bGeigie log uploads
   View the Safecast API docs: View the Safecast API docs
   Welcome to the Safecast API Center.: Welcome to the Safecast API Center.
   View your submission history: View your submission history
   Your Measurement: Your Measurement
+  ! "A map will be displayed once this file has processed\x01": A map will be displayed
+    once this file has processed.
+  ! "It may take a few minutes to process\x01": It may take a few minutes to process.
+  ! "No maps found\x01": No maps found.
+  number:
+    human:
+      decimal_units:
+        units:
+          unit: ''
+      format:
+        delimiter: ''
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  ! "This file is queued for processing\x01": This file is queued for processing.
+  ! "Welcome to the Safecast API Center\x01": Welcome to the Safecast API Center.
+  ! "You haven't submitted any measurements yet\x01": You haven't submitted any measurements
+    yet.
+  ! "You haven't uploaded any bGeigie log files\x01": You haven't uploaded any bGeigie
+    log files.

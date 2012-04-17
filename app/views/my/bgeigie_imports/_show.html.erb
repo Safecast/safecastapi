@@ -1,14 +1,17 @@
-<section class="span4<%= ' offset4' if @bgeigie_import.status_details[:compute_latlng].blank? -%>"
-           id="bgeigie-status"
-           data-status="<%= @bgeigie_import.status -%>">
-    <%- if @bgeigie_import.bgeigie_logs.empty? -%>
-      <p class="alert">
-        <strong><%= t 'Please note' -%></strong>
-        <%= t 'This file is queued for processing.' -%>
-        <%= t 'It may take a few minutes to process.' -%>
-      </p>
-    <%- end -%>
+<%- if @bgeigie_import.queued_for_processing? -%>
+  <p class="alert">
+    <%= t 'This file is queued for processing. It may take a few minutes to process.' -%>
+  </p>
+<%- end -%>
+
+<div class="row">
+  <section class="span4">
+    <h2>
+      <%= t 'bGeigie Import' -%> #<%= @bgeigie_import.id -%>
+    </h2>
     <%= render 'my/bgeigie_imports/status' -%>
+    <%= render 'my/bgeigie_imports/details' -%>
+    <%= render 'my/bgeigie_imports/progress' -%>
   </section>
   <%- if @bgeigie_import.status_details[:compute_latlng].present? -%>
     <section class="span8">
@@ -20,14 +23,12 @@
         <input id="longitude"
                type="hidden"
                value="<%= @bgeigie_import.bgeigie_logs.first.longitude %>"></input>
-        <div id="map_canvas" class="high"></div>
+        <div id="map_canvas" class="high well"></div>
       <%- else -%>
         <p class="well">
           <%= t('A map will be displayed once this file has processed.') -%>
         </p>
       <%- end -%>
-      </div>
-
       <%= content_for(:additional_javascripts) do %>
         <script>
           $(function(){
@@ -40,3 +41,4 @@
       <%- end -%>
     </section>
   <%- end -%>
+</div>

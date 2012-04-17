@@ -1,6 +1,3 @@
-<h2>
-  <%= t 'bGeigie Import' -%> #<%= @bgeigie_import.id -%>
-</h2>
 <%- if @bgeigie_import.status == 'done' -%>
   <span class="label label-success">
     <%= t 'Processed' -%>
@@ -20,10 +17,8 @@
          style="width: 100%;"></div>
   </div>
 <%- end -%>
-
 <ul class="nav nav-pills nav-stacked">
-  <li><%= link_to t("Download Original File"),
-                   @bgeigie_import.source.url %></li>
+  <li><%= link_to t("Download Original File"), @bgeigie_import.source.url %></li>
 </ul>
 <%- if @bgeigie_import.status == 'done' -%>
   <ul class="measurement bgeigie-log unstyled">
@@ -40,7 +35,5 @@
         <%= f.submit t("Approve") -%>
       </p>
     </fieldset>
-    
   <%- end -%>
 <%- end -%>
-<%= render 'my/bgeigie_imports/progress' -%>

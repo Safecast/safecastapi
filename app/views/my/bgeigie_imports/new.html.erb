@@ -1,16 +1,8 @@
 <%= render 'my/layouts/submit_nav' %>
 <div class="row">
-  <section class="span3">
-    <ul class="nav nav-stacked nav-pills">
-      <li><%= link_to t('View your bGeigie log uploads'), [:my, :bgeigie_imports] -%></li>
-    </ul>
-  </section>
   <section class="span9">
     <h2><%= t('Upload a bGeigie log file') -%></h2>
-
-    <%= form_for [:api, @bgeigie_import], :html =>{
-      :class => 'form-horizontal'
-    } do |f| %>
+    <%= form_for [:api, @bgeigie_import], :html =>{:class => 'form-horizontal'} do |f| %>
       <fieldset>
         <div class="control-group">
           <%= f.label :source, t('File'), :class => 'control-label' %>
@@ -20,16 +12,44 @@
         </div>
         
         <div class="control-group">
-          <%= f.label :source, t('Title (optional)'), :class => 'control-label' %>
+          <%= f.label :name, t('Title (optional)'), :class => 'control-label' %>
           <div class="controls">
             <%= f.text_field :name %>
           </div>
         </div>
 
         <div class="control-group">
-          <%= f.label :source, t('Description (optional)'), :class => 'control-label' %>
+          <%= f.label :description, t('Description (optional)'), :class => 'control-label' %>
           <div class="controls">
             <%= f.text_area :description %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :credits, t('Credits (comma seperated list, optional)'), :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :credits_as_string %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :credits, t('Cities (comma seperated list, optional)'), :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :cities_as_string %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :height, t('Sensor Height (metres, optional)'), :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :height %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :orientation, t('Sensor Orientation (optional)'), :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :orientation %>
           </div>
         </div>
       </fieldset>

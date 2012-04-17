@@ -17,7 +17,10 @@ class BgeigieImport < MeasurementImport
     :measurements_added,
     :create_map
   ]
-  
+
+  serialize :credits, Array
+  serialize :cities, Array
+
   def tmp_file
     @tmp_file ||= "/tmp/bgeigie-#{Kernel.rand}"
   end
@@ -25,6 +28,10 @@ class BgeigieImport < MeasurementImport
   def confirm_status(item)
     self.status_details[item] = true
     self.save!
+  end
+
+  def queued_for_processing?
+    status_details.empty?
   end
   
   def process
@@ -40,7 +47,7 @@ class BgeigieImport < MeasurementImport
   end
 
   def approve!
-    self.update_attribute :approved, true
+    self.update_attribute(:approved, true)
     self.delay.finalize!
     Notifications.import_approved(self).deliver
   end
@@ -77,16 +84,15 @@ class BgeigieImport < MeasurementImport
     raw  = conn.raw_connection
     raw.exec "create temporary table bgeigie_logs_tmp (like bgeigie_logs including defaults)"
     raw.exec(%Q[
-                            COPY bgeigie_logs_tmp
-                             (device_tag, device_serial_id, captured_at, 
-                            cpm, counts_per_five_seconds, total_counts,  
-                            cpm_validity, latitude_nmea, 
-                            north_south_indicator, longitude_nmea,
-                            east_west_indicator, altitude, gps_fix_indicator,
-                            horizontal_dilution_of_precision,
-                            gps_fix_quality_indicator,md5sum)
-                            FROM STDIN CSV
-                            ])
+      COPY bgeigie_logs_tmp
+       (device_tag, device_serial_id, captured_at, 
+      cpm, counts_per_five_seconds, total_counts,  
+      cpm_validity, latitude_nmea, 
+      north_south_indicator, longitude_nmea,
+      east_west_indicator, altitude, gps_fix_indicator,
+      horizontal_dilution_of_precision,
+      gps_fix_quality_indicator,md5sum)
+      FROM STDIN CSV])
     file_contents = File.open(tmp_file, 'r') { |f| f.read }
     file_contents.each_line { |line| raw.put_copy_data line }
     raw.put_copy_end
@@ -116,26 +122,27 @@ class BgeigieImport < MeasurementImport
   end
   
   def import_measurements
-    self.connection.execute("insert into measurements
-                             (user_id, value, unit, created_at, updated_at, captured_at,
-                             measurement_import_id, md5sum, location)
-                             select #{self.user_id},cpm,'cpm', now(), now(), captured_at,
-                             #{self.id}, md5sum, computed_location
-                             from bgeigie_logs WHERE
-                             bgeigie_import_id = #{self.id}
-                             and md5sum not in (select md5sum from measurements)")
+    self.connection.execute(%Q[
+      insert into measurements
+      (user_id, value, unit, created_at, updated_at, captured_at,
+      measurement_import_id, md5sum, location)
+      select #{self.user_id},cpm,'cpm', now(), now(), captured_at,
+      #{self.id}, md5sum, computed_location
+      from bgeigie_logs WHERE
+      bgeigie_import_id = #{self.id}
+      and md5sum not in (select md5sum from measurements)])
   end
   
   def add_measurements_to_map
-    self.connection.execute(%Q[insert into maps_measurements (map_id, measurement_id)
-                                select #{@map.id}, id from measurements
-                                where measurement_import_id = #{self.id}])
+    self.connection.execute(%Q[
+      insert into maps_measurements (map_id, measurement_id)
+      select #{@map.id}, id from measurements
+      where measurement_import_id = #{self.id}])
   end
   
   def delete_tmp_file
     File.unlink(tmp_file)
   end
-  
   
   def nmea_to_lat_lng(latitude_nmea, north_south_indicator, longitude_nmea, east_west_indicator)
     #algorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
@@ -161,5 +168,20 @@ class BgeigieImport < MeasurementImport
       :longitude => (lng_degrees + lng_decimal) * lng_sign
     }
   end
-  
+
+  def credits_as_string=(value)
+    self.credits = value.split(",").map(&:strip)
+  end
+
+  def credits_as_string
+    credits.join(", ")
+  end
+
+  def cities_as_string=(value)
+    self.cities = value.split(",").map(&:strip)
+  end
+
+  def cities_as_string
+    cities.join(", ")
+  end
 end
