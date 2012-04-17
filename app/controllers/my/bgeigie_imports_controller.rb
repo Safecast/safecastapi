@@ -4,8 +4,8 @@ class My::BgeigieImportsController < My::ApplicationController
   skip_before_filter :authenticate_user!, :only => :show
 
   def index
-      @unapproved_bgeigie_imports = BgeigieImport.unapproved.awaiting_approval
-      @bgeigie_imports = current_user.bgeigie_imports
+    @unapproved_bgeigie_imports = BgeigieImport.unapproved.awaiting_approval
+    @bgeigie_imports = current_user.bgeigie_imports
   end
   
   def new
