@@ -35,7 +35,7 @@
         <div class="control-group">
           <%= f.label :credits, t('Cities (comma seperated list, optional)'), :class => 'control-label' %>
           <div class="controls">
-            <%= f.text_field :cities_as_string %>
+            <%= f.text_field :cities_as_string, :value => default_cities_as_string %>
           </div>
         </div>
 
