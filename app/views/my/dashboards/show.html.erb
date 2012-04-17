@@ -43,7 +43,9 @@
     <ul class="unstyled">
         <li>
           <%= link_to [:my, :measurements] do %>
-            <em><%= number_with_delimiter current_user.measurements.count  %></em>
+            <em>
+              <%= number_with_delimiter current_user.measurements.count, :delimiter => ',' %>
+            </em>
             <%= t('submissions') %>
           <%- end -%>
         </td>
