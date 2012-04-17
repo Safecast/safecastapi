@@ -1,6 +1,6 @@
-<h2>bGeigie Imports</h2>
+<h2><%= t("bGeigie Imports") %></h2> 
 <section>
-  <h3><%= t 'Yours' -%></h3>
+  <h3><%= t("Yours") -%> (<%= link_to t("Import a bGeigie log file"), [:new, :my, :bgeigie_import] %>)</h3>
   <%- if @bgeigie_imports.empty? -%>
     <p><%= t "You haven't uploaded any bGeigie log files." -%></p>
   <%- else -%>

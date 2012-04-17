@@ -3,10 +3,11 @@
     <%= t 'Progress' %>
   </li>
   <li>
-    <%= t 'Process file' -%>
     <%- if @bgeigie_import.status_details[:process_file].present? -%>
+      <%= t 'Process file' -%> (<%= @bgeigie_import.lines_count -%> <%= t("lines") -%>)
       <i class="icon-ok pull-right"></i>
     <%- else -%>
+      <%= t 'Process file' -%>
       <span class="pull-right">&hellip;</span>
     <%- end -%>
   </li>

@@ -34,7 +34,7 @@
             Basics
           </legend>
           <div class="control-group reading">
-            <%= f.label :value, 'Radiation Level', :class => 'control-label' %>
+            <%= f.label :value, t('Radiation Level'), :class => 'control-label' %>
             <div class="controls">
               <%= f.text_field :value,
                     :class => 'digit level',
@@ -45,19 +45,19 @@
           <div class="control-group">
             <%= f.label :unit, :class => 'control-label' %>
             <div class="controls">
-              <%= f.select :unit, [['μSv/h', 'microsievert'], ['clicks per minute', 'cpm']], :selected => 'microsievert', :id => 'unit' %>
+              <%= f.select :unit, [['μSv/h', 'microsievert'], [ t('Clicks per minute'), 'cpm']], :selected => 'microsievert', :id => 'unit' %>
             </div>
           </div>
           
           <div class="control-group">
-            <%= f.label :captured_at, "Date taken", :class => 'control-label' %>
+            <%= f.label :captured_at, t("Date taken"), :class => 'control-label' %>
             <div class="controls">
               <%= f.text_field :captured_at %>
             </div>
           </div>
 
           <div class="control-group">
-            <%= label_tag :location, "Location", :class => 'control-label' %>
+            <%= label_tag :location, t("Location"), :class => 'control-label' %>
             <div class="controls">
               <%= f.text_area :location_name,
                     :id => :location,
@@ -74,7 +74,7 @@
         </div>
         <fieldset>
           <div class="control-group">
-            <%= label_tag :latitude, 'Latitude', :class => 'control-label' %>
+            <%= label_tag :latitude, t('Latitude'), :class => 'control-label' %>
 
             <div class="controls">
               <%= f.text_field :latitude, :id => 'latitude' %>
@@ -82,7 +82,7 @@
           </div>
 
           <div class="control-group">
-            <%= label_tag :longitude, 'Longitude', :class => 'control-label' %>
+            <%= label_tag :longitude, t('Longitude'), :class => 'control-label' %>
             <div class="controls">
               <%= f.text_field :longitude, :id => 'longitude' %>
             </div>
@@ -98,7 +98,7 @@
             Device
           </legend>
           <div class="control-group">
-            <%= f.label :device_id, 'Device', :class => 'control-label' %>
+            <%= f.label :device_id, t("Device"), :class => 'control-label' %>
             <div class="controls">
               <%= f.select :device_id, Device.all.collect { |d| [d.name, d.id]},
                     :id => 'longitude' %>
@@ -114,14 +114,14 @@
           </legend>
 
           <div class="control-group">
-            <%= f.label :height, :class => 'control-label' %>
+            <%= f.label :height, t("Height"), :class => 'control-label' %>
             <div class="controls">
               <%= f.text_field :height, :placeholder => "1m" %>
             </div>
           </div>
 
           <div class="control-group">
-            <%= f.label :surface, "Surface type",
+            <%= f.label :surface, t("Surface type"),
                   :class => 'control-label' %>
             <div class="controls">
               <%= f.text_field :surface, :placeholder => "Soil" %>
@@ -129,7 +129,7 @@
           </div>
 
           <div class="control-group">
-            <%= f.label :radiation, "Radiation type",
+            <%= f.label :radiation, t("Radiation type"),
                   :class => 'control-label' %>
             <div class="controls">
               <%= f.text_field :radiation, :placeholder => "Air" %>

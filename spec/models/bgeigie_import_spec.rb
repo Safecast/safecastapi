@@ -20,6 +20,10 @@ describe BgeigieImport do
     it "should create 23 Bgeigie Logs" do
       BgeigieLog.count.should == 23
     end
+
+    it "should count the number of lines in the file" do
+      bgeigie_import.lines_count.should == 23
+    end
     
     it "should set the id" do
       BgeigieLog.all.collect { |bl| bl.bgeigie_import_id }.uniq.should == [bgeigie_import.id]
@@ -47,8 +51,8 @@ describe BgeigieImport do
     it "should calculate measurements to the correct hemisphere" do
       bgeigie_nyc = Fabricate(:bgeigie_import,
                               :source => File.new(Rails.root + 'spec/fixtures/bgeigie_nyc.log'),
-                              :user_id => user.id
-                             )
+                              :user => user)
+
       bgeigie_nyc.process
       bgeigie_nyc.finalize!
 

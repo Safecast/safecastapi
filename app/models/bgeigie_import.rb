@@ -35,7 +35,7 @@ class BgeigieImport < MeasurementImport
   end
   
   def process
-    strip_comments_from_top_of_file
+    create_tmp_file
     confirm_status(:process_file)
     import_to_bgeigie_logs
     confirm_status(:import_bgeigie_logs)
@@ -68,14 +68,17 @@ class BgeigieImport < MeasurementImport
     })
     self.update_attribute(:map, @map)
   end
-  
-  def strip_comments_from_top_of_file
+
+  def create_tmp_file
+    lines_count = 0
     File.open(tmp_file, 'a') do |file|
-      source.read.split("\n").each_with_index do |line|
+      source.read.split("\n").each do |line|
         next if line.first == '#'
         file.write "#{line.strip},#{Digest::MD5.hexdigest(line.strip)}\n"
+        lines_count += 1
       end
     end
+    update_attribute(:lines_count, lines_count)
   end
   
   def import_to_bgeigie_logs
