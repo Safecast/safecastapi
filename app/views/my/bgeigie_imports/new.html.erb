@@ -2,32 +2,32 @@
 <div class="row">
   <section class="span3">
     <ul class="nav nav-stacked nav-pills">
-      <li><%= link_to 'View your bGeigie log uploads', [:my, :bgeigie_imports] -%></li>
+      <li><%= link_to t('View your bGeigie log uploads'), [:my, :bgeigie_imports] -%></li>
     </ul>
   </section>
   <section class="span9">
-    <h2>Upload a bGeigie log file</h2>
+    <h2><%= t('Upload a bGeigie log file') -%></h2>
 
     <%= form_for [:api, @bgeigie_import], :html =>{
       :class => 'form-horizontal'
     } do |f| %>
       <fieldset>
         <div class="control-group">
-          <%= f.label :source, 'File', :class => 'control-label' %>
+          <%= f.label :source, t('File'), :class => 'control-label' %>
           <div class="controls">
             <%= f.file_field :source %>
           </div>
         </div>
         
         <div class="control-group">
-          <%= f.label :source, 'Title (optional)', :class => 'control-label' %>
+          <%= f.label :source, t('Title (optional)'), :class => 'control-label' %>
           <div class="controls">
             <%= f.text_field :name %>
           </div>
         </div>
 
         <div class="control-group">
-          <%= f.label :source, 'Description (optional)', :class => 'control-label' %>
+          <%= f.label :source, t('Description (optional)'), :class => 'control-label' %>
           <div class="controls">
             <%= f.text_area :description %>
           </div>
@@ -36,7 +36,7 @@
       
       <fieldset>
         <p class="button">
-          <%= f.submit 'Upload' %>
+          <%= f.submit t('Upload') %>
         </p>
       </fieldset>
     <%- end -%>

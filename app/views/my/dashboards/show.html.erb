@@ -1,40 +1,40 @@
 <div class="row">
   <section class="span6">
     <%- if current_user.name.present? %>
-      <h2>Hello <%= current_user.first_name %></h2>
+      <h2><%= t('Hello') -%> <%= current_user.first_name %></h2>
     <%- end -%>
 
     <p>
-      Welcome to the Safecast API Center.
+      <%= t('Welcome to the Safecast API Center.') -%>
     </p>
 
     <ul class="nav nav-pills nav-stacked well">
       <li class="nav-header">
-        From here you can:
+        <%= t('From here you can:') -%>
       </li>
       <li>
-        <%= link_to 'View the Safecast API docs', [:api, :root] %>
+        <%= link_to t('View the Safecast API docs'), [:api, :root] %>
       </li>
       <li>
-        <%= link_to 'Retrieve your API key', [:my, :profile] %>
+        <%= link_to t('Retrieve your API key'), [:my, :profile] %>
       </li>
       <li>
-        <%= link_to 'Submit a reading from your device', [:new, :my, :measurement] %>
+        <%= link_to t('Submit a reading from your device'), [:new, :my, :measurement] %>
       </li>
       <li>
-        <%= link_to 'View your submission history', [:my, :measurements] %>
+        <%= link_to t('View your submission history'), [:my, :measurements] %>
       </li>
       <li>
-        <%= link_to 'Explore maps of your submissions', [:my, :maps] %>
+        <%= link_to t('Explore maps of your submissions'), [:my, :maps] %>
       </li>
       <li class="nav-header">
         If you have a bGeigie:
       </li>
       <li>
-        <%= link_to 'Upload a bGeigie log file', [:new, :my, :bgeigie_import] %>
+        <%= link_to t('Upload a bGeigie log file'), [:new, :my, :bgeigie_import] %>
       </li>
       <li>
-        <%= link_to 'Review your bGeigie log file submissions', [:my, :bgeigie_imports] %>
+        <%= link_to t('Review your bGeigie log file submissions'), [:my, :bgeigie_imports] %>
       </li>
     </ul>
   </section>
@@ -44,20 +44,20 @@
         <li>
           <%= link_to [:my, :measurements] do %>
             <em><%= number_with_delimiter current_user.measurements.count  %></em>
-            submission<%= 's' if current_user.measurements.count != 1 %>
+            <%= t('submissions') %>
           <%- end -%>
         </td>
       </li>
       <li>
           <%= link_to [:my, :maps] do %>
             <em><%= current_user.maps.count  %></em>
-            map<%= 's' if current_user.maps.count != 1 %>
+            <%= t('maps') -%>
           <%- end -%>
       </li>
       <li>
           <%= link_to [:my, :bgeigie_imports] do %>
             <em><%= current_user.bgeigie_imports.count  %></em>
-            bGeigie import<%= 's' if current_user.bgeigie_imports.count != 1 %>
+            <%= t('bGeigie Imports') -%>
           <%- end -%>
       </li>
     </ul>
@@ -67,7 +67,7 @@
           <li>
             <%= link_to [:my, :bgeigie_imports]  do -%>
               <em><%= @unapproved_bgeigie_imports.count -%></em>
-              awaiting approval
+              <%= t('awaiting approval') -%>
             <%- end -%>
           </li>
         </ul>

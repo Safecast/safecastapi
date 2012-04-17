@@ -1,9 +1,9 @@
 <ul class="unstyled nav" id="progress" data-status="<%= @bgeigie_import.status -%>">
       <li class="nav-header">
-        Progress
+        <%= t 'Progress' %>
       </li>
       <li>
-        Process file
+        <%= t 'Process file' -%>
         <%- if @bgeigie_import.status_details[:process_file].present? -%>
           <i class="icon-ok pull-right"></i>
         <%- else -%>
@@ -11,11 +11,11 @@
         <%- end -%>
       </li>
       <li>
-        Import bGeigie logs
+        <%= t 'Import bGeigie logs' -%>
         <%- if @bgeigie_import.bgeigie_logs.any? -%>
           (<%= @bgeigie_import.bgeigie_logs.count -%> found)
         <%- else -%>
-          (none found)
+          (<%= t 'none found' -%>)
         <%- end -%>
         <%- if @bgeigie_import.status_details[:import_bgeigie_logs].present? -%>
           <i class="icon-ok pull-right"></i>
@@ -24,7 +24,7 @@
         <%- end -%>
       </li>
       <li>
-        Compute latitudes &amp; longitudes
+        <%= t('Compute latitudes &amp; longitudes').html_safe -%>
         <%- if @bgeigie_import.status_details[:compute_latlng].present? -%>
           <i class="icon-ok pull-right"></i>
         <%- else -%>
@@ -32,7 +32,7 @@
         <%- end -%>
       </li>
       <li>
-        Approved by moderator
+        <%= t 'Approved by moderator' -%>
         <%- if @bgeigie_import.approved? -%>
           <i class="icon-ok pull-right"></i>
         <%- else -%>
@@ -40,7 +40,7 @@
         <%- end -%>
       </li>
       <li>
-        Added to Safecast database
+        <%= t 'Added to Safecast database' -%>
         <%- if @bgeigie_import.status_details[:measurements_added].present? -%>
           <i class="icon-ok pull-right"></i>
         <%- else -%>
@@ -48,7 +48,7 @@
         <%- end -%>
       </li>
       <li>
-        Map created
+        <%= t 'Map created' -%>
         <%- if @bgeigie_import.status_details[:create_map].present? -%>
           <i class="icon-ok pull-right"></i>
         <%- else -%>

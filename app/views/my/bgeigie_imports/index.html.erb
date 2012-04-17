@@ -4,19 +4,19 @@
 <div class="row">
   <section class="span3">
     <ul class="nav nav-stacked nav-pills">
-      <li><%= link_to 'Upload a bGeigie log file', [:new, :my, :bgeigie_import] -%></li>
+      <li><%= link_to t('Upload a bGeigie log file'), [:new, :my, :bgeigie_import] -%></li>
     </ul>
   </section>
   <section class="span5">
-    <h3>Yours</h3>
+    <h3><%= t 'Yours' -%></h3>
     <%- if @bgeigie_imports.empty? -%>
-      <p>You haven't uploaded any bGeigie log files.</p>
+      <p><%= t "You haven't uploaded any bGeigie log files." -%></p>
     <%- else -%>
       <ul>
         <%- @bgeigie_imports.each do |bgeigie_import| -%>
           <%= link_to pluralize(bgeigie_import.measurements_count, 'measurement'),
                       [:my, bgeigie_import] -%>
-                on
+                <%= t 'on (date)' -%>
                 <%= bgeigie_import.created_at.strftime("%e %B, %Y %H:%M:%S") -%>
         <%- end -%>
       </ul>
@@ -25,15 +25,15 @@
   <section class="span4">
     <%- if current_user.moderator? -%>
       <%- if @unapproved_bgeigie_imports.any? -%>
-        <h3>Awaiting approval</h3>
+        <h3><%= t('Awaiting approval') -%></h3>
         <ul class="unstyled">
           <%- @unapproved_bgeigie_imports.each do |bgeigie_import| -%>
             <li>
               <%= link_to pluralize(bgeigie_import.measurements_count, 'measurement'),
                     [:my, bgeigie_import] -%>
-              uploaded by
+              <%= t('uploaded by') -%>
               <%= link_to bgeigie_import.user.name, bgeigie_import.user -%>
-              on
+              <%= t 'on (date)' %>
               <%= bgeigie_import.created_at.strftime("%e %B, %Y %H:%M:%S") -%>
             </li>
           <%- end -%>

@@ -23,36 +23,36 @@
         <nav>
           <ul>
             <li>
-              <%= link_to "Api Docs", [:api,:root] %>
+              <%= link_to t("Api Docs"), [:api,:root] %>
             </li>
             <%- if user_signed_in? -%>
               <li>
-                <%= link_to [:my, :profile], :title => 'Profile' do %>
-                  Profile
+                <%= link_to [:my, :profile], :title => t('Profile') do %>
+                  <%= t('Profile') %>
                 <%- end -%>
               </li>
               <li>
-                <%= link_to [:my, :measurements], :title => 'Measurements' do %>
-                  Measurements
+                <%= link_to [:my, :measurements], :title => t('Measurements') do %>
+                  <%= t('Measurements') %>
                 <%- end -%>
               </li>
               <li>
-                <%= link_to [:my, :maps], :title => 'Maps' do %>
-                  Maps
+                <%= link_to [:my, :maps], :title => t('Maps') do %>
+                  <%= t('Maps') %>
                 <%- end -%>
               </li>
               <li>
                 <%= link_to [:new, :my, :measurement],
-                      :title => 'Submit a Reading' do %>
-                  Submit
+                      :title => t('Submit a Reading') do %>
+                  <%= t('Submit') %>
                 <%- end -%>
               </li>
               <li>
-                <%= link_to 'Sign out', logout_path %>
+                <%= link_to t('Sign out'), logout_path %>
               </li>
             <%- else -%>
               <li>
-                <%= link_to "Sign up / Sign in", new_user_session_path %>
+                <%= link_to t("Sign up / Sign in"), new_user_session_path %>
               </li>
             <%- end -%>
           </ul>
@@ -62,7 +62,7 @@
         <%= yield %>
 
         <footer class="span12">
-          <p>Creative Commons Non-Commercial</p>
+          <p><%= t 'Creative Commons Non-Commercial' %></p>
         </footer>
       </div>
     </div>

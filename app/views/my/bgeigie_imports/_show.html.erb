@@ -3,9 +3,9 @@
            data-status="<%= @bgeigie_import.status -%>">
     <%- if @bgeigie_import.bgeigie_logs.empty? -%>
       <p class="alert">
-        <strong>Please note</strong>
-        This file is queued for processing.
-        It may take a few minutes to process.
+        <strong><%= t 'Please note' -%></strong>
+        <%= t 'This file is queued for processing.' -%>
+        <%= t 'It may take a few minutes to process.' -%>
       </p>
     <%- end -%>
     <%= render 'my/bgeigie_imports/status' -%>
@@ -23,7 +23,7 @@
         <div id="map_canvas" class="high"></div>
       <%- else -%>
         <p class="well">
-          A map will be displayed once this file has processed.
+          <%= t('A map will be displayed once this file has processed.') -%>
         </p>
       <%- end -%>
       </div>
