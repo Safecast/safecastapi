@@ -2,9 +2,6 @@
   <section class="span6 offset3">
     <header>
       <h2>Register or Sign in</h2>
-      <nav>
-        <%= link_to(raw("(or continue anonymously) &rarr;"), "/reading") %>
-      </nav>
     </header>
     <%= form_for(resource, :as => resource_name,
                          :url => session_path(resource_name),
