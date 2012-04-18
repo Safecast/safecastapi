@@ -30,5 +30,8 @@ class Device < ActiveRecord::Base
     end
     device
   end
-  
+
+  def identifier
+    "#{manufacturer} - #{model}"
+  end
 end

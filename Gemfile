@@ -5,6 +5,7 @@ gem 'rails', '3.2.1'
 gem 'pg'
 gem 'json'
 gem 'haml'
+gem 'dobro'
 
 gem 'aws-ses', '0.4.4', :require => 'aws/ses'
 gem "carrierwave", "~> 0.5.8"

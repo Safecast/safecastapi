@@ -28,5 +28,9 @@ class User < ActiveRecord::Base
       :methods => [:first_name, :last_name]
     )
   end
+
+  def identifier
+    name
+  end
   
 end

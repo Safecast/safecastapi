@@ -25,6 +25,13 @@
             <li>
               <%= link_to t("Api Docs"), [:api,:root] %>
             </li>
+            <%- if admin_signed_in? -%>
+              <li>
+                <%= link_to [:admin], :title => t("Admin") do %>
+                  <%= t("Admin") %>
+                <%- end %>
+              </li>
+            <%- end -%>
             <%- if user_signed_in? -%>
               <li>
                 <%= link_to [:my, :profile], :title => t('Profile') do %>

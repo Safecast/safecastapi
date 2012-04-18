@@ -1,4 +1,4 @@
 require "spec_helper"
 
-describe DriveLog do
+describe Admin do
 end

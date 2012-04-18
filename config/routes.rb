@@ -1,7 +1,10 @@
 Safecast::Application.routes.draw do
+  devise_for :admins
+
   root :to => 'my/dashboards#show'
 
   devise_for :users
+  devise_for :admins
   devise_scope :user do
     get "/logout" => "devise/sessions#destroy", :as => :logout
   end
@@ -50,6 +53,13 @@ Safecast::Application.routes.draw do
         end
       end
     end
+  end
+
+  authenticate :admin do
+    namespace :admin do
+      dobro_for :devices, :users, :admins
+    end
+    match "/admin", to: "dobro/application#index"
   end
   
   match '/my/measurements/manifest', :to => 'my/dashboards#show'
