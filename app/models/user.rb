@@ -17,9 +17,11 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me,
                   :time_zone
+
+  validates :name, :presence => true
   
   before_save :ensure_authentication_token
-  
+
   def serializable_hash(options = {})
     super options.merge(
       :only => [:id, :name, :email, :authentication_token],

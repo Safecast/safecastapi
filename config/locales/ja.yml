@@ -149,3 +149,29 @@ ja:
         units:
           billion: 十億
           million: 百万
+      storage_units:
+        units:
+          tb: テラバイト
+  Description: 説明文
+  Description (optional): 説明文　（任意項目）
+  Details: 詳細情報
+  Import a bGeigie log file: bGeigieのログフィアルをインポートする
+  Import bGeigie logs: bGeigieログをインポートする
+  Imports: インポートされたデータ
+  Location: 位置
+  Map created: マップが作成されました
+  My maps: マイ・マップ
+  none found: 見つかりませんでした。
+  Please note: 注意：
+  ! 'Please note:': 注意：
+  Process file: ファイルを処理する
+  Processed: 処理済み
+  Submit a Reading: 測定値の提出
+  Submit a single measurement: 測定値の提出 （一つ）
+  Title: 　題名
+  Title (optional): 題名　(任意項目）
+  Upload a bGeigie log file: bGeigieのログファイルをアップロードする
+  Uploads: アップロードされたデータ
+  View the Safecast API docs: Safecast API ドキュメンテーションを見る
+  View your bGeigie log uploads: あなたのbGeigie ログアップロード履歴を見る
+  View your submission history: あなたの測定値提出の履歴を見る

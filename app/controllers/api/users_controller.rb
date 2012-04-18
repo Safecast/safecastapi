@@ -2,10 +2,6 @@ class Api::UsersController < Api::ApplicationController
 
   expose(:user) { User.find_by_email(params[:email]) }
   
-  def finger
-    respond_with user
-  end
-  
   def create
     user = User.create(:email => params[:email], :name => params[:name], :password => params[:password])
     user.save

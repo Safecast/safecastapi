@@ -56,7 +56,10 @@
               </li>
             <%- else -%>
               <li>
-                <%= link_to t("Sign up / Sign in"), new_user_session_path %>
+                <%= link_to t("Sign in"), new_user_session_path %>
+              </li>
+              <li>
+               <%= link_to t("Sign up"), new_user_registration_path %>
               </li>
             <%- end -%>
           </ul>

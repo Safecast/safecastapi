@@ -1,25 +1,19 @@
 Safecast::Application.routes.draw do
-  
   root :to => 'my/dashboards#show'
 
-  resources :posts
-
-  devise_for :users, :controllers => {
-    :sessions => "users/sessions"
-  }
+  devise_for :users
   devise_scope :user do
     get "/logout" => "devise/sessions#destroy", :as => :logout
   end
   
+  resources :posts
   resources :maps
   resources :users
-
   resource :worldmap
   
   namespace :my do
     resource :dashboard
     resource :profile
-    
     resources :bgeigie_imports do
       member do
         put :approve
@@ -38,13 +32,10 @@ Safecast::Application.routes.draw do
     resources :bgeigie_imports
     resources :users do
       resources :measurements
-      
       resources :maps do
         resources :measurements
       end
-      
       collection do
-        get 'finger'
         get 'auth'
       end
     end
@@ -59,11 +50,9 @@ Safecast::Application.routes.draw do
         end
       end
     end
-
   end
   
   match '/my/measurements/manifest', :to => 'my/dashboards#show'
-
   match "reading", :to => 'submissions#reading'
   match "device", :to => 'submissions#device'
   match "details", :to => 'submissions#details'

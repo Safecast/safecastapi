@@ -7,13 +7,6 @@ feature "/api/users API endpoint" do
     Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
   end
   
-  scenario "lookup user" do
-    get('/api/users/finger.json', :email => 'paul@rslw.com')
-    result = ActiveSupport::JSON.decode(response.body)
-    result['name'].should == 'Paul Campbell'
-    result['first_name'].should == 'Paul'
-  end
-  
   scenario "create user" do
     post('/api/users.json', {
       :email => 'kevin@rkn.la',

@@ -1,10 +1,12 @@
 module Helpers
   def sign_up(email = "paul@rslw.com", name = "Paul Campbell", password = "mynewpassword")
     visit("/")
+    click_link("Sign up")
     fill_in("Email", :with => email)
     fill_in("Name", :with => name)
     fill_in("Password", :with => password)
-    click_button("Sign in")
+    fill_in("Password confirmation", :with => password)
+    click_button("Sign up")
   end
   
   def sign_in(user)
@@ -24,5 +26,4 @@ module Helpers
     post(*args)
     ActiveSupport::JSON.decode(response.body)
   end
-  
 end
