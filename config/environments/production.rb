@@ -46,7 +46,7 @@ Safecast::Application.configure do
   config.assets.precompile += %w(worldmap.js prettify.css prettify/prettify.js)
 
   # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
   # config.threadsafe!
@@ -57,4 +57,5 @@ Safecast::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  config.action_mailer.delivery_method = :ses
 end

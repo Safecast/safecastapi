@@ -6,7 +6,7 @@ gem 'pg'
 gem 'json'
 gem 'haml'
 
-
+gem 'aws-ses', '0.4.4', :require => 'aws/ses'
 gem "carrierwave", "~> 0.5.8"
 gem 'configurable_engine'
 gem "delayed_job", "~> 2.1.4"

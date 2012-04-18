@@ -70,10 +70,10 @@ en-US:
         delimiter: ''
     percentage:
       format:
-        delimiter: ''
+        delimiter: ! ','
     precision:
       format:
-        delimiter: ''
+        delimiter: ! ','
   ! "This file is queued for processing\x01": This file is queued for processing.
   ! "Welcome to the Safecast API Center\x01": Welcome to the Safecast API Center.
   ! "You haven't submitted any measurements yet\x01": You haven't submitted any measurements
