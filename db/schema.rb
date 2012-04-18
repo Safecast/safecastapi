@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120324100545) do
+ActiveRecord::Schema.define(:version => 20120417190549) do
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -129,6 +129,10 @@ ActiveRecord::Schema.define(:version => 20120324100545) do
     t.string   "name"
     t.text     "description"
     t.integer  "lines_count"
+    t.text     "credits"
+    t.integer  "height"
+    t.string   "orientation"
+    t.text     "cities"
   end
 
   create_table "measurements", :force => true do |t|

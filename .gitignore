@@ -1,10 +1,11 @@
 .bundle
 .DS_Store
 db/*.sqlite3
-log/*.log
+log/*
 tmp/
 .sass-cache/
 *.swp
 *.swo
 public/uploads/*
 bgeigie_logs/*
+log/localeapp.yml

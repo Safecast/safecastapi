@@ -41,9 +41,9 @@ feature "/api/devices API endpoint" do
     )
     
     result = ActiveSupport::JSON.decode(response.body)
-    result['errors']['manufacturer'].should == ["can't be blank"]
-    result['errors']['model'].should == ["can't be blank"]
-    result['errors']['sensor'].should == ["can't be blank"]
+    result['errors']['manufacturer'].should be_present
+    result['errors']['model'].should be_present
+    result['errors']['sensor'].should be_present
   end
   
 end

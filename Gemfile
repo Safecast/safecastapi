@@ -9,13 +9,13 @@ gem 'haml'
 gem 'aws-ses', '0.4.4', :require => 'aws/ses'
 gem "carrierwave", "~> 0.5.8"
 gem 'configurable_engine'
-gem "delayed_job", "~> 2.1.4"
+gem 'delayed_job', '~> 2.1.4'
 gem 'decent_exposure'
 gem 'fog'
 gem 'localeapp'
 gem 'mustache'
 gem 'spatial_adapter', :git => 'https://github.com/Empact/spatial_adapter.git'
-gem "twitter-bootstrap-rails"
+gem 'twitter-bootstrap-rails'
 gem 'will_paginate', '~> 3.0.3'
 
 group :assets do
@@ -26,7 +26,6 @@ end
 
 gem 'jquery-rails'
 gem 'thin'
-
 
 group :test do
   gem 'capybara'

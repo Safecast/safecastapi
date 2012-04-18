@@ -36,10 +36,9 @@
 </div>
 
 <%= content_for(:additional_javascripts) do %>
-        <script>
-          $(function(){
-            GoogleMap.setCenter(<%= @measurement.latitude %>,<%= @measurement.longitude %>)
-
-          })
-        </script>
-      <%- end -%>
+  <script>
+    $(function(){
+      GoogleMap.setCenter(<%= @measurement.latitude %>,<%= @measurement.longitude %>)
+    })
+  </script>
+<%- end -%>

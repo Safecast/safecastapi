@@ -24,7 +24,7 @@ feature "/api/measurements API endpoint" do
   
   scenario "empty post" do
     result = api_post('/api/measurements.json',{ :auth_token => user.authentication_token })
-    result['errors']['value'].should == ["can't be blank"]
+    result['errors']['value'].should be_present
   end
 end
 
