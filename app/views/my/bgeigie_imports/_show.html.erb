@@ -36,7 +36,6 @@
                                 {:lat => b.latitude, :lng => b.longitude}
                              end.to_json) %>
             GoogleMap.addPoints(points)
-            GoogleMap.setCenter(points[0].lat, points[1].lng)
           })
         </script>
       <%- end -%>

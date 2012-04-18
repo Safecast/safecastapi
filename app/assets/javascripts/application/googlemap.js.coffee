@@ -5,9 +5,12 @@ jQuery ->
       map.setCenter position
   
     addPoints: (points) ->
+      bounds = new window.google.maps.LatLngBounds()
       for point in points
         position = new window.google.maps.LatLng(point.lat, point.lng)
+        bounds.extend(position)
         new google.maps.Marker map: map, position: position
+      map.setCenter(bounds.getCenter(), map.fitBounds(bounds))
       
     performGeocode: (value) ->
       geocoder = new google.maps.Geocoder()
