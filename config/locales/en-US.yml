@@ -170,7 +170,7 @@ en-US:
         other: ! '%{count} errors prohibited this %{model} from being saved'
   explore_maps_of_your_submissions: Explore maps of your submissions
   file: File
-  from_here_you_can: ! 'From here you can:'
+  from_here_you_can: From here you can
   hello: Hello
   helpers:
     select:
