@@ -2,10 +2,9 @@ class Device < ActiveRecord::Base
   has_and_belongs_to_many :measurements
   has_and_belongs_to_many :maps
   
-  
-  validates :manufacturer,    :presence => true
-  validates :model,           :presence => true, :uniqueness => { :scope => :manufacturer }
-  validates :sensor,          :presence => true
+  validates :manufacturer, :presence => true
+  validates :model, :presence => true, :uniqueness => { :scope => :manufacturer }
+  validates :sensor, :presence => true
   
   def serializable_hash(options)
     options ||= {}

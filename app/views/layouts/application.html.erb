@@ -27,20 +27,20 @@
             </li>
             <%- if admin_signed_in? -%>
               <li>
-                <%= link_to [:admin], :title => t("Admin") do %>
-                  <%= t("Admin") %>
+                <%= link_to [:admin], :title => t("admin") do %>
+                  <%= t("admin") %>
                 <%- end %>
               </li>
             <%- end -%>
             <%- if user_signed_in? -%>
               <li>
-                <%= link_to [:my, :profile], :title => t('Profile') do %>
-                  <%= t('Profile') %>
+                <%= link_to [:my, :profile], :title => t("profile") do %>
+                  <%= t('profile') %>
                 <%- end -%>
               </li>
               <li>
-                <%= link_to [:my, :measurements], :title => t('Measurements') do %>
-                  <%= t('Measurements') %>
+                <%= link_to [:my, :measurements], :title => t("measurements") do %>
+                  <%= t('measurements') %>
                 <%- end -%>
               </li>
               <li>
@@ -54,19 +54,19 @@
                 <%- end -%>
               </li>
               <li>
-                <%= link_to [:new, :my, :measurement], :title => t('Submit a Reading') do %>
-                  <%= t('Submit') %>
+                <%= link_to [:new, :my, :measurement], :title => t('submit_a_reading') do %>
+                  <%= t('submit') %>
                 <%- end -%>
               </li>
               <li>
-                <%= link_to t('Sign_out'), logout_path %>
+                <%= link_to t('sign_out'), logout_path %>
               </li>
             <%- else -%>
               <li>
-                <%= link_to t("Sign_in"), new_user_session_path %>
+                <%= link_to t("sign_in"), new_user_session_path %>
               </li>
               <li>
-               <%= link_to t("Sign_up"), new_user_registration_path %>
+               <%= link_to t("sign_up"), new_user_registration_path %>
               </li>
             <%- end -%>
           </ul>

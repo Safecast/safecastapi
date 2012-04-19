@@ -9,7 +9,6 @@ en-US:
   count_found: ! '%{count} found'
   count_lines: ! '%{count} lines'
   clicks_per_minute: Clicks per minute
-  Credits: Credits
   Description: Description
   description_optional: Description (optional)
   Details: Details
@@ -39,17 +38,16 @@ en-US:
   No_maps_found: No maps found.
   none_found: none found
   name: Name
-  Please_note: Please note
+  please_note: Please note
   process_file: Process file
-  Processed: Processed
-  Profile: Profile
+  processed: Processed
+  profile: Profile
   Progress: Progress
   radiation_level: Radiation Level
   radiation_type: Radiation Type
-  Retrieve_your_API_key: Retrieve your API key
-  Review_your_bGeigie_log_file_submissions: Review your bGeigie log file submissions
-  Sign_out: Sign out
-  Sign_up_/_Sign_in: Sign up / Sign in
+  retrieve_your_API_key: Retrieve your API key
+  review_your_bGeigie_log_file_submissions: Review your bGeigie log file submissions
+  sign_out: Sign out
   soil: Soil
   sensor_height_optional: Sensor Height (metres, optional)
   sensor_orientation_optional: Sensor Orientation (optional)
@@ -75,8 +73,7 @@ en-US:
   Your_Measurement: Your Measurement
   Yours: Yours
   added_to_safecast_database: Added to Safecast database
-  admin:
-    signed_in: Admin
+  admin: Admin
   approved_by_moderator: Approved by moderator
   awaiting_approval: Awaiting approval
   bgeigie_import: bGeigie Import
@@ -213,6 +210,7 @@ en-US:
       wrong_length:
         one: is the wrong length (should be 1 character)
         other: is the wrong length (should be %{count} characters)
+      not_saved: Not saved
     template:
       body: ! 'There were problems with the following fields:'
       header:
@@ -299,3 +297,42 @@ en-US:
   ! "You_haven't_uploaded_any_bGeigie_log_files\x01": You haven't uploaded any bGeigie
     log files.
   on_(date): 'on'
+  previous_label: Prev
+  sign_in: Sign in
+  sign_up: Sign up
+  Retrieve_your_API_key: Retrieve your API key
+  Review_your_bGeigie_log_file_submissions: Review your bGeigie log file submissions
+  measurements: measurements
+  retrieve_your_api_key: Retrieve your API key
+  review_your_bgeigie_log_file_submissions: Review your bGeigie log file submissions
+  submit: Submit
+  submit_a_reading: Submit a Reading
+  maps: maps
+  submit_a_reading_from_your_device: Submit a reading from your device
+  upload_a_bgeigie_log_file: Upload a bGeigie log file
+  view_the_safecast_api_docs: View the Safecast API docs
+  view_your_submission_history: View your submission history
+  approve: Approve
+  description: Description
+  details: Details
+  device: Device
+  file: File
+  ! 'from_here_you_can:': ! 'From here you can:'
+  hello: Hello
+  import_bgeigie_logs: Import bGeigie logs
+  it_may_take_a_few_minutes_to_process: It may take a few minutes to process.
+  map_created: Map created
+  my_maps: My maps
+  no_maps_found: No maps found.
+  progress: Progress
+  submit_a_single_measurement: Submit a single measurement
+  this_file_is_queued_for_processing: This file is queued for processing.
+  title_optional: Title (optional)
+  upload: Upload
+  view_your_bgeigie_log_uploads: View your bGeigie log uploads
+  you_havent_submitted_any_measurements_yet: You haven't submitted any measurements
+    yet.
+  you_havent_uploaded_any_bgeigie_log_files: You haven't uploaded any bGeigie log
+    files.
+  your_measurement: Your Measurement
+  yours: Yours
