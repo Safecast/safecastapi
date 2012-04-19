@@ -66,8 +66,8 @@ class Api::MeasurementsController < Api::ApplicationController
     # see: https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/5199-respond_with-returns-on-put-and-delete-verb#ticket-5199-14
     @result = new_measurement
     respond_with(@result, :location => my_measurement_url(new_measurement)) do |format|
-              format.json  { render :json => @result.to_json, :status => :accepted }
-            end
+      format.json { render :json => @result.to_json, :status => :accepted }
+    end
   end
   
   def add_to_map

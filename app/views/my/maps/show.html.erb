@@ -10,6 +10,7 @@
                           {:lat => m.latitude, :lng => m.longitude}
                        end.to_json) %>
       GoogleMap.addPoints(points)
+      GoogleMap.fitPoints(points)
     })
   </script>
 <%- end -%>
