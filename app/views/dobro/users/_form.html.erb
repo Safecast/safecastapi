@@ -1,0 +1,13 @@
+<%= form_for resource.route_for(current_record) do |f| %>
+  <fieldset>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :moderator %>
+    <%= f.check_box :moderator %>
+  </fieldset>
+  <fieldset class="buttons">
+    <%= f.submit "Save #{singular_class}" %>
+  </fieldset>
+<% end %>

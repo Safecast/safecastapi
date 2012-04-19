@@ -57,7 +57,8 @@ Safecast::Application.routes.draw do
 
   authenticate :admin do
     namespace :admin do
-      dobro_for :devices, :users, :admins
+      dobro_for :devices, :admins
+      dobro_for :users, :controller => "admin/users"
     end
     match "/admin", to: "dobro/application#index"
   end
