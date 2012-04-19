@@ -127,6 +127,10 @@ ja:
   helpers:
     select:
       prompt: 選択してください。
+    submit:
+      create: ! '%{model}を作成する'
+      submit: ! '%{model}を保存する'
+      update: ! '%{model}を更新する'
   number:
     currency:
       format:
@@ -149,9 +153,21 @@ ja:
         units:
           billion: 十億
           million: 百万
+          unit: ''
+          quadrillion: 千兆
+          thousand: 千
+          trillion: 兆
       storage_units:
         units:
           tb: テラバイト
+          byte: バイト
+          gb: GB
+          kb: KB
+          mb: MB
+        format: ! '%n %u'
+      format:
+        significant: true
+        strip_insignificant_zeros: true
   Description: 説明文
   Description (optional): 説明文　（任意項目）
   Details: 詳細情報
@@ -175,3 +191,74 @@ ja:
   View the Safecast API docs: Safecast API ドキュメンテーションを見る
   View your bGeigie log uploads: あなたのbGeigie ログアップロード履歴を見る
   View your submission history: あなたの測定値提出の履歴を見る
+  clicks per minute: 1分間の放射線計測数　(CPM)
+  Device: デバイス
+  Download Original File: 元のファイルをダウンロードする
+  ! 'From here you can:': ここでできること：
+  ! "No maps found\x01": 相当するマップが見つかりません。
+  Progress: 進歩状況
+  Radiation type: 放射線の種類
+  Retrieve your API key: APIキーを取得する
+  Sign in: ログイン
+  Sign up: アカウント登録
+  submissions: 提出された測定データ
+  Submit: 提出する
+  Submit a reading from your device: あなたのデバイスからの測定値を提出する
+  Your Measurement: あなたの測定値
+  Approve: 承認する
+  File: ファイル
+  Hello: こんにちは
+  ! "It may take a few minutes to process\x01": 処理に数分かかる可能性があります。
+  Latitude: 緯度
+  Longitude: 経度
+  Maps: マップ
+  Profile: プロフィール
+  Sign out: ログアウト
+  Sign up / Sign in: アカウント登録 / ログイン
+  Upload: アップロード
+  ! "Welcome to the Safecast API Center\x01": Safecast API センターにようこそ！
+  added_to_safecast_database: Safecast データベースに登録されました。
+  api_docs: API ドキュメンテーション
+  approved_by_moderator: モデレーターで承認されました
+  awaiting_approval: 承認待ち
+  bgeigie_import: bGeigieデータのインポート
+  bgeigie_imports: bGeigieデータのインポート
+  clicks_per_minute: 1分間の放射線計測数　(CPM)
+  creative_commons_non_commercial: クリエイティブ・コモンズ・ライセンス：非営利
+  date_taken: 測定された日付
+  description_optional: 説明文　（任意項目）
+  download_original_file: 元のファイルをダウンロードする
+  time:
+    am: AM
+    formats:
+      default: ! '%Y%b%d (%a) %H:%M:%S %z'
+      long: ! '%Y-%m-%d %H:%M'
+      short: ! '%b%d %H:%M'
+    pm: PM
+  ! 'From_here_you_can:': ここでできること：
+  Import_a_bGeigie_log_file: bGeigieのログフィアルをインポートする
+  Import_bGeigie_logs: bGeigieログをインポートする
+  ! "It_may_take_a_few_minutes_to_process\x01": 処理に数分かかる可能性があります。
+  Map_created: マップが作成されました
+  My_maps: マイ・マップ
+  ! "No_maps_found\x01": 相当するマップが見つかりません。
+  Please_note: 注意：
+  ! 'Please_note:': 注意：
+  Process_file: ファイルを処理する
+  Radiation_type: 放射線の種類
+  Retrieve_your_API_key: APIキーを取得する
+  Sign_in: ログイン
+  Sign_out: ログアウト
+  Sign_up: アカウント登録
+  Sign_up_/_Sign_in: アカウント登録 / ログイン
+  Submit_a_Reading: 測定値の提出
+  Submit_a_reading_from_your_device: あなたのデバイスからの測定値を提出する
+  Submit_a_single_measurement: 測定値の提出 （一つ）
+  Title_(optional): 題名　(任意項目）
+  Upload_a_bGeigie_log_file: bGeigieのログファイルをアップロードする
+  View_the_Safecast_API_docs: Safecast API ドキュメンテーションを見る
+  View_your_bGeigie_log_uploads: あなたのbGeigie ログアップロード履歴を見る
+  View_your_submission_history: あなたの測定値提出の履歴を見る
+  ! "Welcome_to_the_Safecast_API_Center\x01": Safecast API センターにようこそ！
+  Your_Measurement: あなたの測定値
+  none_found: 見つかりませんでした。

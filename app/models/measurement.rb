@@ -9,6 +9,7 @@ class Measurement < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :last_updater, :class_name => "User", :foreign_key => "updated_by"
+  before_save :set_md5sum
   
   
   has_and_belongs_to_many :maps
@@ -26,6 +27,10 @@ class Measurement < ActiveRecord::Base
   def self.grouped_by_hour
     select("date_trunc('hour', captured_at) as date").
       group("date_trunc('hour', captured_at)")
+  end
+  
+  def set_md5sum
+    self.md5sum = Digest::MD5.hexdigest("#{value}#{latitude}#{longitude}#{captured_at}")
   end
   
   def serializable_hash(options = {})

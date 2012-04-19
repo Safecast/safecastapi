@@ -1,13 +1,13 @@
 <%- if @bgeigie_import.queued_for_processing? -%>
   <p class="alert">
-    <%= t 'This file is queued for processing. It may take a few minutes to process.' -%>
+    <%= t 'file_queued_for_processing' -%>
   </p>
 <%- end -%>
 
 <div class="row">
   <section class="span4">
     <h2>
-      <%= t 'bGeigie Import' -%> #<%= @bgeigie_import.id -%>
+      <%= t 'bgeigie_import' -%> #<%= @bgeigie_import.id -%>
     </h2>
     <%= render 'my/bgeigie_imports/status' -%>
     <%= render 'my/bgeigie_imports/details' -%>
@@ -26,7 +26,7 @@
         <div id="map_canvas" class="high well"></div>
       <%- else -%>
         <p class="well">
-          <%= t('A map will be displayed once this file has processed.') -%>
+          <%= t('map_displayed_once_file_processed') -%>
         </p>
       <%- end -%>
       <%= content_for(:additional_javascripts) do %>

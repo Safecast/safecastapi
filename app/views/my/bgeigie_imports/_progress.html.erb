@@ -4,19 +4,19 @@
   </li>
   <li>
     <%- if @bgeigie_import.status_details[:process_file].present? -%>
-      <%= t 'Process file' -%> (<%= @bgeigie_import.lines_count -%> <%= t("lines") -%>)
+      <%= t('process_file') %> (<%= t("count_lines", :count => @bgeigie_import.lines_count) -%>)
       <i class="icon-ok pull-right"></i>
     <%- else -%>
-      <%= t 'Process file' -%>
+      <%= t('process_file') %>
       <span class="pull-right">&hellip;</span>
     <%- end -%>
   </li>
   <li>
-    <%= t 'Import bGeigie logs' -%>
+    <%= t 'Import_bGeigie_logs' -%>
     <%- if @bgeigie_import.bgeigie_logs.any? -%>
-      (<%= @bgeigie_import.bgeigie_logs.count -%> found)
+      (<%= t('count_found', :count => @bgeigie_import.bgeigie_logs.count) %>)
     <%- else -%>
-      (<%= t 'none found' -%>)
+      (<%= t 'none_found' -%>)
     <%- end -%>
     <%- if @bgeigie_import.status_details[:import_bgeigie_logs].present? -%>
       <i class="icon-ok pull-right"></i>
@@ -25,7 +25,7 @@
     <%- end -%>
   </li>
   <li>
-    <%= t('Compute latitudes &amp; longitudes').html_safe -%>
+    <%= t('compute_latlng').html_safe -%>
     <%- if @bgeigie_import.status_details[:compute_latlng].present? -%>
       <i class="icon-ok pull-right"></i>
     <%- else -%>
@@ -33,7 +33,7 @@
     <%- end -%>
   </li>
   <li>
-    <%= t 'Approved by moderator' -%>
+    <%= t 'approved_by_moderator' -%>
     <%- if @bgeigie_import.approved? -%>
       <i class="icon-ok pull-right"></i>
     <%- else -%>
@@ -41,7 +41,7 @@
     <%- end -%>
   </li>
   <li>
-    <%= t 'Added to Safecast database' -%>
+    <%= t 'added_to_safecast_database' -%>
     <%- if @bgeigie_import.status_details[:measurements_added].present? -%>
       <i class="icon-ok pull-right"></i>
     <%- else -%>
@@ -49,7 +49,7 @@
     <%- end -%>
   </li>
   <li>
-    <%= t 'Map created' -%>
+    <%= t 'Map_created' -%>
     <%- if @bgeigie_import.status_details[:create_map].present? -%>
       <i class="icon-ok pull-right"></i>
     <%- else -%>

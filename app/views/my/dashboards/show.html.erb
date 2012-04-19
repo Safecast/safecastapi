@@ -5,36 +5,36 @@
     <%- end -%>
 
     <p>
-      <%= t('Welcome to the Safecast API Center.') -%>
+      <%= t('welcome_to_the_api_center') -%>
     </p>
 
     <ul class="nav nav-pills nav-stacked well">
       <li class="nav-header">
-        <%= t('From here you can:') -%>
+        <%= t('From_here_you_can') -%>:
       </li>
       <li>
-        <%= link_to t('View the Safecast API docs'), [:api, :root] %>
+        <%= link_to t('View_the_Safecast_API_docs'), [:api, :root] %>
       </li>
       <li>
-        <%= link_to t('Retrieve your API key'), [:my, :profile] %>
+        <%= link_to t('Retrieve_your_API_key'), [:my, :profile] %>
       </li>
       <li>
-        <%= link_to t('Submit a reading from your device'), [:new, :my, :measurement] %>
+        <%= link_to t('Submit_a_reading_from_your_device'), [:new, :my, :measurement] %>
       </li>
       <li>
-        <%= link_to t('View your submission history'), [:my, :measurements] %>
+        <%= link_to t('View_your_submission_history'), [:my, :measurements] %>
       </li>
       <li>
-        <%= link_to t('Explore maps of your submissions'), [:my, :maps] %>
+        <%= link_to t('explore_maps_of_your_submissions'), [:my, :maps] %>
       </li>
       <li class="nav-header">
-        If you have a bGeigie:
+        <%= t('If_you_have_a_bGeigie') %>:
       </li>
       <li>
-        <%= link_to t('Upload a bGeigie log file'), [:new, :my, :bgeigie_import] %>
+        <%= link_to t('Upload_a_bGeigie_log_file'), [:new, :my, :bgeigie_import] %>
       </li>
       <li>
-        <%= link_to t('Review your bGeigie log file submissions'), [:my, :bgeigie_imports] %>
+        <%= link_to t('Review_your_bGeigie_log_file_submissions'), [:my, :bgeigie_imports] %>
       </li>
     </ul>
   </section>
@@ -53,13 +53,13 @@
       <li>
           <%= link_to [:my, :maps] do %>
             <em><%= current_user.maps.count  %></em>
-            <%= t('maps') -%>
+            <%= t('Maps') -%>
           <%- end -%>
       </li>
       <li>
           <%= link_to [:my, :bgeigie_imports] do %>
             <em><%= current_user.bgeigie_imports.count  %></em>
-            <%= t('bGeigie Imports') -%>
+            <%= t('bgeigie_imports') -%>
           <%- end -%>
       </li>
     </ul>
@@ -69,7 +69,7 @@
           <li>
             <%= link_to [:my, :bgeigie_imports]  do -%>
               <em><%= @unapproved_bgeigie_imports.count -%></em>
-              <%= t('awaiting approval') -%>
+              <%= t('awaiting_approval') -%>
             <%- end -%>
           </li>
         </ul>

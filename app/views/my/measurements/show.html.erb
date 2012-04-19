@@ -1,6 +1,6 @@
 <div class="row">
   <div class="span12">
-    <h2><%= t('Your Measurement') -%></h2>
+    <h2><%= t('Your_Measurement') -%></h2>
   </div>
 </div>
 <div class="row">
@@ -14,17 +14,17 @@
         <em title="<%= @measurement.latitude %>">
           <%= truncate(@measurement.latitude.to_s, :length => 15) %>&deg;
         </em>
-        lat
+        <%= t'lat' %>
       </li>
       <li class="lat-lng">
         <em title="<%= @measurement.longitude %>">
           <%= truncate(@measurement.longitude.to_s, :length => 15) %>&deg;
         </em>
-        lng
+        <%= t'lng' %>
       </li>
       <%- if @measurement.captured_at.present? -%>
         <li>
-          <%= @measurement.captured_at.strftime("%e %B, %Y %H:%M:%S") %>
+          <%= @measurement.captured_at.to_formatted_s(:default) %>
         </li>
       <%- end -%>
       <li><%= @measurement.location_name %></li>

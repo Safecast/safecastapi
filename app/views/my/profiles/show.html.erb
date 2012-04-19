@@ -1,21 +1,21 @@
 <div class="row">
-  <section class="span1 offset2">
+  <section class="span2 offset1">
     <ul class="nav nav-pills">
-      <li><%= link_to "Edit", [:edit, :my, :profile] %></li>
+      <li><%= link_to t("edit_your_profile"), [:edit, :my, :profile] %></li>
     </ul>
   </section>
   <section class="span6">
     <h2>
-      Profile
+      <%= t('Profile') %>
     </h2>
     <ul>
-      <dt>Name</dt>
+      <dt><%= t('name') %></dt>
       <dd><%= @user.name %></dd>
-      <dt>Time zone</dt>
+      <dt><%= t('time_zone') %></dt>
       <dd><%= @user.time_zone %></dd>
     </ul>
     <dl class="well">
-      <dt>Your API Key</dt>
+      <dt><%= t('your_api_key') %></dt>
       <dd><%= @user.authentication_token %></dd>
     </dl>
   </section>

@@ -23,7 +23,7 @@
         <nav>
           <ul>
             <li>
-              <%= link_to t("Api Docs"), [:api,:root] %>
+              <%= link_to t("api_docs"), [:api,:root] %>
             </li>
             <%- if admin_signed_in? -%>
               <li>
@@ -44,8 +44,8 @@
                 <%- end -%>
               </li>
               <li>
-                <%= link_to [:my, :bgeigie_imports], :title => t('Imports') do %>
-                  <%= t('Imports') %>
+                <%= link_to [:my, :bgeigie_imports], :title => t('imports.upcase') do %>
+                  <%= t('imports.upcase') %>
                 <%- end -%>
               </li>
               <li>
@@ -59,14 +59,14 @@
                 <%- end -%>
               </li>
               <li>
-                <%= link_to t('Sign out'), logout_path %>
+                <%= link_to t('Sign_out'), logout_path %>
               </li>
             <%- else -%>
               <li>
-                <%= link_to t("Sign in"), new_user_session_path %>
+                <%= link_to t("Sign_in"), new_user_session_path %>
               </li>
               <li>
-               <%= link_to t("Sign up"), new_user_registration_path %>
+               <%= link_to t("Sign_up"), new_user_registration_path %>
               </li>
             <%- end -%>
           </ul>
@@ -76,7 +76,7 @@
         <%= yield %>
 
         <footer class="span12">
-          <p><%= t 'Creative Commons Non-Commercial' %></p>
+          <p><%= t 'creative_commons_non_commercial' %></p>
         </footer>
       </div>
     </div>

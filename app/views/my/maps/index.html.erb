@@ -1,8 +1,8 @@
 <div class="row">
   <section class="span6">
-    <h2><%= t('My maps') -%></h2>
+    <h2><%= t('My_maps') -%></h2>
     <%- if @maps.empty? -%>
-      <p><%= t('No maps found.') -%></p>
+      <p><%= t('No_maps_found') -%></p>
     <%- else -%>
       <ul class="nav nav-pills nav-stacked">
         <%- @maps.each do |map| -%>

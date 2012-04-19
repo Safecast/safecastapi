@@ -4,7 +4,7 @@
   </span>
 <%- elsif @bgeigie_import.status == 'awaiting_approval' -%>
   <span class="label label-warning">
-    <%= t 'Awaiting approval' -%>
+    <%= t 'awaiting_approval' -%>
   </span>
 <%- else -%>
   <span class="label label-info">
@@ -18,7 +18,7 @@
   </div>
 <%- end -%>
 <ul class="nav nav-pills nav-stacked">
-  <li><%= link_to t("Download Original File"), @bgeigie_import.source.url %></li>
+  <li><%= link_to t("download_original_file"), @bgeigie_import.source.url %></li>
 </ul>
 <%- if @bgeigie_import.status == 'done' -%>
   <ul class="measurement bgeigie-log unstyled">

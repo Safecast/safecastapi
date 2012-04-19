@@ -1,82 +1,293 @@
 en-US:
-  Added to Safecast database: Added to Safecast database
-  A map will be displayed once this file has processed.: A map will be displayed once
-    this file has processed.
-  Api Docs: Api Docs
-  Approved by moderator: Approved by moderator
+  1m: 1m
+  air: Air
   Approve: Approve
-  Awaiting approval: Awaiting approval
-  awaiting approval: awaiting approval
-  bGeigie Import: bGeigie Import
-  bGeigie Imports: bGeigie Imports
-  Compute latitudes &amp; longitudes: Compute latitudes &amp; longitudes
-  Creative Commons Non-Commercial: Creative Commons Non-Commercial
-  Description (optional): Description (optional)
-  Download Original File: Download Original File
-  Explore maps of your submissions: Explore maps of your submissions
+  api_docs: Api Docs
+  basics: Basics
+  Cancel: Cancel
+  contribute_your_measurement: Contribute your Measurement
+  count_found: ! '%{count} found'
+  count_lines: ! '%{count} lines'
+  Credits: Credits
+  Description: Description
+  description_optional: Description (optional)
+  Details: Details
+  Device: Device
+  edit_your_profile: Edit your profile
+  email: Email
   File: File
-  ! 'From here you can:': ! 'From here you can:'
+  file_queued_for_processing: This file is queued for processing. It may take a few
+    minutes to process.
+  From_here_you_can: From here you can
   Hello: Hello
-  Import bGeigie logs: Import bGeigie logs
-  It may take a few minutes to process.: It may take a few minutes to process.
+  height: Height
+  If_you_have_a_bGeigie: If you have a bGeigie
+  imports:
+    upcase: Imports
+  Import_bGeigie_logs: Import bGeigie logs
+  ! "It_may_take_a_few_minutes_to_process\x01": It may take a few minutes to process.
+  lat: lat
+  latitude: Latitude
+  lng: lng
+  longitude: Longitude
+  location: Location
+  Map_created: Map created
   Maps: maps
-  maps: maps
-  Map created: Map created
-  Measurements: measurements
-  measurements: measurements
-  My maps: My maps
-  none found: none found
-  No maps found.: No maps found.
-  on (date): 'on'
-  Please note: Please note
-  Profile: Profile
-  Process file: Process file
+  Measurements: Measurements
+  My_maps: My maps
+  No_maps_found: No maps found.
+  none_found: none found
+  name: Name
+  Please_note: Please note
+  process_file: Process file
   Processed: Processed
+  Profile: Profile
   Progress: Progress
-  Retrieve your API key: Retrieve your API key
-  Review your bGeigie log file submissions: Review your bGeigie log file submissions
-  Sign out: Sign out
-  Sign up / Sign in: Sign up / Sign in
+  radiation_level: Radiation Level
+  radiation_type: Radiation Type
+  Retrieve_your_API_key: Retrieve your API key
+  Review_your_bGeigie_log_file_submissions: Review your bGeigie log file submissions
+  Sign_out: Sign out
+  Sign_up_/_Sign_in: Sign up / Sign in
+  soil: Soil
+  sensor_height_optional: Sensor Height (metres, optional)
+  sensor_orientation_optional: Sensor Orientation (optional)
   Submit: Submit
-  Submit a Reading: Submit a Reading
-  Submit a reading from your device: Submit a reading from your device
-  Submit a single measurement: Submit a single measurement
-  submissions: submissions
-  Title (optional): Title (optional)
-  This file is queued for processing.: This file is queued for processing.
+  Submit_a_Reading: Submit a Reading
+  Submit_a_reading_from_your_device: Submit a reading from your device
+  Submit_a_single_measurement: Submit a single measurement
+  surface_type: Surface Type
+  ! "This_file_is_queued_for_processing\x01": This file is queued for processing.
+  Title_(optional): Title (optional)
+  type_address_instructions: ! 'Start typing an address : the map will update as you
+    type, then drag the map to pinpoint the location.'
   Upload: Upload
-  Upload a bGeigie log file: Upload a bGeigie log file
-  uploaded by: uploaded by
-  You haven't uploaded any bGeigie log files.: You haven't uploaded any bGeigie log
-    files.
-  You haven't submitted any measurements yet.: You haven't submitted any measurements
+  Upload_a_bGeigie_log_file: Upload a bGeigie log file
+  View_the_Safecast_API_docs: View the Safecast API docs
+  View_your_bGeigie_log_uploads: View your bGeigie log uploads
+  View_your_submission_history: View your submission history
+  welcome_to_the_api_center: Welcome to the Safecast API Center.
+  ! "You_haven't_submitted_any_measurements_yet\x01": You haven't submitted any measurements
     yet.
+  You_haven_t_uploaded_any_bGeigie_log_files: You haven't uploaded any bGeigie log
+    files.
+  Your_Measurement: Your Measurement
   Yours: Yours
-  View your bGeigie log uploads: View your bGeigie log uploads
-  View the Safecast API docs: View the Safecast API docs
-  Welcome to the Safecast API Center.: Welcome to the Safecast API Center.
-  View your submission history: View your submission history
-  Your Measurement: Your Measurement
-  ! "A map will be displayed once this file has processed\x01": A map will be displayed
-    once this file has processed.
-  ! "It may take a few minutes to process\x01": It may take a few minutes to process.
-  ! "No maps found\x01": No maps found.
+  added_to_safecast_database: Added to Safecast database
+  admin:
+    signed_in: Admin
+  approved_by_moderator: Approved by moderator
+  awaiting_approval: Awaiting approval
+  bgeigie_import: bGeigie Import
+  bgeigie_imports: bGeigie Imports
+  cities_csv: Cities (comma seperated list, optional)
+  compute_latlng: Compute latitudes &amp; longitudes
+  creative_commons_non_commercial: Creative Commons Non-Commercial
+  credits_csv: Credits (comma-separated, optional)
+  date:
+    abbr_day_names:
+    - Sun
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat
+    abbr_month_names:
+    - 
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    formats:
+      default: ! '%Y-%m-%d'
+      long: ! '%B %d, %Y'
+      short: ! '%b %d'
+    month_names:
+    - 
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+    order:
+    - :year
+    - :month
+    - :day
+  date_taken: Date taken
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: about 1 hour
+        other: about %{count} hours
+      about_x_months:
+        one: about 1 month
+        other: about %{count} months
+      about_x_years:
+        one: about 1 year
+        other: about %{count} years
+      almost_x_years:
+        one: almost 1 year
+        other: almost %{count} years
+      half_a_minute: half a minute
+      less_than_x_minutes:
+        one: less than a minute
+        other: less than %{count} minutes
+      less_than_x_seconds:
+        one: less than 1 second
+        other: less than %{count} seconds
+      over_x_years:
+        one: over 1 year
+        other: over %{count} years
+      x_days:
+        one: 1 day
+        other: ! '%{count} days'
+      x_minutes:
+        one: 1 minute
+        other: ! '%{count} minutes'
+      x_months:
+        one: 1 month
+        other: ! '%{count} months'
+      x_seconds:
+        one: 1 second
+        other: ! '%{count} seconds'
+    prompts:
+      day: Day
+      hour: Hour
+      minute: Minute
+      month: Month
+      second: Seconds
+      year: Year
+  download_original_file: Download Original File
+  errors:
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: must be accepted
+      blank: can't be blank
+      confirmation: doesn't match confirmation
+      empty: can't be empty
+      equal_to: must be equal to %{count}
+      even: must be even
+      exclusion: is reserved
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      inclusion: is not included in the list
+      invalid: is invalid
+      less_than: must be less than %{count}
+      less_than_or_equal_to: must be less than or equal to %{count}
+      not_a_number: is not a number
+      not_an_integer: must be an integer
+      odd: must be odd
+      record_invalid: ! 'Validation failed: %{errors}'
+      taken: has already been taken
+      too_long:
+        one: is too long (maximum is 1 character)
+        other: is too long (maximum is %{count} characters)
+      too_short:
+        one: is too short (minimum is 1 character)
+        other: is too short (minimum is %{count} characters)
+      wrong_length:
+        one: is the wrong length (should be 1 character)
+        other: is the wrong length (should be %{count} characters)
+    template:
+      body: ! 'There were problems with the following fields:'
+      header:
+        one: 1 error prohibited this %{model} from being saved
+        other: ! '%{count} errors prohibited this %{model} from being saved'
+  explore_maps_of_your_submissions: Explore maps of your submissions
+  helpers:
+    select:
+      prompt: Please select
+    submit:
+      create: Create %{model}
+      submit: Save %{model}
+      update: Update %{model}
+  map_displayed_once_file_processed: A map will be displayed once this file has processed.
   number:
+    currency:
+      format:
+        delimiter: ! ','
+        format: ! '%u%n'
+        precision: 2
+        separator: .
+        significant: false
+        strip_insignificant_zeros: false
+        unit: $
+    format:
+      delimiter: ! ','
+      precision: 3
+      separator: .
+      significant: false
+      strip_insignificant_zeros: false
     human:
       decimal_units:
+        format: ! '%n %u'
         units:
+          billion: Billion
+          million: Million
+          quadrillion: Quadrillion
+          thousand: Thousand
+          trillion: Trillion
           unit: ''
       format:
         delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
     percentage:
       format:
-        delimiter: ! ','
+        delimiter: ''
     precision:
       format:
-        delimiter: ! ','
-  ! "This file is queued for processing\x01": This file is queued for processing.
-  ! "Welcome to the Safecast API Center\x01": Welcome to the Safecast API Center.
-  ! "You haven't submitted any measurements yet\x01": You haven't submitted any measurements
-    yet.
-  ! "You haven't uploaded any bGeigie log files\x01": You haven't uploaded any bGeigie
-    log files.
+        delimiter: ''
+  on_date: on %{date}
+  or: or
+  submissions: submissions
+  support:
+    array:
+      last_word_connector: ! ', and '
+      two_words_connector: ! ' and '
+      words_connector: ! ', '
+  time:
+    am: am
+    formats:
+      default: ! '%e %B, %Y %H:%M:%S'
+      long: ! '%B %d, %Y %H:%M'
+      short: ! '%d %b %H:%M'
+    pm: pm
+  time_zone: Time Zone
+  uploaded_by: uploaded by %{name}
+  your_api_key: Your API Key

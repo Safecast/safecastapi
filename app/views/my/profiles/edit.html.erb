@@ -1,27 +1,27 @@
 <div class="row">
   <section class="span6 offset3">
-    <h2>Edit your profile</h2>
+    <h2><%= t('edit_your_profile') %></h2>
     <%= form_for @user, :url => [:my, :profile],
           :html => {
             :class => 'form-horizontal'
           } do |f| %>
       <fieldset>
         <div class="control-group">
-          <%= f.label :email, :class => 'control-label' %>
+          <%= f.label :email, t('email'), :class => 'control-label' %>
           <div class="controls">
             <%= f.text_field :email %>
           </div>
         </div>
         
         <div class="control-group">
-          <%= f.label :name, :class => 'control-label' %>
+          <%= f.label :name, t('name'), :class => 'control-label' %>
           <div class="controls">
             <%= f.text_field :name %>
           </div>
         </div>
         
         <div class="control-group">
-          <%= f.label :time_zone, :class => 'control-label' %>
+          <%= f.label :time_zone, t('time_zone'), :class => 'control-label' %>
           <div class="controls">
             <%= f.time_zone_select :time_zone %>
           </div>
@@ -30,8 +30,8 @@
       
       <fieldset>
         <p class="button">
-          <input type="submit" value="Submit">
-          or <%= link_to 'Cancel', [:my, :profile] %>
+          <input type="submit" value="<%= t('Submit') %>">
+          <%= t('or') %> <%= link_to t('Cancel'), [:my, :profile] %>
         </p>
       </fieldset>
     <%- end -%>
