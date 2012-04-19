@@ -41,26 +41,25 @@
 
   <section class="span6 dashboard">
     <ul class="unstyled">
-        <li>
-          <%= link_to [:my, :measurements] do %>
-            <em>
-              <%= number_with_delimiter current_user.measurements.count %>
-            </em>
-            <%= t('submissions') %>
-          <%- end -%>
-        </td>
+      <li>
+        <%= link_to [:my, :measurements] do %>
+          <em>
+            <%= number_with_delimiter current_user.measurements.count %>
+          </em>
+          <%= t('submissions') %>
+        <%- end -%>
       </li>
       <li>
-          <%= link_to [:my, :maps] do %>
-            <em><%= current_user.maps.count  %></em>
-            <%= t('maps') -%>
-          <%- end -%>
+        <%= link_to [:my, :maps] do %>
+          <em><%= current_user.maps.count  %></em>
+          <%= t('maps') -%>
+        <%- end -%>
       </li>
       <li>
-          <%= link_to [:my, :bgeigie_imports] do %>
-            <em><%= current_user.bgeigie_imports.count  %></em>
-            <%= t('bgeigie_imports') -%>
-          <%- end -%>
+        <%= link_to [:my, :bgeigie_imports] do %>
+          <em><%= current_user.bgeigie_imports.count  %></em>
+          <%= t('bgeigie_imports') -%>
+        <%- end -%>
       </li>
     </ul>
     <%- if current_user.moderator? -%>
@@ -69,7 +68,7 @@
           <li>
             <%= link_to [:my, :bgeigie_imports]  do -%>
               <em><%= @unapproved_bgeigie_imports.count -%></em>
-              <%= t('awaiting_approval') -%>
+              <%= t('imports_awaiting_approval') -%>
             <%- end -%>
           </li>
         </ul>

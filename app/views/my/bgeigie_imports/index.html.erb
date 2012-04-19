@@ -1,9 +1,8 @@
 <h2><%= t("bgeigie_imports") %></h2> 
 <section>
-  <h3><%= t("Yours") -%> (<%= link_to t("Upload_a_bGeigie_log_file"), [:new, :my, :bgeigie_import] %>)</h3>
+  <h3><%= t("Yours") -%> (<%= link_to t("upload_a_bgeigie_log_file"), [:new, :my, :bgeigie_import] %>)</h3>
   <%- if @bgeigie_imports.empty? -%>
-    <p><%= t "
-    " -%></p>
+    <p><%= t("you_havent_uploaded_any_bgeigie_log_files") -%></p>
   <%- else -%>
     <ul class="unstyled">
       <%- @bgeigie_imports.each do |bgeigie_import| -%>
@@ -19,7 +18,7 @@
 <%- if current_user.moderator? -%>
   <section>
     <%- if @unapproved_bgeigie_imports.any? -%>
-      <h3><%= t('Awaiting approval') -%></h3>
+      <h3><%= t('awaiting_approval') -%></h3>
       <ul class="unstyled">
         <%- @unapproved_bgeigie_imports.each do |bgeigie_import| -%>
           <li>

@@ -1,10 +1,9 @@
 class My::BgeigieImportsController < My::ApplicationController
-
   before_filter :require_moderator, :only => :approve
   skip_before_filter :authenticate_user!, :only => :show
 
   def index
-    @unapproved_bgeigie_imports = BgeigieImport.unapproved.awaiting_approval
+    @unapproved_bgeigie_imports = BgeigieImport.unapproved
     @bgeigie_imports = current_user.bgeigie_imports
   end
   
@@ -31,5 +30,4 @@ class My::BgeigieImportsController < My::ApplicationController
     @bgeigie_import.approve!
     redirect_to [:my, @bgeigie_import]
   end
-  
 end

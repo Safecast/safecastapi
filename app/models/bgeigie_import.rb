@@ -1,5 +1,4 @@
 class BgeigieImport < MeasurementImport
-  
   validates :user, :presence => true
   validates :source, :presence => true
   
@@ -7,13 +6,11 @@ class BgeigieImport < MeasurementImport
   has_many :bgeigie_logs
 
   scope :unapproved, where(:approved => false)
-  scope :awaiting_approval, where(:status => 'awaiting_approval')
   
   store :status_details, :accessors => [
     :process_file,
     :import_bgeigie_logs,
     :compute_latlng,
-    :approved_by_moderator,
     :measurements_added,
     :create_map
   ]
