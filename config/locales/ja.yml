@@ -1,4 +1,55 @@
 ja:
+  Approve: 承認する
+  Description: 説明文
+  Details: 詳細情報
+  Device: デバイス
+  File: ファイル
+  ! 'From_here_you_can:': ここでできること：
+  Hello: こんにちは
+  Import_bGeigie_logs: bGeigieログをインポートする
+  Imports: インポートされたデータ
+  ! "It_may_take_a_few_minutes_to_process\x01": 処理に数分かかる可能性があります。
+  Latitude: 緯度
+  Location: 位置
+  Longitude: 経度
+  Map_created: マップが作成されました
+  Maps: マップ
+  My_maps: マイ・マップ
+  ! "No_maps_found\x01": 相当するマップが見つかりません。
+  Please_note: 注意：
+  ! 'Please_note:': 注意：
+  Process_file: ファイルを処理する
+  Processed: 処理済み
+  Profile: プロフィール
+  Progress: 進歩状況
+  Radiation_type: 放射線の種類
+  Retrieve_your_API_key: APIキーを取得する
+  Sign_in: ログイン
+  Sign_out: ログアウト
+  Sign_up: アカウント登録
+  Sign_up_/_Sign_in: アカウント登録 / ログイン
+  Submit: 提出する
+  Submit_a_Reading: 測定値の提出
+  Submit_a_reading_from_your_device: あなたのデバイスからの測定値を提出する
+  Submit_a_single_measurement: 測定値の提出 （一つ）
+  Title: 　題名
+  Title_(optional): 題名　(任意項目）
+  Upload: アップロード
+  Upload_a_bGeigie_log_file: bGeigieのログファイルをアップロードする
+  Uploads: アップロードされたデータ
+  View_the_Safecast_API_docs: Safecast API ドキュメンテーションを見る
+  View_your_bGeigie_log_uploads: あなたのbGeigie ログアップロード履歴を見る
+  View_your_submission_history: あなたの測定値提出の履歴を見る
+  ! "Welcome_to_the_Safecast_API_Center\x01": Safecast API センターにようこそ！
+  Your_Measurement: あなたの測定値
+  added_to_safecast_database: Safecast データベースに登録されました。
+  api_docs: API ドキュメンテーション
+  approved_by_moderator: モデレーターで承認されました
+  awaiting_approval: 承認待ち
+  bgeigie_import: bGeigieデータのインポート
+  bgeigie_imports: bGeigieデータのインポート
+  clicks_per_minute: 1分間の放射線計測数　(CPM)
+  creative_commons_non_commercial: クリエイティブ・コモンズ・ライセンス：非営利
   date:
     abbr_day_names:
     - 日
@@ -52,6 +103,7 @@ ja:
     - :year
     - :month
     - :day
+  date_taken: 測定された日付
   datetime:
     distance_in_words:
       about_x_hours:
@@ -95,6 +147,8 @@ ja:
       month: 月
       second: 秒
       year: 年
+  description_optional: 説明文　（任意項目）
+  download_original_file: 元のファイルをダウンロードする
   errors:
     format: ! '%{attribute}%{message}'
     messages:
@@ -111,8 +165,8 @@ ja:
       invalid: は不正な値です。
       less_than: は%{count}より小さい値にしてください。
       less_than_or_equal_to: は%{count}以下の値にしてください。
-      not_an_integer: は整数で入力してください。
       not_a_number: は数値で入力してください。
+      not_an_integer: は整数で入力してください。
       odd: は奇数にしてください。
       record_invalid: バリデーションに失敗しました。 %{errors}
       taken: はすでに存在します。
@@ -131,6 +185,7 @@ ja:
       create: ! '%{model}を作成する'
       submit: ! '%{model}を保存する'
       update: ! '%{model}を更新する'
+  none_found: 見つかりませんでした。
   number:
     currency:
       format:
@@ -153,81 +208,22 @@ ja:
         units:
           billion: 十億
           million: 百万
-          unit: ''
           quadrillion: 千兆
           thousand: 千
           trillion: 兆
+          unit: ''
+      format:
+        significant: true
+        strip_insignificant_zeros: true
       storage_units:
+        format: ! '%n %u'
         units:
-          tb: テラバイト
           byte: バイト
           gb: GB
           kb: KB
           mb: MB
-        format: ! '%n %u'
-      format:
-        significant: true
-        strip_insignificant_zeros: true
-  Description: 説明文
-  Description (optional): 説明文　（任意項目）
-  Details: 詳細情報
-  Import a bGeigie log file: bGeigieのログフィアルをインポートする
-  Import bGeigie logs: bGeigieログをインポートする
-  Imports: インポートされたデータ
-  Location: 位置
-  Map created: マップが作成されました
-  My maps: マイ・マップ
-  none found: 見つかりませんでした。
-  Please note: 注意：
-  ! 'Please note:': 注意：
-  Process file: ファイルを処理する
-  Processed: 処理済み
-  Submit a Reading: 測定値の提出
-  Submit a single measurement: 測定値の提出 （一つ）
-  Title: 　題名
-  Title (optional): 題名　(任意項目）
-  Upload a bGeigie log file: bGeigieのログファイルをアップロードする
-  Uploads: アップロードされたデータ
-  View the Safecast API docs: Safecast API ドキュメンテーションを見る
-  View your bGeigie log uploads: あなたのbGeigie ログアップロード履歴を見る
-  View your submission history: あなたの測定値提出の履歴を見る
-  clicks per minute: 1分間の放射線計測数　(CPM)
-  Device: デバイス
-  Download Original File: 元のファイルをダウンロードする
-  ! 'From here you can:': ここでできること：
-  ! "No maps found\x01": 相当するマップが見つかりません。
-  Progress: 進歩状況
-  Radiation type: 放射線の種類
-  Retrieve your API key: APIキーを取得する
-  Sign in: ログイン
-  Sign up: アカウント登録
+          tb: テラバイト
   submissions: 提出された測定データ
-  Submit: 提出する
-  Submit a reading from your device: あなたのデバイスからの測定値を提出する
-  Your Measurement: あなたの測定値
-  Approve: 承認する
-  File: ファイル
-  Hello: こんにちは
-  ! "It may take a few minutes to process\x01": 処理に数分かかる可能性があります。
-  Latitude: 緯度
-  Longitude: 経度
-  Maps: マップ
-  Profile: プロフィール
-  Sign out: ログアウト
-  Sign up / Sign in: アカウント登録 / ログイン
-  Upload: アップロード
-  ! "Welcome to the Safecast API Center\x01": Safecast API センターにようこそ！
-  added_to_safecast_database: Safecast データベースに登録されました。
-  api_docs: API ドキュメンテーション
-  approved_by_moderator: モデレーターで承認されました
-  awaiting_approval: 承認待ち
-  bgeigie_import: bGeigieデータのインポート
-  bgeigie_imports: bGeigieデータのインポート
-  clicks_per_minute: 1分間の放射線計測数　(CPM)
-  creative_commons_non_commercial: クリエイティブ・コモンズ・ライセンス：非営利
-  date_taken: 測定された日付
-  description_optional: 説明文　（任意項目）
-  download_original_file: 元のファイルをダウンロードする
   time:
     am: AM
     formats:
@@ -235,30 +231,3 @@ ja:
       long: ! '%Y-%m-%d %H:%M'
       short: ! '%b%d %H:%M'
     pm: PM
-  ! 'From_here_you_can:': ここでできること：
-  Import_a_bGeigie_log_file: bGeigieのログフィアルをインポートする
-  Import_bGeigie_logs: bGeigieログをインポートする
-  ! "It_may_take_a_few_minutes_to_process\x01": 処理に数分かかる可能性があります。
-  Map_created: マップが作成されました
-  My_maps: マイ・マップ
-  ! "No_maps_found\x01": 相当するマップが見つかりません。
-  Please_note: 注意：
-  ! 'Please_note:': 注意：
-  Process_file: ファイルを処理する
-  Radiation_type: 放射線の種類
-  Retrieve_your_API_key: APIキーを取得する
-  Sign_in: ログイン
-  Sign_out: ログアウト
-  Sign_up: アカウント登録
-  Sign_up_/_Sign_in: アカウント登録 / ログイン
-  Submit_a_Reading: 測定値の提出
-  Submit_a_reading_from_your_device: あなたのデバイスからの測定値を提出する
-  Submit_a_single_measurement: 測定値の提出 （一つ）
-  Title_(optional): 題名　(任意項目）
-  Upload_a_bGeigie_log_file: bGeigieのログファイルをアップロードする
-  View_the_Safecast_API_docs: Safecast API ドキュメンテーションを見る
-  View_your_bGeigie_log_uploads: あなたのbGeigie ログアップロード履歴を見る
-  View_your_submission_history: あなたの測定値提出の履歴を見る
-  ! "Welcome_to_the_Safecast_API_Center\x01": Safecast API センターにようこそ！
-  Your_Measurement: あなたの測定値
-  none_found: 見つかりませんでした。

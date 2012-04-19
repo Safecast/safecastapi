@@ -1,6 +1,6 @@
 <%= content_for(:viewer) do %>
   <h2><%= @map.name %></h2>
-  <p><%= @map.created_at %></p>
+  <p><%= @map.created_at.to_formatted_s(:default) %></p>
   <div id="map_canvas"></div>
 <%- end -%>
 <%= content_for(:additional_javascripts) do %>

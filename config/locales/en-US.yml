@@ -8,6 +8,7 @@ en-US:
   contribute_your_measurement: Contribute your Measurement
   count_found: ! '%{count} found'
   count_lines: ! '%{count} lines'
+  clicks_per_minute: Clicks per minute
   Credits: Credits
   Description: Description
   description_optional: Description (optional)
@@ -33,7 +34,7 @@ en-US:
   location: Location
   Map_created: Map created
   Maps: maps
-  Measurements: Measurements
+  Measurements: measurements
   My_maps: My maps
   No_maps_found: No maps found.
   none_found: none found
@@ -284,10 +285,17 @@ en-US:
   time:
     am: am
     formats:
-      default: ! '%e %B, %Y %H:%M:%S'
+      default: ! '%a, %d %b %Y %H:%M:%S %z'
       long: ! '%B %d, %Y %H:%M'
       short: ! '%d %b %H:%M'
     pm: pm
   time_zone: Time Zone
-  uploaded_by: uploaded by %{name}
+  uploaded_by: uploaded by
   your_api_key: Your API Key
+  ! 'From_here_you_can:': ! 'From here you can:'
+  ! "No_maps_found\x01": No maps found.
+  Process_file: Process file
+  ! "Welcome_to_the_Safecast_API_Center\x01": Welcome to the Safecast API Center.
+  ! "You_haven't_uploaded_any_bGeigie_log_files\x01": You haven't uploaded any bGeigie
+    log files.
+  on_(date): 'on'
