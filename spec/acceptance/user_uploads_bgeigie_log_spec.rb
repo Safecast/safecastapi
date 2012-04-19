@@ -4,7 +4,6 @@ feature "User uploads bgeigie log" do
   let!(:user) { Fabricate(:user) }
   let!(:moderator) { Fabricate(:user, :moderator => true) }
 
-
   context "as a regular user" do
     scenario "uploading a bgeigie log file" do
       sign_in(user)
@@ -36,8 +35,8 @@ feature "User uploads bgeigie log" do
     scenario "approving a bGeigie log file" do
       sign_in(moderator)
       visit('/')
-      page.should have_content('1 awaiting approval')
-      click_link '1 awaiting approval'
+      page.should have_content('1 imports awaiting approval')
+      click_link '1 imports awaiting approval'
       click_link '23 measurements'
       click_button 'Approve'
       Delayed::Worker.new.work_off 

@@ -1,6 +1,6 @@
 <ul class="unstyled nav" id="progress" data-status="<%= @bgeigie_import.status -%>">
   <li class="nav-header">
-    <%= t 'Progress' %>
+    <%= t 'progress' %>
   </li>
   <li>
     <%- if @bgeigie_import.status_details[:process_file].present? -%>
@@ -12,7 +12,7 @@
     <%- end -%>
   </li>
   <li>
-    <%= t 'Import_bGeigie_logs' -%>
+    <%= t 'import_bgeigie_logs' -%>
     <%- if @bgeigie_import.bgeigie_logs.any? -%>
       (<%= t('count_found', :count => @bgeigie_import.bgeigie_logs.count) %>)
     <%- else -%>
@@ -49,7 +49,7 @@
     <%- end -%>
   </li>
   <li>
-    <%= t 'Map_created' -%>
+    <%= t 'map_created' -%>
     <%- if @bgeigie_import.status_details[:create_map].present? -%>
       <i class="icon-ok pull-right"></i>
     <%- else -%>

@@ -1,47 +1,7 @@
 ja:
-  Approve: 承認する
-  Description: 説明文
-  Details: 詳細情報
-  Device: デバイス
-  File: ファイル
-  ! 'From_here_you_can:': ここでできること：
-  Hello: こんにちは
-  Import_bGeigie_logs: bGeigieログをインポートする
-  ! "It_may_take_a_few_minutes_to_process\x01": 処理に数分かかる可能性があります。
-  Latitude: 緯度
-  Location: 位置
-  Longitude: 経度
-  Map_created: マップが作成されました
-  Maps: マップ
-  My_maps: マイ・マップ
-  ! "No_maps_found\x01": 相当するマップが見つかりません。
-  Please_note: 注意：
-  ! 'Please_note:': 注意：
-  Process_file: ファイルを処理する
-  Processed: 処理済み
-  Profile: プロフィール
-  Progress: 進歩状況
-  Radiation_type: 放射線の種類
-  Retrieve_your_API_key: APIキーを取得する
-  Sign_in: ログイン
-  Sign_out: ログアウト
-  Sign_up: アカウント登録
-  Submit: 提出する
-  Submit_a_Reading: 測定値の提出
-  Submit_a_reading_from_your_device: あなたのデバイスからの測定値を提出する
-  Submit_a_single_measurement: 測定値の提出 （一つ）
-  Title: 　題名
-  Title_(optional): 題名　(任意項目）
-  Upload: アップロード
-  Upload_a_bGeigie_log_file: bGeigieのログファイルをアップロードする
-  Uploads: アップロードされたデータ
-  View_the_Safecast_API_docs: Safecast API ドキュメンテーションを見る
-  View_your_bGeigie_log_uploads: あなたのbGeigie ログアップロード履歴を見る
-  View_your_submission_history: あなたの測定値提出の履歴を見る
-  ! "Welcome_to_the_Safecast_API_Center\x01": Safecast API センターにようこそ！
-  Your_Measurement: あなたの測定値
   added_to_safecast_database: Safecast データベースに登録されました。
   api_docs: API ドキュメンテーション
+  approve: 承認する
   approved_by_moderator: モデレーターで承認されました
   awaiting_approval: 承認待ち
   bgeigie_import: bGeigieデータのインポート
@@ -145,7 +105,10 @@ ja:
       month: 月
       second: 秒
       year: 年
+  description: 説明文
   description_optional: 説明文　（任意項目）
+  details: 詳細情報
+  device: デバイス
   download_original_file: 元のファイルをダウンロードする
   errors:
     format: ! '%{attribute}%{message}'
@@ -176,6 +139,9 @@ ja:
       header:
         one: ! '%{model}にエラーが発生しました。'
         other: ! '%{model}に%{count}つのエラーが発生しました。'
+  file: ファイル
+  from_here_you_can: ここでできること：
+  hello: こんにちは
   helpers:
     select:
       prompt: 選択してください。
@@ -183,6 +149,12 @@ ja:
       create: ! '%{model}を作成する'
       submit: ! '%{model}を保存する'
       update: ! '%{model}を更新する'
+  import_bgeigie_logs: bGeigieログをインポートする
+  it_may_take_a_few_minutes_to_process: 処理に数分かかる可能性があります。
+  map_created: マップが作成されました
+  maps: マップ
+  my_maps: マイ・マップ
+  no_maps_found: 相当するマップが見つかりません。
   none_found: 見つかりませんでした。
   number:
     currency:
@@ -221,27 +193,6 @@ ja:
           kb: KB
           mb: MB
           tb: テラバイト
-  submissions: 提出された測定データ
-  time:
-    am: AM
-    formats:
-      default: ! '%Y%b%d (%a) %H:%M:%S %z'
-      long: ! '%Y-%m-%d %H:%M'
-      short: ! '%b%d %H:%M'
-    pm: PM
-  approve: 承認する
-  description: 説明文
-  details: 詳細情報
-  device: デバイス
-  file: ファイル
-  ! 'from_here_you_can:': ここでできること：
-  hello: こんにちは
-  import_bgeigie_logs: bGeigieログをインポートする
-  it_may_take_a_few_minutes_to_process: 処理に数分かかる可能性があります。
-  map_created: マップが作成されました
-  maps: マップ
-  my_maps: マイ・マップ
-  no_maps_found: 相当するマップが見つかりません。
   please_note: 注意：
   process_file: ファイルを処理する
   processed: 処理済み
@@ -249,10 +200,18 @@ ja:
   progress: 進歩状況
   retrieve_your_api_key: APIキーを取得する
   sign_out: ログアウト
+  submissions: 提出された測定データ
   submit: 提出する
   submit_a_reading: 測定値の提出
   submit_a_reading_from_your_device: あなたのデバイスからの測定値を提出する
   submit_a_single_measurement: 測定値の提出 （一つ）
+  time:
+    am: AM
+    formats:
+      default: ! '%Y%b%d (%a) %H:%M:%S %z'
+      long: ! '%Y-%m-%d %H:%M'
+      short: ! '%b%d %H:%M'
+    pm: PM
   title_optional: 題名　(任意項目）
   upload: アップロード
   upload_a_bgeigie_log_file: bGeigieのログファイルをアップロードする
@@ -261,3 +220,6 @@ ja:
   view_your_submission_history: あなたの測定値提出の履歴を見る
   welcome_to_the_api_center: Safecast API センターにようこそ！
   your_measurement: あなたの測定値
+  latitude: 緯度
+  longitude: 経度
+  your_measurements: あなたの測定

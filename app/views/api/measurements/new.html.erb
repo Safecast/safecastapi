@@ -13,7 +13,7 @@
       <div class="span6">
         <fieldset>
           <p class="button">
-            <input type="submit" value="<%= t('Submit') %>">
+            <input type="submit" value="<%= t('submit') %>">
           </p>
         </fieldset>
       </div>
@@ -95,10 +95,10 @@
       <div class="span6">
         <fieldset>
           <legend>
-            <%= t('Device') %>
+            <%= t("device") %>
           </legend>
           <div class="control-group">
-            <%= f.label :device_id, t("Device"), :class => 'control-label' %>
+            <%= f.label :device_id, t("device"), :class => 'control-label' %>
             <div class="controls">
               <%= f.select :device_id, Device.all.collect { |d| [d.name, d.id]},
                     :id => 'longitude' %>
@@ -142,7 +142,7 @@
       <div class="span12">
         <fieldset>
           <p class="button">
-            <input type="submit" value="<%= t('Submit') %>">
+            <input type="submit" value="<%= t('submit') %>">
           </p>
         </fieldset>
       </div>

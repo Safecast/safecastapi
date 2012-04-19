@@ -1,84 +1,32 @@
 en-US:
   1m: 1m
   air: Air
-  Approve: Approve
-  api_docs: Api Docs
   basics: Basics
-  Cancel: Cancel
   contribute_your_measurement: Contribute your Measurement
   count_found: ! '%{count} found'
-  count_lines: ! '%{count} lines'
-  clicks_per_minute: Clicks per minute
-  Description: Description
-  description_optional: Description (optional)
-  Details: Details
-  Device: Device
-  edit_your_profile: Edit your profile
+  count_lines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    one: 1 line
+    other: ! '%{count} lines'
   email: Email
-  File: File
-  file_queued_for_processing: This file is queued for processing. It may take a few
-    minutes to process.
-  From_here_you_can: From here you can
-  Hello: Hello
   height: Height
-  If_you_have_a_bGeigie: If you have a bGeigie
-  imports:
-    upcase: Imports
-  Import_bGeigie_logs: Import bGeigie logs
-  ! "It_may_take_a_few_minutes_to_process\x01": It may take a few minutes to process.
-  lat: lat
-  latitude: Latitude
-  lng: lng
-  longitude: Longitude
   location: Location
-  Map_created: Map created
-  Maps: maps
-  Measurements: measurements
-  My_maps: My maps
-  No_maps_found: No maps found.
-  none_found: none found
-  name: Name
-  please_note: Please note
-  process_file: Process file
-  processed: Processed
-  profile: Profile
-  Progress: Progress
   radiation_level: Radiation Level
   radiation_type: Radiation Type
-  retrieve_your_API_key: Retrieve your API key
-  review_your_bGeigie_log_file_submissions: Review your bGeigie log file submissions
-  sign_out: Sign out
   soil: Soil
   sensor_height_optional: Sensor Height (metres, optional)
   sensor_orientation_optional: Sensor Orientation (optional)
-  Submit: Submit
-  Submit_a_Reading: Submit a Reading
-  Submit_a_reading_from_your_device: Submit a reading from your device
-  Submit_a_single_measurement: Submit a single measurement
   surface_type: Surface Type
-  ! "This_file_is_queued_for_processing\x01": This file is queued for processing.
-  Title_(optional): Title (optional)
-  type_address_instructions: ! 'Start typing an address : the map will update as you
-    type, then drag the map to pinpoint the location.'
-  Upload: Upload
-  Upload_a_bGeigie_log_file: Upload a bGeigie log file
-  View_the_Safecast_API_docs: View the Safecast API docs
-  View_your_bGeigie_log_uploads: View your bGeigie log uploads
-  View_your_submission_history: View your submission history
-  welcome_to_the_api_center: Welcome to the Safecast API Center.
-  ! "You_haven't_submitted_any_measurements_yet\x01": You haven't submitted any measurements
-    yet.
-  You_haven_t_uploaded_any_bGeigie_log_files: You haven't uploaded any bGeigie log
-    files.
-  Your_Measurement: Your Measurement
-  Yours: Yours
+  or: or
   added_to_safecast_database: Added to Safecast database
   admin: Admin
+  api_docs: API Docs
+  approve: Approve
   approved_by_moderator: Approved by moderator
   awaiting_approval: Awaiting approval
   bgeigie_import: bGeigie Import
   bgeigie_imports: bGeigie Imports
   cities_csv: Cities (comma seperated list, optional)
+  clicks_per_minute: Clicks per minute
   compute_latlng: Compute latitudes &amp; longitudes
   creative_commons_non_commercial: Creative Commons Non-Commercial
   credits_csv: Credits (comma-separated, optional)
@@ -179,6 +127,10 @@ en-US:
       month: Month
       second: Seconds
       year: Year
+  description: Description
+  description_optional: Description (optional)
+  details: Details
+  device: Device
   download_original_file: Download Original File
   errors:
     format: ! '%{attribute} %{message}'
@@ -198,6 +150,7 @@ en-US:
       less_than_or_equal_to: must be less than or equal to %{count}
       not_a_number: is not a number
       not_an_integer: must be an integer
+      not_saved: Not saved
       odd: must be odd
       record_invalid: ! 'Validation failed: %{errors}'
       taken: has already been taken
@@ -210,13 +163,15 @@ en-US:
       wrong_length:
         one: is the wrong length (should be 1 character)
         other: is the wrong length (should be %{count} characters)
-      not_saved: Not saved
     template:
       body: ! 'There were problems with the following fields:'
       header:
         one: 1 error prohibited this %{model} from being saved
         other: ! '%{count} errors prohibited this %{model} from being saved'
   explore_maps_of_your_submissions: Explore maps of your submissions
+  file: File
+  from_here_you_can: ! 'From here you can:'
+  hello: Hello
   helpers:
     select:
       prompt: Please select
@@ -224,7 +179,17 @@ en-US:
       create: Create %{model}
       submit: Save %{model}
       update: Update %{model}
+  if_you_have_a_bgeigie: If you have a bGeigie
+  import_bgeigie_logs: Import bGeigie logs
+  imports_awaiting_approval: imports awaiting approval
+  it_may_take_a_few_minutes_to_process: It may take a few minutes to process.
+  map_created: Map created
   map_displayed_once_file_processed: A map will be displayed once this file has processed.
+  maps: maps
+  measurements: measurements
+  my_maps: My maps
+  no_maps_found: No maps found.
+  none_found: none found
   number:
     currency:
       format:
@@ -272,14 +237,28 @@ en-US:
     precision:
       format:
         delimiter: ''
-  on_date: on %{date}
-  or: or
+  please_note: Please note
+  previous_label: Prev
+  process_file: Process file
+  processed: Processed
+  profile: Profile
+  progress: Progress
+  retrieve_your_api_key: Retrieve your API key
+  review_your_bgeigie_log_file_submissions: Review your bGeigie log file submissions
+  sign_in: Sign in
+  sign_out: Sign out
+  sign_up: Sign up
   submissions: submissions
+  submit: Submit
+  submit_a_reading: Submit a Reading
+  submit_a_reading_from_your_device: Submit a reading from your device
+  submit_a_single_measurement: Submit a single measurement
   support:
     array:
       last_word_connector: ! ', and '
       two_words_connector: ! ' and '
       words_connector: ! ', '
+  this_file_is_queued_for_processing: This file is queued for processing.
   time:
     am: am
     formats:
@@ -287,52 +266,31 @@ en-US:
       long: ! '%B %d, %Y %H:%M'
       short: ! '%d %b %H:%M'
     pm: pm
-  time_zone: Time Zone
-  uploaded_by: uploaded by
-  your_api_key: Your API Key
-  ! 'From_here_you_can:': ! 'From here you can:'
-  ! "No_maps_found\x01": No maps found.
-  Process_file: Process file
-  ! "Welcome_to_the_Safecast_API_Center\x01": Welcome to the Safecast API Center.
-  ! "You_haven't_uploaded_any_bGeigie_log_files\x01": You haven't uploaded any bGeigie
-    log files.
-  on_(date): 'on'
-  previous_label: Prev
-  sign_in: Sign in
-  sign_up: Sign up
-  Retrieve_your_API_key: Retrieve your API key
-  Review_your_bGeigie_log_file_submissions: Review your bGeigie log file submissions
-  measurements: measurements
-  retrieve_your_api_key: Retrieve your API key
-  review_your_bgeigie_log_file_submissions: Review your bGeigie log file submissions
-  submit: Submit
-  submit_a_reading: Submit a Reading
-  maps: maps
-  submit_a_reading_from_your_device: Submit a reading from your device
-  upload_a_bgeigie_log_file: Upload a bGeigie log file
-  view_the_safecast_api_docs: View the Safecast API docs
-  view_your_submission_history: View your submission history
-  approve: Approve
-  description: Description
-  details: Details
-  device: Device
-  file: File
-  ! 'from_here_you_can:': ! 'From here you can:'
-  hello: Hello
-  import_bgeigie_logs: Import bGeigie logs
-  it_may_take_a_few_minutes_to_process: It may take a few minutes to process.
-  map_created: Map created
-  my_maps: My maps
-  no_maps_found: No maps found.
-  progress: Progress
-  submit_a_single_measurement: Submit a single measurement
-  this_file_is_queued_for_processing: This file is queued for processing.
   title_optional: Title (optional)
   upload: Upload
+  upload_a_bgeigie_log_file: Upload a bGeigie log file
+  uploaded_by: uploaded by %{name}
+  view_the_safecast_api_docs: View the Safecast API docs
   view_your_bgeigie_log_uploads: View your bGeigie log uploads
+  view_your_submission_history: View your submission history
+  welcome_to_the_api_center: Welcome to the Safecast API Center.
   you_havent_submitted_any_measurements_yet: You haven't submitted any measurements
     yet.
   you_havent_uploaded_any_bgeigie_log_files: You haven't uploaded any bGeigie log
     files.
   your_measurement: Your Measurement
   yours: Yours
+  imports: Imports
+  lat: lat
+  latitude: Latitude
+  lng: lng
+  longitude: Longitude
+  your_measurements: Your Measurements
+  edit_your_profile: Edit your profile
+  name: Name
+  time_zone: Time zone
+  your_api_key: Your API key
+  on_date: on %{date}
+  type_address_instructions: Start typing an address, the map will update as you type.
+    Pinpoint the location by dragging the map.
+  your_maps: Your maps

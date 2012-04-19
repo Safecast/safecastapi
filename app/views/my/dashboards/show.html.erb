@@ -1,16 +1,14 @@
 <div class="row">
   <section class="span6">
     <%- if current_user.name.present? %>
-      <h2><%= t('Hello') -%> <%= current_user.first_name %></h2>
+      <h2><%= t('hello') -%> <%= current_user.first_name %></h2>
     <%- end -%>
-
     <p>
       <%= t('welcome_to_the_api_center') -%>
     </p>
-
     <ul class="nav nav-pills nav-stacked well">
       <li class="nav-header">
-        <%= t('From_here_you_can') -%>:
+        <%= t('from_here_you_can') -%>:
       </li>
       <li>
         <%= link_to t('view_the_safecast_api_docs'), [:api, :root] %>
