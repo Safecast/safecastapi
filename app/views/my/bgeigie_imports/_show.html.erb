@@ -32,9 +32,7 @@
       <%= content_for(:additional_javascripts) do %>
         <script>
           $(function(){
-            var points = <%= raw(@bgeigie_import.bgeigie_logs.collect do |b|
-                                {:lat => b.latitude, :lng => b.longitude}
-                             end.to_json) %>
+            var points = <%= raw collect_points(@bgeigie_import).to_json %>
             GoogleMap.addPoints(points)
             GoogleMap.fitPoints(points)
           })
