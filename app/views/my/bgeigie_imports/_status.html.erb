@@ -24,7 +24,7 @@
   <ul class="measurement bgeigie-log unstyled">
     <li class="value thin">
       <em class="block"><%= @bgeigie_import.bgeigie_logs.count %></em>
-      <%= t('measurements') %>
+      <%= t("measurements") %>
     </li>
   </ul>
 <%- end -%>
@@ -32,7 +32,7 @@
   <%= form_for @bgeigie_import, :url => [:approve, :my, :bgeigie_import] do |f| -%>
     <fieldset>
       <p class="button">
-        <%= f.submit t("Approve") -%>
+        <%= f.submit t("approve") -%>
       </p>
     </fieldset>
   <%- end -%>

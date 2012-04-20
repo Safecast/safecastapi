@@ -5,40 +5,40 @@
   @bgeigie_import.height.present? ||
   @bgeigie_import.orientation.present? %>
   <ul class="unstyled nav">
-    <li class="nav-header"><%= t 'Details' %></li>
+    <li class="nav-header"><%= t("details") %></li>
     <%- if @bgeigie_import.name.present? -%>
       <li>
-        <%= t "Title" -%>
+        <%= t "title" -%>
         <span class="pull-right"><%= @bgeigie_import.name %></span>
       </li>
     <%- end -%>
     <%- if @bgeigie_import.description.present? -%>
       <li>
-        <%= t "Description" -%>
+        <%= t "description" -%>
         <span class="pull-right"><%= @bgeigie_import.description %></span>
       </li>
     <%- end -%>
     <%- if @bgeigie_import.credits.present? -%>
       <li>
-        <%= t "Credits" -%>
+        <%= t "credits" -%>
         <span class="pull-right"><%= @bgeigie_import.credits_as_string %></span>
       </li>
     <%- end -%>
     <%- if @bgeigie_import.cities.present? -%>
       <li>
-        <%= t "Cities" -%>
+        <%= t "cities" -%>
         <span class="pull-right"><%= @bgeigie_import.cities_as_string %></span>
       </li>
     <%- end -%>
     <%- if @bgeigie_import.height.present? -%>
       <li>
-        <%= t "Sensor Height" -%>
+        <%= t "sensor_height" -%>
         <span class="pull-right"><%= @bgeigie_import.height %>m</span>
       </li>
     <%- end -%>
     <%- if @bgeigie_import.orientation.present? -%>
       <li>
-        <%= t "Sensor Orientation" -%>
+        <%= t "sensor_orientation" -%>
         <span class="pull-right"><%= @bgeigie_import.orientation %></span>
       </li>
     <%- end -%>

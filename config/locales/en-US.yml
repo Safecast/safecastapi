@@ -294,3 +294,10 @@ en-US:
   type_address_instructions: Start typing an address, the map will update as you type.
     Pinpoint the location by dragging the map.
   your_maps: Your maps
+  title: Title
+  Credits: Credits
+  Cities: 
+  sensor_height: Sensor Height
+  sensor_orientation: Sensor Orientation
+  cities: Cities
+  credits: Credits
