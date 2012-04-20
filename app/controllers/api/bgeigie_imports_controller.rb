@@ -39,12 +39,14 @@ class Api::BgeigieImportsController < Api::ApplicationController
   #
   def show
     @bgeigie_import = BgeigieImport.find(params[:id])
-    respond_with @result = @bgeigie_import
+    @result = @bgeigie_import
+    respond_with @result
   end
 
 
   def index
-    respond_with @result = bgeigie_imports
+    @result = bgeigie_imports
+    respond_with @result
   end
   
   ##
@@ -63,10 +65,11 @@ class Api::BgeigieImportsController < Api::ApplicationController
     bgeigie_import.user = current_user
     if bgeigie_import.save
       bgeigie_import.delay.process
-      respond_with @result = bgeigie_import, :location => [:my, bgeigie_import]
+      @result = bgeigie_import
     else
-      respond_with @result = bgeigie_import.errors, :location => [:my, bgeigie_import]
+      @result = bgeigie_import.errors
     end
+    respond_with @result, :location => [:my, bgeigie_import]
   end
 
   

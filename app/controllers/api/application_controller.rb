@@ -52,10 +52,7 @@ module Api
           },
           { :resource => 'measurements',
             :url => api_measurements_path
-          },
-          { :resource => 'users',
-            :url => api_users_path
-          },
+          }
         ],
       }
       @schema = {

@@ -8,15 +8,12 @@ class Api::UsersController < Api::ApplicationController
     respond_with(:api, user)
   end
   
-  
   def auth
-    
     if result
       output = {:message => "Signed in successfully", :auth_token => result[:authentication_token]}
     else
       output = {:message => "Couldn't sign in"}
     end
-    
     respond_with output
   end
   

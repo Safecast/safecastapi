@@ -21,14 +21,14 @@ class Api::MapsController < Api::ApplicationController
   expose(:measurements)
   expose(:measurement) { Measurement.find(params[:measurement_id]) }
   
-  
   ##
   # List the available *maps* in the database.
   #
   # @url [GET] /api/maps
   #
   def index
-    respond_with maps
+    @result = maps
+    respond_with @result
   end
   
   ##
@@ -37,7 +37,8 @@ class Api::MapsController < Api::ApplicationController
   # @url [GET] /api/maps/:id
   #
   def show
-    respond_with map
+    @result = map
+    respond_with @result
   end
   
   def create
@@ -52,7 +53,5 @@ class Api::MapsController < Api::ApplicationController
     map.save
     respond_with(:api, map)
   end
-
-
   
 end

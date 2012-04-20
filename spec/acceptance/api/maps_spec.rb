@@ -52,7 +52,7 @@ feature "/api/maps with existing resources" do
   let!(:a_map) { Fabricate(:map, :description => "A test map")}
   let!(:b_map) { Fabricate(:map, :description => "Another test map", :user_id => user.id)}
   let!(:a_measurement) { Fabricate(:measurement, :value => 66, :user_id => user.id) }
-  
+
   scenario "all maps (/api/maps)" do
     result = api_get("/api/maps.json")
     result.length.should == 2

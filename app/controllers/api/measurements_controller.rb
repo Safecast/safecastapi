@@ -30,12 +30,13 @@ class Api::MeasurementsController < Api::ApplicationController
       @user = User.find params[:user_id]
     end
     if @map
-      respond_with @map.measurements.nearby_to(params[:latitude], params[:longitude], params[:distance]).page(params[:page])
+      @result = @map.measurements.nearby_to(params[:latitude], params[:longitude], params[:distance]).page(params[:page])
     elsif @user
-      respond_with @user.measurements.nearby_to(params[:latitude], params[:longitude], params[:distance]).page(params[:page])
+      @result = @user.measurements.nearby_to(params[:latitude], params[:longitude], params[:distance]).page(params[:page])
     else
-      respond_with Measurement.nearby_to(params[:latitude], params[:longitude], params[:distance]).page(params[:page])
+      @result = Measurement.nearby_to(params[:latitude], params[:longitude], params[:distance]).page(params[:page])
     end
+    respond_with @result
   end
   
   ##
@@ -51,11 +52,12 @@ class Api::MeasurementsController < Api::ApplicationController
   def show
     if params[:withHistory].present? and params[:withHistory]
       measurements = Measurement.where("id = #{params[:id]} OR original_id = #{params[:id]}")
-      respond_with @result = measurements
+      @result = measurements
     else
       measurement = Measurement.most_recent(params[:id])
-      respond_with @result = measurement
+      @result = measurement
     end
+    respond_with @result
   end
   
   def update
@@ -95,7 +97,8 @@ class Api::MeasurementsController < Api::ApplicationController
       @measurement.save
     end
     @map.measurements<< @measurement if @map   #this could be done by calling add_to_map, but that seems misleading
-    respond_with @result = @measurement, :location => [:my, @measurement]
+    @result = @measurement
+    respond_with @result, :location => [:my, @measurement]
   end
 
 protected
