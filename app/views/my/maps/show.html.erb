@@ -6,11 +6,7 @@
 <%= content_for(:additional_javascripts) do %>
   <script>
     $(function(){
-      var points = <%= raw(@map.measurements.collect do |m|
-                          {:lat => m.latitude, :lng => m.longitude}
-                       end.to_json) %>
-      GoogleMap.addPoints(points)
-      GoogleMap.fitPoints(points)
+      MeasurementsMap.addMeasurementsAndCenter(<%= raw collect_measurements(@map.measurements).to_json %>)
     })
   </script>
 <%- end -%>
