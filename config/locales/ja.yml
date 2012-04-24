@@ -213,7 +213,7 @@ ja:
       long: ! '%Y-%m-%d %H:%M'
       short: ! '%b%d %H:%M'
     pm: PM
-  title_optional: 題名　(任意項目）
+  title_optional: タイトル　(任意項目）
   upload: アップロード
   upload_a_bgeigie_log_file: bGeigieのログファイルをアップロードする
   view_the_safecast_api_docs: Safecast API ドキュメンテーションを見る
@@ -230,10 +230,10 @@ ja:
   contribute_your_measurement: あなたの測定値を提出する
   count_found: ! '%{count}件見つかりました'
   count_lines: ! '%{count}行'
-  credits_csv: データ提出者　(コンマ区切り, 任意項目)
+  credits_csv: データ提出者　(カンマ区切り, 任意項目)
   edit_your_profile: プロフィールを編修する
   email: メール
-  explore_maps_of_your_submissions: あたたが提出した測定データから作成マップを探す
+  explore_maps_of_your_submissions: あたたが提出した測定データから作成マップを見る
   height: 地面からの高さ
   if_you_have_a_bgeigie: bGeigieを持っている場合
   imports: インポートされたデータ
@@ -247,7 +247,7 @@ ja:
   on_date: ! '%{date}に'
   or: または、
   previous_label: 前
-  radiation_level: 放射線の量
+  radiation_level: 放射線レベル
   radiation_type: 放射線の種類
   review_your_bgeigie_log_file_submissions: あなたが提出したbGeigieログファイルを確認する
   sensor_height_optional: センサーの地面からの高さ (メートル, 任意項目)
@@ -259,12 +259,24 @@ ja:
       last_word_connector: と
       two_words_connector: と
       words_connector: と
-  surface_type: 地面の表面形
-  this_file_is_queued_for_processing: 処理待ちリストに追加されました。
+  surface_type: 表面の材質
+  this_file_is_queued_for_processing: このファイルの処理を受け付けました。
   time_zone: タイムゾーン (時間帯)
   type_address_instructions: 住所を入力し始めると、地図(マップ)が入力に合わせて更新されます。地図(マップ)をドラッグすると、正確な位置を表示することができます。
   uploaded_by: ! '提出者: %{name}'
   yours: あなたの測定値
   your_api_key: あなたのAPIキー
-  you_havent_submitted_any_measurements_yet: あなたが提出した測定データはまだありません。
-  you_havent_uploaded_any_bgeigie_log_files: あたたがアップロードしたbGeigieログファイルはまだありません。
+  you_havent_submitted_any_measurements_yet: あなたが提出した測定データはありません。
+  you_havent_uploaded_any_bgeigie_log_files: あたたがアップロードしたbGeigieログファイルはありません。
+  1m: 1m
+  basics: 基本項目
+  cities: 市町村名／地域名
+  cities_csv: 市町村名／地域名 (カンマ区切り, 任意項目)
+  credits: データ提出者
+  measurement: 測定値
+  Sensor Height: センサーの地面からの高さ
+  Sensor Orientation: センサーの方向付け
+  sensor_height: センサーの地面からの高さ
+  sensor_orientation: センサーの方向付け
+  soil: 土
+  title: タイトル
