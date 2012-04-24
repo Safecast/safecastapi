@@ -1,10 +1,23 @@
 maps = window.google.maps
 
 $ -> 
-  window.GoogleMap = 
+  window.GoogleMap =
+    # Tokyo
+    DEFAULT_LAT: 35.692995
+    DEFAULT_LNG: 139.704895
+    DEFAULT_ZOOM: 8
+
+    initialize: (el, lat, lng, zoom=8) ->
+      options = 
+        center: new maps.LatLng(lat or GoogleMap.DEFAULT_LAT, lng or GoogleMap.DEFAULT_LNG)
+        zoom: zoom or GoogleMap.DEFAULT_ZOOM
+        navigationControlOptions: { style: maps.NavigationControlStyle.SMALL }
+        mapTypeId: maps.MapTypeId.ROADMAP
+      window.map = new maps.Map(el.get(0), options)
+
     setCenter: (lat, lng) ->
       position = new maps.LatLng(lat, lng)
-      map.setCenter position
+      map.setCenter(position)
   
     addPointsAndCenter: (points) ->
       bounds = new maps.LatLngBounds()
@@ -37,3 +50,5 @@ $ ->
       setTimeout =>
         setTimeout(countdown($('#location').val()) , 1000)
       , 5
+
+    

@@ -12,6 +12,21 @@
     <%= render 'my/bgeigie_imports/status' -%>
     <%= render 'my/bgeigie_imports/details' -%>
     <%= render 'my/bgeigie_imports/progress' -%>
+    <ul class="unstyled nav">
+      <li class="nav-header"><%= t("measurement") %></li>
+      <li>
+        <%= t "latitude" -%>
+        <span class="lat pull-right"></span>
+      </li>
+      <li>
+        <%= t "longitude" -%>
+        <span class="lng pull-right"></span>
+      </li>
+      <li>
+        <%= t "clicks_per_minute" -%>
+        <span class="cpm pull-right"></span>
+      </li>
+    </ul>
   </section>
   <%- if @bgeigie_import.status_details[:compute_latlng].present? -%>
     <section class="span8">
@@ -32,6 +47,7 @@
       <%= content_for(:additional_javascripts) do %>
         <script>
           $(function(){
+            MeasurementsMap.initialize($("#map_canvas"))
             MeasurementsMap.addMeasurementsAndCenter(<%= raw collect_bgeigie_logs(@bgeigie_import.bgeigie_logs).to_json %>)
           })
         </script>

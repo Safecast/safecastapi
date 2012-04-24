@@ -1,21 +1,23 @@
-jQuery ->
-  if window.hasOwnProperty('google') && $('#map_canvas').length > 0
-    latlng = new window.google.maps.LatLng($('#latitude').val(), $('#longitude').val())
-    myOptions =
-      zoom: parseInt($('#zoomlevel').val() or 17),
-      center: latlng,
-      navigationControlOptions: {style: window.google.maps.NavigationControlStyle.SMALL},
-      mapTypeId: window.google.maps.MapTypeId.ROADMAP
-    window.map = new window.google.maps.Map(document.getElementById("map_canvas"), myOptions)
-    centerMap = () ->
-      center = map.getCenter()
-      $('#latitude').val(center.lat())
-      $('#longitude').val(center.lng())
-    google.maps.event.addListener map, 'center_changed', centerMap
-    centerMap()
-    if $('.map-crosshair').length > 0
-      google.maps.event.addDomListener $('.map-crosshair')[0], 'dblclick', () ->
-        map.setZoom(map.getZoom() + 1)
+maps = window.google.maps
+
+$ ->
+  return if $("form#submission").length is 0
+
+  # handle map changes
+  GoogleMap.initialize(
+    $('#map_canvas')
+    $('#latitude').val()
+    $('#longitude').val()
+    parseInt($('#zoomlevel').val() or 17))
+  centerMap = ->
+    center = map.getCenter()
+    $('#latitude').val(center.lat())
+    $('#longitude').val(center.lng())
+  maps.event.addListener map, 'center_changed', centerMap
+  centerMap()
+  if $('.map-crosshair').length > 0
+    maps.event.addDomListener $('.map-crosshair')[0], 'dblclick', () ->
+      map.setZoom(map.getZoom() + 1)
   
   # focus
   $(document).delegate '.field input', 'click', ->
@@ -37,7 +39,7 @@ jQuery ->
   $('#location').on 'click', (e) ->
     $('#map_canvas').show()
     if window.hasOwnProperty('google')
-      google.maps.event.trigger(map, 'resize'); 
+      maps.event.trigger(map, 'resize'); 
   
   $('#location').on 'keydown', (e) ->
     GoogleMap.geocodeSearch(e)

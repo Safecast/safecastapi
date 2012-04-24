@@ -6,6 +6,7 @@
 <%= content_for(:additional_javascripts) do %>
   <script>
     $(function(){
+      MeasurementsMap.initialize($("#map_canvas"))
       MeasurementsMap.addMeasurementsAndCenter(<%= raw collect_measurements(@map.measurements).to_json %>)
     })
   </script>

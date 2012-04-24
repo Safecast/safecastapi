@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery-ui
+//= require underscore
 //= require_tree ./application
 //- require_self
 
