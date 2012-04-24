@@ -32,7 +32,7 @@
         <%= link_to t('upload_a_bgeigie_log_file'), [:new, :my, :bgeigie_import] %>
       </li>
       <li>
-        <%= link_to t('review_your_bgeigie_log_file_submissions'), [:my, :bgeigie_imports] %>
+        <%= link_to t('review_your_bgeigie_log_file_submissions'), [:bgeigie_imports] %>
       </li>
     </ul>
   </section>
@@ -54,7 +54,7 @@
         <%- end -%>
       </li>
       <li>
-        <%= link_to [:my, :bgeigie_imports] do %>
+        <%= link_to [:bgeigie_imports] do %>
           <em><%= current_user.bgeigie_imports.count  %></em>
           <%= t('bgeigie_imports') -%>
         <%- end -%>
@@ -64,7 +64,7 @@
       <%- if @unapproved_bgeigie_imports.any? -%>
         <ul class="unstyled">
           <li>
-            <%= link_to [:my, :bgeigie_imports]  do -%>
+            <%= link_to [:bgeigie_imports]  do -%>
               <em><%= @unapproved_bgeigie_imports.count -%></em>
               <%= t('imports_awaiting_approval') -%>
             <%- end -%>

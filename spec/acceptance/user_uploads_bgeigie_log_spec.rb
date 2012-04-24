@@ -22,11 +22,7 @@ feature "User uploads bgeigie log" do
   end
   
   context "as a moderator" do
-    let!(:bgeigie_import) do
-      Fabricate(:bgeigie_import,
-        :source => File.new(Rails.root + 'spec/fixtures/bgeigie.log'),
-        :user => user)
-    end
+    let!(:bgeigie_import) { Fabricate(:bgeigie_import, :user => user) }
 
     before do
       bgeigie_import.process

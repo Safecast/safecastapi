@@ -4,9 +4,12 @@ class BgeigieImport < MeasurementImport
   
   belongs_to :user
   has_many :bgeigie_logs
-
-  scope :unapproved, where(:approved => false)
   
+  scope :newest, order("created_at DESC")
+  scope :oldest, order("created_at")
+  scope :done, where(:status => "done")
+  scope :unapproved, where(:approved => false)
+
   store :status_details, :accessors => [
     :process_file,
     :import_bgeigie_logs,

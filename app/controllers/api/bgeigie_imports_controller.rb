@@ -69,7 +69,7 @@ class Api::BgeigieImportsController < Api::ApplicationController
     else
       @result = bgeigie_import.errors
     end
-    respond_with @result, :location => [:my, bgeigie_import]
+    respond_with @result, :location => bgeigie_import
   end
 
   
