@@ -10,7 +10,7 @@ $ ->
         icon = MeasurementsMap.iconForMeasurement(measurement.cpm) if measurement.cpm
         marker = new maps.Marker(map: map, position: position, icon: icon)
         do (measurement) ->
-          maps.event.addListener marker, 'click', ->
+          maps.event.addListener marker, 'mouseover', ->
             $(".lat").text(measurement.lat)
             $(".lng").text(measurement.lat)
             $(".cpm").text(measurement.cpm) if measurement.cpm
