@@ -11,6 +11,6 @@ feature "User views bGeigie imports" do
     visit('/')
     click_link("Imports")
     page.should have_content("Yours")
-    page.should have_content("Public imports")
+    page.should have_content("Public")
   end
  end 
