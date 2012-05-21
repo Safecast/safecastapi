@@ -34,6 +34,11 @@
             <%- end -%>
             <%- if user_signed_in? -%>
               <li>
+                <%= link_to [:bgeigie_imports], :title => t('imports') do %>
+                  <%= t('imports') %>
+                <%- end -%>
+              </li>
+              <li>
                 <%= link_to [:my, :profile], :title => t("profile") do %>
                   <%= t('profile') %>
                 <%- end -%>
@@ -43,11 +48,7 @@
                   <%= t('measurements') %>
                 <%- end -%>
               </li>
-              <li>
-                <%= link_to [:my, :bgeigie_imports], :title => t('imports') do %>
-                  <%= t('imports') %>
-                <%- end -%>
-              </li>
+              
               <li>
                 <%= link_to [:my, :maps], :title => t('maps') do %>
                   <%= t('maps') %>
