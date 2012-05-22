@@ -1,5 +1,17 @@
 class DriveImport < MeasurementImport
   has_many :drive_logs
+
+  def self.process
+    update_locations
+    update_md5sums
+    self.find_each do |drive_import|
+      drive_import.update_attribute(:status, 'processing')
+      drive_import.import_measurements
+      drive_import.add_measurements_to_map
+      drive_import.update_attribute(:status, 'done')
+    end
+  end
+
   def self.update_locations
     self.find_each do |drive_import|
       puts "\nDrive ID: #{drive_import.id}"
