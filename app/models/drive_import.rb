@@ -5,11 +5,7 @@ class DriveImport < MeasurementImport
     update_locations
     update_md5sums
     self.find_each do |drive_import|
-      drive_import.update_attribute(:status, 'processing')
-      drive_import.import_measurements
-      drive_import.create_map
-      drive_import.add_measurements_to_map
-      drive_import.update_attribute(:status, 'done')
+      drive_import.process
     end
   end
 
@@ -31,6 +27,14 @@ class DriveImport < MeasurementImport
         end
       end
     end
+  end
+
+  def process
+    update_attribute(:status, 'processing')
+    import_measurements
+    create_map
+    add_measurements_to_map
+    update_attribute(:status, 'done')
   end
 
   def create_map
