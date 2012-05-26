@@ -7,6 +7,7 @@ class DriveImport < MeasurementImport
     self.find_each do |drive_import|
       drive_import.update_attribute(:status, 'processing')
       drive_import.import_measurements
+      drive_import.create_map
       drive_import.add_measurements_to_map
       drive_import.update_attribute(:status, 'done')
     end
@@ -30,6 +31,18 @@ class DriveImport < MeasurementImport
         end
       end
     end
+  end
+
+  def create_map
+    @map = self.map || user.maps.create!({
+      :name => "#{name}",
+      :description => "#{description}"
+    })
+    self.update_attribute(:map, @map)
+  end
+
+  def user
+    User.find user_id
   end
 
   def user_id
