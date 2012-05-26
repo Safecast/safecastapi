@@ -37,7 +37,8 @@ class Measurement < ActiveRecord::Base
     options ||= {}
     super(options.merge(:only => [
       :id, :value, :user_id,
-      :unit, :device_id, :location_name, :original_id
+      :unit, :device_id, :location_name, :original_id,
+      :captured_at
     ], :methods => [:latitude, :longitude]))
   end
   
