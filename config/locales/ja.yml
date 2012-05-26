@@ -281,3 +281,12 @@ ja:
   soil: 土
   title: タイトル
   your_maps: マイ・マップ
+  My_maps: マイ・マップ
+  cpm: cpm (カウント毎分)
+  no_bgeigie_log_files_have_been_uploaded: アップロードされたbGeigieログファイルはありません
+  user:
+    invalid: 無効
+    signed_in: ログイン中
+    signed_out: ログアウト中
+    signed_up: ログイン中
+    unauthenticated: 非承認
