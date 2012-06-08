@@ -1,3 +1,4 @@
+require 'iconv'
 class BgeigieImport < MeasurementImport
   validates :user, :presence => true
   validates :source, :presence => true
@@ -20,6 +21,14 @@ class BgeigieImport < MeasurementImport
 
   serialize :credits, Array
   serialize :cities, Array
+
+  def conversion
+    @conversion ||= Iconv.new('UTF-8//IGNORE', 'UTF-8')
+  end
+
+  def convert_string(string)
+     conversion.iconv(string + ' ')[0..-2]
+  end
 
   def tmp_file
     @tmp_file ||= "/tmp/bgeigie-#{Kernel.rand}"
@@ -71,10 +80,11 @@ class BgeigieImport < MeasurementImport
 
   def create_tmp_file
     lines_count = 0
-    File.open(tmp_file, 'a') do |file|
-      source.read.split("\n").each do |line|
+    File.open(tmp_file, 'at:UTF-8') do |file|
+      source.read.each_line do |line|
         next if line.first == '#'
-        file.write "#{line.strip},#{Digest::MD5.hexdigest(line.strip)}\n"
+        next if line.strip.blank?
+        file.write "#{line.strip},#{Digest::MD5.hexdigest(line.strip)}\n" rescue nil
         lines_count += 1
       end
     end
@@ -96,8 +106,9 @@ class BgeigieImport < MeasurementImport
       horizontal_dilution_of_precision,
       gps_fix_quality_indicator,md5sum)
       FROM STDIN CSV])
-    file_contents = File.open(tmp_file, 'r') { |f| f.read }
-    file_contents.each_line { |line| raw.put_copy_data line }
+    file_contents = File.open(tmp_file, 'rt:UTF-8').each_line do |line|
+      raw.put_copy_data line
+    end
     raw.put_copy_end
     while res = raw.get_result do; end # very important to do this after a copy
     raw.exec(%Q[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
