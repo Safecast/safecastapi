@@ -12,7 +12,7 @@ gem "carrierwave", "~> 0.6.2"
 gem 'configurable_engine'
 gem 'delayed_job', '~> 2.1.4'
 gem 'decent_exposure'
-gem 'fog'
+gem 'fog', '~> 1.4.0'
 gem 'localeapp'
 gem 'mustache'
 gem 'spatial_adapter', :git => 'https://github.com/Empact/spatial_adapter.git'
