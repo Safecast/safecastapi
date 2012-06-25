@@ -56,8 +56,9 @@ GEM
     capybara-webkit (0.10.0)
       capybara (>= 1.0.0, < 1.2)
       json
-    carrierwave (0.5.8)
-      activesupport (~> 3.0)
+    carrierwave (0.6.2)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
     childprocess (0.3.1)
       ffi (~> 1.0.6)
     coderay (1.0.5)
@@ -247,7 +248,7 @@ DEPENDENCIES
   aws-ses (= 0.4.4)
   capybara
   capybara-webkit
-  carrierwave (~> 0.5.8)
+  carrierwave (~> 0.6.2)
   coffee-rails
   configurable_engine
   database_cleaner

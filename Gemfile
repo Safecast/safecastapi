@@ -8,7 +8,7 @@ gem 'haml'
 gem 'dobro'
 
 gem 'aws-ses', '0.4.4', :require => 'aws/ses'
-gem "carrierwave", "~> 0.5.8"
+gem "carrierwave", "~> 0.6.2"
 gem 'configurable_engine'
 gem 'delayed_job', '~> 2.1.4'
 gem 'decent_exposure'
