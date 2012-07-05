@@ -2,6 +2,7 @@ en-US:
   1m: 1m
   air: Air
   basics: Basics
+  cancel: Cancel
   contribute_your_measurement: Contribute your Measurement
   count_found: ! '%{count} found'
   count_lines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess

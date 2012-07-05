@@ -201,6 +201,7 @@ ja:
   progress: 進歩状況
   retrieve_your_api_key: APIキーを取得する
   sign_out: ログアウト
+  cancel: 取り消す
   submissions: 提出された測定データ
   submit: 提出する
   submit_a_reading: 測定値の提出
@@ -247,6 +248,7 @@ ja:
   on_date: ! '%{date}に'
   or: または、
   previous_label: 前
+  public: 公開されている測定値
   radiation_level: 放射線レベル
   radiation_type: 放射線の種類
   review_your_bgeigie_log_file_submissions: あなたが提出したbGeigieログファイルを確認する
