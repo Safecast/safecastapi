@@ -9,12 +9,7 @@
     = javascript_include_tag 'prettify/prettify.js'
   %body
     %div.container
-      %header
-        %h1= link_to "Safecast", root_path, :data => { :pjax => true }
-        %nav
-          %ul
-            %li
-              =link_to "Api Console", [:my, :dashboard]
+      = render :partial => 'shared/dashboard_navigation'
       %div#page
       = yield
       

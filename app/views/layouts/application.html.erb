@@ -18,61 +18,7 @@
   </head>
   <body>
     <div class="container">
-      <header>
-        <h1><%= link_to "Safecast", root_path %></h1>
-        <nav>
-          <ul>
-            <li>
-              <%= link_to t("api_docs"), [:api,:root] %>
-            </li>
-            <%- if admin_signed_in? -%>
-              <li>
-                <%= link_to [:admin], :title => t("admin") do %>
-                  <%= t("admin") %>
-                <%- end %>
-              </li>
-            <%- end -%>
-            <%- if user_signed_in? -%>
-              <li>
-                <%= link_to [:bgeigie_imports], :title => t('imports') do %>
-                  <%= t('imports') %>
-                <%- end -%>
-              </li>
-              <li>
-                <%= link_to [:my, :profile], :title => t("profile") do %>
-                  <%= t('profile') %>
-                <%- end -%>
-              </li>
-              <li>
-                <%= link_to [:my, :measurements], :title => t("measurements") do %>
-                  <%= t('measurements') %>
-                <%- end -%>
-              </li>
-              
-              <li>
-                <%= link_to [:my, :maps], :title => t('maps') do %>
-                  <%= t('maps') %>
-                <%- end -%>
-              </li>
-              <li>
-                <%= link_to [:new, :my, :measurement], :title => t('submit_a_reading') do %>
-                  <%= t('submit') %>
-                <%- end -%>
-              </li>
-              <li>
-                <%= link_to t('sign_out'), logout_path %>
-              </li>
-            <%- else -%>
-              <li>
-                <%= link_to t("sign_in"), new_user_session_path %>
-              </li>
-              <li>
-               <%= link_to t("sign_up"), new_user_registration_path %>
-              </li>
-            <%- end -%>
-          </ul>
-        </nav>
-      </header>
+      <%= render :partial => 'shared/dashboard_navigation' %>
       <div id="page" class="container">
         <%= yield %>
 
