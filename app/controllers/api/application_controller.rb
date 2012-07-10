@@ -6,7 +6,7 @@
 # 
 module Api
   class ApplicationController < ::ApplicationController
-    respond_to :json, :safecast_api_v1_json 
+    respond_to :html, :json, :safecast_api_v1_json 
 
     before_filter :set_doc
 

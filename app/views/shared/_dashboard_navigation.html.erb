@@ -3,7 +3,9 @@
   <nav>
     <ul>
       <li>
-        <%= link_to t("api_docs"), [:api,:root] %>
+        <%= link_to [:api,:docs], :title => t("api_docs") do %>
+          <%= t('api_docs') %>
+        <%- end %>
       </li>
       <%- if admin_signed_in? -%>
         <li>
