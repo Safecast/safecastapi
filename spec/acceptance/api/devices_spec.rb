@@ -10,7 +10,7 @@ feature "/api/devices API endpoint" do
   scenario "create a device" do
     post('/api/devices',
       {
-        :auth_token     => user.authentication_token,
+        :api_key        => user.authentication_token,
         :device         => {
           :manufacturer     => "Safecast",
           :model            => "bGeigie",
@@ -33,7 +33,7 @@ feature "/api/devices API endpoint" do
   scenario "empty post" do
     post('/api/devices',
       {
-        :auth_token => user.authentication_token
+        :api_key => user.authentication_token
       },
       {
         'HTTP_ACCEPT' => 'application/json'
@@ -78,7 +78,7 @@ feature "/api/devices with existing devices" do
     post(
       '/api/devices',
       {
-        :auth_token     => user.authentication_token,
+        :api_key => user.authentication_token,
         :device         => {
           :manufacturer     => "Safecast",
           :model            => "bGeigie",

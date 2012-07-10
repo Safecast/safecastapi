@@ -10,7 +10,7 @@ class Api::UsersController < Api::ApplicationController
   
   def auth
     if result
-      output = {:message => "Signed in successfully", :auth_token => result[:authentication_token]}
+      output = {:message => "Signed in successfully", :api_key => result[:authentication_token]}
     else
       output = {:message => "Couldn't sign in"}
     end
