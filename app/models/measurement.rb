@@ -14,7 +14,7 @@ class Measurement < ActiveRecord::Base
   
   has_and_belongs_to_many :maps
   
-  has_one :device
+  belongs_to :device
 
   def self.nearby_to(lat, lng, distance)
     return scoped unless lat.present? && lng.present? && distance.present?
@@ -61,6 +61,22 @@ class Measurement < ActiveRecord::Base
   
   def self.most_recent(original_id)
     Measurement.where(:replaced_by => nil, :original_id => original_id).first
+  end
+
+  def clone
+    #override clone to remove timestamps, original_id, and expired_at
+    attrs = clone_attributes(:read_attribute_before_type_cast)
+    attrs.delete(self.class.primary_key)
+    attrs.delete 'created_at'
+    attrs.delete 'updated_at'
+    attrs.delete 'original_id'
+    attrs.delete 'replaced_by'
+    attrs.delete 'expired_at'
+    attrs.delete 'updated_by'
+    attrs.delete 'captured_at'
+    record = self.class.new
+    record.send :instance_variable_set, '@attributes', attrs
+    record
   end
   
 end
