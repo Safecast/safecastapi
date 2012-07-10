@@ -14,7 +14,7 @@ class Measurement < ActiveRecord::Base
   
   has_and_belongs_to_many :maps
   
-  has_one :device
+  belongs_to :device
 
   def self.nearby_to(lat, lng, distance)
     return scoped unless lat.present? && lng.present? && distance.present?
