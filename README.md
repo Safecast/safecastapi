@@ -94,3 +94,8 @@ Backbone Validations
 https://github.com/n-time/backbone.validations
 Rails + PostGIS
  http://lassebunk.dk/2011/09/10/creating-a-location-aware-website-using-ruby-on-rails-and-postgis/
+
+# API Docs #
+
+The API docs are written in markdown and live in the /app/views/api/docs/markdown directory.  How-to's live in the root markdown directory, while each resource's documentation lives in the markdown/resources directory.
+If you update a resource or change the behavior of the API, please make sure to update the corresponding documentation.

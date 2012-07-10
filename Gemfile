@@ -19,6 +19,10 @@ gem 'spatial_adapter', :git => 'https://github.com/Empact/spatial_adapter.git'
 gem 'twitter-bootstrap-rails'
 gem 'will_paginate', '~> 3.0.3'
 
+#for docs
+gem 'pygments.rb'
+gem 'redcarpet'
+
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'

@@ -6,16 +6,14 @@
 # 
 module Api
   class ApplicationController < ::ApplicationController
-    respond_to :html, :json, :safecast_api_v1_json 
-    layout 'api_doc'
+    respond_to :json, :safecast_api_v1_json 
 
     before_filter :set_doc
-
 
     def index
       cors_set_access_control_headers
       result = { }
-      respond_with @result = @doc, :template => 'api/application/root'
+      respond_with @result = @doc 
     end
 
     def options
