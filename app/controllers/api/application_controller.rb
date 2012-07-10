@@ -40,16 +40,16 @@ module Api
       @doc = {
         :resources => [
           { :resource => 'bgeigie_imports',
-            :url => api_bgeigie_imports_path
+            :url => api_bgeigie_imports_url(:locale => nil)
           },
           { :resource => 'devices',
-            :url => api_devices_path
+            :url => api_devices_url(:locale => nil)
           },
           { :resource => 'maps',
-            :url => api_maps_path
+            :url => api_maps_url(:locale => nil)
           },
           { :resource => 'measurements',
-            :url => api_measurements_path
+            :url => api_measurements_url(:locale => nil)
           }
         ],
       }
