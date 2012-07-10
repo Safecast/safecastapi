@@ -31,6 +31,9 @@ class Device < ActiveRecord::Base
   end
 
   def identifier
-    "#{manufacturer} - #{model}"
+    "#{manufacturer} - #{model} (#{sensor})"
   end
+
+  alias :name :identifier
+
 end
