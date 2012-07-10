@@ -14,7 +14,7 @@ class Api::DocsController < Api::ApplicationController
     #default to en-US locale
     params[:locale] ||= 'en-US'
 
-    md_path = "#{md_root}/#{params[:locale]}/#{params[:id]}.md"
+    md_path = "#{md_root}/#{params[:locale]}/#{params[:id]}.md" if params.has_key? :id
 
     if File.directory? md_root and File.exists? md_path
       md_file = File.open md_path
@@ -27,7 +27,11 @@ class Api::DocsController < Api::ApplicationController
 
   def show_resource
     md_root = "#{Rails.root}/app/views/api/docs/markdown"
-    md_path = "#{md_root}/#{params[:locale]}/resources/#{params[:id]}.md" if params.has_key? :locale
+
+    #default to en-US locale
+    params[:locale] ||= 'en-US'
+
+    md_path = "#{md_root}/#{params[:locale]}/resources/#{params[:resource]}.md" if params.has_key? :resource
 
     if File.directory? md_root and File.exists? md_path
       md_file = File.open md_path
@@ -36,6 +40,8 @@ class Api::DocsController < Api::ApplicationController
     end
 
     @content = md_file.read
+
+    render :show
   end
 
 end
