@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120625212801) do
+ActiveRecord::Schema.define(:version => 20120711175214) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -84,8 +84,9 @@ ActiveRecord::Schema.define(:version => 20120625212801) do
     t.string   "manufacturer"
     t.string   "model"
     t.string   "sensor"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "serial_number"
   end
 
   create_table "drive_logs", :force => true do |t|

@@ -10,11 +10,7 @@ class Api::DevicesController < Api::ApplicationController
   expose(:device)
   
   expose(:devices) do
-    if params[:where].present?
-      Device.where(params[:where])
-    else
-      Device.page(params[:page] || 1)
-    end
+    Device.search_by_params(params)
   end
   
   ##
