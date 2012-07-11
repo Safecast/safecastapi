@@ -29,12 +29,6 @@ Maximum number of measurements returned in a single request.
 Pages are used to segment large sets of measurements.  Specifying a page indicates that the set of measurements returned should be offset by the page number multiplied by the page size.  
 
 
-### Example ###
-
-[GET Devices manufactured by Safecast](http://hurl.it/hurls/607c9f817a73baaf5ee3f8e68edb3376b37e2f01/26795a953f536610ea5010f0a6651d186c5dbf41)
-
-
-
 ## POST ##
 
 Create a new measurement.
@@ -64,16 +58,4 @@ The id of the device used to take the measurement.
 
 **measurement[captured_at]** Optional
 The timestamp of when the measurement was physically taken, which may be different than when the measurement resource was created in the database.
-
-
-
-
-
-
-
-### Example ###
-[POST the Safecast iGeigie device](http://hurl.it/hurls/9ac2ef3d267943e5c1e239aa38f0ed8fecf063a1/147994088b8114bd46cc0404a04da78a3afd9b71)
-
-
-NOTE: If the device already exists, you will still get an HTTP 201: Created response.
 

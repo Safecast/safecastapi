@@ -11,7 +11,7 @@ Once you've created an account, you should retrieve your API Key from your profi
 **Every call you make to the Safecast API must include your API Key as a parameter**
 
 For example:
-``` curl https://api.safecast.org/api/measurements -v -H 'Accept: application/json' -d 'api_key=[your API key]' ```
+``` curl https://api.safecast.org/api/measurements -v -X GET -H 'Accept: application/json' -d 'api_key=[your API key]' ```
 
 
 ## Resources ##

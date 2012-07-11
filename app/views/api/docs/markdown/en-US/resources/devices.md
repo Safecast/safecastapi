@@ -30,11 +30,6 @@ The model number of the device, according to the manufacturer.
 **sensor** Optional
 The model of the sensing element used in the device.
 
-### Example ###
-
-[GET Devices manufactured by Safecast](http://hurl.it/hurls/607c9f817a73baaf5ee3f8e68edb3376b37e2f01/26795a953f536610ea5010f0a6651d186c5dbf41)
-
-
 
 ## POST ##
 
@@ -48,9 +43,6 @@ The model number of the device, according to the manufacturer.
 
 **device[sensor]** Required
 The model of the sensing element used in the device.
-
-### Example ###
-[POST the Safecast iGeigie device](http://hurl.it/hurls/9ac2ef3d267943e5c1e239aa38f0ed8fecf063a1/147994088b8114bd46cc0404a04da78a3afd9b71)
 
 
 NOTE: If the device already exists, you will still get an HTTP 201: Created response.
