@@ -10,7 +10,7 @@ feature "/api/measurements API endpoint" do
 
   scenario "post a new measurement" do
     result = api_post('/api/measurements.json',{
-      :auth_token => user.authentication_token,
+      :api_key => user.authentication_token,
       :measurement => {
         :value      => 123,
         :unit       => 'cpm',
@@ -23,7 +23,7 @@ feature "/api/measurements API endpoint" do
   end
   
   scenario "empty post" do
-    result = api_post('/api/measurements.json',{ :auth_token => user.authentication_token })
+    result = api_post('/api/measurements.json',{ :api_key => user.authentication_token })
     result['errors']['value'].should be_present
   end
 end
@@ -52,7 +52,7 @@ feature "/api/measurements" do
   
   scenario "updating is non-destructive" do
     put("/api/measurements/#{second_measurement.id}.json", {
-      :auth_token => user.authentication_token,
+      :api_key => user.authentication_token,
       :measurement => {
         :value => 15
       }

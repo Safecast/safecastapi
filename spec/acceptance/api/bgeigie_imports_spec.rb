@@ -9,7 +9,7 @@ feature "/api/bgeigie_imports API endpoint" do
                       :name => 'Paul Campbell')
     
     @result ||= api_post('/api/bgeigie_imports',{
-      :auth_token => @user.authentication_token,
+      :api_key        => @user.authentication_token,
       :bgeigie_import => {
         :source => fixture_file_upload('spec/fixtures/bgeigie.log')
       }

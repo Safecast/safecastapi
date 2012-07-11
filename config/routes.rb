@@ -52,6 +52,12 @@ Safecast::Application.routes.draw do
         end
       end
     end
+
+    resources :docs do 
+      collection do
+        match '/resources/:resource', :to => 'docs#show_resource'
+      end
+    end
   end
 
   authenticate :admin do

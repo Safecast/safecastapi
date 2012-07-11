@@ -9,7 +9,7 @@ feature "/api/maps API endpoint" do
   
   scenario "create a measurement map" do
     post('/api/maps.json',{
-      :auth_token     => user.authentication_token,
+      :api_key      => user.authentication_token,
       :map          => {
         :description    => "This map contains test measurements",
         :device         => {
@@ -37,7 +37,7 @@ feature "/api/maps API endpoint" do
   end
   
   scenario "empty post" do
-    post('/api/maps.json',{ :auth_token => user.authentication_token })
+    post('/api/maps.json',{ :api_key => user.authentication_token })
     
     result = ActiveSupport::JSON.decode(response.body)
     result['errors']['description'].should be_present
@@ -71,7 +71,7 @@ feature "/api/maps with existing resources" do
     map_id = map['id']
     
     post("/api/maps/#{map_id}/measurements.json", {
-      :auth_token     => user.authentication_token,
+      :api_key        => user.authentication_token,
       :measurement    => {
         :value          => 334,
         :unit           => 'cpm',
@@ -97,7 +97,7 @@ feature "/api/maps with existing resources" do
     measurement = result.first
     measurement_id = measurement['id']
     post("/api/maps/#{map_id}/measurements/#{measurement_id}/add.json", {
-      :auth_token     => user.authentication_token
+      :api_key => user.authentication_token
     })
     result = ActiveSupport::JSON.decode(response.body)
     result['value'].should == measurement['value']
