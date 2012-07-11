@@ -33,28 +33,28 @@ Pages are used to segment large sets of measurements.  Specifying a page indicat
 
 Create a new measurement.
 
-**map_id** Optional
-Add the measurement to the map specified automatically after the measurement is created.
-
-**measurement[latitude]**
+**measurement[latitude]** Required
 The latitude of the measurement.  The latitude must be between -90.0 and 90.0.
 
-**measurement[longitude]**
+**measurement[longitude]** Required
 The longitude of the measurement.  The longitude must be between -180.0 and 180.0.
 
 NOTE: Latitude and longitude are currently programmed to default to 0.0 if they are not provided by the caller.  This behavior should not be relied upon under any circumstances.
 
-**measurement[value]**
+**measurement[value]** Required
 The numeric value to associate with the measurement.
 
-**measurement[unit]**
+**measurement[unit]** Required
 The unit of measurement's value.  For radiation, this is usually either 'cpm' or 'uSv/h'
 
-**measurement[location_name]** Optional
-A text description of the measurement's location.
+**map_id** Optional
+Add the measurement to the map specified automatically after the measurement is created.
 
 **measurement[device_id]** Optional
 The id of the device used to take the measurement.
+
+**measurement[location_name]** Optional
+A text description of the measurement's location.
 
 **measurement[captured_at]** Optional
 The timestamp of when the measurement was physically taken, which may be different than when the measurement resource was created in the database.
