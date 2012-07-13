@@ -1,0 +1,65 @@
+<section>
+  <%= form_for [:api, @device],
+      :html => {
+        :autocomplete => 'off',
+        :class => 'form-horizontal submission',
+        :id => 'submission'
+      } do |f| %>
+    <div class="row">
+      <div class="span6">
+        <h2><%= t('add_a_new_device') %></h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span6">
+        <%- if @device.errors.any? %>
+          <div class="alert">
+            <ul>
+              <%- @device.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <%- end %>
+            </ul>
+          </div>
+        <%- end %>
+
+        <fieldset>
+          
+          <div class="control-group">
+            <%= f.label :manufacturer, t('manufacturer'), :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :manufacturer %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :model, t("model"),
+                  :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :model %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :sensor, t("sensor"),
+                  :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :sensor %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span12">
+        <fieldset>
+          <p class="button">
+            <input type="submit" value="<%= t('submit') %>">
+          </p>
+        </fieldset>
+      </div>
+    </div>
+
+
+  <%- end %>
+</section>

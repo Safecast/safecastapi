@@ -8,13 +8,13 @@ feature "User creates a new device when submitting a reading" do
   scenario "new device" do
     visit('/')
     click_link('Submit')
-    click_link('Add a new one')
+    click_link('Add a new device')
 
     fill_in('Manufacturer', :with => 'Safecast')
     fill_in('Model', :with => 'bGeigie')
     fill_in('Sensor', :with => 'LND-712')
 
-    click_link('Add')
+    click_button('Submit')
 
     select('Clicks per minute', :from => 'Unit')
     fill_in('Radiation Level',  :with => '12.3')
