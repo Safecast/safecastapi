@@ -26,6 +26,6 @@ feature "User creates a new device when submitting a reading" do
     page.should have_content('cpm')
     page.should have_content('Safecast - bGeigie (LND-712)')
 
-    user.measurement.last.device.name.should == 'Safecast - bGeigie (LND-712)'
+    user.measurements.last.device.name.should == 'Safecast - bGeigie (LND-712)'
   end
 end
