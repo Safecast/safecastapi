@@ -12,7 +12,7 @@ $ ->
         do (measurement) ->
           maps.event.addListener marker, 'mouseover', ->
             $(".lat").text(measurement.lat)
-            $(".lng").text(measurement.lat)
+            $(".lng").text(measurement.lng)
             $(".cpm").text(measurement.cpm) if measurement.cpm
       map.setCenter(bounds.getCenter(), map.fitBounds(bounds))
 

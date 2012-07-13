@@ -53,7 +53,7 @@ class Api::DevicesController < Api::ApplicationController
   def create
     device = Device.get_or_create(params[:device])
     @result = device
-    respond_with @result
+    respond_with @result, :location => [:new, :my, :measurement]
   end
 
   private

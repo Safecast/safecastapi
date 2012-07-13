@@ -26,6 +26,11 @@
                   </em>
                   <%= t('lng') %>
                 </li>
+                <%- if measurement.device.present? -%>
+                  <li>
+                    <%= t('measured_with') %> <%= measurement.device.name %>
+                  </li>
+                <%- end %>
                 <%- if measurement.captured_at.present? -%>
                   <li>
                     <%= measurement.captured_at.to_formatted_s(:default) %>
@@ -34,7 +39,6 @@
                 <%- if measurement.location_name.present? -%>
                   <li><%= measurement.location_name %></li>
                 <%- end -%>
-                
               </ul>
             <%- end -%>
           </li>
