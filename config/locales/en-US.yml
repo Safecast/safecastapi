@@ -294,6 +294,8 @@ en-US:
   on_date: on %{date}
   type_address_instructions: Start typing an address, the map will update as you type.
     Pinpoint the location by dragging the map.
+  dont_see_device_help: Don't see your device?
+  add_device_link_text: Add a new one 
   your_maps: Your maps
   title: Title
   Credits: Credits

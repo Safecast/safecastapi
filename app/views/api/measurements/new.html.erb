@@ -102,6 +102,10 @@
             <div class="controls">
               <%= f.select :device_id, [['', nil]] + Device.all.collect { |d| [d.name, d.id]} %>
             </div>
+            <p class="help-block">
+              <%= t('dont_see_device_help') %>
+              <%= link_to t('add_device_link_text'), '' %>.
+            </p>
           </div>
         </fieldset>
       </div>
