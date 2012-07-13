@@ -30,7 +30,7 @@
       <li><%= @measurement.location_name %></li>
       <%- if @measurement.device.present? -%>
         <li>
-          <%= t('taken_with') %><%= @measurement.device.name %>
+          <%= t('measured_with') %> <%= @measurement.device.name %>
         </li>
       <%- end %>
     </ul>
