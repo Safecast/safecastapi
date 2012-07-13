@@ -23,6 +23,7 @@ Safecast::Application.routes.draw do
         end
       end
       resources :maps
+      resources :devices
       resources :measurements do
         collection do
           get :manifest
