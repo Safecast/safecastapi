@@ -79,4 +79,7 @@ Safecast::Application.routes.draw do
 
   match "/"  => "api/application#options", :via => :options
   match "/" => "api/application#index", :via => :get
+
+  #legacy fixes (maps.safecast.org now redirects to api.safecast.org, so people might be using the old maps.safecast.org/drive/add URI)
+  match "/drive/add", :to => redirect("/")
 end
