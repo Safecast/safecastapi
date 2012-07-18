@@ -5,6 +5,8 @@ class Map < ActiveRecord::Base
   has_and_belongs_to_many :device
   
   belongs_to :user
+
+  validates :description, :presence => true
   
   def serializable_hash(options)
     options ||= {}
