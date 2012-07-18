@@ -43,6 +43,12 @@ feature "/api/measurements" do
     result.length.should == 2
     result.map { |obj| obj['value'] }.should == [10, 12]
   end
+
+  scenario "get measurement count (/api/measurements/count)" do
+    result = api_get('api/measurements/count.json')
+    result.length.should == 1
+    result['count'].should == 2
+  end
   
   scenario "get my measurements (/api/users/X/measurements)" do
     result = api_get("/api/users/#{user.id}/measurements.json")
