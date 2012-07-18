@@ -11,6 +11,7 @@ feature "/api/maps API endpoint" do
     post('/api/maps.json',{
       :api_key      => user.authentication_token,
       :map          => {
+        :name           => 'Test Map',
         :description    => "This map contains test measurements",
         :device         => {
           :manufacturer     => "Safecast",
@@ -49,8 +50,8 @@ end
 feature "/api/maps with existing resources" do
 
   let(:user) { Fabricate(:user) }
-  let!(:a_map) { Fabricate(:map, :description => "A test map")}
-  let!(:b_map) { Fabricate(:map, :description => "Another test map", :user_id => user.id)}
+  let!(:a_map) { Fabricate(:map, :name => 'Test', :description => "A test map")}
+  let!(:b_map) { Fabricate(:map, :name => 'Another Test', :description => "Another test map", :user_id => user.id)}
   let!(:a_measurement) { Fabricate(:measurement, :value => 66, :user_id => user.id) }
 
   scenario "all maps (/api/maps)" do
