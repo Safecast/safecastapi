@@ -45,7 +45,11 @@ Safecast::Application.routes.draw do
       end
     end
     resources :devices
-    resources :measurements
+    resources :measurements do
+      collection do
+        get :count
+      end
+    end
     resources :maps do
       resources :measurements do
         collection do

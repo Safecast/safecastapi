@@ -101,6 +101,12 @@ class Api::MeasurementsController < Api::ApplicationController
     respond_with @result, :location => [:my, @measurement]
   end
 
+  def count
+    @count = {}
+    @count[:count] = Measurement.count
+    respond_with @count
+  end
+
 protected
 
   def choose_layout
