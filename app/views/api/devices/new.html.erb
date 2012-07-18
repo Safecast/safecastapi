@@ -1,3 +1,4 @@
+<%= render 'my/layouts/devices_nav' %>
 <section>
   <%= form_for [:api, @device],
       :html => {
@@ -36,6 +37,14 @@
                   :class => 'control-label' %>
             <div class="controls">
               <%= f.text_field :model %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :serial_number, t("serial_number"),
+                  :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :serial_number %>
             </div>
           </div>
 

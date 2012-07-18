@@ -299,7 +299,10 @@ en-US:
   manufacturer: Manufacturer
   model: Model
   sensor: Sensor
+  serial_number: Serial Number
   measured_with: Measured with 
+  add_a_radiation_sensor: Add a Radiation Sensor
+  add_an_air_sensor: Add an Air Sensor
   your_maps: Your maps
   title: Title
   Credits: Credits

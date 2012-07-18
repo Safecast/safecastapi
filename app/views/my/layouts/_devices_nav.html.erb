@@ -1,0 +1,22 @@
+<ul class="nav nav-tabs">
+  <li
+    <%- if controller_name == 'radiation_sensor' && action_name == 'new' -%>
+      class="active"
+    <%- end %>
+  >
+    <%= link_to [:new, :my, :radiation_sensor] do %>
+      <%= t('add_a_radiation_sensor') %>
+    <%- end %>
+  </li>
+  <li
+    <%- if controller_name == 'air_particulate_sensor' && action_name == 'new' -%>
+      class="active"
+    <%- end %>
+  >
+    <%= link_to [:new, :my, :air_particulate_sensor] do %>
+      <%= t('add_an_air_sensor') %>
+    <%- end %>
+  </li>
+    
+
+</ul>
