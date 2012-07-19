@@ -36,6 +36,12 @@ class Api::MeasurementsController < Api::ApplicationController
     else
       @result = Measurement.nearby_to(params[:latitude], params[:longitude], params[:distance]).page(params[:page])
     end
+    
+    if params[:since].present?
+      cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:since])
+      @result = @result.where('updated_at > ?', cutoff_time)
+    end
+
     respond_with @result
   end
   

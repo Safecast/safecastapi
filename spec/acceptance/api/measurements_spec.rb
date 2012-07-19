@@ -83,7 +83,8 @@ feature "/api/measurements" do
   end
 
   scenario "get new measurements since some time" do
-    cutoff_time = second_measurement.updated_at
+    sleep 1
+    cutoff_time = DateTime.now
     sleep 3 
 
     new_measurement = api_post('/api/measurements.json',{
