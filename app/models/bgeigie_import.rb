@@ -84,11 +84,42 @@ class BgeigieImport < MeasurementImport
       source.read.each_line do |line|
         next if line.first == '#'
         next if line.strip.blank?
+        next unless is_sane? line
         file.write "#{line.strip},#{Digest::MD5.hexdigest(line.strip)}\n" rescue nil
         lines_count += 1
       end
     end
     update_attribute(:lines_count, lines_count)
+  end
+
+  def is_sane?(line)
+    line_items = line.strip.split(',')
+    return false unless line_items.length == 15
+
+    #check header
+    return false unless line_items[0].eql? '$BMRDD' or line_items[0].eql? '$BGRDD' or line_items[0].eql? '$BNRDD'
+
+    #check for Valid CPM 
+    return false unless line_items[6].eql? 'A' or line_items[6].eql? 'V'
+    
+    #check for GPS lock
+    return false unless line_items[12].eql? 'A' or line_items[12].eql? 'V'
+
+    #check for date
+    date = DateTime.parse line_items[2] rescue nil
+    return false unless date
+
+    #check for properly formatted floats
+    lat = Float(line_items[7]) rescue nil
+    lon = Float(line_items[9]) rescue nil
+    alt = Float(line_items[11]) rescue nil
+    return false unless lat and lon and alt
+
+    #check for proper N/S and E/W
+    return false unless line_items[8].eql? 'N' or line_items[8].eql? 'S'
+    return false unless line_items[10].eql? 'E' or line_items[10].eql? 'W'
+
+    true
   end
   
   def import_to_bgeigie_logs
@@ -202,4 +233,5 @@ class BgeigieImport < MeasurementImport
   def cities_as_string
     cities.join(", ")
   end
+
 end

@@ -75,6 +75,17 @@ describe BgeigieImport do
 
       measurement.location.x.should == -73.92259666666668
       measurement.location.y.should == 41.69836166666667
+    end
+
+    it "should handle files with corrupt or incomplete lines" do
+      bgeigie_with_bugs = Fabricate(:bgeigie_import,
+                                    :source => File.new(Rails.root + 'spec/fixtures/bgeigie_with_corruption.log'),
+                                    :user => user)
+
+      bgeigie_with_bugs.process
+      bgeigie_with_bugs.finalize!
+
+      Measurement.all.count.should == 30 #the before :each import has 23, and the corrupted file should have 7 valid measurements
 
     end
     
