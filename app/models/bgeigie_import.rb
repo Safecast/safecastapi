@@ -160,6 +160,10 @@ class BgeigieImport < MeasurementImport
   
   def nmea_to_lat_lng(latitude_nmea, north_south_indicator, longitude_nmea, east_west_indicator)
     #algorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
+    
+    #protect against buggy nmea values that have negative values
+    latitude_nmea = latitude_nmea.abs
+    longitude_nmea = longitude_nmea.abs
 
     lat_sign = 1
     if north_south_indicator == 'S'
