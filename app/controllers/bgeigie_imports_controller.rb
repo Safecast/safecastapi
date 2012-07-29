@@ -1,4 +1,4 @@
-class BgeigieImportsController < ApplicationController
+class BgeigieImportsController < SiteApplicationController
   def index
     @public_bgeigie_imports = BgeigieImport.done.newest
     if user_signed_in?

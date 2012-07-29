@@ -1,4 +1,4 @@
-class My::AccountsController < ApplicationController
+class My::AccountsController < My::ApplicationController
 
   expose(:user)
   

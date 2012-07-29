@@ -1,4 +1,4 @@
-class My::MeasurementsController < ApplicationController
+class My::MeasurementsController < My::ApplicationController
   expose(:measurements) { current_user.measurements }
   
   def show

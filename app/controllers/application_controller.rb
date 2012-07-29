@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  force_ssl if Rails.env.production?
 
   before_filter :set_locale
  
