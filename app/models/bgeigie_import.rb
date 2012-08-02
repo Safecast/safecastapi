@@ -137,8 +137,10 @@ class BgeigieImport < MeasurementImport
       horizontal_dilution_of_precision,
       gps_fix_quality_indicator,md5sum)
       FROM STDIN CSV])
-    file_contents = File.open(tmp_file, 'rt:UTF-8').each_line do |line|
-      raw.put_copy_data line
+    File.open(tmp_file, 'rt:UTF-8') do |file|
+      file.read.to_s.split("\n").each do |line|
+        raw.put_copy_data line
+      end
     end
     raw.put_copy_end
     while res = raw.get_result do; end # very important to do this after a copy
