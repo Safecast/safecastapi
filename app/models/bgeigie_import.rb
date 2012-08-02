@@ -130,7 +130,7 @@ class BgeigieImport < MeasurementImport
     puts psql_command
     system(psql_command)
     self.connection.execute(%Q[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
-    self.connection.execute(%Q[INSERT INTO bgeigie_logs SELECT * FROM bgeigie_logs_tmp where md5sum not in (select md5sum from bgeigie_logs)])
+    self.connection.execute(%Q[insert into bgeigie_logs select * from bgeigie_logs_tmp where md5sum not in (select md5sum from bgeigie_logs)])
     self.connection.execute("DROP TABLE bgeigie_logs_tmp")
     self.update_attribute(:measurements_count, self.bgeigie_logs.count)
   end
