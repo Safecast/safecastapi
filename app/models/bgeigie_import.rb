@@ -122,19 +122,42 @@ class BgeigieImport < MeasurementImport
     true
   end
 
+  def db_config
+    Rails.configuration.database_configuration[Rails.env]
+  end
+
   def psql_command
     %Q[psql -U #{db_config['username']} -h #{db_config['host'] || 'localhost'} #{db_config['database']} -c "\\copy bgeigie_logs_tmp (device_tag, device_serial_id, captured_at, cpm, counts_per_five_seconds, total_counts,  cpm_validity, latitude_nmea, north_south_indicator, longitude_nmea,  east_west_indicator, altitude, gps_fix_indicator,horizontal_dilution_of_precision,  gps_fix_quality_indicator,md5sum) FROM '#{tmp_file}' CSV"]
   end
-  
-  def import_to_bgeigie_logs
-    db_config = Rails.configuration.database_configuration[Rails.env]
+
+  def run_psql_command    
+    system(psql_command)
+  end
+
+  def drop_and_create_tmp_table
     self.connection.execute("DROP TABLE IF EXISTS bgeigie_logs_tmp")
     self.connection.execute "create table bgeigie_logs_tmp (like bgeigie_logs including defaults)"
-    puts psql_command
-    system(psql_command)
+  end
+
+  def set_bgeigie_import_id
     self.connection.execute(%Q[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
+  end
+
+  def populate_bgeigie_imports_table
     self.connection.execute(%Q[insert into bgeigie_logs select * from bgeigie_logs_tmp where md5sum not in (select md5sum from bgeigie_logs)])
+  end
+
+  def drop_tmp_table
     self.connection.execute("DROP TABLE bgeigie_logs_tmp")
+  end
+  
+  def import_to_bgeigie_logs
+    drop_and_create_tmp_table
+    puts psql_command
+    run_psql_command
+    set_bgeigie_import_id
+    populate_bgeigie_imports_table
+    drop_tmp_table
     self.update_attribute(:measurements_count, self.bgeigie_logs.count)
   end
   
