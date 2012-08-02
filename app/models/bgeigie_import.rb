@@ -123,38 +123,16 @@ class BgeigieImport < MeasurementImport
   end
   
   def import_to_bgeigie_logs
+    db_config = Rails.configuration.database_configuration[Rails.env]
     self.connection.execute("DROP TABLE IF EXISTS bgeigie_logs_tmp")
-    conn = ActiveRecord::Base.connection_pool.checkout
-    raw  = conn.raw_connection
-    raw.exec "create temporary table bgeigie_logs_tmp (like bgeigie_logs including defaults)"
-    raw.exec(%Q[
-      COPY bgeigie_logs_tmp
-       (device_tag, device_serial_id, captured_at, 
-      cpm, counts_per_five_seconds, total_counts,  
-      cpm_validity, latitude_nmea, 
-      north_south_indicator, longitude_nmea,
-      east_west_indicator, altitude, gps_fix_indicator,
-      horizontal_dilution_of_precision,
-      gps_fix_quality_indicator,md5sum)
-      FROM STDIN CSV])
-    File.open(tmp_file, 'rt:UTF-8') do |file|
-      file.read.to_s.split("\n").each do |line|
-        raw.put_copy_data line
-      end
-    end
-    raw.put_copy_end
-    begin
-      while res = raw.get_result do; end # very important to do this after a copy
-    rescue PG::Error => e
-      message = "IMPORT ERROR: #{e.message}"
-      puts message
-      Rails.logger.info message
-    end
-    raw.exec(%Q[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
-    raw.exec(%Q[INSERT INTO bgeigie_logs SELECT * FROM bgeigie_logs_tmp where md5sum not in (select md5sum from bgeigie_logs)])
-    raw.exec("DROP TABLE bgeigie_logs_tmp")
+    self.connection.execute "create table bgeigie_logs_tmp (like bgeigie_logs including defaults)"
+    psql_command = %Q[psql -U #{db_config['username']} -h #{db_config['host'] || 'localhost'} #{db_config['database']} -c "\\copy bgeigie_logs_tmp (device_tag, device_serial_id, captured_at, cpm, counts_per_five_seconds, total_counts,  cpm_validity, latitude_nmea, north_south_indicator, longitude_nmea,  east_west_indicator, altitude, gps_fix_indicator,horizontal_dilution_of_precision,  gps_fix_quality_indicator,md5sum) FROM '#{tmp_file}' CSV"]
+    puts psql_command
+    system(psql_command)
+    self.connection.execute(%Q[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
+    self.connection.execute(%Q[INSERT INTO bgeigie_logs SELECT * FROM bgeigie_logs_tmp where md5sum not in (select md5sum from bgeigie_logs)])
+    self.connection.execute("DROP TABLE bgeigie_logs_tmp")
     self.update_attribute(:measurements_count, self.bgeigie_logs.count)
-    ActiveRecord::Base.connection_pool.checkin(conn)
   end
   
   def infer_lat_lng_into_bgeigie_logs_from_nmea_location
