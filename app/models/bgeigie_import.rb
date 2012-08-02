@@ -143,7 +143,13 @@ class BgeigieImport < MeasurementImport
       end
     end
     raw.put_copy_end
-    while res = raw.get_result do; end # very important to do this after a copy
+    begin
+      while res = raw.get_result do; end # very important to do this after a copy
+    rescue PG::Error => e
+      message = "IMPORT ERROR: #{e.message}"
+      puts message
+      Rails.logger.info message
+    end
     raw.exec(%Q[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
     raw.exec(%Q[INSERT INTO bgeigie_logs SELECT * FROM bgeigie_logs_tmp where md5sum not in (select md5sum from bgeigie_logs)])
     raw.exec("DROP TABLE bgeigie_logs_tmp")
