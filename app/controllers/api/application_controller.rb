@@ -28,9 +28,13 @@ module Api
     end
 
     def cors_set_access_control_headers
-      host = request.env['HTTP_ORIGIN']
-      unless /safecast.org$/.match host
-        host = 'safecast.org'
+      if current_user 
+        host = request.env['HTTP_ORIGIN']
+      else 
+        host = request.env['HTTP_ORIGIN']
+        unless /safecast.org$/.match host
+          host = 'safecast.org'
+        end
       end
       headers['Access-Control-Allow-Origin'] = host
       headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
