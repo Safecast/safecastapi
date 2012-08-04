@@ -28,6 +28,7 @@ module Api
     end
 
     def cors_set_access_control_headers
+      return unless request.env['HTTP_ACCEPT'].eql? 'application/json'
       if current_user 
         host = request.env['HTTP_ORIGIN']
       else 
