@@ -4,7 +4,13 @@ feature "/api/devices API endpoint" do
 
   before do
     @user = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
+    @sensor = Fabricate(:sensor,
+                        :manufacturer => 'LND',
+                        :model => '7317',
+                        :measurement_category => 'radiation',
+                        :measurement_type => 'gamma')
   end
+
   let(:user) { @user.reload }
   
   scenario "create a device with a serial number" do
@@ -14,7 +20,7 @@ feature "/api/devices API endpoint" do
         :device         => {
           :manufacturer     => "Safecast",
           :model            => "bGeigie",
-          :sensor           => "LND-7317",
+          :sensors          => [@sensor.id],
           :serial_number    => "SFCT-001"
         }
       },
@@ -23,10 +29,16 @@ feature "/api/devices API endpoint" do
       }
     )
     result = ActiveSupport::JSON.decode(response.body)
+    binding.pry
     result['manufacturer'].should == 'Safecast'
     result['model'].should == 'bGeigie'
-    result['sensor'].should == 'LND-7317'
     result['serial_number'].should == 'SFCT-001'
+
+    result['sensors'].first['id'].should == @sensor.id
+    result['sensors'].first['manufacturer'].should == @sensor.manufacturer
+    result['sensors'].first['model'].should == @sensor.model
+    result['sensors'].first['measurement_category'].should == @sensor.measurement_category
+    result['sensors'].first['measurement_type'].should == @sensor.measurement_type
     
     idCreated = result.include?('id')
     idCreated.should == true
@@ -39,7 +51,7 @@ feature "/api/devices API endpoint" do
         :device         => {
           :manufacturer     => "Safecast",
           :model            => "bGeigie",
-          :sensor           => "LND-7317"
+          :sensors          => [@sensor.id]
         }
       },
       {
