@@ -4,6 +4,7 @@ class CreateSensors < ActiveRecord::Migration
       t.string :manufacturer
       t.string :model
       t.string :serial_number
+      t.string :category
       t.string :type
 
       t.timestamps
@@ -11,10 +12,7 @@ class CreateSensors < ActiveRecord::Migration
 
     add_index :sensors, :model
     add_index :sensors, :serial_number
+    add_index :sensors, :category
     add_index :sensors, :type
-    
-    create_table :devices_sensors, :id => false do |t|
-      t.references :device, :sensor
-    end
   end
 end
