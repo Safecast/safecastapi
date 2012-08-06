@@ -17,7 +17,7 @@ class Device < ActiveRecord::Base
   end
   
   def self.get_or_create(dev_params)
-    if dev_params.has_key? 'sensors'
+    if dev_params and dev_params.has_key? 'sensors'
       sensor_ids = dev_params.delete 'sensors'
     end
 
