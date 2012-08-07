@@ -1,5 +1,5 @@
 Fabricator(:device) do
   manufacturer    'Safecast'
   model           'bGeigie'
-  sensors         { Fabricate.sequence(:sensor) }
+  sensors(count:1) { |ix| Fabricate(:sensor) }
 end

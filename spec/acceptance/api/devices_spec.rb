@@ -91,7 +91,7 @@ end
 
 feature "/api/devices with existing devices" do
   
-  before do
+  before(:each) do
     @user = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
     @lnd712 = Fabricate(:sensor,
                         :manufacturer => 'LND',
@@ -104,6 +104,8 @@ feature "/api/devices with existing devices" do
                         :model => '7317',
                         :measurement_category => 'radiation',
                         :measurement_type => 'gamma')
+    @lnd712.reload
+    @sensor.reload
 
     @first_device = Fabricate(:device) do
       manufacturer 'Safecast'
@@ -127,7 +129,10 @@ feature "/api/devices with existing devices" do
       sensors(count: 1) { @sensor }
     end
   end
+
   let(:user) { @user.reload }
+  let(:sensor) { @sensor.reload }
+  let(:lnd712) { @lnd712.reload }
   let(:first_device) { @first_device.reload }
   let(:second_device) { @second_device.reload }
   let(:third_device) { @third_device.reload }
@@ -182,7 +187,7 @@ feature "/api/devices with existing devices" do
     result.map { |obj| obj['model'] }.should == ['bGeigie', 'Inspector', 'iGeigie', 'bGeigie']
     result.map { |obj| obj['serial_number'] }.should == [nil, nil, nil, 'SFCT-BG-001']
 
-    result.map { |obj| obj['sensors'] }.should == ['LND-7317', 'LND-712', 'LND-712', 'LND-7317']
+    #result.map { |obj| obj['sensors'] }.should == ['LND-7317', 'LND-712', 'LND-712', 'LND-7317']
   end
   
   scenario "lookup all Safecast devices" do
@@ -199,7 +204,7 @@ feature "/api/devices with existing devices" do
     result.map { |obj| obj['model'] }.should == ['bGeigie', 'iGeigie', 'bGeigie']
     result.map { |obj| obj['serial_number'] }.should == [nil, nil, 'SFCT-BG-001']
 
-    result.map { |obj| obj['sensor'] }.should == ['LND-7317', 'LND-712', 'LND-7317']
+    #result.map { |obj| obj['sensors'] }.should == ['LND-7317', 'LND-712', 'LND-7317']
   end
   
   scenario "lookup by manufacturer and model" do
@@ -233,7 +238,7 @@ feature "/api/devices with existing devices" do
     result.map { |obj| obj['model'] }.should == ['bGeigie', 'bGeigie']
     result.map { |obj| obj['serial_number'] }.should == [nil, 'SFCT-BG-001']
 
-    result.map { |obj| obj['sensor'] }.should == ['LND-7317', 'LND-7317']
+    #result.map { |obj| obj['sensors'] }.should == ['LND-7317', 'LND-7317']
   end
 
   scenario "lookup by serial number" do
@@ -250,7 +255,7 @@ feature "/api/devices with existing devices" do
     result['model'].should == 'bGeigie'
     result['serial_number'].should == 'SFCT-BG-001'
 
-    result['sensor'].should == 'LND-7317'
+    #result['sensors'].should == 'LND-7317'
   end
 
 
