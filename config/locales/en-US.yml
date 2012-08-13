@@ -326,3 +326,5 @@ en-US:
         remember_me: Remember me
         name: Name
         password_confirmation: Password confirmation
+      measurement:
+        unit: Unit
