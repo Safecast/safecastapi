@@ -23,6 +23,7 @@ Safecast::Application.routes.draw do
         end
       end
       resources :maps
+      resources :devices
       resources :measurements do
         collection do
           get :manifest
@@ -44,7 +45,11 @@ Safecast::Application.routes.draw do
       end
     end
     resources :devices
-    resources :measurements
+    resources :measurements do
+      collection do
+        get :count
+      end
+    end
     resources :maps do
       resources :measurements do
         collection do
@@ -78,4 +83,8 @@ Safecast::Application.routes.draw do
 
   match "/"  => "api/application#options", :via => :options
   match "/" => "api/application#index", :via => :get
+
+  #legacy fixes (maps.safecast.org now redirects to api.safecast.org, so people might be using the old maps.safecast.org/drive/add URI)
+  match "/drive/add", :to => redirect("/")
+  match '/count', :to => 'api/measurements#count'
 end

@@ -43,6 +43,12 @@ feature "/api/measurements" do
     result.length.should == 2
     result.map { |obj| obj['value'] }.should == [10, 12]
   end
+
+  scenario "get measurement count (/api/measurements/count)" do
+    result = api_get('api/measurements/count.json')
+    result.length.should == 1
+    result['count'].should == 2
+  end
   
   scenario "get my measurements (/api/users/X/measurements)" do
     result = api_get("/api/users/#{user.id}/measurements.json")
@@ -74,6 +80,30 @@ feature "/api/measurements" do
     #withHistory defaults to false, returns latest value
     result = api_get("/api/measurements/#{second_measurement.id}.json")
     result['value'].should == 15
+  end
+
+  scenario "get new measurements since some time" do
+    sleep 1
+    cutoff_time = DateTime.now
+    sleep 3 
+
+    new_measurement = api_post('/api/measurements.json',{
+      :api_key => user.authentication_token,
+      :measurement => {
+        :value      => 4342,
+        :unit       => 'cpm',
+        :latitude   => 76.667,
+        :longitude  => 33.321
+      }
+    })
+    result = api_get('api/measurements.json', {
+      :since => cutoff_time
+    })
+
+    result.length.should == 1
+    result.first['value'].should == 4342
+    result.first['latitude'].should == 76.667
+    result.first['longitude'].should == 33.321
   end
   
 end

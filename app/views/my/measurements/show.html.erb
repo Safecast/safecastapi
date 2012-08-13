@@ -28,6 +28,11 @@
         </li>
       <%- end -%>
       <li><%= @measurement.location_name %></li>
+      <%- if @measurement.device.present? -%>
+        <li>
+          <%= t('measured_with') %> <%= @measurement.device.name %>
+        </li>
+      <%- end %>
     </ul>
   </section>
   <section class="span6">

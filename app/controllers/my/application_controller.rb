@@ -1,5 +1,5 @@
 module My
-  class ApplicationController < ::ApplicationController
+  class ApplicationController < ::SiteApplicationController
     before_filter :authenticate_user!
   end
 end

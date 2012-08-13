@@ -84,38 +84,81 @@ class BgeigieImport < MeasurementImport
       source.read.each_line do |line|
         next if line.first == '#'
         next if line.strip.blank?
+        next unless is_sane? line
         file.write "#{line.strip},#{Digest::MD5.hexdigest(line.strip)}\n" rescue nil
         lines_count += 1
       end
     end
     update_attribute(:lines_count, lines_count)
   end
+
+  def is_sane?(line)
+    line_items = line.strip.split(',')
+    return false unless line_items.length == 15
+
+    #check header
+    return false unless line_items[0].eql? '$BMRDD' or line_items[0].eql? '$BGRDD' or line_items[0].eql? '$BNRDD'
+
+    #check for Valid CPM 
+    return false unless line_items[6].eql? 'A' or line_items[6].eql? 'V'
+    
+    #check for GPS lock
+    return false unless line_items[12].eql? 'A' or line_items[12].eql? 'V'
+
+    #check for date
+    date = DateTime.parse line_items[2] rescue nil
+    return false unless date
+
+    #check for properly formatted floats
+    lat = Float(line_items[7]) rescue nil
+    lon = Float(line_items[9]) rescue nil
+    alt = Float(line_items[11]) rescue nil
+    return false unless lat and lon and alt
+
+    #check for proper N/S and E/W
+    return false unless line_items[8].eql? 'N' or line_items[8].eql? 'S'
+    return false unless line_items[10].eql? 'E' or line_items[10].eql? 'W'
+
+    true
+  end
+
+  def db_config
+    Rails.configuration.database_configuration[Rails.env]
+  end
+
+  def psql_command
+    %Q[psql -U #{db_config['username']} -h #{db_config['host'] || 'localhost'} #{db_config['database']} -c "\\copy bgeigie_logs_tmp (device_tag, device_serial_id, captured_at, cpm, counts_per_five_seconds, total_counts,  cpm_validity, latitude_nmea, north_south_indicator, longitude_nmea,  east_west_indicator, altitude, gps_fix_indicator,horizontal_dilution_of_precision,  gps_fix_quality_indicator,md5sum) FROM '#{tmp_file}' CSV"]
+  end
+
+  def run_psql_command    
+    system(psql_command)
+  end
+
+  def drop_and_create_tmp_table
+    self.connection.execute("DROP TABLE IF EXISTS bgeigie_logs_tmp")
+    self.connection.execute "create table bgeigie_logs_tmp (like bgeigie_logs including defaults)"
+  end
+
+  def set_bgeigie_import_id
+    self.connection.execute(%Q[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
+  end
+
+  def populate_bgeigie_imports_table
+    self.connection.execute(%Q[insert into bgeigie_logs select * from bgeigie_logs_tmp where md5sum not in (select md5sum from bgeigie_logs)])
+  end
+
+  def drop_tmp_table
+    self.connection.execute("DROP TABLE bgeigie_logs_tmp")
+  end
   
   def import_to_bgeigie_logs
-    self.connection.execute("DROP TABLE IF EXISTS bgeigie_logs_tmp")
-    conn = ActiveRecord::Base.connection_pool.checkout
-    raw  = conn.raw_connection
-    raw.exec "create temporary table bgeigie_logs_tmp (like bgeigie_logs including defaults)"
-    raw.exec(%Q[
-      COPY bgeigie_logs_tmp
-       (device_tag, device_serial_id, captured_at, 
-      cpm, counts_per_five_seconds, total_counts,  
-      cpm_validity, latitude_nmea, 
-      north_south_indicator, longitude_nmea,
-      east_west_indicator, altitude, gps_fix_indicator,
-      horizontal_dilution_of_precision,
-      gps_fix_quality_indicator,md5sum)
-      FROM STDIN CSV])
-    file_contents = File.open(tmp_file, 'rt:UTF-8').each_line do |line|
-      raw.put_copy_data line
-    end
-    raw.put_copy_end
-    while res = raw.get_result do; end # very important to do this after a copy
-    raw.exec(%Q[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
-    raw.exec(%Q[INSERT INTO bgeigie_logs SELECT * FROM bgeigie_logs_tmp where md5sum not in (select md5sum from bgeigie_logs)])
-    raw.exec("DROP TABLE bgeigie_logs_tmp")
+    drop_and_create_tmp_table
+    puts psql_command
+    run_psql_command
+    set_bgeigie_import_id
+    populate_bgeigie_imports_table
+    drop_tmp_table
     self.update_attribute(:measurements_count, self.bgeigie_logs.count)
-    ActiveRecord::Base.connection_pool.checkin(conn)
   end
   
   def infer_lat_lng_into_bgeigie_logs_from_nmea_location
@@ -160,6 +203,10 @@ class BgeigieImport < MeasurementImport
   
   def nmea_to_lat_lng(latitude_nmea, north_south_indicator, longitude_nmea, east_west_indicator)
     #algorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
+    
+    #protect against buggy nmea values that have negative values
+    latitude_nmea = latitude_nmea.abs
+    longitude_nmea = longitude_nmea.abs
 
     lat_sign = 1
     if north_south_indicator == 'S'
@@ -198,4 +245,5 @@ class BgeigieImport < MeasurementImport
   def cities_as_string
     cities.join(", ")
   end
+
 end

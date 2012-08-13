@@ -1,2 +1,2 @@
-class SubmissionsController < ApplicationController
+class SubmissionsController < SiteApplicationController
 end

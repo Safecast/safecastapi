@@ -1,3 +1,3 @@
-class WorldmapsController < ApplicationController
+class WorldmapsController < SiteApplicationController
   layout 'worldmaps'
 end

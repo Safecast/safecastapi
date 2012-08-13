@@ -36,6 +36,12 @@ class Api::MeasurementsController < Api::ApplicationController
     else
       @result = Measurement.nearby_to(params[:latitude], params[:longitude], params[:distance]).page(params[:page])
     end
+    
+    if params[:since].present?
+      cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:since])
+      @result = @result.where('updated_at > ?', cutoff_time)
+    end
+
     respond_with @result
   end
   
@@ -99,6 +105,12 @@ class Api::MeasurementsController < Api::ApplicationController
     @map.measurements<< @measurement if @map   #this could be done by calling add_to_map, but that seems misleading
     @result = @measurement
     respond_with @result, :location => [:my, @measurement]
+  end
+
+  def count
+    @count = {}
+    @count[:count] = Measurement.count
+    respond_with @count
   end
 
 protected
