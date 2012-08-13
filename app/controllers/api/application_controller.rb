@@ -9,6 +9,7 @@ module Api
     respond_to :html, :json, :safecast_api_v1_json 
 
     before_filter :cors_set_access_control_headers
+    skip_before_filter :verify_authenticity_token
 
     def index
       cors_set_access_control_headers
