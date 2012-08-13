@@ -144,7 +144,7 @@ class BgeigieImport < MeasurementImport
   end
 
   def populate_bgeigie_imports_table
-    self.connection.execute(%Q[insert into bgeigie_logs select * from bgeigie_logs_tmp where md5sum not in (select md5sum from bgeigie_logs)])
+    self.connection.execute(%Q[insert into bgeigie_logs select * from bgeigie_logs_tmp bt where not exists (select md5sum from bgeigie_logs bl where bl.md5sum = bt.md5sum)])
   end
 
   def drop_tmp_table
