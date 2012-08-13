@@ -275,10 +275,8 @@ en-US:
   view_your_bgeigie_log_uploads: View your bGeigie log uploads
   view_your_submission_history: View your submission history
   welcome_to_the_api_center: Welcome to the Safecast API Center.
-  you_havent_submitted_any_measurements_yet: You haven't submitted any measurements
-    yet.
-  you_havent_uploaded_any_bgeigie_log_files: You haven't uploaded any bGeigie log
-    files.
+  you_havent_submitted_any_measurements_yet: You haven't submitted any measurements yet.
+  you_havent_uploaded_any_bgeigie_log_files: You haven't uploaded any bGeigie log files.
   your_measurement: Your Measurement
   yours: Yours
   imports: Imports
@@ -292,14 +290,13 @@ en-US:
   time_zone: Time zone
   your_api_key: Your API key
   on_date: on %{date}
-  type_address_instructions: Start typing an address, the map will update as you type.
-    Pinpoint the location by dragging the map.
+  type_address_instructions: Start typing an address, the map will update as you type. Pinpoint the location by dragging the map.
   dont_see_device_help: Don't see your device?
   add_a_new_device: Add a new device
   manufacturer: Manufacturer
   model: Model
   sensor: Sensor
-  measured_with: Measured with 
+  measured_with: Measured with
   your_maps: Your maps
   title: Title
   Credits: Credits
@@ -311,3 +308,21 @@ en-US:
   measurement: Measurement
   public: Public
   no_bgeigie_log_files_have_been_uploaded: No bGeigie log files have been uploaded
+  devise:
+    registrations:
+      reasons: {}
+      inactive_signed_up: ''
+  user:
+    email: ''
+    password: ''
+    remember_me: ''
+    name: ''
+    password_confirmation: ''
+  activerecord:
+    attributes:
+      user:
+        email: Email
+        password: Password
+        remember_me: Remember me
+        name: Name
+        password_confirmation: Password confirmation
