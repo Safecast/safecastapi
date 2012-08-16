@@ -14,4 +14,8 @@ class Sensor < ActiveRecord::Base
       :id, :manufacturer, :model, :measurement_type, :measurement_category
     ]))
   end
+
+  def name
+    "#{self.manufacturer} - #{self.model}"
+  end
 end

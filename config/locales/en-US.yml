@@ -300,9 +300,11 @@ en-US:
   model: Model
   sensor: Sensor
   serial_number: Serial Number
-  measured_with: Measured with 
-  add_a_radiation_sensor: Add a Radiation Sensor
-  add_an_air_sensor: Add an Air Sensor
+  measured_with: Measured with
+  dont_see_sensor_help: Don't see your sensor?
+  add_a_new_sensor: Add a new sensor
+  measurement_category: Measurement Category
+  measurement_type: Measurement Type
   your_maps: Your maps
   title: Title
   Credits: Credits
@@ -314,3 +316,23 @@ en-US:
   measurement: Measurement
   public: Public
   no_bgeigie_log_files_have_been_uploaded: No bGeigie log files have been uploaded
+  activerecord:
+    attributes:
+      measurement:
+        unit: Unit
+      user:
+        email: Email
+        name: Name
+        password: Password
+        password_confirmation: Password confirmation
+        remember_me: Remember me
+  devise:
+    registrations:
+      inactive_signed_up: ''
+      reasons: {}
+  user:
+    email: ''
+    name: ''
+    password: ''
+    password_confirmation: ''
+    remember_me: ''

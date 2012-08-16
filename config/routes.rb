@@ -48,6 +48,7 @@ Safecast::Application.routes.draw do
       end
     end
     resources :devices
+    resources :sensors
     resources :measurements do
       collection do
         get :count

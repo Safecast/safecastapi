@@ -1,4 +1,3 @@
-<%= render 'my/layouts/devices_nav' %>
 <section>
   <%= form_for [:api, @device],
       :html => {
@@ -52,8 +51,12 @@
             <%= f.label :sensor_id, t("sensor"),
                   :class => 'control-label' %>
             <div class="controls">
-              <%= f.select :sensor_id, [[''], nil] + Sensor.all.collect { |s| [s.name, s.id] } %>
+              <%= f.select :sensor_ids, [[''], nil] + Sensor.all.collect { |s| [s.name, s.id] } %>
             </div>
+            <p class="help-block">
+              <%= t('dont_see_sensor_help') %>
+              <%= link_to t('add_a_new_sensor'), [:new, :my, :sensor] %>.
+            </p>
           </div>
         </fieldset>
       </div>

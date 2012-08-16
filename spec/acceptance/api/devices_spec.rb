@@ -93,50 +93,30 @@ feature "/api/devices with existing devices" do
   
   before(:each) do
     @user = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
-    @lnd712 = Fabricate(:sensor,
-                        :manufacturer => 'LND',
-                        :model => '712',
-                        :measurement_category => 'radiation',
-                        :measurement_type => 'gamma')
-
-    @sensor = Fabricate(:sensor,
-                        :manufacturer => 'LND',
-                        :model => '7317',
-                        :measurement_category => 'radiation',
-                        :measurement_type => 'gamma')
-    @lnd712.reload
-    @sensor.reload
-
-    @first_device = Fabricate(:device) do
-      manufacturer 'Safecast'
-      model 'bGeigie'
-      sensors(count: 1) { @sensor }
-    end
-    @second_device = Fabricate(:device) do
-      manufacturer 'Medcom'
-      model 'Inspector'
-      sensors(count: 1) { @lnd712 }
-    end
-    @third_device = Fabricate(:device) do
-      manufacturer 'Safecast'
-      model 'iGeigie'
-      sensors(count: 1) { @lnd712 }
-    end
-    @fourth_device = Fabricate(:device) do
-      manufacturer 'Safecast'
-      model 'bGeigie'
-      serial_number 'SFCT-BG-001'
-      sensors(count: 1) { @sensor }
-    end
+    @lnd712 = Sensor.create(:manufacturer => 'LND',
+                            :model => 712,
+                            :measurement_category => 'radiation',
+                            :measurement_type => 'gamma')
+    @lnd7317 = Sensor.create(:manufacturer => 'LND',
+                            :model => 7317,
+                            :measurement_category => 'radiation',
+                            :measurement_type => 'beta')
+    @first_device = Device.get_or_create(:manufacturer => 'Safecast',
+                                  :model => 'bGeigie',
+                                  :sensors => [@lnd7317])
+    @second_device = Device.get_or_create(:manufacturer => 'Medcom',
+                                   :model => 'Inspector',
+                                   :sensors => [@lnd712])
+    @third_device = Device.get_or_create(:manufacturer => 'Safecast',
+                                  :model => 'iGeigie',
+                                  :sensors => [@lnd712])
+    @fourth_device = Device.get_or_create(:manufacturer => 'Safecast',
+                                  :model => 'bGeigie',
+                                  :serial_number => 'SFCT-BG-001',
+                                  :sensors => [@lnd7317])
   end
 
   let(:user) { @user.reload }
-  let(:sensor) { @sensor.reload }
-  let(:lnd712) { @lnd712.reload }
-  let(:first_device) { @first_device.reload }
-  let(:second_device) { @second_device.reload }
-  let(:third_device) { @third_device.reload }
-  let(:fourth_device) { @fourth_device.reload }
   
   
   scenario "no duplicate devices" do
@@ -147,7 +127,7 @@ feature "/api/devices with existing devices" do
         :device         => {
           :manufacturer     => "Safecast",
           :model            => "bGeigie",
-          :sensors          => [@sensor.id]
+          :sensors          => [@lnd7317.id]
         }
       },
       {
@@ -155,7 +135,7 @@ feature "/api/devices with existing devices" do
       }  
     )
     result = ActiveSupport::JSON.decode(response.body)
-    result['id'].should == first_device.id
+    result['id'].should == @first_device.id
   end
 
   scenario "unique serial number is not a duplicate device" do
@@ -166,7 +146,7 @@ feature "/api/devices with existing devices" do
         :device         => {
           :manufacturer     => "Safecast",
           :model            => "bGeigie",
-          :sensors          => [@sensor.id],
+          :sensors          => [@lnd7317.id],
           :serial_number    => "SFCT-BG-002"
         }
       },
@@ -175,8 +155,8 @@ feature "/api/devices with existing devices" do
       }  
     )
     result = ActiveSupport::JSON.decode(response.body)
-    result['id'].should_not == first_device.id
-    result['id'].should_not == fourth_device.id
+    result['id'].should_not == @first_device.id
+    result['id'].should_not == @fourth_device.id
   end
 
 

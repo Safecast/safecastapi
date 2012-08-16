@@ -4,8 +4,10 @@ feature "/api/maps API endpoint" do
 
   before do
     @user = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
+    @device = Fabricate(:device)
   end
   let(:user) { @user.reload }
+  let(:device) { @device.reload }
   
   scenario "create a measurement map" do
     post('/api/maps.json',{
@@ -13,11 +15,7 @@ feature "/api/maps API endpoint" do
       :map          => {
         :name           => 'Test Map',
         :description    => "This map contains test measurements",
-        :device         => {
-          :manufacturer     => "Safecast",
-          :model            => "bGeigie",
-          :sensor           => "LND-7317"
-        }
+        :device_id         => @device.id
       }
     })
     result = ActiveSupport::JSON.decode(response.body)
