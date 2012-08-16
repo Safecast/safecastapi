@@ -45,7 +45,7 @@ class Device < ActiveRecord::Base
   end
 
   def identifier
-    "#{manufacturer} - #{model} (#{sensors.first.name})"
+    "#{manufacturer} - #{model} (#{sensors.first.name if sensors.first})"
   end
 
   alias :name :identifier

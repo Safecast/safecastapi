@@ -23,10 +23,9 @@ feature "User creates a device when submitting a reading" do
     fill_in('Measurement Type', :with => 'gamma')
 
     click_button('Submit')
-
     fill_in('Manufacturer', :with => 'Safecast')
     fill_in('Model', :with => 'bGeigie')
-    select('LND - 712', :from => 'Sensor')
+    select('LND - 712', :from => 'device[sensor_ids]') #for some reason capybara doesn't like :from => 'Sensors', possibly because it's a has_many?
 
     click_button('Submit')
 
@@ -38,8 +37,8 @@ feature "User creates a device when submitting a reading" do
 
     page.should have_content('12.3')
     page.should have_content('cpm')
-    page.should have_content('Safecast - bGeigie (LND-712)')
+    page.should have_content('Safecast - bGeigie (LND - 712)')
 
-    user.measurements.last.device.name.should == 'Safecast - bGeigie (LND-712)'
+    user.measurements.last.device.name.should == 'Safecast - bGeigie (LND - 712)'
   end
 end
