@@ -1,0 +1,84 @@
+<section>
+  <%= form_for [:api, @sensor],
+      :html => {
+        :autocomplete => 'off',
+        :class => 'form-horizontal submission',
+        :id => 'submission'
+      } do |f| %>
+    <div class="row">
+      <div class="span6">
+        <h2><%= t('add_a_new_sensor') %></h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span6">
+        <%- if @sensor.errors.any? %>
+          <div class="alert">
+            <ul>
+              <%- @sensor.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <%- end %>
+            </ul>
+          </div>
+        <%- end %>
+
+        <fieldset>
+          
+          <div class="control-group">
+            <%= f.label :manufacturer, t('manufacturer'), :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :manufacturer %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :model, t("model"),
+                  :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :model %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :serial_number, t("serial_number"),
+                  :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :serial_number %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :measurement_category, t('measurement_category'),
+                  :class => 'control-label' %>
+            <div class="controls">
+              <%= f.select :measurement_category, ['radiation', 'air'] %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :measurement_type, t("measurement_type"),
+                  :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :measurement_type %>
+            </div>
+          </div>
+
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span12">
+        <fieldset>
+          <p class="button">
+            <input type="submit" value="<%= t('submit') %>">
+          </p>
+        </fieldset>
+      </div>
+    </div>
+
+
+  <%- end %>
+
+</section>
