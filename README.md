@@ -102,4 +102,4 @@ If you update a resource or change the behavior of the API, please make sure to 
 
 # Cron #
 
-The measurements table is output nightly to CSV, see script/dump_measurements
+The measurements table is output nightly to CSV, see script/dump_measurements ... this needs to be kept in sync with the queryable CSV export via the API endpoint at /api/measurements.csv
