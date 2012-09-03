@@ -28,12 +28,6 @@
     </li>
   </ul>
 <%- end -%>
-<%- if user_signed_in? && !@bgeigie_import.approved? && current_user.moderator? -%>
-  <%= form_for @bgeigie_import, :url => [:approve, :my, :bgeigie_import] do |f| -%>
-    <fieldset>
-      <p class="button">
-        <%= f.submit t("approve") -%>
-      </p>
-    </fieldset>
-  <%- end -%>
+<%- if user_signed_in? && current_user.moderator? -%>
+  <%= link_to 'Edit Details / Status', [:edit, :my, @bgeigie_import] %>
 <%- end -%>
