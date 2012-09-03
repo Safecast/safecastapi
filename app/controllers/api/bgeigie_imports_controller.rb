@@ -84,5 +84,11 @@ class Api::BgeigieImportsController < Api::ApplicationController
     end
   end
 
+  def destroy
+    @bgeigie_import = BgeigieImport.find(params[:id])
+    @bgeigie_import.destroy if @bgeigie_import.present?
+    redirect_to :bgeigie_imports
+  end
+
   
 end

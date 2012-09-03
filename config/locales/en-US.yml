@@ -1,6 +1,7 @@
 en-US:
   1m: 1m
   air: Air
+  are_you_sure: Are you sure? There is no undo.
   basics: Basics
   cancel: Cancel
   contribute_your_measurement: Contribute your Measurement
@@ -128,6 +129,7 @@ en-US:
       month: Month
       second: Seconds
       year: Year
+  delete: Delete
   description: Description
   description_optional: Description (optional)
   details: Details
