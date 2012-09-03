@@ -7,6 +7,7 @@ class Api::MeasurementsController < Api::ApplicationController
   
   before_filter :authenticate_user!, :only => [:new, :create, :update]
   layout :choose_layout
+  respond_to :csv
   
   ##
   # List all of the *measurement* resources in the Safecast database.  There are a lot of measurements in
@@ -23,6 +24,7 @@ class Api::MeasurementsController < Api::ApplicationController
   # @argument [Integer] distance Distance in meters within which to include points around the center point.
   #
   def index
+    @streaming = true
     if params[:map_id].present?
       @map = Map.find(params[:map_id])
     end
@@ -30,16 +32,20 @@ class Api::MeasurementsController < Api::ApplicationController
       @user = User.find params[:user_id]
     end
     if @map
-      @result = @map.measurements.nearby_to(params[:latitude], params[:longitude], params[:distance]).page(params[:page])
+      @result = @map.measurements.nearby_to(params[:latitude], params[:longitude], params[:distance]).paginate(:page => params[:page], :per_page => params[:per_page])
     elsif @user
-      @result = @user.measurements.nearby_to(params[:latitude], params[:longitude], params[:distance]).page(params[:page])
+      @result = @user.measurements.nearby_to(params[:latitude], params[:longitude], params[:distance]).paginate(:page => params[:page], :per_page => params[:per_page])
     else
-      @result = Measurement.nearby_to(params[:latitude], params[:longitude], params[:distance]).page(params[:page])
+      @result = Measurement.nearby_to(params[:latitude], params[:longitude], params[:distance]).paginate(:page => params[:page], :per_page => params[:per_page])
     end
     
     if params[:since].present?
       cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:since])
       @result = @result.where('updated_at > ?', cutoff_time)
+    end
+
+    if request.format == :csv
+      @result = @result.paginate(:page => 1, :per_page => @result.total_entries)
     end
 
     respond_with @result

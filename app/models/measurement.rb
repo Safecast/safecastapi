@@ -16,6 +16,10 @@ class Measurement < ActiveRecord::Base
   
   belongs_to :device
 
+  def self.per_page
+    100
+  end
+
   def self.nearby_to(lat, lng, distance)
     return scoped unless lat.present? && lng.present? && distance.present?
     location = Point.new
