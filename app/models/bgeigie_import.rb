@@ -4,7 +4,7 @@ class BgeigieImport < MeasurementImport
   validates :source, :presence => true
   
   belongs_to :user
-  has_many :bgeigie_logs
+  has_many :bgeigie_logs, :dependent => :destroy
   
   scope :newest, order("created_at DESC")
   scope :oldest, order("created_at")
