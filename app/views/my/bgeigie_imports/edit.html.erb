@@ -57,7 +57,7 @@
             </div>
           </fieldset>
 
-          <%- if !@bgeigie_import.approved? -%>
+          <%- if !@bgeigie_import.approved? && current_user.moderator?-%>
             <fieldset>
               <label class="checkbox">
                 <%= check_box_tag 'approve' %>

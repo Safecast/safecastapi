@@ -28,6 +28,6 @@
     </li>
   </ul>
 <%- end -%>
-<%- if user_signed_in? && current_user.moderator? -%>
+<%- if user_signed_in? -%>
   <%= link_to 'Edit Details / Status', [:edit, :my, @bgeigie_import] %>
 <%- end -%>
