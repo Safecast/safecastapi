@@ -24,6 +24,7 @@ class Api::MeasurementsController < Api::ApplicationController
   # @argument [Integer] distance Distance in meters within which to include points around the center point.
   #
   def index
+    @filename = "measurements.csv"
     @streaming = true
     if params[:map_id].present?
       @map = Map.find(params[:map_id])
