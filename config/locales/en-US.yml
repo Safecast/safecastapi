@@ -328,3 +328,4 @@ en-US:
         password_confirmation: Password confirmation
       measurement:
         unit: Unit
+  user_subject: Reset password instructions
