@@ -15,12 +15,14 @@
         </li>
       <%- end -%>
       <%- if user_signed_in? -%>
-        <li>
-          <%= link_to '#view-menu', :title => t('view') do %>
+        <li class="dropdown">
+          <%= link_to '#view-menu', :title => t('view'),
+            :class => 'dropdown-toggle',
+            :data => {:toggle => 'dropdown'} do %>
             <%= t('view') %>
-            <span class="caret middle"></span>
+            <span class="caret"></span>
           <%- end -%>
-          <ul class="dropdown">
+          <ul class="dropdown-menu">
             <li>
               <%= link_to [:bgeigie_imports], :title => t('imports') do %>
                 <%= t('imports') %>
@@ -44,12 +46,14 @@
           <%- end -%>
         </li>
 
-        <li>
-          <%= link_to '#user-menu', :title => current_user.email do %>
+        <li class="dropdown">
+          <%= link_to '#user-menu',
+            :class => 'dropdown-toggle',
+            :data => {:toggle => 'dropdown'} do %>
             <%= current_user.email %>
-            <span class="caret middle"></span>
+            <span class="caret"></span>
           <%- end -%>
-          <ul class="dropdown">
+          <ul class="dropdown-menu">
             <li>
               <%= link_to [:my, :profile], :title => t("profile") do %>
                 <%= t('profile') %>

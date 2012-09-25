@@ -8,6 +8,7 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require underscore
+//= require bootstrap/bootstrap-dropdown
 //= require_tree ./application
 //- require_self
 
