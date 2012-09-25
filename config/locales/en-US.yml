@@ -1,6 +1,7 @@
 en-US:
   1m: 1m
   air: Air
+  are_you_sure: Are you sure? There is no undo.
   basics: Basics
   cancel: Cancel
   contribute_your_measurement: Contribute your Measurement
@@ -128,11 +129,13 @@ en-US:
       month: Month
       second: Seconds
       year: Year
+  delete: Delete
   description: Description
   description_optional: Description (optional)
   details: Details
   device: Device
   download_original_file: Download Original File
+  edit_bgeigie_log_file: Edit bGeigie Log File Meta Data
   errors:
     format: ! '%{attribute} %{message}'
     messages:
@@ -246,6 +249,7 @@ en-US:
   progress: Progress
   retrieve_your_api_key: Retrieve your API key
   review_your_bgeigie_log_file_submissions: Review your bGeigie log file submissions
+  save: Save
   sign_in: Sign in
   sign_out: Sign out
   sign_up: Sign up

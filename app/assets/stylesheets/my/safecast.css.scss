@@ -174,10 +174,6 @@ section {
         padding: 0 3px 5px;
       }
       
-      input[type='text'], input[type='password'], input[type='email'], textarea {
-        @include positive-field;
-      }
-      
       textarea {
         height: 5em;
       }
@@ -198,9 +194,6 @@ section {
       border-radius: 3px;
       -webkit-border-radius: 3px;
       -moz-border-radius: 3px;
-      input[type='submit'], button {
-        @include ocean-button;
-      }
     }
   }
 }

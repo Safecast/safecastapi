@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'devise', '~> 2.0.0'
-gem 'rails', '3.2.7'
+gem 'rails', '3.2.8'
 gem 'pg'
 gem 'json'
 gem 'haml'

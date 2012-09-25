@@ -11,4 +11,8 @@ class My::BgeigieImportsController < My::ApplicationController
     @bgeigie_import.approve!
     redirect_to @bgeigie_import
   end
+
+  def edit
+    @bgeigie_import = BgeigieImport.find(params[:id])
+  end
 end
