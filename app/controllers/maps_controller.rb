@@ -1,4 +1,4 @@
-class MapsController < ApplicationController
+class MapsController < SiteApplicationController
   
   def show
     @map = Map.find(params[:id])

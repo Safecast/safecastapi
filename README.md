@@ -99,3 +99,7 @@ Rails + PostGIS
 
 The API docs are written in markdown and live in the /app/views/api/docs/markdown directory.  How-to's live in the root markdown directory, while each resource's documentation lives in the markdown/resources directory.
 If you update a resource or change the behavior of the API, please make sure to update the corresponding documentation.
+
+# Cron #
+
+The measurements table is output nightly to CSV, see script/dump_measurements ... this needs to be kept in sync with the queryable CSV export via the API endpoint at /api/measurements.csv

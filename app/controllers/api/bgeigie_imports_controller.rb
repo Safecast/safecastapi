@@ -72,5 +72,23 @@ class Api::BgeigieImportsController < Api::ApplicationController
     respond_with @result, :location => bgeigie_import
   end
 
+  def update
+    @bgeigie_import = BgeigieImport.find(params[:id])
+    if @bgeigie_import.update_attributes(params[:bgeigie_import])
+      if params[:approve]
+        @bgeigie_import.approve!
+      end
+      redirect_to @bgeigie_import
+    else
+      render 'my/bgeigie_imports/edit'
+    end
+  end
+
+  def destroy
+    @bgeigie_import = BgeigieImport.find(params[:id])
+    @bgeigie_import.destroy if @bgeigie_import.present?
+    redirect_to :bgeigie_imports
+  end
+
   
 end

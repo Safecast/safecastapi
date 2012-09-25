@@ -1,0 +1,64 @@
+<%= render 'my/layouts/submit_nav' %>
+<div class="row">
+  <section class="span9">
+    <h2><%= t('edit_bgeigie_log_file') -%></h2>
+    <%= form_for [:api, @bgeigie_import], :html =>{:class => 'form-horizontal'} do |f| %>
+      <fieldset>
+        <div class="control-group">
+          <%= f.label :source, t('file'), :class => 'control-label' %>
+          <div class="controls">
+            <%= f.file_field :source %>
+          </div>
+        </div>
+        
+        <div class="control-group">
+          <%= f.label :name, t('title_optional'), :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :name %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :description, t('description_optional'), :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_area :description %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :credits, t('credits_csv'), :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :credits_as_string %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :credits, t('cities_csv'), :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :cities_as_string, :value => default_cities_as_string %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :height, t('sensor_height_optional'), :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :height %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :orientation, t('sensor_orientation_optional'), :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :orientation %>
+          </div>
+        </div>
+      </fieldset>
+      
+      <fieldset>
+        <p class="button">
+          <%= f.submit t('upload') %>
+        </p>
+      </fieldset>
+    <%- end -%>
+  </section>
+</div>

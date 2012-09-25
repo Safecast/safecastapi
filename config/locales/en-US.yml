@@ -1,6 +1,7 @@
 en-US:
   1m: 1m
   air: Air
+  are_you_sure: Are you sure? There is no undo.
   basics: Basics
   cancel: Cancel
   contribute_your_measurement: Contribute your Measurement
@@ -128,11 +129,13 @@ en-US:
       month: Month
       second: Seconds
       year: Year
+  delete: Delete
   description: Description
   description_optional: Description (optional)
   details: Details
   device: Device
   download_original_file: Download Original File
+  edit_bgeigie_log_file: Edit bGeigie Log File Meta Data
   errors:
     format: ! '%{attribute} %{message}'
     messages:
@@ -246,6 +249,7 @@ en-US:
   progress: Progress
   retrieve_your_api_key: Retrieve your API key
   review_your_bgeigie_log_file_submissions: Review your bGeigie log file submissions
+  save: Save
   sign_in: Sign in
   sign_out: Sign out
   sign_up: Sign up
@@ -275,10 +279,8 @@ en-US:
   view_your_bgeigie_log_uploads: View your bGeigie log uploads
   view_your_submission_history: View your submission history
   welcome_to_the_api_center: Welcome to the Safecast API Center.
-  you_havent_submitted_any_measurements_yet: You haven't submitted any measurements
-    yet.
-  you_havent_uploaded_any_bgeigie_log_files: You haven't uploaded any bGeigie log
-    files.
+  you_havent_submitted_any_measurements_yet: You haven't submitted any measurements yet.
+  you_havent_uploaded_any_bgeigie_log_files: You haven't uploaded any bGeigie log files.
   your_measurement: Your Measurement
   yours: Yours
   imports: Imports
@@ -292,8 +294,7 @@ en-US:
   time_zone: Time zone
   your_api_key: Your API key
   on_date: on %{date}
-  type_address_instructions: Start typing an address, the map will update as you type.
-    Pinpoint the location by dragging the map.
+  type_address_instructions: Start typing an address, the map will update as you type. Pinpoint the location by dragging the map.
   dont_see_device_help: Don't see your device?
   add_a_new_device: Add a new device
   manufacturer: Manufacturer
@@ -316,23 +317,24 @@ en-US:
   measurement: Measurement
   public: Public
   no_bgeigie_log_files_have_been_uploaded: No bGeigie log files have been uploaded
-  activerecord:
-    attributes:
-      measurement:
-        unit: Unit
-      user:
-        email: Email
-        name: Name
-        password: Password
-        password_confirmation: Password confirmation
-        remember_me: Remember me
   devise:
     registrations:
-      inactive_signed_up: ''
       reasons: {}
+      inactive_signed_up: ''
   user:
     email: ''
-    name: ''
     password: ''
-    password_confirmation: ''
     remember_me: ''
+    name: ''
+    password_confirmation: ''
+  activerecord:
+    attributes:
+      user:
+        email: Email
+        password: Password
+        remember_me: Remember me
+        name: Name
+        password_confirmation: Password confirmation
+      measurement:
+        unit: Unit
+  user_subject: Reset password instructions

@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'devise', '~> 2.0.0'
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.8'
 gem 'pg'
 gem 'json'
 gem 'haml'
@@ -10,6 +10,7 @@ gem 'dobro'
 gem 'aws-ses', '0.4.4', :require => 'aws/ses'
 gem "carrierwave", "~> 0.6.2"
 gem 'configurable_engine'
+gem 'csv_builder',     '~> 2.1.1'
 gem 'delayed_job', '~> 2.1.4'
 gem 'decent_exposure'
 gem 'fog', '~> 1.4.0'

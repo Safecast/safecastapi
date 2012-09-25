@@ -10,3 +10,4 @@ public/uploads/*
 bgeigie_logs/*
 log/localeapp.yml
 .idea
+.powrc

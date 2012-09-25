@@ -21,8 +21,11 @@ class Api::DocsController < Api::ApplicationController
     else
       md_file = File.open "#{md_root}/en-US/invalid.md"
     end
-
-    @content = md_file.read
+    if user_signed_in?
+      @content = md_file.read.gsub('[Your API key]', current_user.authentication_token)
+    else
+      @content = md_file.read
+    end
   end
 
   def show_resource

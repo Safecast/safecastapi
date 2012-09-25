@@ -1,0 +1,28 @@
+csv << [
+  'Captured Time',
+  'Latitude',
+  'Longitude',
+  'Value',
+  'Unit',
+  'Location Name',
+  'Device ID',
+  'MD5Sum',
+  'Height',
+  'Surface',
+  'Radiation'
+]
+@result.each do |measurement|
+  csv << [
+    measurement.captured_at,
+    measurement.latitude,
+    measurement.longitude,
+    measurement.value,
+    measurement.unit,
+    measurement.location_name,
+    measurement.device_id,
+    measurement.md5sum,
+    measurement.height,
+    measurement.surface,
+    measurement.radiation
+  ] 
+end
