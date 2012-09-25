@@ -16,33 +16,49 @@
       <%- end -%>
       <%- if user_signed_in? -%>
         <li>
-          <%= link_to [:bgeigie_imports], :title => t('imports') do %>
-            <%= t('imports') %>
+          <%= link_to '#view-menu', :title => t('view') do %>
+            <%= t('view') %>
+            <span class="caret middle"></span>
           <%- end -%>
-        </li>
-        <li>
-          <%= link_to [:my, :profile], :title => t("profile") do %>
-            <%= t('profile') %>
-          <%- end -%>
-        </li>
-        <li>
-          <%= link_to [:my, :measurements], :title => t("measurements") do %>
-            <%= t('measurements') %>
-          <%- end -%>
-        </li>
-        
-        <li>
-          <%= link_to [:my, :maps], :title => t('maps') do %>
-            <%= t('maps') %>
-          <%- end -%>
+          <ul class="dropdown">
+            <li>
+              <%= link_to [:bgeigie_imports], :title => t('imports') do %>
+                <%= t('imports') %>
+              <%- end -%>
+            </li>
+            <li>
+              <%= link_to [:my, :measurements], :title => t("measurements") do %>
+                <%= t('measurements') %>
+              <%- end -%>
+            </li>
+            <li>
+              <%= link_to [:my, :maps], :title => t('maps') do %>
+                <%= t('maps') %>
+              <%- end -%>
+            </li>
+          </ul>
         </li>
         <li>
           <%= link_to [:new, :my, :measurement], :title => t('submit_a_reading') do %>
             <%= t('submit') %>
           <%- end -%>
         </li>
+
         <li>
-          <%= link_to t('sign_out'), logout_path %>
+          <%= link_to '#user-menu', :title => current_user.email do %>
+            <%= current_user.email %>
+            <span class="caret middle"></span>
+          <%- end -%>
+          <ul class="dropdown">
+            <li>
+              <%= link_to [:my, :profile], :title => t("profile") do %>
+                <%= t('profile') %>
+              <%- end -%>
+            </li>
+            <li>
+              <%= link_to t('sign_out'), logout_path %>
+            </li>
+          </ul>
         </li>
       <%- else -%>
         <li>
