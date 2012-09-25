@@ -85,7 +85,6 @@ h2 {
 
 .container > header {
   padding: 15px 0;
-  overflow: hidden;
   clear: both;
   h1 {
     float: left;
@@ -108,15 +107,39 @@ h2 {
       list-style: none;
       li {
         float: left;
+        height: auto;
         a, a:link, a:visited {
           display: block;
           padding: 2px 8px;
           text-transform: uppercase;
           letter-spacing: 1px;
+          //center the caret
+          span.caret {
+            margin-top:6px;
+            margin-left:0px;
+            
+          }
         }
       }
     }
+    ul.dropdown-menu {
+      margin: 0 0 0 0;
+      li {
+        clear: left;
+        width: 100%;
+      }
+    }
   }
+}
+
+// clear the nav so we don't have to use overflow:hidden
+// so that the dropdowns display fully.
+.container > header:after {
+  visibility: hidden;
+  display: block;
+  content: "";
+  clear: both;
+  height: 0;
 }
 
 // footer
@@ -129,6 +152,7 @@ h2 {
     color: $subtle;
   }
 }
+
 
 // form styles
 
