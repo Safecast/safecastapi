@@ -15,6 +15,11 @@
         </li>
       <%- end -%>
       <%- if user_signed_in? -%>
+        <li>
+          <%= link_to [:new, :my, :measurement], :title => t('submit_a_reading') do %>
+            <%= t('submit') %>
+          <%- end -%>
+        </li>
         <li class="dropdown">
           <%= link_to '#view-menu', :title => t('view'),
             :class => 'dropdown-toggle',
@@ -39,11 +44,6 @@
               <%- end -%>
             </li>
           </ul>
-        </li>
-        <li>
-          <%= link_to [:new, :my, :measurement], :title => t('submit_a_reading') do %>
-            <%= t('submit') %>
-          <%- end -%>
         </li>
 
         <li class="dropdown">
