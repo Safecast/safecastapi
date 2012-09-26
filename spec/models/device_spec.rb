@@ -18,5 +18,5 @@ describe Device do
 
   its(:manufacturer)    { should == 'Safecast' }
   its(:model)           { should == 'iGeigie' }
-  its(:sensors)          { should include(sensor) }
+  its(:sensors)         { should include(sensor) }
 end
