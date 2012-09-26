@@ -3,5 +3,5 @@ rvm:
   - 1.9.3
 #services: postgis
 before_script:
-  - createuser safecast;
+  - createuser -s safecast;
   - psql -c 'create database safecast_test;' -U postgres
