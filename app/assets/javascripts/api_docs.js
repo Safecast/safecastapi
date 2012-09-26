@@ -9,11 +9,6 @@
 //= require jquery_ujs
 //= require underscore
 //= require bootstrap/bootstrap-dropdown
-//= require_tree ./application
+//= require application/dashboard_nav
 //- require_self
-
-jQuery.ajaxSetup({ 
-  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept",
-    "text/javascript")} 
-})  
 

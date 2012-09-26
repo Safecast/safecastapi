@@ -1,3 +1,5 @@
 <p>There is a Safecast import awaiting moderator approval.</p>
 
-<p>Click <%= link_to("here", my_bgeigie_imports_url) %> to view it.</p>
+<p>Click <%= link_to "here", bgeigie_import_url(@import,
+                                                :host => 'api.safecast.org',
+                                                :protocol => 'https') %> to view it.</p>
