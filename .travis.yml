@@ -7,4 +7,5 @@ before_install:
 before_script:
   - createuser -s safecast
   - psql -c 'create database safecast_test;' -U postgres
-#  - psql -d safecast_test -f /usr/share/postgresql
+  - psql -d safecast_test -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql -q
+  - psql -d safecast_test -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql -q
