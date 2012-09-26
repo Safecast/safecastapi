@@ -3,6 +3,7 @@ en-US:
   air: Air
   are_you_sure: Are you sure? There is no undo.
   basics: Basics
+  back_to_bgeigie_imports: Back to Import list
   cancel: Cancel
   contribute_your_measurement: Contribute your Measurement
   count_found: ! '%{count} found'
