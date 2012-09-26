@@ -2,10 +2,10 @@ language: ruby
 rvm:
   - 1.9.3
 #services: postgis
-before_install:
-  - sudo apt-get install -qq postgis
 before_script:
+  - sudo apt-get install -qq postgis
   - createuser -s safecast
   - psql -c 'create database safecast_test;' -U postgres
-  - psql -d safecast_test -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql -q
+  - echo $PGLIB
+  - psql -d safecast_test -f $PGLIB/share/postgres/contrib/postgis-1.5/postgis.sql -q
   - psql -d safecast_test -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql -q
