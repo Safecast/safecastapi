@@ -28,6 +28,9 @@
       </li>
     </ul>
     <%= render 'bgeigie_imports/approval' -%>
+    <p class="pull-left">
+      <%= link_to t('back_to_bgeigie_imports'), bgeigie_imports_url %>
+    </p>
   </section>
   <%- if @bgeigie_import.status_details[:compute_latlng].present? -%>
     <section class="span8">

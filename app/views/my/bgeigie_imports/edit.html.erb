@@ -67,6 +67,11 @@
           <%- end -%>
           
           <fieldset>
+            <p class="pull-left">
+              <%= link_to t('cancel'), bgeigie_import_url(@bgeigie_import) %>
+              <br />
+              <%= link_to t('back_to_bgeigie_imports'), bgeigie_imports_url %>
+            </p>
             <p class="button">
               <%= f.submit t('save') %>
             </p>
