@@ -6,5 +6,6 @@ before_install:
   - createuser -s safecast
   - psql -c 'create database safecast_test;' -U postgres
   - pg_share=$(pg_config --sharedir)
+  - ls -la $pg_share/contrib
   - psql -d safecast_test -f $pg_share/contrib/postgis-1.5/postgis.sql -q
   - psql -d safecast_test -f $pg_share/contrib/postgis-1.5/spatial_ref_sys.sql -q
