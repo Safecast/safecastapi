@@ -3,6 +3,13 @@ rvm:
   - 1.9.3
 before_install:
   - sudo apt-get install -qq postgis postgresql-9.1-postgis
+  - createdb -E UTF8 -U postgres -T template1 template_postgis
+  - createlang -d template_postgis plpgsql
+  - psql -U postgres -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql
+  - psql -U postgres -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql
+  - psql -U postgres -d template_postgis -c "UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template_postgis';"
+  - psql -U postgres -d template_postgis -c 'GRANT ALL ON geometry_columns TO PUBLIC;'
+  - psql -U postgres -d template_postgis -c 'GRANT ALL ON spatial_ref_sys TO PUBLIC;'
 before_script:
   - createuser -s safecast
   - psql -c 'create database safecast_test;' -U postgres
