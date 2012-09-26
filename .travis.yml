@@ -1,3 +1,7 @@
 language: ruby
 rvm:
   - 1.9.3
+#services: postgis
+before_script:
+  - createuser safecast;
+  - psql -c 'create database safecast_test;' -U postgres
