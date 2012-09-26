@@ -4,8 +4,8 @@ rvm:
 before_install:
   - sudo apt-get install -qq postgis postgresql-9.1-postgis
   - psql -U postgres -c "CREATE DATABASE template_postgis WITH TEMPLATE=template1 ENCODING='UTF8';"
-  - psql -U postgres -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql
-  - psql -U postgres -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql
+  - psql -U postgres -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql > /dev/null
+  - psql -U postgres -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql > /dev/null
   - psql -U postgres -d template_postgis -c "UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template_postgis';"
   - psql -U postgres -d template_postgis -c 'GRANT ALL ON geometry_columns TO PUBLIC;'
   - psql -U postgres -d template_postgis -c 'GRANT ALL ON spatial_ref_sys TO PUBLIC;'
