@@ -305,6 +305,7 @@ en-US:
   measured_with: Measured with
   dont_see_sensor_help: Don't see your sensor?
   add_a_new_sensor: Add a new sensor
+  sensor_help_javascript_device: Make sure JavaScript is enabled and a Device is selected.
   measurement_category: Measurement Category
   measurement_type: Measurement Type
   your_maps: Your maps
@@ -338,5 +339,12 @@ en-US:
         password_confirmation: Password confirmation
       measurement:
         unit: Unit
+        sensor_id: Sensor
+    errors:
+      models:
+        measurement:
+          attributes:
+            sensor_id:
+              blank: can't be blank
   user_subject: Reset password instructions
   view: View

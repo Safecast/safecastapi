@@ -8,6 +8,8 @@ feature "/api/measurements API endpoint" do
                       :name => 'Paul Campbell')
   end
 
+  let!(:device) { Device.first || Fabricate(:device) }
+
   scenario "post a new measurement" do
     result = api_post('/api/measurements.json',{
       :api_key => user.authentication_token,
@@ -15,7 +17,9 @@ feature "/api/measurements API endpoint" do
         :value      => 123,
         :unit       => 'cpm',
         :latitude   => 1.1,
-        :longitude  => 2.2
+        :longitude  => 2.2,
+        :device_id  => device.id,
+        :sensor_id  => device.sensors.first.id
       }
     })
     result['value'].should == 123
@@ -33,9 +37,25 @@ feature "/api/measurements" do
   before(:all) { Measurement.destroy_all }
 
   let!(:user) { User.first || Fabricate(:user) }
-  let!(:first_measurement) { Fabricate(:measurement, :value => 10) }
+  let!(:device) { Device.first || Fabricate(:device) }
+  let!(:first_measurement) do 
+    Fabricate(:measurement,
+              :value => 10,
+              :unit => 'cpm',
+              :latitude => 22.3,
+              :longitude => 24.5,
+              :device => device,
+              :sensor => device.sensors.first)
+  end
   let!(:second_measurement) do 
-    Fabricate(:measurement, :value => 12, :user => user)
+    Fabricate(:measurement,
+              :user => user,
+              :value => 12,
+              :unit => 'cpm',
+              :latitude => 22.3,
+              :longitude => 24.5,
+              :device => device,
+              :sensor => device.sensors.first)
   end
   
   scenario "all measurements (/api/measurements)" do
@@ -93,7 +113,9 @@ feature "/api/measurements" do
         :value      => 4342,
         :unit       => 'cpm',
         :latitude   => 76.667,
-        :longitude  => 33.321
+        :longitude  => 33.321,
+        :device_id  => device.id,
+        :sensor_id  => device.sensors.first.id
       }
     })
     result = api_get('api/measurements.json', {

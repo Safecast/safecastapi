@@ -6,15 +6,19 @@ class Measurement < ActiveRecord::Base
   validates :longitude, :presence => true
   validates :value,     :presence => true
   validates :unit,      :presence => true
+
+  validates :sensor_id, :presence => true
+  validates :device_id, :presence => true
   
+  belongs_to :device
+  belongs_to :sensor
+
   belongs_to :user
   belongs_to :last_updater, :class_name => "User", :foreign_key => "updated_by"
   before_save :set_md5sum
   
   
   has_and_belongs_to_many :maps
-  
-  belongs_to :device
 
   def self.per_page
     100

@@ -3,7 +3,7 @@ require 'spec_helper'
 feature "User creates a device when submitting a reading" do
   let(:user) { Fabricate(:user) }
 
-  before do
+  before(:each) do
     sign_in(user)
     visit('/')
     click_link('Submit')
@@ -11,9 +11,6 @@ feature "User creates a device when submitting a reading" do
   end
 
   scenario "new radiation device" do
-    visit('/')
-    click_link('Submit')
-    click_link('Add a new device')
     click_link('Add a new sensor')
 
     fill_in('Manufacturer', :with => 'LND')
@@ -33,6 +30,7 @@ feature "User creates a device when submitting a reading" do
     fill_in('Radiation Level',  :with => '12.3')
     fill_in('Location',         :with => 'Los Angeles, CA')
     select('Safecast - bGeigie (LND - 712)', :from => 'Device')
+    select('LND - 712', :from => 'Sensor')
     click_button('Submit')
 
     page.should have_content('12.3')
@@ -40,5 +38,13 @@ feature "User creates a device when submitting a reading" do
     page.should have_content('Safecast - bGeigie (LND - 712)')
 
     user.measurements.last.device.name.should == 'Safecast - bGeigie (LND - 712)'
+  end
+
+  scenario 'new device without sensor' do
+    fill_in('Manufacturer', :with => 'Safecast')
+    fill_in('Model', :with => 'bGeigie')
+    click_button('Submit')
+
+    page.should have_content "Sensor can't be blank"
   end
 end

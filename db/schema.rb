@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120806221219) do
+ActiveRecord::Schema.define(:version => 20120927041928) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(:version => 20120806221219) do
     t.integer  "height"
     t.string   "surface"
     t.string   "radiation"
+    t.integer  "sensor_id"
   end
 
   add_index "measurements", ["device_id"], :name => "index_measurements_on_device_id"
@@ -185,6 +186,7 @@ ActiveRecord::Schema.define(:version => 20120806221219) do
   add_index "measurements", ["md5sum"], :name => "index_measurements_on_md5sum", :unique => true
   add_index "measurements", ["measurement_import_id"], :name => "index_measurements_on_measurement_import_id"
   add_index "measurements", ["original_id"], :name => "index_measurements_on_original_id"
+  add_index "measurements", ["sensor_id"], :name => "index_measurements_on_sensor_id"
   add_index "measurements", ["user_id"], :name => "index_measurements_on_user_id"
 
   create_table "sensors", :force => true do |t|
