@@ -10,7 +10,7 @@ feature "User creates a device when submitting a reading" do
     click_link('Add a new device')
   end
 
-  scenario "new radiation device" do
+  scenario "new radiation device", :type => :request, :js => true do
     click_link('Add a new sensor')
 
     fill_in('Manufacturer', :with => 'LND')
@@ -20,9 +20,10 @@ feature "User creates a device when submitting a reading" do
     fill_in('Measurement Type', :with => 'gamma')
 
     click_button('Submit')
+
     fill_in('Manufacturer', :with => 'Safecast')
     fill_in('Model', :with => 'bGeigie')
-    select('LND - 712', :from => 'device[sensor_ids]') #for some reason capybara doesn't like :from => 'Sensors', possibly because it's a has_many?
+    select('LND - 712', :from => 'device_sensor_ids') #for some reason capybara doesn't like :from => 'Sensor', possibly because it's a has_many?
 
     click_button('Submit')
 
@@ -30,7 +31,6 @@ feature "User creates a device when submitting a reading" do
     fill_in('Radiation Level',  :with => '12.3')
     fill_in('Location',         :with => 'Los Angeles, CA')
     select('Safecast - bGeigie (LND - 712)', :from => 'Device')
-    select('LND - 712', :from => 'Sensor')
     click_button('Submit')
 
     page.should have_content('12.3')
@@ -45,6 +45,6 @@ feature "User creates a device when submitting a reading" do
     fill_in('Model', :with => 'bGeigie')
     click_button('Submit')
 
-    page.should have_content "Sensor can't be blank"
+    page.should have_content "Sensors can't be blank"
   end
 end

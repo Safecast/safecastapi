@@ -51,9 +51,8 @@ class Api::DevicesController < Api::ApplicationController
   # @argument [String] model The model number of the device, provided by the manufacturer
   # @argument [String] sensor The type or model of sensor element used in the device
   def create
-    device = Device.get_or_create(params[:device])
-    @result = device
-    respond_with @result, :location => [:new, :my, :measurement]
+    @device = Device.get_or_create(params[:device])
+    respond_with @device, :location => [:new, :my, :measurement]
   end
 
   private

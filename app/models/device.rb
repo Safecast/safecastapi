@@ -6,8 +6,10 @@ class Device < ActiveRecord::Base
 
   validates :manufacturer, :presence => true
   validates :model, :presence => true, :uniqueness => { :scope => :manufacturer, :if => Proc.new { |device| device.serial_number == nil } }
+  validates :sensors, :presence => true
 
   validates :serial_number, :uniqueness => { :scope => [:manufacturer, :model] }
+
   
   def serializable_hash(options)
     options ||= {}
