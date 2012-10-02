@@ -17,9 +17,11 @@ class Measurement < ActiveRecord::Base
   belongs_to :last_updater, :class_name => "User", :foreign_key => "updated_by"
   before_save :set_md5sum
   
-  
   has_and_belongs_to_many :maps
 
+  scope :type, (lambda do |type|
+    joins(:sensor).where('sensors.measurement_category = ?', type)
+  end)
 
   def self.new_from_params(params)
     # default to Generic Radiation Device if no device and no sensor
@@ -35,6 +37,7 @@ class Measurement < ActiveRecord::Base
     measurement = self.new(params[:measurement] || nil)
     measurement
   end
+
 
   def self.per_page
     100

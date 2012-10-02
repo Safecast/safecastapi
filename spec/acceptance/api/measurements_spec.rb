@@ -76,7 +76,9 @@ feature "/api/measurements" do
   scenario "all measurements (/api/measurements)" do
     result = api_get("/api/measurements.json")
     result.length.should == 2
+    result.sort_by! { |obj| obj['value']}
     result.map { |obj| obj['value'] }.should == [10, 12]
+    
   end
 
   scenario "get measurement count (/api/measurements/count)" do
@@ -137,10 +139,64 @@ feature "/api/measurements" do
       :since => cutoff_time
     })
 
+    Measurement.count.should == 3 # make sure that the let! measurements are happening
     result.length.should == 1
     result.first['value'].should == 4342
     result.first['latitude'].should == 76.667
     result.first['longitude'].should == 33.321
   end
-  
+
+  scenario 'distinguish between radiation and air measurements' do
+    air_sensor = Sensor.create(
+      :manufacturer => 'Some Company',
+      :model        => 'Best fucking air sensor ever',
+      :measurement_type => 'all the things',
+      :measurement_category => 'air'
+    )
+    air_device = Device.create(
+      :manufacturer => 'Steven Wright',
+      :model        => 'HackSense', # well, I needed to call it something, right?
+      :sensors      => [air_sensor]
+    )
+
+    air_measurement = Measurement.create(
+      :value      => 37,
+      :unit       => 'ppm',
+      :latitude   => 87.7,
+      :longitude  => -66.5,
+      :device_id  => air_device.id,
+      :sensor_id  => air_sensor.id
+    )
+
+    result = api_get('/api/measurements.json', {
+      :measurement_type => 'air'
+    })
+
+    result.length.should == 1
+
+    result.first['value'].should == 37
+    result.first['unit'].should == 'ppm'
+
+
+    result = api_get('/api/measurements.json', {
+      :measurement_type => 'radiation'
+    })
+
+    result.length.should == 2
+    values = result.map { |obj| obj['value'] }
+    values.should include 10
+    values.should include 12
+    values.should_not include 37
+
+
+    # default to radiation if no type is specified
+    # this is a backwards compatibility hack for now, and should probably be removed in the future.
+    result = api_get('/api/measurements.json')
+    result.length.should == 2
+    result.sort_by! { |obj| obj['value']}
+    result.map { |obj| obj['value'] }.should == [10, 12]
+
+  end
+
 end
+

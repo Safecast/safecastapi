@@ -42,7 +42,14 @@ class Api::MeasurementsController < Api::ApplicationController
     
     if params[:since].present?
       cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:since])
-      @result = @result.where('updated_at > ?', cutoff_time)
+      @result = @result.where('measurements.updated_at > ?', cutoff_time)
+    end
+
+    if params[:measurement_type].present? and
+       params[:measurement_type] == 'air'
+      @result = @result.type(params[:measurement_type])
+    else
+      @result = @result.type('radiation')
     end
 
     if request.format == :csv
