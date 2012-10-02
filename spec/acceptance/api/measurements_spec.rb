@@ -169,7 +169,7 @@ feature "/api/measurements" do
     )
 
     result = api_get('/api/measurements.json', {
-      :measurement_type => 'air'
+      :category => 'air'
     })
 
     result.length.should == 1
@@ -179,7 +179,7 @@ feature "/api/measurements" do
 
 
     result = api_get('/api/measurements.json', {
-      :measurement_type => 'radiation'
+      :category => 'radiation'
     })
 
     result.length.should == 2

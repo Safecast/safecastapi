@@ -19,9 +19,10 @@ class Measurement < ActiveRecord::Base
   
   has_and_belongs_to_many :maps
 
-  scope :type, (lambda do |type|
+  scope :category, (lambda do |type|
     joins(:sensor).where('sensors.measurement_category = ?', type)
   end)
+
 
   def self.new_from_params(params)
     # default to Generic Radiation Device if no device and no sensor

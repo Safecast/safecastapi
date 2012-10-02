@@ -45,11 +45,11 @@ class Api::MeasurementsController < Api::ApplicationController
       @result = @result.where('measurements.updated_at > ?', cutoff_time)
     end
 
-    if params[:measurement_type].present? and
-       params[:measurement_type] == 'air'
-      @result = @result.type(params[:measurement_type])
+    if params[:category].present? and
+       params[:category] == 'air'
+      @result = @result.category(params[:category])
     else
-      @result = @result.type('radiation')
+      @result = @result.category('radiation')
     end
 
     if request.format == :csv
