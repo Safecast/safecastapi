@@ -92,6 +92,23 @@ feature "/api/measurements" do
     result.length.should == 1
     result.first['value'].should == 12
   end
+
+  scenario "the object has keys as expected" do
+    result = api_get("/api/measurements.json")
+    
+    measurement = result.first
+    measurement.should have_key "value"
+    measurement.should have_key "unit"
+    measurement.should have_key "latitude"
+    measurement.should have_key "longitude"
+    measurement.should have_key "user_id"
+    measurement.should have_key "device_id"
+    measurement.should have_key "sensor_id"
+    measurement.should have_key "category"
+    measurement.should have_key "updated_at"
+    measurement.should have_key "original_id"
+    measurement.should have_key "location_name"
+  end
   
   scenario "updating is non-destructive" do
     put("/api/measurements/#{second_measurement.id}.json", {

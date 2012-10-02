@@ -66,8 +66,12 @@ class Measurement < ActiveRecord::Base
     super(options.merge(:only => [
       :id, :value, :user_id,
       :unit, :device_id, :location_name, :original_id,
-      :captured_at
-    ], :methods => [:latitude, :longitude]))
+      :captured_at, :device_id, :sensor_id, :updated_at
+    ], :methods => [:latitude, :longitude, :category]))
+  end
+
+  def category 
+    self.sensor.measurement_category
   end
   
   
