@@ -340,11 +340,17 @@ en-US:
       measurement:
         unit: Unit
         sensor_id: Sensor
+      device:
+        sensors: Sensors
     errors:
       models:
         measurement:
           attributes:
             sensor_id:
+              blank: can't be blank
+        device:
+          attributes:
+            sensors:
               blank: can't be blank
   user_subject: Reset password instructions
   view: View

@@ -3,6 +3,10 @@ class Api::SensorsController < Api::ApplicationController
 
   expose(:sensor)
 
+  expose(:sensors) do
+    Sensor.search_by_params(params)
+  end
+
   def create
     sensor = Sensor.create(params[:sensor])
     if sensor.errors.empty?
@@ -11,6 +15,11 @@ class Api::SensorsController < Api::ApplicationController
       output = {:errors => sensor.errors}
       respond_with output, :location => nil, :status => :unprocessable_entity
     end
+  end
+
+  def index
+    @result = sensors
+    respond_with @result
   end
 
 end

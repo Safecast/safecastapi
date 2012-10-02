@@ -6,6 +6,8 @@ feature "/api/sensors API endpoint" do
   end
   let(:user) { @user.reload }
 
+  let(:sensor) { Fabricate(:sensor) }
+
   scenario "create a radiation sensor" do
 
     post('/api/sensors',
@@ -56,6 +58,17 @@ feature "/api/sensors API endpoint" do
     idCreated = result.include?('id')
     idCreated.should == true
 
+  end
+
+  scenario 'get a list of sensors' do
+    sensor.reload
+    result = api_get('/api/sensors.json')
+
+    result.length.should == 1
+    result.first['manufacturer'].should == sensor.manufacturer
+    result.first['model'].should == sensor.model
+    result.first['measurement_category'].should == sensor.measurement_category
+    result.first['measurement_type'].should == sensor.measurement_type
   end
 
 end

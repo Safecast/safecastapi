@@ -35,4 +35,22 @@ class Sensor < ActiveRecord::Base
     end
     sensor
   end
+
+  def self.search_by_params(params)
+    search_params = {}
+    
+    [:manufacturer, :model, :serial_number, :category].each do |field|
+      if params[field].present?
+        search_params[field] = params[field]
+      end
+    end
+
+    if search_params.empty?
+      Sensor.page(params[:page] || 1)
+    elsif search_params.include? :serial_number
+      Sensor.where(search_params).first
+    else
+      Sensor.where(search_params)
+    end
+  end
 end
