@@ -20,6 +20,22 @@ class Measurement < ActiveRecord::Base
   
   has_and_belongs_to_many :maps
 
+
+  def self.new_from_params(params)
+    # default to Generic Radiation Device if no device and no sensor
+    
+    if params[:measurement]
+      unless params[:measurement].has_key? :device_id or
+             params[:measurement].has_key? :sensor_id
+        generic_device = Device.generic_radiation
+        params[:measurement][:device_id] = generic_device.id
+        params[:measurement][:sensor_id] = generic_device.sensors.first.id
+      end
+    end
+    measurement = self.new(params[:measurement] || nil)
+    measurement
+  end
+
   def self.per_page
     100
   end

@@ -30,6 +30,21 @@ feature "/api/measurements API endpoint" do
     result = api_post('/api/measurements.json',{ :api_key => user.authentication_token })
     result['errors']['value'].should be_present
   end
+
+  scenario "post a measurement without a device or sensor" do
+    result = api_post('/api/measurements.json',{
+      :api_key => user.authentication_token,
+      :measurement => {
+        :value      => 31.2,
+        :unit       => 'cpm',
+        :latitude   => 21.03,
+        :longitude  => -15.5,
+      }
+    })
+    result['value'].should == 31.2
+    result['user_id'].should == user.id
+    # if this endpoint doesn't work, result is nil, so the test breaks.
+  end
 end
 
 feature "/api/measurements" do

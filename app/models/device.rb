@@ -46,6 +46,23 @@ class Device < ActiveRecord::Base
     device
   end
 
+  def self.generic_radiation
+    d = self.where(
+      :manufacturer  => 'Generic',
+      :model         => 'Radiation Device'
+    )
+    if d.empty?
+      device = self.create(
+        :manufacturer => 'Generic',
+        :model        => 'Radiation Device',
+        :sensors      => [Sensor.generic_radiation]
+      )
+    else
+      device = d.first
+    end
+    device
+  end
+
   def identifier
     "#{manufacturer} - #{model} (#{sensors.first.name if sensors.first})"
   end

@@ -102,7 +102,7 @@ class Api::MeasurementsController < Api::ApplicationController
   
   def create
     @map = Map.find params[:map_id] if params[:map_id].present?
-    @measurement = Measurement.new(params[:measurement])
+    @measurement = Measurement.new_from_params(params)
     @measurement.user = current_user
     Measurement.transaction do
       @measurement.save
