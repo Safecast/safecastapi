@@ -51,7 +51,7 @@
             <%= f.label :sensor_id, t("sensor"),
                   :class => 'control-label' %>
             <div class="controls">
-              <%= f.select :sensor_ids, [[''], nil] + Sensor.all.collect { |s| [s.name, s.id] } %>
+              <%= f.select :sensor_ids, [[''], nil] + Sensor.all.collect { |s| [s.name, s.id] }, {}, {:multiple => true} %>
             </div>
             <p class="help-block">
               <%= t('dont_see_sensor_help') %>

@@ -86,7 +86,20 @@ feature "/api/devices API endpoint" do
     result['errors']['manufacturer'].should be_present
     result['errors']['model'].should be_present
   end
-  
+
+  scenario 'create a device with multiple sensors' do
+    another_sensor = Fabricate(:sensor,
+                               :manufacturer => 'Sparkfun',
+                               :model => 'Gassy thing',
+                               :measurement_category => 'air',
+                               :measurement_type => 'gas')
+    post('/api/devices.json', {
+      :api_key => user.authentication_token,
+      :manuacturer => 'Safecast',
+      :model => 'Super cool air sensor',
+      :sensors => [@sensor, another_sensor]
+    })
+  end
 end
 
 feature "/api/devices with existing devices" do
@@ -159,7 +172,6 @@ feature "/api/devices with existing devices" do
     result['id'].should_not == @fourth_device.id
   end
 
-
   scenario "lookup all devices" do
     result = api_get('/api/devices', {}, {'HTTP_ACCEPT' => 'application/json'})
     result.length.should == 4
@@ -170,7 +182,7 @@ feature "/api/devices with existing devices" do
     #result.map { |obj| obj['sensors'] }.should == ['LND-7317', 'LND-712', 'LND-712', 'LND-7317']
   end
   
-  scenario "lookup all Safecast devices" do
+  scenario "lookup all devices by a particular manufacturer" do
     result = api_get('/api/devices', 
       {
        :manufacturer => "Safecast"
