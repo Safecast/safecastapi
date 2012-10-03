@@ -26,7 +26,21 @@ Limit the returned set to measurements that have been added by the user specifie
 Maximum number of measurements returned in a single request.
 
 **page** Optional, Defaults to 1
-Pages are used to segment large sets of measurements.  Specifying a page indicates that the set of measurements returned should be offset by the page number multiplied by the page size.  
+Pages are used to segment large sets of measurements.  Specifying a page indicates that the set of measurements returned should be offset by the page number multiplied by the page size. 
+
+**since** Optional
+Show measurements uploaded after specified time
+
+***until*** Optional
+Show measurements uploaded before specified time
+
+***captured_after*** Optional
+Show measurements captured after specified time
+
+***captured_before*** Optional
+Show measurements captured before before specified time
+
+What's the difference between "uploaded" and "captured" ... typically, there will be a delay between capturing data and uploading it to safecast. You can use `since` and `until` for getting incremental updates to the Safecast DB, whereas `captured_after` and `captured_before` are timeboxes around the actual dates the data was collected.
 
 
 ## POST ##

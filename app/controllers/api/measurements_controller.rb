@@ -22,6 +22,10 @@ class Api::MeasurementsController < Api::ApplicationController
   # @argument [Double] latitude Latitude of center point
   # @argument [Double] longitude Longitude of center point
   # @argument [Integer] distance Distance in meters within which to include points around the center point.
+  # @argument [DateTime] since Only show measurements uploaded after specified time
+  # @argument [DateTime] until Only show measurements uploaded before specified time
+  # @argument [DateTime] captured_after Only show measurements captured after specified time
+  # @argument [DateTime] captured_before Only show measurements captured before before specified time
   #
   def index
     @filename = "measurements.csv"
@@ -43,6 +47,21 @@ class Api::MeasurementsController < Api::ApplicationController
     if params[:since].present?
       cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:since])
       @result = @result.where('updated_at > ?', cutoff_time)
+    end
+
+    if params[:until].present?
+      cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:until])
+      @result = @result.where('updated_at < ?', cutoff_time)
+    end
+
+    if params[:captured_after].present?
+      cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:captured_after])
+      @result = @result.where('captured_at > ?', cutoff_time)
+    end
+
+    if params[:captured_before].present?
+      cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:captured_before])
+      @result = @result.where('captured_at < ?', cutoff_time)
     end
 
     if request.format == :csv
