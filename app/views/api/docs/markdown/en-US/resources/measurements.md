@@ -31,13 +31,13 @@ Pages are used to segment large sets of measurements.  Specifying a page indicat
 **since** Optional
 Show measurements uploaded after specified time
 
-***until***
+***until*** Optional
 Show measurements uploaded before specified time
 
-***captured_after***
+***captured_after*** Optional
 Show measurements captured after specified time
 
-***captured_before***
+***captured_before*** Optional
 Show measurements captured before before specified time
 
 What's the difference between "uploaded" and "captured" ... typically, there will be a delay between capturing data and uploading it to safecast. You can use `since` and `until` for getting incremental updates to the Safecast DB, whereas `captured_after` and `captured_before` are timeboxes around the actual dates the data was collected.
