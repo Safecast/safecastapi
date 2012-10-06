@@ -9,7 +9,12 @@
       <ul class="unstyled">
         <%- @your_bgeigie_imports.each do |bgeigie_import| -%>
           <li>
-            <%= link_to pluralize(bgeigie_import.measurements_count, 'measurement'), bgeigie_import -%>
+            <% if bgeigie_import.name.present? %>
+              <%= link_to bgeigie_import.name, bgeigie_import -%>
+            <% else %>
+              <%= link_to '[unnamed]', bgeigie_import -%>
+            <% end %>
+            (<%= pluralize(bgeigie_import.measurements_count, 'measurement') -%>)
             <%= t 'on_date', :date => bgeigie_import.created_at.to_formatted_s(:default) -%>
           </li>
         <%- end -%>
@@ -23,7 +28,12 @@
       <ul class="unstyled">
         <%- @unapproved_bgeigie_imports.each do |bgeigie_import| -%>
           <li>
-            <%= link_to pluralize(bgeigie_import.measurements_count, 'measurement'), bgeigie_import -%>
+            <% if bgeigie_import.name.present? %>
+              <%= link_to bgeigie_import.name, bgeigie_import -%>
+            <% else %>
+              <%= link_to '[unnamed]', bgeigie_import -%>
+            <% end %>
+            (<%= pluralize(bgeigie_import.measurements_count, 'measurement') -%>)
             <%= t("uploaded_by", :name => link_to(bgeigie_import.user.name, bgeigie_import.user)).html_safe -%>
             <%= t("on_date", :date => bgeigie_import.created_at.to_formatted_s(:default)) %>
           </li>
@@ -41,8 +51,13 @@
     <ul class="unstyled">
       <%- @public_bgeigie_imports.each do |bgeigie_import| -%>
         <li>
-          <%= link_to pluralize(bgeigie_import.measurements_count, 'measurement'), bgeigie_import -%>
-          <%= t("uploaded_by", :name => bgeigie_import.user.name) %>
+          <% if bgeigie_import.name.present? %>
+            <%= link_to bgeigie_import.name, bgeigie_import -%>
+          <% else %>
+            <%= link_to '[unnamed]', bgeigie_import -%>
+          <% end %>
+          (<%= pluralize(bgeigie_import.measurements_count, 'measurement') -%>)
+          <%= t("uploaded_by", :name => bgeigie_import.user.name) -%>
           <%= t("on_date", :date => bgeigie_import.created_at.to_formatted_s(:default)) -%>
         </li>
       <%- end -%>
