@@ -33,7 +33,7 @@ feature "User uploads bgeigie log" do
       visit('/')
       page.should have_content('1 imports awaiting approval')
       click_link '1 imports awaiting approval'
-      click_link '23 measurements'
+      click_link '[unnamed]'
       click_button 'Approve'
       Delayed::Worker.new.work_off 
       visit(current_path)
