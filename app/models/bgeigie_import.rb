@@ -11,6 +11,8 @@ class BgeigieImport < MeasurementImport
   scope :done, where(:status => "done")
   scope :unapproved, where(:approved => false)
 
+  scope :with_logs, includes(:bgeigie_logs)
+
   store :status_details, :accessors => [
     :process_file,
     :import_bgeigie_logs,
