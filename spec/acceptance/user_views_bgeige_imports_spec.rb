@@ -12,7 +12,6 @@ feature "User views bGeigie imports" do
     click_link("Imports")
     page.should have_content("Yours")
     page.should have_content("Public")
-    binding.pry
 
     page.should have_content(bgeigie_import.name)
     page.should have_content('[unnamed]') #public_bgeigie_import has no name.
