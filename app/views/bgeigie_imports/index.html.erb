@@ -15,7 +15,8 @@
               <%= link_to '[unnamed]', bgeigie_import -%>
             <% end %>
             (<%= pluralize(bgeigie_import.measurements_count, 'measurement') -%>)
-            <%= t 'on_date', :date => bgeigie_import.created_at.to_formatted_s(:default) -%>
+            <%= t 'on_date', :date => bgeigie_import.created_at.to_formatted_s(:default) -%>.
+            <%= render :partial => 'import_measurement_timeframe', :locals => { :logs => bgeigie_import.bgeigie_logs } -%>
           </li>
         <%- end -%>
       </ul>
@@ -35,7 +36,8 @@
             <% end %>
             (<%= pluralize(bgeigie_import.measurements_count, 'measurement') -%>)
             <%= t("uploaded_by", :name => link_to(bgeigie_import.user.name, bgeigie_import.user)).html_safe -%>
-            <%= t("on_date", :date => bgeigie_import.created_at.to_formatted_s(:default)) %>
+            <%= t("on_date", :date => bgeigie_import.created_at.to_formatted_s(:default)) %>.
+            <%= render :partial => 'import_measurement_timeframe', :locals => { :logs => bgeigie_import.bgeigie_logs } -%>
           </li>
         <%- end -%>
       </ul>
@@ -58,7 +60,8 @@
           <% end %>
           (<%= pluralize(bgeigie_import.measurements_count, 'measurement') -%>)
           <%= t("uploaded_by", :name => bgeigie_import.user.name) -%>
-          <%= t("on_date", :date => bgeigie_import.created_at.to_formatted_s(:default)) -%>
+          <%= t("on_date", :date => bgeigie_import.created_at.to_formatted_s(:default)) -%>.
+          <%= render :partial => 'import_measurement_timeframe', :locals => { :logs => bgeigie_import.bgeigie_logs } -%>
         </li>
       <%- end -%>
     </ul>

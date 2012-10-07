@@ -247,5 +247,4 @@ class BgeigieImport < MeasurementImport
   def cities_as_string
     cities.join(", ")
   end
-
 end

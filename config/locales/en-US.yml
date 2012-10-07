@@ -1,6 +1,7 @@
 en-US:
   1m: 1m
   air: Air
+  and: and
   are_you_sure: Are you sure? There is no undo.
   basics: Basics
   back_to_bgeigie_imports: Back to Import list
@@ -191,6 +192,7 @@ en-US:
   map_created: Map created
   map_displayed_once_file_processed: A map will be displayed once this file has processed.
   maps: maps
+  measured_between: Measured between
   measurements: measurements
   my_maps: My maps
   no_maps_found: No maps found.

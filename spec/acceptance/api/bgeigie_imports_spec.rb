@@ -20,7 +20,7 @@ feature "/api/bgeigie_imports API endpoint" do
     scenario "response should be unprocessed" do
       @result['id'].should_not be_blank
       @result['status'].should == 'unprocessed'
-      @result['md5sum'].should == 'bd85d5be88bfaf2e359d6150d756d16a'
+      @result['md5sum'].should == '59da6801be0387cf40218a0a5a6d203a'
     end
   end
   
