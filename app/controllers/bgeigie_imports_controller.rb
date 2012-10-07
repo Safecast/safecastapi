@@ -3,7 +3,6 @@ class BgeigieImportsController < SiteApplicationController
     @public_bgeigie_imports = BgeigieImport.done.newest.with_logs
     if user_signed_in?
       @your_bgeigie_imports = current_user.bgeigie_imports.newest.with_logs
-      binding.pry
       @unapproved_bgeigie_imports = BgeigieImport.unapproved.newest.with_logs if current_user.moderator?
     end
   end
