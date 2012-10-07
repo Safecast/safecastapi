@@ -115,6 +115,8 @@ class BgeigieImport < MeasurementImport
     alt = Float(line_items[11]) rescue nil
     return false unless lat and lon and alt
 
+    return false if lat == 0.0 and lon == 0.0
+
     #check for proper N/S and E/W
     return false unless line_items[8].eql? 'N' or line_items[8].eql? 'S'
     return false unless line_items[10].eql? 'E' or line_items[10].eql? 'W'
