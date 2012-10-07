@@ -4,19 +4,18 @@ feature "/api/maps API endpoint" do
 
   before do
     @user = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
+    @device = Device.first || Fabricate(:device)
   end
-  let(:user) { @user.reload }
+  let(:user) { User.first || Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell') }
+  let(:device) { Device.first || Fabricate(:device) }
   
   scenario "create a measurement map" do
     post('/api/maps.json',{
       :api_key      => user.authentication_token,
       :map          => {
+        :name           => 'Test Map',
         :description    => "This map contains test measurements",
-        :device         => {
-          :manufacturer     => "Safecast",
-          :model            => "bGeigie",
-          :sensor           => "LND-7317"
-        }
+        :device_id         => @device.id
       }
     })
     result = ActiveSupport::JSON.decode(response.body)
@@ -49,8 +48,9 @@ end
 feature "/api/maps with existing resources" do
 
   let(:user) { Fabricate(:user) }
-  let!(:a_map) { Fabricate(:map, :description => "A test map")}
-  let!(:b_map) { Fabricate(:map, :description => "Another test map", :user_id => user.id)}
+  let(:device) { Device.first || Fabricate(:device) }
+  let!(:a_map) { Fabricate(:map, :name => 'Test', :description => "A test map")}
+  let!(:b_map) { Fabricate(:map, :name => 'Another Test', :description => "Another test map", :user_id => user.id)}
   let!(:a_measurement) { Fabricate(:measurement, :value => 66, :user_id => user.id) }
 
   scenario "all maps (/api/maps)" do
@@ -69,14 +69,16 @@ feature "/api/maps with existing resources" do
     result = api_get("/api/users/#{user.id}/maps.json")
     map = result.first
     map_id = map['id']
-    
+
     post("/api/maps/#{map_id}/measurements.json", {
       :api_key        => user.authentication_token,
       :measurement    => {
         :value          => 334,
         :unit           => 'cpm',
         :latitude       => 3.3,
-        :longitude      => 4.4
+        :longitude      => 4.4,
+        :device_id      => device.id,
+        :sensor_id      => device.sensors.first.id
       }
     })
     measurement = ActiveSupport::JSON.decode(response.body)

@@ -24,6 +24,9 @@ Safecast::Application.routes.draw do
       end
       resources :maps
       resources :devices
+      resources :sensors
+      resources :radiation_sensors
+      resources :air_particulate_sensors
       resources :measurements do
         collection do
           get :manifest
@@ -45,6 +48,7 @@ Safecast::Application.routes.draw do
       end
     end
     resources :devices
+    resources :sensors
     resources :measurements do
       collection do
         get :count

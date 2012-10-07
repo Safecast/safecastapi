@@ -1,0 +1,3 @@
+class RadiationSensor < Sensor
+
+end

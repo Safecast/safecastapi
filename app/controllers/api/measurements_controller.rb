@@ -46,7 +46,14 @@ class Api::MeasurementsController < Api::ApplicationController
     
     if params[:since].present?
       cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:since])
-      @result = @result.where('updated_at > ?', cutoff_time)
+      @result = @result.where('measurements.updated_at > ?', cutoff_time)
+    end
+
+    if params[:category].present? and
+       params[:category] == 'air'
+      @result = @result.category(params[:category])
+    else
+      @result = @result.category('radiation')
     end
 
     if params[:until].present?
@@ -121,7 +128,7 @@ class Api::MeasurementsController < Api::ApplicationController
   
   def create
     @map = Map.find params[:map_id] if params[:map_id].present?
-    @measurement = Measurement.new(params[:measurement])
+    @measurement = Measurement.new_from_params(params)
     @measurement.user = current_user
     Measurement.transaction do
       @measurement.save

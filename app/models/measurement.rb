@@ -6,15 +6,39 @@ class Measurement < ActiveRecord::Base
   validates :longitude, :presence => true
   validates :value,     :presence => true
   validates :unit,      :presence => true
+
+  validates :sensor_id, :presence => true
+  validates :device_id, :presence => true
   
+  belongs_to :device
+  belongs_to :sensor
+
   belongs_to :user
   belongs_to :last_updater, :class_name => "User", :foreign_key => "updated_by"
   before_save :set_md5sum
   
-  
   has_and_belongs_to_many :maps
-  
-  belongs_to :device
+
+  scope :category, (lambda do |type|
+    joins(:sensor).where('sensors.measurement_category = ?', type)
+  end)
+
+
+  def self.new_from_params(params)
+    # default to Generic Radiation Device if no device and no sensor
+    
+    if params[:measurement]
+      unless params[:measurement].has_key? :device_id or
+             params[:measurement].has_key? :sensor_id
+        generic_device = Device.generic_radiation
+        params[:measurement][:device_id] = generic_device.id
+        params[:measurement][:sensor_id] = generic_device.sensors.first.id
+      end
+    end
+    measurement = self.new(params[:measurement] || nil)
+    measurement
+  end
+
 
   def self.per_page
     100
@@ -42,8 +66,12 @@ class Measurement < ActiveRecord::Base
     super(options.merge(:only => [
       :id, :value, :user_id,
       :unit, :device_id, :location_name, :original_id,
-      :captured_at
-    ], :methods => [:latitude, :longitude]))
+      :captured_at, :device_id, :sensor_id, :updated_at
+    ], :methods => [:latitude, :longitude, :category]))
+  end
+
+  def category 
+    self.sensor.measurement_category
   end
   
   

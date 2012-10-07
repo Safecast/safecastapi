@@ -24,11 +24,17 @@ end
 feature "User submits a reading while devices exist" do
   let(:user) { Fabricate(:user) }
   let(:measurement) { user.measurements.last }
-  let(:device) { Fabricate(:device) }
 
   before do
     sign_in(user)
-    device.save!
+    @sensor = Sensor.create(:manufacturer => 'LND',
+                            :model => '712',
+                            :measurement_category => 'radiation',
+                            :measurement_type => 'gamma')
+    @device = Device.create(:manufacturer => 'Safecast',
+                            :model => 'bGeigie',
+                            :serial_number => 'SFCT-001',
+                            :sensors => [@sensor])
   end
 
   scenario 'reading with no device' do
@@ -51,13 +57,12 @@ feature "User submits a reading while devices exist" do
     select('Clicks per minute', :from => 'Unit')
     fill_in('Radiation Level',  :with => '789')
     fill_in('Location',         :with => 'Tokyo, JP')
-    select(device.name, :from => 'Device')
+    select(@device.name, :from => 'Device')
     click_button('Submit')
     page.should have_content('789')
     page.should have_content('cpm')
 
     measurement.value.should == 789
-    measurement.device.should == device
-
+    measurement.device.should == @device
   end
 end

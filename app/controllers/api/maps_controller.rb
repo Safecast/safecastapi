@@ -43,11 +43,6 @@ class Api::MapsController < Api::ApplicationController
   
   def create
     pg = params[:map]
-    if pg && pg['device']
-      d = Device.get_or_create(pg['device'])
-      pg['device_id'] = d.id
-      pg.delete('device')
-    end
     map = Map.new(pg)
     map.user = current_user
     map.save

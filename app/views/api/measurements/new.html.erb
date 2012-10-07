@@ -107,6 +107,16 @@
               <%= link_to t('add_a_new_device'), [:new, :my, :device] %>.
             </p>
           </div>
+          <div class="control-group">
+            <%= f.label :sensor_id, t('sensor'), :class => 'control-label' %>
+            <div class="controls">
+              <%= f.select :sensor_id, [['', nil]], {}, { :disabled => 'disabled' } %>
+            </div>
+            <p class="help-block">
+              <%= t('dont_see_sensor_help') %>
+              <%= t('sensor_help_javascript_device') %>
+            </p>
+          </div>
         </fieldset>
       </div>
 
@@ -152,3 +162,15 @@
     </div>
   <%- end -%>
 </section>
+
+<script type="text/javascript">
+  window.devices_sensors = {
+    <% Device.all.each do |device| %>
+      <%= device.id %>: [
+      <% device.sensors.each do |s| %> 
+        <%= raw({name: s.name, id: s.id}.to_json) %>,
+      <% end %>
+      ],
+    <% end %>
+  };
+</script>

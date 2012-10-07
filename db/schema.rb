@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120625212801) do
+ActiveRecord::Schema.define(:version => 20120927041928) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -83,9 +83,15 @@ ActiveRecord::Schema.define(:version => 20120625212801) do
   create_table "devices", :force => true do |t|
     t.string   "manufacturer"
     t.string   "model"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "serial_number"
     t.string   "sensor"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "devices_sensors", :id => false, :force => true do |t|
+    t.integer "device_id"
+    t.integer "sensor_id"
   end
 
   create_table "drive_logs", :force => true do |t|
@@ -172,6 +178,7 @@ ActiveRecord::Schema.define(:version => 20120625212801) do
     t.integer  "height"
     t.string   "surface"
     t.string   "radiation"
+    t.integer  "sensor_id"
   end
 
   add_index "measurements", ["device_id"], :name => "index_measurements_on_device_id"
@@ -179,7 +186,23 @@ ActiveRecord::Schema.define(:version => 20120625212801) do
   add_index "measurements", ["md5sum"], :name => "index_measurements_on_md5sum", :unique => true
   add_index "measurements", ["measurement_import_id"], :name => "index_measurements_on_measurement_import_id"
   add_index "measurements", ["original_id"], :name => "index_measurements_on_original_id"
+  add_index "measurements", ["sensor_id"], :name => "index_measurements_on_sensor_id"
   add_index "measurements", ["user_id"], :name => "index_measurements_on_user_id"
+
+  create_table "sensors", :force => true do |t|
+    t.string   "manufacturer"
+    t.string   "model"
+    t.string   "serial_number"
+    t.string   "measurement_category"
+    t.string   "measurement_type"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "sensors", ["measurement_category"], :name => "index_sensors_on_measurement_category"
+  add_index "sensors", ["measurement_type"], :name => "index_sensors_on_measurement_type"
+  add_index "sensors", ["model"], :name => "index_sensors_on_model"
+  add_index "sensors", ["serial_number"], :name => "index_sensors_on_serial_number"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "",    :null => false

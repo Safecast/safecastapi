@@ -1,5 +1,5 @@
 <section>
-  <%= form_for [:api, @device],
+  <%= form_for [:api, @sensor],
       :html => {
         :autocomplete => 'off',
         :class => 'form-horizontal submission',
@@ -7,15 +7,16 @@
       } do |f| %>
     <div class="row">
       <div class="span6">
-        <h2><%= t('add_a_new_device') %></h2>
+        <h2><%= t('add_a_new_sensor') %></h2>
       </div>
     </div>
+
     <div class="row">
       <div class="span6">
-        <%- if @device.errors.any? %>
+        <%- if @sensor.errors.any? %>
           <div class="alert">
             <ul>
-              <%- @device.errors.full_messages.each do |message| %>
+              <%- @sensor.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
               <%- end %>
             </ul>
@@ -48,16 +49,21 @@
           </div>
 
           <div class="control-group">
-            <%= f.label :sensor_id, t("sensor"),
+            <%= f.label :measurement_category, t('measurement_category'),
                   :class => 'control-label' %>
             <div class="controls">
-              <%= f.select :sensor_ids, [[''], nil] + Sensor.all.collect { |s| [s.name, s.id] }, {}, {:multiple => true} %>
+              <%= f.select :measurement_category, ['radiation', 'air'] %>
             </div>
-            <p class="help-block">
-              <%= t('dont_see_sensor_help') %>
-              <%= link_to t('add_a_new_sensor'), [:new, :my, :sensor] %>.
-            </p>
           </div>
+
+          <div class="control-group">
+            <%= f.label :measurement_type, t("measurement_type"),
+                  :class => 'control-label' %>
+            <div class="controls">
+              <%= f.text_field :measurement_type %>
+            </div>
+          </div>
+
         </fieldset>
       </div>
     </div>
@@ -74,4 +80,5 @@
 
 
   <%- end %>
+
 </section>
