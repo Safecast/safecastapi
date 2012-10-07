@@ -1,0 +1,6 @@
+<%- if logs.count > 0 -%>
+  <%= t("measured_between") %>
+  <%= logs.chronological.first.captured_at.to_formatted_s(:default) %>
+  <%= t("and") %>
+  <%= logs.chronological.last.captured_at.to_formatted_s(:default) %>.
+<%- end -%>
