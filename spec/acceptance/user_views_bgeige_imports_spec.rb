@@ -13,8 +13,7 @@ feature "User views bGeigie imports" do
     page.should have_content("Yours")
     page.should have_content("Public")
 
-    page.should have_content(bgeigie_import.name)
-    page.should have_content('[unnamed]') #public_bgeigie_import has no name.
+    page.should have_content("bgeigie.log")
   end
 
 

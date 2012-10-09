@@ -9,7 +9,7 @@
       <ul class="unstyled">
         <%- @your_bgeigie_imports.each do |bgeigie_import| -%>
           <li>
-            <%= link_to bgeigie_import.source.file.filename, bgeigie_import -%>
+            <%= link_to File.basename(bgeigie_import.source.file.path), bgeigie_import -%>
             (<%= pluralize(bgeigie_import.measurements_count, 'measurement') -%>)
             <%= t 'on_date', :date => bgeigie_import.created_at.to_formatted_s(:default) -%>
           </li>
@@ -24,7 +24,7 @@
       <ul class="unstyled">
         <%- @unapproved_bgeigie_imports.each do |bgeigie_import| -%>
           <li>
-            <%= link_to bgeigie_import.source.file.filename, bgeigie_import -%>
+            <%= link_to File.basename(bgeigie_import.source.file.path), bgeigie_import -%>
             (<%= pluralize(bgeigie_import.measurements_count, 'measurement') -%>)
             <%= t("uploaded_by", :name => link_to(bgeigie_import.user.name, bgeigie_import.user)).html_safe -%>
             <%= t("on_date", :date => bgeigie_import.created_at.to_formatted_s(:default)) %>
@@ -43,7 +43,7 @@
     <ul class="unstyled">
       <%- @public_bgeigie_imports.each do |bgeigie_import| -%>
         <li>
-          <%= link_to bgeigie_import.source.file.filename, bgeigie_import -%>
+          <%= link_to File.basename(bgeigie_import.source.file.path), bgeigie_import -%>
           (<%= pluralize(bgeigie_import.measurements_count, 'measurement') -%>)
           <%= t("uploaded_by", :name => bgeigie_import.user.name) -%>
           <%= t("on_date", :date => bgeigie_import.created_at.to_formatted_s(:default)) -%>
