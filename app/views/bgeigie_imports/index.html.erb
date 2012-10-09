@@ -9,11 +9,7 @@
       <ul class="unstyled">
         <%- @your_bgeigie_imports.each do |bgeigie_import| -%>
           <li>
-            <% if bgeigie_import.name.present? %>
-              <%= link_to bgeigie_import.name, bgeigie_import -%>
-            <% else %>
-              <%= link_to '[unnamed]', bgeigie_import -%>
-            <% end %>
+            <%= link_to bgeigie_import.source.file.filename, bgeigie_import -%>
             (<%= pluralize(bgeigie_import.measurements_count, 'measurement') -%>)
             <%= t 'on_date', :date => bgeigie_import.created_at.to_formatted_s(:default) -%>
           </li>
