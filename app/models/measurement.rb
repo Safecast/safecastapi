@@ -25,7 +25,9 @@ class Measurement < ActiveRecord::Base
     location = Point.new
     location.x  = lng.to_f
     location.y = lat.to_f
-    where("ST_DWithin(location, ?, ?)", location, distance.to_i)
+    where("ST_DWithin(location, ?, ?)", location, distance.to_i).
+    order("ST_Distance(location, ST_GeomFromText('POINT (#{location.x} #{location.y})')) ASC")
+
   end
 
   def self.grouped_by_hour

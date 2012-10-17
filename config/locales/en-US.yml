@@ -333,5 +333,18 @@ en-US:
         password_confirmation: Password confirmation
       measurement:
         unit: Unit
+        sensor_id: Sensor
+      device:
+        sensors: Sensors
+    errors:
+      models:
+        device:
+          attributes:
+            sensors:
+              blank: can't be blank
+        measurement:
+          attributes:
+            sensor_id:
+              blank: can't be blank
   user_subject: Reset password instructions
   view: View
