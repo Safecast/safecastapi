@@ -90,8 +90,6 @@ You can also run an individual test this way:
 
 # References #
 
-Backbone Validations
-https://github.com/n-time/backbone.validations
 Rails + PostGIS
  http://lassebunk.dk/2011/09/10/creating-a-location-aware-website-using-ruby-on-rails-and-postgis/
 
