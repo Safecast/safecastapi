@@ -8,9 +8,9 @@ We're using postgresql, you'll need to install that locally.
 
 Then:
 
-    createuser safecast
+    createuser -s safecast
 
-To create a local user... making sure to agree to making the user a superuser.
+To create a local superuser...
 
 
 # Ruby Version #
