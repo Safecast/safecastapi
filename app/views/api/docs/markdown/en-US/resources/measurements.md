@@ -14,7 +14,10 @@ Retrieve an array of measurements, filtered by the parameters provided.
 **latitude** Optional
 **longitude** Optional
 **distance** Optional
-If all three of these parameters are included, the returned set of measurements will be limited to those that fall within `distance` meters of the coordinate (`latitude`, `longitude`).
+If all three of these parameters are included, the returned set of measurements will be limited to those that fall within `distance` meters of the coordinate (`latitude`, `longitude`), sorted by nearest first.
+
+**limit** Optional
+Only return a certain number of results.
 
 **map_id** Optional
 Limit the returned set to measurements that have been added to the map specified by the id.
