@@ -65,7 +65,7 @@ class Api::MeasurementsController < Api::ApplicationController
     end
 
     if params[:limit]
-      @result = @result.limit(params[:limit])
+      @result = @result.limit(params[:limit].to_i)
     end
 
     if request.format == :csv
