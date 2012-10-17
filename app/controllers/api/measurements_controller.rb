@@ -64,6 +64,10 @@ class Api::MeasurementsController < Api::ApplicationController
       @result = @result.where('captured_at < ?', cutoff_time)
     end
 
+    if params[:limit]
+      @result = @result.limit(params[:limit])
+    end
+
     if request.format == :csv
       @result = @result.paginate(:page => 1, :per_page => @result.total_entries)
     end
