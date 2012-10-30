@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121030195833) do
+ActiveRecord::Schema.define(:version => 20121030202530) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -122,6 +122,12 @@ ActiveRecord::Schema.define(:version => 20121030195833) do
   add_index "drive_logs", ["drive_import_id"], :name => "index_drive_logs_on_measurement_import_id"
   add_index "drive_logs", ["md5sum"], :name => "index_drive_logs_on_md5sum", :unique => true
 
+  create_table "import_awaiting_approval_digest_mailers", :force => true do |t|
+    t.datetime "initialized_at"
+    t.datetime "send_at"
+    t.string   "status",         :default => "unsent"
+  end
+
   create_table "maps", :force => true do |t|
     t.text     "description"
     t.datetime "created_at",  :null => false
@@ -158,7 +164,10 @@ ActiveRecord::Schema.define(:version => 20121030195833) do
     t.integer  "height"
     t.string   "orientation"
     t.text     "cities"
+    t.integer  "digest_id"
   end
+
+  add_index "measurement_imports", ["digest_id"], :name => "index_measurement_imports_on_digest_id"
 
   create_table "measurements", :force => true do |t|
     t.integer  "user_id"
