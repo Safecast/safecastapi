@@ -12,7 +12,6 @@ class ImportAwaitingApprovalDigestMailer < ActiveRecord::Base
         :status => 'unsent'
       })
       handle_asynchronously :send_digest, :run_at => Proc.new { currentDigest.send_at }
-      binding.pry
     end
 
     current.bgeigie_imports << import
