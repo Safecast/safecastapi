@@ -9,7 +9,8 @@ csv << [
   'MD5Sum',
   'Height',
   'Surface',
-  'Radiation'
+  'Radiation',
+  'Uploaded Time'
 ]
 @result.each do |measurement|
   csv << [
@@ -23,6 +24,7 @@ csv << [
     measurement.md5sum,
     measurement.height,
     measurement.surface,
-    measurement.radiation
+    measurement.radiation,
+    measurement.created_at
   ] 
 end
