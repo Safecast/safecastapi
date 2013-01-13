@@ -16,8 +16,7 @@ feature "User uploads bgeigie log" do
       Delayed::Worker.new.work_off 
       visit(current_path)
       page.should have_content('Awaiting approval')
-      find_email(moderator.email, 
-        :with_subject => 'A Safecast import is awaiting approval').should be_present
+      ImportAwaitingApprovalDigestMailer.queuedImports.length.should == 1
     end
   end
   

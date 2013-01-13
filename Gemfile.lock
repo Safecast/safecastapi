@@ -76,9 +76,11 @@ GEM
     daemons (1.1.9)
     database_cleaner (0.8.0)
     decent_exposure (1.0.2)
-    delayed_job (2.1.4)
+    delayed_job (3.0.3)
       activesupport (~> 3.0)
-      daemons
+    delayed_job_active_record (0.3.3)
+      activerecord (>= 2.1.0, < 4)
+      delayed_job (~> 3.0)
     devise (2.0.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -260,7 +262,8 @@ DEPENDENCIES
   csv_builder (~> 2.1.1)
   database_cleaner
   decent_exposure
-  delayed_job (~> 2.1.4)
+  delayed_job (~> 3.0.3)
+  delayed_job_active_record
   devise (~> 2.0.0)
   dobro
   email_spec

@@ -4,6 +4,8 @@ class BgeigieImport < MeasurementImport
   validates :source, :presence => true
   
   belongs_to :user
+  belongs_to :import_awaiting_approval_digest
+
   has_many :bgeigie_logs, :dependent => :destroy
   
   scope :newest, order("created_at DESC")
@@ -52,7 +54,7 @@ class BgeigieImport < MeasurementImport
     confirm_status(:compute_latlng)
     self.update_attribute(:status, 'awaiting_approval')
     delete_tmp_file
-    Notifications.import_awaiting_approval(self).deliver
+    ImportAwaitingApprovalDigestMailer.addImport(self)
   end
 
   def approve!

@@ -1,0 +1,22 @@
+<p>The following Safecast imports have been submitted in the last day.  They are awaiting moderator approval.</p>
+
+<%- if @imports -%>
+  <ul>
+    <%- @imports.each do |bgeigie_import| -%>
+      <li>
+        <%= link_to File.basename(bgeigie_import.source.file.path),
+          bgeigie_import_url(bgeigie_import,
+                             :host => 'api.safecast.org',
+                             :protocol => 'https') -%>
+        (<%= pluralize(bgeigie_import.measurements_count, 'measurement') -%>)
+        <%= t("uploaded_by", :name => link_to(bgeigie_import.user.name, bgeigie_import.user)).html_safe -%>
+        <%= t("on_date", :date => bgeigie_import.created_at.to_formatted_s(:default)) %>
+      </li>
+    <%- end -%>
+  </ul>
+<%- end -%>
+
+<p>Or click
+<%= link_to "here", bgeigie_imports_url(:host => 'api.safecast.org',
+                                        :protocol => 'https') %>
+to see the list of imports.</p>
