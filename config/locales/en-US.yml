@@ -318,9 +318,9 @@ en-US:
       reasons: {}
       inactive_signed_up: ''
   user:
-    email: ''
-    password: ''
-    remember_me: ''
+    email: 
+    password: 
+    remember_me: 
     name: ''
     password_confirmation: ''
   activerecord:
@@ -334,6 +334,7 @@ en-US:
       measurement:
         unit: Unit
         sensor_id: Sensor
+        value: Value
       device:
         sensors: Sensors
     errors:
@@ -345,6 +346,10 @@ en-US:
         measurement:
           attributes:
             sensor_id:
+              blank: can't be blank
+            unit:
+              blank: can't be blank
+            value:
               blank: can't be blank
   user_subject: Reset password instructions
   view: View

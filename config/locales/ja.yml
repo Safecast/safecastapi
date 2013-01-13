@@ -292,3 +292,15 @@ ja:
     signed_out: ログアウト中
     signed_up: ログイン中
     unauthenticated: 非承認
+  activerecord:
+    attributes:
+      measurement:
+        value: 
+    errors:
+      models:
+        measurement:
+          attributes:
+            unit:
+              blank: 
+            value:
+              blank: 
