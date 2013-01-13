@@ -40,8 +40,6 @@ group :test do
   gem 'launchy'
   gem 'pry'
   gem 'rspec-rails',            '~> 2.8.1'
-  gem 'spork',                  '~> 0.9.0.rc'
-  gem 'watchr'
   gem 'email_spec'
 end
 
