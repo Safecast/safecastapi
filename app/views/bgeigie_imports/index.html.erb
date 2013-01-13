@@ -1,5 +1,18 @@
 <h2><%= t("bgeigie_imports") %></h2>
 
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <ul class="nav">
+      <li class="active">
+        <a href="#">Home</a>
+      </li>
+      <li><a href="#">Link</a></li>
+      <li><a href="#">Link</a></li>
+    </ul>
+  </div>
+</div>
+
 <%- if user_signed_in? %>
   <section>
     <h3><%= t("yours") -%> (<%= link_to t("upload_a_bgeigie_log_file"), [:new, :my, :bgeigie_import] %>)</h3>

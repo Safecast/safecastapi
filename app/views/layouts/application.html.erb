@@ -20,7 +20,9 @@
     <div class="container">
       <%= render :partial => 'shared/dashboard_navigation' %>
       <div id="page" class="container">
-        <%= yield %>
+        <div class="row">
+          <%= yield %>
+        </div>
 
         <footer class="span12">
           <p><%= t 'creative_commons_non_commercial' %></p>
