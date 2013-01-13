@@ -12,7 +12,7 @@
     <div class="row">
       <section class="span3">
         <h2><%= t('edit_bgeigie_log_file') -%></h2>
-        <%= form_for [:api, @bgeigie_import] do |f| %>
+        <%= form_for @bgeigie_import do |f| %>
           <fieldset>
             <div class="control-group">
               <%= f.label :name, t('title_optional'), :class => 'control-label' %>

@@ -18,6 +18,7 @@ en-US:
   count_lines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     one: 1 line
     other: ! '%{count} lines'
+  edit_details_status: Edit Details / Status
   email: Email
   height: Height
   location: Location

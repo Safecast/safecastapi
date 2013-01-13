@@ -29,5 +29,5 @@
   </ul>
 <%- end -%>
 <%- if user_signed_in? -%>
-  <%= link_to 'Edit Details / Status', [:edit, :my, @bgeigie_import] %>
+  <%= link_to t('edit_details_status'), [:edit, @bgeigie_import] %>
 <%- end -%>
