@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'devise', '~> 2.0.0'
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.11'
 gem 'pg'
 gem 'json'
 gem 'haml'
@@ -35,7 +35,6 @@ gem 'thin'
 
 group :test do
   gem 'capybara'
-  gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'fabrication'
   gem 'launchy'
