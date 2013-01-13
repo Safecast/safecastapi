@@ -150,6 +150,8 @@ ja:
       create: ! '%{model}を作成する'
       submit: ! '%{model}を保存する'
       update: ! '%{model}を更新する'
+      bgeigie_import:
+        create: 
   import_bgeigie_logs: bGeigieログをインポートする
   it_may_take_a_few_minutes_to_process: 処理に数分かかる可能性があります。
   map_created: マップが作成されました
@@ -296,6 +298,8 @@ ja:
     attributes:
       measurement:
         value: 
+      bgeigie_import:
+        source: 
     errors:
       models:
         measurement:
@@ -304,3 +308,13 @@ ja:
               blank: 
             value:
               blank: 
+  bgeigie_states:
+    all: 
+    approved: 
+    error: 
+    pending: 
+  simple_form:
+    required:
+      html: 
+      mark: 
+      text: 

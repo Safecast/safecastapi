@@ -1,64 +1,136 @@
-<%= render 'my/layouts/submit_nav' %>
+<%- if @bgeigie_import.queued_for_processing? -%>
+  <p class="alert">
+    <%= t("this_file_is_queued_for_processing") %>
+  </p>
+<%- end -%>
+
 <div class="row">
-  <section class="span9">
-    <h2><%= t('edit_bgeigie_log_file') -%></h2>
-    <%= form_for [:api, @bgeigie_import], :html =>{:class => 'form-horizontal'} do |f| %>
-      <fieldset>
-        <div class="control-group">
-          <%= f.label :source, t('file'), :class => 'control-label' %>
-          <div class="controls">
-            <%= f.file_field :source %>
-          </div>
-        </div>
-        
-        <div class="control-group">
-          <%= f.label :name, t('title_optional'), :class => 'control-label' %>
-          <div class="controls">
-            <%= f.text_field :name %>
-          </div>
-        </div>
+  <section class="span4">
+    <h2>
+      <%= t 'bgeigie_import' -%> #<%= @bgeigie_import.id -%>
+    </h2>
+    <div class="row">
+      <section class="span3">
+        <h2><%= t('edit_bgeigie_log_file') -%></h2>
+        <%= form_for [:api, @bgeigie_import] do |f| %>
+          <fieldset>
+            <div class="control-group">
+              <%= f.label :name, t('title_optional'), :class => 'control-label' %>
+              <div class="controls">
+                <%= f.text_field :name %>
+              </div>
+            </div>
 
-        <div class="control-group">
-          <%= f.label :description, t('description_optional'), :class => 'control-label' %>
-          <div class="controls">
-            <%= f.text_area :description %>
-          </div>
-        </div>
+            <div class="control-group">
+              <%= f.label :description, t('description_optional'), :class => 'control-label' %>
+              <div class="controls">
+                <%= f.text_area :description %>
+              </div>
+            </div>
 
-        <div class="control-group">
-          <%= f.label :credits, t('credits_csv'), :class => 'control-label' %>
-          <div class="controls">
-            <%= f.text_field :credits_as_string %>
-          </div>
-        </div>
+            <div class="control-group">
+              <%= f.label :credits, t('credits_csv'), :class => 'control-label' %>
+              <div class="controls">
+                <%= f.text_field :credits_as_string %>
+              </div>
+            </div>
 
-        <div class="control-group">
-          <%= f.label :credits, t('cities_csv'), :class => 'control-label' %>
-          <div class="controls">
-            <%= f.text_field :cities_as_string, :value => default_cities_as_string %>
-          </div>
-        </div>
+            <div class="control-group">
+              <%= f.label :credits, t('cities_csv'), :class => 'control-label' %>
+              <div class="controls">
+                <%= f.text_field :cities_as_string, :value => default_cities_as_string %>
+              </div>
+            </div>
 
-        <div class="control-group">
-          <%= f.label :height, t('sensor_height_optional'), :class => 'control-label' %>
-          <div class="controls">
-            <%= f.text_field :height %>
-          </div>
-        </div>
+            <div class="control-group">
+              <%= f.label :height, t('sensor_height_optional'), :class => 'control-label' %>
+              <div class="controls">
+                <%= f.text_field :height %>
+              </div>
+            </div>
 
-        <div class="control-group">
-          <%= f.label :orientation, t('sensor_orientation_optional'), :class => 'control-label' %>
-          <div class="controls">
-            <%= f.text_field :orientation %>
-          </div>
-        </div>
-      </fieldset>
-      
+            <div class="control-group">
+              <%= f.label :orientation, t('sensor_orientation_optional'), :class => 'control-label' %>
+              <div class="controls">
+                <%= f.text_field :orientation %>
+              </div>
+            </div>
+          </fieldset>
+
+          <%- if !@bgeigie_import.approved? && current_user.moderator?-%>
+            <fieldset>
+              <label class="checkbox">
+                <%= check_box_tag 'approve' %>
+                Approve?
+              </label>
+            </fieldset>
+          <%- end -%>
+          
+          <fieldset>
+            <p class="pull-left">
+              <%= link_to t('cancel'), bgeigie_import_url(@bgeigie_import) %>
+              <br />
+              <%= link_to t('back_to_bgeigie_imports'), bgeigie_imports_url %>
+            </p>
+            <p class="button">
+              <%= f.submit t('save') %>
+            </p>
+          </fieldset>
+        <%- end -%>
+      </section>
+    </div>
+    <ul class="unstyled nav">
+      <li class="nav-header"><%= t("measurement") %></li>
+      <li>
+        <%= t "latitude" -%>
+        <span class="lat pull-right"></span>
+      </li>
+      <li>
+        <%= t "longitude" -%>
+        <span class="lng pull-right"></span>
+      </li>
+      <li>
+        <%= t "clicks_per_minute" -%>
+        <span class="cpm pull-right"></span>
+      </li>
+    </ul>
+  </section>
+  <%- if @bgeigie_import.status_details[:compute_latlng].present? -%>
+    <section class="span8">
+      <%- if @bgeigie_import.bgeigie_logs.any? -%>
+        <input type="hidden" id="zoomlevel" value="12">
+        <input id="latitude"
+               type="hidden"
+               value="<%= @bgeigie_import.bgeigie_logs.first.latitude %>"></input>
+        <input id="longitude"
+               type="hidden"
+               value="<%= @bgeigie_import.bgeigie_logs.first.longitude %>"></input>
+        <div id="map_canvas" class="high well"></div>
+      <%- else -%>
+        <p class="well">
+          <%= t('map_displayed_once_file_processed') -%>
+        </p>
+      <%- end -%>
+      <%= content_for(:additional_javascripts) do %>
+        <script>
+          $(function(){
+            MeasurementsMap.initialize($("#map_canvas"))
+            MeasurementsMap.addMeasurementsAndCenter(<%= raw collect_bgeigie_logs(@bgeigie_import.bgeigie_logs).to_json %>)
+          })
+        </script>
+      <%- end -%>
+    </section>
+  <%- end -%>
+
+  <div class="row">
+    <%= form_for [:api, @bgeigie_import], :method => :delete, :html => {:class => 'pull-right'} do |f| %>
       <fieldset>
         <p class="button">
-          <%= f.submit t('upload') %>
+          <%= f.submit t('delete'), :data => {
+            :confirm => t('are_you_sure')
+          } %>
         </p>
       </fieldset>
     <%- end -%>
-  </section>
+  </div>
 </div>

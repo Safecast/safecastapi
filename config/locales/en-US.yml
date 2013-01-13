@@ -5,12 +5,13 @@ en-US:
   basics: Basics
   back_to_bgeigie_imports: Back to Import list
   bgeigie_states:
-    all: All
+    all: 
     awaiting_approval: Submitted
     done: Approved
-    error: Errors
-    pending: Pending
+    error: 
+    pending: 
     new: Newly Uploaded
+    approved: 
   cancel: Cancel
   contribute_your_measurement: Contribute your Measurement
   count_found: ! '%{count} found'
@@ -33,7 +34,7 @@ en-US:
   approve: Approve
   approved_by_moderator: Approved by moderator
   awaiting_approval: Awaiting approval
-  bgeigie_import: bGeigie Import
+  bgeigie_import: Bgeigie import
   bgeigie_imports: bGeigie Imports
   cities_csv: Cities (comma seperated list, optional)
   clicks_per_minute: Clicks per minute
@@ -191,6 +192,8 @@ en-US:
       create: Create %{model}
       submit: Save %{model}
       update: Update %{model}
+      bgeigie_import:
+        create: Create Bgeigie import
   if_you_have_a_bgeigie: If you have a bGeigie
   import_bgeigie_logs: Import bGeigie logs
   imports_awaiting_approval: imports awaiting approval
@@ -346,6 +349,8 @@ en-US:
         value: Value
       device:
         sensors: Sensors
+      bgeigie_import:
+        source: Source
     errors:
       models:
         device:
@@ -362,3 +367,8 @@ en-US:
               blank: can't be blank
   user_subject: Reset password instructions
   view: View
+  simple_form:
+    required:
+      html: <abbr title="required">*</abbr>
+      mark: ! '*'
+      text: required

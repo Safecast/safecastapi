@@ -48,47 +48,7 @@ class Api::BgeigieImportsController < Api::ApplicationController
     @result = bgeigie_imports
     respond_with @result
   end
-  
-  ##
-  # Creates a new *bgeigie_import* record based on the file uploaded
-  #
-  # @url [POST] /api/bgeigie_imports
-  #
-  # @argument [File] source The source file containing the bgeigie_log
-  #
-  # @response_field [Integer] id The newly-created import's ID
-  # @response_field [String] md5sum The MD5 checksum of the uploaded file
-  # @response_field [String] status The current status of the post-processor.
-  #   This will be one of: "unprocessed", "processing", or "processed"
-  #
-  def create
-    bgeigie_import.user = current_user
-    if bgeigie_import.save
-      bgeigie_import.delay.process
-      @result = bgeigie_import
-    else
-      @result = bgeigie_import.errors
-    end
-    respond_with @result, :location => bgeigie_import
-  end
 
-  def update
-    @bgeigie_import = BgeigieImport.find(params[:id])
-    if @bgeigie_import.update_attributes(params[:bgeigie_import])
-      if params[:approve]
-        @bgeigie_import.approve!
-      end
-      redirect_to @bgeigie_import
-    else
-      render 'my/bgeigie_imports/edit'
-    end
-  end
-
-  def destroy
-    @bgeigie_import = BgeigieImport.find(params[:id])
-    @bgeigie_import.destroy if @bgeigie_import.present?
-    redirect_to :bgeigie_imports
-  end
 
   
 end

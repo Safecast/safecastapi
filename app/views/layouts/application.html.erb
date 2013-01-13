@@ -2,7 +2,12 @@
 
 <html>
   <head>
-    <title>Safecast</title>
+    <title>
+      Safecast
+      <%- if content_for?(:title) -%>
+        <%= content_for(:title) %>
+      <%- end -%>
+    </title>
     <%= csrf_meta_tag %>
     <%= stylesheet_link_tag :application %>
     <%- if ENV['CONNECTION_STATUS'] != 'offline' -%>
