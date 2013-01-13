@@ -4,64 +4,46 @@
 <div class="navbar">
   <div class="navbar-inner">
     <ul class="nav">
-      <li class="active">
-        <a href="#">Home</a>
-      </li>
-      <li><a href="#">Link</a></li>
-      <li><a href="#">Link</a></li>
+      <%= bgeigie_nav_li(:all) %>
+      <% bgeigie_nav_li(:new) %>
+      <%= bgeigie_nav_li(:awaiting_approval) %>
+      <% bgeigie_nav_li(:pending) %>
+      <%= bgeigie_nav_li(:done) %>
+      <% bgeigie_nav_li(:error) %>
+      <%- if user_signed_in? -%>
+        <li <%= raw 'class="active"' if params[:by_user_id] == current_user.id.to_s %>>
+          <%= link_to "Yours", bgeigie_imports_url(:by_user_id => current_user.id) %>
+        </li>
+      <%- end -%>
     </ul>
   </div>
 </div>
 
-<%- if user_signed_in? %>
-  <section>
-    <h3><%= t("yours") -%> (<%= link_to t("upload_a_bgeigie_log_file"), [:new, :my, :bgeigie_import] %>)</h3>
-    <%- if @your_bgeigie_imports.empty? -%>
-      <p><%= t("you_havent_uploaded_any_bgeigie_log_files") -%></p>
-    <%- else -%>
-      <ul class="unstyled">
-        <%- @your_bgeigie_imports.each do |bgeigie_import| -%>
-          <li>
-            <%= link_to File.basename(bgeigie_import.source.file.path), bgeigie_import -%>
-            (<%= pluralize(bgeigie_import.measurements_count, 'measurement') -%>)
-            <%= t 'on_date', :date => bgeigie_import.created_at.to_formatted_s(:default) -%>
-          </li>
-        <%- end -%>
-      </ul>
-    <%- end -%>
-  </section>
-
-  <%- if current_user.moderator? and @unapproved_bgeigie_imports.any? -%>
-    <section>
-      <h3><%= t("awaiting_approval") -%></h3>
-      <ul class="unstyled">
-        <%- @unapproved_bgeigie_imports.each do |bgeigie_import| -%>
-          <li>
-            <%= link_to File.basename(bgeigie_import.source.file.path), bgeigie_import -%>
-            (<%= pluralize(bgeigie_import.measurements_count, 'measurement') -%>)
-            <%= t("uploaded_by", :name => link_to(bgeigie_import.user.name, bgeigie_import.user)).html_safe -%>
-            <%= t("on_date", :date => bgeigie_import.created_at.to_formatted_s(:default)) %>
-          </li>
-        <%- end -%>
-      </ul>
-    </section>
-  <%- end -%>
+<%- if @bgeigie_imports.empty? -%>
+  <%= t("no_bgeigie_log_files_have_been_uploaded") -%>
+<%- else -%>
+  <table class="table table-striped">
+    <thead>
+      <th>File Name</th>
+      <th>Number of Measurements</th>
+      <th>Date Uploaded</th>
+    </thead>
+    <tbody>
+      <%- @bgeigie_imports.each do |bgeigie_import| -%>
+        <tr>
+          <td>
+            <%= link_to File.basename(bgeigie_import.source.file.path), 
+                  bgeigie_import -%>
+          </td>
+          <td>
+            <%= bgeigie_import.measurements_count %>
+          </td>
+          <td>
+            <%= bgeigie_import.created_at_formatted %>
+          </td>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
 <%- end -%>
 
-<section>
-  <h3><%= t("public") -%></h3>
-  <%- if @public_bgeigie_imports.empty? -%>
-    <p><%= t("no_bgeigie_log_files_have_been_uploaded") -%></p>
-  <%- else -%>
-    <ul class="unstyled">
-      <%- @public_bgeigie_imports.each do |bgeigie_import| -%>
-        <li>
-          <%= link_to File.basename(bgeigie_import.source.file.path), bgeigie_import -%>
-          (<%= pluralize(bgeigie_import.measurements_count, 'measurement') -%>)
-          <%= t("uploaded_by", :name => bgeigie_import.user.name) -%>
-          <%= t("on_date", :date => bgeigie_import.created_at.to_formatted_s(:default)) -%>
-        </li>
-      <%- end -%>
-    </ul>
-  <%- end -%>
-</section>

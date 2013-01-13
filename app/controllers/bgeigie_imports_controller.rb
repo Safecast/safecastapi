@@ -1,10 +1,9 @@
 class BgeigieImportsController < SiteApplicationController
+  has_scope :by_status
+  has_scope :by_user_id
+
   def index
-    @public_bgeigie_imports = BgeigieImport.done.newest
-    if user_signed_in?
-      @your_bgeigie_imports = current_user.bgeigie_imports.newest
-      @unapproved_bgeigie_imports = BgeigieImport.unapproved.newest if current_user.moderator?
-    end
+    @bgeigie_imports = apply_scopes(BgeigieImport).page(params[:page])
   end
 
   def show

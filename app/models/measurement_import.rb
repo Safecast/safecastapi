@@ -3,6 +3,7 @@ class MeasurementImport < ActiveRecord::Base
   
   belongs_to :map
 
+  format_dates :timestamps
   mount_uploader :source, FileUploader
 
   before_validation :set_md5sum, :on => :create

@@ -4,6 +4,13 @@ en-US:
   are_you_sure: Are you sure? There is no undo.
   basics: Basics
   back_to_bgeigie_imports: Back to Import list
+  bgeigie_states:
+    all: All
+    awaiting_approval: Submitted
+    done: Approved
+    error: Errors
+    pending: Pending
+    new: Newly Uploaded
   cancel: Cancel
   contribute_your_measurement: Contribute your Measurement
   count_found: ! '%{count} found'
@@ -193,6 +200,7 @@ en-US:
   maps: maps
   measurements: measurements
   my_maps: My maps
+  newly_uploaded: Newly Uploaded
   no_maps_found: No maps found.
   none_found: none found
   number:
@@ -256,6 +264,7 @@ en-US:
   sign_up: Sign up
   submissions: submissions
   submit: Submit
+  submitted: Submitted
   submit_a_reading: Submit a Reading
   submit_a_reading_from_your_device: Submit a reading from your device
   submit_a_single_measurement: Submit a single measurement

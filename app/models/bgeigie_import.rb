@@ -22,6 +22,14 @@ class BgeigieImport < MeasurementImport
   serialize :credits, Array
   serialize :cities, Array
 
+  def self.by_status(status)
+    where(:status => status)
+  end
+
+  def self.by_user_id(user_id)
+    where(:user_id => user_id)
+  end
+
   def conversion
     @conversion ||= Iconv.new('UTF-8//IGNORE', 'UTF-8')
   end
