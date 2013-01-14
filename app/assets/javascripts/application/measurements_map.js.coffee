@@ -18,6 +18,7 @@ $ ->
             $(".lat").text(lat)
             $(".lng").text(lng)
             $(".cpm").text(measurement.cpm) if measurement.cpm
+            $(".captured_at").text(measurement.captured_at) if measurement.captured_at
       map.setCenter(bounds.getCenter(), map.fitBounds(bounds))
 
     iconForMeasurement: (cpm) ->

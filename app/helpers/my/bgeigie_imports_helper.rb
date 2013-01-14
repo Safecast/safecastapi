@@ -4,7 +4,8 @@ module My::BgeigieImportsHelper
       point = {
         :lat => b.latitude, 
         :lng => b.longitude,
-        :cpm => b.cpm
+        :cpm => b.cpm,
+        :captured_at => b.captured_at
       }
     end
   end

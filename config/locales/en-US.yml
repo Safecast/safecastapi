@@ -5,6 +5,7 @@ en-US:
   basics: Basics
   back_to_bgeigie_imports: Back to Import list
   cancel: Cancel
+  captured_at: Captured At
   contribute_your_measurement: Contribute your Measurement
   count_found: ! '%{count} found'
   count_lines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
