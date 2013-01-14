@@ -1,4 +1,9 @@
-en:
+en-US:
+  helpers:
+    submit:
+      bgeigie_import:
+        create: "Upload"
+        update: "Save"
   simple_form:
     "yes": 'Yes'
     "no": 'No'
@@ -11,11 +16,11 @@ en:
     error_notification:
       default_message: "Please review the problems below:"
     # Labels and hints examples
-    # labels:
+    labels:
     #   defaults:
     #     password: 'Password'
-    #   user:
-    #     new:
+      bgeigie_import:
+        source: Upload a File
     #       email: 'E-mail to sign in.'
     #     edit:
     #       email: 'E-mail.'

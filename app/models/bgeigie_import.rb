@@ -15,12 +15,13 @@ class BgeigieImport < MeasurementImport
     :process_file,
     :import_bgeigie_logs,
     :compute_latlng,
-    :measurements_added,
-    :create_map
+    :measurements_added
   ]
 
   serialize :credits, Array
   serialize :cities, Array
+
+  default_scope order('created_at desc')
 
   def self.by_status(status)
     where(:status => status)
@@ -71,19 +72,8 @@ class BgeigieImport < MeasurementImport
   
   def finalize!
     import_measurements
-    create_map
-    add_measurements_to_map
-    confirm_status(:create_map)
     confirm_status(:measurements_added)
     self.update_attribute(:status, 'done')
-  end
-  
-  def create_map
-    @map = user.maps.create!({
-      :name => 'bGeigie Import',
-      :description => 'bGeigie Import'
-    })
-    self.update_attribute(:map, @map)
   end
 
   def create_tmp_file
@@ -196,13 +186,6 @@ class BgeigieImport < MeasurementImport
       from bgeigie_logs WHERE
       bgeigie_import_id = #{self.id}
       and md5sum not in (select md5sum from measurements)])
-  end
-  
-  def add_measurements_to_map
-    self.connection.execute(%Q[
-      insert into maps_measurements (map_id, measurement_id)
-      select #{@map.id}, id from measurements
-      where measurement_import_id = #{self.id}])
   end
   
   def delete_tmp_file

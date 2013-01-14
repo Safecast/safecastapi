@@ -1,10 +1,10 @@
 <ul class="inline pull-right">
   <li>
-    <%= link_to 'Upload', [:new, :bgeigie_import], :class => 'btn' %>
+    <%= link_to t('.upload'), [:new, :bgeigie_import], :class => 'btn' %>
   </li>
 </ul>
 
-<h2><%= t("bgeigie_imports") %></h2>
+<h2><%= t(".bgeigie_imports") %></h2>
 
 
 <div class="navbar">
@@ -18,7 +18,7 @@
       <% bgeigie_nav_li(:error) %>
       <%- if user_signed_in? -%>
         <li <%= raw 'class="active"' if params[:by_user_id] == current_user.id.to_s %>>
-          <%= link_to "Yours", bgeigie_imports_url(:by_user_id => current_user.id) %>
+          <%= link_to t(".yours"), bgeigie_imports_url(:by_user_id => current_user.id) %>
         </li>
       <%- end -%>
     </ul>
@@ -26,13 +26,13 @@
 </div>
 
 <%- if @bgeigie_imports.empty? -%>
-  <%= t("no_bgeigie_log_files_have_been_uploaded") -%>
+  <%= t(".no_bgeigie_log_files_have_been_uploaded") -%>
 <%- else -%>
   <table class="table table-striped">
     <thead>
-      <th>File Name</th>
-      <th>Number of Measurements</th>
-      <th>Date Uploaded</th>
+      <th><%= t('.file_name') %></th>
+      <th><%= t('.number_of_measurements') %></th>
+      <th><%= t('.date_uploaded') %></th>
     </thead>
     <tbody>
       <%- @bgeigie_imports.each do |bgeigie_import| -%>

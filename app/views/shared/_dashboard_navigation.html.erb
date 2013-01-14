@@ -16,7 +16,7 @@
       <%- end -%>
       <%- if user_signed_in? -%>
         <li>
-          <%= link_to [:new, :my, :measurement], :title => t('submit_a_reading') do %>
+          <%= link_to [:new, :measurement], :title => t('submit_a_reading') do %>
             <%= t('submit') %>
           <%- end -%>
         </li>
@@ -34,13 +34,13 @@
               <%- end -%>
             </li>
             <li>
-              <%= link_to [:my, :measurements], :title => t("measurements") do %>
+              <%= link_to [:measurements], :title => t("measurements") do %>
                 <%= t('measurements') %>
               <%- end -%>
             </li>
             <li>
-              <%= link_to [:my, :maps], :title => t('maps') do %>
-                <%= t('maps') %>
+              <%= link_to [:devices], :title => t("devices") do %>
+                <%= t('devices') %>
               <%- end -%>
             </li>
           </ul>
@@ -55,7 +55,7 @@
           <%- end -%>
           <ul class="dropdown-menu">
             <li>
-              <%= link_to [:my, :profile], :title => t("profile") do %>
+              <%= link_to [:profile], :title => t("profile") do %>
                 <%= t('profile') %>
               <%- end -%>
             </li>

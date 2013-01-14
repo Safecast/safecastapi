@@ -1,10 +1,10 @@
 <%- if @bgeigie_import.status == 'done' -%>
   <span class="label label-success">
-    <%= t('processed') -%>
+    <%= t('.processed') -%>
   </span>
 <%- elsif @bgeigie_import.status == 'awaiting_approval' -%>
   <span class="label label-warning">
-    <%= t 'awaiting_approval' -%>
+    <%= t '.awaiting_approval' -%>
   </span>
 <%- else -%>
   <span class="label label-info">
@@ -18,16 +18,16 @@
   </div>
 <%- end -%>
 <ul class="nav nav-pills nav-stacked">
-  <li><%= link_to t("download_original_file"), @bgeigie_import.source.url %></li>
+  <li><%= link_to t(".download_original_file"), @bgeigie_import.source.url %></li>
 </ul>
 <%- if @bgeigie_import.status == 'done' -%>
   <ul class="measurement bgeigie-log unstyled">
     <li class="value thin">
       <em class="block"><%= @bgeigie_import.bgeigie_logs.count %></em>
-      <%= t("measurements") %>
+      <%= t(".measurements") %>
     </li>
   </ul>
 <%- end -%>
 <%- if user_signed_in? -%>
-  <%= link_to t('edit_details_status'), [:edit, @bgeigie_import] %>
+  <%= link_to t('.edit_details_status'), [:edit, @bgeigie_import] %>
 <%- end -%>

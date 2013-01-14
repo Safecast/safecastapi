@@ -1,0 +1,71 @@
+en-US:
+  bgeigie_imports:
+    states:
+      all: All
+      awaiting_approval: Submitted
+      done: Approved
+      error: Error
+      pending: Pending
+      new: Newly Uploaded
+      approved: Approved
+    approval:
+      approve: Approve
+    details:
+      details: Details
+      title: Title
+      description: Description
+      cities: Cities
+      credits: Credits
+      sensor_height: Sensor Height
+      sensor_orientation: Sensor Orientation
+    progress:
+      progress: Progress
+      process_file: Process file
+      count_lines: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        one: 1 line
+        other: "%{count} lines"
+      count_found: "%{count} found"
+      import_bgeigie_logs: Import bGeigie logs
+      none_found: none found
+      compute_latlng: "Compute latitudes &amp; longitudes"
+      approved_by_moderator: Approved by moderator
+      added_to_safecast_database: Added to Safecast database
+      map_created: Map created
+    status:
+      processed: Processed
+      awaiting_approval: Awaiting approval
+      download_original_file: Download Original File
+      measurements: measurements
+      edit_details_status: Edit Details / Status
+    edit:
+      back_to_bgeigie_imports: Back to Import list
+      this_file_is_queued_for_processing: This file is queued for processing.
+      bgeigie_import: Bgeigie import
+      title_optional: Title (optional)
+      description_optional: Description (optional)
+      credits_csv: "Credits (comma-separated, optional)"
+      cities_csv: "Cities (comma seperated list, optional)"
+      sensor_height_optional: "Sensor Height (metres, optional)"
+      sensor_orientation_optional: "Sensor Orientation (optional)"
+      measurement: Measurement
+      latitude: Latitude
+      longitude: Longitude
+      clicks_per_minute: Clicks per minute
+      map_displayed_once_file_processed: A map will be displayed once this file has processed.
+    index:
+      upload: 'Upload'
+      bgeigie_imports: bGeigie Imports
+      yours: Yours
+      no_bgeigie_log_files_have_been_uploaded: No bGeigie log files have been uploaded.
+      file_name: File Name
+      number_of_measurements: Number of Measurements
+      date_uploaded: Date Uploaded
+    new:
+      upload_a_bgeigie_log_file: Upload a bGeigie log file
+    show:
+      this_file_is_queued_for_processing: This file is queued for processing.
+      bgeigie_import: Bgeigie import
+      latitude: Latitude
+      longitude: Longitude
+      clicks_per_minute: Clicks per minute
+      back_to_bgeigie_imports: Back to Import list

@@ -1,0 +1,13 @@
+<ul class="inline pull-right">
+  <li>
+    <%= link_to 'Add a Device', [:new, :device], :class => 'btn' %>
+  </li>
+</ul>
+
+<h2><%= t("devices") %></h2>
+
+<%- if @devices.empty? -%>
+  <%= t('no_devices') %>
+<%- else -%>
+
+<%- end -%>

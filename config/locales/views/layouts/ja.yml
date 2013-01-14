@@ -1,0 +1,5 @@
+ja:
+  layouts:
+    submit_nav:
+      submit_a_single_measurement: 測定値の提出 （一つ）
+      upload_a_bgeigie_log_file: bGeigieのログファイルをアップロードする

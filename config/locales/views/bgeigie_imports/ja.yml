@@ -1,0 +1,51 @@
+ja:
+  bgeigie_imports:
+    approval:
+      approve: 承認する
+    details:
+      details: 詳細情報
+      title: タイトル
+      description: 説明文
+      cities: 市町村名／地域名
+      credits: データ提出者
+      sensor_height: センサーの地面からの高さ
+      sensor_orientation: センサーの方向付け
+    progress:
+      progress: 進歩状況
+      process_file: ファイルを処理する
+      count_lines: "%{count}行"
+      count_found: "%{count}件見つかりました"
+      import_bgeigie_logs: bGeigieログをインポートする
+      none_found: 見つかりませんでした。
+      compute_latlng: 経緯度を計算する
+      approved_by_moderator: モデレーターで承認されました
+      added_to_safecast_database: Safecast データベースに登録されました。
+    status:
+      processed: 処理済み
+      awaiting_approval: 承認待ち
+      download_original_file: 元のファイルをダウンロードする
+      measurements: 測定値
+      edit_details_status:
+    edit:
+      this_file_is_queued_for_processing: このファイルの処理を受け付けました。
+      bgeigie_import: bGeigieデータのインポート
+      title_optional: タイトル　(任意項目）
+      description_optional: 説明文　（任意項目）
+      credits_csv: "データ提出者　(カンマ区切り, 任意項目)"
+      cities_csv: "市町村名／地域名 (カンマ区切り, 任意項目)"
+      sensor_height_optional: "センサーの地面からの高さ (メートル, 任意項目)"
+      sensor_orientation_optional: センサーの方向付け (任意項目)
+      back_to_bgeigie_imports:
+      measurement: 測定値
+      latitude: 緯度
+      longitude: 経度
+      clicks_per_minute: 1分間の放射線計測数　(CPM)
+      map_displayed_once_file_processed: このファイルの処理が完了次第、マップが表示されます。
+    index:
+      upload: アップロード
+      bgeigie_imports: bGeigieデータのインポート
+      yours: あなたの測定値
+      no_bgeigie_log_files_have_been_uploaded: アップロードされたbGeigieログファイルはありません
+      file_name: 
+      number_of_measurements:
+      date_uploaded:

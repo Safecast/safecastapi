@@ -7,7 +7,7 @@ module BgeigieImportsHelper
       params[:by_status] == status.to_s
     end
     content_tag(:li, :class => ('active' if active)) do
-      link_to t("bgeigie_states.#{status}"),
+      link_to t("bgeigie_imports.states.#{status}"),
               bgeigie_imports_url(:by_status => status)
     end
   end

@@ -1,6 +1,6 @@
-<%= render 'my/layouts/submit_nav' %>
+<%= render 'layouts/submit_nav' %>
 <section>
-  <%= form_for [:api, @measurement],
+  <%= form_for @measurement,
       :html => {
         :autocomplete => 'off',
         :class => 'form-horizontal submission',
