@@ -3,3 +3,6 @@ psql -U deploy -h ec2-50-112-49-143.us-west-2.compute.amazonaws.com teamdata -c 
 echo "Captured Time,Latitude,Longitude,Value,Unit,Location Name,Device ID,MD5Sum,Height,Surface,Radiation,Uploaded Time" | cat - /tmp/measurements.csv > /data/teamdata/shared/system/measurements-out.csv
 cd /data/teamdata/shared/system && tar -czf measurements-out.tar.gz measurements-out.csv
 mv measurements-out.tar.gz measurements.tar.gz && mv measurements-out.csv measurements.csv
+#
+# Now this is available as https://api.safecast.org/system/measurements.tar.gz
+#
