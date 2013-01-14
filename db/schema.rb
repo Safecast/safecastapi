@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120625212801) do
+ActiveRecord::Schema.define(:version => 20130114094100) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -141,14 +141,14 @@ ActiveRecord::Schema.define(:version => 20120625212801) do
     t.integer  "measurements_count"
     t.integer  "map_id"
     t.text     "status_details"
-    t.boolean  "approved",           :default => false
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.boolean  "approved",                                         :default => false
+    t.datetime "created_at",                                                          :null => false
+    t.datetime "updated_at",                                                          :null => false
     t.string   "name"
     t.text     "description"
     t.integer  "lines_count"
     t.text     "credits"
-    t.integer  "height"
+    t.decimal  "height",             :precision => 8, :scale => 2
     t.string   "orientation"
     t.text     "cities"
   end
