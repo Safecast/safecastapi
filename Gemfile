@@ -5,7 +5,6 @@ gem 'rails',                    '3.2.11'
 gem 'pg'
 gem 'json'
 gem 'haml'
-gem 'dobro'
 
 gem 'aws-ses',                  '0.4.4', :require => 'aws/ses'
 gem 'bootstrap-sass',           '~> 2.2.2.0'

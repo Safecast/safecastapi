@@ -14,16 +14,13 @@
         <%= link_to t('view_the_safecast_api_docs'), [:api, :docs] %>
       </li>
       <li>
-        <%= link_to t('retrieve_your_api_key'), [:my, :profile] %>
+        <%= link_to t('retrieve_your_api_key'), :profile %>
       </li>
       <li>
         <%= link_to t('submit_a_reading_from_your_device'), [:new, :measurement] %>
       </li>
       <li>
-        <%= link_to t('view_your_submission_history'), [:my, :measurements] %>
-      </li>
-      <li>
-        <%= link_to t('explore_maps_of_your_submissions'), [:my, :maps] %>
+        <%= link_to t('view_your_submission_history'), :measurements %>
       </li>
       <li class="nav-header">
         <%= t('if_you_have_a_bgeigie') %>:
@@ -44,20 +41,20 @@
           <em>
             <%= number_with_delimiter current_user.measurements.count %>
           </em>
-          <%= t('submissions') %>
+          <%= t('.submissions') %>
         <%- end -%>
       </li>
       <li>
         <%= link_to [:bgeigie_imports] do %>
           <em><%= current_user.bgeigie_imports.count  %></em>
-          <%= t('bgeigie_imports') -%>
+          <%= t('.bgeigie_imports') -%>
         <%- end -%>
       </li>
       <%- if current_user.moderator? && @unapproved_bgeigie_imports.any? -%>
         <li>
           <%= link_to [:bgeigie_imports]  do -%>
             <em><%= @unapproved_bgeigie_imports.count -%></em>
-            <%= t('imports_awaiting_approval') -%>
+            <%= t('.imports_awaiting_approval') -%>
           <%- end -%>
         </li>
       <%- end -%>

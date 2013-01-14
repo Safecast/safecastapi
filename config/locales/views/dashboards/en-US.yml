@@ -1,0 +1,6 @@
+en-US:
+  dashboards:
+    show:
+      submissions: Submissions
+      bgeigie_imports: bGeigie Imports
+      imports_awaiting_approval: Imports Awaiting Approval

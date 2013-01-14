@@ -1,0 +1,6 @@
+ja:
+  dashboards:
+    show:
+      submissions: 提出された測定データ
+      bgeigie_imports: bGeigieデータのインポート
+      imports_awaiting_approval: 承認待ちのインポートデータ

@@ -28,23 +28,23 @@ class MeasurementsController < ApplicationController
 
     if params[:captured_after].present?
       cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:captured_after])
-      @measurements = @measurement.where('captured_at > ?', cutoff_time)
+      @measurements = @measurements.where('captured_at > ?', cutoff_time)
     end
 
     if params[:captured_before].present?
       cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:captured_before])
-      @measurements = @measurement.where('captured_at < ?', cutoff_time)
+      @measurements = @measurements.where('captured_at < ?', cutoff_time)
     end
 
     if params[:limit]
-      @measurements = @measurement.limit(params[:limit].to_i)
+      @measurements = @measurements.limit(params[:limit].to_i)
     end
 
     if request.format == :csv
       @measurements = @measurement.paginate(:page => 1, :per_page => @measurement.total_entries)
     end
 
-    respond_with @measurement
+    respond_with @measurements
   end
   
   def show

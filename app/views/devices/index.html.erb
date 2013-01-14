@@ -1,13 +1,34 @@
 <ul class="inline pull-right">
   <li>
-    <%= link_to 'Add a Device', [:new, :device], :class => 'btn' %>
+    <%= link_to t('.add_a_device'), [:new, :device], :class => 'btn' %>
   </li>
 </ul>
 
-<h2><%= t("devices") %></h2>
+<h2><%= t(".devices") %></h2>
 
 <%- if @devices.empty? -%>
-  <%= t('no_devices') %>
+  <%= t('.no_devices') %>
 <%- else -%>
-
+  <table class="table">
+    <thead>
+      <th><%= t('.manufacturer') %></th>
+      <th><%= t('.model') %></th>
+      <th><%= t('.sensor') %></th>
+    </thead>
+    <tbody>
+      <%- @devices.each do |device| -%>
+        <tr>
+          <td>
+            <%= device.manufacturer %>
+          </td>
+          <td>
+            <%= device.model %>
+          </td>
+          <td>
+            <%= device.sensor %>
+          </td>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
 <%- end -%>

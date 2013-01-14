@@ -21,13 +21,13 @@ class DevicesController < ApplicationController
   end
   
   def show
-    @device = Devide.find(params[:id])
-    respond_with @result
+    @device = Device.find(params[:id])
+    respond_with @device
   end
 
   def create
     @device = Device.get_or_create(params[:device])
-    respond_with @device
+    respond_with @device, :location => :devices
   end
   
 end

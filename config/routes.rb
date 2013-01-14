@@ -2,7 +2,7 @@ Safecast::Application.routes.draw do
   root :to => "my/dashboards#show", :locale => "en-US"
 
   resource :worldmap
-  scope "/:locale", :constraints => { :locale => /(en-US|ja)/ } do
+  scope "(:locale)", :constraints => { :locale => /(en-US|ja)/ } do
     devise_for :users
     devise_for :admins
     devise_scope :user do
@@ -18,37 +18,18 @@ Safecast::Application.routes.draw do
       end
     end
     resources :devices
-    resources :measurements
-    resources :posts
-    resources :users
-    resources :bgeigie_imports, :only => [ :index, :show ]
-  end
-
-  namespace :api do
-    root :to => "application#index"
-    resources :bgeigie_imports
-    resources :users do
-      resources :measurements
-      resources :maps do
-        resources :measurements
-      end
-      collection do
-        get "auth"
-      end
-    end
-    resources :devices
     resources :measurements do
       collection do
         get :count
       end
     end
-    resources :maps do
-      resources :measurements do
-        collection do
-          post "add_to_map", :path => ":id/add"
-        end
-      end
-    end
+    resources :posts
+    resources :users
+    resources :bgeigie_imports
+  end
+
+  namespace :api do
+    root :to => "application#index"
 
     resources :docs do 
       collection do
@@ -57,26 +38,7 @@ Safecast::Application.routes.draw do
     end
   end
 
-  authenticate :admin do
-    namespace :admin do
-      dobro_for :devices, :admins
-      dobro_for :users, :controller => "admin/users"
-    end
-    match "/admin", to: "dobro/application#index"
-  end
-  
-  match "/my/measurements/manifest", :to => "my/dashboards#show"
-  match "reading", :to => "submissions#reading"
-  match "device", :to => "submissions#device"
-  match "details", :to => "submissions#details"
-  match "manifest", :to => "submissions#manifest"
-
-  match "/js_templates.js", :to => "js_templates#show"
-
-  match "/"  => "api/application#options", :via => :options
-  match "/" => "api/application#index", :via => :get
-
   #legacy fixes (maps.safecast.org now redirects to api.safecast.org, so people might be using the old maps.safecast.org/drive/add URI)
   match "/drive/add", :to => redirect("/")
-  match '/count', :to => 'api/measurements#count'
+  match '/count', :to => 'measurements#count'
 end

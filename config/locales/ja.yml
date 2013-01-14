@@ -141,6 +141,8 @@ ja:
       update: ! '%{model}を更新する'
       bgeigie_import:
         create: 
+      device:
+        create: 
   it_may_take_a_few_minutes_to_process: 処理に数分かかる可能性があります。
   maps: マップ
   my_maps: マイ・マップ
@@ -187,7 +189,6 @@ ja:
   retrieve_your_api_key: APIキーを取得する
   sign_out: ログアウト
   cancel: 取り消す
-  submissions: 提出された測定データ
   submit: 提出する
   submit_a_reading: 測定値の提出
   submit_a_reading_from_your_device: あなたのデバイスからの測定値を提出する
@@ -213,7 +214,6 @@ ja:
   height: 地面からの高さ
   if_you_have_a_bgeigie: bGeigieを持っている場合
   imports: インポートされたデータ
-  imports_awaiting_approval: 承認待ちのインポートデータ
   lat: 緯度
   lng: 経度
   location: 位置
@@ -257,6 +257,10 @@ ja:
         value: 
       bgeigie_import:
         source: 
+      device:
+        manufacturer: 
+        model: 
+        sensor: 
     errors:
       models:
         measurement:
@@ -279,3 +283,12 @@ ja:
   layouts:
     submit_nav:
       submit_a_single_measurement: 
+  no_devices: 
+  shared:
+    dashboard_navigation:
+      devices: 
+      imports: 
+      measurements: 
+  devices:
+    new:
+      add_new: 

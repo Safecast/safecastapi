@@ -5,7 +5,9 @@ en-US:
   basics: Basics
   cancel: Cancel
   contribute_your_measurement: Contribute your Measurement
-  devices: Devices
+  devices:
+    new:
+      add_new: 
   email: Email
   height: Height
   location: Location
@@ -167,6 +169,8 @@ en-US:
       update: Update %{model}
       bgeigie_import:
         create: Create Bgeigie import
+      device:
+        create: Create Device
   if_you_have_a_bgeigie: If you have a bGeigie
   imports_awaiting_approval: imports awaiting approval
   it_may_take_a_few_minutes_to_process: It may take a few minutes to process.
@@ -300,6 +304,9 @@ en-US:
         value: Value
       device:
         sensors: Sensors
+        manufacturer: Manufacturer
+        model: Model
+        sensor: Sensor
       bgeigie_import:
         source: Source
     errors:
@@ -328,3 +335,9 @@ en-US:
   layouts:
     submit_nav:
       submit_a_single_measurement: 
+  no_devices: 
+  shared:
+    dashboard_navigation:
+      devices: 
+      imports: 
+      measurements: 

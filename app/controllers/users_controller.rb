@@ -1,11 +1,11 @@
-class Api::UsersController < Api::ApplicationController
+class UsersController < ApplicationController
 
   expose(:user) { User.find_by_email(params[:email]) }
   
   def create
-    user = User.create(:email => params[:email], :name => params[:name], :password => params[:password])
-    user.save
-    respond_with(:api, user)
+    @user = User.create(:email => params[:email], :name => params[:name], :password => params[:password])
+    @user.save
+    respond_with(@user)
   end
   
   def auth

@@ -1,1 +1,9 @@
-<h2><%= t('.add_new') %>
+<h2><%= t('.add_new_device') %></h2>
+
+<%= simple_form_for @device, :html => {:class => 'form-horizontal'} do |f| %>
+  <%= f.input :manufacturer %>
+  <%= f.input :model %>
+  <%= f.input :sensor %>
+
+  <%= f.submit %>
+<%- end -%>
