@@ -1,5 +1,5 @@
 Safecast::Application.routes.draw do
-  root :to => "my/dashboards#show", :locale => "en-US"
+  root :to => "dashboards#show", :locale => "en-US"
 
   resource :worldmap
   scope "(:locale)", :constraints => { :locale => /(en-US|ja)/ } do
@@ -28,15 +28,8 @@ Safecast::Application.routes.draw do
     resources :bgeigie_imports
   end
 
-  namespace :api do
-    root :to => "application#index"
-
-    resources :docs do 
-      collection do
-        match '/resources/:resource', :to => 'docs#show_resource'
-      end
-    end
-  end
+  match '/api/*path' => redirect('/%{path}.%{format}'), :format => true
+  match '/api/*path' => redirect('/%{path}'), :format => false
 
   #legacy fixes (maps.safecast.org now redirects to api.safecast.org, so people might be using the old maps.safecast.org/drive/add URI)
   match "/drive/add", :to => redirect("/")
