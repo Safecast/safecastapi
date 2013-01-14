@@ -1,10 +1,7 @@
 en-US:
-  1m: 1m
-  air: Air
   are_you_sure: Are you sure? There is no undo.
   basics: Basics
   cancel: Cancel
-  contribute_your_measurement: Contribute your Measurement
   devices:
     new:
       add_new: 
@@ -12,10 +9,7 @@ en-US:
       sensor: 
   email: Email
   height: Height
-  location: Location
-  radiation_level: Radiation Level
   radiation_type: Radiation Type
-  soil: Soil
   surface_type: Surface Type
   or: or
   admin: Admin
@@ -75,7 +69,6 @@ en-US:
     - :year
     - :month
     - :day
-  date_taken: Date taken
   datetime:
     distance_in_words:
       about_x_hours:
@@ -120,7 +113,6 @@ en-US:
       second: Seconds
       year: Year
   delete: Delete
-  device: Device
   edit_bgeigie_log_file: Edit bGeigie Log File Meta Data
   errors:
     format: ! '%{attribute} %{message}'
@@ -272,9 +264,6 @@ en-US:
   time_zone: Time zone
   your_api_key: Your API key
   on_date: on %{date}
-  type_address_instructions: Start typing an address, the map will update as you type. Pinpoint the location by dragging the map.
-  dont_see_device_help: Don't see your device?
-  add_a_new_device: Add a new device
   manufacturer: Manufacturer
   model: Model
   sensor: Sensor

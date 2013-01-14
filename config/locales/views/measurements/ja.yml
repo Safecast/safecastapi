@@ -1,0 +1,17 @@
+en-US:
+  measurements:
+    new:
+      contribute_your_measurement: Contribute your Measurement
+      radiation_level: Radiation Level
+      date_taken: Date taken
+      location: Location
+      type_address_instructions: "Start typing an address, the map will update as you type. Pinpoint the location by dragging the map."
+      latitude: Latitude
+      longitude: Longitude
+      device: Device
+      dont_see_device_help: Don't see your device?
+      add_a_new_device: Add a new device
+      environment: Environment
+      1m: 1m
+      air: Air
+      soil: Soil

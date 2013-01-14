@@ -6,26 +6,14 @@ feature "User creates a new device when submitting a reading" do
   before { sign_in(user) }
 
   scenario "new device" do
-    visit('/')
-    click_link('Submit')
-    click_link('Add a new device')
+    visit('/devices')
+    click_link('Add a Device')
 
     fill_in('Manufacturer', :with => 'Safecast')
     fill_in('Model', :with => 'bGeigie')
     fill_in('Sensor', :with => 'LND-712')
 
-    click_button('Submit')
-
-    select('Clicks per minute', :from => 'Unit')
-    fill_in('Radiation Level',  :with => '12.3')
-    fill_in('Location',         :with => 'Los Angeles, CA')
-    select('Safecast - bGeigie (LND-712)', :from => 'Device')
-    click_button('Submit')
-
-    page.should have_content('12.3')
-    page.should have_content('cpm')
-    page.should have_content('Safecast - bGeigie (LND-712)')
-
-    user.measurements.last.device.name.should == 'Safecast - bGeigie (LND-712)'
+    click_button('Save')
+    page.should have_content('LND-712')
   end
 end

@@ -1,5 +1,15 @@
 module BgeigieImportsHelper
 
+  def collect_bgeigie_logs(bgeigie_logs)
+    bgeigie_logs.collect do |b|
+      point = {
+        :lat => b.latitude, 
+        :lng => b.longitude,
+        :cpm => b.cpm
+      }
+    end
+  end
+
   def bgeigie_nav_li(status)
     active = if params[:by_status].blank?
       status == nil

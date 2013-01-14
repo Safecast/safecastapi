@@ -31,8 +31,8 @@ feature "User uploads bgeigie log" do
     scenario "approving a bGeigie log file" do
       sign_in(moderator)
       visit('/')
-      page.should have_content('1 imports awaiting approval')
-      click_link '1 imports awaiting approval'
+      click_link 'Imports'
+      click_link 'Submitted'
       click_link 'bgeigie.log'
       click_button 'Approve'
       Delayed::Worker.new.work_off 

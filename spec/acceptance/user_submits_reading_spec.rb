@@ -9,7 +9,7 @@ feature "User submits a reading when a device does not exist" do
   scenario "first reading" do
     visit('/')
     click_link('Submit')
-    select('Clicks per minute', :from => 'Unit')
+    select('Clicks Per Minute', :from => 'Unit')
     fill_in('Radiation Level', :with => '123')
     fill_in('Location',        :with => 'Colwyn Bay, Wales')
     click_button('Submit')
@@ -34,7 +34,7 @@ feature "User submits a reading while devices exist" do
   scenario 'reading with no device' do
     visit('/')
     click_link('Submit')
-    select('Clicks per minute', :from => 'Unit')
+    select('Clicks Per Minute', :from => 'Unit')
     fill_in('Radiation Level',  :with => '456')
     fill_in('Location',         :with => 'Los Angeles, CA')
     select('', :from => 'Device')
@@ -48,7 +48,7 @@ feature "User submits a reading while devices exist" do
   scenario 'reading with a device' do
     visit('/')
     click_link('Submit')
-    select('Clicks per minute', :from => 'Unit')
+    select('Clicks Per Minute', :from => 'Unit')
     fill_in('Radiation Level',  :with => '789')
     fill_in('Location',         :with => 'Tokyo, JP')
     select(device.name, :from => 'Device')

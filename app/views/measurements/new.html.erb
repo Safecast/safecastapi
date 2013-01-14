@@ -8,7 +8,7 @@
       } do |f| %>
     <div class="row">
       <div class="span6">
-        <h2><%= t('contribute_your_measurement') %></h2>
+        <h2><%= t('.contribute_your_measurement') %></h2>
       </div>
       <div class="span6">
         <fieldset>
@@ -34,7 +34,7 @@
             <%= t('basics') %>
           </legend>
           <div class="control-group reading">
-            <%= f.label :value, t('radiation_level'), :class => 'control-label' %>
+            <%= f.label :value, t('.radiation_level'), :class => 'control-label' %>
             <div class="controls">
               <%= f.text_field :value,
                     :class => 'digit level',
@@ -45,25 +45,25 @@
           <div class="control-group">
             <%= f.label :unit, :class => 'control-label' %>
             <div class="controls">
-              <%= f.select :unit, [['μSv/h', 'microsievert'], [ t('clicks_per_minute'), 'cpm']], :selected => 'microsievert', :id => 'unit' %>
+              <%= f.select :unit, [['μSv/h', 'microsievert'], [ t('.clicks_per_minute'), 'cpm']], :selected => 'microsievert', :id => 'unit' %>
             </div>
           </div>
           
           <div class="control-group">
-            <%= f.label :captured_at, t("date_taken"), :class => 'control-label' %>
+            <%= f.label :captured_at, t(".date_taken"), :class => 'control-label' %>
             <div class="controls">
               <%= f.text_field :captured_at %>
             </div>
           </div>
 
           <div class="control-group">
-            <%= label_tag :location, t("location"), :class => 'control-label' %>
+            <%= label_tag :location, t(".location"), :class => 'control-label' %>
             <div class="controls">
               <%= f.text_area :location_name,
                     :id => :location,
                     :style => "height: 50px" %>
             </div>
-            <p class="help-block"><%= t('type_address_instructions') %></p>
+            <p class="help-block"><%= t('.type_address_instructions') %></p>
           </div>
         </fieldset>
       </div>
@@ -74,7 +74,7 @@
         </div>
         <fieldset>
           <div class="control-group">
-            <%= label_tag :latitude, t('latitude'), :class => 'control-label' %>
+            <%= label_tag :latitude, t('.latitude'), :class => 'control-label' %>
 
             <div class="controls">
               <%= f.text_field :latitude, :id => 'latitude' %>
@@ -82,7 +82,7 @@
           </div>
 
           <div class="control-group">
-            <%= label_tag :longitude, t('longitude'), :class => 'control-label' %>
+            <%= label_tag :longitude, t('.longitude'), :class => 'control-label' %>
             <div class="controls">
               <%= f.text_field :longitude, :id => 'longitude' %>
             </div>
@@ -98,13 +98,13 @@
             <%= t("device") %>
           </legend>
           <div class="control-group">
-            <%= f.label :device_id, t("device"), :class => 'control-label' %>
+            <%= f.label :device_id, t(".device"), :class => 'control-label' %>
             <div class="controls">
               <%= f.select :device_id, [['', nil]] + Device.all.collect { |d| [d.name, d.id]} %>
             </div>
             <p class="help-block">
-              <%= t('dont_see_device_help') %>
-              <%= link_to t('add_a_new_device'), [:new, :my, :device] %>.
+              <%= t('.dont_see_device_help') %>
+              <%= link_to t('.add_a_new_device'), [:new, :device] %>.
             </p>
           </div>
         </fieldset>
@@ -113,13 +113,13 @@
       <div class="span6">
         <fieldset>
           <legend>
-            Environment
+            <%= t('.environment') %>
           </legend>
 
           <div class="control-group">
             <%= f.label :height, t("height"), :class => 'control-label' %>
             <div class="controls">
-              <%= f.text_field :height, :placeholder => t("1m") %>
+              <%= f.text_field :height, :placeholder => t(".1m") %>
             </div>
           </div>
 
@@ -127,7 +127,7 @@
             <%= f.label :surface, t("surface_type"),
                   :class => 'control-label' %>
             <div class="controls">
-              <%= f.text_field :surface, :placeholder => t("soil") %>
+              <%= f.text_field :surface, :placeholder => t(".soil") %>
             </div>
           </div>
 
@@ -135,7 +135,7 @@
             <%= f.label :radiation, t("radiation_type"),
                   :class => 'control-label' %>
             <div class="controls">
-              <%= f.text_field :radiation, :placeholder => t("air") %>
+              <%= f.text_field :radiation, :placeholder => t(".air") %>
             </div>
           </div>
         </fieldset>

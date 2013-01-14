@@ -54,7 +54,6 @@ ja:
     - :year
     - :month
     - :day
-  date_taken: 測定された日付
   datetime:
     distance_in_words:
       about_x_hours:
@@ -98,7 +97,6 @@ ja:
       month: 月
       second: 秒
       year: 年
-  device: デバイス
   errors:
     format: ! '%{attribute}%{message}'
     messages:
@@ -206,8 +204,6 @@ ja:
   your_measurement: あなたの測定値
   your_measurements: あなたの測定データ
   admin: 管理
-  air: 空気
-  contribute_your_measurement: あなたの測定値を提出する
   edit_your_profile: プロフィールを編修する
   email: メール
   explore_maps_of_your_submissions: あたたが提出した測定データから作成マップを見る
@@ -216,13 +212,11 @@ ja:
   imports: インポートされたデータ
   lat: 緯度
   lng: 経度
-  location: 位置
   name: 名前
   on_date: ! '%{date}に'
   or: または、
   previous_label: 前
   public: 公開されている測定値
-  radiation_level: 放射線レベル
   radiation_type: 放射線の種類
   review_your_bgeigie_log_file_submissions: あなたが提出したbGeigieログファイルを確認する
   sign_in: ログイン
@@ -234,14 +228,11 @@ ja:
       words_connector: と
   surface_type: 表面の材質
   time_zone: タイムゾーン (時間帯)
-  type_address_instructions: 住所を入力し始めると、地図(マップ)が入力に合わせて更新されます。地図(マップ)をドラッグすると、正確な位置を表示することができます。
   uploaded_by: ! '提出者: %{name}'
   your_api_key: あなたのAPIキー
   you_havent_submitted_any_measurements_yet: あなたが提出した測定データはありません。
   you_havent_uploaded_any_bgeigie_log_files: あたたがアップロードしたbGeigieログファイルはありません。
-  1m: 1m
   basics: 基本項目
-  soil: 土
   your_maps: マイ・マップ
   My_maps: マイ・マップ
   cpm: cpm (カウント毎分)

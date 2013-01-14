@@ -4,6 +4,9 @@ en-US:
       bgeigie_import:
         create: "Upload"
         update: "Save"
+      device:
+        create: "Save"
+        update: "Save"
   simple_form:
     "yes": 'Yes'
     "no": 'No'
