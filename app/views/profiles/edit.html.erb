@@ -1,7 +1,7 @@
 <div class="row">
   <section class="span6 offset3">
     <h2><%= t('edit_your_profile') %></h2>
-    <%= form_for @user, :url => [:my, :profile],
+    <%= form_for @user, :url => :profile,
           :html => {
             :class => 'form-horizontal'
           } do |f| %>
@@ -31,7 +31,7 @@
       <fieldset>
         <p class="button">
           <input type="submit" value="<%= t('submit') %>">
-          <%= t('or') %> <%= link_to t('cancel'), [:my, :profile] %>
+          <%= t('or') %> <%= link_to t('cancel'), :profile %>
         </p>
       </fieldset>
     <%- end -%>
