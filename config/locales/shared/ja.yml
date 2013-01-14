@@ -1,0 +1,6 @@
+en-US:
+  shared:
+    dashboard_navigation:
+      imports: Imports
+      measurements: Measurements
+      devices: Devices
