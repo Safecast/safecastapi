@@ -8,7 +8,7 @@ feature "/api/users API endpoint" do
   end
   
   scenario "create user" do
-    post('/api/users.json', {
+    post('/users.json', :user => {
       :email => 'kevin@rkn.la',
       :name => 'Kevin Nelson',
       :password => 'testing123'

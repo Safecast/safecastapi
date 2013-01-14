@@ -12,18 +12,20 @@ class MeasurementsController < ApplicationController
     end
     if @user
       @measurements = @user.measurements.nearby_to(params[:latitude], params[:longitude], params[:distance]).paginate(:page => params[:page], :per_page => params[:per_page])
-    else
+    elsif params[:latitude].present? && params[:longitude].present?
       @measurements = Measurement.nearby_to(params[:latitude], params[:longitude], params[:distance]).paginate(:page => params[:page], :per_page => params[:per_page])
+    else
+      @measurements = Measurement.scoped
     end
     
     if params[:since].present?
       cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:since])
-      @measurements = @measurement.where('updated_at > ?', cutoff_time)
+      @measurements = @measurements.where('updated_at > ?', cutoff_time)
     end
 
     if params[:until].present?
       cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:until])
-      @measurements = @measurement.where('updated_at < ?', cutoff_time)
+      @measurements = @measurements.where('updated_at < ?', cutoff_time)
     end
 
     if params[:captured_after].present?

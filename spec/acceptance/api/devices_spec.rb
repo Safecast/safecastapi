@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "/api/devices API endpoint" do
+feature "/devices API endpoint" do
 
   before do
     @user = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
@@ -8,7 +8,7 @@ feature "/api/devices API endpoint" do
   let(:user) { @user.reload }
   
   scenario "create a device" do
-    post('/api/devices',
+    post('/devices',
       {
         :api_key        => user.authentication_token,
         :device         => {
@@ -31,7 +31,7 @@ feature "/api/devices API endpoint" do
   end
   
   scenario "empty post" do
-    post('/api/devices',
+    post('/devices',
       {
         :api_key => user.authentication_token
       },
@@ -48,7 +48,7 @@ feature "/api/devices API endpoint" do
   
 end
 
-feature "/api/devices with existing devices" do
+feature "/devices with existing devices" do
   
   before do
     @user = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
@@ -76,7 +76,7 @@ feature "/api/devices with existing devices" do
   
   scenario "no duplicate devices" do
     post(
-      '/api/devices',
+      '/devices',
       {
         :api_key => user.authentication_token,
         :device         => {
@@ -94,7 +94,7 @@ feature "/api/devices with existing devices" do
   end
   
   scenario "lookup all devices" do
-    result = api_get('/api/devices', {}, {'HTTP_ACCEPT' => 'application/json'})
+    result = api_get('/devices', {}, {'HTTP_ACCEPT' => 'application/json'})
     result.length.should == 3
     result.map { |obj| obj['manufacturer'] }.should == ['Safecast', 'Medcom', 'Safecast']
     result.map { |obj| obj['model'] }.should == ['bGeigie', 'Inspector', 'iGeigie']
@@ -102,7 +102,7 @@ feature "/api/devices with existing devices" do
   end
   
   scenario "lookup all Safecast devices" do
-    result = api_get('/api/devices', 
+    result = api_get('/devices', 
       {
        :where => {:manufacturer => "Safecast"} 
       },
@@ -117,7 +117,7 @@ feature "/api/devices with existing devices" do
   end
   
   scenario "lookup a particular device" do
-    result = api_get('/api/devices', 
+    result = api_get('/devices', 
       {
         :where => {:manufacturer => "Safecast", :model => "iGeigie"}
       },

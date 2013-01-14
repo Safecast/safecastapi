@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "/api/bgeigie_imports API endpoint" do
+feature "/bgeigie_imports API endpoint" do
 
   before(:each) do
     User.destroy_all
@@ -8,7 +8,7 @@ feature "/api/bgeigie_imports API endpoint" do
                       :email => 'paul@rslw.com',
                       :name => 'Paul Campbell')
     
-    @result ||= api_post('/api/bgeigie_imports',{
+    @result ||= api_post('/bgeigie_imports',{
       :api_key        => @user.authentication_token,
       :bgeigie_import => {
         :source => fixture_file_upload('spec/fixtures/bgeigie.log')
@@ -29,7 +29,7 @@ feature "/api/bgeigie_imports API endpoint" do
     before(:each) { Delayed::Worker.new.work_off; BgeigieImport.find_each(&:finalize!) }
     let!(:updated_result) do
       api_get(
-        "/api/bgeigie_imports/#{@result['id']}",
+        "/bgeigie_imports/#{@result['id']}",
         {},
         {'HTTP_ACCEPT' => 'application/json'}
       )
@@ -43,13 +43,6 @@ feature "/api/bgeigie_imports API endpoint" do
     
     scenario "it should have imported a bunch of measurements" do
       updated_result['measurements_count'].should == 23
-    end
-    
-    it "should create a map" do
-      @user.should have(1).maps
-      map = @user.maps.first
-      map.name.should == "bGeigie Import"
-      map.should have(23).measurements
     end
   end
 end

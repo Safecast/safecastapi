@@ -24,7 +24,6 @@ Safecast::Application.routes.draw do
       end
     end
     resources :posts
-    resources :users
     resources :bgeigie_imports
   end
 
