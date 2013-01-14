@@ -193,6 +193,7 @@ en-US:
   map_displayed_once_file_processed: A map will be displayed once this file has processed.
   maps: maps
   measurements: measurements
+  microsieverts: μSv/h
   my_maps: My maps
   no_maps_found: No maps found.
   none_found: none found

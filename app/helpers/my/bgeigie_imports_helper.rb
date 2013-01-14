@@ -5,6 +5,7 @@ module My::BgeigieImportsHelper
         :lat => b.latitude, 
         :lng => b.longitude,
         :cpm => b.cpm,
+        :usv => b.usv,
         :captured_at => b.captured_at
       }
     end
