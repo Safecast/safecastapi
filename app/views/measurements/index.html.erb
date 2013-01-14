@@ -7,7 +7,7 @@
       <ul class="unstyled measurement-list">
         <%- @measurements.each do |measurement| -%>
           <li class="measurement">
-            <%= link_to [:my, measurement] do %>
+            <%= link_to measurement do %>
               <ul class="measurement-listed">
                 <li class="value">
                   <em><%= measurement.value %></em>
