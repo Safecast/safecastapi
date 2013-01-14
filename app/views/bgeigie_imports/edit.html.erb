@@ -123,7 +123,7 @@
   <%- end -%>
 
   <div class="row">
-    <%= form_for [:api, @bgeigie_import], :method => :delete, :html => {:class => 'pull-right'} do |f| %>
+    <%= form_for @bgeigie_import, :method => :delete, :html => {:class => 'pull-right'} do |f| %>
       <fieldset>
         <p class="button">
           <%= f.submit t('delete'), :data => {

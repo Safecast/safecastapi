@@ -1,4 +1,4 @@
-class BgeigieImportsController < SiteApplicationController
+class BgeigieImportsController < ApplicationController
 
   respond_to :html, :json
 

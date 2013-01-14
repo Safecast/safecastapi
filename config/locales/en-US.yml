@@ -8,6 +8,8 @@ en-US:
   devices:
     new:
       add_new: 
+    index:
+      sensor: 
   email: Email
   height: Height
   location: Location
@@ -323,6 +325,10 @@ en-US:
               blank: can't be blank
             value:
               blank: can't be blank
+        bgeigie_import:
+          attributes:
+            source:
+              blank: can't be blank
   user_subject: Reset password instructions
   view: View
   simple_form:
@@ -341,3 +347,8 @@ en-US:
       devices: 
       imports: 
       measurements: 
+  dashboards:
+    show:
+      bgeigie_imports: 
+      imports_awaiting_approval: 
+      submissions: 

@@ -1,2 +1,0 @@
-class SubmissionsController < SiteApplicationController
-end

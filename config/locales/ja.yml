@@ -269,6 +269,10 @@ ja:
               blank: 
             value:
               blank: 
+        bgeigie_import:
+          attributes:
+            source:
+              blank: 
   bgeigie_states:
     all: 
     approved: 
@@ -292,3 +296,10 @@ ja:
   devices:
     new:
       add_new: 
+    index:
+      sensor: 
+  dashboards:
+    show:
+      bgeigie_imports: 
+      imports_awaiting_approval: 
+      submissions: 

@@ -28,6 +28,10 @@ module Safecast
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
+    config.force_ssl = true
+    config.ssl_options = { 
+      :exclude => proc { |env| raise env.inspect; env['PATH_INFO'].start_with?('/public') }
+    }
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
