@@ -29,16 +29,20 @@ en-US:
     #     password: 'Password'
       bgeigie_import:
         source: Upload a File
-        name: Title (optional)
-        description: Description (optional)
-        credits_as_string: "Credits (comma-separated, optional)"
-        cities_as_string: "Cities (comma seperated list, optional)"
-        height: "Sensor Height (metres, optional)"
-        orientation: "Sensor Orientation (optional)"
+        name: Title
+        description: Description
+        credits: "Credits"
+        cities: "Cities"
+        height: "Sensor Height"
+        orientation: "Sensor Orientation"
     #       email: 'E-mail to sign in.'
     #     edit:
     #       email: 'E-mail.'
-    # hints:
+    hints:
+      bgeigie_import:
+        credits: '(comma-separated. eg. "Sean Bonner, Pieter Franken")'
+        cities: '(comma-separated. eg. "Dublin, Tokyo")'
+        height: (in metres)
     #   defaults:
     #     username: 'User name to sign in.'
     #     password: 'No special characters, please.'
