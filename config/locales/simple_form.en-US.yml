@@ -8,6 +8,11 @@ en-US:
         create: "Save"
         update: "Save"
   simple_form:
+    creating: "Creating..."
+    updating: 'Updating...'
+    buttons:
+      or: 'or'
+      cancel: 'cancel'
     "yes": 'Yes'
     "no": 'No'
     required:
@@ -24,6 +29,12 @@ en-US:
     #     password: 'Password'
       bgeigie_import:
         source: Upload a File
+        name: Title (optional)
+        description: Description (optional)
+        credits_as_string: "Credits (comma-separated, optional)"
+        cities_as_string: "Cities (comma seperated list, optional)"
+        height: "Sensor Height (metres, optional)"
+        orientation: "Sensor Orientation (optional)"
     #       email: 'E-mail to sign in.'
     #     edit:
     #       email: 'E-mail.'

@@ -1,0 +1,55 @@
+<div class="row">
+  <%- if @bgeigie_import.bgeigie_logs.any? -%>
+    <section class="span4">
+      <ul class="unstyled nav">
+        <li class="nav-header"><%= t("measurement") %></li>
+        <li>
+          <%= t ".latitude" -%>
+          <span class="lat pull-right"></span>
+        </li>
+        <li>
+          <%= t ".longitude" -%>
+          <span class="lng pull-right"></span>
+        </li>
+        <li>
+          <%= t ".clicks_per_minute" -%>
+          <span class="cpm pull-right"></span>
+        </li>
+      </ul>
+      <%= render 'bgeigie_imports/approval' -%>
+      <p class="pull-left">
+        <%= link_to t('.back_to_bgeigie_imports'), bgeigie_imports_url %>
+      </p>
+    </section>
+    <%- if @bgeigie_import.status_details[:compute_latlng].present? -%>
+      <section class="span8">
+        <%- if @bgeigie_import.bgeigie_logs.any? -%>
+          <input type="hidden" id="zoomlevel" value="12">
+          <input id="latitude"
+                 type="hidden"
+                 value="<%= @bgeigie_import.bgeigie_logs.first.latitude %>"></input>
+          <input id="longitude"
+                 type="hidden"
+                 value="<%= @bgeigie_import.bgeigie_logs.first.longitude %>"></input>
+          <div id="map_canvas" class="high well"></div>
+        <%- else -%>
+          <p class="well">
+            <%= t('map_displayed_once_file_processed') -%>
+          </p>
+        <%- end -%>
+        <%= content_for(:additional_javascripts) do %>
+          <script>
+            $(function(){
+              MeasurementsMap.initialize($("#map_canvas"))
+              MeasurementsMap.addMeasurementsAndCenter(<%= raw collect_bgeigie_logs(@bgeigie_import.bgeigie_logs).to_json %>)
+            })
+          </script>
+        <%- end -%>
+      </section>
+    <%- end -%>
+  <%- else -%>
+    <p class="span12">
+      <%= t('.map_not_generated') %>
+    </p>
+  <%- end -%>
+</div>

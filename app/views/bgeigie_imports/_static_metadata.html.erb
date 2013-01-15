@@ -1,0 +1,22 @@
+<div class="span4">
+  <dl class="dl-horizontal">
+    <dt>
+      <%= t('.uploaded_by') %>
+    </dt>
+    <dd>
+      <%= @bgeigie_import.user.name_or_email %>
+    </dd>
+    <dt>
+      <%= t('.filename') %>
+    </dt>
+    <dd>
+      <%= @bgeigie_import.source.file.filename %>
+    </dd>
+    <dt>
+      <%= t('.number_of_measurements') %>
+    </dt>
+    <dd>
+      <%= @bgeigie_import.bgeigie_logs.count %>
+    </dd>
+  </dl>
+</div>

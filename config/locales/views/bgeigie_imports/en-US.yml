@@ -39,12 +39,6 @@ en-US:
       back_to_bgeigie_imports: Back to Import list
       this_file_is_queued_for_processing: This file is queued for processing.
       bgeigie_import: Bgeigie import
-      title_optional: Title (optional)
-      description_optional: Description (optional)
-      credits_csv: "Credits (comma-separated, optional)"
-      cities_csv: "Cities (comma seperated list, optional)"
-      sensor_height_optional: "Sensor Height (metres, optional)"
-      sensor_orientation_optional: "Sensor Orientation (optional)"
       measurement: Measurement
       latitude: Latitude
       longitude: Longitude

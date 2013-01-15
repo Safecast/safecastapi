@@ -42,7 +42,7 @@ class BgeigieImportsController < ApplicationController
   end
 
   def update
-    @bgeigie_import = current_user.bgeigie_imports.find(params[:id])
+    @bgeigie_import = scope.find(params[:id])
     @bgeigie_import.update_attributes(params[:bgeigie_import])
     respond_with @bgeigie_import
   end
@@ -51,5 +51,14 @@ class BgeigieImportsController < ApplicationController
     @bgeigie_import = BgeigieImport.find(params[:id])
     @bgeigie_import.destroy if @bgeigie_import.present?
     redirect_to :bgeigie_imports
+  end
+
+private
+  def scope
+    if current_user.moderator?
+      BgeigieImport
+    else
+      current_user.bgeigie_imports
+    end
   end
 end

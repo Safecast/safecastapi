@@ -1,7 +1,6 @@
 require 'iconv'
 class BgeigieImport < MeasurementImport
-  validates :user, :presence => true
-  validates :source, :presence => true
+  validates :user, :presence => true, :on => :create
   
   belongs_to :user
   has_many :bgeigie_logs, :dependent => :destroy
