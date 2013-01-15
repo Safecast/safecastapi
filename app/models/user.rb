@@ -29,8 +29,8 @@ class User < ActiveRecord::Base
     )
   end
 
-  def identifier
-    name
+  def name_or_email
+    name.presence || email
   end
   
 end

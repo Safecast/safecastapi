@@ -1,61 +1,202 @@
-<%- if @bgeigie_import.queued_for_processing? -%>
-  <p class="alert">
-    <%= t(".this_file_is_queued_for_processing") %>
-  </p>
-<%- end -%>
-
 <div class="row">
-  <section class="span4">
-    <h2>
-      <%= t '.bgeigie_import' -%> #<%= @bgeigie_import.id -%>
-    </h2>
-    <%= render 'bgeigie_imports/status' -%>
-    <%= render 'bgeigie_imports/details' -%>
-    <%= render 'bgeigie_imports/progress' -%>
-    <ul class="unstyled nav">
-      <li class="nav-header"><%= t("measurement") %></li>
+  <div class="span12">
+    <%- if @bgeigie_import.queued_for_processing? -%>
+      <p class="alert">
+        <%= t(".this_file_is_queued_for_processing") %>
+      </p>
+    <%- end -%>
+
+    <ul class="inline nav-stacked pull-right">
       <li>
-        <%= t ".latitude" -%>
-        <span class="lat pull-right"></span>
-      </li>
-      <li>
-        <%= t ".longitude" -%>
-        <span class="lng pull-right"></span>
-      </li>
-      <li>
-        <%= t ".clicks_per_minute" -%>
-        <span class="cpm pull-right"></span>
+        <%= link_to t(".download_original_file"),
+              @bgeigie_import.source.url,
+              :class => 'btn' %>
       </li>
     </ul>
-    <%= render 'bgeigie_imports/approval' -%>
-    <p class="pull-left">
-      <%= link_to t('.back_to_bgeigie_imports'), bgeigie_imports_url %>
-    </p>
-  </section>
-  <%- if @bgeigie_import.status_details[:compute_latlng].present? -%>
-    <section class="span8">
+
+    <h2>
+      <%= t '.bgeigie_import' -%> #<%= @bgeigie_import.id -%>
+
+      <small>
+        <%= render 'bgeigie_imports/status' -%>
+      </small>
+    </h2>
+
+    <%- if @bgeigie_import.status == 'done' -%>
+      <ul class="measurement bgeigie-log unstyled">
+        <li class="value thin">
+          <em class="block"><%= @bgeigie_import.bgeigie_logs.count %></em>
+          <%= t(".measurements") %>
+        </li>
+      </ul>
+    <%- end -%>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <div class="progress">
+      <div class="bar bar-success" style="width: 20%">
+        <%= t('.progress_uploaded') %>
+      </div>
+      <div class="bar bar-info" style="width: 20%">
+        <%= t('.progress_metadata') %>
+      </div>
+      <div class="bar bar-info" style="width: 20%">
+        <%= t('.progress_approved') %>
+      </div>
+      <div class="bar bar-info" style="width: 20%">
+        <%= t('.progress_processed') %>
+      </div>
+      <div class="bar bar-info" style="width: 20%">
+        <%= t('.progress_live') %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#metadata" data-toggle="tab"><%= t('.metadata') %></a></li>
+      <li><a href="#map" data-toggle="tab"><%= t('.map') %></a></li>
+      <li><a href="#process_log" data-toggle="tab"><%= t('.process_log') %></a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="metadata">
+    <div class="row">
+      <div class="span4">
+        <dl class="dl-horizontal">
+          <dt>
+            <%= t('.uploaded_by') %>
+          </dt>
+          <dd>
+            <%= @bgeigie_import.user.name_or_email %>
+          </dd>
+          <dt>
+            <%= t('.filename') %>
+          </dt>
+          <dd>
+            <%= @bgeigie_import.source.file.filename %>
+          </dd>
+          <dt>
+            <%= t('.number_of_measurements') %>
+          </dt>
+          <dd>
+            <%= @bgeigie_import.bgeigie_logs.count %>
+          </dd>
+        </dl>
+      </div>
+      <div class="span8">
+        <%- if user_signed_in? && (@bgeigie_import.user == current_user || current_user.moderator?)-%>
+            <%= link_to t('.edit_details'),
+                        [:edit, @bgeigie_import], :class => 'btn pull-right' %>
+        <%- end -%>
+        <dl class="dl-horizontal">
+          <dt>
+            <%= t('.description') %>
+          </dt>
+          <dd>
+            <%- if @bgeigie_import.description.present? -%>
+              <%= simple_format @bgeigie_import.description %>
+            <%- else -%>
+              <%= t('.none') %>
+            <%- end -%>
+          </dd>
+          <dt>
+            <%= t('.credits') %>
+          </dt>
+          <dd>
+            <%= @bgeigie_import.credits if @bgeigie_import.credits.any? %>
+            <%= t('.none') if @bgeigie_import.credits.none? %>
+          </dd>
+          <dt>
+            <%= t('.height') %>
+          </dt>
+          <dd>
+            <%= @bgeigie_import.height if @bgeigie_import.height.present? %>
+            <%= t('.not_set') if @bgeigie_import.height.blank? %>
+          </dd>
+          <dt>
+            <%= t('.orientation') %>
+          </dt>
+          <dd>
+            <%= @bgeigie_import.orientation if @bgeigie_import.orientation.present? %>
+            <%= t('.not_set') if @bgeigie_import.orientation.blank? %>
+          </dd>
+          <dt>
+            <%= t('.cities') %>
+          </dt>
+          <dd>
+            <%= @bgeigie_import.cities if @bgeigie_import.cities.present? %>
+            <%= t('.not_set') if @bgeigie_import.cities.blank? %>
+          </dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="map">
+    <div class="row">
+
       <%- if @bgeigie_import.bgeigie_logs.any? -%>
-        <input type="hidden" id="zoomlevel" value="12">
-        <input id="latitude"
-               type="hidden"
-               value="<%= @bgeigie_import.bgeigie_logs.first.latitude %>"></input>
-        <input id="longitude"
-               type="hidden"
-               value="<%= @bgeigie_import.bgeigie_logs.first.longitude %>"></input>
-        <div id="map_canvas" class="high well"></div>
+        <section class="span4">
+          <ul class="unstyled nav">
+            <li class="nav-header"><%= t("measurement") %></li>
+            <li>
+              <%= t ".latitude" -%>
+              <span class="lat pull-right"></span>
+            </li>
+            <li>
+              <%= t ".longitude" -%>
+              <span class="lng pull-right"></span>
+            </li>
+            <li>
+              <%= t ".clicks_per_minute" -%>
+              <span class="cpm pull-right"></span>
+            </li>
+          </ul>
+          <%= render 'bgeigie_imports/approval' -%>
+          <p class="pull-left">
+            <%= link_to t('.back_to_bgeigie_imports'), bgeigie_imports_url %>
+          </p>
+        </section>
+        <%- if @bgeigie_import.status_details[:compute_latlng].present? -%>
+          <section class="span8">
+            <%- if @bgeigie_import.bgeigie_logs.any? -%>
+              <input type="hidden" id="zoomlevel" value="12">
+              <input id="latitude"
+                     type="hidden"
+                     value="<%= @bgeigie_import.bgeigie_logs.first.latitude %>"></input>
+              <input id="longitude"
+                     type="hidden"
+                     value="<%= @bgeigie_import.bgeigie_logs.first.longitude %>"></input>
+              <div id="map_canvas" class="high well"></div>
+            <%- else -%>
+              <p class="well">
+                <%= t('map_displayed_once_file_processed') -%>
+              </p>
+            <%- end -%>
+            <%= content_for(:additional_javascripts) do %>
+              <script>
+                $(function(){
+                  MeasurementsMap.initialize($("#map_canvas"))
+                  MeasurementsMap.addMeasurementsAndCenter(<%= raw collect_bgeigie_logs(@bgeigie_import.bgeigie_logs).to_json %>)
+                })
+              </script>
+            <%- end -%>
+          </section>
+        <%- end -%>
       <%- else -%>
-        <p class="well">
-          <%= t('map_displayed_once_file_processed') -%>
+        <p class="span12">
+          <%= t('.map_not_generated') %>
         </p>
       <%- end -%>
-      <%= content_for(:additional_javascripts) do %>
-        <script>
-          $(function(){
-            MeasurementsMap.initialize($("#map_canvas"))
-            MeasurementsMap.addMeasurementsAndCenter(<%= raw collect_bgeigie_logs(@bgeigie_import.bgeigie_logs).to_json %>)
-          })
-        </script>
-      <%- end -%>
-    </section>
-  <%- end -%>
+    </div>
+  </div>
+  <div class="tab-pane" id="process_log">
+    <%= render 'bgeigie_imports/progress' -%>
+  </div>
 </div>

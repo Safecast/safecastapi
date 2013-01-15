@@ -1,6 +1,7 @@
 class MeasurementImport < ActiveRecord::Base
   validates :source, :presence => true
-  
+
+  has_many :measurement_import_logs  
   belongs_to :map
 
   format_dates :timestamps
