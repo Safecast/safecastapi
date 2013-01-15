@@ -1,7 +1,10 @@
 <div class="row">
   <%= render 'static_metadata' %>
   <div class="span8">
-    <dl class="dl-horizontal">
+    <h4>
+      <%= t('.metadata') %>
+    </h4>
+    <dl class="dl-horizontal well">
       <dt>
         <%= t('.description') %>
       </dt>
@@ -38,7 +41,7 @@
       </dt>
       <dd>
         <%= @bgeigie_import.cities if @bgeigie_import.cities.present? %>
-        <%= t('.not_set') if @bgeigie_import.cities.present? %>
+        <%= t('.none') if @bgeigie_import.cities.blank? %>
       </dd>
     </dl>
   </div>
@@ -63,10 +66,10 @@
   <div class="modal-footer">
     <%= form_for @bgeigie_import,
           :method => :delete do |f| %>
-      <%= f.submit t('.confirm_delete'), :class => 'btn btn-danger' %>
       <%= link_to t('cancel'), '#delete-log', :data => {
             :toggle => 'modal'
           } %>
+      <%= f.submit t('.confirm_delete'), :class => 'btn btn-danger' %>
     <%- end -%>
   </div>
 </div>
