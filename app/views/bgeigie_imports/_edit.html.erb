@@ -4,8 +4,8 @@
     <%= simple_form_for @bgeigie_import do |f| %>
       <%= f.input :name %>
       <%= f.input :description, :input_html => {:rows => 3, :class => 'span6'} %>
-      <%= f.input :credits_as_string, :as => :text, :input_html => {:rows => 3, :class => 'span6'} %>
-      <%= f.input :cities_as_string, :as => :text, :input_html => {:rows => 3, :class => 'span6'} %>
+      <%= f.input :credits, :as => :text, :input_html => {:rows => 3, :class => 'span6'} %>
+      <%= f.input :cities, :as => :text, :input_html => {:rows => 3, :class => 'span6'} %>
       <%= f.input :height %>
       <%= f.input :orientation %>
       <%= f.button :wrapped, :cancel => @bgeigie_import %>

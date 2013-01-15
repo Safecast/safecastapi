@@ -16,8 +16,8 @@
         <%= t('.credits') %>
       </dt>
       <dd>
-        <%= @bgeigie_import.credits.to_sentence if @bgeigie_import.credits.any? %>
-        <%= t('.none') if @bgeigie_import.credits.none? %>
+        <%= @bgeigie_import.credits if @bgeigie_import.credits.present? %>
+        <%= t('.none') if @bgeigie_import.credits.blank? %>
       </dd>
       <dt>
         <%= t('.height') %>
@@ -37,8 +37,8 @@
         <%= t('.cities') %>
       </dt>
       <dd>
-        <%= @bgeigie_import.cities.to_sentence if @bgeigie_import.cities.present? %>
-        <%= t('.not_set') if @bgeigie_import.cities.blank? %>
+        <%= @bgeigie_import.cities if @bgeigie_import.cities.present? %>
+        <%= t('.not_set') if @bgeigie_import.cities.present? %>
       </dd>
     </dl>
   </div>

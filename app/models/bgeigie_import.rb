@@ -1,6 +1,8 @@
 require 'iconv'
 class BgeigieImport < MeasurementImport
   validates :user, :presence => true, :on => :create
+  validates :cities, :presence => true, :on => :update
+  validates :credits, :presence => true, :on => :update
   
   belongs_to :user
   has_many :bgeigie_logs, :dependent => :destroy
@@ -16,9 +18,6 @@ class BgeigieImport < MeasurementImport
     :compute_latlng,
     :measurements_added
   ]
-
-  serialize :credits, Array
-  serialize :cities, Array
 
   default_scope order('created_at desc')
 
@@ -218,22 +217,6 @@ class BgeigieImport < MeasurementImport
       :latitude => (lat_degrees + lat_decimal) * lat_sign,
       :longitude => (lng_degrees + lng_decimal) * lng_sign
     }
-  end
-
-  def credits_as_string=(value)
-    self.credits = value.split(",").map(&:strip)
-  end
-
-  def credits_as_string
-    credits.join(", ")
-  end
-
-  def cities_as_string=(value)
-    self.cities = value.split(",").map(&:strip)
-  end
-
-  def cities_as_string
-    cities.join(", ")
   end
 
 end
