@@ -8,6 +8,11 @@
 
     <ul class="inline nav-stacked pull-right">
       <li>
+        <%= form_for [:submit, @bgeigie_import] do |f| %>
+          <%= f.submit 'Submit for Approval', :class => 'btn btn-primary' %>
+        <%- end -%>
+      </li>
+      <li>
         <%= link_to t(".download_original_file"),
               @bgeigie_import.source.url,
               :class => 'btn' %>

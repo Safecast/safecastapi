@@ -18,6 +18,12 @@ class BgeigieImportsController < ApplicationController
     redirect_to @bgeigie_import
   end
 
+  def submit
+    @bgeigie_import = scope.find(params[:id])
+    @bgeigie_import.update_column(:status, 'submitted')
+    redirect_to @bgeigie_import
+  end
+
   def edit
     @bgeigie_import = current_user.bgeigie_imports.find(params[:id])
   end

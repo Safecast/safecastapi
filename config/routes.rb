@@ -14,6 +14,7 @@ Safecast::Application.routes.draw do
 
     resources :bgeigie_imports do
       member do
+        put :submit
         put :approve
       end
     end
