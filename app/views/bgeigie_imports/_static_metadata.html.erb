@@ -13,10 +13,17 @@
       <%= @bgeigie_import.source.file.filename %>
     </dd>
     <dt>
+      <%= t('.number_of_lines') %>
+    </dt>
+    <dd>
+      <%= @bgeigie_import.lines_count %>
+    </dd>
+    <dt>
       <%= t('.number_of_measurements') %>
     </dt>
     <dd>
-      <%= @bgeigie_import.bgeigie_logs.count %>
+      <%= '-' unless @bgeigie_import.processed? %>
+      <%= @bgeigie_import.bgeigie_logs.count if @bgeigie_import.processed? %>
     </dd>
   </dl>
 </div>

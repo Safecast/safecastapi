@@ -7,11 +7,20 @@
     <%- end -%>
 
     <ul class="inline nav-stacked pull-right">
-      <li>
-        <%= form_for [:submit, @bgeigie_import] do |f| %>
-          <%= f.submit 'Submit for Approval', :class => 'btn btn-primary' %>
-        <%- end -%>
-      </li>
+      <%- if @bgeigie_import.ready_for_submission? -%>
+        <li>
+          <%= form_for [:submit, @bgeigie_import] do |f| %>
+            <%= f.submit t('.submit_for_approval'), :class => 'btn btn-primary' %>
+          <%- end -%>
+        </li>
+      <%- end -%>
+      <%- if @bgeigie_import.awaiting_approval? -%>
+        <li>
+          <%= form_for [:approve, @bgeigie_import] do |f| %>
+            <%= f.submit t('.approve'), :class => 'btn btn-primary' %>
+          <%- end -%>
+        </li>
+      <%- end -%>
       <li>
         <%= link_to t(".download_original_file"),
               @bgeigie_import.source.url,
@@ -41,19 +50,22 @@
 <div class="row">
   <div class="span12">
     <div class="progress">
-      <div class="bar bar-success" style="width: 20%">
+      <div class="bar bar-success" style="width: 16%">
         <%= t('.progress_uploaded') %>
       </div>
-      <div class="bar <%= @bgeigie_import.metadata_added? ? 'bar-success' : 'bar-info' %>" style="width: 20%">
-        <%= t('.progress_metadata') %>
-      </div>
-      <div class="bar bar-info" style="width: 20%">
-        <%= t('.progress_approved') %>
-      </div>
-      <div class="bar bar-info" style="width: 20%">
+      <div class="bar <%= @bgeigie_import.processed? ? 'bar-success' : 'bar-warning' %>" style="width: 17%">
         <%= t('.progress_processed') %>
       </div>
-      <div class="bar bar-info" style="width: 20%">
+      <div class="bar <%= @bgeigie_import.metadata_added? ? 'bar-success' : 'bar-warning' %>" style="width: 16%">
+        <%= t('.progress_metadata') %>
+      </div>
+      <div class="bar <%= @bgeigie_import.submitted? ? 'bar-success' : 'bar-warning' %>" style="width: 17%">
+        <%= t('.progress_submitted') %>
+      </div>
+      <div class="bar <%= @bgeigie_import.approved? ? 'bar-success' : 'bar-warning' %>" style="width: 17%">
+        <%= t('.progress_approved') %>
+      </div>
+      <div class="bar <%= @bgeigie_import.done? ? 'bar-success' : 'bar-warning' %>" style="width: 17%">
         <%= t('.progress_live') %>
       </div>
     </div>

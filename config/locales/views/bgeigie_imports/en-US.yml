@@ -62,10 +62,11 @@ en-US:
       clicks_per_minute: Clicks per minute
       back_to_bgeigie_imports: Back to Import list
       progress_uploaded: 1. Uploaded
-      progress_metadata: 2. Metadata Added
-      progress_approved: 3. Approved
-      progress_processed: 4. Processed
-      progress_live: 5. Live
+      progress_processed: 2. Processed
+      progress_metadata: 3. Metadata Added
+      progress_submitted: 4. Submitted
+      progress_approved: 5. Approved
+      progress_live: 6. Live
       edit_details_status: Edit Details / Status
       download_original_file: Download Original File
       metadata: Metadata
@@ -74,5 +75,11 @@ en-US:
       uploaded_by: Uploaded By
       filename: Filename
       number_of_measurements: Number of Measurements
+      number_of_lines: Number of Lines
       edit_details: Edit Details
       map_not_generated: The Map for this import hasn't generated yet. It will appear here once the file is processed.
+      submit_for_approval: Submit for Approval
+      approve: Approve
+      delete_this_import: Delete this Import
+      confirm_delete: Confirm Delete
+      about_to_delete: You are about to delete this log. This action cannot be undone.

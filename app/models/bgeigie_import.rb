@@ -1,5 +1,13 @@
 require 'iconv'
 class BgeigieImport < MeasurementImport
+  # States:
+  # - unprocessed
+  # - processed
+  # - submitted
+  # - approved
+  # - done
+  include BgeigieImport::StateConcerns
+
   validates :user, :presence => true, :on => :create
   validates :cities, :presence => true, :on => :update
   validates :credits, :presence => true, :on => :update
@@ -37,21 +45,13 @@ class BgeigieImport < MeasurementImport
      conversion.iconv(string + ' ')[0..-2]
   end
 
-  def metadata_added?
-    credits.present? && cities.present?
-  end
-
   def tmp_file
     @tmp_file ||= "/tmp/bgeigie-#{Kernel.rand}"
   end
   
   def confirm_status(item)
     self.status_details[item] = true
-    self.save!
-  end
-
-  def queued_for_processing?
-    status_details.empty?
+    self.save!(:validate => false)
   end
   
   def process
@@ -61,13 +61,13 @@ class BgeigieImport < MeasurementImport
     confirm_status(:import_bgeigie_logs)
     infer_lat_lng_into_bgeigie_logs_from_nmea_location
     confirm_status(:compute_latlng)
-    self.update_attribute(:status, 'awaiting_approval')
+    self.update_column(:status, 'processed')
     delete_tmp_file
     Notifications.import_awaiting_approval(self).deliver
   end
 
   def approve!
-    self.update_attribute(:approved, true)
+    self.update_column(:approved, true)
     self.delay.finalize!
     Notifications.import_approved(self).deliver
   end
@@ -75,7 +75,7 @@ class BgeigieImport < MeasurementImport
   def finalize!
     import_measurements
     confirm_status(:measurements_added)
-    self.update_attribute(:status, 'done')
+    self.update_column(:status, 'done')
   end
 
   def create_tmp_file
@@ -89,7 +89,7 @@ class BgeigieImport < MeasurementImport
         lines_count += 1
       end
     end
-    update_attribute(:lines_count, lines_count)
+    update_column(:lines_count, lines_count)
   end
 
   def is_sane?(line)
@@ -158,7 +158,7 @@ class BgeigieImport < MeasurementImport
     set_bgeigie_import_id
     populate_bgeigie_imports_table
     drop_tmp_table
-    self.update_attribute(:measurements_count, self.bgeigie_logs.count)
+    self.update_column(:measurements_count, self.bgeigie_logs.count)
   end
   
   def infer_lat_lng_into_bgeigie_logs_from_nmea_location

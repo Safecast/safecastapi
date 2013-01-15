@@ -15,6 +15,11 @@
             <%= t('submit') %>
           <%- end -%>
         </li>
+        <li>
+          <%= link_to [:new, :bgeigie_import], :title => t('upload') do %>
+            <%= t('upload') %>
+          <%- end -%>
+        </li>
         <li class="dropdown">
           <%= link_to '#view-menu', :title => t('view'),
             :class => 'dropdown-toggle',

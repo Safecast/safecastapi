@@ -54,7 +54,7 @@ class BgeigieImportsController < ApplicationController
   end
 
   def destroy
-    @bgeigie_import = BgeigieImport.find(params[:id])
+    @bgeigie_import = BgeigieImport.where(:id => params[:id]).first
     @bgeigie_import.destroy if @bgeigie_import.present?
     redirect_to :bgeigie_imports
   end
