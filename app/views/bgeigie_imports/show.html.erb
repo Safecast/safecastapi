@@ -39,7 +39,7 @@
       <div class="bar bar-success" style="width: 20%">
         <%= t('.progress_uploaded') %>
       </div>
-      <div class="bar bar-info" style="width: 20%">
+      <div class="bar <%= @bgeigie_import.metadata_added? ? 'bar-success' : 'bar-info' %>" style="width: 20%">
         <%= t('.progress_metadata') %>
       </div>
       <div class="bar bar-info" style="width: 20%">

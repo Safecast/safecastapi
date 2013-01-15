@@ -37,6 +37,10 @@ class BgeigieImport < MeasurementImport
      conversion.iconv(string + ' ')[0..-2]
   end
 
+  def metadata_added?
+    credits.present? && cities.present?
+  end
+
   def tmp_file
     @tmp_file ||= "/tmp/bgeigie-#{Kernel.rand}"
   end
