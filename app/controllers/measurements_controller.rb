@@ -2,55 +2,41 @@ class MeasurementsController < ApplicationController
 
   before_filter :authenticate_user!, :only => [:new, :create, :update]
 
+  has_scope :captured_after
+  has_scope :captured_before
+  has_scope :distance do |controller, scope, value|
+    scope.nearby_to(params[:latitude], params[:longitude], params[:distance])
+  end
+  has_scope :original_id do |controller, scope, value|
+    scope.where("original_id = :value OR id = :value", :value => value)
+  end
+  has_scope :until
+  has_scope :user_id do |controller, scope, value|
+    scope.where(:user_id => value)
+  end
+  has_scope :since
+  has_scope :limit
+
   respond_to :html, :json, :csv
 
   def index
     @filename = "measurements.csv"
     @streaming = true
-    if params[:user_id].present?
-      @user = User.find params[:user_id]
-    end
-    if @user
-      @measurements = @user.measurements.nearby_to(params[:latitude], params[:longitude], params[:distance]).paginate(:page => params[:page], :per_page => params[:per_page])
-    elsif params[:latitude].present? && params[:longitude].present?
-      @measurements = Measurement.nearby_to(params[:latitude], params[:longitude], params[:distance]).paginate(:page => params[:page], :per_page => params[:per_page])
-    else
-      @measurements = Measurement.scoped
-    end
-    
-    if params[:since].present?
-      cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:since])
-      @measurements = @measurements.where('updated_at > ?', cutoff_time)
-    end
 
-    if params[:until].present?
-      cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:until])
-      @measurements = @measurements.where('updated_at < ?', cutoff_time)
-    end
-
-    if params[:captured_after].present?
-      cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:captured_after])
-      @measurements = @measurements.where('captured_at > ?', cutoff_time)
-    end
-
-    if params[:captured_before].present?
-      cutoff_time = ActiveSupport::TimeZone['UTC'].parse(params[:captured_before])
-      @measurements = @measurements.where('captured_at < ?', cutoff_time)
-    end
-
-    if params[:limit]
-      @measurements = @measurements.limit(params[:limit].to_i)
-    end
+    @measurements = apply_scopes(Measurement).paginate(
+      :page => params[:page],
+      :per_page => params[:per_page]
+    )
 
     if request.format == :csv
-      @measurements = @measurement.paginate(:page => 1, :per_page => @measurement.total_entries)
+      @measurements = @measurements.paginate(:page => 1, :per_page => @measurement.total_entries)
     end
 
     respond_with @measurements
   end
   
   def show
-    @measurement = Measurement.find(params[:id])
+    @measurement = Measurement.most_recent(params[:id])
     respond_with @measurement
   end
   

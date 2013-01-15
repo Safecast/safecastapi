@@ -71,7 +71,7 @@ feature "/measurements" do
 
     
     #the above is pretty normal, now we do some gets to check that it was non-destructive
-    result = api_get("/measurements/#{second_measurement.id}.json", :withHistory => true)
+    result = api_get("/measurements.json?original_id=#{second_measurement.id}")
     result.length.should == 2
     result.sort_by! { |obj| obj['value']}
     result.map { |obj| obj['value'] }.should == [12, 15]

@@ -11,7 +11,6 @@ class Measurement < ActiveRecord::Base
   belongs_to :last_updater, :class_name => "User", :foreign_key => "updated_by"
   before_save :set_md5sum
   
-  
   has_and_belongs_to_many :maps
   
   belongs_to :device
@@ -30,9 +29,25 @@ class Measurement < ActiveRecord::Base
 
   end
 
+  def self.captured_after(time)
+    where('captured_at > ?', ActiveSupport::TimeZone['UTC'].parse(time))
+  end
+
+  def self.captured_before(time)
+    where('captured_at < ?', ActiveSupport::TimeZone['UTC'].parse(time))
+  end
+
   def self.grouped_by_hour
     select("date_trunc('hour', captured_at) as date").
       group("date_trunc('hour', captured_at)")
+  end
+
+  def self.since(time)
+    where('updated_at > ?', ActiveSupport::TimeZone['UTC'].parse(time))
+  end
+
+  def self.until(time)
+    where('updated_at < ?', ActiveSupport::TimeZone['UTC'].parse(time))
   end
   
   def set_md5sum
