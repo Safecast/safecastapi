@@ -24,16 +24,12 @@
   <body>
     <div class="container">
       <%= render :partial => 'shared/dashboard_navigation' %>
-      <div id="page" class="container">
-        <div class="row">
-          <%= yield %>
-        </div>
+      <%= yield %>
 
-        <footer class="row">
-          <p class="span12"><%= t 'creative_commons_non_commercial' %></p>
-          <p class="span12"><%= link_to_switch_locale %></p>
-        </footer>
-      </div>
+      <footer class="row">
+        <p class="span12"><%= t 'creative_commons_non_commercial' %></p>
+        <p class="span12"><%= link_to_switch_locale %></p>
+      </footer>
     </div>
     <%= javascript_include_tag :application %>
     <%= content_for :additional_javascripts %>
