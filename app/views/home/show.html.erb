@@ -37,13 +37,10 @@
     </p>
 
     <p>
-      Measurements are accessed via the API:
+      Measurements are accessed via the HTTP API:
     </p>
 
-    <p>
-      <%= link_to 'Run it', measurements_url(:format => :json), :class => 'pull-right btn', :data => { :behavior => 'run-api'} %>
-      <pre>GET <%= measurements_url(:format => :json) %></pre>
-    </p>
+    <%= api_example :measurements_url %>
 
     <h4>Parameters</h4>
     <p>
@@ -56,21 +53,34 @@
       Provide <code>latitude</code>, <code>longitude</code> and <code>distance</code>.
     </p>
     <h6>Example:</h6>
-    <p>
-      <%= link_to 'Run it', measurements_url(:format => :json, :latitude => 34.5, :longitude => 5.5, :distance => 10), :class => 'pull-right btn', :data => { :behavior => 'run-api'} %>
-      <pre>GET <%= measurements_url(:format => :json, :latitude => 34.5, :longitude => 5.5, :distance => 10) %></pre>
-    </p>
-
+    <%= api_example :measurements_url, :latitude => 34.5, :longitude => 5.5, :distance => 10 %>
+    
     <h5>Measurements captured before or after certain dates/times.</h5>
 
     <p>
       Provide <code>captured_after</code>, <code>captured_before</code> or both.
     </p>
     <h6>Example:</h6>
+    <%= api_example(:measurements_url, :captured_before => '2012-09-09 00:00', :captured_after => '2012-09-08 00:00') %>
+
+    <h4>bGeigie Imports</h4>
+
+    <p>Bulk imports of measurements, typically associated with drives that collect a lot of data using Safecast&rsquo;s bGeigie devices are processed and logged independently.</p>
+
     <p>
-      <%= link_to 'Run it', measurements_url(:format => :json, :captured_before => '2012-09-09 00:00', :captured_after => '2012-09-08 00:00'), :class => 'pull-right btn', :data => { :behavior => 'run-api'} %>
-      <pre>GET <%= measurements_url(:format => :json, :captured_before => '2012-09-09 00:00', :captured_after => '2012-09-08 00:00') %></pre>
+      You can retrieve a list of all of these imports:
     </p>
 
+    <%= api_example(:bgeigie_imports_url) %>
+
+    <p>And you can view individual imports:</p>
+
+    <%= api_example(:bgeigie_import_url, BgeigieImport.first) %>
+
+    <h4>Devices</h4>
+
+    <p>Safecast maintains a list of devices that are used to take radiation measurements. You can view a list of these devices:</p>
+
+    <%= api_example(:devices_url) %>
   </div>
 </div>
