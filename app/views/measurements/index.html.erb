@@ -1,8 +1,41 @@
 <div class="row">
-  <h2><%= t("your_measurements") -%></h2>
-  <section class="span10 offset1">
+
+  <div class="span12">
+    <%= api_example :measurements_url, params.except(:commit).except(:utf8).keep_if { |k, v| v.present? } %>
+  </div>
+
+  <div class="span3">
+    <%= form_tag params.except(:commit), :method => :get do |f| %>
+
+    <%= label_tag :latitude %>
+    <%= text_field_tag :latitude, params[:latitude], :class => 'span2' %>º
+
+    <%= label_tag :longitude %>
+    <%= text_field_tag :longitude, params[:longitude], :class => 'span2' %>º
+
+    <%= label_tag :distance %>
+    <%= text_field_tag :distance, params[:distance], :class => 'span2' %>m
+
+    <%= label_tag :captured_before %>
+    <%= text_field_tag :captured_before, params[:captured_after] %>
+
+    <%= label_tag :captured_after %>
+    <%= text_field_tag :captured_after, params[:captured_after] %>
+
+    <%= label_tag :since %>
+    <%= text_field_tag :since, params[:since] %>
+
+    <%= label_tag :until %>
+    <%= text_field_tag :until, params[:since] %>
+
+    <%= submit_tag t('.filter') %>
+  <%- end -%>
+  </div>
+
+  <section class="span9">
+    <h2><%= t(".measurements") -%></h2>
     <%- if @measurements.empty? -%>
-      <p><%= t("You haven't submitted any measurements yet.") -%></p>
+      <p><%= t(".none_found") -%></p>
     <%- else -%>
       <ul class="unstyled measurement-list">
         <%- @measurements.each do |measurement| -%>
@@ -10,19 +43,19 @@
             <%= link_to measurement do %>
               <ul class="measurement-listed">
                 <li class="value">
-                  <em><%= measurement.value %></em>
+                  <em><%= number_with_precision measurement.value, :precision => 0 %></em>
                   <%= measurement.unit %>
                 </li>
                 <li class="lat-lng">
                   <em title="<%= measurement.latitude %>">
-                    <%= truncate measurement.latitude.to_s, :length => 15 %>&deg;
+                    <%= number_with_precision(measurement.latitude, :precision => 4) %>&deg;
                   </em>
                   <%= t('lat') %>
                 </li>
                 
                 <li class="lat-lng">
                   <em title="<%= measurement.longitude %>">
-                    <%= truncate measurement.longitude.to_s, :length => 15 %>&deg;
+                    <%= number_with_precision measurement.longitude, :precision => 4 %>&deg;
                   </em>
                   <%= t('lng') %>
                 </li>

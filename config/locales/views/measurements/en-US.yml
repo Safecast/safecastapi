@@ -15,3 +15,7 @@ en-US:
       1m: 1m
       air: 空気
       soil: 土
+    index:
+      measurements: Measurements
+      none_found: No measurements found.
+      filter: Filter
