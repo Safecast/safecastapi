@@ -1,7 +1,6 @@
 module Helpers
   def sign_up(email = "paul@rslw.com", name = "Paul Campbell", password = "mynewpassword")
-    visit("/")
-    click_link("Sign up")
+    visit("/users/sign_up")
     fill_in("Email", :with => email)
     fill_in("Name", :with => name)
     fill_in("Password", :with => password)
@@ -10,7 +9,7 @@ module Helpers
   end
   
   def sign_in(user)
-    visit("/")
+    visit("/users/sign_in")
     fill_in("Email", :with => user.email)
     fill_in("Password", :with => user.password)
     click_button("Sign in")

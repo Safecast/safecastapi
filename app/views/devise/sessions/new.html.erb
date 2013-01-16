@@ -1,21 +1,19 @@
-<h2>Sign in</h2>
+<div class="row">
+  <div class="span6 offset3">
+    <h2>Sign in</h2>
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
+    <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+      <%= f.input :email, :autofocus => true %>
+      <%= f.input :password, :as => :password %>
+      <% if devise_mapping.rememberable? -%>
+        <%= f.input :remember_me, :inline_label => t('remember_me'), :label => false, :as => :boolean %>
+      <%- end -%>
+
+      <div class="form-actions">
+        <%= f.submit t('sign_in'), :class => 'btn btn-primary' %>
+      </div>
+    <% end %>
+
+    <%= render "links" %>
   </div>
-
-  <div>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
-
-  <div><%= f.submit "Sign in" %></div>
-<% end %>
-
-<%= render "links" %>
+</div>

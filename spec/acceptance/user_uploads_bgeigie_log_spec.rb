@@ -13,11 +13,13 @@ feature "User uploads bgeigie log" do
       attach_file("File", Rails.root.join('spec', 'fixtures', 'bgeigie.log'))
       click_button("Upload")
       page.should have_content('Unprocessed')
-      Delayed::Worker.new.work_off 
+      fill_in 'Credits', :with => 'Bill'
+      fill_in 'Cities', :with => 'Dublin'
+      Delayed::Worker.new.work_off
       visit(current_path)
-      page.should have_content('Awaiting approval')
-      find_email(moderator.email, 
-        :with_subject => 'A Safecast import is awaiting approval').should be_present
+      page.should have_content('Processed')
+      click_button 'Submit for Approval'
+      page.should have_content('Awaiting Approval')
     end
   end
   
@@ -26,6 +28,7 @@ feature "User uploads bgeigie log" do
 
     before do
       bgeigie_import.process
+      bgeigie_import.update_attributes(:cities => 'Tokyo', :credits => 'Bill', :status => 'submitted')
     end
 
     scenario "approving a bGeigie log file" do
@@ -33,7 +36,9 @@ feature "User uploads bgeigie log" do
       visit('/')
       click_link 'Imports'
       click_link 'Submitted'
-      click_link 'bgeigie.log'
+      save_and_open_page
+      binding.pry
+      click_link 'bgeigie0.log'
       click_button 'Approve'
       Delayed::Worker.new.work_off 
       visit(current_path)

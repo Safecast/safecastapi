@@ -21,7 +21,7 @@
     <%= javascript_include_tag "#{request.protocol}html5shim.googlecode.com/svn/trunk/html5.js" %>
     <!--[endif]-->
   </head>
-  <body>
+  <body data-spy="scroll" data-target=".doc-nav">
     <div class="container">
       <%= render :partial => 'shared/dashboard_navigation' %>
       <%= yield %>

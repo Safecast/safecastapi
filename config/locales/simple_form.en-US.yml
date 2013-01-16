@@ -27,6 +27,8 @@ en-US:
     labels:
     #   defaults:
     #     password: 'Password'
+      user:
+        remember_me: ''
       bgeigie_import:
         source: Upload a File
         name: Title

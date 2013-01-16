@@ -1,4 +1,7 @@
 en-US:
+  sign_in: Sign in
+  sign_in: Sign up
+  remember_me: Remember Me
   filter: Filter
   file_exists: That file already exists.
   are_you_sure: Are you sure? There is no undo.
@@ -283,6 +286,10 @@ en-US:
     remember_me: 
     name: ''
     password_confirmation: ''
+    new:
+      email: 
+      password: 
+      remember_me: 
   activerecord:
     attributes:
       user:
@@ -303,6 +310,8 @@ en-US:
       bgeigie_import:
         source: Source
     errors:
+      messages:
+        record_invalid: This record is invalid
       models:
         device:
           attributes:
@@ -343,3 +352,4 @@ en-US:
       bgeigie_imports: 
       imports_awaiting_approval: 
       submissions: 
+  captured_at: 

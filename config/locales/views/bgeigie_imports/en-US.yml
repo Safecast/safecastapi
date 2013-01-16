@@ -23,6 +23,8 @@ en-US:
       clicks_per_minute: Clicks per minute
       map_displayed_once_file_processed: A map will be displayed once this file has processed.
     index:
+      cities: Cities
+      credits: Credits
       upload: 'Upload'
       bgeigie_imports: bGeigie Imports
       yours: Yours

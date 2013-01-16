@@ -14,3 +14,6 @@ jQuery ->
       $('#api-output').text(JSON.stringify(data, null, 4))
       window.prettyPrint && prettyPrint()
     return false
+
+  $('#docs-nav').affix ->
+    offset: $('#docs-nav').position()

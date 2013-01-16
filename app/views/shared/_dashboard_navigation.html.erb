@@ -1,50 +1,33 @@
 <header>
   <h1><%= link_to "Safecast", root_path %></h1>
-  <nav>
-    <ul>
-      <%- if admin_signed_in? -%>
-        <li>
-          <%= link_to [:admin], :title => t("admin") do %>
-            <%= t("admin") %>
-          <%- end %>
-        </li>
-      <%- end -%>
+  <nav class="navbar">
+    <ul class="nav">
       <%- if user_signed_in? -%>
-        <li>
+        <li <%= raw('class="active"') if controller_name == 'measurements' && action_name == 'new' %>>
           <%= link_to [:new, :measurement], :title => t('submit_a_reading') do %>
             <%= t('submit') %>
           <%- end -%>
         </li>
-        <li>
+        <li <%= raw('class="active"') if controller_name == 'bgeigie_imports' && action_name == 'new' %>>
           <%= link_to [:new, :bgeigie_import], :title => t('upload') do %>
             <%= t('upload') %>
           <%- end -%>
         </li>
       <%- end -%>
-        <li class="dropdown">
-          <%= link_to '#view-menu', :title => t('view'),
-            :class => 'dropdown-toggle',
-            :data => {:toggle => 'dropdown'} do %>
-            <%= t('view') %>
-            <span class="caret"></span>
+        <li <%= raw('class="active"') if controller_name == 'bgeigie_imports' && ['show', 'index'].include?(action_name) %>>
+          <%= link_to [:bgeigie_imports], :title => t('.imports') do %>
+            <%= t('.imports') %>
           <%- end -%>
-          <ul class="dropdown-menu">
-            <li>
-              <%= link_to [:bgeigie_imports], :title => t('.imports') do %>
-                <%= t('.imports') %>
-              <%- end -%>
-            </li>
-            <li>
-              <%= link_to [:measurements], :title => t(".measurements") do %>
-                <%= t('.measurements') %>
-              <%- end -%>
-            </li>
-            <li>
-              <%= link_to [:devices], :title => t(".devices") do %>
-                <%= t('.devices') %>
-              <%- end -%>
-            </li>
-          </ul>
+        </li>
+        <li <%= raw('class="active"') if controller_name == 'measurements' && ['show', 'index'].include?(action_name) %>>
+          <%= link_to [:measurements], :title => t(".measurements") do %>
+            <%= t('.measurements') %>
+          <%- end -%>
+        </li>
+        <li <%= raw('class="active"') if controller_name == 'devices' %>>
+          <%= link_to [:devices], :title => t(".devices") do %>
+            <%= t('.devices') %>
+          <%- end -%>
         </li>
 
       <%- if user_signed_in? -%>
@@ -67,10 +50,10 @@
           </ul>
         </li>
       <%- else -%>
-        <li>
+        <li <%= raw('class="active"') if controller_name == 'sessions' && ['new'].include?(action_name) %>>
           <%= link_to t("sign_in"), new_user_session_path %>
         </li>
-        <li>
+        <li <%= raw('class="active"') if controller_name == 'registrations' && ['new'].include?(action_name) %>>
          <%= link_to t("sign_up"), new_user_registration_path %>
         </li>
       <%- end -%>

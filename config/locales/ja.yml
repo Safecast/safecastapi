@@ -242,6 +242,10 @@ ja:
     signed_out: ログアウト中
     signed_up: ログイン中
     unauthenticated: 非承認
+    new:
+      email: 
+      password: 
+      remember_me: 
   activerecord:
     attributes:
       measurement:
@@ -293,3 +297,4 @@ ja:
       bgeigie_imports: 
       imports_awaiting_approval: 
       submissions: 
+  captured_at: 
