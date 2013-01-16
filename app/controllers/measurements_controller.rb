@@ -36,7 +36,7 @@ class MeasurementsController < ApplicationController
   end
   
   def show
-    @measurement = Measurement.most_recent(params[:id])
+    @measurement = Measurement.find(params[:id])
     respond_with @measurement
   end
   
