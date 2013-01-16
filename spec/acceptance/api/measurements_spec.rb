@@ -79,7 +79,7 @@ feature "/measurements" do
     
     #withHistory defaults to false, returns latest value
     result = api_get("/measurements/#{second_measurement.id}.json")
-    result['value'].should == 15
+    result['value'].should == 12
   end
 
   scenario "get new measurements since some time" do
