@@ -57,7 +57,6 @@ module Safecast
       g.assets false
       g.javascripts false
       g.stylesheets false
-      g.template_engine :haml
     end
   end
 end

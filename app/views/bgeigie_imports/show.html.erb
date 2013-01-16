@@ -1,7 +1,8 @@
 <%= content_for :additional_javascripts do %>
   <script type="text/javascript" charset="utf-8">
     BgeigieImport = {
-      url: '<%= bgeigie_import_url(@bgeigie_import) %>'
+      url: '<%= bgeigie_import_url(@bgeigie_import) %>',
+      map_url: '<%= bgeigie_import_bgeigie_logs_url(@bgeigie_import) %>'
     }
   </script>
 <%- end -%>
@@ -14,7 +15,7 @@
   <div class="span12">
     <ul class="nav nav-tabs">
       <li <%= raw('class="active"') unless ['edit', 'update'].include?(action_name) %>><a href="#metadata" data-toggle="tab"><%= t('.metadata') %></a></li>
-      <li><a href="#map" data-toggle="tab"><%= t('.map') %></a></li>
+      <li><a href="#map" data-toggle="tab" data-behavior="load-map"><%= t('.map') %></a></li>
       <li>
         <a href="#process-log" data-toggle="tab"><%= t('.process_log') %></a>
       </li>

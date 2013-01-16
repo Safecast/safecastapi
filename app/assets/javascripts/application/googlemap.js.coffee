@@ -50,5 +50,3 @@ $ ->
       setTimeout =>
         setTimeout(countdown($('#location').val()) , 1000)
       , 5
-
-    

@@ -1,8 +1,20 @@
-<div class="row">
+<div id="map-loading" class="hide">
+  <div class="progress progress-striped active">
+    <div class="bar" style="width: 0%;">
+      <%= t('.loading_html') %>
+    </div>
+  </div>
+</div>
+
+<div id="show-map" class="row hide">
   <%- if @bgeigie_import.bgeigie_logs.any? -%>
     <section class="span4">
       <ul class="unstyled nav">
         <li class="nav-header"><%= t("measurement") %></li>
+        <li>
+          <%= t ".captured_at" -%>
+          <span class="captured_at pull-right"></span>
+        </li>
         <li>
           <%= t ".latitude" -%>
           <span class="lat pull-right"></span>
@@ -12,8 +24,12 @@
           <span class="lng pull-right"></span>
         </li>
         <li>
-          <%= t ".clicks_per_minute" -%>
+          <%= t ".cpm" -%>
           <span class="cpm pull-right"></span>
+        </li>
+        <li>
+          <%= t ".usv" -%>
+          <span class="usv pull-right"></span>
         </li>
       </ul>
     </section>

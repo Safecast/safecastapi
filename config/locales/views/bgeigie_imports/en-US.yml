@@ -95,3 +95,9 @@ en-US:
       approved_by_moderator: Approved by moderator
       added_to_safecast_database: Added to Safecast database
       map_created: Map created
+    map:
+      loading_html: "Loading map&hellip;"
+      captured_at: 
+      latitude: Latitude
+      longitude: Longitude
+      cpm: CPM

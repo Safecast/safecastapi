@@ -13,6 +13,7 @@ Safecast::Application.routes.draw do
     resource :profile
 
     resources :bgeigie_imports do
+      resources :bgeigie_logs, :only => :index
       member do
         put :submit
         put :approve
