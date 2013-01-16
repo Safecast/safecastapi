@@ -278,7 +278,6 @@ ja:
   layouts:
     submit_nav:
       submit_a_single_measurement: 
-  no_devices: 
   shared:
     dashboard_navigation:
       devices: 

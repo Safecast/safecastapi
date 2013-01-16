@@ -1,3 +1,11 @@
 en-US:
   devices:
-    no_devices: No Devices found
+    index:
+      no_devices: 
+      add_a_device: 'Add a Device'
+      devices: Devices
+      manufacturer: Manufacturer
+      model: Model
+      sensor: Sensor
+    new:
+      add_new_device: Add a New Device
