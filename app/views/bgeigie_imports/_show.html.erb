@@ -6,6 +6,16 @@
     </h4>
     <dl class="dl-horizontal well">
       <dt>
+        <%= t('.title') %>
+      </dt>
+      <dd>
+        <%- if @bgeigie_import.name.present? -%>
+          <%= @bgeigie_import.name %>
+        <%- else -%>
+          <%= t('.none') %>
+        <%- end -%>
+      </dd>
+      <dt>
         <%= t('.description') %>
       </dt>
       <dd>

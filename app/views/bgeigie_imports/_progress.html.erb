@@ -16,7 +16,7 @@
       <div class="bar <%= @bgeigie_import.approved? ? 'bar-success' : 'bar-warning' %>" style="width: 17%">
         <%= t('.progress_approved') %>
       </div>
-      <div class="bar <%= @bgeigie_import.done? ? 'bar-success' : 'bar-warning' %>" style="width: 17%">
+      <div id="done" class="bar <%= @bgeigie_import.done? ? 'bar-success' : 'bar-warning' %>" style="width: 17%">
         <%= t('.progress_live') %>
       </div>
     </div>

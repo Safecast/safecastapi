@@ -1,46 +1,13 @@
 <%= content_for :additional_javascripts do %>
   <script type="text/javascript" charset="utf-8">
     BgeigieImport = {
-      url: '<%= bgeigie_import_url(@bgeigie_import) %>',
-      current_status_url: '<%= current_status_bgeigie_import_url(@bgeigie_import) %>'
+      url: '<%= bgeigie_import_url(@bgeigie_import) %>'
     }
   </script>
 <%- end -%>
 
-<div class="row">
-  <div class="span12">
-    <%= render 'current_status' %>
-    <%- if content_for?(:current_status) -%>
-      <div id="current-status"><%= content_for(:current_status) %></div>
-    <%- end -%>
-
-    <ul class="inline nav-stacked pull-right">
-      <%- if @bgeigie_import.awaiting_approval? -%>
-        <li>
-          <%= form_for [:approve, @bgeigie_import] do |f| %>
-            <%= f.submit t('.approve'), :class => 'btn btn-primary' %>
-          <%- end -%>
-        </li>
-      <%- end -%>
-      <li>
-        <%= link_to t(".download_original_file"),
-              @bgeigie_import.source.url,
-              :class => 'btn' %>
-      </li>
-    </ul>
-
-    <h2>
-      <%= t '.bgeigie_import' -%> #<%= @bgeigie_import.id -%>
-
-      <small>
-        <%= render 'bgeigie_imports/status' -%>
-      </small>
-    </h2>
-  </div>
-</div>
-
-<div id="progress">
-  <%= render :partial => 'progress' %>
+<div id="head">
+  <%= render 'head' %>
 </div>
 
 <div class="row">
