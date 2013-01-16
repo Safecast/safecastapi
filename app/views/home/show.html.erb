@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="span12">
+    <div class="hero-unit">
+      <h1>The Safecast API</h1>
+      <p>
+        Query and add to the Safecast dataset.
+        Learn how to access it with your programs.
+      </p>
+    </div>
+  </div>
+
+  <div class="span3">
+    <ul class="nav nav-list" data-spy="affix">
+      <li><%= link_to 'Measurements', '#measurements' %></li>
+      <li>bGeigie Imports</li>
+      <li>Devices</li>
+    </ul>
+  </div>
+
+  <div class="span9">
+    <h3>Using the API</h3>
+
+    <h4>Measurements</h4>
+
+    <p>
+      The <code>Measurement</code> is the basic unit in the Safecast database.
+    </p>
+
+    <p>
+      A measurement is composed of four key parts.
+      <ul>
+        <li>Timestamp <code>captured_at</code></li>
+        <li>Unit <code>unit</code></li>
+        <li>Value <code>value</code></li>
+        <li>Geopoint <code>location</code> (<code>latitude</code>, <code>longitude</code>)</li>
+      </ul>
+    </p>
+
+    <p>
+      Measurements are accessed via the API:
+    </p>
+
+    <p>
+      <%= link_to 'Run it', measurements_url(:format => :json), :class => 'pull-right btn', :data => { :behavior => 'run-api'} %>
+      <pre>GET <%= measurements_url(:format => :json) %></pre>
+    </p>
+
+    <h4>Parameters</h4>
+    <p>
+      You can filter the measurements with a variety of options to find measurements near a point, captured on certain dates etc.
+    </p>
+
+    <h5>Measurements near a point</h5>
+
+    <p>
+      Provide <code>latitude</code>, <code>longitude</code> and <code>distance</code>.
+    </p>
+    <h6>Example:</h6>
+    <p>
+      <%= link_to 'Run it', measurements_url(:format => :json, :latitude => 34.5, :longitude => 5.5, :distance => 10), :class => 'pull-right btn', :data => { :behavior => 'run-api'} %>
+      <pre>GET <%= measurements_url(:format => :json, :latitude => 34.5, :longitude => 5.5, :distance => 10) %></pre>
+    </p>
+
+    <h5>Measurements captured before or after certain dates/times.</h5>
+
+    <p>
+      Provide <code>captured_after</code>, <code>captured_before</code> or both.
+    </p>
+    <h6>Example:</h6>
+    <p>
+      <%= link_to 'Run it', measurements_url(:format => :json, :captured_before => '2012-09-09 00:00', :captured_after => '2012-09-08 00:00'), :class => 'pull-right btn', :data => { :behavior => 'run-api'} %>
+      <pre>GET <%= measurements_url(:format => :json, :captured_before => '2012-09-09 00:00', :captured_after => '2012-09-08 00:00') %></pre>
+    </p>
+
+  </div>
+</div>

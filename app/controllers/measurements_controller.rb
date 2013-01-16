@@ -5,7 +5,7 @@ class MeasurementsController < ApplicationController
   has_scope :captured_after
   has_scope :captured_before
   has_scope :distance do |controller, scope, value|
-    scope.nearby_to(params[:latitude], params[:longitude], params[:distance])
+    scope.nearby_to(controller.params[:latitude], controller.params[:longitude], controller.params[:distance])
   end
   has_scope :original_id do |controller, scope, value|
     scope.where("original_id = :value OR id = :value", :value => value)

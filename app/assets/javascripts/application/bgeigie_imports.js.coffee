@@ -1,4 +1,5 @@
 jQuery ->
+  return unless window.hasOwnProperty('BgeigieImport')
   advanceMapLoader = (percent)->
     $('#map-loading .bar').css('width', "#{percent}%")
 
