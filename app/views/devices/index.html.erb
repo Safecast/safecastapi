@@ -21,7 +21,7 @@
       <%- @devices.each do |device| -%>
         <tr>
           <td>
-            <%= device.manufacturer %>
+            <%= link_to device.manufacturer, device %>
           </td>
           <td>
             <%= device.model %>
