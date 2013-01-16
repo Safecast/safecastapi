@@ -1,17 +1,16 @@
-<p>
-  <ul class="unstyled pull-right">
-    <li>
-      <%= link_to('JSON',
-            json_url,
-            :class => 'pull-right btn',
-            :data => { :behavior => 'run-api'}
-          ) %>
-    </li>
-    <li>
-      <%= link_to('HTML',
-            url,
-            :class => 'pull-right btn'
-          ) %>
-    </li>
-  <pre>GET <%= link_to json_url, url %></pre>
-</p>
+<ul class="unstyled inline pull-right">
+  <li>
+    <%= link_to('JSON',
+          json_url,
+          :class => 'pull-right btn btn-mini',
+          :data => { :behavior => 'run-api'}
+        ) %>
+  </li>
+  <li>
+    <%= link_to('HTML',
+          url,
+          :class => 'pull-right btn btn-mini'
+        ) %>
+  </li>
+</ul>
+<pre>GET <%= link_to json_url, url %></pre>

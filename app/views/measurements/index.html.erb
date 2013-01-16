@@ -3,18 +3,21 @@
   <div class="span12">
     <%= api_example :measurements_url, params.except(:commit).except(:utf8).keep_if { |k, v| v.present? } %>
   </div>
+</div>
+
+<div class="row">
 
   <div class="span3">
     <%= form_tag params.except(:commit), :method => :get do |f| %>
 
     <%= label_tag :latitude %>
-    <%= text_field_tag :latitude, params[:latitude], :class => 'span2' %>º
+    <%= number_field_tag :latitude, params[:latitude], :class => 'span2' %>º
 
     <%= label_tag :longitude %>
-    <%= text_field_tag :longitude, params[:longitude], :class => 'span2' %>º
+    <%= number_field_tag :longitude, params[:longitude], :class => 'span2' %>º
 
     <%= label_tag :distance %>
-    <%= text_field_tag :distance, params[:distance], :class => 'span2' %>m
+    <%= number_field_tag :distance, params[:distance], :class => 'span2' %>m
 
     <%= label_tag :captured_before %>
     <%= text_field_tag :captured_before, params[:captured_after] %>
