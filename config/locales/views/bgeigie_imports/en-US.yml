@@ -37,7 +37,6 @@ en-US:
       measurements: measurements
     edit:
       back_to_bgeigie_imports: Back to Import list
-      this_file_is_queued_for_processing: This file is queued for processing.
       bgeigie_import: Bgeigie import
       measurement: Measurement
       latitude: Latitude
@@ -54,8 +53,11 @@ en-US:
       date_uploaded: Date Uploaded
     new:
       upload_a_bgeigie_log_file: Upload a bGeigie log file
+      import_exists: That file already exists
+      link_to_existing_import_html: View it &rarr;
     show:
       this_file_is_queued_for_processing: This file is queued for processing.
+      you_can_edit_metadata_while_processing: "While the file is processing, you can edit the metadata for this import."
       bgeigie_import: Bgeigie import
       latitude: Latitude
       longitude: Longitude
@@ -83,3 +85,10 @@ en-US:
       delete_this_import: Delete this Import
       confirm_delete: Confirm Delete
       about_to_delete: You are about to delete this log. This action cannot be undone.
+    current_status:
+      edit_metadata: Edit Metadata
+      file_is_processed_add_metadata: "File Processed: Please Add Metadata."
+      explain_adding_metadata: "This import has finished processing, but before you can submit it for approval, please add required metadata."
+      file_ready: This File is Ready for Submission.
+      you_are_all_set: "You're all set. You can now submit this file for approval from a Safecast moderator."
+      submit_for_approval: Submit for Approval

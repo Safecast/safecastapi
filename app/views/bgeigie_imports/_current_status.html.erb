@@ -1,0 +1,31 @@
+<%= content_for :current_status do %>
+  <%- if @bgeigie_import.queued_for_processing? -%>
+    <div class="alert alert-block">
+      <%= link_to t('.edit_metadata'), '#edit-details',
+            :class => 'pull-right btn',
+            :data => {:toggle => 'tab'} %>
+      <h4><%= t(".this_file_is_queued_for_processing") %></h4>
+      <%= t('.you_can_edit_metadata_while_processing') %>
+    </div>
+  <%- end -%>
+
+  <%- if @bgeigie_import.processed? && !@bgeigie_import.ready_for_submission? -%>
+    <div class="alert alert-block">
+      <%= link_to t('.edit_metadata'), '#edit-details',
+            :class => 'pull-right btn',
+            :data => {:toggle => 'tab'} %>
+      <h4><%= t(".file_is_processed_add_metadata") %></h4>
+      <%= t(".explain_adding_metadata") %>
+    </div>
+  <%- end -%>
+
+  <%- if @bgeigie_import.ready_for_submission? && !@bgeigie_import.submitted? -%>
+    <div class="alert alert-block alert-success">
+      <%= form_for [:submit, @bgeigie_import], :html => {:class => 'pull-right'} do |f| %>
+        <%= f.submit t('.submit_for_approval'), :class => 'btn btn-primary' %>
+      <%- end -%>
+      <h4><%= t(".file_ready") %></h4>
+      <%= t(".you_are_all_set") %>
+    </div>
+  <%- end -%>
+<%- end -%>

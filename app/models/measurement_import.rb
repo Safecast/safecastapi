@@ -1,5 +1,6 @@
 class MeasurementImport < ActiveRecord::Base
   validates :source, :presence => true, :on => :create
+  validates :md5sum, :uniqueness => true
 
   has_many :measurement_import_logs  
   belongs_to :map

@@ -1,4 +1,5 @@
 en-US:
+  file_exists: That file already exists.
   are_you_sure: Are you sure? There is no undo.
   basics: Basics
   cancel: Cancel

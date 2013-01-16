@@ -2,11 +2,11 @@
   <%= render 'static_metadata' %>
   <div class="span8">
     <%= simple_form_for @bgeigie_import do |f| %>
-      <%= f.input :name %>
-      <%= f.input :description, :input_html => {:rows => 3, :class => 'span6'} %>
-      <%= f.input :credits, :as => :text, :input_html => {:rows => 3, :class => 'span6'} %>
-      <%= f.input :cities, :as => :text, :input_html => {:rows => 3, :class => 'span6'} %>
-      <%= f.input :height %>
+      <%= f.input :name, :input_html => {:class => 'span5'} %>
+      <%= f.input :description, :input_html => {:rows => 3, :class => 'span5'} %>
+      <%= f.input :credits, :as => :text, :input_html => {:rows => 3, :class => 'span5'} %>
+      <%= f.input :cities, :as => :text, :input_html => {:rows => 3, :class => 'span5'} %>
+      <%= f.input :height, :input_html => {:class => 'span2'} %>
       <%= f.input :orientation %>
       <%= f.button :wrapped, :cancel => @bgeigie_import %>
     <%- end -%>

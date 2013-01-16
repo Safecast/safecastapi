@@ -56,14 +56,11 @@ class BgeigieImport < MeasurementImport
   
   def process
     create_tmp_file
-    confirm_status(:process_file)
     import_to_bgeigie_logs
-    confirm_status(:import_bgeigie_logs)
     infer_lat_lng_into_bgeigie_logs_from_nmea_location
     confirm_status(:compute_latlng)
     self.update_column(:status, 'processed')
     delete_tmp_file
-    Notifications.import_awaiting_approval(self).deliver
   end
 
   def approve!
@@ -90,6 +87,7 @@ class BgeigieImport < MeasurementImport
       end
     end
     update_column(:lines_count, lines_count)
+    confirm_status(:process_file)
   end
 
   def is_sane?(line)
@@ -153,12 +151,12 @@ class BgeigieImport < MeasurementImport
   
   def import_to_bgeigie_logs
     drop_and_create_tmp_table
-    puts psql_command
     run_psql_command
     set_bgeigie_import_id
     populate_bgeigie_imports_table
     drop_tmp_table
     self.update_column(:measurements_count, self.bgeigie_logs.count)
+    confirm_status(:import_bgeigie_logs)
   end
   
   def infer_lat_lng_into_bgeigie_logs_from_nmea_location

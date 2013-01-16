@@ -1,10 +1,9 @@
 jQuery ->
-  if $('#progress').length > 0
-    if $('#progress').data('status') != 'done'
-      setInterval(->
-        if $('#progress').data('status') != 'done'
-          if $('#map_canvas').length > 0
-            $('#bgeigie-status').load(document.location.href)
-          else
-            # document.location.reload(true)
-      , 5000)
+  if $('div#current-status').length
+    current_status_interval = setInterval ->
+      $.get(BgeigieImport.current_status_url, {}, 'html').success (data)->
+        if $.trim(data) == ''
+          clearInterval(current_status_interval)
+        else
+          $('#current-status').html(data)
+    , 5000

@@ -1,9 +1,17 @@
-<%= content_for(:title) { t('upload_a_bgeigie_log_file') } %>
+<%= content_for(:title) { t('.upload_a_bgeigie_log_file') } %>
 
 <%= render 'layouts/submit_nav' %>
 <div class="row">
   <section class="span6 offset3">
     <h2><%= t('.upload_a_bgeigie_log_file') -%></h2>
+    <%- if @bgeigie_import.errors[:md5sum].any? -%>
+      <div class="alert alert-warning">
+        <%= t('.import_exists') %>
+        <%= link_to t('.link_to_existing_import_html'),
+                    BgeigieImport.find_by_md5sum(@bgeigie_import.md5sum),
+                    :class => 'pull-right' %>
+      </div>
+    <%- end -%>
     <%= simple_form_for @bgeigie_import,
           :html =>{
             :class => 'form-horizontal'
