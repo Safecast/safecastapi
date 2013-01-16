@@ -14,17 +14,13 @@
       <%= label_tag :distance %>
       <%= number_field_tag :distance, params[:distance], :class => 'span2' %>m
 
-      <%= label_tag :captured_before %>
-      <%= text_field_tag :captured_before, params[:captured_after] %>
+      <%= datetime_picker :captured_after %>
 
-      <%= label_tag :captured_after %>
-      <%= text_field_tag :captured_after, params[:captured_after] %>
+      <%= datetime_picker :captured_before %>
 
-      <%= label_tag :since %>
-      <%= text_field_tag :since, params[:since] %>
+      <%= datetime_picker :since %>
 
-      <%= label_tag :until %>
-      <%= text_field_tag :until, params[:since] %>
+      <%= datetime_picker :until %>
 
       <%= submit_tag t('filter') %>
     <%- end -%>

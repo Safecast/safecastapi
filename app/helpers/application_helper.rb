@@ -34,4 +34,8 @@ module ApplicationHelper
   def current_page_api_example(url)
     render :partial => 'layouts/current_page_api_example', :locals => {:url => url}
   end
+
+  def datetime_picker(name)
+    render :partial => 'layouts/datetime_picker', :locals => {:name => name}
+  end
 end

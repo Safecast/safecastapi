@@ -1,0 +1,12 @@
+<div id="datetime-<%= name %>" class="input-append date datetimepicker">
+  <%= label_tag name %>
+  <%= text_field_tag name, params[name],
+        :class => 'span2',
+        :data => {
+          :format => 'dd/MM/yyyy hh:mm:ss'
+        } %>
+  <span class="add-on">
+    <i class="icon-calendar" data-time-icon="icon-time" data-date-icon="icon-calendar">
+    </i>
+  </span>
+</div>
