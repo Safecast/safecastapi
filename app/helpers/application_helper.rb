@@ -30,4 +30,8 @@ module ApplicationHelper
     }
     Redcarpet::Markdown.new(renderer, options).render(text).html_safe
   end
+
+  def current_page_api_example(url)
+    render :partial => 'layouts/current_page_api_example', :locals => {:url => url}
+  end
 end

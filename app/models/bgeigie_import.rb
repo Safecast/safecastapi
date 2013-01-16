@@ -37,6 +37,14 @@ class BgeigieImport < MeasurementImport
     where(:user_id => user_id)
   end
 
+  def self.uploaded_before(time)
+    where("created_at < ?", time)
+  end
+
+  def self.uploaded_after(time)
+    where("created_at > ?", time)
+  end
+
   def conversion
     @conversion ||= Iconv.new('UTF-8//IGNORE', 'UTF-8')
   end

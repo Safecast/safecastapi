@@ -1,38 +1,33 @@
-<div class="row">
-
-  <div class="span12">
-    <%= api_example :measurements_url, params.except(:commit).except(:utf8).keep_if { |k, v| v.present? } %>
-  </div>
-</div>
+<%= current_page_api_example :measurements_url %>
 
 <div class="row">
 
   <div class="span3">
-    <%= form_tag params.except(:commit), :method => :get do |f| %>
+    <%= form_tag params.except(:commit).except(:utf8), :method => :get do |f| %>
 
-    <%= label_tag :latitude %>
-    <%= number_field_tag :latitude, params[:latitude], :class => 'span2' %>º
+      <%= label_tag :latitude %>
+      <%= number_field_tag :latitude, params[:latitude], :class => 'span2' %>º
 
-    <%= label_tag :longitude %>
-    <%= number_field_tag :longitude, params[:longitude], :class => 'span2' %>º
+      <%= label_tag :longitude %>
+      <%= number_field_tag :longitude, params[:longitude], :class => 'span2' %>º
 
-    <%= label_tag :distance %>
-    <%= number_field_tag :distance, params[:distance], :class => 'span2' %>m
+      <%= label_tag :distance %>
+      <%= number_field_tag :distance, params[:distance], :class => 'span2' %>m
 
-    <%= label_tag :captured_before %>
-    <%= text_field_tag :captured_before, params[:captured_after] %>
+      <%= label_tag :captured_before %>
+      <%= text_field_tag :captured_before, params[:captured_after] %>
 
-    <%= label_tag :captured_after %>
-    <%= text_field_tag :captured_after, params[:captured_after] %>
+      <%= label_tag :captured_after %>
+      <%= text_field_tag :captured_after, params[:captured_after] %>
 
-    <%= label_tag :since %>
-    <%= text_field_tag :since, params[:since] %>
+      <%= label_tag :since %>
+      <%= text_field_tag :since, params[:since] %>
 
-    <%= label_tag :until %>
-    <%= text_field_tag :until, params[:since] %>
+      <%= label_tag :until %>
+      <%= text_field_tag :until, params[:since] %>
 
-    <%= submit_tag t('.filter') %>
-  <%- end -%>
+      <%= submit_tag t('filter') %>
+    <%- end -%>
   </div>
 
   <section class="span9">

@@ -1,55 +1,95 @@
-<ul class="inline pull-right">
-  <li>
-    <%= link_to t('.upload'), [:new, :bgeigie_import], :class => 'btn' %>
-  </li>
-</ul>
+<%= current_page_api_example :bgeigie_imports_url %>
 
-<h2><%= t(".bgeigie_imports") %></h2>
+<div class="row">
 
+  <div class="span3">
+    <%= form_tag params.except(:commit).except(:utf8), :method => :get do |f| %>
 
-<div class="navbar">
-  <div class="navbar-inner">
-    <ul class="nav">
-      <%= bgeigie_nav_li(:all) %>
-      <% bgeigie_nav_li(:new) %>
-      <%= bgeigie_nav_li(:awaiting_approval) %>
-      <% bgeigie_nav_li(:pending) %>
-      <%= bgeigie_nav_li(:done) %>
-      <% bgeigie_nav_li(:error) %>
-      <%- if user_signed_in? -%>
-        <li <%= raw 'class="active"' if params[:by_user_id] == current_user.id.to_s %>>
-          <%= link_to t(".yours"), bgeigie_imports_url(:by_user_id => current_user.id) %>
-        </li>
-      <%- end -%>
+      <div id="uploaded-after" class="input-append date datetimepicker">
+        <%= label_tag :uploaded_after %>
+        <%= text_field_tag :uploaded_after, params[:uploaded_after],
+              :class => 'span2',
+              :data => {
+                :format => 'dd/MM/yyyy hh:mm:ss'
+              } %>
+        <span class="add-on">
+          <i class="icon-calendar" data-time-icon="icon-time" data-date-icon="icon-calendar">
+          </i>
+        </span>
+      </div>
+
+      <div id="uploaded-before" class="input-append date datetimepicker">
+        <%= label_tag :uploaded_before %>
+        <%= text_field_tag :uploaded_before, params[:uploaded_before],
+              :class => 'span2',
+              :data => {
+                :format => 'dd/MM/yyyy hh:mm:ss'
+              } %>
+        <span class="add-on">
+          <i class="icon-calendar" data-time-icon="icon-time" data-date-icon="icon-calendar">
+          </i>
+        </span>
+      </div>
+
+      <%= submit_tag t('filter') %>
+    <%- end -%>
+  </div>
+
+  <div class="span9">
+
+    <ul class="inline pull-right">
+      <li>
+        <%= link_to t('.upload'), [:new, :bgeigie_import], :class => 'btn' %>
+      </li>
     </ul>
+
+    <h2><%= t(".bgeigie_imports") %></h2>
+
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <ul class="nav">
+          <%= bgeigie_nav_li(:all) %>
+          <% bgeigie_nav_li(:new) %>
+          <%= bgeigie_nav_li(:awaiting_approval) %>
+          <% bgeigie_nav_li(:pending) %>
+          <%= bgeigie_nav_li(:done) %>
+          <% bgeigie_nav_li(:error) %>
+          <%- if user_signed_in? -%>
+            <li <%= raw 'class="active"' if params[:by_user_id] == current_user.id.to_s %>>
+              <%= link_to t(".yours"), bgeigie_imports_url(:by_user_id => current_user.id) %>
+            </li>
+          <%- end -%>
+        </ul>
+      </div>
+    </div>
+
+    <%- if @bgeigie_imports.empty? -%>
+      <%= t(".no_bgeigie_log_files_have_been_uploaded") -%>
+    <%- else -%>
+      <table class="table table-striped">
+        <thead>
+          <th><%= t('.file_name') %></th>
+          <th><%= t('.number_of_measurements') %></th>
+          <th><%= t('.date_uploaded') %></th>
+        </thead>
+        <tbody>
+          <%- @bgeigie_imports.each do |bgeigie_import| -%>
+            <tr>
+              <td>
+                <%= link_to File.basename(bgeigie_import.source.file.path), 
+                      bgeigie_import -%>
+              </td>
+              <td>
+                <%= bgeigie_import.measurements_count %>
+              </td>
+              <td>
+                <%= bgeigie_import.created_at_formatted %>
+              </td>
+            </tr>
+          <%- end -%>
+        </tbody>
+      </table>
+    <%- end -%>
   </div>
 </div>
-
-<%- if @bgeigie_imports.empty? -%>
-  <%= t(".no_bgeigie_log_files_have_been_uploaded") -%>
-<%- else -%>
-  <table class="table table-striped">
-    <thead>
-      <th><%= t('.file_name') %></th>
-      <th><%= t('.number_of_measurements') %></th>
-      <th><%= t('.date_uploaded') %></th>
-    </thead>
-    <tbody>
-      <%- @bgeigie_imports.each do |bgeigie_import| -%>
-        <tr>
-          <td>
-            <%= link_to File.basename(bgeigie_import.source.file.path), 
-                  bgeigie_import -%>
-          </td>
-          <td>
-            <%= bgeigie_import.measurements_count %>
-          </td>
-          <td>
-            <%= bgeigie_import.created_at_formatted %>
-          </td>
-        </tr>
-      <%- end -%>
-    </tbody>
-  </table>
-<%- end -%>
-

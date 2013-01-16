@@ -20,6 +20,7 @@
             <%= t('upload') %>
           <%- end -%>
         </li>
+      <%- end -%>
         <li class="dropdown">
           <%= link_to '#view-menu', :title => t('view'),
             :class => 'dropdown-toggle',
@@ -46,6 +47,7 @@
           </ul>
         </li>
 
+      <%- if user_signed_in? -%>
         <li class="dropdown">
           <%= link_to '#user-menu',
             :class => 'dropdown-toggle',

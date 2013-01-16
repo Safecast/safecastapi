@@ -7,6 +7,8 @@ class BgeigieImportsController < ApplicationController
 
   has_scope :by_status
   has_scope :by_user_id
+  has_scope :uploaded_after
+  has_scope :uploaded_before
 
   def new
     @bgeigie_import = BgeigieImport.new
