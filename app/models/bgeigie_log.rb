@@ -9,4 +9,8 @@ class BgeigieLog < ActiveRecord::Base
   def location=(value)
     computed_location=value
   end
+
+  def usv
+    BigDecimal.new(cpm.to_s) / 330
+  end
 end

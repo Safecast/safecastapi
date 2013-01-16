@@ -1,6 +1,8 @@
 maps = window.google.maps
 
 $ ->
+  Math.round( "2.232312424" * 10000 ) / 10000;
+
   window.MeasurementsMap = _.extend GoogleMap, 
     addMeasurementsAndCenter: (measurements) ->
       bounds = new maps.LatLngBounds()
@@ -11,9 +13,14 @@ $ ->
         marker = new maps.Marker(map: map, position: position, icon: icon)
         do (measurement) ->
           maps.event.addListener marker, 'mouseover', ->
-            $(".lat").text(measurement.lat)
-            $(".lng").text(measurement.lng)
+            lat = Math.round( measurement.lat * 10000 ) / 10000;
+            lng = Math.round( measurement.lng * 10000 ) / 10000;
+            usv = Math.round( measurement.usv * 100 ) / 100;
+            $(".lat").text(lat)
+            $(".lng").text(lng)
             $(".cpm").text(measurement.cpm) if measurement.cpm
+            $(".usv").text(usv) if usv
+            $(".captured_at").text(measurement.captured_at) if measurement.captured_at
       map.setCenter(bounds.getCenter(), map.fitBounds(bounds))
 
     iconForMeasurement: (cpm) ->

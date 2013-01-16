@@ -1,0 +1,2 @@
+module BgeigieLogsHelper
+end

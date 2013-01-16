@@ -11,3 +11,5 @@ bgeigie_logs/*
 log/localeapp.yml
 .idea
 .powrc
+zeus.json
+custom_plan.rb

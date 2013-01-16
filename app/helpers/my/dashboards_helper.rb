@@ -1,2 +1,0 @@
-module My::DashboardsHelper
-end

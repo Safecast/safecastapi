@@ -1,3 +1,0 @@
-module My::BgeigieImportsHelper
-
-end
