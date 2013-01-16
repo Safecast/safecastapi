@@ -9,6 +9,10 @@ class BgeigieImportsController < ApplicationController
   has_scope :by_user_id
   has_scope :uploaded_after
   has_scope :uploaded_before
+  has_scope :q do |controller, scope, value|
+    scope.filter(value)
+  end
+
 
   def new
     @bgeigie_import = BgeigieImport.new

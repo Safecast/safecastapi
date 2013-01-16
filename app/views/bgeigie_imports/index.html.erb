@@ -5,6 +5,9 @@
   <div class="span3">
     <%= form_tag params.except(:commit).except(:utf8), :method => :get do |f| %>
 
+      <%= label_tag :q, t('filter') %>
+      <%= text_field_tag :q, params[:q] %>
+
       <div id="uploaded-after" class="input-append date datetimepicker">
         <%= label_tag :uploaded_after %>
         <%= text_field_tag :uploaded_after, params[:uploaded_after],
@@ -31,6 +34,7 @@
         </span>
       </div>
 
+      <%= hidden_field_tag 'by_status', params[:by_status] %>
       <%= submit_tag t('filter') %>
     <%- end -%>
   </div>
@@ -72,6 +76,8 @@
           <th><%= t('.file_name') %></th>
           <th><%= t('.number_of_measurements') %></th>
           <th><%= t('.date_uploaded') %></th>
+          <th><%= t('.cities') %></th>
+          <th><%= t('.credits') %></th>
         </thead>
         <tbody>
           <%- @bgeigie_imports.each do |bgeigie_import| -%>
@@ -85,6 +91,12 @@
               </td>
               <td>
                 <%= bgeigie_import.created_at_formatted %>
+              </td>
+              <td>
+                <%= bgeigie_import.cities %>
+              </td>
+              <td>
+                <%= bgeigie_import.credits %>
               </td>
             </tr>
           <%- end -%>

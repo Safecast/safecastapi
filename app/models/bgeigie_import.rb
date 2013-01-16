@@ -29,6 +29,13 @@ class BgeigieImport < MeasurementImport
 
   default_scope order('created_at desc')
 
+  def self.filter(query)
+    where("lower(name) LIKE :query
+           OR lower(description) LIKE :query 
+           OR lower(cities) LIKE :query
+           OR lower(credits) LIKE :query", :query => "%#{query.downcase}%")
+  end
+
   def self.by_status(status)
     where(:status => status)
   end
