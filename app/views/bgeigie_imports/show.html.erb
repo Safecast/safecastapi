@@ -39,29 +39,8 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="span12">
-    <div class="progress">
-      <div class="bar bar-success" style="width: 16%">
-        <%= t('.progress_uploaded') %>
-      </div>
-      <div class="bar <%= @bgeigie_import.processed? ? 'bar-success' : 'bar-warning' %>" style="width: 17%">
-        <%= t('.progress_processed') %>
-      </div>
-      <div class="bar <%= @bgeigie_import.metadata_added? ? 'bar-success' : 'bar-warning' %>" style="width: 16%">
-        <%= t('.progress_metadata') %>
-      </div>
-      <div class="bar <%= @bgeigie_import.submitted? ? 'bar-success' : 'bar-warning' %>" style="width: 17%">
-        <%= t('.progress_submitted') %>
-      </div>
-      <div class="bar <%= @bgeigie_import.approved? ? 'bar-success' : 'bar-warning' %>" style="width: 17%">
-        <%= t('.progress_approved') %>
-      </div>
-      <div class="bar <%= @bgeigie_import.done? ? 'bar-success' : 'bar-warning' %>" style="width: 17%">
-        <%= t('.progress_live') %>
-      </div>
-    </div>
-  </div>
+<div id="progress">
+  <%= render :partial => 'progress' %>
 </div>
 
 <div class="row">
@@ -70,7 +49,7 @@
       <li <%= raw('class="active"') unless ['edit', 'update'].include?(action_name) %>><a href="#metadata" data-toggle="tab"><%= t('.metadata') %></a></li>
       <li><a href="#map" data-toggle="tab"><%= t('.map') %></a></li>
       <li>
-        <a href="#process_log" data-toggle="tab"><%= t('.process_log') %></a>
+        <a href="#process-log" data-toggle="tab"><%= t('.process_log') %></a>
       </li>
       <%- if user_signed_in? && (@bgeigie_import.user == current_user || current_user.moderator?)-%>
         <li class="pull-right <%= 'active' if ['edit', 'update'].include?(action_name) %>">
@@ -91,7 +70,7 @@
     <%= render 'map' %>
   </div>
   <div class="tab-pane" id="process-log">
-    <%= render 'progress' -%>
+    <%= render 'process_log' -%>
   </div>
   <div class="tab-pane <%= 'active' if ['edit', 'update'].include?(action_name) %>" id="edit-details">
     <%= render 'edit' %>
