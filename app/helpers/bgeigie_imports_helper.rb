@@ -12,7 +12,7 @@ module BgeigieImportsHelper
 
   def bgeigie_nav_li(status)
     active = if params[:by_status].blank?
-      status == nil
+      status == :all
     else
       params[:by_status] == status.to_s
     end

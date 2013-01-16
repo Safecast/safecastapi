@@ -27,6 +27,7 @@ class BgeigieImportsController < ApplicationController
   def submit
     @bgeigie_import = scope.find(params[:id])
     @bgeigie_import.update_column(:status, 'submitted')
+    Notifications.import_awaiting_approval(@bgeigie_import).deliver
     redirect_to @bgeigie_import
   end
 

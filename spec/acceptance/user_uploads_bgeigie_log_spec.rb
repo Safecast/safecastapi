@@ -16,10 +16,12 @@ feature "User uploads bgeigie log" do
       fill_in 'Credits', :with => 'Bill'
       fill_in 'Cities', :with => 'Dublin'
       Delayed::Worker.new.work_off
-      visit(current_path)
+      click_button 'Save'
       page.should have_content('Processed')
       click_button 'Submit for Approval'
-      page.should have_content('Awaiting Approval')
+      page.should have_content('Submitted')
+      find_email(moderator.email, 
+        :with_subject => 'A Safecast import is awaiting approval').should be_present
     end
   end
   
@@ -36,8 +38,6 @@ feature "User uploads bgeigie log" do
       visit('/')
       click_link 'Imports'
       click_link 'Submitted'
-      save_and_open_page
-      binding.pry
       click_link 'bgeigie0.log'
       click_button 'Approve'
       Delayed::Worker.new.work_off 

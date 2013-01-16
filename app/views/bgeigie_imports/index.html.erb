@@ -33,13 +33,20 @@
         <ul class="nav">
           <%= bgeigie_nav_li(:all) %>
           <% bgeigie_nav_li(:new) %>
-          <%= bgeigie_nav_li(:awaiting_approval) %>
+          <%= bgeigie_nav_li(:submitted) %>
           <% bgeigie_nav_li(:pending) %>
           <%= bgeigie_nav_li(:done) %>
           <% bgeigie_nav_li(:error) %>
+        </ul>
+        <ul class="nav pull-right">
           <%- if user_signed_in? -%>
-            <li <%= raw 'class="active"' if params[:by_user_id] == current_user.id.to_s %>>
-              <%= link_to t(".yours"), bgeigie_imports_url(:by_user_id => current_user.id) %>
+            <li class="pull-right <%= 'active' if params[:by_user_id].blank? %>">
+              <%= link_to t(".everyone"), params.except(:by_user_id) %>
+            </li>
+          <%- end -%>
+          <%- if user_signed_in? -%>
+            <li class="pull-right <%= 'active' if params[:by_user_id] == current_user.id.to_s %>">
+              <%= link_to t(".yours"), params.merge(:by_user_id => current_user.id) %>
             </li>
           <%- end -%>
         </ul>
@@ -47,7 +54,7 @@
     </div>
 
     <%- if @bgeigie_imports.empty? -%>
-      <%= t(".no_bgeigie_log_files_have_been_uploaded") -%>
+      <%= t("none_found") -%>
     <%- else -%>
       <table class="table table-striped">
         <thead>
