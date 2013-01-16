@@ -22,8 +22,8 @@
   <%- if @bgeigie_import.ready_for_submission? && !@bgeigie_import.submitted? -%>
     <div class="alert alert-block alert-success">
       <%= form_for [:submit, @bgeigie_import], :html => {:class => 'pull-right'} do |f| %>
-        <%= f.submit t('.submit_for_approval'), :class => 'btn btn-primary' %>
-      <%- end -%>
+          <%= f.submit t('.submit_for_approval'), :class => 'btn btn-primary' %>
+        <%- end -%>
       <h4><%= t(".file_ready") %></h4>
       <%= t(".you_are_all_set") %>
     </div>

@@ -22,6 +22,12 @@ en-US:
       longitude: Longitude
       clicks_per_minute: Clicks per minute
       map_displayed_once_file_processed: A map will be displayed once this file has processed.
+      title_tooltip: A summary of the contents of your file
+      description_tooltip: A more in-depth description of the contents of your file
+      credits_tooltip: The people involved in collecting this data
+      cities_tooltip: The nearby cities
+      height_tooltip: The height about ground the sensor was held
+      orientation_tooltip: How the sensor was held
     index:
       everyone: Everyone
       cities: Cities
