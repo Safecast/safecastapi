@@ -1,16 +1,12 @@
 <%= current_page_api_example :user_url %>
 
-<div class="row">
-  <div class="span12">
-    <dl class="dl-horizontal">
-      <dt><%= t('id') %></dt>
-      <dd><%= @user.id %></dd>
+<dl class="dl-horizontal">
+  <dt><%= t('id') %></dt>
+  <dd><%= @user.id %></dd>
 
-      <dt><%= t('activerecord.attributes.user.name') %></dt>
-      <dd><%= @user.name %></dd>
+  <dt><%= t('activerecord.attributes.user.name') %></dt>
+  <dd><%= @user.name %></dd>
 
-      <dt><%= t('activerecord.attributes.user.measurements_count') %></dt>
-      <dd><%= @user.measurements_count %></dd>
-    </dl>
-  </div>
-</div>
+  <dt><%= t('activerecord.attributes.user.measurements_count') %></dt>
+  <dd><%= @user.measurements_count %></dd>
+</dl>

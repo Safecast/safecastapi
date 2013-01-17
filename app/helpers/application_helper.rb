@@ -35,7 +35,26 @@ module ApplicationHelper
     render :partial => 'layouts/current_page_api_example', :locals => {:url => url}
   end
 
-  def datetime_picker(name)
-    render :partial => 'layouts/datetime_picker', :locals => {:name => name}
+  def human_label(model_name, attr_name)
+    I18n.t(
+      "activerecord.attributes.#{model_name}.#{attr_name}_tooltip",
+      :default => t("activerecord.attributes.#{model_name}.#{attr_name}")
+    )
+  end
+
+  def datetime_picker(model_name, attr_name)
+
+    render :partial => 'layouts/datetime_picker', :locals => {
+      :model_name => model_name,
+      :attr_name => attr_name
+    }
+  end
+
+  def filter_field(model_name, attr_name, options = {})
+    render :partial => 'layouts/filter_field', :locals => {
+      :model_name => model_name,
+      :attr_name => attr_name,
+      :options => options
+    }
   end
 end

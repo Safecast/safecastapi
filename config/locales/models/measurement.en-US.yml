@@ -1,0 +1,14 @@
+en-US:
+  activerecord:
+    attributes:
+      measurement:
+        unit: Unit
+        sensor_id: Sensor
+        value: Value
+        latitude: Latitude
+        longitude: Longitude
+        distance: Distance
+        captured_after: Captured After
+        captured_before: Captured Before
+        since: Since
+        until: Until

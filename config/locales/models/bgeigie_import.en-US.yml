@@ -1,0 +1,8 @@
+en-US:
+  activerecord:
+    attributes:
+      bgeigie_import:
+        q: q
+        q_tooltip: Search
+        uploaded_after: Uploaded After
+        uploaded_before: Uploaded Before

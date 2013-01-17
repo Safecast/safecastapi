@@ -24,7 +24,33 @@
   <body data-spy="scroll" data-target=".doc-nav">
     <div class="container">
       <%= render :partial => 'shared/dashboard_navigation' %>
-      <%= yield %>
+      <div class="row">
+        <div class="span3">
+          <div class="well sidebar-nav" id="api-nav">
+            <ul class="nav nav-list">
+              <li <%= raw('class="active"') if controller_name == 'home' %>>
+                <%= link_to t('.home'), :root %>
+              </li>
+              <li <%= raw('class="active"') if controller_name == 'users' %>>
+                <%= link_to t('.users'), :users %>
+              </li>
+              <li <%= raw('class="active"') if controller_name == 'measurements' %>>
+                <%= link_to t('.measurements'), :measurements %>
+              </li>
+              <li <%= raw('class="active"') if controller_name == 'bgeigie_imports' %>>
+                <%= link_to t('.bgeigie_imports'), :bgeigie_imports %>
+              </li>
+              <li <%= raw('class="active"') if controller_name == 'devices' %>>
+                <%= link_to t('.devices'), :devices %>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="span9">
+          <%= yield %>
+        </div>
+      </div>
 
       <footer class="row">
         <p class="span12"><%= t 'creative_commons_non_commercial' %></p>

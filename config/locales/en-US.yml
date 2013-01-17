@@ -1,4 +1,7 @@
 en-US:
+  measurements: Measurements
+  bgeigie_imports: bGeigie Imports
+  devices: Devices
   id: ID
   unit: Unit
   usv: 'μSv/h'
@@ -296,10 +299,6 @@ en-US:
       remember_me: 
   activerecord:
     attributes:
-      measurement:
-        unit: Unit
-        sensor_id: Sensor
-        value: Value
       device:
         sensors: Sensors
         manufacturer: Manufacturer

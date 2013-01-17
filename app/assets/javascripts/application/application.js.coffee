@@ -1,2 +1,2 @@
 jQuery ->
-  $('label.activate-tooltip').tooltip()
+  $('.activate-tooltip').tooltip()

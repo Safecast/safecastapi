@@ -1,92 +1,85 @@
 <%= current_page_api_example :bgeigie_imports_url %>
 
-<div class="row">
+<%= form_tag params.except(:commit).except(:utf8),
+                 :method => :get,
+                 :class => 'form-inline' do |f| %>
 
-  <div class="span3">
-    <%= form_tag params.except(:commit).except(:utf8), :method => :get do |f| %>
+  <%= filter_field :bgeigie_import, :q %>
 
-      <%= label_tag :q, t('filter') %>
-      <%= text_field_tag :q, params[:q] %>
+  <%= datetime_picker :bgeigie_import, :uploaded_after %>
 
-      <%= datetime_picker :uploaded_after %>
+  <%= datetime_picker :bgeigie_import, :uploaded_before %>
 
-      <%= datetime_picker :uploaded_before %>
+  <%= hidden_field_tag 'by_status', params[:by_status] %>
+  <%= submit_tag t('filter') %>
+<%- end -%>
 
-      <%= hidden_field_tag 'by_status', params[:by_status] %>
-      <%= submit_tag t('filter') %>
-    <%- end -%>
-  </div>
+<ul class="inline pull-right">
+  <li>
+    <%= link_to t('.upload'), [:new, :bgeigie_import], :class => 'btn' %>
+  </li>
+</ul>, 
 
-  <div class="span9">
+<h2><%= t(".bgeigie_imports") %></h2>
 
-    <ul class="inline pull-right">
-      <li>
-        <%= link_to t('.upload'), [:new, :bgeigie_import], :class => 'btn' %>
-      </li>
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <ul class="nav">
+      <%= bgeigie_nav_li(:all) %>
+      <% bgeigie_nav_li(:new) %>
+      <%= bgeigie_nav_li(:submitted) %>
+      <% bgeigie_nav_li(:pending) %>
+      <%= bgeigie_nav_li(:done) %>
+      <% bgeigie_nav_li(:error) %>
     </ul>
-
-    <h2><%= t(".bgeigie_imports") %></h2>
-
-
-    <div class="navbar">
-      <div class="navbar-inner">
-        <ul class="nav">
-          <%= bgeigie_nav_li(:all) %>
-          <% bgeigie_nav_li(:new) %>
-          <%= bgeigie_nav_li(:submitted) %>
-          <% bgeigie_nav_li(:pending) %>
-          <%= bgeigie_nav_li(:done) %>
-          <% bgeigie_nav_li(:error) %>
-        </ul>
-        <ul class="nav pull-right">
-          <%- if user_signed_in? -%>
-            <li class="pull-right <%= 'active' if params[:by_user_id].blank? %>">
-              <%= link_to t(".everyone"), params.except(:by_user_id) %>
-            </li>
-          <%- end -%>
-          <%- if user_signed_in? -%>
-            <li class="pull-right <%= 'active' if params[:by_user_id] == current_user.id.to_s %>">
-              <%= link_to t(".yours"), params.merge(:by_user_id => current_user.id) %>
-            </li>
-          <%- end -%>
-        </ul>
-      </div>
-    </div>
-
-    <%- if @bgeigie_imports.empty? -%>
-      <%= t("none_found") -%>
-    <%- else -%>
-      <table class="table table-striped">
-        <thead>
-          <th><%= t('.file_name') %></th>
-          <th><%= t('.number_of_measurements') %></th>
-          <th><%= t('.date_uploaded') %></th>
-          <th><%= t('.cities') %></th>
-          <th><%= t('.credits') %></th>
-        </thead>
-        <tbody>
-          <%- @bgeigie_imports.each do |bgeigie_import| -%>
-            <tr>
-              <td>
-                <%= link_to File.basename(bgeigie_import.source.file.path), 
-                      bgeigie_import -%>
-              </td>
-              <td>
-                <%= bgeigie_import.measurements_count %>
-              </td>
-              <td>
-                <%= bgeigie_import.created_at_formatted %>
-              </td>
-              <td>
-                <%= bgeigie_import.cities %>
-              </td>
-              <td>
-                <%= bgeigie_import.credits %>
-              </td>
-            </tr>
-          <%- end -%>
-        </tbody>
-      </table>
-    <%- end -%>
+    <ul class="nav pull-right">
+      <%- if user_signed_in? -%>
+        <li class="pull-right <%= 'active' if params[:by_user_id].blank? %>">
+          <%= link_to t(".everyone"), params.except(:by_user_id) %>
+        </li>
+      <%- end -%>
+      <%- if user_signed_in? -%>
+        <li class="pull-right <%= 'active' if params[:by_user_id] == current_user.id.to_s %>">
+          <%= link_to t(".yours"), params.merge(:by_user_id => current_user.id) %>
+        </li>
+      <%- end -%>
+    </ul>
   </div>
 </div>
+
+<%- if @bgeigie_imports.empty? -%>
+  <%= t("none_found") -%>
+<%- else -%>
+  <table class="table table-striped">
+    <thead>
+      <th><%= t('.file_name') %></th>
+      <th><%= t('.number_of_measurements') %></th>
+      <th><%= t('.date_uploaded') %></th>
+      <th><%= t('.cities') %></th>
+      <th><%= t('.credits') %></th>
+    </thead>
+    <tbody>
+      <%- @bgeigie_imports.each do |bgeigie_import| -%>
+        <tr>
+          <td>
+            <%= link_to File.basename(bgeigie_import.source.file.path), 
+                  bgeigie_import -%>
+          </td>
+          <td>
+            <%= bgeigie_import.measurements_count %>
+          </td>
+          <td>
+            <%= bgeigie_import.created_at_formatted %>
+          </td>
+          <td>
+            <%= bgeigie_import.cities %>
+          </td>
+          <td>
+            <%= bgeigie_import.credits %>
+          </td>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
+<%- end -%>

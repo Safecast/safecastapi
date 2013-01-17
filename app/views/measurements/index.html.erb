@@ -1,91 +1,89 @@
 <%= current_page_api_example :measurements_url %>
 
-<div class="row">
 
-  <div class="span3">
-    <%= form_tag params.except(:commit).except(:utf8), :method => :get do |f| %>
+<h2><%= t(".measurements") -%></h2>
 
-      <fieldset>
-        <%= label_tag :latitude %>
-        <%= number_field_tag :latitude, params[:latitude], :class => 'span2' %>º
 
-        <%= label_tag :longitude %>
-        <%= number_field_tag :longitude, params[:longitude], :class => 'span2' %>º
-
-        <%= label_tag :distance %>
-        <%= number_field_tag :distance, params[:distance], :class => 'span2' %>m
-      </fieldset>
-
-      <fieldset>
-        <%= label_tag :unit, t('unit') %>
-        <%= select_tag :unit,
-                       options_for_select(
-                        [
-                          ['CPM', 'cpm'], [t('usv'), 'usv']
-                        ], params[:by_unit]) %>
-      </fieldset>
-
-      <fieldset>
-
-        <%= datetime_picker :captured_after %>
-
-        <%= datetime_picker :captured_before %>
-
-        <%= datetime_picker :since %>
-
-        <%= datetime_picker :until %>
-      </fieldset>
-
-      <%= submit_tag t('filter') %>
-    <%- end -%>
+<%= form_tag params.except(:commit).except(:utf8),
+             :method => :get,
+             :class => 'form-inline' do |f| %>
+  <div class="row">
+    <fieldset class="span9">
+      <div class="pull-right">
+        <%= submit_tag t('filter') %>
+      </div>
+      <%= select_tag :unit,
+                     options_for_select(
+                      [
+                        ['CPM', 'cpm'], [t('usv'), 'usv']
+                      ], params[:unit] || 'cpm') %>
+    </fieldset>
+  </div>
+  <div class="row">
+    <fieldset class="span9">
+      <%= filter_field :latitude,   :prepend => 'º' %>
+      <%= filter_field :longitude,  :prepend => 'º' %>
+      <%= filter_field :distance,   :prepend => 'm' %>
+    </fieldset>
   </div>
 
-  <section class="span9">
-    <h2><%= t(".measurements") -%></h2>
-    <%- if @measurements.empty? -%>
-      <p><%= t(".none_found") -%></p>
-    <%- else -%>
-      <ul class="unstyled measurement-list">
-        <%- @measurements.each do |measurement| -%>
-          <li class="measurement">
-            <%= link_to measurement do %>
-              <ul class="measurement-listed">
-                <li class="value">
-                  <em><%= number_with_precision measurement.value, :precision => 0 %></em>
-                  <%= measurement.unit %>
-                </li>
-                <li class="lat-lng">
-                  <em title="<%= measurement.latitude %>">
-                    <%= number_with_precision(measurement.latitude, :precision => 4) %>&deg;
-                  </em>
-                  <%= t('lat') %>
-                </li>
-                
-                <li class="lat-lng">
-                  <em title="<%= measurement.longitude %>">
-                    <%= number_with_precision measurement.longitude, :precision => 4 %>&deg;
-                  </em>
-                  <%= t('lng') %>
-                </li>
-                <%- if measurement.device.present? -%>
-                  <li>
-                    <%= t('measured_with') %> <%= measurement.device.name %>
-                  </li>
-                <%- end %>
-                <%- if measurement.captured_at.present? -%>
-                  <li>
-                    <%= measurement.captured_at.to_formatted_s(:default) %>
-                  </li>
-                <%- end -%>
-                <%- if measurement.location_name.present? -%>
-                  <li><%= measurement.location_name %></li>
-                <%- end -%>
-              </ul>
+  <div class="row">
+
+    <fieldset class="span9">
+
+      <%= datetime_picker :captured_after %>
+
+      <%= datetime_picker :captured_before %>
+
+      <%= datetime_picker :since %>
+
+      <%= datetime_picker :until %>
+    </fieldset>
+  </div>
+<%- end -%>
+
+<%- if @measurements.empty? -%>
+  <p><%= t(".none_found") -%></p>
+<%- else -%>
+  <ul class="unstyled measurement-list">
+    <%- @measurements.each do |measurement| -%>
+      <li class="measurement">
+        <%= link_to measurement do %>
+          <ul class="measurement-listed">
+            <li class="value">
+              <em><%= number_with_precision measurement.value, :precision => 0 %></em>
+              <%= measurement.unit %>
+            </li>
+            <li class="lat-lng">
+              <em title="<%= measurement.latitude %>">
+                <%= number_with_precision(measurement.latitude, :precision => 4) %>&deg;
+              </em>
+              <%= t('lat') %>
+            </li>
+            
+            <li class="lat-lng">
+              <em title="<%= measurement.longitude %>">
+                <%= number_with_precision measurement.longitude, :precision => 4 %>&deg;
+              </em>
+              <%= t('lng') %>
+            </li>
+            <%- if measurement.device.present? -%>
+              <li>
+                <%= t('measured_with') %> <%= measurement.device.name %>
+              </li>
+            <%- end %>
+            <%- if measurement.captured_at.present? -%>
+              <li>
+                <%= measurement.captured_at.to_formatted_s(:default) %>
+              </li>
             <%- end -%>
-          </li>
+            <%- if measurement.location_name.present? -%>
+              <li><%= measurement.location_name %></li>
+            <%- end -%>
+          </ul>
         <%- end -%>
-      </ul>
-      <%= will_paginate @measurements -%>
+      </li>
     <%- end -%>
-  </section>
-</div>
+  </ul>
+  <%= will_paginate @measurements -%>
+<%- end -%>

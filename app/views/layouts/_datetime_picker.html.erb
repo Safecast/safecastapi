@@ -1,11 +1,13 @@
-<div id="datetime-<%= name %>" class="input-append date datetimepicker">
-  <%= label_tag name %>
-  <%= text_field_tag name, params[name],
+<div id="datetime-<%= attr_name %>" class="input-append date datetimepicker">
+  <%= text_field_tag attr_name, params[attr_name],
         :class => 'span2',
         :data => {
           :format => 'dd/MM/yyyy hh:mm:ss'
-        } %>
-  <span class="add-on">
+        },
+        :placeholder => human_label(model_name, attr_name) %>
+  <span class="add-on activate-tooltip"
+        data-original-title="<%= human_label(model_name, attr_name) %>"
+        data-placement="left">
     <i class="icon-calendar" data-time-icon="icon-time" data-date-icon="icon-calendar">
     </i>
   </span>

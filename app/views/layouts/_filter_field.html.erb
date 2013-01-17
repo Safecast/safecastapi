@@ -1,0 +1,16 @@
+<div class="input-append <%- if options[:prepend] -%>input-prepend<%- end -%>">
+  <%- if options[:prepend] -%>
+    <span class="add-on">
+      <%= options[:prepend] %>
+    </span>
+  <%- end -%>
+  <%= text_field_tag attr_name,
+                     params[attr_name],
+                     :class => 'span2',
+                     :placeholder => human_label(model_name, attr_name) %>
+  <span class="add-on activate-tooltip"
+        data-original-title="<%= human_label(model_name, attr_name) %>"
+        data-placement="left">
+    <%= attr_name %>
+  </span>
+</div>
