@@ -17,6 +17,8 @@ class Measurement < ActiveRecord::Base
   
   belongs_to :device
 
+  format_dates :captured_at, :format => "%Y/%m/%d %I:%M:%S"
+
   def self.per_page
     100
   end

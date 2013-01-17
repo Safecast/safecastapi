@@ -7,82 +7,58 @@
 <%= form_tag params.except(:commit).except(:utf8),
              :method => :get,
              :class => 'form-inline' do |f| %>
-  <div class="row">
-    <fieldset class="span9">
-      <div class="pull-right">
-        <%= submit_tag t('filter') %>
-      </div>
-      <%= select_tag :unit,
-                     options_for_select(
-                      [
-                        ['CPM', 'cpm'], [t('usv'), 'usv']
-                      ], params[:unit] || 'cpm') %>
-    </fieldset>
-  </div>
-  <div class="row">
-    <fieldset class="span9">
-      <%= filter_field :measurement, :latitude,   :prepend => 'º' %>
-      <%= filter_field :measurement, :longitude,  :prepend => 'º' %>
-      <%= filter_field :measurement, :distance,   :prepend => 'm' %>
-    </fieldset>
-  </div>
+  <fieldset>
+    <div class="pull-right">
+      <%= submit_tag t('filter') %>
+    </div>
+    <%= select_tag :unit,
+                   options_for_select(
+                    [
+                      ['CPM', 'cpm'], [t('usv'), 'usv']
+                    ], params[:unit] || 'cpm') %>
+  </fieldset>
+  <fieldset>
+    <%= filter_field :measurement, :latitude,   :prepend => 'º' %>
+    <%= filter_field :measurement, :longitude,  :prepend => 'º' %>
+    <%= filter_field :measurement, :distance,   :prepend => 'm' %>
+  </fieldset>
 
-  <div class="row">
-    <fieldset class="span9">
-
-      <%= datetime_picker :measurement, :captured_after %>
-
-      <%= datetime_picker :measurement, :captured_before %>
-
-      <%= datetime_picker :measurement, :since %>
-
-      <%= datetime_picker :measurement, :until %>
-    </fieldset>
-  </div>
+  <fieldset>
+    <%= datetime_picker :measurement, :captured_after %>
+    <%= datetime_picker :measurement, :captured_before %>
+    <%= datetime_picker :measurement, :since %>
+    <%= datetime_picker :measurement, :until %>
+  </fieldset>
 <%- end -%>
 
 <%- if @measurements.empty? -%>
   <p><%= t(".none_found") -%></p>
 <%- else -%>
-  <ul class="unstyled measurement-list">
-    <%- @measurements.each do |measurement| -%>
-      <li class="measurement">
-        <%= link_to measurement do %>
-          <ul class="measurement-listed">
-            <li class="value">
-              <em><%= number_with_precision measurement.value, :precision => 0 %></em>
-              <%= measurement.unit %>
-            </li>
-            <li class="lat-lng">
-              <em title="<%= measurement.latitude %>">
-                <%= number_with_precision(measurement.latitude, :precision => 4) %>&deg;
-              </em>
-              <%= t('lat') %>
-            </li>
-            
-            <li class="lat-lng">
-              <em title="<%= measurement.longitude %>">
-                <%= number_with_precision measurement.longitude, :precision => 4 %>&deg;
-              </em>
-              <%= t('lng') %>
-            </li>
-            <%- if measurement.device.present? -%>
-              <li>
-                <%= t('measured_with') %> <%= measurement.device.name %>
-              </li>
-            <%- end %>
-            <%- if measurement.captured_at.present? -%>
-              <li>
-                <%= measurement.captured_at.to_formatted_s(:default) %>
-              </li>
-            <%- end -%>
-            <%- if measurement.location_name.present? -%>
-              <li><%= measurement.location_name %></li>
-            <%- end -%>
-          </ul>
-        <%- end -%>
-      </li>
-    <%- end -%>
-  </ul>
+  <table class="table">
+    <thead>
+      <th><%= t('id') %></th>
+      <th><%= t('activerecord.attributes.measurement.unit') %></th>
+      <th><%= t('activerecord.attributes.measurement.value') %></th>
+      <th><%= t('activerecord.attributes.measurement.latitude') %></th>
+      <th><%= t('activerecord.attributes.measurement.longitude') %></th>
+      <th><%= t('activerecord.attributes.measurement.captured_at') %></th>
+    </thead>
+    <tbody>
+      <%- @measurements.each do |measurement| -%>
+        <tr>
+          <td><%= measurement.id %></td>
+          <td><%= measurement.unit %></td>
+          <td>
+            <%= link_to measurement.value, measurement %>
+          </td>
+          <td>
+            <%= number_with_precision measurement.latitude, :precision => 4 %>º
+          </td>
+          <td><%= number_with_precision measurement.longitude, :precision => 4 %>º</td>
+          <td><%= measurement.captured_at_formatted %></td>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
   <%= will_paginate @measurements -%>
 <%- end -%>

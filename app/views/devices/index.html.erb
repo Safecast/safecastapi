@@ -13,6 +13,7 @@
 <%- else -%>
   <table class="table">
     <thead>
+      <th><%= t('id') %></th>
       <th><%= t('.manufacturer') %></th>
       <th><%= t('.model') %></th>
       <th><%= t('.sensor') %></th>
@@ -20,6 +21,9 @@
     <tbody>
       <%- @devices.each do |device| -%>
         <tr>
+          <td>
+            <%= device.id %>
+          </td>
           <td>
             <%= link_to device.manufacturer, device %>
           </td>

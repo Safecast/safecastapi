@@ -1,51 +1,27 @@
-<%= current_page_api_example :measurements_url %>
+<%= current_page_api_example :measurement_url %>
 
-<div class="row">
-  <div class="span12">
-    <h2><%= t('your_measurement') -%></h2>
-  </div>
-</div>
-<div class="row">
-  <section class="span6">
-    <ul class="measurement unstyled">
-      <li class="value">
-        <em><%= @measurement.value %></em>
-        <%= @measurement.unit %>
-      </li>
-      <li class="lat-lng">
-        <em title="<%= @measurement.latitude %>">
-          <%= truncate(@measurement.latitude.to_s, :length => 15) %>&deg;
-        </em>
-        <%= t'lat' %>
-      </li>
-      <li class="lat-lng">
-        <em title="<%= @measurement.longitude %>">
-          <%= truncate(@measurement.longitude.to_s, :length => 15) %>&deg;
-        </em>
-        <%= t'lng' %>
-      </li>
-      <%- if @measurement.captured_at.present? -%>
-        <li>
-          <%= @measurement.captured_at.to_formatted_s(:default) %>
-        </li>
-      <%- end -%>
-      <li><%= @measurement.location_name %></li>
-      <%- if @measurement.device.present? -%>
-        <li>
-          <%= t('measured_with') %> <%= @measurement.device.name %>
-        </li>
-      <%- end %>
-    </ul>
-  </section>
-  <section class="span6">
-    <div id="map_canvas"></div>
-  </section>
-</div>
+<h2><%= t('.measurement') %></h2>
 
-<%= content_for(:additional_javascripts) do %>
-  <script>
-    $(function(){
-      GoogleMap.setCenter(<%= @measurement.latitude %>,<%= @measurement.longitude %>)
-    })
-  </script>
-<%- end -%>
+<dl class="dl-horizontal">
+  <dt><%= t('activerecord.attributes.measurement.id') %></dt>
+  <dd><%= @measurement.id %></dd>
+
+  <dt><%= t('activerecord.attributes.measurement.captured_at') %></dt>
+  <dd><%= @measurement.captured_at_formatted %></dd>
+
+  <dt><%= t('activerecord.attributes.measurement.unit') %></dt>
+  <dd><%= @measurement.unit %></dd>
+
+  <dt><%= t('activerecord.attributes.measurement.value') %></dt>
+  <dd><%= @measurement.value %></dd>
+
+  <dt><%= t('activerecord.attributes.measurement.latitude') %></dt>
+  <dd title="<%= @measurement.latitude %>">
+    <%= number_with_precision @measurement.latitude, :precision => 4 %>º
+  </dd>
+
+  <dt><%= t('activerecord.attributes.measurement.longitude') %></dt>
+  <dd title="<%= @measurement.longitude %>">
+    <%= number_with_precision @measurement.latitude, :precision => 4 %>º
+  </dd>
+</dl>
