@@ -25,7 +25,9 @@
           <%- end -%>
           <ul class="dropdown-menu">
             <li>
-              <%= link_to [:profile], :title => t("profile") do %>
+              <%= link_to '#profile-modal', :title => t("profile"), :data => {
+                :toggle => 'modal'
+              } do %>
                 <%= t('profile') %>
               <%- end -%>
             </li>

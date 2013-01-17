@@ -8,6 +8,9 @@ en-US:
       measurements: Measurements
       bgeigie_imports: bGeigie Imports
       devices: Devices
+      api_request: API Request
+      your_profile: Your Profile
+      edit_profile: Edit Profile
     summarize_results:
       results: results
     show_filters:

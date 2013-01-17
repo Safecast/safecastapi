@@ -7,7 +7,8 @@ module WrappedButton
       options[:class] = ['btn-primary', options[:class]].compact
       args << options
       if cancel = options.delete(:cancel)
-        submit(*args, &block) + ' ' + I18n.t('simple_form.buttons.or') + ' ' + template.link_to(I18n.t('simple_form.buttons.cancel'), cancel)
+        cancel_options = options.delete(:cancel_options)
+        submit(*args, &block) + ' ' + I18n.t('simple_form.buttons.or') + ' ' + template.link_to(I18n.t('simple_form.buttons.cancel'), cancel, cancel_options)
       else
         submit(*args, &block)
       end
