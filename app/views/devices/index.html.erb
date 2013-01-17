@@ -25,6 +25,7 @@
       <%= table_sort_header(:device, :manufacturer) %>
       <%= table_sort_header(:device, :model) %>
       <%= table_sort_header(:device, :sensor) %>
+      <%= table_sort_header(:device, :measurements_count) %>
     </thead>
     <tbody>
       <%- @devices.each do |device| -%>
@@ -40,6 +41,9 @@
           </td>
           <td>
             <%= device.sensor %>
+          </td>
+          <td>
+            <%= number_with_delimiter device.measurements_count %>
           </td>
         </tr>
       <%- end -%>

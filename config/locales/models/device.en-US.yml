@@ -3,3 +3,4 @@ en-US:
     attributes:
       device:
         q: Search
+        measurements_count: Number of Measurements
