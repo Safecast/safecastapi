@@ -3,14 +3,14 @@
   <%= form_for @measurement,
       :html => {
         :autocomplete => 'off',
-        :class => 'form-horizontal submission',
+        :class => 'submission',
         :id => 'submission'
       } do |f| %>
     <div class="row">
-      <div class="span6">
+      <div class="span9">
         <h2><%= t('.contribute_your_measurement') %></h2>
       </div>
-      <div class="span6">
+      <div class="span9">
         <fieldset>
           <p class="button">
             <input type="submit" value="<%= t('submit') %>">
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="span6">
+      <div class="span4">
         <%- if @measurement.errors.any? -%>  
           <div class="alert">
             <ul>
@@ -59,6 +59,7 @@
             </div>
           </div>
 
+
           <div class="control-group">
             <%= label_tag :location, t(".location"), :class => 'control-label' %>
             <div class="controls">
@@ -70,82 +71,78 @@
           </div>
         </fieldset>
       </div>
-      <div class="span6">
+
+      <div class="span5">
         <div class="map-container">
           <div class="map-crosshair"></div>
           <div id="map_canvas" class="map"></div>
         </div>
-        <fieldset>
-          <div class="control-group">
-            <%= label_tag :latitude, t('.latitude'), :class => 'control-label' %>
 
-            <div class="controls">
-              <%= f.text_field :latitude, :id => 'latitude' %>
-            </div>
-          </div>
+        <div class="control-group span4">
+          <%= label_tag :latitude, t('.latitude'), :class => 'control-label' %>
 
-          <div class="control-group">
-            <%= label_tag :longitude, t('.longitude'), :class => 'control-label' %>
-            <div class="controls">
-              <%= f.text_field :longitude, :id => 'longitude' %>
-            </div>
+          <div class="controls">
+            <%= f.text_field :latitude, :id => 'latitude' %>
           </div>
-        </fieldset>
+        </div>
+
+        <div class="control-group span4">
+          <%= label_tag :longitude, t('.longitude'), :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :longitude, :id => 'longitude' %>
+          </div>
+        </div>
       </div>
     </div>
     
     <div class="row">
-      <div class="span6">
-        <fieldset>
-          <legend>
-            <%= t("device") %>
-          </legend>
-          <div class="control-group">
-            <%= f.label :device_id, t(".device"), :class => 'control-label' %>
-            <div class="controls">
-              <%= f.select :device_id, [['', nil]] + Device.all.collect { |d| [d.name, d.id]} %>
-            </div>
-            <p class="help-block">
-              <%= t('.dont_see_device_help') %>
-              <%= link_to t('.add_a_new_device'), [:new, :device] %>.
-            </p>
+      <fieldset class="span4">
+        <legend>
+          <%= t("device") %>
+        </legend>
+        <div class="control-group">
+          <%= f.label :device_id, t(".device"), :class => 'control-label' %>
+          <div class="controls">
+            <%= f.select :device_id, [['', nil]] + Device.all.collect { |d| [d.name, d.id]} %>
           </div>
-        </fieldset>
-      </div>
+          <p class="help-block">
+            <%= t('.dont_see_device_help') %>
+            <%= link_to t('.add_a_new_device'), [:new, :device] %>.
+          </p>
+        </div>
+      </fieldset>
 
-      <div class="span6">
-        <fieldset>
-          <legend>
-            <%= t('.environment') %>
-          </legend>
+      <fieldset class="span4 offset1">
+        <legend>
+          <%= t('.environment') %>
+        </legend>
 
-          <div class="control-group">
-            <%= f.label :height, t("height"), :class => 'control-label' %>
-            <div class="controls">
-              <%= f.text_field :height, :placeholder => t(".1m") %>
-            </div>
+        <div class="control-group">
+          <%= f.label :height, t("height"), :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :height, :placeholder => t(".1m") %>
           </div>
+        </div>
 
-          <div class="control-group">
-            <%= f.label :surface, t("surface_type"),
-                  :class => 'control-label' %>
-            <div class="controls">
-              <%= f.text_field :surface, :placeholder => t(".soil") %>
-            </div>
+        <div class="control-group">
+          <%= f.label :surface, t("surface_type"),
+                :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :surface, :placeholder => t(".soil") %>
           </div>
+        </div>
 
-          <div class="control-group">
-            <%= f.label :radiation, t("radiation_type"),
-                  :class => 'control-label' %>
-            <div class="controls">
-              <%= f.text_field :radiation, :placeholder => t(".air") %>
-            </div>
+        <div class="control-group">
+          <%= f.label :radiation, t("radiation_type"),
+                :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :radiation, :placeholder => t(".air") %>
           </div>
-        </fieldset>
-      </div>
+        </div>
+      </fieldset>
     </div>
     <div class="row">
-      <div class="span12">
+      <div class="span9">
         <fieldset>
           <p class="button">
             <input type="submit" value="<%= t('submit') %>">

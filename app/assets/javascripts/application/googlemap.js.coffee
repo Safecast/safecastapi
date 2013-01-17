@@ -10,6 +10,7 @@ $ ->
     initialize: (el, lat, lng, zoom=8) ->
       options = 
         center: new maps.LatLng(lat or GoogleMap.DEFAULT_LAT, lng or GoogleMap.DEFAULT_LNG)
+        scrollwheel: false
         zoom: zoom or GoogleMap.DEFAULT_ZOOM
         navigationControlOptions: { style: maps.NavigationControlStyle.SMALL }
         mapTypeId: maps.MapTypeId.ROADMAP
