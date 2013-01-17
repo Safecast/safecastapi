@@ -2,6 +2,7 @@ en-US:
   measurements:
     show:
       measurement: Measurement
+      submitted_by: Submitted By
     new:
       contribute_your_measurement: Contribute your Measurement
       radiation_level: Radiation Level

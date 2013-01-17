@@ -17,11 +17,15 @@
   <dt><%= t('activerecord.attributes.measurement.captured_at') %></dt>
   <dd><%= @measurement.captured_at_formatted %></dd>
 
-  <dt><%= t('activerecord.attributes.measurement.unit') %></dt>
-  <dd><%= @measurement.unit %></dd>
+  <%- if @measurement.user.present? -%>
+    <dt><%= t('activerecord.attributes.measurement.submitted_by') %></dt>
+    <dd>
+      <%= link_to @measurement.user.name, @measurement.user %>
+    </dd>
+  <%- end -%>
 
   <dt><%= t('activerecord.attributes.measurement.value') %></dt>
-  <dd><%= @measurement.value %></dd>
+  <dd><%= @measurement.value %><%= @measurement.unit %></dd>
 
   <dt><%= t('activerecord.attributes.measurement.latitude') %></dt>
   <dd title="<%= @measurement.latitude %>">
