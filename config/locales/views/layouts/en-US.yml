@@ -8,3 +8,7 @@ en-US:
       measurements: Measurements
       bgeigie_imports: bGeigie Imports
       devices: Devices
+    summarize_results:
+      results: results
+    show_filters:
+      filters: Filters

@@ -1,0 +1,7 @@
+<div class="well">
+  <%= page_entries_info collection %>
+  <%= collection.total_entries %> <%= t('.results') %>.
+  <%= link_to 'Change Filter', "#filter-modal", :data => {
+        :toggle => 'modal'
+      }, :class => 'pull-right' %>
+</div>

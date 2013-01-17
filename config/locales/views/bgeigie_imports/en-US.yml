@@ -29,6 +29,7 @@ en-US:
       height_tooltip: The height about ground the sensor was held
       orientation_tooltip: How the sensor was held
     index:
+      filter_bgeigie_imports: Filter bGeigie Imports
       everyone: Everyone
       cities: Cities
       credits: Credits

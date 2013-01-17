@@ -25,19 +25,11 @@
   </div>
 </div>
 
-<div class="well">
-  <%= page_entries_info @measurements %>
-  <%= @measurements.total_entries %> results.
-  <%= link_to 'Change Filter', "#filter-modal", :data => {
-        :toggle => 'modal'
-      }, :class => 'pull-right' %>
-</div>
+<%= summarize_results(@measurements) %>
 
-<%- [:unit, :latitude, :longitude, :distance, :captured_after, :captured_before, :since, :until].group_by {|p| params[p].present? }.each do |presence, attr_names| -%>
-  <%- next if presence === false -%>
-  <strong>Filters:</strong>
-  <%= raw attr_names.collect { |attr_name| filter_tag(:measurement, attr_name) }.join(', ') -%>
-<%- end -%>
+<%= show_filters :measurement, [:unit, :latitude, :longitude, :distance, :captured_after, :captured_before, :since, :until] %>
+
+
 
 
 <%- if @measurements.empty? -%>
@@ -100,6 +92,5 @@
     <div class="modal-footer">
       <%= submit_tag t('filter'), :class => 'btn' %>
     </div>
-
   <%- end -%>
 </div>

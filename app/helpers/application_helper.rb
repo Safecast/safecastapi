@@ -63,4 +63,17 @@ module ApplicationHelper
       :attr_name => attr_name
     }
   end
+
+  def summarize_results(collection)
+    render :partial => 'layouts/summarize_results', :locals => {
+      :collection => collection
+    }
+  end
+
+  def show_filters(model_name, attr_names)
+    render :partial => 'layouts/show_filters', :locals => {
+      :model_name => model_name,
+      :attr_names => attr_names
+    }
+  end
 end

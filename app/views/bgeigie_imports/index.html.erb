@@ -1,24 +1,10 @@
 <%= current_page_api_example :bgeigie_imports_url %>
 
-<%= form_tag params.except(:commit).except(:utf8),
-                 :method => :get,
-                 :class => 'form-inline' do |f| %>
-
-  <%= filter_field :bgeigie_import, :q %>
-
-  <%= datetime_picker :bgeigie_import, :uploaded_after %>
-
-  <%= datetime_picker :bgeigie_import, :uploaded_before %>
-
-  <%= hidden_field_tag 'by_status', params[:by_status] %>
-  <%= submit_tag t('filter') %>
-<%- end -%>
-
 <ul class="inline pull-right">
   <li>
     <%= link_to t('.upload'), [:new, :bgeigie_import], :class => 'btn' %>
   </li>
-</ul>, 
+</ul>
 
 <h2><%= t(".bgeigie_imports") %></h2>
 
@@ -47,6 +33,10 @@
     </ul>
   </div>
 </div>
+
+<%= summarize_results(@bgeigie_imports) %>
+
+<%= show_filters :bgeigie_import, [:q, :uploaded_after, :uploaded_before] %>
 
 <%- if @bgeigie_imports.empty? -%>
   <%= t("none_found") -%>
@@ -83,3 +73,30 @@
     </tbody>
   </table>
 <%- end -%>
+
+<div id="filter-modal" class="modal hide fade" tabindex="-1">
+  <%= form_tag params.except(:commit).except(:utf8),
+                 :method => :get,
+                 :class => 'form-inline' do |f| %>
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3>
+        <%= t('.filter_bgeigie_imports') %>
+      </h3>
+    </div>
+
+    <div class="modal-body">
+      <%= filter_field :bgeigie_import, :q %>
+
+      <%= datetime_picker :bgeigie_import, :uploaded_after %>
+
+      <%= datetime_picker :bgeigie_import, :uploaded_before %>
+
+      <%= hidden_field_tag 'by_status', params[:by_status] %>
+    </div>
+
+    <div class="modal-footer">
+      <%= submit_tag t('filter'), :class => 'btn' %>
+    </div>
+  <%- end -%>
+</div>
