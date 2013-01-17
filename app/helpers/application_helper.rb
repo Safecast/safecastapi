@@ -76,4 +76,11 @@ module ApplicationHelper
       :attr_names => attr_names
     }
   end
+
+  def filter_modal(name, &block)
+    render :partial => 'layouts/filter_modal', :locals => {
+      :name => name,
+      :form => capture(&block)
+    }
+  end
 end

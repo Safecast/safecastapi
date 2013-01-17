@@ -31,6 +31,7 @@ class BgeigieImport < MeasurementImport
 
   def self.filter(query)
     where("lower(name) LIKE :query
+           OR lower(source) LIKE :query
            OR lower(description) LIKE :query 
            OR lower(cities) LIKE :query
            OR lower(credits) LIKE :query", :query => "%#{query.downcase}%")
