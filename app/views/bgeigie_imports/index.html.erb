@@ -67,7 +67,9 @@
             <%= bgeigie_import.created_at_formatted %>
           </td>
           <td>
-            <%= bgeigie_import.user.name %>
+            <%= link_to bgeigie_import.user do %>
+              <%= bgeigie_import.user.name %>
+            <%- end -%>
           </td>
           <td>
             <%= link_to File.basename(bgeigie_import.source.filename), 
