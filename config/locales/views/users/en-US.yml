@@ -1,4 +1,5 @@
 en-US:
-  index: 
-    users: Users
-    number_of_measurements: Number of Measurements
+  users:
+    index: 
+      users: Users
+      number_of_measurements: Number of Measurements

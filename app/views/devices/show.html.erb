@@ -1,4 +1,9 @@
 <%= current_page_api_example :device_url %>
+<%= content_for(:title) do %>
+  <%= @device.manufacturer %> <%= @device.model %>
+  \\
+  <%= t('devices.index.devices') %>
+<%- end -%>
 
 <ul class="inline pull-right">
   <li>

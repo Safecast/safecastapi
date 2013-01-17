@@ -3,10 +3,10 @@
 <html>
   <head>
     <title>
-      Safecast
       <%- if content_for?(:title) -%>
-        <%= content_for(:title) %>
+        <%= content_for(:title) %> \\
       <%- end -%>
+      Safecast API
     </title>
     <%= csrf_meta_tag %>
     <%= stylesheet_link_tag :application %>

@@ -1,4 +1,12 @@
 <%= current_page_api_example :measurement_url %>
+<%= content_for(:title) do %>
+  <%= @measurement.value %><%= @measurement.unit %>
+  <%= @measurement.captured_at_formatted %>
+  <%= number_with_precision @measurement.latitude, :precision => 4 %>º
+  <%= number_with_precision @measurement.longitude, :precision => 4 %>º
+
+  <%= t '.measurements' -%>
+<%- end -%>
 
 <h2><%= t('.measurement') %></h2>
 
@@ -22,6 +30,6 @@
 
   <dt><%= t('activerecord.attributes.measurement.longitude') %></dt>
   <dd title="<%= @measurement.longitude %>">
-    <%= number_with_precision @measurement.latitude, :precision => 4 %>º
+    <%= number_with_precision @measurement.longitude, :precision => 4 %>º
   </dd>
 </dl>
