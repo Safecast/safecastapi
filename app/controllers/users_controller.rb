@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
 
+  has_scope :name do |controller, scope, value|
+    scope.by_name(value)
+  end
+
   def index
-    @users = User.page(params[:page])
+    @users = apply_scopes(User).page(params[:page])
     respond_with @users
   end
 

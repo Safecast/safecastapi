@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
   
   before_save :ensure_authentication_token
 
+  def self.by_name(q)
+    where("lower(name) LIKE ?", "%#{q.downcase}%")
+  end
+
   def serializable_hash(options = {})
     super options.merge(
       :only => [:id, :name, :email, :authentication_token],

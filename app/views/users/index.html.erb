@@ -5,8 +5,11 @@
   <div class="span3">
     <%= form_tag params.except(:commit).except(:utf8), :method => :get do %>
 
-      <%= label_tag :name %>
-      <%= text_field_tag :name, params[:name] %>
+      <div class="input-prepend">
+        <%= label_tag :name %>
+        <span class="add-on">name</span>
+        <%= text_field_tag :name, params[:name], :class => 'span2' %>
+      </div>
 
       <%= submit_tag t('filter') %>
     <%- end -%>
@@ -15,27 +18,32 @@
   <div class="span9">
     <h2><%= t(".users") -%></h2>
 
-    <table class="table table-striped">
-      <thead>
-        <th><%= t('id') %></th>
-        <th><%= t('.name') %></th>
-        <th><%= t('.number_of_measurements') %></th>
-      </thead>
-      <tbody>
-        <%- @users.each do |user| -%>
-          <tr>
-            <td>
-              <%= user.id %>
-            </td>
-            <td>
-              <%= link_to user.name, user %>
-            </td>
-            <td><%= user.number_of_measurements %></td>
-          </tr>
-        <%- end -%>
-      </tbody>
-    </table>
-    <%= will_paginate @users %>
+    <%- if @users.empty? -%>
+      <p><%= t('none_found') %></p>
+    <%- else -%>
+
+      <table class="table table-striped">
+        <thead>
+          <th><%= t('id') %></th>
+          <th><%= t('activerecord.attributes.user.name') %></th>
+          <th><%= t('activerecord.attributes.user.number_of_measurements') %></th>
+        </thead>
+        <tbody>
+          <%- @users.each do |user| -%>
+            <tr>
+              <td>
+                <%= user.id %>
+              </td>
+              <td>
+                <%= link_to user.name, user %>
+              </td>
+              <td><%= user.measurements_count %></td>
+            </tr>
+          <%- end -%>
+        </tbody>
+      </table>
+      <%= will_paginate @users %>
+    <%- end -%>
   </div>
 
 </div>
