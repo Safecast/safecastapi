@@ -43,7 +43,9 @@
             <%= device.sensor %>
           </td>
           <td>
-            <%= number_with_delimiter device.measurements_count %>
+            <%= link_to [device, :measurements] do %>
+              <%= number_with_delimiter device.measurements_count %>
+            <%- end -%>
           </td>
         </tr>
       <%- end -%>

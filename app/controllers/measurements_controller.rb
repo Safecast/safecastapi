@@ -15,6 +15,10 @@ class MeasurementsController < ApplicationController
     scope.where("original_id = :value OR id = :value", :value => value)
   end
   has_scope :until
+
+  has_scope :device_id do |controller, scope, value|
+    scope.where(:device_id => value)
+  end
   has_scope :user_id do |controller, scope, value|
     scope.where(:user_id => value)
   end

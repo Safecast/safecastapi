@@ -19,7 +19,9 @@ Safecast::Application.routes.draw do
         put :approve
       end
     end
-    resources :devices
+    resources :devices do
+      resources :measurements, :only => :index
+    end
     resources :measurement_imports do
       resources :measurements, :only => :index
     end
