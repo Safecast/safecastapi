@@ -1,0 +1,6 @@
+<%- if params[attr_name].present? -%>
+  <code class="activate-tooltip" data-original-title="<%= human_label(model_name, attr_name) %>">
+    <%= attr_name %>="<%= params[attr_name].presence %>"
+    <%= link_to raw('&times;'), params.merge(attr_name => nil) %>
+  </code>
+<%- end -%>

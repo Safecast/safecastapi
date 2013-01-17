@@ -43,7 +43,6 @@ module ApplicationHelper
   end
 
   def datetime_picker(model_name, attr_name)
-
     render :partial => 'layouts/datetime_picker', :locals => {
       :model_name => model_name,
       :attr_name => attr_name
@@ -55,6 +54,13 @@ module ApplicationHelper
       :model_name => model_name,
       :attr_name => attr_name,
       :options => options
+    }
+  end
+
+  def filter_tag(model_name, attr_name)
+    render :partial => 'layouts/filter_tag', :locals => {
+      :model_name => model_name,
+      :attr_name => attr_name
     }
   end
 end

@@ -26,8 +26,8 @@
       <%= render :partial => 'shared/dashboard_navigation' %>
       <div class="row">
         <div class="span3">
-          <div class="well sidebar-nav" id="api-nav">
-            <ul class="nav nav-list">
+          <div class="sidebar-nav" id="api-nav">
+            <ul class="nav nav-tabs nav-stacked">
               <li <%= raw('class="active"') if controller_name == 'home' %>>
                 <%= link_to t('.home'), :root %>
               </li>

@@ -11,4 +11,16 @@ module MeasurementsHelper
       }
     end
   end
+
+  def measurement_nav_li(unit)
+    active = if params[:unit].blank?
+      unit == :all
+    else
+      params[:unit] == unit.to_s
+    end
+    content_tag(:li, :class => ('active' if active)) do
+      link_to t("#{unit}"),
+              measurements_url(params.merge(:unit => unit))
+    end
+  end
 end

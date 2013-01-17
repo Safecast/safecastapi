@@ -1,35 +1,44 @@
 <%= current_page_api_example :measurements_url %>
-
+<%= content_for(:title) { t('.measurements') } %>
 
 <h2><%= t(".measurements") -%></h2>
 
+<div class="navbar">
+  <div class="navbar-inner">
+    <ul class="nav">
+      <%= measurement_nav_li(:all) %>
+      <%= measurement_nav_li(:cpm) %>
+      <%= measurement_nav_li(:usv) %>
+    </ul>
+    <ul class="nav pull-right">
+      <%- if user_signed_in? -%>
+        <li class="pull-right <%= 'active' if params[:user_id].blank? %>">
+          <%= link_to t(".everyone"), params.except(:user_id) %>
+        </li>
+      <%- end -%>
+      <%- if user_signed_in? -%>
+        <li class="pull-right <%= 'active' if params[:user_id] == current_user.id.to_s %>">
+          <%= link_to t(".yours"), params.merge(:user_id => current_user.id) %>
+        </li>
+      <%- end -%>
+    </ul>
+  </div>
+</div>
 
-<%= form_tag params.except(:commit).except(:utf8),
-             :method => :get,
-             :class => 'form-inline' do |f| %>
-  <fieldset>
-    <div class="pull-right">
-      <%= submit_tag t('filter') %>
-    </div>
-    <%= select_tag :unit,
-                   options_for_select(
-                    [
-                      ['CPM', 'cpm'], [t('usv'), 'usv']
-                    ], params[:unit] || 'cpm') %>
-  </fieldset>
-  <fieldset>
-    <%= filter_field :measurement, :latitude,   :prepend => 'º' %>
-    <%= filter_field :measurement, :longitude,  :prepend => 'º' %>
-    <%= filter_field :measurement, :distance,   :prepend => 'm' %>
-  </fieldset>
+<div class="well">
+  <%= page_entries_info @measurements %>
+  <%= @measurements.total_entries %> results.
+  <%= link_to 'Change Filter', "#filter-modal", :data => {
+        :toggle => 'modal'
+      }, :class => 'pull-right' %>
+</div>
 
-  <fieldset>
-    <%= datetime_picker :measurement, :captured_after %>
-    <%= datetime_picker :measurement, :captured_before %>
-    <%= datetime_picker :measurement, :since %>
-    <%= datetime_picker :measurement, :until %>
-  </fieldset>
+<%- [:unit, :latitude, :longitude, :distance, :captured_after, :captured_before, :since, :until].group_by {|p| params[p].present? }.each do |presence, attr_names| -%>
+  <%- next if presence === false -%>
+  <strong>Filters:</strong>
+  <%= raw attr_names.collect { |attr_name| filter_tag(:measurement, attr_name) }.join(', ') -%>
 <%- end -%>
+
 
 <%- if @measurements.empty? -%>
   <p><%= t(".none_found") -%></p>
@@ -62,3 +71,35 @@
   </table>
   <%= will_paginate @measurements -%>
 <%- end -%>
+
+<div id="filter-modal" class="modal hide fade" tabindex="-1">
+  <%= form_tag params.except(:commit).except(:utf8),
+                 :method => :get do |f| %>
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3>
+        Filter Measurements
+      </h3>
+    </div>
+
+    <div class="modal-body">
+      <fieldset class="span3">
+        <%= filter_field :measurement, :latitude,   :prepend => 'º' %>
+        <%= filter_field :measurement, :longitude,  :prepend => 'º' %>
+        <%= filter_field :measurement, :distance,   :prepend => 'm' %>
+      </fieldset>
+
+      <fieldset class="span3">
+        <%= datetime_picker :measurement, :captured_after %>
+        <%= datetime_picker :measurement, :captured_before %>
+        <%= datetime_picker :measurement, :since %>
+        <%= datetime_picker :measurement, :until %>
+      </fieldset>
+    </div>
+
+    <div class="modal-footer">
+      <%= submit_tag t('filter'), :class => 'btn' %>
+    </div>
+
+  <%- end -%>
+</div>
