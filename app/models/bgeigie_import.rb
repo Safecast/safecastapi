@@ -27,8 +27,6 @@ class BgeigieImport < MeasurementImport
     :measurements_added
   ]
 
-  default_scope order('created_at desc')
-
   def self.filter(query)
     where("lower(name) LIKE :query
            OR lower(source) LIKE :query
