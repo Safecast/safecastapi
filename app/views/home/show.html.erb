@@ -18,6 +18,105 @@
   </div>
 
   <div class="span9">
+    <h3>API Endpoint</h3>
+
+    <p><%= root_url %></p>
+    <%= api_example :root_url %>
+
+    <h3>Available Resources</h3>
+
+    <dl class="dl-horizontal">
+      <dt><%= link_to 'Users', '#users' %></dt>
+      <dd>Add and view user accounts</dd>
+
+      <dt><%= link_to 'Measurements', '#measurements' %></dt>
+      <dd>Add and view measurements</dd>
+
+      <dt><%= link_to 'bGeigie Imports', '#bgeigie-imports' %></dt>
+      <dd>Add and view bGeigie Imports</dd>
+
+      <dt><%= link_to 'Devices', '#devices' %></dt>
+      <dd>Add and view Devices</dd>
+      
+    </dl>
+
+    <h3>Users</h3>
+    <dl class="dl-horizontal">
+
+      <dt>Get a list of Safecast users</dt>
+      <dd>
+        <%= api_example_link(:get, :users_path) %>
+      </dd>
+
+      <dt>Add a new user</dt>
+      <dd><%= api_example_link(:post, :users_path) %></dd>
+
+      <%- if User.first.present? -%>
+        <dt>View a user</dt>
+        <dd>
+          <%= api_example_link(:get, :user_path, User.first) %>
+        </dd>
+      <%- end -%>
+    </dl>
+
+    <h3>Measurements</h3>
+    <dl class="dl-horizontal">
+
+      <dt>Get a list of Measurements</dt>
+      <dd>
+        <%= api_example_link(:get, :measurements_path) %>
+      </dd>
+
+      <dt>Add a new measurement</dt>
+      <dd><%= api_example_link(:post, :measurements_path) %></dd>
+
+      <%- if Measurement.first.present? -%>
+        <dt>View a measurement</dt>
+        <dd>
+          <%= api_example_link(:get, :measurement_path, Measurement.first) %>
+        </dd>
+      <%- end -%>
+    </dl>
+
+    <h3>bGeigie Imports</h3>
+    <dl class="dl-horizontal">
+
+      <dt>Get a list of bGeigie Imports</dt>
+      <dd>
+        <%= api_example_link(:get, :bgeigie_imports_path) %>
+      </dd>
+
+      <dt>Add a new bGeigie Import</dt>
+      <dd><%= api_example_link(:post, :bgeigie_imports_path) %></dd>
+
+      <%- if BgeigieImport.first.present? -%>
+        <dt>View a measurement</dt>
+        <dd>
+          <%= api_example_link(:get, :bgeigie_import_path, BgeigieImport.first) %>
+        </dd>
+      <%- end -%>
+    </dl>
+
+    <h3>Devices</h3>
+    <dl class="dl-horizontal">
+
+      <dt>Get a list of Devices</dt>
+      <dd>
+        <%= api_example_link(:get, :devices_path) %>
+      </dd>
+
+      <dt>Add a new Device</dt>
+      <dd><%= api_example_link(:post, :devices_path) %></dd>
+
+      <%- if BgeigieImport.first.present? -%>
+        <dt>View a device</dt>
+        <dd>
+          <%= api_example_link(:get, :devices_path, Device.first) %>
+        </dd>
+      <%- end -%>
+    </dl>
+
+
     <h3>Using the API</h3>
 
     <h4 id="doc-measurements">Measurements</h4>

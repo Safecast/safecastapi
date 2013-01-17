@@ -25,8 +25,7 @@ Safecast::Application.routes.draw do
         get :count
       end
     end
-    resources :posts
-    resources :bgeigie_imports
+    resources :users
   end
 
   match '/api/*path' => redirect('/%{path}.%{format}'), :format => true
