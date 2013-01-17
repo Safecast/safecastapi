@@ -18,6 +18,9 @@ class MeasurementsController < ApplicationController
   has_scope :user_id do |controller, scope, value|
     scope.where(:user_id => value)
   end
+  has_scope :measurement_import_id do |controller, scope, value|
+    scope.where(:measurement_import_id => value)
+  end
   has_scope :since
   has_scope :limit
 

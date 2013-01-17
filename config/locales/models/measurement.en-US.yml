@@ -14,3 +14,4 @@ en-US:
         until: Until
         captured_at: Timestamp
         user_id: User ID
+        measurement_import_id: ID of the Data Import

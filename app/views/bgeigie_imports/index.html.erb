@@ -71,7 +71,9 @@
                   bgeigie_import -%>
           </td>
           <td>
-            <%= bgeigie_import.measurements_count %>
+            <%= link_to [bgeigie_import.becomes(MeasurementImport), :measurements] do %>
+              <%= number_with_delimiter bgeigie_import.measurements_count %>
+            <%- end -%>
           </td>
           <td>
             <%= bgeigie_import.cities %>

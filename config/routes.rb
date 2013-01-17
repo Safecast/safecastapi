@@ -20,6 +20,9 @@ Safecast::Application.routes.draw do
       end
     end
     resources :devices
+    resources :measurement_imports do
+      resources :measurements, :only => :index
+    end
     resources :measurements do
       collection do
         get :count
