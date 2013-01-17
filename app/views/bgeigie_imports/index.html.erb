@@ -60,7 +60,7 @@
       <%- @bgeigie_imports.each do |bgeigie_import| -%>
         <tr>
           <td>
-            <%= link_to File.basename(bgeigie_import.source.file.path), 
+            <%= link_to File.basename(bgeigie_import.source.filename), 
                   bgeigie_import -%>
           </td>
           <td>
