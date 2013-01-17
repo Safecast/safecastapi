@@ -1,4 +1,6 @@
 class Measurement < ActiveRecord::Base
+
+  attr_accessible :value, :unit, :location, :location_name, :device_id, :height, :surface, :radiation, :latitude, :longitude
   
   include MeasurementConcerns
   
