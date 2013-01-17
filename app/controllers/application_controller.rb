@@ -7,6 +7,9 @@ class ApplicationController < ActionController::Base
 
   before_filter :cors_set_access_control_headers
   skip_before_filter :verify_authenticity_token
+  if !Rails.env.production?
+    skip_after_filter :intercom_rails_auto_include
+  end
 
   def index
     cors_set_access_control_headers

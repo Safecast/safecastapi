@@ -42,3 +42,15 @@ aws_secret_access_key:
 s3_bucket:
   name: S3 Bucket
   default: ''
+
+intercom_app_id:
+  name: Intercom App ID
+  default: ''
+
+intercom_api_secret:
+  name: Intercom API Secret
+  default: ''
+
+intercom_api_key:
+  name: Intercom API Key
+  default: ''
