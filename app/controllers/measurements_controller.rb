@@ -3,6 +3,9 @@ class MeasurementsController < ApplicationController
   before_filter :authenticate_user!, :only => [:new, :create, :update]
 
   has_scope :captured_after
+  has_scope :unit do |controller, scope, value|
+    scope.by_unit(value)
+  end
   has_scope :captured_before
   has_scope :distance do |controller, scope, value|
     scope.nearby_to(controller.params[:latitude], controller.params[:longitude], controller.params[:distance])

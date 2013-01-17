@@ -1,7 +1,7 @@
 <header>
   <h1><%= link_to "Safecast", root_path %></h1>
   <nav class="navbar">
-    <ul class="nav">
+    <ul>
       <%- if user_signed_in? -%>
         <li <%= raw('class="active"') if controller_name == 'measurements' && action_name == 'new' %>>
           <%= link_to [:new, :measurement], :title => t('submit_a_reading') do %>

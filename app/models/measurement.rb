@@ -29,6 +29,10 @@ class Measurement < ActiveRecord::Base
 
   end
 
+  def self.by_unit(unit)
+    where(:unit => unit)
+  end
+
   def self.captured_after(time)
     where('captured_at > ?', ActiveSupport::TimeZone['UTC'].parse(time))
   end

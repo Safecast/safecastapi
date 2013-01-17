@@ -5,22 +5,36 @@
   <div class="span3">
     <%= form_tag params.except(:commit).except(:utf8), :method => :get do |f| %>
 
-      <%= label_tag :latitude %>
-      <%= number_field_tag :latitude, params[:latitude], :class => 'span2' %>º
+      <fieldset>
+        <%= label_tag :latitude %>
+        <%= number_field_tag :latitude, params[:latitude], :class => 'span2' %>º
 
-      <%= label_tag :longitude %>
-      <%= number_field_tag :longitude, params[:longitude], :class => 'span2' %>º
+        <%= label_tag :longitude %>
+        <%= number_field_tag :longitude, params[:longitude], :class => 'span2' %>º
 
-      <%= label_tag :distance %>
-      <%= number_field_tag :distance, params[:distance], :class => 'span2' %>m
+        <%= label_tag :distance %>
+        <%= number_field_tag :distance, params[:distance], :class => 'span2' %>m
+      </fieldset>
 
-      <%= datetime_picker :captured_after %>
+      <fieldset>
+        <%= label_tag :unit, t('unit') %>
+        <%= select_tag :unit,
+                       options_for_select(
+                        [
+                          ['CPM', 'cpm'], [t('usv'), 'usv']
+                        ], params[:by_unit]) %>
+      </fieldset>
 
-      <%= datetime_picker :captured_before %>
+      <fieldset>
 
-      <%= datetime_picker :since %>
+        <%= datetime_picker :captured_after %>
 
-      <%= datetime_picker :until %>
+        <%= datetime_picker :captured_before %>
+
+        <%= datetime_picker :since %>
+
+        <%= datetime_picker :until %>
+      </fieldset>
 
       <%= submit_tag t('filter') %>
     <%- end -%>

@@ -1,4 +1,6 @@
 en-US:
+  unit: Unit
+  usv: 'μSv/h'
   none_found: None found.
   sign_in: Sign in
   sign_in: Sign up
