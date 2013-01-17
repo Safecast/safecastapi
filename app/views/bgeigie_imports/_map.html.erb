@@ -8,7 +8,7 @@
 
 <div id="show-map" class="row hide">
   <%- if @bgeigie_import.bgeigie_logs.any? -%>
-    <section class="span4">
+    <section class="span2">
       <ul class="unstyled nav">
         <li class="nav-header"><%= t("measurement") %></li>
         <li>
@@ -34,7 +34,7 @@
       </ul>
     </section>
     <%- if @bgeigie_import.status_details[:compute_latlng].present? -%>
-      <section class="span8">
+      <section class="span6">
         <%- if @bgeigie_import.bgeigie_logs.any? -%>
           <input type="hidden" id="zoomlevel" value="12">
           <input id="latitude"
@@ -52,7 +52,7 @@
       </section>
     <%- end -%>
   <%- else -%>
-    <p class="span12">
+    <p class="span9">
       <%= t('.map_not_generated') %>
     </p>
   <%- end -%>

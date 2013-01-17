@@ -14,21 +14,6 @@
           <%- end -%>
         </li>
       <%- end -%>
-        <li <%= raw('class="active"') if controller_name == 'bgeigie_imports' && ['show', 'index'].include?(action_name) %>>
-          <%= link_to [:bgeigie_imports], :title => t('.imports') do %>
-            <%= t('.imports') %>
-          <%- end -%>
-        </li>
-        <li <%= raw('class="active"') if controller_name == 'measurements' && ['show', 'index'].include?(action_name) %>>
-          <%= link_to [:measurements], :title => t(".measurements") do %>
-            <%= t('.measurements') %>
-          <%- end -%>
-        </li>
-        <li <%= raw('class="active"') if controller_name == 'devices' %>>
-          <%= link_to [:devices], :title => t(".devices") do %>
-            <%= t('.devices') %>
-          <%- end -%>
-        </li>
 
       <%- if user_signed_in? -%>
         <li class="dropdown">

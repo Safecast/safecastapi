@@ -21,23 +21,22 @@
   </div>
   <div class="row">
     <fieldset class="span9">
-      <%= filter_field :latitude,   :prepend => 'º' %>
-      <%= filter_field :longitude,  :prepend => 'º' %>
-      <%= filter_field :distance,   :prepend => 'm' %>
+      <%= filter_field :measurement, :latitude,   :prepend => 'º' %>
+      <%= filter_field :measurement, :longitude,  :prepend => 'º' %>
+      <%= filter_field :measurement, :distance,   :prepend => 'm' %>
     </fieldset>
   </div>
 
   <div class="row">
-
     <fieldset class="span9">
 
-      <%= datetime_picker :captured_after %>
+      <%= datetime_picker :measurement, :captured_after %>
 
-      <%= datetime_picker :captured_before %>
+      <%= datetime_picker :measurement, :captured_before %>
 
-      <%= datetime_picker :since %>
+      <%= datetime_picker :measurement, :since %>
 
-      <%= datetime_picker :until %>
+      <%= datetime_picker :measurement, :until %>
     </fieldset>
   </div>
 <%- end -%>
