@@ -1,32 +1,38 @@
 <%= current_page_api_example :users_url %>
 
-<div class="span9">
-  <h2><%= t(".users") -%></h2>
+<h2><%= t(".users") -%></h2>
 
-  <%- if @users.empty? -%>
-    <p><%= t('none_found') %></p>
-  <%- else -%>
+<%= summarize_results(@users) %>
 
-    <table class="table table-striped">
-      <thead>
-        <th><%= t('id') %></th>
-        <th><%= t('activerecord.attributes.user.name') %></th>
-        <th><%= t('activerecord.attributes.user.number_of_measurements') %></th>
-      </thead>
-      <tbody>
-        <%- @users.each do |user| -%>
-          <tr>
-            <td>
-              <%= user.id %>
-            </td>
-            <td>
-              <%= link_to user.name, user %>
-            </td>
-            <td><%= user.measurements_count %></td>
-          </tr>
-        <%- end -%>
-      </tbody>
-    </table>
-    <%= will_paginate @users %>
-  <%- end -%>
-</div>
+<%= show_filters :user, [:name] %>
+
+<%= filter_modal :users do %>
+  <%= filter_field :user, :name %>
+<%- end -%>
+
+<%- if @users.empty? -%>
+  <p><%= t('none_found') %></p>
+<%- else -%>
+
+  <table class="table table-striped">
+    <thead>
+      <%= table_sort_header(:user, :id) %>
+      <%= table_sort_header(:user, :name) %>
+      <%= table_sort_header(:user, :measurements_count) %>
+    </thead>
+    <tbody>
+      <%- @users.each do |user| -%>
+        <tr>
+          <td>
+            <%= user.id %>
+          </td>
+          <td>
+            <%= link_to user.name, user %>
+          </td>
+          <td><%= user.measurements_count %></td>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
+  <%= will_paginate @users %>
+<%- end -%>

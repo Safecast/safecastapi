@@ -38,7 +38,10 @@ module ApplicationHelper
   def human_label(model_name, attr_name)
     I18n.t(
       "activerecord.attributes.#{model_name}.#{attr_name}_tooltip",
-      :default => t("activerecord.attributes.#{model_name}.#{attr_name}")
+      :default => t(
+        "activerecord.attributes.#{model_name}.#{attr_name}",
+        :default => t(attr_name)
+      )
     )
   end
 
@@ -81,6 +84,22 @@ module ApplicationHelper
     render :partial => 'layouts/filter_modal', :locals => {
       :name => name,
       :form => capture(&block)
+    }
+  end
+
+  def table_sort_header(model_name, attr_name)
+    current_sort_field, current_sort_direction = params[:order].to_s.split(' ', 2)
+
+    new_order = params[:order] == "#{attr_name} asc" ? "#{attr_name} desc" : "#{attr_name} asc"
+    direction = current_sort_direction == 'desc' ? 'up' : 'down'
+
+    render :partial => 'layouts/table_sort_header', :locals => {
+      :model_name => model_name,
+      :attr_name => attr_name,
+      :current_sort_field => current_sort_field,
+      :current_sort_direction => current_sort_direction,
+      :new_order => new_order,
+      :direction => direction
     }
   end
 end

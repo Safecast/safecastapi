@@ -1,9 +1,10 @@
-activerecord:
-  attributes:
-    user:
-      email: Email
-      password: Password
-      remember_me: Remember me
-      name: Name
-      password_confirmation: Password confirmation
-      measurements_count: Number of Measurements
+en-US:
+  activerecord:
+    attributes:
+      user:
+        email: Email
+        password: Password
+        remember_me: Remember me
+        name: Name
+        password_confirmation: Password confirmation
+        measurements_count: Number of Measurements

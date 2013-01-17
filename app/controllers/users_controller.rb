@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+  has_scope :order
   has_scope :name do |controller, scope, value|
     scope.by_name(value)
   end
