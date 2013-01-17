@@ -6,8 +6,14 @@
 class DevicesController < ApplicationController
 
   has_scope :order
-  has_scope :q do |controller, scope, value|
-    scope.filter(value)
+  has_scope :manufacturer do |controller, scope, value|
+    scope.where("manufacturer LIKE ?", "%#{value}%")
+  end
+  has_scope :model do |controller, scope, value|
+    scope.where("model LIKE ?", "%#{value}%")
+  end
+  has_scope :sensor do |controller, scope, value|
+    scope.where("sensor LIKE ?", "%#{value}%")
   end
   before_filter :authenticate_user!, :only => :create
 

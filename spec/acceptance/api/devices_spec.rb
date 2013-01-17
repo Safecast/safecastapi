@@ -104,7 +104,7 @@ feature "/devices with existing devices" do
   scenario "lookup all Safecast devices" do
     result = api_get('/devices', 
       {
-       :where => {:manufacturer => "Safecast"} 
+       :manufacturer => "Safecast"
       },
       {
         'HTTP_ACCEPT' => 'application/json'
@@ -119,7 +119,7 @@ feature "/devices with existing devices" do
   scenario "lookup a particular device" do
     result = api_get('/devices', 
       {
-        :where => {:manufacturer => "Safecast", :model => "iGeigie"}
+        :manufacturer => "Safecast", :model => "iGeigie"
       },
       {
         'HTTP_ACCEPT' => 'application/json'

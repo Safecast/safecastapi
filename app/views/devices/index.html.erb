@@ -13,10 +13,12 @@
 
 <%= summarize_results(@devices) %>
 
-<%= show_filters :device, [:q, :uploaded_after, :uploaded_before] %>
+<%= show_filters :device, [:manufacturer, :model, :sensor] %>
 
 <%= filter_modal :devices do %>
-  <%= filter_field :device, :q %>
+  <%= filter_field :device, :manufacturer %>
+  <%= filter_field :device, :model %>
+  <%= filter_field :device, :sensor %>
 <%- end -%>
 
 <%- if @devices.empty? -%>
