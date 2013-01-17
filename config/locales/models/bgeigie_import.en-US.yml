@@ -8,5 +8,5 @@ en-US:
         uploaded_before: Uploaded Before
         created_at: Uploaded At
         source: File Name
-        measurements_count: Number of Measurements
+        measurements_count: "# of Measurements"
         user_id: User
