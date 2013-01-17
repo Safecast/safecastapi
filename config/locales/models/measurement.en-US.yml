@@ -13,3 +13,4 @@ en-US:
         since: Since
         until: Until
         captured_at: Timestamp
+        user_id: User ID

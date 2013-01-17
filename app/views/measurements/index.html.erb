@@ -27,7 +27,7 @@
 
 <%= summarize_results(@measurements) %>
 
-<%= show_filters :measurement, [:unit, :latitude, :longitude, :distance, :captured_after, :captured_before, :since, :until] %>
+<%= show_filters :measurement, [:unit, :latitude, :longitude, :distance, :captured_after, :captured_before, :since, :until, :user_id] %>
 
 
 
@@ -37,12 +37,12 @@
 <%- else -%>
   <table class="table">
     <thead>
-      <th><%= t('id') %></th>
-      <th><%= t('activerecord.attributes.measurement.unit') %></th>
-      <th><%= t('activerecord.attributes.measurement.value') %></th>
+      <%= table_sort_header(:measurement, :id) %>
+      <%= table_sort_header(:measurement, :unit) %>
+      <%= table_sort_header(:measurement, :value) %>
       <th><%= t('activerecord.attributes.measurement.latitude') %></th>
       <th><%= t('activerecord.attributes.measurement.longitude') %></th>
-      <th><%= t('activerecord.attributes.measurement.captured_at') %></th>
+      <%= table_sort_header(:measurement, :captured_at) %>
     </thead>
     <tbody>
       <%- @measurements.each do |measurement| -%>

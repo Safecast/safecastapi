@@ -91,7 +91,7 @@ module ApplicationHelper
     current_sort_field, current_sort_direction = params[:order].to_s.split(' ', 2)
 
     new_order = params[:order] == "#{attr_name} asc" ? "#{attr_name} desc" : "#{attr_name} asc"
-    direction = current_sort_direction == 'desc' ? 'up' : 'down'
+    direction = params[:order] == "#{attr_name} desc" ? 'up' : 'down'
 
     render :partial => 'layouts/table_sort_header', :locals => {
       :model_name => model_name,

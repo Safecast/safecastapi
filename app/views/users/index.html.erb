@@ -29,7 +29,11 @@
           <td>
             <%= link_to user.name, user %>
           </td>
-          <td><%= number_with_delimiter user.measurements_count %></td>
+          <td>
+            <%= link_to user_measurements_path(user) do %>
+              <%= number_with_delimiter user.measurements_count %>
+            <%- end -%>
+          </td>
         </tr>
       <%- end -%>
     </tbody>
