@@ -8,15 +8,23 @@
 
 <h2><%= t(".devices") %></h2>
 
+<%= summarize_results(@devices) %>
+
+<%= show_filters :device, [:q, :uploaded_after, :uploaded_before] %>
+
+<%= filter_modal :devices do %>
+  <%= filter_field :device, :q %>
+<%- end -%>
+
 <%- if @devices.empty? -%>
   <%= t('.no_devices') %>
 <%- else -%>
   <table class="table">
     <thead>
-      <th><%= t('id') %></th>
-      <th><%= t('.manufacturer') %></th>
-      <th><%= t('.model') %></th>
-      <th><%= t('.sensor') %></th>
+      <%= table_sort_header(:device, :id) %>
+      <%= table_sort_header(:device, :manufacturer) %>
+      <%= table_sort_header(:device, :model) %>
+      <%= table_sort_header(:device, :sensor) %>
     </thead>
     <tbody>
       <%- @devices.each do |device| -%>

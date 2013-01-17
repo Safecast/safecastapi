@@ -5,6 +5,10 @@
 #
 class DevicesController < ApplicationController
 
+  has_scope :order
+  has_scope :q do |controller, scope, value|
+    scope.filter(value)
+  end
   before_filter :authenticate_user!, :only => :create
 
   def new
@@ -12,11 +16,7 @@ class DevicesController < ApplicationController
   end
   
   def index
-    @devices = if params[:where].present?
-      Device.where(params[:where])
-    else
-      Device.page(params[:page] || 1)
-    end
+    @devices = apply_scopes(Device).page(params[:page])
     respond_with @devices
   end
   
