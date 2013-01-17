@@ -29,6 +29,16 @@ class User < ActiveRecord::Base
     )
   end
 
+  def measurements_count
+    measurements.count
+  end
+
+  def to_builder
+    Jbuilder.new do |user|
+      user.(self, :id, :name, :number_of_measurements)
+    end
+  end
+
   def name_or_email
     name.presence || email
   end

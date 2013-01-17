@@ -11,9 +11,10 @@
 
   <div class="span3">
     <ul id="docs-nav" class="nav nav-list doc-nav">
-      <li><%= link_to 'Measurements', '#doc-measurements' %></li>
-      <li><%= link_to 'bGeigie Imports', '#doc-bgiegie-imports' %></li>
-      <li><%= link_to 'Devices', '#doc-devices' %></li>
+      <li><%= link_to 'Users', '#users' %></li>
+      <li><%= link_to 'Measurements', '#measurements' %></li>
+      <li><%= link_to 'bGeigie Imports', '#bgiegie-imports' %></li>
+      <li><%= link_to 'Devices', '#devices' %></li>
     </ul>
   </div>
 
@@ -40,7 +41,7 @@
       
     </dl>
 
-    <h3>Users</h3>
+    <h3 id="users">Users</h3>
     <dl class="dl-horizontal">
 
       <dt>Get a list of Safecast users</dt>
@@ -59,7 +60,7 @@
       <%- end -%>
     </dl>
 
-    <h3>Measurements</h3>
+    <h3 id="measurements">Measurements</h3>
     <dl class="dl-horizontal">
 
       <dt>Get a list of Measurements</dt>
@@ -78,7 +79,7 @@
       <%- end -%>
     </dl>
 
-    <h3>bGeigie Imports</h3>
+    <h3 id="bgeigie-imports">bGeigie Imports</h3>
     <dl class="dl-horizontal">
 
       <dt>Get a list of bGeigie Imports</dt>
@@ -97,7 +98,7 @@
       <%- end -%>
     </dl>
 
-    <h3>Devices</h3>
+    <h3 id="devices">Devices</h3>
     <dl class="dl-horizontal">
 
       <dt>Get a list of Devices</dt>

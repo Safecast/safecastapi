@@ -1,4 +1,5 @@
 en-US:
+  id: ID
   unit: Unit
   usv: 'μSv/h'
   none_found: None found.
@@ -301,6 +302,7 @@ en-US:
         remember_me: Remember me
         name: Name
         password_confirmation: Password confirmation
+        measurements_count: Number of Measurements
       measurement:
         unit: Unit
         sensor_id: Sensor
