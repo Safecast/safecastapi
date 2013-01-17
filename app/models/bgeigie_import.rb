@@ -87,6 +87,7 @@ class BgeigieImport < MeasurementImport
   
   def finalize!
     import_measurements
+    update_counter_caches
     confirm_status(:measurements_added)
     self.update_column(:status, 'done')
   end
@@ -202,6 +203,11 @@ class BgeigieImport < MeasurementImport
       from bgeigie_logs WHERE
       bgeigie_import_id = #{self.id}
       and md5sum not in (select md5sum from measurements)])
+  end
+
+  def update_counter_caches
+    return unless user.present?
+    User.reset_counters(user, :measurements)
   end
   
   def delete_tmp_file

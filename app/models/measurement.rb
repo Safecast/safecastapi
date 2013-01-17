@@ -9,13 +9,14 @@ class Measurement < ActiveRecord::Base
   validates :value,     :presence => true
   validates :unit,      :presence => true
   
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
+  belongs_to :device, :counter_cache => true
   belongs_to :last_updater, :class_name => "User", :foreign_key => "updated_by"
   before_save :set_md5sum
   
   has_and_belongs_to_many :maps
   
-  belongs_to :device
+  
 
   format_dates :captured_at, :format => "%Y/%m/%d %I:%M:%S"
 
