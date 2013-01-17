@@ -5,8 +5,8 @@ en-US:
       submitted: Submitted
       done: Approved
       error: Error
-      pending: Pending
-      new: Newly Uploaded
+      processed: Processed
+      unprocessed: New
       approved: Approved
     approval:
       approve: Approve

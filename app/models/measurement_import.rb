@@ -5,7 +5,7 @@ class MeasurementImport < ActiveRecord::Base
   has_many :measurement_import_logs  
   belongs_to :map
 
-  format_dates :timestamps
+  format_dates :timestamps, :format => "%Y/%m/%d %I:%M"
   mount_uploader :source, FileUploader
 
   before_validation :set_md5sum, :on => :create

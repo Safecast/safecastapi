@@ -14,9 +14,9 @@
   <div class="navbar-inner">
     <ul class="nav">
       <%= bgeigie_nav_li(:all) %>
-      <% bgeigie_nav_li(:new) %>
+      <%= bgeigie_nav_li(:unprocessed) %>
+      <%= bgeigie_nav_li(:processed) %>
       <%= bgeigie_nav_li(:submitted) %>
-      <% bgeigie_nav_li(:pending) %>
       <%= bgeigie_nav_li(:done) %>
       <% bgeigie_nav_li(:error) %>
     </ul>
