@@ -30,15 +30,12 @@
 <%= show_filters :measurement, [:unit, :latitude, :longitude, :distance, :captured_after, :captured_before, :since, :until, :user_id, :measurement_import_id, :device_id] %>
 
 
-
-
 <%- if @measurements.empty? -%>
   <p><%= t(".none_found") -%></p>
 <%- else -%>
   <table class="table">
     <thead>
       <%= table_sort_header(:measurement, :id) %>
-      <%= table_sort_header(:measurement, :unit) %>
       <%= table_sort_header(:measurement, :value) %>
       <th><%= t('activerecord.attributes.measurement.latitude') %></th>
       <th><%= t('activerecord.attributes.measurement.longitude') %></th>
@@ -48,9 +45,16 @@
       <%- @measurements.each do |measurement| -%>
         <tr>
           <td><%= measurement.id %></td>
-          <td><%= measurement.unit %></td>
           <td>
-            <%= link_to measurement.value, measurement %>
+            <%= link_to "#{measurement.value}#{measurement.unit}",
+                        measurement %>
+            <%- if measurement.user.present? -%>
+              <br/>
+              <small>
+                <%= t('.submitted_by') %>
+                <%= link_to measurement.user.name, measurement.user %>
+              </small>
+            <%- end -%>
           </td>
           <td>
             <%= number_with_precision measurement.latitude, :precision => 4 %>º
