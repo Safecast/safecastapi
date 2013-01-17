@@ -9,3 +9,4 @@ en-US:
         created_at: Uploaded At
         source: File Name
         measurements_count: Number of Measurements
+        user_id: User

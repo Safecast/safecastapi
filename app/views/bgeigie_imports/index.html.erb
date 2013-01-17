@@ -53,10 +53,9 @@
     <thead>
       <%= table_sort_header(:bgeigie_import, :id) %>
       <%= table_sort_header(:bgeigie_import, :created_at) %>
+      <%= table_sort_header(:bgeigie_import, :user_id) %>
       <%= table_sort_header(:bgeigie_import, :source) %>
       <%= table_sort_header(:bgeigie_import, :measurements_count) %>
-      <th><%= t('.cities') %></th>
-      <th><%= t('.credits') %></th>
     </thead>
     <tbody>
       <%- @bgeigie_imports.each do |bgeigie_import| -%>
@@ -68,19 +67,20 @@
             <%= bgeigie_import.created_at_formatted %>
           </td>
           <td>
+            <%= bgeigie_import.user.name %>
+          </td>
+          <td>
             <%= link_to File.basename(bgeigie_import.source.filename), 
-                  bgeigie_import -%>
+                  bgeigie_import -%><br/>
+            <small>
+              <%= bgeigie_import.cities %>
+              <%= bgeigie_import.credits %>
+            </small>
           </td>
           <td>
             <%= link_to [bgeigie_import.becomes(MeasurementImport), :measurements] do %>
               <%= number_with_delimiter bgeigie_import.measurements_count %>
             <%- end -%>
-          </td>
-          <td>
-            <%= bgeigie_import.cities %>
-          </td>
-          <td>
-            <%= bgeigie_import.credits %>
           </td>
         </tr>
       <%- end -%>
