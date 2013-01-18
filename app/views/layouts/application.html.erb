@@ -28,8 +28,13 @@
         <div class="span3">
           <div class="sidebar-nav" id="api-nav">
             <ul class="nav nav-tabs nav-stacked">
+              <%- if user_signed_in? -%>
+                <li <%= raw('class="active"') if controller_name == 'dashboard' %>>
+                  <%= link_to t('.dashboard'), :dashboard %>
+                </li>
+              <%- end -%>
               <li <%= raw('class="active"') if controller_name == 'home' %>>
-                <%= link_to t('.home'), :root %>
+                <%= link_to t('.home'), :home %>
               </li>
               <li <%= raw('class="active"') if controller_name == 'users' %>>
                 <%= link_to t('.users'), :users %>
