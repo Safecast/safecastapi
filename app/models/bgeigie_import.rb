@@ -51,6 +51,10 @@ class BgeigieImport < MeasurementImport
     where("created_at > ?", time)
   end
 
+  def name
+    read_attribute(:name).presence || "bGeigie Import ##{id}"
+  end
+
   def conversion
     @conversion ||= Iconv.new('UTF-8//IGNORE', 'UTF-8')
   end

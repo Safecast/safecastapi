@@ -12,6 +12,7 @@ class Measurement < ActiveRecord::Base
   
   belongs_to :user, :counter_cache => true
   belongs_to :device, :counter_cache => true
+  belongs_to :measurement_import
   belongs_to :last_updater, :class_name => "User", :foreign_key => "updated_by"
   before_save :set_md5sum
   
