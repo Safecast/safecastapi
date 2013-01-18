@@ -60,7 +60,7 @@
                 <%= t('.in') %>
                 <%- begin -%>
                   <%= link_to measurement.measurement_import.name, measurement.measurement_import %>
-                <%- rescue ActionView::Template::Error -%>
+                <%- rescue -%>
                   <%= measurement.measurement_import.name %>
                 <%- end -%>
               </small>
