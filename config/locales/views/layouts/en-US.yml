@@ -11,6 +11,8 @@ en-US:
       api_request: API Request
       your_profile: Your Profile
       edit_profile: Edit Profile
+      dashboard: Dashboard
+      api_home: API Home
     summarize_results:
       results: results
     show_filters:

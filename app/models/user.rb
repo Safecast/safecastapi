@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me,
                   :time_zone
 
+  validates :email, :presence => true
   validates :name, :presence => true
   
   before_save :ensure_authentication_token

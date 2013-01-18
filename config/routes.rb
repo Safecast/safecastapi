@@ -1,15 +1,16 @@
 Safecast::Application.routes.draw do
-  root :to => "home#show", :locale => "en-US"
+  root :to => "dashboards#show", :locale => "en-US"
 
   resource :worldmap
   scope "(:locale)", :constraints => { :locale => /(en-US|ja)/ } do
-    root :to => "home#show"
+    root :to => "dashboards#show"
     devise_for :users
     devise_for :admins
     devise_scope :user do
       get "/logout" => "devise/sessions#destroy", :as => :logout
     end
 
+    resource :home, :controller => :home, :only => :show
     resource :dashboard
     resource :profile
 
