@@ -10,7 +10,8 @@ csv << [
   'Height',
   'Surface',
   'Radiation',
-  'Uploaded Time'
+  'Uploaded Time',
+  'Loader ID'
 ]
 @result.each do |measurement|
   csv << [
@@ -25,6 +26,7 @@ csv << [
     measurement.height,
     measurement.surface,
     measurement.radiation,
-    measurement.created_at
+    measurement.created_at,
+    measurement.measurement_import_id
   ] 
 end
