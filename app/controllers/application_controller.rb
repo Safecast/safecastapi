@@ -51,7 +51,11 @@ protected
   end
 
   def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
+    if user_signed_in? && current_user.default_locale.present?
+      I18n.locale = current_user.default_locale
+    else
+      I18n.locale = params[:locale] || I18n.default_locale
+    end
   end
 
   def default_url_options(options={})

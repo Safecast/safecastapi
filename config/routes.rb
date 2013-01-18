@@ -1,5 +1,5 @@
 Safecast::Application.routes.draw do
-  root :to => "dashboards#show", :locale => "en-US"
+  root :to => "dashboards#show"
 
   resource :worldmap
   scope "(:locale)", :constraints => { :locale => /(en-US|ja)/ } do

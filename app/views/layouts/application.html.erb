@@ -103,6 +103,8 @@
                       <dd><%= current_user.name %></dd>
                       <dt><%= t('time_zone') %></dt>
                       <dd><%= current_user.time_zone %></dd>
+                      <dt><%= t('.default_locale') %></dt>
+                      <dd><%= current_user.default_locale %></dd>
                     </ul>
                     <dl class="well">
                       <dt><%= t('your_api_key') %></dt>
@@ -116,6 +118,7 @@
                   <%= f.input :email %>
                   <%= f.input :name %>
                   <%= f.input :time_zone %>
+                  <%= f.input :default_locale, :collection => ['en-US', 'ja'] %>
                   <%= f.button :wrapped, :cancel => '#', :cancel_options => {
                     :data => {
                       :dismiss => 'modal'
