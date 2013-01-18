@@ -183,9 +183,7 @@ class BgeigieImport < MeasurementImport
           log_entry.longitude_nmea,
           log_entry.east_west_indicator
         )
-        log_entry.computed_location = Point.new
-        log_entry.computed_location.x = latlng[:longitude]
-        log_entry.computed_location.y = latlng[:latitude]
+        log_entry.computed_location = "POINT(#{latlng[:longitude]} #{latlng[:latitude]} )"
         log_entry.save
       end
     end

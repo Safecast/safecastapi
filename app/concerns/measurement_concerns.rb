@@ -1,17 +1,18 @@
 module MeasurementConcerns
-  def latitude
-    (self.location ||= Point.new).y
-  end
- 
+
   def latitude=(value)
-    (self.location ||= Point.new).y = value.to_f
+    self.location = "POINT(#{longitude || 0} #{value})"
   end
- 
-  def longitude
-    (self.location ||= Point.new).x
-  end
- 
+
   def longitude=(value)
-    (self.location ||= Point.new).x = value.to_f
+    self.location = "POINT(#{value} #{latitude || 0})"
+  end
+
+  def latitude
+    location.try(:latitude)
+  end
+
+  def longitude
+    location.try(:longitude)
   end
 end

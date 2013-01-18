@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130117110817) do
+ActiveRecord::Schema.define(:version => 20130117111202) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -47,10 +47,10 @@ ActiveRecord::Schema.define(:version => 20130117110817) do
     t.string   "gps_fix_indicator"
     t.float    "horizontal_dilution_of_precision"
     t.string   "gps_fix_quality_indicator"
-    t.datetime "created_at",                                    :default => '1970-01-01 00:00:00', :null => false
-    t.datetime "updated_at",                                    :default => '1970-01-01 00:00:00', :null => false
+    t.datetime "created_at",                                                                                   :default => '1970-01-01 00:00:00', :null => false
+    t.datetime "updated_at",                                                                                   :default => '1970-01-01 00:00:00', :null => false
     t.integer  "bgeigie_import_id"
-    t.point    "computed_location",                :limit => 0,                                                    :srid => 4326, :geographic => true
+    t.spatial  "computed_location",                :limit => {:srid=>4326, :type=>"point", :geographic=>true}
     t.string   "md5sum"
   end
 
@@ -107,9 +107,9 @@ ActiveRecord::Schema.define(:version => 20130117110817) do
     t.string   "gps_device_name"
     t.string   "measurement_type"
     t.string   "zoom_7_grid"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
-    t.point    "location",              :limit => 0,                 :srid => 4326, :geographic => true
+    t.datetime "created_at",                                                                        :null => false
+    t.datetime "updated_at",                                                                        :null => false
+    t.spatial  "location",              :limit => {:srid=>4326, :type=>"point", :geographic=>true}
     t.string   "md5sum"
   end
 
@@ -164,10 +164,10 @@ ActiveRecord::Schema.define(:version => 20130117110817) do
   create_table "measurements", :force => true do |t|
     t.integer  "user_id"
     t.float    "value"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                                                                        :null => false
+    t.datetime "updated_at",                                                                        :null => false
     t.string   "unit"
-    t.point    "location",              :limit => 0,                 :srid => 4326, :geographic => true
+    t.spatial  "location",              :limit => {:srid=>4326, :type=>"point", :geographic=>true}
     t.string   "location_name"
     t.integer  "device_id"
     t.integer  "original_id"

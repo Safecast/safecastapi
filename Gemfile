@@ -19,8 +19,8 @@ gem 'has_scope',                '~> 0.5.1'
 gem 'intercom-rails'
 gem 'jbuilder'
 gem 'mustache'
+gem 'activerecord-postgis-adapter'
 gem 'simple_form',              '~> 2.0.4'
-gem 'spatial_adapter', :git => 'https://github.com/Empact/spatial_adapter.git'
 gem 'will_paginate',            '~> 3.0.3'
 
 #for docs

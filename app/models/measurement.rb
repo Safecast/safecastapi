@@ -1,11 +1,12 @@
 class Measurement < ActiveRecord::Base
+  set_rgeo_factory_for_column(:location,
+    RGeo::Geographic.spherical_factory(:srid => 4326))
 
   attr_accessible :value, :unit, :location, :location_name, :device_id, :height, :surface, :radiation, :latitude, :longitude
   
   include MeasurementConcerns
   
-  validates :latitude,  :presence => true
-  validates :longitude, :presence => true
+  validates :location,  :presence => true
   validates :value,     :presence => true
   validates :unit,      :presence => true
   
@@ -14,9 +15,7 @@ class Measurement < ActiveRecord::Base
   belongs_to :last_updater, :class_name => "User", :foreign_key => "updated_by"
   before_save :set_md5sum
   
-  has_and_belongs_to_many :maps
-  
-  
+  has_and_belongs_to_many :maps  
 
   format_dates :captured_at, :format => "%Y/%m/%d %I:%M:%S"
 

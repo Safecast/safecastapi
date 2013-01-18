@@ -23,21 +23,12 @@ The app includes a `.rvmrc` file, which defines the Ruby version and a gemset. K
 
 ### PostGIS ###
 
-Jeremy (copiousfreetime) recommended using PostGIS from the outset to ensure
+Jeremy (@copiousfreetime) recommended using PostGIS from the outset to ensure
 that our database is location aware.
 
 Here's the steps needed to get it going on OSX with homebrew:
 
     brew install postgis
-    createdb safecast_development
-    createdb safecast_test
-    cd /usr/local/share/postgis && \
-    psql -d safecast_development -f postgis.sql -h localhost && \
-    psql -d safecast_development -f spatial_ref_sys.sql -h localhost && \
-    psql -d safecast_test -f postgis.sql -h localhost && \
-    psql -d safecast_test -f spatial_ref_sys.sql -h localhost && cd -
-
-That installs the PostGIS functions into the development and test databases.
 
 ### Bootstrapping the database ###
 
@@ -52,26 +43,6 @@ Then bootstrap the schema:
 And finally the test database:
 
     rake db:test:prepare
-
-### db:test:prepare ###
-
-If you've been following along at home, everything probably went fine until that last line.
-
-The problem is that db:test:prepare wipes out everything from PostGIS in the safecast_test database.
-
-Katrina Owen proposed [a solution](http://www.katrinaowen.com/2011/01/13/postgresql-template-tables-and-rake-db-test-prepare) to create a template in psql and then use that template in the db config.  The db config part is already committed, but you still need to create the template on your local db.
-
-    psql -d postgres
-    CREATE DATABASE template_postgis WITH TEMPLATE=template1 ENCODING='UTF8';
-    \c template_postgis;
-    CREATE LANGUAGE plpgsql;
-    \i /usr/local/share/postgis/postgis.sql
-    \i /usr/local/share/postgis/spatial_ref_sys.sql
-    UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template_postgis';
-    GRANT ALL ON geometry_columns TO PUBLIC;
-    GRANT ALL ON spatial_ref_sys TO PUBLIC;
-
-So far, this seems to work.
 
 # Tests #
 

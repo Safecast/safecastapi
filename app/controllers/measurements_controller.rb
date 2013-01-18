@@ -57,8 +57,7 @@ class MeasurementsController < ApplicationController
       @last_measurement.clone
     else
       Measurement.new(
-        :latitude => '37.7607226',
-        :longitude => '140.47335610000005',
+        :location => "POINT(140.47335610000005 37.7607226)",
         :location_name => 'Fukushima City Office'
       )
     end
