@@ -29,6 +29,10 @@ class DriveImport < MeasurementImport
     end
   end
 
+  def name
+    read_attribute(:name).presence || "Drive ##{id}"
+  end
+
   def process
     update_attribute(:status, 'processing')
     import_measurements

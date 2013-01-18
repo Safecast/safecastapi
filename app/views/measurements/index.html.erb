@@ -58,7 +58,11 @@
             <%- if measurement.measurement_import.present? -%>
               <small>
                 <%= t('.in') %>
-                <%= link_to measurement.measurement_import.name, measurement.measurement_import %>
+                <%- begin -%>
+                  <%= link_to measurement.measurement_import.name, measurement.measurement_import %>
+                <%- rescue ActionView::Template::Error -%>
+                  <%= measurement.measurement_import.name %>
+                <%- end -%>
               </small>
             <%- end -%>
           </td>
