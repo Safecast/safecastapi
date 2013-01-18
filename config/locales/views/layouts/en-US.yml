@@ -13,6 +13,7 @@ en-US:
       edit_profile: Edit Profile
       dashboard: Dashboard
       api_home: API Home
+      change_password: Change Password
     summarize_results:
       results: results
     show_filters:

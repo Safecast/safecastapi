@@ -29,6 +29,7 @@ en-US:
     #     password: 'Password'
       user:
         remember_me: ''
+        default_locale: Default Locale
       bgeigie_import:
         source: Upload a File
         name: Title

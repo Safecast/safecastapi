@@ -83,6 +83,12 @@
                 :toggle => 'tab'
               } %>
             </li>
+
+            <li>
+              <%= link_to t('.change_password'), '#change-password', :data => {
+                :toggle => 'tab'
+              } %>
+            </li>
           </ul>
 
             <div class="tab-content">
@@ -97,6 +103,8 @@
                       <dd><%= current_user.name %></dd>
                       <dt><%= t('time_zone') %></dt>
                       <dd><%= current_user.time_zone %></dd>
+                      <dt><%= t('.default_locale') %></dt>
+                      <dd><%= current_user.default_locale %></dd>
                     </ul>
                     <dl class="well">
                       <dt><%= t('your_api_key') %></dt>
@@ -110,6 +118,18 @@
                   <%= f.input :email %>
                   <%= f.input :name %>
                   <%= f.input :time_zone %>
+                  <%= f.input :default_locale, :collection => ['en-US', 'ja'] %>
+                  <%= f.button :wrapped, :cancel => '#', :cancel_options => {
+                    :data => {
+                      :dismiss => 'modal'
+                    }
+                  } %>
+                <%- end -%>
+              </div>
+               <div class="tab-pane" id="change-password">
+                <%= simple_form_for current_user, :url => :profile do |f| %>
+                  <%= f.input :password, :as => :password %>
+                  <%= f.input :password_confirmation, :as => :password %>
                   <%= f.button :wrapped, :cancel => '#', :cancel_options => {
                     :data => {
                       :dismiss => 'modal'
