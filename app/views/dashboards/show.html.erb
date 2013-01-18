@@ -1,5 +1,5 @@
 <div class="row">
-  <section class="span6">
+  <section class="span5">
     <%- if current_user.name.present? %>
       <h2><%= t('hello') -%> <%= current_user.first_name %></h2>
     <%- end -%>
@@ -31,7 +31,7 @@
     </ul>
   </section>
 
-  <section class="span6 dashboard">
+  <section class="span4 dashboard">
     <ul class="unstyled">
       <li>
         <%= link_to [:measurements] do %>

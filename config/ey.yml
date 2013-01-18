@@ -25,3 +25,6 @@
 environments:
   teamdata_production:
     migrate: false
+  teamdata_staging:
+    migrate: true
+    migration_command: rake db:migrate
