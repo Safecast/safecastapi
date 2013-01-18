@@ -55,6 +55,12 @@
                 <%= link_to measurement.user.name, measurement.user %>
               </small>
             <%- end -%>
+            <%- if measurement.measurement_import.present? -%>
+              <small>
+                <%= t('.in') %>
+                <%= link_to measurement.measurement_import.name, measurement.measurement_import %>
+              </small>
+            <%- end -%>
           </td>
           <td>
             <%= number_with_precision measurement.latitude, :precision => 4 %>º
