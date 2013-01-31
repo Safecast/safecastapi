@@ -17,13 +17,13 @@ For example:
 
 Safecast currently supports the following resources: (click on the links for details)
 
- * [Devices](resources/devices)
- * [Measurements](resources/measurements)
- * [Maps](resources/maps)
- * [bGeigie Imports](resources/bgeigie_imports)
+ * [Devices](resources/devices.md)
+ * [Measurements](resources/measurements.md)
+ * [Maps](resources/maps.md)
+ * [bGeigie Imports](resources/bgeigie_imports.md)
 
 
 ## How-to ##
 
- * [Program a device to submit measurements](how_to_link_a_device_to_safecast)
- * [Retrieve the most recent measurements for a particular area](how_to_monitor_a_location)
+ * [Program a device to submit measurements](how_to_link_a_device_to_safecast.md)
+ * [Retrieve the most recent measurements for a particular area](how_to_monitor_a_location.md)
