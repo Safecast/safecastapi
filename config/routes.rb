@@ -39,6 +39,8 @@ Safecast::Application.routes.draw do
 
   match '/api/*path' => redirect('/%{path}.%{format}'), :format => true
   match '/api/*path' => redirect('/%{path}'), :format => false
+  post '/api/measurements' => 'measurements#create'
+  post '/api/measurements.(:format)' => 'measurements#create'
 
   #legacy fixes (maps.safecast.org now redirects to api.safecast.org, so people might be using the old maps.safecast.org/drive/add URI)
   match "/drive/add", :to => redirect("/")
