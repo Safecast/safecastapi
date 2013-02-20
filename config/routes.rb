@@ -1,7 +1,7 @@
 Safecast::Application.routes.draw do
   root :to => "dashboards#show"
 
-  resource :worldmap
+
   scope "(:locale)", :constraints => { :locale => /(en-US|ja)/ } do
     root :to => "dashboards#show"
     devise_for :users
