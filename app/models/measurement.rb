@@ -26,11 +26,8 @@ class Measurement < ActiveRecord::Base
 
   def self.nearby_to(lat, lng, distance)
     return scoped unless lat.present? && lng.present? && distance.present?
-    location = Point.new
-    location.x  = lng.to_f
-    location.y = lat.to_f
-    where("ST_DWithin(location, ?, ?)", location, distance.to_i).
-    order("ST_Distance(location, ST_GeomFromText('POINT (#{location.x} #{location.y})')) ASC")
+    where("ST_DWithin(location, ?, ?)", RGeo::Geos.factory.point(lng.to_f, lat.to_f), distance.to_i).
+    order("ST_Distance(location, ST_GeomFromText('POINT (#{lng.to_f} #{lat.to_f})')) ASC")
 
   end
 
