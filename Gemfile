@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'devise',                   '~> 2.0.0'
-gem 'rails',                    '3.2.11'
+gem 'rails',                    '3.2.12'
 gem 'pg'
 gem 'json'
 gem 'haml'
@@ -48,4 +48,5 @@ end
 
 group :development do
   gem 'pry'
+  gem 'quiet_assets'
 end
