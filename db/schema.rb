@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130118064024) do
+ActiveRecord::Schema.define(:version => 20130427160522) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -39,9 +39,9 @@ ActiveRecord::Schema.define(:version => 20130118064024) do
     t.integer  "counts_per_five_seconds"
     t.integer  "total_counts"
     t.string   "cpm_validity"
-    t.float    "latitude_nmea"
+    t.decimal  "latitude_nmea"
     t.string   "north_south_indicator"
-    t.float    "longitude_nmea"
+    t.decimal  "longitude_nmea"
     t.string   "east_west_indicator"
     t.float    "altitude"
     t.string   "gps_fix_indicator"
