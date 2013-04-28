@@ -20,6 +20,7 @@ gem 'intercom-rails'
 gem 'jbuilder'
 gem 'mustache'
 gem 'activerecord-postgis-adapter'
+gem 'rp_clustering-rgeo-activerecord'
 gem 'simple_form',              '~> 2.0.4'
 gem 'will_paginate',            '~> 3.0.3'
 

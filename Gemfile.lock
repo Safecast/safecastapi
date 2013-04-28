@@ -172,6 +172,12 @@ GEM
       activerecord (>= 3.0.3)
       arel (>= 2.0.6)
       rgeo (>= 0.3.20)
+    rp_clustering-rgeo-activerecord (0.0.1)
+      activerecord (~> 3.0)
+      activerecord-postgis-adapter
+      arel (~> 3.0.2)
+      rgeo (~> 0.3.20)
+      rgeo-activerecord (~> 0.4.6)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
@@ -265,6 +271,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 3.2.12)
   redcarpet
+  rp_clustering-rgeo-activerecord
   rspec-rails (~> 2.12.2)
   sass-rails
   simple_form (~> 2.0.4)
