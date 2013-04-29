@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130427160522) do
+ActiveRecord::Schema.define(:version => 20130429205209) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -182,6 +182,7 @@ ActiveRecord::Schema.define(:version => 20130427160522) do
     t.string   "radiation"
   end
 
+  add_index "measurements", ["captured_at"], :name => "index_measurements_on_captured_at"
   add_index "measurements", ["device_id"], :name => "index_measurements_on_device_id"
   add_index "measurements", ["location"], :name => "index_measurements_on_location", :spatial => true
   add_index "measurements", ["md5sum"], :name => "index_measurements_on_md5sum", :unique => true
