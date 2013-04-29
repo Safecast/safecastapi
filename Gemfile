@@ -47,6 +47,11 @@ group :test do
 end
 
 group :development do
+  gem "rspec", ">= 2.4.0"
+  gem "bundler"
+  gem "jeweler", "> 1.6.4"
+  gem 'i18n-spec'
+  gem 'localeapp'
   gem 'pry'
   gem 'quiet_assets'
 end
