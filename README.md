@@ -38,9 +38,13 @@ Then bootstrap the schema:
 
     rake db:schema:load
     
-And finally the test database:
+Setup the test database:
 
     rake db:test:prepare
+
+Lastly, bootstrap the db to create an admin user:
+
+    rake db:bootstrap
 
 # Delayed Job #
 
