@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130429205209) do
+ActiveRecord::Schema.define(:version => 20130429205707) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -188,7 +188,9 @@ ActiveRecord::Schema.define(:version => 20130429205209) do
   add_index "measurements", ["md5sum"], :name => "index_measurements_on_md5sum", :unique => true
   add_index "measurements", ["measurement_import_id"], :name => "index_measurements_on_measurement_import_id"
   add_index "measurements", ["original_id"], :name => "index_measurements_on_original_id"
+  add_index "measurements", ["unit"], :name => "index_measurements_on_unit"
   add_index "measurements", ["user_id"], :name => "index_measurements_on_user_id"
+  add_index "measurements", ["value", "unit"], :name => "index_measurements_on_value_and_unit"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "",    :null => false
