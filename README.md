@@ -48,6 +48,10 @@ Uploads are processed async using Delayed job. You can kick it off with:
 
     rake jobs:work
 
+or
+
+    bundle exec rake jobs:work
+
 # Tests #
 
 All tests for this app use `rspec`, specifically rspec 2.

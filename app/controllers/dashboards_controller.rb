@@ -1,6 +1,4 @@
 class DashboardsController < ApplicationController
-  before_filter :authenticate_user!
-
   def show
     if !user_signed_in?
       render 'home/show'
