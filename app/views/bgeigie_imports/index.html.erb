@@ -74,10 +74,15 @@
           </td>
           <td>
             <%= link_to File.basename(bgeigie_import.source.filename), 
-                  bgeigie_import -%><br/>
+                  bgeigie_import
+                    -%><br/>
             <small>
-              <%= bgeigie_import.cities %>
-              <%= bgeigie_import.credits %>
+              <%- if bgeigie_import.cities.present? %>
+                <%= bgeigie_import.cities %>&nbsp;-&nbsp;
+              <%- end -%>
+              <%- if bgeigie_import.credits.present? %>
+                <span class="faded"><%= bgeigie_import.credits %></span>
+              <%- end -%>
             </small>
           </td>
           <td>
