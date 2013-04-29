@@ -42,6 +42,10 @@ And finally the test database:
 
     rake db:test:prepare
 
+# Delayed Job #
+
+
+
 # Tests #
 
 All tests for this app use `rspec`, specifically rspec 2.
