@@ -1,3 +1,5 @@
+These are installation notes for getting a development environment for Safecast set up on a fresh Mountain Lion machine. YMMV.
+
 I installed:
 
 Homebrew:

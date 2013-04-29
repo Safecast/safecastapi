@@ -6,6 +6,8 @@ This is the Safecast API app, implemented using Ruby / Ruby on Rails.
 
 We're using postgresql, you'll need to install that locally.
 
+There are a bunch of notes in safecast_installation_notes.txt
+
 Then:
 
     createuser -s safecast
@@ -15,11 +17,7 @@ To create a local superuser...
 
 # Ruby Version #
 
-Ruby 1.9.3 is the latest Ruby version, and includes performance fixes for require, thereby decreasing loading time significantly.
-
-### RVM ###
-
-The app includes a `.rvmrc` file, which defines the Ruby version and a gemset. Keeping things in a gemset allows safely running of gem binaries without version conflicts.
+Ruby 1.9.3
 
 ### PostGIS ###
 
@@ -46,14 +44,9 @@ And finally the test database:
 
 # Tests #
 
-All tests for this app use `rspec`, specifically rspec 2. The app has been configured to use `spork` for pre-loading the Rails environment and running tests in a forked process. The process for running the tests is:
+All tests for this app use `rspec`, specifically rspec 2.
 
-    spork
     rspec spec
-
-If you are offline, you can set the environment variable `CONNECTION_STATUS` to `offline`, eg:
-    
-    CONNECTION_STATUS=offline spork
 
 You can also run an individual test this way:
 
@@ -62,12 +55,10 @@ You can also run an individual test this way:
 # References #
 
 Rails + PostGIS
- http://lassebunk.dk/2011/09/10/creating-a-location-aware-website-using-ruby-on-rails-and-postgis/
+  Daniel Azuma has a definitive series of posts using Rails with RGeo:
 
-# API Docs #
+  http://blog.daniel-azuma.com/archives/category/tech/georails
 
-The API docs are written in markdown and live in the /app/views/api/docs/markdown directory.  How-to's live in the root markdown directory, while each resource's documentation lives in the markdown/resources directory.
-If you update a resource or change the behavior of the API, please make sure to update the corresponding documentation.
 
 # Cron #
 
