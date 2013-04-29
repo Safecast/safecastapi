@@ -1,0 +1,61 @@
+I installed:
+
+Homebrew:
+http://mxcl.github.io/homebrew/
+ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+
+Command Line Tools for Xcode
+https://developer.apple.com/downloads/index.action
+
+Git:
+brew install git
+
+Install the app:
+git clone git@github.com:Safecast/safecastapi.git
+
+Install rbenv:
+(instructions on https://github.com/sstephenson/rbenv/)
+
+Install ruby-build:
+https://github.com/sstephenson/ruby-build
+
+Install autoconf:
+brew install autoconf
+
+Install Ruby 1.9.3 with the falcon GC patch:
+https://gist.github.com/burke/1688857
+
+Install Postgresql:
+brew install postgresql
+(with notes from https://coderwall.com/p/1mni7w)
+
+Install pg gem:
+env ARCHFLAGS="-arch x86_64" gem install pg
+
+  To start postgres at login:
+  ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
+
+  Or to start it on demand:
+  pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+  or with launchctl:
+  launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+
+Add /usr/local/bin to $PATH in .bash_profile
+
+Disable Rdoc and RI in rubygems:
+echo "gem: --no-rdoc --no-ri" > ~/.gemrc
+
+Install bundler:
+gem install bundler
+
+Install pow:
+curl get.pow.cx | sh
+
+Install powify:
+gem install powify
+rbenv rehash
+
+Set up safecast.dev:
+powify create safecast
+
+Then Follow instructions on github.com/safecast/safecastapi
