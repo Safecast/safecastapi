@@ -51,7 +51,6 @@ group :development do
   gem "bundler"
   gem "jeweler", "> 1.6.4"
   gem 'i18n-spec'
-  gem 'localeapp'
   gem 'pry'
   gem 'quiet_assets'
 end
