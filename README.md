@@ -44,7 +44,9 @@ And finally the test database:
 
 # Delayed Job #
 
+Uploads are processed async using Delayed job. You can kick it off with:
 
+    rake jobs:work
 
 # Tests #
 
@@ -62,7 +64,6 @@ Rails + PostGIS
   Daniel Azuma has a definitive series of posts using Rails with RGeo:
 
   http://blog.daniel-azuma.com/archives/category/tech/georails
-
 
 # Cron #
 
