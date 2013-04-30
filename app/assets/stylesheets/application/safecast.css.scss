@@ -483,3 +483,13 @@ ul.measurement-listed {
 i.muted {
   opacity: 0.5;
 }
+
+.faded {
+  color: #777;
+}
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+  background-color: #ecf0f5 !important;
+  cursor: hand;
+  cursor: pointer;
+}
