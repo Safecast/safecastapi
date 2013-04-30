@@ -13,6 +13,15 @@ class BgeigieImportsController < ApplicationController
   has_scope :q do |controller, scope, value|
     scope.filter(value)
   end
+  has_scope :approved do |controller, scope, value|
+    if value == 'yes'
+      scope.where(:approved => true)
+    elsif value == 'no'
+      scope.where(:approved => false)
+    else
+      scope
+    end
+  end
 
 
   def new

@@ -2,6 +2,7 @@ en-US:
   activerecord:
     attributes:
       bgeigie_import:
+        approved: Approved
         q: q
         q_tooltip: Search
         uploaded_after: Uploaded After
