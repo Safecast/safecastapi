@@ -7,7 +7,7 @@ en-US:
   usv: 'μSv/h'
   none_found: None found.
   sign_in: Sign in
-  sign_in: Sign up
+  sign_in: Register
   remember_me: Remember Me
   filter: Filter
   file_exists: That file already exists.
@@ -240,7 +240,7 @@ en-US:
   save: Save
   sign_in: Sign in
   sign_out: Sign out
-  sign_up: Sign up
+  sign_up: Register
   submissions: submissions
   submit: Submit
   submitted: Submitted
