@@ -96,26 +96,16 @@ GEM
       ruby-hmac
     formatador (0.2.4)
     formatted-dates (0.1.0)
-    git (1.2.5)
     haml (4.0.2)
       tilt
     has_scope (0.5.1)
     hike (1.2.2)
     i18n (0.6.4)
-    i18n-spec (0.4.0)
-      iso
     intercom-rails (0.2.18)
       activesupport (> 3.0)
-    iso (0.2.0)
-      i18n
     jbuilder (1.3.0)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
-    jeweler (1.8.4)
-      bundler (~> 1.0)
-      git (>= 1.2.5)
-      rake
-      rdoc
     journey (1.0.4)
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
@@ -181,10 +171,6 @@ GEM
       activerecord (>= 3.0.3)
       arel (>= 2.0.6)
       rgeo (>= 0.3.20)
-    rspec (2.12.0)
-      rspec-core (~> 2.12.0)
-      rspec-expectations (~> 2.12.0)
-      rspec-mocks (~> 2.12.0)
     rspec-core (2.12.2)
     rspec-expectations (2.12.1)
       diff-lcs (~> 1.1.3)
@@ -243,7 +229,6 @@ DEPENDENCIES
   activerecord-postgis-adapter
   aws-ses (= 0.4.4)
   bootstrap-sass (~> 2.2.2.0)
-  bundler
   capybara
   carrierwave (~> 0.6.2)
   coffee-rails
@@ -259,10 +244,8 @@ DEPENDENCIES
   formatted-dates
   haml
   has_scope (~> 0.5.1)
-  i18n-spec
   intercom-rails
   jbuilder
-  jeweler (> 1.6.4)
   jquery-rails
   json
   launchy
@@ -273,7 +256,6 @@ DEPENDENCIES
   quiet_assets
   rails (= 3.2.12)
   redcarpet
-  rspec (>= 2.4.0)
   rspec-rails (~> 2.12.2)
   sass-rails
   simple_form (~> 2.0.4)
