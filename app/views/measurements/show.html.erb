@@ -37,10 +37,12 @@
     <%= number_with_precision @measurement.longitude, :precision => 4 %>
   </dd>
 
-  <dt><%= t('.measurement.measurement_import') %></dt>
-  <dd title="<%= @measurement.measurement_import %>">
-    <%= link_to @measurement.measurement_import.name, @measurement.measurement_import, alt:@measurement.measurement_import.name %>
-  </dd>
+  <%- if @measurement.measurement_import.present? -%>
+    <dt><%= t('.measurement.measurement_import') %></dt>
+    <dd title="<%= @measurement.measurement_import %>">
+      <%= link_to @measurement.measurement_import.name, @measurement.measurement_import, alt:@measurement.measurement_import.name %>
+    </dd>
+  <%- end -%>
 
 </dl>
 

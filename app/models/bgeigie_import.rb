@@ -213,8 +213,7 @@ class BgeigieImport < MeasurementImport
       select #{self.user_id},cpm,'cpm', now(), now(), captured_at,
       #{self.id}, md5sum, computed_location
       from bgeigie_logs WHERE
-      bgeigie_import_id = #{self.id}
-      and md5sum not in (select md5sum from measurements)])
+      bgeigie_import_id = #{self.id}])
   end
 
   def update_counter_caches

@@ -6,7 +6,7 @@ describe BgeigieImport do
   
   let!(:bgeigie_import) do
     Fabricate(:bgeigie_import,
-              :source => File.new(Rails.root + 'spec/fixtures/bgeigie.log'),
+              :source => File.new(Rails.root.join('spec/fixtures/bgeigie.log')),
               :user_id => user.id
              )
   end

@@ -38,9 +38,9 @@ gem 'jquery-rails'
 gem 'thin'
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '~> 2.1.0'
   gem 'database_cleaner'
-  gem 'fabrication'
+  gem 'fabrication', '2.2.2'
   gem 'launchy'
   gem 'pry'
   gem 'rspec-rails',            '~> 2.12.2'

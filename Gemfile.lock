@@ -83,7 +83,7 @@ GEM
     excon (0.20.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    fabrication (2.6.5)
+    fabrication (2.2.2)
     fog (1.8.0)
       builder
       excon (~> 0.14)
@@ -229,7 +229,7 @@ DEPENDENCIES
   activerecord-postgis-adapter
   aws-ses (= 0.4.4)
   bootstrap-sass (~> 2.2.2.0)
-  capybara
+  capybara (~> 2.1.0)
   carrierwave (~> 0.6.2)
   coffee-rails
   configurable_engine
@@ -239,7 +239,7 @@ DEPENDENCIES
   delayed_job (~> 2.1.4)
   devise (~> 2.0.0)
   email_spec
-  fabrication
+  fabrication (= 2.2.2)
   fog (~> 1.8.0)
   formatted-dates
   haml
