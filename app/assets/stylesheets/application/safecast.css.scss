@@ -367,7 +367,7 @@ section.dashboard {
     float: left;
     text-align: center;
     width: 150px;
-    height: 150px;
+    //height: 150px;
   }
   ul li em {
     text-align: center;
@@ -496,4 +496,7 @@ i.muted {
 
 .spacer {
   height: 30px;
+}
+.notapproved {
+  color: #f9a732;
 }
