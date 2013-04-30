@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="span9">
+  <div class="span12">
     <%= render 'current_status' %>
     <%- if content_for?(:current_status) -%>
       <div id="current-status"><%= content_for(:current_status) %></div>
@@ -21,10 +21,15 @@
     </ul>
 
     <h2>
-      <%= t '.bgeigie_import' -%> #<%= @bgeigie_import.id -%>
+      <%= truncate @bgeigie_import.source.filename %>
 
       <small>
         <%= render 'bgeigie_imports/status' -%>
+        <i title="<%= t('uploaded_by', :name => @bgeigie_import.user.name_or_email) %>" class="icon-user"></i>
+        <%= @bgeigie_import.user.name_or_email %>
+        <%= @bgeigie_import.lines_count %> <%= t('.lines') %>,
+        <%= t('.no_measurements_yet') unless @bgeigie_import.processed? %>
+        <%= t('.no_of_measurements', :count => @bgeigie_import.bgeigie_logs.count.to_i) if @bgeigie_import.processed? %>
       </small>
     </h2>
   </div>

@@ -1,0 +1,12 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+.map-overlay {
+  top: 140px;
+  padding: 20px;
+  position: fixed;
+  right: 0px;
+  left: 50%;
+  background-color: white;
+  @include border-radius(5px 5px 0px 5px);
+  overflow: auto;
+}

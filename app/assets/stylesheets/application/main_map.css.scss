@@ -1,0 +1,17 @@
+.main-map {
+  position: fixed;
+  left: 0px;
+  top: 150px;
+  bottom: 0px;
+  right: 50%;
+  background-color: white;
+}
+
+#main-map-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+#no-map {
+  padding: 20px;
+}

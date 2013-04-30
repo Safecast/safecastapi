@@ -12,8 +12,8 @@ jQuery ->
           $('#head').html(data)
     , 5000
 
-    window.loadMap = ->
-    return if $.trim($('#map_canvas').html()) != ''
+  window.loadMap = ->
+    return if $.trim($('#main-map-canvas').html()) != ''
     $('#map-loading').show()
     percent = 20
     advanceMapLoader(percent)
@@ -23,17 +23,20 @@ jQuery ->
       clearInterval(loader_interval) if percent == 50
     , 1000
     $.get("#{BgeigieImport.map_url}.json", {}, 'json').success (data)->
-      $('#show-map').show()
-      clearInterval(loader_interval)
-      advanceMapLoader(60)
-      MeasurementsMap.initialize($("#map_canvas"))
-      MeasurementsMap.addMeasurementsAndCenter(data)
-      google.maps.event.addListenerOnce map, 'idle', ->
-        advanceMapLoader(100)
-        google.maps.event.trigger(map, 'resize');
-        setTimeout ->
-          $('#map-loading').hide()
-        , 500
+      if data.length > 0
+        $('#show-map').show()
+        clearInterval(loader_interval)
+        advanceMapLoader(60)
+        MeasurementsMap.initialize($("#main-map-canvas"))
+        MeasurementsMap.addMeasurementsAndCenter(data)
+        google.maps.event.addListenerOnce map, 'idle', ->
+          advanceMapLoader(100)
+          google.maps.event.trigger(map, 'resize');
+          setTimeout ->
+            $('#map-loading').hide()
+          , 500
+      else
+        $('#no-map').removeClass('hide')
+        $('#map-loading').hide()
 
   $(document).on 'click', 'a[data-behavior=load-map]', loadMap
-
