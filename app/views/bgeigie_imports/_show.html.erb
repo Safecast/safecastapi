@@ -1,5 +1,6 @@
 <div class="row">
-  <div class="span8">
+  <%= render 'static_metadata' %>
+  <div class="span7">
     <h4>
       <%= t('.metadata') %>
     </h4>
@@ -57,7 +58,7 @@
 </div>
 
 <div class="row">
-  <div class="span8">
+  <div class="span9">
     <%= link_to t('.delete_this_import'), '#delete-log', :data => {
       :toggle => 'modal'
     }, :class => 'pull-right muted' %>

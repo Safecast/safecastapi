@@ -12,59 +12,42 @@
   <%= t 'bgeigie_imports.head.bgeigie_import' -%> #<%= @bgeigie_import.id -%> \\ <%= t('bgeigie_imports.index.bgeigie_imports') %>
 <%- end -%>
 
-<div class="main-map">
-  <div id="map-loading" class="hide">
-    <div class="progress progress-striped active">
-      <div class="bar" style="width: 0%;">
-        <%= t('.loading_html') %>
-      </div>
-    </div>
-  </div>
-  <div id="no-map" class="hide">
-    Map not ready. <%= link_to 'Reload' %>
-  </div>
-  <div id="main-map-canvas">
-  </div>
-</div>
-
 <div id="head">
   <%= render 'head' %>
 </div>
 
-<div class="map-overlay">
-  <div class="row-fluid" style="width:100%">
-    <div class="span12">
-      <ul class="nav nav-tabs">
-        <li <%= raw('class="active"') unless ['edit', 'update'].include?(action_name) %>><a href="#metadata" data-toggle="tab"><%= t('.metadata') %></a></li>
-        <li>
-          <a href="#process-log" data-toggle="tab"><%= t('.process_log') %></a>
+<div class="row">
+  <div class="span9">
+    <ul class="nav nav-tabs">
+      <li <%= raw('class="active"') unless ['edit', 'update'].include?(action_name) %>><a href="#metadata" data-toggle="tab"><%= t('.metadata') %></a></li>
+      <li><a href="#map" data-toggle="tab" data-behavior="load-map"><%= t('.map') %></a></li>
+      <li>
+        <a href="#process-log" data-toggle="tab"><%= t('.process_log') %></a>
+      </li>
+      <%- if user_signed_in? && (@bgeigie_import.user == current_user || current_user.moderator?)-%>
+        <li class="pull-right <%= 'active' if ['edit', 'update'].include?(action_name) %>">
+          <a href="#edit-details" data-toggle="tab">
+            <%= t('.edit_details') %>
+          </a>
         </li>
-        <%- if user_signed_in? && (@bgeigie_import.user == current_user || current_user.moderator?)-%>
-          <li class="pull-right <%= 'active' if ['edit', 'update'].include?(action_name) %>">
-            <a href="#edit-details" data-toggle="tab">
-              <%= t('.edit_details') %>
-            </a>
-          </li>
-        <%- end -%>
-      </ul>
-    </div>
+      <%- end -%>
+    </ul>
   </div>
-
-  <div class="tab-content">
-    <div class="tab-pane <%= 'active' unless ['edit', 'update'].include?(action_name) %>" id="metadata">
-      <%= render 'show' %>
-    </div>
-    <div class="tab-pane" id="map">
-      <%= render 'map' %>
-    </div>
-    <div class="tab-pane" id="process-log">
-      <%= render 'process_log' -%>
-    </div>
-    <div class="tab-pane <%= 'active' if ['edit', 'update'].include?(action_name) %>" id="edit-details">
-      <%= render 'edit' %>
-    </div>
-  </div>
-  <div class="spacer"></div>
-  <%= current_page_api_example :bgeigie_import_url %>
 </div>
 
+<div class="tab-content">
+  <div class="tab-pane <%= 'active' unless ['edit', 'update'].include?(action_name) %>" id="metadata">
+    <%= render 'show' %>
+  </div>
+  <div class="tab-pane" id="map">
+    <%= render 'map' %>
+  </div>
+  <div class="tab-pane" id="process-log">
+    <%= render 'process_log' -%>
+  </div>
+  <div class="tab-pane <%= 'active' if ['edit', 'update'].include?(action_name) %>" id="edit-details">
+    <%= render 'edit' %>
+  </div>
+</div>
+<div class="spacer"></div>
+<%= current_page_api_example :bgeigie_import_url %>

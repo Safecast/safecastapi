@@ -45,7 +45,6 @@ en-US:
       import_exists: That file already exists
       link_to_existing_import_html: View it &rarr;
     show:
-      loading_html: "Loading map&hellip;"
       this_file_is_queued_for_processing: This file is queued for processing.
       you_can_edit_metadata_while_processing: "While the file is processing, you can edit the metadata for this import."
       latitude: Latitude
@@ -71,11 +70,6 @@ en-US:
       approve: Approve
       download_original_file: Download Original File
       bgeigie_import: Bgeigie Import
-      lines: lines
-      no_measurements_yet: No Measurements Yet
-      no_of_measurements:
-        one: %{count} measurement
-        other: %{count} measurements
     current_status:
       edit_metadata: Edit Metadata
       file_is_processed_add_metadata: "File Processed: Please Add Metadata."
@@ -112,6 +106,7 @@ en-US:
       added_to_safecast_database: Added to Safecast database
       map_created: Map created
     map:
+      loading_html: "Loading map&hellip;"
       captured_at: 
       latitude: Latitude
       longitude: Longitude

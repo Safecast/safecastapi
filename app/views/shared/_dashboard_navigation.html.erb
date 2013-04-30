@@ -2,36 +2,6 @@
   <h1><%= link_to "Safecast", root_path %></h1>
   <nav class="navbar">
     <ul>
-      <li class="dropdown">
-        <%= link_to '#nav-menu',
-            :class => 'dropdown-toggle',
-            :data => {:toggle => 'dropdown'} do %>
-            <%= t('.browse') %>
-            <span class="caret"></span>
-          <%- end -%>
-        <ul class="dropdown-menu">
-          <%- if user_signed_in? -%>
-            <li <%= raw('class="active"') if controller_name == 'dashboard' %>>
-              <%= link_to t('.dashboard'), :dashboard %>
-            </li>
-          <%- end -%>
-          <li <%= raw('class="active"') if controller_name == 'home' %>>
-            <%= link_to t('.home'), :home %>
-          </li>
-          <li <%= raw('class="active"') if controller_name == 'users' %>>
-            <%= link_to t('.users'), :users %>
-          </li>
-          <li <%= raw('class="active"') if controller_name == 'measurements' %>>
-            <%= link_to t('.measurements'), :measurements %>
-          </li>
-          <li <%= raw('class="active"') if controller_name == 'bgeigie_imports' %>>
-            <%= link_to t('.bgeigie_imports'), :bgeigie_imports %>
-          </li>
-          <li <%= raw('class="active"') if controller_name == 'devices' %>>
-            <%= link_to t('.devices'), :devices %>
-          </li>
-        </ul>
-      </li>
       <%- if user_signed_in? -%>
         <li <%= raw('class="active"') if controller_name == 'measurements' && action_name == 'new' %>>
           <%= link_to [:new, :measurement], :title => t('submit_a_reading') do %>
