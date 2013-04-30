@@ -95,7 +95,7 @@
           <td>
             <%= t("bgeigie_imports.states.#{bgeigie_import.status}") %>
             <%- if !bgeigie_import.approved? -%>
-              (<%= t("bgeigie_imports.states.not_approved") %>)
+              <span class="notapproved">(<%= t("bgeigie_imports.states.not_approved") %>)</span>
             <%- end -%>
           </td>
         </tr>

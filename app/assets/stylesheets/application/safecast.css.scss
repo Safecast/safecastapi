@@ -367,7 +367,7 @@ section.dashboard {
     float: left;
     text-align: center;
     width: 150px;
-    height: 150px;
+    //height: 150px;
   }
   ul li em {
     text-align: center;
@@ -517,4 +517,8 @@ nav.navbar {
       color: #333;
     }
   }
+}
+
+.notapproved {
+  color: #f9a732;
 }
