@@ -33,7 +33,7 @@
 <%- if @measurements.empty? -%>
   <p><%= t(".none_found") -%></p>
 <%- else -%>
-  <table class="table">
+  <table class="table table-hover" data-provides="rowlink"
     <thead>
       <%= table_sort_header(:measurement, :id) %>
       <%= table_sort_header(:measurement, :value) %>
@@ -51,18 +51,22 @@
             <%- if measurement.user.present? -%>
               <br/>
               <small>
+                <span class="faded">
                 <%= t('.submitted_by') %>
                 <%= link_to measurement.user.name, measurement.user %>
+                </span>
               </small>
             <%- end -%>
             <%- if measurement.measurement_import.present? -%>
               <small>
+                <span class="faded">
                 <%= t('.in') %>
                 <%- begin -%>
                   <%= link_to measurement.measurement_import.name, measurement.measurement_import %>
                 <%- rescue -%>
                   <%= measurement.measurement_import.name %>
                 <%- end -%>
+                </span>
               </small>
             <%- end -%>
           </td>

@@ -49,7 +49,7 @@
 <%- if @bgeigie_imports.empty? -%>
   <%= t("none_found") -%>
 <%- else -%>
-  <table class="table table-striped">
+  <table class="table table-striped table-hover" data-provides="rowlink">
     <thead>
       <%= table_sort_header(:bgeigie_import, :id) %>
       <%= table_sort_header(:bgeigie_import, :created_at) %>
@@ -78,7 +78,9 @@
                     -%><br/>
             <small>
               <%- if bgeigie_import.cities.present? %>
+              <span class="faded">
                 <%= bgeigie_import.cities %>&nbsp;-&nbsp;
+              </span>
               <%- end -%>
               <%- if bgeigie_import.credits.present? %>
                 <span class="faded"><%= bgeigie_import.credits %></span>

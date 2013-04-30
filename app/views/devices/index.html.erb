@@ -24,7 +24,7 @@
 <%- if @devices.empty? -%>
   <%= t('.no_devices') %>
 <%- else -%>
-  <table class="table">
+  <table class="table table-hover" data-provides="rowlink">
     <thead>
       <%= table_sort_header(:device, :id) %>
       <%= table_sort_header(:device, :manufacturer) %>
