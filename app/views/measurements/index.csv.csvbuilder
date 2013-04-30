@@ -13,7 +13,7 @@ csv << [
   'Uploaded Time',
   'Loader ID'
 ]
-@result.each do |measurement|
+@measurements.each do |measurement|
   csv << [
     measurement.captured_at,
     measurement.latitude,

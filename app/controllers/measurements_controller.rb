@@ -40,7 +40,7 @@ class MeasurementsController < ApplicationController
     )
 
     if request.format == :csv
-      @measurements = @measurements.paginate(:page => 1, :per_page => @measurement.total_entries)
+      @measurements = @measurements.paginate(:page => 1, :per_page => @measurements.total_entries)
     end
 
     respond_with @measurements
