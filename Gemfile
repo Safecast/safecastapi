@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'devise',                   '~> 2.0.0'
-gem 'rails',                    '3.2.13'
+gem 'rails',                    '3.2.12'
 gem 'unicorn'
 gem 'pg'
 gem 'json'
