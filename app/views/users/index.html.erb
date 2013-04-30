@@ -1,4 +1,3 @@
-<%= current_page_api_example :users_url %>
 <%= content_for(:title) { t('.users') } %>
 
 <h2><%= t(".users") -%></h2>
@@ -41,3 +40,5 @@
   </table>
   <%= will_paginate @users %>
 <%- end -%>
+<div class="spacer"></div>
+<%= current_page_api_example :users_url %>

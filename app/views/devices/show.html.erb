@@ -1,4 +1,3 @@
-<%= current_page_api_example :device_url %>
 <%= content_for(:title) do %>
   <%= @device.manufacturer %> <%= @device.model %>
   \\
@@ -21,3 +20,5 @@
   <dd><%= @device.sensor %></dd>
 
 </dl>
+<div class="spacer"></div>
+<%= current_page_api_example :device_url %>
