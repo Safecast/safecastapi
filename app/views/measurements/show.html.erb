@@ -1,4 +1,3 @@
-<%= current_page_api_example :measurement_url %>
 <%= content_for(:title) do %>
   <%= @measurement.value %><%= @measurement.unit %>
   <%= @measurement.captured_at_formatted %>
@@ -45,4 +44,5 @@
   <%- end -%>
 
 </dl>
-
+<div class="spacer"></div>
+<%= current_page_api_example :measurement_url %>
