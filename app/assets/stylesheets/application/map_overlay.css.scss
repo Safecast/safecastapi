@@ -7,6 +7,6 @@
   right: 0px;
   left: 50%;
   background-color: white;
-  @include border-radius(5px 5px 0px 5px);
+  @include border-radius(5px 5px 5px 5px);
   overflow: auto;
 }

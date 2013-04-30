@@ -15,8 +15,6 @@ class Measurement < ActiveRecord::Base
   belongs_to :measurement_import
   belongs_to :last_updater, :class_name => "User", :foreign_key => "updated_by"
   before_save :set_md5sum
-  
-  has_and_belongs_to_many :maps  
 
   format_dates :captured_at, :format => "%Y/%m/%d %I:%M:%S"
 

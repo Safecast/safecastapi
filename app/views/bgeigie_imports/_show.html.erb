@@ -1,3 +1,7 @@
+<%- if content_for?(:current_status) -%>
+  <div id="current-status"><%= content_for(:current_status) %></div>
+<%- end -%>
+
 <div class="row">
   <div class="span8">
     <h4>

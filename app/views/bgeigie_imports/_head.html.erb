@@ -1,10 +1,7 @@
+<%= render 'current_status' %>
+
 <div class="row">
   <div class="span12">
-    <%= render 'current_status' %>
-    <%- if content_for?(:current_status) -%>
-      <div id="current-status"><%= content_for(:current_status) %></div>
-    <%- end -%>
-
     <ul class="inline nav-stacked pull-right">
       <%- if @bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? -%>
         <li>

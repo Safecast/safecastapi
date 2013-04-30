@@ -497,3 +497,22 @@ i.muted {
 .spacer {
   height: 30px;
 }
+
+.main-nav {
+  @include border-radius(5px 5px 5px 5px);
+  border: 1px solid grey;
+}
+
+header {
+  padding-bottom: 0px;
+}
+
+nav.navbar {
+  li.active {
+    background-color: #ddd;
+    @include gradient-vertical(#b2bdc5, #ddd);
+    a {
+      color: #333;
+    }
+  }
+}
