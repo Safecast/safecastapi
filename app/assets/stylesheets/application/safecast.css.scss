@@ -501,13 +501,15 @@ i.muted {
 .main-nav {
   @include border-radius(5px 5px 5px 5px);
   border: 1px solid grey;
+  margin-left: 0px !important;
 }
 
 header {
-  padding-bottom: 0px;
+  padding: 0px !important;
 }
 
 nav.navbar {
+  margin-bottom: 10px !important;
   li.active {
     background-color: #ddd;
     @include gradient-vertical(#b2bdc5, #ddd);
