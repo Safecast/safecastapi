@@ -11,7 +11,11 @@
         <%= t('from_here_you_can') -%>:
       </li>
       <li>
-        <%= link_to t('retrieve_your_api_key'), :profile %>
+        <%= link_to '#profile-modal', :title => t("profile"), :data => {
+          :toggle => 'modal'
+        } do %>
+        <%= t('retrieve_your_api_key') %>
+        <%- end -%>
       </li>
       <li>
         <%= link_to t('submit_a_reading_from_your_device'), [:new, :measurement] %>
