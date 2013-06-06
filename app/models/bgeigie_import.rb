@@ -13,7 +13,7 @@ class BgeigieImport < MeasurementImport
   validates :credits, :presence => true, :on => :update
   
   belongs_to :user
-  has_many :bgeigie_logs, :dependent => :destroy
+  has_many :bgeigie_logs, :dependent => :delete_all
   
   scope :newest, order("created_at DESC")
   scope :oldest, order("created_at")
