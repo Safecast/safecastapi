@@ -37,8 +37,10 @@
 <div class="tab-content">
   <div class="tab-pane <%= 'active' unless ['edit', 'update'].include?(action_name) %>" id="metadata">
     <%= render 'show' %>
-    <div class="spacer"></div>
-    <%= render 'map' %>
+    <% if @bgeigie_import.processed? %>
+      <div class="spacer"></div>
+      <%= render 'map' %>
+    <% end %>
   </div>
   <div class="tab-pane" id="process-log">
     <%= render 'process_log' -%>
