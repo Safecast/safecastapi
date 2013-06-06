@@ -88,6 +88,12 @@ class MeasurementsController < ApplicationController
     end
   end
 
+  def destroy
+    @measurement = Measurement.find(params[:id])
+    @measurement.destroy
+    respond_with @measurement
+  end
+
   def count
     @count = {}
     @count[:count] = Measurement.count
