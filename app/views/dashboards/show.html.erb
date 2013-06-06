@@ -53,7 +53,7 @@
       </li>
       <%- if current_user.moderator? && @unapproved_bgeigie_imports.any? -%>
         <li>
-          <%= link_to [:bgeigie_imports]  do -%>
+          <%= link_to bgeigie_imports_path(by_status: 'submitted')  do -%>
             <em><%= @unapproved_bgeigie_imports.count -%></em>
             <%= t('.imports_awaiting_approval') -%>
           <%- end -%>
