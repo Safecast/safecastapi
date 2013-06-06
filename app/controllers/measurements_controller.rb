@@ -37,7 +37,7 @@ class MeasurementsController < ApplicationController
     @measurements = apply_scopes(Measurement).paginate(
       :page => params[:page],
       :per_page => params[:per_page]
-    )
+    ).includes(:measurement_import, :user)
 
     if request.format == :csv
       @measurements = @measurements.paginate(:page => 1, :per_page => @measurements.total_entries)
