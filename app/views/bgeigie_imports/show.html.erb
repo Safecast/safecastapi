@@ -20,7 +20,6 @@
   <div class="span9">
     <ul class="nav nav-tabs">
       <li <%= raw('class="active"') unless ['edit', 'update'].include?(action_name) %>><a href="#metadata" data-toggle="tab"><%= t('.metadata') %></a></li>
-      <li><a href="#map" data-toggle="tab" data-behavior="load-map"><%= t('.map') %></a></li>
       <li>
         <a href="#process-log" data-toggle="tab"><%= t('.process_log') %></a>
       </li>
@@ -38,8 +37,7 @@
 <div class="tab-content">
   <div class="tab-pane <%= 'active' unless ['edit', 'update'].include?(action_name) %>" id="metadata">
     <%= render 'show' %>
-  </div>
-  <div class="tab-pane" id="map">
+    <div class="spacer"></div>
     <%= render 'map' %>
   </div>
   <div class="tab-pane" id="process-log">

@@ -35,4 +35,4 @@ jQuery ->
           $('#map-loading').hide()
         , 500
 
-  $(document).on 'click', 'a[data-behavior=load-map]', loadMap
+  $(loadMap)
