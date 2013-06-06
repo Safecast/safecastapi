@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'devise',                   '~> 2.0.0'
+gem 'devise'
+gem 'devise-i18n'
 gem 'rails',                    '3.2.12'
 gem 'unicorn'
 gem 'pg'
