@@ -92,19 +92,13 @@
     <dl class="dl-horizontal">
 
       <dt>Get a list of Devices</dt>
-      <dd>
-        <%= api_example_link(:get, :devices_path) %>
-      </dd>
+      <dd><%= api_example_link(:get, :devices_path) %></dd>
 
       <dt>Add a new Device</dt>
       <dd><%= api_example_link(:post, :devices_path) %></dd>
 
-      <%- if BgeigieImport.first.present? -%>
-        <dt>View a device</dt>
-        <dd>
-          <%= api_example_link(:get, :devices_path, Device.first) %>
-        </dd>
-      <%- end -%>
+      <dt>View a device</dt>
+      <dd><%= api_example_link(:get, :device_path, Device.first || 1) %></dd>
     </dl>
 
 
