@@ -2,7 +2,7 @@ class BgeigieImportsController < ApplicationController
 
   respond_to :html, :json
 
-  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update]
+  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy]
   before_filter :require_moderator, :only => :approve
 
   has_scope :by_status

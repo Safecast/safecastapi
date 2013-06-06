@@ -41,6 +41,7 @@ GEM
     bootstrap-sass (2.2.2.0)
       sass (~> 3.2)
     builder (3.0.4)
+    cancan (1.6.8)
     capybara (2.1.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -230,6 +231,7 @@ DEPENDENCIES
   activerecord-postgis-adapter
   aws-ses (= 0.4.4)
   bootstrap-sass (~> 2.2.2.0)
+  cancan
   capybara (~> 2.1.0)
   carrierwave (~> 0.6.2)
   coffee-rails

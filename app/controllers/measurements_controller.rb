@@ -1,6 +1,6 @@
 class MeasurementsController < ApplicationController
 
-  before_filter :authenticate_user!, :only => [:new, :create, :update]
+  before_filter :authenticate_user!, :only => [:new, :create, :update, :destroy]
 
   has_scope :captured_after
   has_scope :unit do |controller, scope, value|
@@ -90,6 +90,7 @@ class MeasurementsController < ApplicationController
 
   def destroy
     @measurement = Measurement.find(params[:id])
+    authorize! :delete, @measurement
     @measurement.destroy
     respond_with @measurement
   end

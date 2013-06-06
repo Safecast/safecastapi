@@ -45,8 +45,7 @@
 
 </dl>
 
-<% can_delete = user_signed_in? and current_user.moderator or current_user == @measurement.user %>
-<% if can_delete %>
+<% if can? :delete, @measurement %>
 <div class="row">
   <div class="span9">
     <%= link_to t('.delete_this_measurement'), '#delete-measurement', :data => {
@@ -54,13 +53,7 @@
     }, :class => 'pull-right muted' %>
   </div>
 </div>
-<% end %>
 
-<div class="spacer"></div>
-
-<%= current_page_api_example :measurement_url %>
-
-<% if can_delete %>
 <div id="delete-measurement" class="modal hide fade">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -77,3 +70,7 @@
   </div>
 </div>
 <% end %>
+
+<div class="spacer"></div>
+
+<%= current_page_api_example :measurement_url %>

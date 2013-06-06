@@ -2,6 +2,8 @@ source 'http://rubygems.org'
 
 gem 'devise'
 gem 'devise-i18n'
+gem 'cancan'
+
 gem 'rails',                    '3.2.12'
 gem 'unicorn'
 gem 'pg'
