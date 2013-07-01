@@ -5,7 +5,6 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'capybara/rspec'
 require 'fileutils'
 require 'email_spec'
@@ -18,6 +17,7 @@ RSpec.configure do |config|
   config.include Helpers
   config.include EmailSpec::Helpers
   config.include EmailSpec::Matchers
+  config.include ActionDispatch::TestProcess
   
   # == Mock Framework
   #

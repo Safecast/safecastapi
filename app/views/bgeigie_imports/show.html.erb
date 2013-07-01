@@ -7,7 +7,7 @@
   </script>
 <%- end -%>
 
-<%= current_page_api_example :bgeigie_import_url %>
+
 <%= content_for(:title) do %>
   <%= t 'bgeigie_imports.head.bgeigie_import' -%> #<%= @bgeigie_import.id -%> \\ <%= t('bgeigie_imports.index.bgeigie_imports') %>
 <%- end -%>
@@ -20,7 +20,6 @@
   <div class="span9">
     <ul class="nav nav-tabs">
       <li <%= raw('class="active"') unless ['edit', 'update'].include?(action_name) %>><a href="#metadata" data-toggle="tab"><%= t('.metadata') %></a></li>
-      <li><a href="#map" data-toggle="tab" data-behavior="load-map"><%= t('.map') %></a></li>
       <li>
         <a href="#process-log" data-toggle="tab"><%= t('.process_log') %></a>
       </li>
@@ -38,9 +37,10 @@
 <div class="tab-content">
   <div class="tab-pane <%= 'active' unless ['edit', 'update'].include?(action_name) %>" id="metadata">
     <%= render 'show' %>
-  </div>
-  <div class="tab-pane" id="map">
-    <%= render 'map' %>
+    <% if @bgeigie_import.processed? %>
+      <div class="spacer"></div>
+      <%= render 'map' %>
+    <% end %>
   </div>
   <div class="tab-pane" id="process-log">
     <%= render 'process_log' -%>
@@ -49,3 +49,5 @@
     <%= render 'edit' %>
   </div>
 </div>
+<div class="spacer"></div>
+<%= current_page_api_example :bgeigie_import_url %>

@@ -219,6 +219,7 @@ ja:
   public: 公開されている測定値
   radiation_type: 放射線の種類
   review_your_bgeigie_log_file_submissions: あなたが提出したbGeigieログファイルを確認する
+  upload_a_bgeigie_log_file: bGeigieのログファイルをアップロードする
   sign_in: ログイン
   sign_up: アカウント登録
   support:

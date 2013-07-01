@@ -11,6 +11,11 @@ class ApplicationController < ActionController::Base
     skip_after_filter :intercom_rails_auto_include
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
+  
+
   def index
     cors_set_access_control_headers
     result = { }
@@ -47,7 +52,10 @@ protected
   end
  
   def require_moderator
-    redirect_to root_path unless user_signed_in? and current_user.moderator?
+    unless user_signed_in? and current_user.moderator?
+      set_flash_message(:alert, 'access_denied')
+      redirect_to root_path 
+    end
   end
 
   def set_locale

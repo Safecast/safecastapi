@@ -12,6 +12,7 @@
 //= require underscore
 //= require bootstrap
 //= require bootstrap-datetimepicker.min
+//= require bootstrap-rowlink.min
 //= require_tree ./application
 //- require_self
 

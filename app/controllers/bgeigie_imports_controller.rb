@@ -2,7 +2,7 @@ class BgeigieImportsController < ApplicationController
 
   respond_to :html, :json
 
-  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update]
+  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy]
   before_filter :require_moderator, :only => :approve
 
   has_scope :by_status
@@ -12,6 +12,15 @@ class BgeigieImportsController < ApplicationController
   has_scope :uploaded_before
   has_scope :q do |controller, scope, value|
     scope.filter(value)
+  end
+  has_scope :approved do |controller, scope, value|
+    if value == 'yes'
+      scope.where(:approved => true)
+    elsif value == 'no'
+      scope.where(:approved => false)
+    else
+      scope
+    end
   end
 
 

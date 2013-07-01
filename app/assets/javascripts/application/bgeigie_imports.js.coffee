@@ -12,7 +12,7 @@ jQuery ->
           $('#head').html(data)
     , 5000
 
-  $(document).on 'click', 'a[data-behavior=load-map]', ->
+  window.loadMap = ->
     return if $.trim($('#map_canvas').html()) != ''
     $('#map-loading').show()
     percent = 20
@@ -34,3 +34,5 @@ jQuery ->
         setTimeout ->
           $('#map-loading').hide()
         , 500
+
+  $(loadMap)

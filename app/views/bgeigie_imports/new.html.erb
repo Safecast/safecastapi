@@ -6,7 +6,7 @@
     <h2><%= t('.upload_a_bgeigie_log_file') -%></h2>
     <%- if @bgeigie_import.errors[:md5sum].any? -%>
       <div class="alert alert-warning">
-        <%= t('.import_exists') %>
+        <%= t('.import_exists', file_name: File.basename(@bgeigie_import.source.url)) %>
         <%= link_to t('.link_to_existing_import_html'),
                     BgeigieImport.find_by_md5sum(@bgeigie_import.md5sum),
                     :class => 'pull-right' %>

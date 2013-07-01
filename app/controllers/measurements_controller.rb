@@ -1,6 +1,6 @@
 class MeasurementsController < ApplicationController
 
-  before_filter :authenticate_user!, :only => [:new, :create, :update]
+  before_filter :authenticate_user!, :only => [:new, :create, :update, :destroy]
 
   has_scope :captured_after
   has_scope :unit do |controller, scope, value|
@@ -37,10 +37,10 @@ class MeasurementsController < ApplicationController
     @measurements = apply_scopes(Measurement).paginate(
       :page => params[:page],
       :per_page => params[:per_page]
-    )
+    ).includes(:measurement_import, :user)
 
     if request.format == :csv
-      @measurements = @measurements.paginate(:page => 1, :per_page => @measurement.total_entries)
+      @measurements = @measurements.paginate(:page => 1, :per_page => @measurements.total_entries)
     end
 
     respond_with @measurements
@@ -86,6 +86,13 @@ class MeasurementsController < ApplicationController
     respond_with(@new_measurement) do |format|
       format.json { render :json => @new_measurement.to_json, :status => :accepted }
     end
+  end
+
+  def destroy
+    @measurement = Measurement.find(params[:id])
+    authorize! :delete, @measurement
+    @measurement.destroy
+    respond_with @measurement
   end
 
   def count

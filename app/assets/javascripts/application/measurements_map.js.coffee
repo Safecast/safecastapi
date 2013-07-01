@@ -20,7 +20,7 @@ $ ->
           maps.event.addListener marker, 'mouseover', ->
             lat = roundToDecimalPlaces(measurement.lat, 4)
             lng = roundToDecimalPlaces(measurement.lng, 4)
-            usv = roundToDecimalPlaces(measurement.lng, 2)
+            usv = roundToDecimalPlaces(measurement.usv, 2)
             $(".lat").text(lat)
             $(".lng").text(lng)
             $(".cpm").text(measurement.cpm) if measurement.cpm

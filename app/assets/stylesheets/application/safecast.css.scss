@@ -367,7 +367,7 @@ section.dashboard {
     float: left;
     text-align: center;
     width: 150px;
-    height: 150px;
+    //height: 150px;
   }
   ul li em {
     text-align: center;
@@ -482,4 +482,21 @@ ul.measurement-listed {
 
 i.muted {
   opacity: 0.5;
+}
+
+.faded {
+  color: #777;
+}
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+  background-color: #ecf0f5 !important;
+  cursor: hand;
+  cursor: pointer;
+}
+
+.spacer {
+  height: 30px;
+}
+.notapproved {
+  color: #f9a732;
 }

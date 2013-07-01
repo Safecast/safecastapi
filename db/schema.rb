@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130118064024) do
+ActiveRecord::Schema.define(:version => 20130606042505) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -39,9 +39,9 @@ ActiveRecord::Schema.define(:version => 20130118064024) do
     t.integer  "counts_per_five_seconds"
     t.integer  "total_counts"
     t.string   "cpm_validity"
-    t.float    "latitude_nmea"
+    t.decimal  "latitude_nmea"
     t.string   "north_south_indicator"
-    t.float    "longitude_nmea"
+    t.decimal  "longitude_nmea"
     t.string   "east_west_indicator"
     t.float    "altitude"
     t.string   "gps_fix_indicator"
@@ -182,12 +182,15 @@ ActiveRecord::Schema.define(:version => 20130118064024) do
     t.string   "radiation"
   end
 
+  add_index "measurements", ["captured_at"], :name => "index_measurements_on_captured_at"
   add_index "measurements", ["device_id"], :name => "index_measurements_on_device_id"
   add_index "measurements", ["location"], :name => "index_measurements_on_location", :spatial => true
   add_index "measurements", ["md5sum"], :name => "index_measurements_on_md5sum", :unique => true
   add_index "measurements", ["measurement_import_id"], :name => "index_measurements_on_measurement_import_id"
   add_index "measurements", ["original_id"], :name => "index_measurements_on_original_id"
+  add_index "measurements", ["unit"], :name => "index_measurements_on_unit"
   add_index "measurements", ["user_id"], :name => "index_measurements_on_user_id"
+  add_index "measurements", ["value", "unit"], :name => "index_measurements_on_value_and_unit"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "",    :null => false
@@ -208,8 +211,12 @@ ActiveRecord::Schema.define(:version => 20130118064024) do
     t.boolean  "moderator",                             :default => false
     t.integer  "measurements_count"
     t.string   "default_locale"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
   end
 
+  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 

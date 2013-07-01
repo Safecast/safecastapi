@@ -11,7 +11,7 @@ feature "/bgeigie_imports API endpoint" do
     @result ||= api_post('/bgeigie_imports',{
       :api_key        => @user.authentication_token,
       :bgeigie_import => {
-        :source => fixture_file_upload('spec/fixtures/bgeigie.log')
+        :source => fixture_file_upload('/bgeigie.log')
       }
     }, {'HTTP_ACCEPT' => 'application/json'})
   end
