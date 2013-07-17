@@ -148,6 +148,8 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pry-rails (0.2.2)
+      pry (>= 0.9.10)
     pygments.rb (0.5.0)
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
@@ -289,6 +291,7 @@ DEPENDENCIES
   mustache
   pg
   pry
+  pry-rails
   pygments.rb
   quiet_assets
   rails (= 3.2.12)
