@@ -11,3 +11,4 @@ en-US:
         source: File Name
         measurements_count: "# of Measurements"
         user_id: User
+        by_user_id: user_id
