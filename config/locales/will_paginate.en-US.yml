@@ -1,3 +1,4 @@
+# Not in use. We are using kaminari.
 en-US:
   will_paginate:
     previous_label: "&#8592; Previous"

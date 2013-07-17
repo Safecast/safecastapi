@@ -70,6 +70,7 @@ en-US:
       approve: Approve
       download_original_file: Download Original File
       bgeigie_import: Bgeigie Import
+      reload_to_see_map: If you don't see the map, please manually reload the page.
     current_status:
       edit_metadata: Edit Metadata
       file_is_processed_add_metadata: "File Processed: Please Add Metadata."
