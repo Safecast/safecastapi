@@ -6,7 +6,7 @@ describe BgeigieImport do
   
   let!(:bgeigie_import) do
     Fabricate(:bgeigie_import,
-              :source => File.new(Rails.root + 'spec/fixtures/bgeigie.log'),
+              :source => File.new(Rails.root.join('spec/fixtures/bgeigie.log')),
               :user_id => user.id
              )
   end
@@ -55,7 +55,7 @@ describe BgeigieImport do
       measurement = Measurement.find_by_md5sum('c435ff4da6a7a16e92282bd10381b6d7')
 
       measurement.location.x.should == -73.92277166666666
-      measurement.location.y.should == 41.69807833333333
+      measurement.location.y.should == 41.698078333333335
     end
 
 
@@ -69,8 +69,8 @@ describe BgeigieImport do
 
       measurement = Measurement.find_by_md5sum('97badba59dda4a56958fc40b16277db4')
 
-      measurement.location.x.should == -73.92259666666668
-      measurement.location.y.should == 41.69836166666667
+      measurement.location.x.should == -73.92259666666666
+      measurement.location.y.should == 41.69836166666666
     end
 
     it "should handle files with corrupt or incomplete lines" do

@@ -6,7 +6,7 @@
     <%- end -%>
 
     <ul class="inline nav-stacked pull-right">
-      <%- if @bgeigie_import.awaiting_approval? && current_user.moderator? -%>
+      <%- if @bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? -%>
         <li>
           <%= form_for [:approve, @bgeigie_import] do |f| %>
             <%= f.submit t('.approve'), :class => 'btn btn-primary' %>
@@ -21,12 +21,15 @@
     </ul>
 
     <h2>
-      <%= t '.bgeigie_import' -%> #<%= @bgeigie_import.id -%>
+      <%= t '.bgeigie_import' -%> #<%= @bgeigie_import.source.filename -%>
 
       <small>
         <%= render 'bgeigie_imports/status' -%>
       </small>
     </h2>
+    <% if @bgeigie_import.processed? %>
+      <em><%= t('.reload_to_see_map') -%></em>
+    <% end %>
   </div>
 </div>
 

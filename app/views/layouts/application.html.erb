@@ -2,6 +2,7 @@
 
 <html>
   <head>
+    <link rel="shortcut icon" href="/favicon.ico" />
     <title>
       <%- if content_for?(:title) -%>
         <%= content_for(:title) %> \\
@@ -34,7 +35,7 @@
                 </li>
               <%- end -%>
               <li <%= raw('class="active"') if controller_name == 'home' %>>
-                <%= link_to t('.home'), :home %>
+                <%= link_to t('.safecast API'), :home %>
               </li>
               <li <%= raw('class="active"') if controller_name == 'users' %>>
                 <%= link_to t('.users'), :users %>
@@ -43,7 +44,7 @@
                 <%= link_to t('.measurements'), :measurements %>
               </li>
               <li <%= raw('class="active"') if controller_name == 'bgeigie_imports' %>>
-                <%= link_to t('.bgeigie_imports'), :bgeigie_imports %>
+                <%= link_to t('.bgeigie_imports'), bgeigie_imports_path(order: 'created_at asc') %>
               </li>
               <li <%= raw('class="active"') if controller_name == 'devices' %>>
                 <%= link_to t('.devices'), :devices %>
@@ -53,6 +54,8 @@
         </div>
 
         <div class="span9">
+          <%= render 'shared/flash', flash: flash %>
+        
           <%= yield %>
         </div>
       </div>

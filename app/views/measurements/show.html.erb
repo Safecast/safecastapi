@@ -1,4 +1,3 @@
-<%= current_page_api_example :measurement_url %>
 <%= content_for(:title) do %>
   <%= @measurement.value %><%= @measurement.unit %>
   <%= @measurement.captured_at_formatted %>
@@ -29,11 +28,49 @@
 
   <dt><%= t('activerecord.attributes.measurement.latitude') %></dt>
   <dd title="<%= @measurement.latitude %>">
-    <%= number_with_precision @measurement.latitude, :precision => 4 %>º
+    <%= number_with_precision @measurement.latitude, :precision => 4 %>
   </dd>
 
   <dt><%= t('activerecord.attributes.measurement.longitude') %></dt>
   <dd title="<%= @measurement.longitude %>">
-    <%= number_with_precision @measurement.longitude, :precision => 4 %>º
+    <%= number_with_precision @measurement.longitude, :precision => 4 %>
   </dd>
+
+  <%- if @measurement.measurement_import.present? -%>
+    <dt><%= t('.measurement.measurement_import') %></dt>
+    <dd title="<%= @measurement.measurement_import %>">
+      <%= link_to @measurement.measurement_import.name, @measurement.measurement_import, alt:@measurement.measurement_import.name %>
+    </dd>
+  <%- end -%>
+
 </dl>
+
+<% if can? :delete, @measurement %>
+<div class="row">
+  <div class="span9">
+    <%= link_to t('.delete_this_measurement'), '#delete-measurement', :data => {
+      :toggle => 'modal'
+    }, :class => 'pull-right muted' %>
+  </div>
+</div>
+
+<div id="delete-measurement" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3><%= t('.confirm_delete') %></h3>
+  </div>
+  <div class="modal-body">
+    <p><%= t('.about_to_delete') %></p>
+  </div>
+  <div class="modal-footer">
+    <%= form_for @measurement, :method => :delete do |f| %>
+      <%= link_to t('cancel'), '#delete-measurement', :data => { :toggle => 'modal' } %>
+      <%= f.submit t('.confirm_delete'), :class => 'btn btn-danger' %>
+    <%- end -%>
+  </div>
+</div>
+<% end %>
+
+<div class="spacer"></div>
+
+<%= current_page_api_example :measurement_url %>

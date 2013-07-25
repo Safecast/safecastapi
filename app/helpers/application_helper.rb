@@ -102,4 +102,12 @@ module ApplicationHelper
       :direction => direction
     }
   end
+
+  def flash_class(level)
+    case level
+    when :notice then "alert-success"
+    when :error, :alert then "alert-error"
+    end
+  end
+  
 end

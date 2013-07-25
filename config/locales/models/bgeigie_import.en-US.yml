@@ -2,6 +2,7 @@ en-US:
   activerecord:
     attributes:
       bgeigie_import:
+        approved: Approved
         q: q
         q_tooltip: Search
         uploaded_after: Uploaded After
@@ -10,3 +11,4 @@ en-US:
         source: File Name
         measurements_count: "# of Measurements"
         user_id: User
+        by_user_id: user_id

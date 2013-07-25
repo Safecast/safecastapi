@@ -1,6 +1,6 @@
 class Device < ActiveRecord::Base
   has_many :measurements
-  has_and_belongs_to_many :maps
+  # has_and_belongs_to_many :maps
   
   validates :manufacturer, :presence => true
   validates :model, :presence => true, :uniqueness => { :scope => :manufacturer }

@@ -1,7 +1,11 @@
 source 'http://rubygems.org'
 
-gem 'devise',                   '~> 2.0.0'
+gem 'devise'
+gem 'devise-i18n'
+gem 'cancan'
+
 gem 'rails',                    '3.2.12'
+gem 'unicorn'
 gem 'pg'
 gem 'json'
 gem 'haml'
@@ -21,7 +25,12 @@ gem 'jbuilder'
 gem 'mustache'
 gem 'activerecord-postgis-adapter'
 gem 'simple_form',              '~> 2.0.4'
-gem 'will_paginate',            '~> 3.0.3'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
+# gem 'will_paginate',            '~> 3.0.3'
+
+gem 'rails_admin'
+
 
 #for docs
 gem 'pygments.rb'
@@ -37,9 +46,9 @@ gem 'jquery-rails'
 gem 'thin'
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '~> 2.1.0'
   gem 'database_cleaner'
-  gem 'fabrication'
+  gem 'fabrication', '2.2.2'
   gem 'launchy'
   gem 'pry'
   gem 'rspec-rails',            '~> 2.12.2'
@@ -47,6 +56,6 @@ group :test do
 end
 
 group :development do
-  gem 'pry'
+  gem 'pry-rails'
   gem 'quiet_assets'
 end

@@ -18,7 +18,7 @@ class Measurement < ActiveRecord::Base
   
   has_and_belongs_to_many :maps  
 
-  format_dates :captured_at, :format => "%Y/%m/%d %I:%M:%S"
+  format_dates :captured_at, :format => "%Y/%m/%d %H:%M:%S %z"
 
   def self.per_page
     100

@@ -1,4 +1,3 @@
-<%= current_page_api_example :users_url %>
 <%= content_for(:title) { t('.users') } %>
 
 <h2><%= t(".users") -%></h2>
@@ -15,7 +14,7 @@
   <p><%= t('none_found') %></p>
 <%- else -%>
 
-  <table class="table table-striped">
+  <table class="table table-striped table-hover" data-provides="rowlink">
     <thead>
       <%= table_sort_header(:user, :id) %>
       <%= table_sort_header(:user, :name) %>
@@ -39,5 +38,7 @@
       <%- end -%>
     </tbody>
   </table>
-  <%= will_paginate @users %>
+  <%= paginate @users, theme: 'twitter-bootstrap' %>
 <%- end -%>
+<div class="spacer"></div>
+<%= current_page_api_example :users_url %>

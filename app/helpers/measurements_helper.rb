@@ -20,7 +20,7 @@ module MeasurementsHelper
     end
     content_tag(:li, :class => ('active' if active)) do
       link_to t("#{unit}"),
-              measurements_url(params.merge(:unit => unit))
+              measurements_url(params.merge(:unit => ((unit == :all) ? nil : unit)))
     end
   end
 end
