@@ -1,6 +1,6 @@
 #!/bin/sh
 
-psql -U deploy -h ec2-54-245-59-207.us-west-2.compute.amazonaws.com teamdata -c "\copy (CREATE TEMPORARY UNLOGGED TABLE IF NOT EXISTS Temp1(Lat FLOAT, Lon FLOAT, captured_at DATETIME, DRE FLOAT, X1 DOUBLE, Y1 DOUBLE); TRUNCATE TABLE Temp1; INSERT INTO Temp1(Lat, Lon, measurement_date, DRE, X1, Y1) SELECT ST_Y(location::geometry) AS Lat,ST_X(location::geometry) AS Lon,captured_at,CASE WHEN unit='cpm' AND (device_id IS NULL OR device_id IN (5,15,16,17,18,22)) THEN value/350.0 WHEN unit='microsievert' THEN value WHEN unit='cpm' AND device_id IN (6,7,11,13,23) THEN value/100.0 WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24) THEN value/132.0 WHEN unit='cpm' AND device_id IN (21) THEN value/1750.0 ELSE 0.0 END AS dre,NULL,NULL FROM measurements WHERE captured_at > '2011-03-01 00:00:00' AND captured_at  < localtimestamp + interval '48 hours' AND ST_X(location::geometry) IS NOT NULL AND ST_Y(location::geometry) IS NOT NULL AND value IS NOT NULL AND (device_id IS NULL OR device_id <= 24 OR unit='microsievert') AND (CAST(ST_X(location::geometry) AS FLOAT) != 0.0 OR CAST(ST_Y(location::geometry) AS FLOAT) != 0.0) AND ((unit='cpm' AND value > 10.00 AND value < 30000.0) OR (unit='microsievert' AND value > 0.02 AND value < 75.0)) AND CAST(ST_Y(location::geometry) AS FLOAT) < 85.05 AND CAST(ST_Y(location::geometry) AS FLOAT) > -85.05 AND CAST(ST_X(location::geometry) AS FLOAT) >= -180.00 AND CAST(ST_X(location::geometry) AS FLOAT) <=  180.00; UPDATE Temp1 SET X1 = ((Lon + 180.0) / 360.0) * (POWER(2.0,13.0)*256.0) + 0.5; UPDATE Temp1 SET Y1 = (0.5 - LN((1.0 + SIN(Lat * pi() / 180.0)) / (1.0 - SIN(Lat * pi() / 180.0))) / (4.0 * pi())) * (POWER(2.0,13.0)*256.0) + 0.5; UPDATE Temp1 SET X1 = CASE WHEN X1 < 0.0 THEN 0.0 WHEN X1 > (POWER(2.0,13.0)*256.0) - 1 THEN (POWER(2.0,13.0)*256.0) - 1.0 ELSE X1 END; UPDATE Temp1 SET Y1 = CASE WHEN Y1 < 0.0 THEN 0.0 WHEN Y1 > (POWER(2.0,13.0)*256.0) - 1 THEN (POWER(2.0,13.0)*256.0) - 1.0 ELSE Y1 END; UPDATE Temp1 SET DRE = CASE WHEN DRE * 1000.0 > 65535.0 THEN 65535.0 ELSE DRE * 1000.0 END; CREATE INDEX IF NOT EXISTS idx_Temp1_X1Y1 ON Temp1(X1,Y1); CREATE TEMPORARY UNLOGGED TABLE IF NOT EXISTS Temp2(X INT, Y INT, Z INT, T DATETIME); TRUNCATE TABLE Temp2; INSERT INTO Temp2(X,Y,Z,T) SELECT DISTINCT CAST(X1 AS INT),CAST(Y1 AS INT),NULL,NULL FROM Temp1; UPDATE Temp2 SET T = (SELECT MAX(captured_at) FROM Temp1 WHERE X1=X AND Y1=Y); UPDATE Temp2 SET Z = (SELECT CAST(AVERAGE(DRE) AS INT) FROM Temp1 WHERE X1=X AND Y1=Y AND captured_at > T - interval '270 days'); DROP TABLE Temp1; CREATE INDEX IF NOT EXISTS idx_Temp2_XY ON Temp2(X,Y); SELECT X,Y,Z FROM Temp2 ORDER BY Y/256 * POWER(2.0,13.0) + X/256; DROP TABLE Temp2;) to '/mnt/tmp/ios13.csv' csv;"
+psql -U deploy -h ec2-54-245-59-207.us-west-2.compute.amazonaws.com teamdata -c "\copy (CREATE TEMPORARY UNLOGGED TABLE IF NOT EXISTS Temp1(Lat FLOAT, Lon FLOAT, captured_at DATETIME, DRE FLOAT, X1 DOUBLE, Y1 DOUBLE); TRUNCATE TABLE Temp1; INSERT INTO Temp1(Lat, Lon, measurement_date, DRE, X1, Y1) SELECT ST_Y(location::geometry) AS Lat,ST_X(location::geometry) AS Lon,captured_at,CASE WHEN unit='cpm' AND (device_id IS NULL OR device_id IN (5,15,16,17,18,22)) THEN value/350.0 WHEN unit='microsievert' THEN value WHEN unit='cpm' AND device_id IN (6,7,11,13,23) THEN value/100.0 WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24) THEN value/132.0 WHEN unit='cpm' AND device_id IN (21) THEN value/1750.0 ELSE 0.0 END AS dre,NULL,NULL FROM measurements WHERE captured_at > '2011-03-01 00:00:00' AND captured_at  < localtimestamp + interval '48 hours' AND ST_X(location::geometry) IS NOT NULL AND ST_Y(location::geometry) IS NOT NULL AND value IS NOT NULL AND (device_id IS NULL OR device_id <= 24 OR unit='microsievert') AND (CAST(ST_X(location::geometry) AS FLOAT) != 0.0 OR CAST(ST_Y(location::geometry) AS FLOAT) != 0.0) AND ((unit='cpm' AND value > 10.00 AND value < 30000.0) OR (unit='microsievert' AND value > 0.02 AND value < 75.0)) AND CAST(ST_Y(location::geometry) AS FLOAT) < 85.05 AND CAST(ST_Y(location::geometry) AS FLOAT) > -85.05 AND CAST(ST_X(location::geometry) AS FLOAT) >= -180.00 AND CAST(ST_X(location::geometry) AS FLOAT) <=  180.00; UPDATE Temp1 SET X1 = ((Lon + 180.0) / 360.0) * (POWER(2.0,13.0)*256.0) + 0.5; UPDATE Temp1 SET Y1 = (0.5 - LN((1.0 + SIN(Lat * pi() / 180.0)) / (1.0 - SIN(Lat * pi() / 180.0))) / (4.0 * pi())) * (POWER(2.0,13.0)*256.0) + 0.5; UPDATE Temp1 SET X1 = CASE WHEN X1 < 0.0 THEN 0.0 WHEN X1 > (POWER(2.0,13.0)*256.0) - 1.0 THEN (POWER(2.0,13.0)*256.0) - 1.0 ELSE FLOOR(X1) END; UPDATE Temp1 SET Y1 = CASE WHEN Y1 < 0.0 THEN 0.0 WHEN Y1 > (POWER(2.0,13.0)*256.0) - 1.0 THEN (POWER(2.0,13.0)*256.0) - 1.0 ELSE FLOOR(Y1) END; UPDATE Temp1 SET DRE = CASE WHEN DRE * 1000.0 > 65535.0 THEN 65535.0 ELSE DRE * 1000.0 END; CREATE INDEX IF NOT EXISTS idx_Temp1_X1Y1CD ON Temp1(X1,Y1,captured_at); CREATE TEMPORARY UNLOGGED TABLE IF NOT EXISTS Temp2(X INT, Y INT, Z INT, T DATETIME); TRUNCATE TABLE Temp2; INSERT INTO Temp2(X,Y,Z,T) SELECT DISTINCT CAST(X1 AS INT),CAST(Y1 AS INT),NULL,NULL FROM Temp1; UPDATE Temp2 SET T = (SELECT MAX(captured_at) FROM Temp1 WHERE X1=X AND Y1=Y); UPDATE Temp2 SET Z = (SELECT CAST(AVERAGE(DRE) AS INT) FROM Temp1 WHERE X1=X AND Y1=Y AND captured_at > T - interval '270 days'); DROP TABLE Temp1; CREATE INDEX IF NOT EXISTS idx_Temp2_XY ON Temp2(X,Y); SELECT X,Y,Z FROM Temp2 ORDER BY Y/256 * POWER(2.0,13.0) + X/256; DROP TABLE Temp2;) to '/mnt/tmp/ios13.csv' csv;"
 
 echo "x,y,z" | cat - /mnt/tmp/ios13.csv > /data/teamdata/shared/ios13-out.csv
 cd /data/teamdata/shared/system && tar -czf ios13-out.tar.gz ios13-out.csv
@@ -11,6 +11,12 @@ mv ios13-out.tar.gz ios13.tar.gz && mv ios13-out.csv ios13.csv
 #                   ... or https://api.safecast.org/system/ios13.csv
 #
 
+
+# 2013-08-23 ND: + Added FLOOR to reprojection clip UPDATE statement to compare doubles with ints
+#                  (reprojection should really be moved into scalar-derived function)
+#                + Added captured_at to Temp1 composite index.
+#                  (should improve binning speed, slightly less efficient SELECT DISTINCT tho)
+#
 # -- SUMMARY: modified export SELECT statement and data binning for iOS app
 # --
 # -- MAIN PRINCIPLES:
@@ -27,6 +33,10 @@ mv ios13-out.tar.gz ios13.tar.gz && mv ios13-out.csv ios13.csv
 # --         max id increased to be translated correctly
 # --      5. if updating, keep the readable version of the SQL below in sync with the one-liner executed at the top!
 # --      6. this uses temporary tables and multiple commands on one line of psql
+# --
+# -- REFERENCES:
+# --      1. Reprojection to pixel x/y:  Bing Maps Tile System (MSDN Documentation)
+# --         http://msdn.microsoft.com/en-us/library/bb259689.aspx
 # --
 # -- SQL STATEMENT:
 # -- ==============
@@ -67,12 +77,12 @@ mv ios13-out.tar.gz ios13.tar.gz && mv ios13-out.csv ios13.csv
 #UPDATE Temp1 SET X1 = ((Lon + 180.0) / 360.0) * (POWER(2.0,13.0)*256.0) + 0.5;
 #UPDATE Temp1 SET Y1 = (0.5 - LN((1.0 + SIN(Lat * pi() / 180.0)) / (1.0 - SIN(Lat * pi() / 180.0))) / (4.0 * pi())) * (POWER(2.0,13.0)*256.0) + 0.5;
 #
-#UPDATE Temp1 SET X1 = CASE WHEN X1 < 0.0 THEN 0.0 WHEN X1 > (POWER(2.0,13.0)*256.0) - 1 THEN (POWER(2.0,13.0)*256.0) - 1.0 ELSE X1 END;
-#UPDATE Temp1 SET Y1 = CASE WHEN Y1 < 0.0 THEN 0.0 WHEN Y1 > (POWER(2.0,13.0)*256.0) - 1 THEN (POWER(2.0,13.0)*256.0) - 1.0 ELSE Y1 END;
+#UPDATE Temp1 SET X1 = CASE WHEN X1 < 0.0 THEN 0.0 WHEN X1 > (POWER(2.0,13.0)*256.0) - 1.0 THEN (POWER(2.0,13.0)*256.0) - 1.0 ELSE FLOOR(X1) END;
+#UPDATE Temp1 SET Y1 = CASE WHEN Y1 < 0.0 THEN 0.0 WHEN Y1 > (POWER(2.0,13.0)*256.0) - 1.0 THEN (POWER(2.0,13.0)*256.0) - 1.0 ELSE FLOOR(Y1) END;
 #
 #UPDATE Temp1 SET DRE = CASE WHEN DRE * 1000.0 > 65535.0 THEN 65535.0 ELSE DRE * 1000.0 END;
 #
-#CREATE INDEX IF NOT EXISTS idx_Temp1_X1Y1 ON Temp1(X1,Y1);
+#CREATE INDEX IF NOT EXISTS idx_Temp1_X1Y1CD ON Temp1(X1,Y1,captured_at);
 #
 #CREATE TEMPORARY UNLOGGED TABLE IF NOT EXISTS Temp2(X INT, Y INT, Z INT, T DATETIME);
 #TRUNCATE TABLE Temp2;
