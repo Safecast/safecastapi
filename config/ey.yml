@@ -30,3 +30,6 @@ environments:
     migration_command: rake db:migrate
   safecastapi_production:
     migrate: false
+  production: {}
+defaults:
+  migrate: false
