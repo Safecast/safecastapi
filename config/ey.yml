@@ -33,3 +33,4 @@ environments:
   production: {}
 defaults:
   migrate: false
+  precompile_assets: true
