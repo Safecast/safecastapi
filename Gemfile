@@ -25,7 +25,12 @@ gem 'jbuilder'
 gem 'mustache'
 gem 'activerecord-postgis-adapter'
 gem 'simple_form',              '~> 2.0.4'
-gem 'will_paginate',            '~> 3.0.3'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
+# gem 'will_paginate',            '~> 3.0.3'
+
+gem 'rails_admin'
+
 
 #for docs
 gem 'pygments.rb'
@@ -51,6 +56,6 @@ group :test do
 end
 
 group :development do
-  gem 'pry'
+  gem 'pry-rails'
   gem 'quiet_assets'
 end

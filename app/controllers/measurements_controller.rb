@@ -34,13 +34,10 @@ class MeasurementsController < ApplicationController
     @filename = "measurements.csv"
     @streaming = true
 
-    @measurements = apply_scopes(Measurement).paginate(
-      :page => params[:page],
-      :per_page => params[:per_page]
-    ).includes(:measurement_import, :user)
+    @measurements = apply_scopes(Measurement).page(params[:page]).per(params[:per_page]).includes(:measurement_import, :user)
 
     if request.format == :csv
-      @measurements = @measurements.paginate(:page => 1, :per_page => @measurements.total_entries)
+      @measurements = @measurements.page(1).per(@measurements.count)
     end
 
     respond_with @measurements

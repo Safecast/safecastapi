@@ -27,6 +27,9 @@
         <%= render 'bgeigie_imports/status' -%>
       </small>
     </h2>
+    <% if @bgeigie_import.processed? %>
+      <em><%= t('.reload_to_see_map') -%></em>
+    <% end %>
   </div>
 </div>
 

@@ -28,6 +28,8 @@ class Ability
     
     if user.moderator
       can :manage, :all
+      can :access, :rails_admin   # grant access to rails_admin
+      can :dashboard
     else
       can :read, :all
       can :manage, :all, user_id: user.id

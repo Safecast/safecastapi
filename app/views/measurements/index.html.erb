@@ -78,7 +78,7 @@
       <%- end -%>
     </tbody>
   </table>
-  <%= will_paginate @measurements -%>
+  <%= paginate @measurements, theme: 'twitter-bootstrap' -%>
 <%- end -%>
 
 <div id="filter-modal" class="modal hide fade" tabindex="-1">

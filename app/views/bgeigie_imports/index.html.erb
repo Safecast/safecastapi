@@ -41,6 +41,7 @@
 <%= filter_modal :bgeigie_imports do %>
   <%= filter_field :bgeigie_import, :q %>
   <%= filter_field :bgeigie_import, :approved %>
+  <%= filter_field :bgeigie_import, :by_user_id %>
   <%= datetime_picker :bgeigie_import, :uploaded_after %>
   <%= datetime_picker :bgeigie_import, :uploaded_before %>
   <%= hidden_field_tag 'by_status', params[:by_status] %>
@@ -103,7 +104,7 @@
     </tbody>
   </table>
 
-  <%= will_paginate @bgeigie_imports -%>
+  <%= paginate @bgeigie_imports, theme: 'twitter-bootstrap' -%>
 <%- end -%>
 <div class="spacer"></div>
 <%= current_page_api_example :bgeigie_imports_url %>

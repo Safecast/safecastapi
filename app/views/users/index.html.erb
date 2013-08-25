@@ -38,7 +38,7 @@
       <%- end -%>
     </tbody>
   </table>
-  <%= will_paginate @users %>
+  <%= paginate @users, theme: 'twitter-bootstrap' %>
 <%- end -%>
 <div class="spacer"></div>
 <%= current_page_api_example :users_url %>

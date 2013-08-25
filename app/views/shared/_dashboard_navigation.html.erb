@@ -3,6 +3,11 @@
   <nav class="navbar">
     <ul>
       <%- if user_signed_in? -%>
+
+        <% if current_user.moderator -%>
+          <li><%= link_to 'Admin', rails_admin_path, target: '_blank' -%></li>
+        <% end %>
+
         <li <%= raw('class="active"') if controller_name == 'measurements' && action_name == 'new' %>>
           <%= link_to [:new, :measurement], :title => t('submit_a_reading') do %>
             <%= t('submit') %>
