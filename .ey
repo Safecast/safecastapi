@@ -1,7 +1,7 @@
 # Place this file in the root of your project directory
 
 # eg. APPNAME=tito
-APPNAME=teamdata
+APPNAME=safecastapi
 
 # eg. APP_SERVERS=(deploy@app1.tito.io deploy@app2.tito.io)
 APP_SERVERS=(deploy@api.safecast.org)

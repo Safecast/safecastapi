@@ -23,14 +23,12 @@
 #
 ---
 environments:
-  teamdata_production:
-    migrate: false
-  teamdata_staging:
-    migrate: false
-    migration_command: rake db:migrate
   safecastapi_production:
     migrate: false
-  production: {}
+    precompile_assets: true
+  production:
+    migrate: false
+    precompile_assets: true
 defaults:
   migrate: false
   precompile_assets: true
