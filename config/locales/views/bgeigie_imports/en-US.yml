@@ -42,7 +42,7 @@ en-US:
       date_uploaded: Date Uploaded
     new:
       upload_a_bgeigie_log_file: Upload a bGeigie log file
-      import_exists: File '%{file_name}' already exists
+      import_exists: "File '%{file_name}' already exists"
       link_to_existing_import_html: View it &rarr;
     show:
       this_file_is_queued_for_processing: This file is queued for processing.
@@ -70,7 +70,7 @@ en-US:
       approve: Approve
       download_original_file: Download Original File
       bgeigie_import: Bgeigie Import
-      reload_to_see_map: If you don't see the map, please manually reload the page.
+      reload_to_see_map: "If you don't see the map, please manually reload the page."
     current_status:
       edit_metadata: Edit Metadata
       file_is_processed_add_metadata: "File Processed: Please Add Metadata."
