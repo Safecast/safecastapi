@@ -11,13 +11,19 @@ echo -e "PRAGMA journal_mode=OFF;PRAGMA page_size=16384;CREATE TABLE ImpTemp(X V
 rm -f /data/safecastapi/shared/system/ios13.sqlite
 mv /mnt/tmp/ios13.sqlite /data/safecastapi/shared/system/ios13.sqlite
 
+rm -f /mnt/tmp/ios13.csv
 
-# but... keep making CSV for testing for a little while longer
-# note to self: rm the CSV after import into sqlite when this is gone
+# Note: Should eventually use gzip to compress sqlite database once I can find way to decompress in iOS that is
+#       not memory-bound.
+
+
+
+
+# Uncomment below to enable CSV export.  Also, comment out the CSV's rm above.
 
 # restore old directory
-cd /data/safecastapi/current/script
+#cd /data/safecastapi/current/script
 
-echo "x,y,z" | cat - /mnt/tmp/ios13.csv > /data/safecastapi/shared/system/ios13-out.csv
-cd /data/safecastapi/shared/system && tar -czf ios13-out.tar.gz ios13-out.csv
-mv ios13-out.tar.gz ios13.tar.gz && mv ios13-out.csv ios13.csv
+#echo "x,y,z" | cat - /mnt/tmp/ios13.csv > /data/safecastapi/shared/system/ios13-out.csv
+#cd /data/safecastapi/shared/system && tar -czf ios13-out.tar.gz ios13-out.csv
+#mv ios13-out.tar.gz ios13.tar.gz && mv ios13-out.csv ios13.csv
