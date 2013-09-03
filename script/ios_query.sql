@@ -4,6 +4,8 @@ BEGIN TRANSACTION;
 CREATE TEMPORARY TABLE IF NOT EXISTS Temp1(X1 INT, Y1 INT, captured_at INT2, DRE FLOAT4);
 TRUNCATE TABLE Temp1;
 
+-- NOTE TO SELF: need to find way to set file mode to 100755 (?)  Doesn't seem possible thru web GUI.
+
 -- first insert is for NON Japan Post (ie, normal) data
 -- also filters the user QuartaRad (345) who repeatedly submits bad data
 INSERT INTO Temp1(X1, Y1, captured_at, DRE)
