@@ -67,7 +67,7 @@ WHERE user_id = 347
     AND (device_id IS NULL OR device_id <= 24 OR unit IN ('microsievert','usv'))
     AND (  CAST(ST_X(location::geometry) AS FLOAT) != 0.0
         OR CAST(ST_Y(location::geometry) AS FLOAT) != 0.0)
-    AND (  (unit='cpm' AND value > 17.0 AND value < 30000.0)
+    AND (  (unit='cpm' AND value > 19.0 AND value < 30000.0)
         OR (unit IN ('microsievert','usv') AND value > 0.02 AND value < 75.0))
     AND CAST(ST_Y(location::geometry) AS FLOAT) < 85.05
     AND CAST(ST_Y(location::geometry) AS FLOAT) > -85.05
