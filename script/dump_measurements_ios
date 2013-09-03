@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# remove old CSV from temp directory
+rm -f /mnt/tmp/ios13.csv
+
 # invoke script to project, filter, and bin data @ 19m resolution
 psql -U deploy -h localhost safecastapi -f ios_query.sql
 
