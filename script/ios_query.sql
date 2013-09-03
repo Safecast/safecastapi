@@ -5,6 +5,7 @@ CREATE TEMPORARY TABLE IF NOT EXISTS Temp1(X1 INT, Y1 INT, captured_at INT2, DRE
 TRUNCATE TABLE Temp1;
 
 -- first insert is for NON Japan Post (ie, normal) data
+-- also filters the user QuartaRad (345) who repeatedly submits bad data
 INSERT INTO Temp1(X1, Y1, captured_at, DRE)
 SELECT CAST((CAST(ST_X(location::geometry) AS FLOAT)+180.0)/360.0*2097152.0+0.5 AS INT) AS X1
     ,CAST((0.5-LN((1.0+SIN(CAST(ST_Y(location::geometry) AS FLOAT)*pi()/180.0))/(1.0-SIN(CAST(ST_Y(location::geometry) AS FLOAT)*pi()/180.0)))/(4.0*pi()))*2097152.0+0.5 AS INT) AS Y1
@@ -19,7 +20,7 @@ SELECT CAST((CAST(ST_X(location::geometry) AS FLOAT)+180.0)/360.0*2097152.0+0.5 
         ELSE 0.0
     END AS DRE
 FROM measurements
-WHERE user_id != 347
+WHERE user_id NOT IN (345,347)
     AND captured_at IS NOT NULL
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
     AND captured_at < localtimestamp + interval '48 hours'
