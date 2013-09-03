@@ -24,16 +24,14 @@ WHERE user_id NOT IN (345,347)
     AND captured_at IS NOT NULL
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
     AND captured_at < localtimestamp + interval '48 hours'
-    AND ST_X(location::geometry) IS NOT NULL
-    AND ST_Y(location::geometry) IS NOT NULL
-    AND value IS NOT NULL
-    AND (device_id IS NULL OR device_id <= 24 OR unit IN ('microsievert','usv'))
-    AND (  CAST(ST_X(location::geometry) AS FLOAT) != 0.0
-        OR CAST(ST_Y(location::geometry) AS FLOAT) != 0.0)
-    AND (  (unit='cpm' AND value > 10.0 AND value < 30000.0)
-        OR (unit IN ('microsievert','usv') AND value > 0.02 AND value < 75.0))
+    AND (  (unit='cpm' AND value IS NOT NULL AND AND value > 10.0 AND value < 30000.0 AND (device_id IS NULL OR device_id <= 24))
+        OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 75.0))
     AND id NOT IN (13194822,15768545,15768817,15690104,15768346,15768782,15768792,16381794,18001818,17342620,14669786,25389168,25389158,25389157,25389153,24482487,16537265,16537266,19554057,19554058,19554059,19554060,19555677,19589301,19589302,19589303,19589304,19589305,19589303,19589304,19589305,19600634,19699406,17461603,17461607,17461611,17461615,16981355)
     AND (id < 23181608 OR id > 23182462)
+    AND (  CAST(ST_X(location::geometry) AS FLOAT) != 0.0
+        OR CAST(ST_Y(location::geometry) AS FLOAT) != 0.0)
+    AND ST_X(location::geometry) IS NOT NULL
+    AND ST_Y(location::geometry) IS NOT NULL
     AND CAST(ST_Y(location::geometry) AS FLOAT) < 85.05
     AND CAST(ST_Y(location::geometry) AS FLOAT) > -85.05
     AND CAST(ST_X(location::geometry) AS FLOAT) >= -180.0
@@ -61,14 +59,12 @@ WHERE user_id = 347
     AND captured_at IS NOT NULL
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
     AND captured_at < localtimestamp + interval '48 hours'
+    AND (  (unit='cpm' AND value IS NOT NULL AND value > 10.0 AND value < 30000.0 AND (device_id IS NULL OR device_id <= 24))
+        OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 75.0))
     AND ST_X(location::geometry) IS NOT NULL
     AND ST_Y(location::geometry) IS NOT NULL
-    AND value IS NOT NULL
-    AND (device_id IS NULL OR device_id <= 24 OR unit IN ('microsievert','usv'))
     AND (  CAST(ST_X(location::geometry) AS FLOAT) != 0.0
         OR CAST(ST_Y(location::geometry) AS FLOAT) != 0.0)
-    AND (  (unit='cpm' AND value > 19.0 AND value < 30000.0)
-        OR (unit IN ('microsievert','usv') AND value > 0.02 AND value < 75.0))
     AND CAST(ST_Y(location::geometry) AS FLOAT) < 85.05
     AND CAST(ST_Y(location::geometry) AS FLOAT) > -85.05
     AND CAST(ST_X(location::geometry) AS FLOAT) >= -180.0
