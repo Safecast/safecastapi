@@ -9,9 +9,15 @@ cd /mnt/tmp
 rm -f /mnt/tmp/ios13.sqlite
 echo -e "PRAGMA journal_mode=OFF;PRAGMA page_size=16384;CREATE TABLE ImpTemp(X VARCHAR(32), Y VARCHAR(32), Z VARCHAR(32));CREATE TABLE Grid1(X INT, Y INT, Z INT);\n.separator ','\n.import ios13.csv ImpTemp\nINSERT INTO Grid1(X,Y,Z) SELECT CAST(X AS INT), CAST(Y AS INT), CAST(CAST(Z AS INT)-32768 AS INT) FROM ImpTemp;DROP TABLE ImpTemp;VACUUM;" | sqlite3 ios13.sqlite
 rm -f /data/safecastapi/shared/system/ios13.sqlite
-mv /mnt/tmp/ios13.sqlite /data/safecastapi/shared/system/ios13.sqlite
 
-rm -f /mnt/tmp/ios13.csv
+# mv changed to cp due to problems with SQLite3 DB having empty table... but only in auto job run, not manual (?)
+# TODO: investigate further
+
+cp /mnt/tmp/ios13.sqlite /data/safecastapi/shared/system/ios13.sqlite
+
+# NOT removing file here; seemed to result in empty table in SQLite3 export db (???)
+# TODO: investigate further
+# rm -f /mnt/tmp/ios13.csv
 
 # Note: Should eventually use gzip to compress sqlite database once I can find way to decompress in iOS that is
 #       not memory-bound.
