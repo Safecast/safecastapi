@@ -59,7 +59,7 @@ WHERE user_id = 347
     AND captured_at IS NOT NULL
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
     AND captured_at < localtimestamp + interval '48 hours'
-    AND (  (unit='cpm' AND value IS NOT NULL AND value > 10.0 AND value < 30000.0 AND (device_id IS NULL OR device_id <= 24))
+    AND (  (unit='cpm' AND value IS NOT NULL AND value > 19.0 AND value < 30000.0 AND (device_id IS NULL OR device_id <= 24))
         OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 75.0))
     AND ST_X(location::geometry) IS NOT NULL
     AND ST_Y(location::geometry) IS NOT NULL
