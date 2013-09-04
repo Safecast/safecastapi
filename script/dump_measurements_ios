@@ -4,7 +4,7 @@
 rm -f /mnt/tmp/ios13.csv
 
 # invoke script to project, filter, and bin data @ 19m resolution
-psql -U deploy -h localhost safecastapi -f ios_query.sql
+psql -U deploy -h localhost safecastapi -f /data/safecastapi/current/script/ios_query.sql
 
 # CSV parsing: 1MB/s.  SQLite3 sequential read: 30MB/s.   Hmmm...
 # note this offsets the z value by -32768 for storage as 16-bit signed integer, must shift back when reading later
