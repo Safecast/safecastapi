@@ -3,9 +3,6 @@
 # remove old CSV from temp directory
 rm -f /mnt/tmp/ios13.csv
 
-# attempted hack for not running as cron job?
-sudo chmod 0755 ios_query.sql
-
 # invoke script to project, filter, and bin data @ 19m resolution
 psql -U deploy -h localhost safecastapi -f ios_query.sql
 
