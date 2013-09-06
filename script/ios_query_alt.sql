@@ -1,5 +1,7 @@
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 
+-- NOTE: This is for alternate iOS export query to be run manually.  Should not be invoked by job.
+
 BEGIN TRANSACTION;
 CREATE TEMPORARY TABLE IF NOT EXISTS Temp1(X1 INT, Y1 INT, captured_at INT2, DRE FLOAT4);
 TRUNCATE TABLE Temp1;
