@@ -2,6 +2,13 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 
 -- NOTE: This is for alternate iOS export query to be run manually.  Should not be invoked by job.
 
+-- NOTES:
+-- ====================================
+-- 1. The temp CSV dump imported by SQLite must have 16-bit unsigned Z values (in the range 0 - 65535)
+-- 2. 0 = NODATA.  Do not output a Z value of 0.
+-- 3. In the iOS app, Z = Z / 1000.0.  (fixed) Thus if you are not outputting uSv/h <-> nSv/h, scale accordingly by a factor so it works.
+
+
 BEGIN TRANSACTION;
 CREATE TEMPORARY TABLE IF NOT EXISTS Temp1(X1 INT, Y1 INT, captured_at INT2, DRE FLOAT4);
 TRUNCATE TABLE Temp1;
@@ -89,10 +96,18 @@ TRUNCATE TABLE Temp2;
 INSERT INTO Temp2(X,Y,T) SELECT X1,Y1,MAX(captured_at)-270 FROM Temp1 GROUP BY X1,Y1;
 COMMIT TRANSACTION;
 
+-- this scales the number of samples n by a factor of 0.03 so it maps well to the normal expected uSv/h values
+-- for visualization.
+
 BEGIN TRANSACTION;
 UPDATE Temp2 SET Z = (SELECT CAST(COUNT(*) AS FLOAT4)*0.03 FROM Temp1 WHERE X1=X AND Y1=Y);-- AND captured_at > T);
 DROP TABLE Temp1;
 COMMIT TRANSACTION;
+
+-- pay close attention to how this line transforms the 32-bit floating point Z value to a 16-bit unsigned integer
+-- ... it multiplies by 1000.0, truncates and clips to a max value.  Make sure you do not supply out of range data.
+
+-- the iOS app supports many different data types etc but it expects only ONE from the Safecast update.
 
 \copy (SELECT X,Y,CASE WHEN Z > 65.535 THEN 65535 ELSE CAST(Z*1000.0 AS INT) END AS Z FROM Temp2 ORDER BY Y/256*8192+X/256) to '/mnt/tmp/ios13alt.csv' csv
 
