@@ -4,9 +4,11 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 
 -- NOTES:
 -- ====================================
--- 1. The temp CSV dump imported by SQLite must have 16-bit unsigned Z values (in the range 0 - 65535)
+-- 1. The temp CSV dump imported by SQLite must have 16-bit unsigned integer Z values (in the range 0 - 65535)
 -- 2. 0 = NODATA.  Do not output a Z value of 0.
--- 3. In the iOS app, Z = Z / 1000.0.  (fixed) Thus if you are not outputting uSv/h <-> nSv/h, scale accordingly by a factor so it works.
+-- 3. In the iOS app, Z = Z / 1000.0.  (fixed as assumption for Safecast data updates) 
+--    Thus if you are not outputting nSv/h <-> uSv/h, scale accordingly by a factor so it works.
+
 
 
 BEGIN TRANSACTION;
