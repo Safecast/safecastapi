@@ -95,13 +95,15 @@ COMMIT TRANSACTION;
 BEGIN TRANSACTION;
 CREATE TEMPORARY TABLE IF NOT EXISTS Temp2(X INT,Y INT,T INT2,Z FLOAT4);
 TRUNCATE TABLE Temp2;
-INSERT INTO Temp2(X,Y,T) SELECT X1,Y1,MAX(captured_at)-270 FROM Temp1 GROUP BY X1,Y1;
+INSERT INTO Temp2(X,Y,T) SELECT X1,Y1,MAX(captured_at) FROM Temp1 GROUP BY X1,Y1; -- -270
 COMMIT TRANSACTION;
 
 -- this scales the number of samples n by a factor of 0.03 so it maps well to the normal expected uSv/h values
 -- for visualization.
 
 BEGIN TRANSACTION;
+-- ALTERNATE - MAX DATE: UPDATE Temp2 SET Z = (CAST(T AS FLOAT4) - 15037.0) / 100.0; -- also remove date penalty from JPost above!!
+-- ALTERNATE - SAMPLE COUNT: UPDATE Temp2 SET Z = (SELECT CAST(COUNT(*) AS FLOAT4)*0.03 FROM Temp1 WHERE X1=X AND Y1=Y);
 UPDATE Temp2 SET Z = (SELECT CAST(COUNT(*) AS FLOAT4)*0.03 FROM Temp1 WHERE X1=X AND Y1=Y);-- AND captured_at > T);
 DROP TABLE Temp1;
 COMMIT TRANSACTION;
