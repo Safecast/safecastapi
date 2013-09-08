@@ -4,13 +4,11 @@ BEGIN TRANSACTION;
 CREATE TEMPORARY TABLE IF NOT EXISTS Temp1(X1 INT, Y1 INT, captured_at INT2, DRE FLOAT4);
 TRUNCATE TABLE Temp1;
 
--- NOTE TO SELF: need to find way to set file mode to 100755 (?)  Doesn't seem possible thru web GUI.
-
 -- first insert is for NON Japan Post (ie, normal) data
 -- also filters the user QuartaRad (345) who repeatedly submits bad data
 INSERT INTO Temp1(X1, Y1, captured_at, DRE)
-SELECT CAST((CAST(ST_X(location::geometry) AS FLOAT)+180.0)/360.0*2097152.0+0.5 AS INT) AS X1
-    ,CAST((0.5-LN((1.0+SIN(CAST(ST_Y(location::geometry) AS FLOAT)*pi()/180.0))/(1.0-SIN(CAST(ST_Y(location::geometry) AS FLOAT)*pi()/180.0)))/(4.0*pi()))*2097152.0+0.5 AS INT) AS Y1
+SELECT CAST((ST_X(location::geometry)+180.0)/360.0*2097152.0+0.5 AS INT) AS X1
+    ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*pi()/180.0))/(1.0-SIN(ST_Y(location::geometry)*pi()/180.0)))/(4.0*pi()))*2097152.0+0.5 AS INT) AS Y1
     ,CAST(EXTRACT(epoch FROM captured_at)/86400 AS INT2) AS captured_at
     ,CASE
         WHEN unit='cpm' AND device_id IS NULL THEN value/350.0
@@ -22,24 +20,26 @@ SELECT CAST((CAST(ST_X(location::geometry) AS FLOAT)+180.0)/360.0*2097152.0+0.5 
         ELSE 0.0
     END AS DRE
 FROM measurements
-WHERE   captured_at > TIMESTAMP '2011-03-01 00:00:00'
+WHERE   user_id NOT IN (345,347)
+    AND (id < 23181608 OR id > 23182462) -- 100% bad
+    AND (id < 20798302 OR id > 20803607) -- 20% bad, but better filtering too slow
+    AND (id < 21977826 OR id > 21979768) -- 100% bad
+    AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
     AND captured_at < localtimestamp + interval '48 hours'
     AND captured_at IS NOT NULL
-    AND user_id NOT IN (345,347)
     AND (  (unit='cpm' AND value IS NOT NULL AND value > 10.0 AND value < 30000.0 AND (device_id IS NULL OR device_id <= 24))
         OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 75.0))
     AND id NOT IN (13194822,15768545,15768817,15690104,15768346,15768782,15768792,16381794,18001818,17342620,14669786,25389168,25389158,25389157,25389153,24482487,16537265,16537266,19554057,19554058,19554059,19554060,19555677,19589301,19589302,19589303,19589304,19589305,19589303,19589304,19589305,19600634,19699406,17461603,17461607,17461611,17461615,16981355)
-    AND (id < 23181608 OR id > 23182462)
-    AND (  CAST(ST_X(location::geometry) AS FLOAT) != 0.0
-        OR CAST(ST_Y(location::geometry) AS FLOAT) != 0.0)
-    AND ST_X(location::geometry) IS NOT NULL
-    AND ST_Y(location::geometry) IS NOT NULL
-    AND CAST(ST_Y(location::geometry) AS FLOAT) < 85.05
-    AND CAST(ST_Y(location::geometry) AS FLOAT) > -85.05
-    AND CAST(ST_X(location::geometry) AS FLOAT) >= -180.0
-    AND CAST(ST_X(location::geometry) AS FLOAT) <=  180.0;
+    AND location IS NOT NULL
+    AND (  ST_X(location::geometry) != 0.0
+        OR ST_Y(location::geometry) != 0.0)
+    AND ST_Y(location::geometry) < 85.05
+    AND ST_Y(location::geometry) > -85.05
+    AND ST_X(location::geometry) >= -180.0
+    AND ST_X(location::geometry) <=  180.0;
     
 -- This 2nd insert is a hack workaround for JP post data
+-- it partially corrects the spatial error by approximating the centroid from the original trunc in the firmware
 -- -10k to the "days since 1970" is approx a -30 year penalty to the date restrictive binning so as not to
 --       contaminate measurements with superior spatial resolution
 INSERT INTO Temp1(X1, Y1, captured_at, DRE)
@@ -62,14 +62,13 @@ WHERE user_id = 347
     AND captured_at IS NOT NULL
     AND (  (unit='cpm' AND value IS NOT NULL AND value > 19.0 AND value < 30000.0 AND (device_id IS NULL OR device_id <= 24))
         OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 75.0))
-    AND ST_X(location::geometry) IS NOT NULL
-    AND ST_Y(location::geometry) IS NOT NULL
-    AND (  CAST(ST_X(location::geometry) AS FLOAT) != 0.0
-        OR CAST(ST_Y(location::geometry) AS FLOAT) != 0.0)
-    AND CAST(ST_Y(location::geometry) AS FLOAT) < 85.05
-    AND CAST(ST_Y(location::geometry) AS FLOAT) > -85.05
-    AND CAST(ST_X(location::geometry) AS FLOAT) >= -180.0
-    AND CAST(ST_X(location::geometry) AS FLOAT) <=  180.0;
+    AND location IS NOT NULL
+    AND (  ST_X(location::geometry) != 0.0
+        OR ST_Y(location::geometry) != 0.0)
+    AND ST_Y(location::geometry) < 85.05
+    AND ST_Y(location::geometry) > -85.05
+    AND ST_X(location::geometry) >= -180.0
+    AND ST_X(location::geometry) <=  180.0;
 COMMIT TRANSACTION;
 
 BEGIN TRANSACTION;
