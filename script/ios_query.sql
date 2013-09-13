@@ -1,5 +1,19 @@
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 
+CREATE TABLE IF NOT EXISTS iOSLastExport(LastMaxID INT, ExportDate TIMESTAMP);
+
+DO LANGUAGE plpgsql $$
+    BEGIN
+        IF ((SELECT MAX(id) FROM measurements) <= COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0) THEN 
+            \quit
+        END IF;
+    END;
+$$;
+
+TRUNCATE TABLE iOSLastExport;
+INSERT INTO iOSLastExport(LastMaxID,ExportDate) VALUES ((SELECT MAX(id) FROM measurements), CURRENT_TIMESTAMP);
+
+
 BEGIN TRANSACTION;
 CREATE TEMPORARY TABLE IF NOT EXISTS Temp1(X1 INT, Y1 INT, captured_at INT2, DRE FLOAT4);
 TRUNCATE TABLE Temp1;
@@ -20,7 +34,7 @@ SELECT CAST((ST_X(location::geometry)+180.0)/360.0*2097152.0+0.5 AS INT) AS X1
         ELSE 0.0
     END AS DRE
 FROM measurements
-WHERE   user_id NOT IN (345,347)
+WHERE user_id NOT IN (345,347)
     AND (id < 23181608 OR id > 23182462) -- 100% bad
     AND (id < 20798302 OR id > 20803607) -- 20% bad, but better filtering too slow
     AND (id < 21977826 OR id > 21979768) -- 100% bad
