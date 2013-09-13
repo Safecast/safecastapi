@@ -4,11 +4,19 @@ rm -f /mnt/tmp/ios13.csv
 
 psql -U deploy -h localhost safecastapi -f /data/safecastapi/current/script/ios_query.sql
 
-cd /mnt/tmp
-rm -f /mnt/tmp/ios13.sqlite
-echo -e "PRAGMA journal_mode=OFF;PRAGMA page_size=16384;CREATE TABLE ImpTemp(X VARCHAR(32), Y VARCHAR(32), Z VARCHAR(32));CREATE TABLE Grid1(ID INTEGER PRIMARY KEY, X INT, Y INT, Z INT);\n.separator ','\n.import ios13.csv ImpTemp\nINSERT INTO Grid1(X,Y,Z) SELECT CAST(X AS INT), CAST(Y AS INT), CAST(CAST(Z AS INT)-32768 AS INT) FROM ImpTemp;DROP TABLE ImpTemp;VACUUM;" | sqlite3 ios13.sqlite
-rm -f /data/safecastapi/shared/system/ios13.sqlite
+# don't purge sqlite output if nothing resulted from psql, so as to do less work and retain date on http file
+# this is to support only updating if newer data
 
-cp /mnt/tmp/ios13.sqlite /data/safecastapi/shared/system/ios13.sqlite
+if [ -s /mnt/tmp/ios13.csv ]
+then
+  cd /mnt/tmp
+  rm -f /mnt/tmp/ios13.sqlite
+  echo -e "PRAGMA journal_mode=OFF;PRAGMA page_size=16384;CREATE TABLE ImpTemp(X VARCHAR(32), Y VARCHAR(32), Z VARCHAR(32));CREATE TABLE Grid1(ID INTEGER PRIMARY KEY, X INT, Y INT, Z INT);\n.separator ','\n.import ios13.csv ImpTemp\nINSERT INTO Grid1(X,Y,Z) SELECT CAST(X AS INT), CAST(Y AS INT), CAST(CAST(Z AS INT)-32768 AS INT) FROM ImpTemp;DROP TABLE ImpTemp;VACUUM;" | sqlite3 ios13.sqlite
+  rm -f /data/safecastapi/shared/system/ios13.sqlite
+
+  cp /mnt/tmp/ios13.sqlite /data/safecastapi/shared/system/ios13.sqlite
+fi
 
 # TODO: final output as .tar.gz instead of sqlite.  Requires finding non-memory bound decompressor on iOS.
+
+
