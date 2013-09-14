@@ -1,18 +1,7 @@
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 
 BEGIN TRANSACTION;
-
 CREATE TABLE IF NOT EXISTS iOSLastExport(LastMaxID INT, ExportDate TIMESTAMP);
-
-DELETE FROM iOSLastExport WHERE LastMaxID < (SELECT MAX(id) FROM measurements);
-
-INSERT INTO iOSLastExport(LastMaxID,ExportDate) 
-SELECT MAX(id), CURRENT_TIMESTAMP 
-FROM measurements
-WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0);
-
-DELETE FROM iOSLastExport WHERE LastMaxID IS NULL OR LastMaxID = 0;
-
 COMMIT TRANSACTION;
 
 BEGIN TRANSACTION;
@@ -60,11 +49,13 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
         OR value < 35.0
         OR ST_Y(location::geometry) NOT BETWEEN 35.0  AND 36.0
         OR ST_X(location::geometry) NOT BETWEEN 139.4 AND 140.4); -- Tokyo recent data filter.
+COMMIT TRANSACTION;
 
 -- This 2nd insert is a hack workaround for JP post data
 -- it partially corrects the spatial error by approximating the centroid from the original trunc in the firmware
 -- -10k to the "days since 1970" is approx a -30 year penalty to the date restrictive binning so as not to
 --       contaminate measurements with superior spatial resolution
+BEGIN TRANSACTION;
 INSERT INTO Temp1(X1, Y1, captured_at, DRE)
 SELECT CAST((CAST(ST_X(location::geometry) AS FLOAT)+180.0)/360.0*2097152.0+0.5 AS INT)+2 AS X1
     ,CAST((0.5-LN((1.0+SIN(CAST(ST_Y(location::geometry) AS FLOAT)*pi()/180.0))/(1.0-SIN(CAST(ST_Y(location::geometry) AS FLOAT)*pi()/180.0)))/(4.0*pi()))*2097152.0+0.5 AS INT)-2 AS Y1
@@ -79,7 +70,8 @@ SELECT CAST((CAST(ST_X(location::geometry) AS FLOAT)+180.0)/360.0*2097152.0+0.5 
         ELSE 0.0
     END AS DRE
 FROM measurements
-WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0)
+WHERE (SELECT COUNT(*) FROM Temp1) > 0 -- in case new rows get added to measurements between insert blocks
+    AND (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0)
     AND user_id = 347
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
     AND captured_at < localtimestamp + interval '48 hours'
@@ -122,6 +114,20 @@ COMMIT TRANSACTION;
 
 \copy (SELECT X,Y,CASE WHEN Z > 65.535 THEN 65535 ELSE CAST(Z*1000.0 AS INT) END AS Z FROM Temp2 ORDER BY Y/256/4096*2+X/256/4096,Y/256/2048*4+X/256/2048,Y/256/1024*8+X/256/1024,Y/256/512*16+X/256/512,Y/256/256*32+X/256/256,Y/256/128*64+X/256/128,Y/256/64*128+X/256/64,Y/256/32*256+X/256/32,Y/256/16*512+X/256/16,Y/256/8*1024+X/256/8,Y/256/4*2048+X/256/4,Y/256/2*4096+X/256/2,Y/256*8192+X/256) to '/mnt/tmp/ios13.csv' csv
 
+BEGIN TRANSACTION;
+DELETE FROM iOSLastExport 
+WHERE (SELECT COUNT(*) FROM #Temp2) > 0 -- in case rows got added partway through
+AND LastMaxID < (SELECT MAX(id) FROM measurements);
+
+INSERT INTO iOSLastExport(LastMaxID,ExportDate) 
+SELECT MAX(id), CURRENT_TIMESTAMP 
+FROM measurements
+WHERE (SELECT COUNT(*) FROM #Temp2) > 0
+    AND (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0);
+
+DELETE FROM iOSLastExport WHERE LastMaxID IS NULL OR LastMaxID = 0;
+COMMIT TRANSACTION;
+
+BEGIN TRANSACTION;
 DROP TABLE Temp2;
-
-
+COMMIT TRANSACTION;
