@@ -116,13 +116,13 @@ COMMIT TRANSACTION;
 
 BEGIN TRANSACTION;
 DELETE FROM iOSLastExport 
-WHERE (SELECT COUNT(*) FROM #Temp2) > 0 -- in case rows got added partway through
+WHERE (SELECT COUNT(*) FROM Temp2) > 0 -- in case rows got added partway through
 AND LastMaxID < (SELECT MAX(id) FROM measurements);
 
 INSERT INTO iOSLastExport(LastMaxID,ExportDate) 
 SELECT MAX(id), CURRENT_TIMESTAMP 
 FROM measurements
-WHERE (SELECT COUNT(*) FROM #Temp2) > 0
+WHERE (SELECT COUNT(*) FROM Temp2) > 0
     AND (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0);
 
 DELETE FROM iOSLastExport WHERE LastMaxID IS NULL OR LastMaxID = 0;
