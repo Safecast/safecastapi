@@ -43,12 +43,12 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND ST_Y(location::geometry) < 85.05
     AND ST_Y(location::geometry) > -85.05
     AND ST_X(location::geometry) >= -180.0
-    AND ST_X(location::geometry) <=  180.0
-    AND (user_id != 1
-        OR captured_at > TIMESTAMP '2011-12-31 23:59:59'
-        OR value < 35.0
-        OR ST_Y(location::geometry) NOT BETWEEN 35.0  AND 36.0
-        OR ST_X(location::geometry) NOT BETWEEN 139.4 AND 140.4); -- Tokyo recent data filter.
+    AND ST_X(location::geometry) <=  180.0;
+--    AND (user_id != 1
+--        OR captured_at > TIMESTAMP '2011-12-31 23:59:59'
+--        OR value < 35.0
+--        OR ST_Y(location::geometry) NOT BETWEEN 35.0  AND 36.0
+--        OR ST_X(location::geometry) NOT BETWEEN 139.4 AND 140.4); -- Tokyo recent data filter.
 COMMIT TRANSACTION;
 
 -- This 2nd insert is a hack workaround for JP post data
