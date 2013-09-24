@@ -10,6 +10,7 @@ TRUNCATE TABLE Temp1;
 
 -- first insert is for NON Japan Post (ie, normal) data
 -- also filters the user QuartaRad (345) who repeatedly submits bad data
+-- uSv/h upper limit 75 -> 5 to correct for fucking retards submitting web measurements in CPM
 INSERT INTO Temp1(X1, Y1, captured_at, DRE)
 SELECT CAST((ST_X(location::geometry)+180.0)/360.0*2097152.0+0.5 AS INT) AS X1
     ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*pi()/180.0))/(1.0-SIN(ST_Y(location::geometry)*pi()/180.0)))/(4.0*pi()))*2097152.0+0.5 AS INT) AS Y1
@@ -36,7 +37,7 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND captured_at < localtimestamp + interval '48 hours'
     AND captured_at IS NOT NULL
     AND (  (unit='cpm' AND value IS NOT NULL AND value > 10.0 AND value < 30000.0 AND (device_id IS NULL OR device_id <= 24))
-        OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 75.0))
+        OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 5.0))
     AND location IS NOT NULL
     AND (  ST_X(location::geometry) != 0.0
         OR ST_Y(location::geometry) != 0.0)
@@ -77,7 +78,7 @@ WHERE (SELECT COUNT(*) FROM Temp1) > 0 -- in case new rows get added to measurem
     AND captured_at < localtimestamp + interval '48 hours'
     AND captured_at IS NOT NULL
     AND (  (unit='cpm' AND value IS NOT NULL AND value > 19.0 AND value < 30000.0 AND (device_id IS NULL OR device_id <= 24))
-        OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 75.0))
+        OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 5.0))
     AND location IS NOT NULL
     AND (  ST_X(location::geometry) != 0.0
         OR ST_Y(location::geometry) != 0.0)
