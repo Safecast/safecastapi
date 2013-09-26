@@ -34,10 +34,11 @@ class MeasurementsController < ApplicationController
     @filename = "measurements.csv"
     @streaming = true
 
-    @measurements = apply_scopes(Measurement).page(params[:page]).per(params[:per_page]).includes(:measurement_import, :user)
+    @measurements = apply_scopes(Measurement).includes(:measurement_import, :user)
 
-    if request.format == :csv
-      @measurements = @measurements.page(1).per(@measurements.count)
+    # In Kaminari page an per_page cannot be overriden
+    if request.format != :csv
+      @measurements = @measurements.page(params[:page]).per(params[:per_page])
     end
 
     respond_with @measurements
