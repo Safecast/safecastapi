@@ -1,4 +1,7 @@
 production:
   postgresql:
+    server:
+      unique_name: db
+      size: 61
     configuration:
       postgis: true
