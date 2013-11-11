@@ -3,7 +3,7 @@ production:
     server:
       vendor: digitalocean
       region: 4
-      unique_name: db
       size: 61
+      unique_name: db
     configuration:
       postgis: true
