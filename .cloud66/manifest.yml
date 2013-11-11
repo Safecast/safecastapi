@@ -2,7 +2,7 @@ production:
   postgresql:
     server:
       vendor: digitalocean
-      region: 3
+      region: 4
       unique_name: db
       size: 61
     configuration:
