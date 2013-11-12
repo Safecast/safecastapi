@@ -1,4 +1,3 @@
-require 'iconv'
 class BgeigieImport < MeasurementImport
   # States:
   # - unprocessed
@@ -53,14 +52,6 @@ class BgeigieImport < MeasurementImport
 
   def name
     read_attribute(:name).presence || "bGeigie Import ##{id}"
-  end
-
-  def conversion
-    @conversion ||= Iconv.new('UTF-8//IGNORE', 'UTF-8')
-  end
-
-  def convert_string(string)
-     conversion.iconv(string + ' ')[0..-2]
   end
 
   def tmp_file
