@@ -64,4 +64,4 @@ production:
   username: safecast
   password:
   su_username: safecast
-  password: 
+  password: <%= ENV['POSTGRESQL_PASSWORD'] %>
