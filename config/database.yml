@@ -55,7 +55,7 @@ test:
   password: 
 
 production:
-  adapter: postgis
+  adapter: postgresql
   schema_search_path: "public,postgis"
   script_dir: /usr/local/share/postgis
   encoding: unicode
