@@ -57,7 +57,7 @@ test:
 production:
   adapter: postgis
   schema_search_path: "public,postgis"
-  script_dir: /usr/local/share/postgis
+  script_dir: /etc/postgresql/share/contrib/postgis-2.0
   encoding: unicode
   database: safecast
   pool: 5
