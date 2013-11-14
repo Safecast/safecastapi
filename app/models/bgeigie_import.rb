@@ -174,7 +174,7 @@ class BgeigieImport < MeasurementImport
     # (converted to SQL)
     self.connection.execute(%Q[
       update bgeigie_logs_tmp set computed_location =
-        ST_GeomFromText(
+        ST_GeogFromText(
           concat(
             'POINT (',
             (
