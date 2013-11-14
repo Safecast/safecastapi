@@ -26,8 +26,8 @@ class Measurement < ActiveRecord::Base
 
   def self.nearby_to(lat, lng, distance)
     return scoped unless lat.present? && lng.present? && distance.present?
-    where("ST_DWithin(location, ST_GeogFromText('POINT (#{lng.to_f} #{lat.to_f})'), ?)", distance.to_i).
-    order("ST_Distance(location, ST_GeogFromText('POINT (#{lng.to_f} #{lat.to_f})')) ASC")
+    where("ST_DWithin(location, ST_GeogFromText('POINT (#{lng.to_f} #{lat.to_f})'), ?)::postgis.geography", distance.to_i).
+    order("ST_Distance(location, ST_GeogFromText('POINT (#{lng.to_f} #{lat.to_f})')::postgis.geography) ASC")
 
   end
 
