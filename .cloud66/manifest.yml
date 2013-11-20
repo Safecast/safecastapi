@@ -1,4 +1,9 @@
 production:
   postgresql:
+    server:
+      vendor: digitalocean
+      region: 4
+      size: 61
+      unique_name: db
     configuration:
       postgis: true
