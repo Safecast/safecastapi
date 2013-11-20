@@ -192,7 +192,7 @@ class BgeigieImport < MeasurementImport
               (case when north_south_indicator = 'S' then -1 else  1 end)
             ), ')'
           )
-        )::postgis.geography;
+        );
     ])
   end
   
