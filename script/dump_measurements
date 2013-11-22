@@ -1,5 +1,5 @@
 #!/bin/sh
-psql -U deploy -h localhost safecastapi -c "\copy (select captured_at, ST_Y(location::geometry), ST_X(location::geometry), value, unit, location_name, device_id, md5sum, height, surface, radiation, created_at, measurement_import_id from measurements order by created_at desc) to '/tmp/measurements.csv' csv;"
+psql -U safecast --host $POSTGRESQL_ADDRESS safecast -c "\copy (select captured_at, ST_Y(location::geometry), ST_X(location::geometry), value, unit, location_name, device_id, md5sum, height, surface, radiation, created_at, measurement_import_id from measurements order by created_at desc) to '/tmp/measurements.csv' csv;"
 echo "Captured Time,Latitude,Longitude,Value,Unit,Location Name,Device ID,MD5Sum,Height,Surface,Radiation,Uploaded Time,Loader ID" | cat - /tmp/measurements.csv > /var/deploy/api.safecast.org/web_head/shared/system/measurements-out.csv
 cd /var/deploy/api.safecast.org/web_head/shared/system && tar -czf measurements-out.tar.gz measurements-out.csv
 mv measurements-out.tar.gz measurements.tar.gz && mv measurements-out.csv measurements.csv
