@@ -36,7 +36,7 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
     AND captured_at < localtimestamp + interval '48 hours'
     AND captured_at IS NOT NULL
-    AND (  (unit='cpm' AND value IS NOT NULL AND value > 10.0 AND value < 30000.0 AND (device_id IS NULL OR device_id <= 24))
+    AND (  (unit='cpm' AND value IS NOT NULL AND value > 10.0 AND ( (device_id IS NULL AND value < 350000.0) OR (device_id <= 24 AND value < 30000.0) ))
         OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 5.0))
     AND location IS NOT NULL
     AND (  ST_X(location::geometry) != 0.0
@@ -77,7 +77,7 @@ WHERE (SELECT COUNT(*) FROM Temp1) > 0 -- in case new rows get added to measurem
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
     AND captured_at < localtimestamp + interval '48 hours'
     AND captured_at IS NOT NULL
-    AND (  (unit='cpm' AND value IS NOT NULL AND value > 19.0 AND value < 30000.0 AND (device_id IS NULL OR device_id <= 24))
+    AND (  (unit='cpm' AND value IS NOT NULL AND value > 10.0 AND ( (device_id IS NULL AND value < 350000.0) OR (device_id <= 24 AND value < 30000.0) ))
         OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 5.0))
     AND location IS NOT NULL
     AND (  ST_X(location::geometry) != 0.0
