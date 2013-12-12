@@ -7,6 +7,8 @@ psql -U safecast --host $POSTGRESQL_ADDRESS safecast -f /var/deploy/api.safecast
 # don't purge sqlite output if nothing resulted from psql, so as to do less work and retain date on http file
 # this is to support only updating if newer data
 
+# 16-bit update file: iOS client 1.6.9
+# must be maintained for some period of time as 1.7.0 requires iOS 6.0 minimum.
 if [ -s /tmp/ios13.csv ]
 then
   cd /tmp
@@ -15,6 +17,17 @@ then
   rm -f /var/deploy/api.safecast.org/web_head/shared/system/ios13.sqlite
 
   cp /tmp/ios13.sqlite /var/deploy/api.safecast.org/web_head/shared/system/ios13.sqlite
+fi
+
+# 32-bit update file: iOS client 1.7.0+
+if [ -s /tmp/ios13_32.csv ]
+then
+  cd /tmp
+  rm -f /tmp/ios13_32.sqlite
+  /bin/echo -e "PRAGMA journal_mode=OFF;PRAGMA page_size=16384;CREATE TABLE ImpTemp(X VARCHAR(32), Y VARCHAR(32), Z VARCHAR(32));CREATE TABLE Grid1(ID INTEGER PRIMARY KEY, X INT, Y INT, Z INT);\n.separator ','\n.import /tmp/ios13_32.csv ImpTemp\nINSERT INTO Grid1(X,Y,Z) SELECT CAST(X AS INT), CAST(Y AS INT), CAST(CAST(Z AS INT)-32768 AS INT) FROM ImpTemp;DROP TABLE ImpTemp;VACUUM;" | sqlite3 /tmp/ios13_32.sqlite
+  rm -f /var/deploy/api.safecast.org/web_head/shared/system/ios13_32.sqlite
+
+  cp /tmp/ios13.sqlite /var/deploy/api.safecast.org/web_head/shared/system/ios13_32.sqlite
 fi
 
 # TODO: final output as .tar.gz instead of sqlite.  Requires finding non-memory bound decompressor on iOS.
