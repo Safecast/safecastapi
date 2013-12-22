@@ -101,7 +101,7 @@ class BgeigieImport < MeasurementImport
 
   def is_sane?(line)
     line_items = line.strip.split(',')
-    return false unless line_items.length >= 14
+    return false unless line_items.length >= 13
 
     #check header
     return false unless line_items[0].eql? '$BMRDD' or line_items[0].eql? '$BGRDD' or line_items[0].eql? '$BNRDD' or line_items[0].eql? '$BNXRDD'
