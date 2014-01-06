@@ -36,7 +36,7 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
     AND captured_at < localtimestamp + interval '48 hours'
     AND captured_at IS NOT NULL
-    AND (  (unit='cpm' AND value IS NOT NULL AND value > 10.0 AND value < 30000.0 AND (device_id IS NULL OR device_id <= 24))
+    AND (  (unit='cpm' AND value IS NOT NULL AND value > 10.0 AND ( (device_id IS NULL AND value < 350000.0) OR (device_id <= 24 AND value < 30000.0) ))
         OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 5.0))
     AND location IS NOT NULL
     AND (  ST_X(location::geometry) != 0.0
@@ -77,7 +77,7 @@ WHERE (SELECT COUNT(*) FROM Temp1) > 0 -- in case new rows get added to measurem
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
     AND captured_at < localtimestamp + interval '48 hours'
     AND captured_at IS NOT NULL
-    AND (  (unit='cpm' AND value IS NOT NULL AND value > 19.0 AND value < 30000.0 AND (device_id IS NULL OR device_id <= 24))
+    AND (  (unit='cpm' AND value IS NOT NULL AND value > 10.0 AND ( (device_id IS NULL AND value < 350000.0) OR (device_id <= 24 AND value < 30000.0) ))
         OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 5.0))
     AND location IS NOT NULL
     AND (  ST_X(location::geometry) != 0.0
@@ -113,7 +113,13 @@ COMMIT TRANSACTION;
 -- experimental recursive "quadkey" like data clustering ORDER BY: Y/256/4096*2+X/256/4096,Y/256/2048*4+X/256/2048,Y/256/1024*8+X/256/1024,Y/256/512*16+X/256/512,Y/256/256*32+X/256/256,Y/256/128*64+X/256/128,Y/256/64*128+X/256/64,Y/256/32*256+X/256/32,Y/256/16*512+X/256/16,Y/256/8*1024+X/256/8,Y/256/4*2048+X/256/4,Y/256/2*4096+X/256/2,Y/256*8192+X/256
 -- old ORDER BY: ORDER BY Y/256*8192+X/256
 
+-- 16-bit output: iOS client 1.6.9 
 \copy (SELECT X,Y,CASE WHEN Z > 65.535 THEN 65535 ELSE CAST(Z*1000.0 AS INT) END AS Z FROM Temp2 ORDER BY Y/256/4096*2+X/256/4096,Y/256/2048*4+X/256/2048,Y/256/1024*8+X/256/1024,Y/256/512*16+X/256/512,Y/256/256*32+X/256/256,Y/256/128*64+X/256/128,Y/256/64*128+X/256/64,Y/256/32*256+X/256/32,Y/256/16*512+X/256/16,Y/256/8*1024+X/256/8,Y/256/4*2048+X/256/4,Y/256/2*4096+X/256/2,Y/256*8192+X/256) to '/tmp/ios13.csv' csv
+
+-- 32-bit output: iOS client 1.7.0
+\copy (SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY Y/256/4096*2+X/256/4096,Y/256/2048*4+X/256/2048,Y/256/1024*8+X/256/1024,Y/256/512*16+X/256/512,Y/256/256*32+X/256/256,Y/256/128*64+X/256/128,Y/256/64*128+X/256/64,Y/256/32*256+X/256/32,Y/256/16*512+X/256/16,Y/256/8*1024+X/256/8,Y/256/4*2048+X/256/4,Y/256/2*4096+X/256/2,Y/256*8192+X/256) to '/tmp/ios13_32.csv' csv
+
+
 
 BEGIN TRANSACTION;
 DELETE FROM iOSLastExport 
