@@ -654,6 +654,8 @@ RailsAdmin.config do |config|
   ###  User  ###
 
   config.model 'User' do
+    field :email
+    field :moderator
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your user.rb model definition
 
