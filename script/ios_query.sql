@@ -10,7 +10,9 @@ TRUNCATE TABLE Temp1;
 
 -- first insert is for NON Japan Post (ie, normal) data
 -- also filters the user QuartaRad (345) who repeatedly submits bad data
--- uSv/h upper limit 75 -> 5 to correct for fucking retards submitting web measurements in CPM
+-- temp ban on user_id=366 (Brian Jones) until backend delete is fixed or someone identifies points manually
+--      verify with: https://api.safecast.org/en-US/measurements?utf8=%E2%9C%93&latitude=-26.9918&longitude=137.3043&distance=10000&captured_after=&captured_before=&since=&until=&commit=Filter
+-- uSv/h upper limit 75 -> 5 to correct for users submitting web measurements in CPM
 INSERT INTO Temp1(X1, Y1, captured_at, DRE)
 SELECT CAST((ST_X(location::geometry)+180.0)/360.0*2097152.0+0.5 AS INT) AS X1
     ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*pi()/180.0))/(1.0-SIN(ST_Y(location::geometry)*pi()/180.0)))/(4.0*pi()))*2097152.0+0.5 AS INT) AS Y1
@@ -26,7 +28,7 @@ SELECT CAST((ST_X(location::geometry)+180.0)/360.0*2097152.0+0.5 AS INT) AS X1
     END AS DRE
 FROM measurements
 WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0)
-    AND user_id NOT IN (345,347)
+    AND user_id NOT IN (345,347,366)
     AND (id < 23181608 OR id > 23182462) -- 100% bad
     AND (id < 20798302 OR id > 20803607) -- 20% bad, but better filtering too slow
     AND (id < 21977826 OR id > 21979768) -- 100% bad
