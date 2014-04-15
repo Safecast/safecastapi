@@ -312,21 +312,23 @@ COMMIT TRANSACTION;
 
 -- (temp new)
 -- Y>>19+X>>20,Y>>17+X>>19,Y>>15+X>>18,Y>>13+X>>17,Y>>11+X>>16,Y>>9+X>>15,Y>>7+X>>14,Y>>5+X>>13,Y>>3+X>>12,Y>>1+X>>11,Y<<1+X>>10,Y<<3+X>>9,Y<<5+X>>8
+-- ((Y>>20)<<1)+(X>>20),((Y>>19)<<2)+(X>>19),((Y>>18)<<3)+(X>>18),((Y>>17)<<4)+(X>>17),((Y>>16)<<5)+(X>>16),((Y>>15)<<6)+(X>>15),((Y>>14)<<7)+(X>>14),((Y>>13)<<8)+(X>>13),((Y>>12)<<9)+(X>>12),((Y>>11)<<10)+(X>>11),((Y>>10)<<11)+(X>>10),((Y>>9)<<12)+(X>>9),((Y>>8)<<13)+(X>>8)
 
 -- 2014-04-15 ND: refactor clustering maths and combine into one table to avoid redundancy
 
 BEGIN TRANSACTION;
 CREATE TEMPORARY TABLE IF NOT EXISTS Temp3(ID SERIAL PRIMARY KEY, X INT, Y INT, Z INT);
 TRUNCATE TABLE Temp3;
-INSERT INTO Temp3(X,Y,Z) SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY Y>>19+X>>20,Y>>17+X>>19,Y>>15+X>>18,Y>>13+X>>17,Y>>11+X>>16,Y>>9+X>>15,Y>>7+X>>14,Y>>5+X>>13,Y>>3+X>>12,Y>>1+X>>11,Y<<1+X>>10,Y<<3+X>>9,Y<<5+X>>8;
+--INSERT INTO Temp3(X,Y,Z) SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY Y>>19+X>>20,Y>>17+X>>19,Y>>15+X>>18,Y>>13+X>>17,Y>>11+X>>16,Y>>9+X>>15,Y>>7+X>>14,Y>>5+X>>13,Y>>3+X>>12,Y>>1+X>>11,Y<<1+X>>10,Y<<3+X>>9,Y<<5+X>>8;
+INSERT INTO Temp3(X,Y,Z) SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY ((Y>>20)<<1)+(X>>20),((Y>>19)<<2)+(X>>19),((Y>>18)<<3)+(X>>18),((Y>>17)<<4)+(X>>17),((Y>>16)<<5)+(X>>16),((Y>>15)<<6)+(X>>15),((Y>>14)<<7)+(X>>14),((Y>>13)<<8)+(X>>13),((Y>>12)<<9)+(X>>12),((Y>>11)<<10)+(X>>11),((Y>>10)<<11)+(X>>10),((Y>>9)<<12)+(X>>9),((Y>>8)<<13)+(X>>8);
 DROP TABLE Temp2;
 COMMIT TRANSACTION;
 
 -- 2014-04-15 ND: 32-bit first for better cache hit, no branching on case MIN
 
-\copy (SELECT X,Y,Z FROM Temp3) to '/tmp/ios13_32.csv' csv
+\copy (SELECT X,Y,Z FROM Temp3 ORDER BY ID ASC) to '/tmp/ios13_32.csv' csv
 
-\copy (SELECT X,Y,CASE WHEN Z > 65535 THEN 65535 ELSE Z END AS Z FROM Temp3) to '/tmp/ios13.csv' csv
+\copy (SELECT X,Y,CASE WHEN Z > 65535 THEN 65535 ELSE Z END AS Z FROM Temp3 ORDER BY ID ASC) to '/tmp/ios13.csv' csv
 
 -- 16-bit output: iOS client 1.6.9 
 --\copy (SELECT X,Y,CASE WHEN Z > 65.535 THEN 65535 ELSE CAST(Z*1000.0 AS INT) END AS Z FROM Temp2 ORDER BY Y>>19+X>>20,Y>>17+X>>19,Y>>15+X>>18,Y>>13+X>>17,Y>>11+X>>16,Y>>9+X>>15,Y>>7+X>>14,Y>>5+X>>13,Y>>3+X>>12,Y>>1+X>>11,Y<<1+X>>10,Y<<3+X>>9,Y<<5+X>>8) to '/tmp/ios13.csv' csv
