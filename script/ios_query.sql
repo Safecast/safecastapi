@@ -49,7 +49,10 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 --   - iOSLastUpdate: minor, no other processes use.
 --
 -- - Schema locking:
---   - None.
+--   - CREATE TABLE iOSLastUpdate (once ever per server)
+--   - CREATE TABLE <various #temp tables>
+--   - CREATE INDEX <various #temp indices on #temp tables>
+--   - DROP TABLE <various #temp tables>
 --
 -- - Change detection:
 --   - While a single-row permanent table is maintained by this script on the server for tracking 
@@ -103,6 +106,44 @@ TRUNCATE TABLE Temp1;
 --                         The value is hardcoded rather than calculated to increase performance.
 --                         DO NOT CHANGE THE ZOOM LEVEL ON THE PRODUCTION IOS APP.
 
+-- ======================================================
+-- GAMMA SENSITIVITY REFERENCE INFORMATION
+-- ======================================================
+-- This reflects information hardcoded below in the SELECT statements.
+-- 
+-- CPM is multiplied by the reciporical estimate, instead of dividing.
+-- This provides a minor performance gain.
+--
+--         device_id  uSvh=CPM/x      Reciprocal Estimate
+-- =================  ==========     ====================
+--              NULL       350.0       0.0028571428571429
+--  5,15,16,17,18,22       350.0       0.0028571428571429
+--      6,7,11,13,23       100.0                     0.01
+--   4,9,10,12,19,24       132.0       0.0075757575757576
+--                21      1750.0    0.0005714285714285714
+
+
+
+-- (temp math / backup)
+--
+-- 1/180 = 0.0055555555555556
+-- 1/360 = 0.0027777777777778
+--  M_PI = 3.1415926535897932384626433
+--
+-- SELECT CAST((ST_X(location::geometry)+180.0)/360.0*2097152.0+0.5 AS INT) AS X1
+-- -- -- * 0.0027777777777778 * 2097152.0
+-- -- -- * 5825.422222222222
+-- -- -- -- -- SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT) AS X1
+-- CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*pi()/180.0))/(1.0-SIN(ST_Y(location::geometry)*pi()/180.0)))/(4.0*pi()))*2097152.0+0.5 AS INT) AS Y1
+-- -- -- * M_PI / 180.0
+-- -- -- * 0.0174532925199433
+-- -- -- -- / 4.0*M_PI
+-- -- -- -- / 12.56637061435917
+-- -- -- -- * 0.0795774715459477
+-- -- -- -- -- CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*0.0174532925199433))/(1.0-SIN(ST_Y(location::geometry)*0.0174532925199433)))*0.0795774715459477)*2097152.0+0.5 AS INT) AS Y1
+
+
+
 
 -- ==============================================================================================================
 -- PRIMARY DATA QUERY
@@ -114,16 +155,16 @@ TRUNCATE TABLE Temp1;
 --      verify with: https://api.safecast.org/en-US/measurements?utf8=%E2%9C%93&latitude=-26.9918&longitude=137.3043&distance=10000&captured_after=&captured_before=&since=&until=&commit=Filter
 -- uSv/h upper limit 75 -> 5 to correct for users submitting web measurements in CPM
 INSERT INTO Temp1(X1, Y1, captured_at, DRE)
-SELECT CAST((ST_X(location::geometry)+180.0)/360.0*2097152.0+0.5 AS INT) AS X1
-    ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*pi()/180.0))/(1.0-SIN(ST_Y(location::geometry)*pi()/180.0)))/(4.0*pi()))*2097152.0+0.5 AS INT) AS Y1
+SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT) AS X1
+    ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*0.0174532925199433))/(1.0-SIN(ST_Y(location::geometry)*0.0174532925199433)))*0.0795774715459477)*2097152.0+0.5 AS INT) AS Y1
     ,CAST(EXTRACT(epoch FROM captured_at)/86400 AS INT2) AS captured_at
     ,CASE
-        WHEN unit='cpm' AND device_id IS NULL THEN value/350.0
+        WHEN unit='cpm' AND device_id IS NULL THEN value * 0.0028571428571429
         WHEN unit IN ('microsievert','usv') THEN value
-        WHEN unit='cpm' AND device_id IN (5,15,16,17,18,22) THEN value/350.0
-        WHEN unit='cpm' AND device_id IN (6,7,11,13,23) THEN value/100.0
-        WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24) THEN value/132.0
-        WHEN unit='cpm' AND device_id IN (21) THEN value/1750.0
+        WHEN unit='cpm' AND device_id IN (5,15,16,17,18,22) THEN value * 0.0028571428571429
+        WHEN unit='cpm' AND device_id IN (6,7,11,13,23) THEN value * 0.01
+        WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24) THEN value * 0.0075757575757576
+        WHEN unit='cpm' AND device_id IN (21) THEN value * 0.0005714285714285714
         ELSE 0.0
     END AS DRE
 FROM measurements
@@ -156,18 +197,26 @@ COMMIT TRANSACTION;
 -- it partially corrects the spatial error by approximating the centroid from the original trunc in the firmware
 -- -10k to the "days since 1970" is approx a -30 year penalty to the date restrictive binning so as not to
 --       contaminate measurements with superior spatial resolution
+
+-- (temp math / backup)
+--SELECT CAST((CAST(ST_X(location::geometry) AS FLOAT)+180.0)/360.0*2097152.0+0.5 AS INT)+2 AS X1
+--    ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*pi()/180.0))/(1.0-SIN(ST_Y(location::geometry)*pi()/180.0)))/(4.0*pi()))*2097152.0+0.5 AS INT)-2 AS Y1
+
+
+
+
 BEGIN TRANSACTION;
 INSERT INTO Temp1(X1, Y1, captured_at, DRE)
-SELECT CAST((CAST(ST_X(location::geometry) AS FLOAT)+180.0)/360.0*2097152.0+0.5 AS INT)+2 AS X1
-    ,CAST((0.5-LN((1.0+SIN(CAST(ST_Y(location::geometry) AS FLOAT)*pi()/180.0))/(1.0-SIN(CAST(ST_Y(location::geometry) AS FLOAT)*pi()/180.0)))/(4.0*pi()))*2097152.0+0.5 AS INT)-2 AS Y1
+SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT)+2 AS X1
+    ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*0.0174532925199433))/(1.0-SIN(ST_Y(location::geometry)*0.0174532925199433)))*0.0795774715459477)*2097152.0+0.5 AS INT)-2 AS Y1
     ,CAST(EXTRACT(epoch FROM captured_at)/86400 AS INT2)-10950 AS captured_at
     ,CASE
-        WHEN unit='cpm' AND device_id IS NULL THEN value/350.0
+        WHEN unit='cpm' AND device_id IS NULL THEN value * 0.0028571428571429
         WHEN unit IN ('microsievert','usv') THEN value
-        WHEN unit='cpm' AND device_id IN (5,15,16,17,18,22) THEN value/350.0
-        WHEN unit='cpm' AND device_id IN (6,7,11,13,23) THEN value/100.0
-        WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24) THEN value/132.0
-        WHEN unit='cpm' AND device_id IN (21) THEN value/1750.0
+        WHEN unit='cpm' AND device_id IN (5,15,16,17,18,22) THEN value * 0.0028571428571429
+        WHEN unit='cpm' AND device_id IN (6,7,11,13,23) THEN value * 0.01
+        WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24) THEN value * 0.0075757575757576
+        WHEN unit='cpm' AND device_id IN (21) THEN value * 0.0005714285714285714
         ELSE 0.0
     END AS DRE
 FROM measurements
@@ -257,28 +306,131 @@ COMMIT TRANSACTION;
 --
 -- The underlying math is trivial to derive.  See the MSDN Bing Maps Tile System article linked above.
 
+-- (temp backup)
+-- 16bit: \copy (SELECT X,Y,CASE WHEN Z > 65.535 THEN 65535 ELSE CAST(Z*1000.0 AS INT) END AS Z FROM Temp2 ORDER BY Y/256/4096*2+X/256/4096,Y/256/2048*4+X/256/2048,Y/256/1024*8+X/256/1024,Y/256/512*16+X/256/512,Y/256/256*32+X/256/256,Y/256/128*64+X/256/128,Y/256/64*128+X/256/64,Y/256/32*256+X/256/32,Y/256/16*512+X/256/16,Y/256/8*1024+X/256/8,Y/256/4*2048+X/256/4,Y/256/2*4096+X/256/2,Y/256*8192+X/256) to '/tmp/ios13.csv' csv
+-- 32bit: \copy (SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY Y/256/4096*2+X/256/4096,Y/256/2048*4+X/256/2048,Y/256/1024*8+X/256/1024,Y/256/512*16+X/256/512,Y/256/256*32+X/256/256,Y/256/128*64+X/256/128,Y/256/64*128+X/256/64,Y/256/32*256+X/256/32,Y/256/16*512+X/256/16,Y/256/8*1024+X/256/8,Y/256/4*2048+X/256/4,Y/256/2*4096+X/256/2,Y/256*8192+X/256) to '/tmp/ios13_32.csv' csv
+
+-- (temp new)
+-- Y>>19+X>>20,Y>>17+X>>19,Y>>15+X>>18,Y>>13+X>>17,Y>>11+X>>16,Y>>9+X>>15,Y>>7+X>>14,Y>>5+X>>13,Y>>3+X>>12,Y>>1+X>>11,Y<<1+X>>10,Y<<3+X>>9,Y<<5+X>>8
+
+-- 2014-04-15 ND: refactor clustering maths and combine into one table to avoid redundancy
+
+BEGIN TRANSACTION;
+CREATE TEMPORARY TABLE IF NOT EXISTS Temp3(ID SERIAL PRIMARY KEY, X INT, Y INT, Z INT);
+TRUNCATE TABLE Temp3;
+INSERT INTO Temp3(X,Y,Z) SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY Y>>19+X>>20,Y>>17+X>>19,Y>>15+X>>18,Y>>13+X>>17,Y>>11+X>>16,Y>>9+X>>15,Y>>7+X>>14,Y>>5+X>>13,Y>>3+X>>12,Y>>1+X>>11,Y<<1+X>>10,Y<<3+X>>9,Y<<5+X>>8;
+DROP TABLE Temp2;
+COMMIT TRANSACTION;
+
+-- 2014-04-15 ND: 32-bit first for better cache hit, no branching on case MIN
+
+\copy (SELECT X,Y,Z FROM Temp3) to '/tmp/ios13_32.csv' csv
+
+\copy (SELECT X,Y,CASE WHEN Z > 65535 THEN 65535 ELSE Z END AS Z FROM Temp3) to '/tmp/ios13.csv' csv
+
 -- 16-bit output: iOS client 1.6.9 
-\copy (SELECT X,Y,CASE WHEN Z > 65.535 THEN 65535 ELSE CAST(Z*1000.0 AS INT) END AS Z FROM Temp2 ORDER BY Y/256/4096*2+X/256/4096,Y/256/2048*4+X/256/2048,Y/256/1024*8+X/256/1024,Y/256/512*16+X/256/512,Y/256/256*32+X/256/256,Y/256/128*64+X/256/128,Y/256/64*128+X/256/64,Y/256/32*256+X/256/32,Y/256/16*512+X/256/16,Y/256/8*1024+X/256/8,Y/256/4*2048+X/256/4,Y/256/2*4096+X/256/2,Y/256*8192+X/256) to '/tmp/ios13.csv' csv
+--\copy (SELECT X,Y,CASE WHEN Z > 65.535 THEN 65535 ELSE CAST(Z*1000.0 AS INT) END AS Z FROM Temp2 ORDER BY Y>>19+X>>20,Y>>17+X>>19,Y>>15+X>>18,Y>>13+X>>17,Y>>11+X>>16,Y>>9+X>>15,Y>>7+X>>14,Y>>5+X>>13,Y>>3+X>>12,Y>>1+X>>11,Y<<1+X>>10,Y<<3+X>>9,Y<<5+X>>8) to '/tmp/ios13.csv' csv
 
 -- 32-bit output: iOS client 1.7.0
-\copy (SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY Y/256/4096*2+X/256/4096,Y/256/2048*4+X/256/2048,Y/256/1024*8+X/256/1024,Y/256/512*16+X/256/512,Y/256/256*32+X/256/256,Y/256/128*64+X/256/128,Y/256/64*128+X/256/64,Y/256/32*256+X/256/32,Y/256/16*512+X/256/16,Y/256/8*1024+X/256/8,Y/256/4*2048+X/256/4,Y/256/2*4096+X/256/2,Y/256*8192+X/256) to '/tmp/ios13_32.csv' csv
-
-
+--\copy (SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY Y>>19+X>>20,Y>>17+X>>19,Y>>15+X>>18,Y>>13+X>>17,Y>>11+X>>16,Y>>9+X>>15,Y>>7+X>>14,Y>>5+X>>13,Y>>3+X>>12,Y>>1+X>>11,Y<<1+X>>10,Y<<3+X>>9,Y<<5+X>>8) to '/tmp/ios13_32.csv' csv
 
 BEGIN TRANSACTION;
 DELETE FROM iOSLastExport 
-WHERE (SELECT COUNT(*) FROM Temp2) > 0 -- in case rows got added partway through
+WHERE (SELECT COUNT(*) FROM Temp3) > 0 -- in case rows got added partway through -- 2014-04-15 ND: Temp2->Temp3
 AND LastMaxID < (SELECT MAX(id) FROM measurements);
 
 INSERT INTO iOSLastExport(LastMaxID,ExportDate) 
 SELECT MAX(id), CURRENT_TIMESTAMP 
 FROM measurements
-WHERE (SELECT COUNT(*) FROM Temp2) > 0
+WHERE (SELECT COUNT(*) FROM Temp3) > 0 -- 2014-04-15 ND: Temp2->Temp3
     AND (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0);
 
 DELETE FROM iOSLastExport WHERE LastMaxID IS NULL OR LastMaxID = 0;
 COMMIT TRANSACTION;
 
 BEGIN TRANSACTION;
-DROP TABLE Temp2;
+DROP TABLE Temp3; -- 2014-04-15 ND: Temp2->Temp3
 COMMIT TRANSACTION;
+
+
+
+-- *******  TEMP CLUSTERING REFACTORING *****
+
+ -- Z  factor
+-- >>	   /
+-- <<      *
+-- ==	====
+ -- 0	   1
+ -- 1	   2
+ -- 2	   4
+ -- 3	   8
+ -- 4	  16
+ -- 5	  32
+ -- 6	  64
+ -- 7	 128
+ -- 8	 256
+ -- 9    512
+-- 10   1024
+-- 11   2048
+-- 12   4096
+-- 13   8192
+
+
+
+-- ORDER BY 
+-- Y/256/4096*  2 + X/256/4096,
+-- Y/256/2048*  4 + X/256/2048,
+-- Y/256/1024*  8 + X/256/1024,
+-- Y/256/512*  16 + X/256/ 512,
+-- Y/256/256*  32 + X/256/ 256,
+-- Y/256/128*  64 + X/256/ 128,
+-- Y/256/ 64* 128 + X/256/  64,
+-- Y/256/ 32* 256 + X/256/  32,
+-- Y/256/ 16* 512 + X/256/  16,
+-- Y/256/  8*1024 + X/256/   8,
+-- Y/256/  4*2048 + X/256/   4,
+-- Y/256/  2*4096 + X/256/   2,
+-- Y/256    *8192 + X/256
+
+
+-- Y>>8>>12<< 1 + X>>8>>12,
+-- Y>>8>>11<< 2 + X>>8>>11,
+-- Y>>8>>10<< 3 + X>>8>>10,
+-- Y>>8>> 9<< 4 + X>>8>> 9,
+-- Y>>8>> 8<< 5 + X>>8>> 8,
+-- Y>>8>> 7<< 6 + X>>8>> 7,
+-- Y>>8>> 6<< 7 + X>>8>> 6,
+-- Y>>8>> 5<< 8 + X>>8>> 5,
+-- Y>>8>> 4<< 9 + X>>8>> 4,
+-- Y>>8>> 3<<10 + X>>8>> 3,
+-- Y>>8>> 2<<11 + X>>8>> 2,
+-- Y>>8>> 1<<12 + X>>8>> 1,
+-- Y>>8    <<13 + X>>8
+
+-- Y>>20<< 1 + X>>20,
+-- Y>>19<< 2 + X>>19,
+-- Y>>18<< 3 + X>>18,
+-- Y>>17<< 4 + X>>17,
+-- Y>>16<< 5 + X>>16,
+-- Y>>15<< 6 + X>>15,
+-- Y>>14<< 7 + X>>14,
+-- Y>>13<< 8 + X>>13,
+-- Y>>12<< 9 + X>>12,
+-- Y>>11<<10 + X>>11,
+-- Y>>10<<11 + X>>10,
+-- Y>>9 <<12 + X>> 9,
+-- Y>>8 <<13 + X>> 8
+
+-- Y>>19 + X>>20,
+-- Y>>17 + X>>19,
+-- Y>>15 + X>>18,
+-- Y>>13 + X>>17,
+-- Y>>11 + X>>16,
+-- Y>> 9 + X>>15,
+-- Y>> 7 + X>>14,
+-- Y>> 5 + X>>13,
+-- Y>> 3 + X>>12,
+-- Y>> 1 + X>>11,
+-- Y<< 1 + X>>10,
+-- Y<< 3 + X>> 9,
+-- Y<< 5 + X>> 8
