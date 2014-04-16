@@ -60,7 +60,7 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 --   - As of 2014-04-15 change detection is made mostly inoperable by test data submssions.
 --
 -- - Runtime
---   - As of 2014-04-15 this takes ~15 mins to run on Cloud 66.
+--   - As of 2014-04-16 this takes ~7 mins to run on Cloud 66.
 --
 -- - CPU, I/O
 --   - Significant CPU resources are used, but not enough to block other processes.
@@ -99,12 +99,21 @@ BEGIN TRANSACTION;
 CREATE TEMPORARY TABLE IF NOT EXISTS Temp1(X1 INT, Y1 INT, captured_at INT2, DRE FLOAT4);
 TRUNCATE TABLE Temp1;
 
--- coordinate system note: Coordinate system reprojection and magic numbers are derived from:
---                         http://msdn.microsoft.com/en-us/library/bb259689.aspx
---                         These values are specific to web Mercator EPSG 3857 zoom level 13.
---                         For other zoom levels you must change these values.
---                         The value is hardcoded rather than calculated to increase performance.
---                         DO NOT CHANGE THE ZOOM LEVEL ON THE PRODUCTION IOS APP.
+-- ======================================================
+-- COORDINATE SYSTEM REPROJECTION
+-- ======================================================
+-- Coordinate system reprojection and magic numbers are derived from:
+--      http://msdn.microsoft.com/en-us/library/bb259689.aspx
+--
+--      These values are specific to Web Mercator EPSG 3857 zoom level 13.
+--      For other zoom levels you must change these values.
+--
+--      Reprojection "magic numbers" are hardcoded into
+--      the main query with collapsed expressions and
+--      reciprocal estimates for performance.
+--
+--      DO NOT CHANGE THE ZOOM LEVEL ON THE PRODUCTION IOS APP.
+
 
 -- ======================================================
 -- GAMMA SENSITIVITY REFERENCE INFORMATION
@@ -121,26 +130,6 @@ TRUNCATE TABLE Temp1;
 --      6,7,11,13,23       100.0                     0.01
 --   4,9,10,12,19,24       132.0       0.0075757575757576
 --                21      1750.0    0.0005714285714285714
-
-
-
--- (temp math / backup)
---
--- 1/180 = 0.0055555555555556
--- 1/360 = 0.0027777777777778
---  M_PI = 3.1415926535897932384626433
---
--- SELECT CAST((ST_X(location::geometry)+180.0)/360.0*2097152.0+0.5 AS INT) AS X1
--- -- -- * 0.0027777777777778 * 2097152.0
--- -- -- * 5825.422222222222
--- -- -- -- -- SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT) AS X1
--- CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*pi()/180.0))/(1.0-SIN(ST_Y(location::geometry)*pi()/180.0)))/(4.0*pi()))*2097152.0+0.5 AS INT) AS Y1
--- -- -- * M_PI / 180.0
--- -- -- * 0.0174532925199433
--- -- -- -- / 4.0*M_PI
--- -- -- -- / 12.56637061435917
--- -- -- -- * 0.0795774715459477
--- -- -- -- -- CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*0.0174532925199433))/(1.0-SIN(ST_Y(location::geometry)*0.0174532925199433)))*0.0795774715459477)*2097152.0+0.5 AS INT) AS Y1
 
 
 
@@ -197,11 +186,6 @@ COMMIT TRANSACTION;
 -- it partially corrects the spatial error by approximating the centroid from the original trunc in the firmware
 -- -10k to the "days since 1970" is approx a -30 year penalty to the date restrictive binning so as not to
 --       contaminate measurements with superior spatial resolution
-
--- (temp math / backup)
---SELECT CAST((CAST(ST_X(location::geometry) AS FLOAT)+180.0)/360.0*2097152.0+0.5 AS INT)+2 AS X1
---    ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*pi()/180.0))/(1.0-SIN(ST_Y(location::geometry)*pi()/180.0)))/(4.0*pi()))*2097152.0+0.5 AS INT)-2 AS Y1
-
 
 
 
@@ -304,139 +288,64 @@ COMMIT TRANSACTION;
 -- processing while tiling and thus must sort/cluster on its end.  This is somewhat slower, but offset by the
 -- multithreaded performance.
 --
--- The underlying math is trivial to derive.  See the MSDN Bing Maps Tile System article linked above.
+-- ==============================================================================================================
+-- MOAR INFO:
+-- ==============================================================================================================
+--
+-- The underlying math is as follows:
+--   ORDER BY ((Y>>20)<<1)+(X>>20) ... , ... ((Y>>8)<<13)+(X>>8)
+--
+-- These bitshift expressions are a collapsed form of the following:
+--
+--            [A]  [B]  [C]     [A]  [B]
+--            === ====  ===     === ====
+-- Z= 1:    Y/256/4096*   2 + X/256/4096,
+-- Z= 2:    Y/256/2048*   4 + X/256/2048,
+-- Z= 3:    Y/256/1024*   8 + X/256/1024,
+-- Z= 4:    Y/256/ 512*  16 + X/256/ 512,
+-- Z= 5:    Y/256/ 256*  32 + X/256/ 256,
+-- Z= 6:    Y/256/ 128*  64 + X/256/ 128,
+-- Z= 7:    Y/256/  64* 128 + X/256/  64,
+-- Z= 8:    Y/256/  32* 256 + X/256/  32,
+-- Z= 9:    Y/256/  16* 512 + X/256/  16,
+-- Z=10:    Y/256/   8*1024 + X/256/   8,
+-- Z=11:    Y/256/   4*2048 + X/256/   4,
+-- Z=12:    Y/256/   2*4096 + X/256/   2,
+-- Z=13:    Y/256     *8192 + X/256
+--          ---------------   ----------
+--           [Y-axis index]   [X-axis index]
+-- 
+-- What is going on here:
+-- 1. [A]: Pixel X/Y is converted to tile X/Y, by dividing the pixel X/Y by 256 (as each tile is 256x256 pixels)
+-- 2. [B]: The number of tiles spanning the world, width or height, is then converted to a previous zoom level for clustering.
+--         i.   Zoom level 13 has 8192 tiles width or height.  (2^13)
+--         ii.  Zoom level  1 has    2 tiles width or height.  (2^ 1)
+--         iii. Thus, scaling is /x, where x is 2^(Zsrc-Zdest).
+--         iv.  Above, that is /x, where x = 2^(13-1), or /(2^12), or /4096.
+-- 3. [C]: The X/Y coordinates are converted to a single tile index by using row ordering, similar to how pixels in a monochrome image
+--         are accessed and addressed.
+--
+-- In summary, the core principles:
+-- 1. Use normal, traditional image pixel addressing conventions to reference each tile at a particular zoom level with unique single integer index.
+--     - eg: "imageBuffer[y * numRows + x] = 255;"
+-- 2. To make this recursive, scale to each zoom level from 1 to the actual resolution, in ascending order.
 
--- (temp backup)
--- 16bit: \copy (SELECT X,Y,CASE WHEN Z > 65.535 THEN 65535 ELSE CAST(Z*1000.0 AS INT) END AS Z FROM Temp2 ORDER BY Y/256/4096*2+X/256/4096,Y/256/2048*4+X/256/2048,Y/256/1024*8+X/256/1024,Y/256/512*16+X/256/512,Y/256/256*32+X/256/256,Y/256/128*64+X/256/128,Y/256/64*128+X/256/64,Y/256/32*256+X/256/32,Y/256/16*512+X/256/16,Y/256/8*1024+X/256/8,Y/256/4*2048+X/256/4,Y/256/2*4096+X/256/2,Y/256*8192+X/256) to '/tmp/ios13.csv' csv
--- 32bit: \copy (SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY Y/256/4096*2+X/256/4096,Y/256/2048*4+X/256/2048,Y/256/1024*8+X/256/1024,Y/256/512*16+X/256/512,Y/256/256*32+X/256/256,Y/256/128*64+X/256/128,Y/256/64*128+X/256/64,Y/256/32*256+X/256/32,Y/256/16*512+X/256/16,Y/256/8*1024+X/256/8,Y/256/4*2048+X/256/4,Y/256/2*4096+X/256/2,Y/256*8192+X/256) to '/tmp/ios13_32.csv' csv
-
--- (temp new)
--- Y>>19+X>>20,Y>>17+X>>19,Y>>15+X>>18,Y>>13+X>>17,Y>>11+X>>16,Y>>9+X>>15,Y>>7+X>>14,Y>>5+X>>13,Y>>3+X>>12,Y>>1+X>>11,Y<<1+X>>10,Y<<3+X>>9,Y<<5+X>>8
--- ((Y>>20)<<1)+(X>>20),((Y>>19)<<2)+(X>>19),((Y>>18)<<3)+(X>>18),((Y>>17)<<4)+(X>>17),((Y>>16)<<5)+(X>>16),((Y>>15)<<6)+(X>>15),((Y>>14)<<7)+(X>>14),((Y>>13)<<8)+(X>>13),((Y>>12)<<9)+(X>>12),((Y>>11)<<10)+(X>>11),((Y>>10)<<11)+(X>>10),((Y>>9)<<12)+(X>>9),((Y>>8)<<13)+(X>>8)
-
--- 2014-04-15 ND: refactor clustering maths and combine into one table to avoid redundancy
--- 2014-04-15 ND: Disregard that, moving back to single select and output 32-bit file only.
---                Will let shell script dupe the SQLite 3 import and clip there for 1.6.9 16-bit support.
---                This is to help reduce server resource use.
-
---BEGIN TRANSACTION;
---CREATE TEMPORARY TABLE IF NOT EXISTS Temp3(ID SERIAL PRIMARY KEY, X INT, Y INT, Z INT);
---TRUNCATE TABLE Temp3;
--- --INSERT INTO Temp3(X,Y,Z) SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY Y>>19+X>>20,Y>>17+X>>19,Y>>15+X>>18,Y>>13+X>>17,Y>>11+X>>16,Y>>9+X>>15,Y>>7+X>>14,Y>>5+X>>13,Y>>3+X>>12,Y>>1+X>>11,Y<<1+X>>10,Y<<3+X>>9,Y<<5+X>>8;
---INSERT INTO Temp3(X,Y,Z) SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY ((Y>>20)<<1)+(X>>20),((Y>>19)<<2)+(X>>19),((Y>>18)<<3)+(X>>18),((Y>>17)<<4)+(X>>17),((Y>>16)<<5)+(X>>16),((Y>>15)<<6)+(X>>15),((Y>>14)<<7)+(X>>14),((Y>>13)<<8)+(X>>13),((Y>>12)<<9)+(X>>12),((Y>>11)<<10)+(X>>11),((Y>>10)<<11)+(X>>10),((Y>>9)<<12)+(X>>9),((Y>>8)<<13)+(X>>8);
---DROP TABLE Temp2;
---COMMIT TRANSACTION;
-
--- 2014-04-15 ND: ignore below, 32-bit only!
 \copy (SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY ORDER BY ((Y>>20)<<1)+(X>>20),((Y>>19)<<2)+(X>>19),((Y>>18)<<3)+(X>>18),((Y>>17)<<4)+(X>>17),((Y>>16)<<5)+(X>>16),((Y>>15)<<6)+(X>>15),((Y>>14)<<7)+(X>>14),((Y>>13)<<8)+(X>>13),((Y>>12)<<9)+(X>>12),((Y>>11)<<10)+(X>>11),((Y>>10)<<11)+(X>>10),((Y>>9)<<12)+(X>>9),((Y>>8)<<13)+(X>>8) to '/tmp/ios13_32.csv' csv
-
--- 2014-04-15 ND: 32-bit first for better cache hit, no branching on case MIN
---\copy (SELECT X,Y,Z FROM Temp3 ORDER BY ID ASC) to '/tmp/ios13_32.csv' csv
---\copy (SELECT X,Y,CASE WHEN Z > 65535 THEN 65535 ELSE Z END AS Z FROM Temp3 ORDER BY ID ASC) to '/tmp/ios13.csv' csv
-
--- 16-bit output: iOS client 1.6.9 
---\copy (SELECT X,Y,CASE WHEN Z > 65.535 THEN 65535 ELSE CAST(Z*1000.0 AS INT) END AS Z FROM Temp2 ORDER BY Y>>19+X>>20,Y>>17+X>>19,Y>>15+X>>18,Y>>13+X>>17,Y>>11+X>>16,Y>>9+X>>15,Y>>7+X>>14,Y>>5+X>>13,Y>>3+X>>12,Y>>1+X>>11,Y<<1+X>>10,Y<<3+X>>9,Y<<5+X>>8) to '/tmp/ios13.csv' csv
-
--- 32-bit output: iOS client 1.7.0
---\copy (SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY Y>>19+X>>20,Y>>17+X>>19,Y>>15+X>>18,Y>>13+X>>17,Y>>11+X>>16,Y>>9+X>>15,Y>>7+X>>14,Y>>5+X>>13,Y>>3+X>>12,Y>>1+X>>11,Y<<1+X>>10,Y<<3+X>>9,Y<<5+X>>8) to '/tmp/ios13_32.csv' csv
 
 BEGIN TRANSACTION;
 DELETE FROM iOSLastExport 
-WHERE (SELECT COUNT(*) FROM Temp2) > 0 -- in case rows got added partway through -- 2014-04-15 ND: Temp2->Temp3  -- 2014-04-15 ND: revert Temp3->Temp2
+WHERE (SELECT COUNT(*) FROM Temp2) > 0 -- in case rows got added partway through
 AND LastMaxID < (SELECT MAX(id) FROM measurements);
 
 INSERT INTO iOSLastExport(LastMaxID,ExportDate) 
 SELECT MAX(id), CURRENT_TIMESTAMP 
 FROM measurements
-WHERE (SELECT COUNT(*) FROM Temp2) > 0 -- 2014-04-15 ND: Temp2->Temp3  -- 2014-04-15 ND: revert Temp3->Temp2
+WHERE (SELECT COUNT(*) FROM Temp2) > 0
     AND (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0);
 
 DELETE FROM iOSLastExport WHERE LastMaxID IS NULL OR LastMaxID = 0;
 COMMIT TRANSACTION;
 
 BEGIN TRANSACTION;
-DROP TABLE Temp2; -- 2014-04-15 ND: Temp2->Temp3   -- 2014-04-15 ND: revert Temp3->Temp2
+DROP TABLE Temp2;
 COMMIT TRANSACTION;
-
-
-
--- *******  TEMP CLUSTERING REFACTORING *****
-
- -- Z  factor
--- >>	   /
--- <<      *
--- ==	====
- -- 0	   1
- -- 1	   2
- -- 2	   4
- -- 3	   8
- -- 4	  16
- -- 5	  32
- -- 6	  64
- -- 7	 128
- -- 8	 256
- -- 9    512
--- 10   1024
--- 11   2048
--- 12   4096
--- 13   8192
-
-
-
--- ORDER BY 
--- Y/256/4096*  2 + X/256/4096,
--- Y/256/2048*  4 + X/256/2048,
--- Y/256/1024*  8 + X/256/1024,
--- Y/256/512*  16 + X/256/ 512,
--- Y/256/256*  32 + X/256/ 256,
--- Y/256/128*  64 + X/256/ 128,
--- Y/256/ 64* 128 + X/256/  64,
--- Y/256/ 32* 256 + X/256/  32,
--- Y/256/ 16* 512 + X/256/  16,
--- Y/256/  8*1024 + X/256/   8,
--- Y/256/  4*2048 + X/256/   4,
--- Y/256/  2*4096 + X/256/   2,
--- Y/256    *8192 + X/256
-
-
--- Y>>8>>12<< 1 + X>>8>>12,
--- Y>>8>>11<< 2 + X>>8>>11,
--- Y>>8>>10<< 3 + X>>8>>10,
--- Y>>8>> 9<< 4 + X>>8>> 9,
--- Y>>8>> 8<< 5 + X>>8>> 8,
--- Y>>8>> 7<< 6 + X>>8>> 7,
--- Y>>8>> 6<< 7 + X>>8>> 6,
--- Y>>8>> 5<< 8 + X>>8>> 5,
--- Y>>8>> 4<< 9 + X>>8>> 4,
--- Y>>8>> 3<<10 + X>>8>> 3,
--- Y>>8>> 2<<11 + X>>8>> 2,
--- Y>>8>> 1<<12 + X>>8>> 1,
--- Y>>8    <<13 + X>>8
-
--- Y>>20<< 1 + X>>20,
--- Y>>19<< 2 + X>>19,
--- Y>>18<< 3 + X>>18,
--- Y>>17<< 4 + X>>17,
--- Y>>16<< 5 + X>>16,
--- Y>>15<< 6 + X>>15,
--- Y>>14<< 7 + X>>14,
--- Y>>13<< 8 + X>>13,
--- Y>>12<< 9 + X>>12,
--- Y>>11<<10 + X>>11,
--- Y>>10<<11 + X>>10,
--- Y>>9 <<12 + X>> 9,
--- Y>>8 <<13 + X>> 8
-
--- Y>>19 + X>>20,
--- Y>>17 + X>>19,
--- Y>>15 + X>>18,
--- Y>>13 + X>>17,
--- Y>>11 + X>>16,
--- Y>> 9 + X>>15,
--- Y>> 7 + X>>14,
--- Y>> 5 + X>>13,
--- Y>> 3 + X>>12,
--- Y>> 1 + X>>11,
--- Y<< 1 + X>>10,
--- Y<< 3 + X>> 9,
--- Y<< 5 + X>> 8
