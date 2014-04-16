@@ -315,20 +315,24 @@ COMMIT TRANSACTION;
 -- ((Y>>20)<<1)+(X>>20),((Y>>19)<<2)+(X>>19),((Y>>18)<<3)+(X>>18),((Y>>17)<<4)+(X>>17),((Y>>16)<<5)+(X>>16),((Y>>15)<<6)+(X>>15),((Y>>14)<<7)+(X>>14),((Y>>13)<<8)+(X>>13),((Y>>12)<<9)+(X>>12),((Y>>11)<<10)+(X>>11),((Y>>10)<<11)+(X>>10),((Y>>9)<<12)+(X>>9),((Y>>8)<<13)+(X>>8)
 
 -- 2014-04-15 ND: refactor clustering maths and combine into one table to avoid redundancy
+-- 2014-04-15 ND: Disregard that, moving back to single select and output 32-bit file only.
+--                Will let shell script dupe the SQLite 3 import and clip there for 1.6.9 16-bit support.
+--                This is to help reduce server resource use.
 
-BEGIN TRANSACTION;
-CREATE TEMPORARY TABLE IF NOT EXISTS Temp3(ID SERIAL PRIMARY KEY, X INT, Y INT, Z INT);
-TRUNCATE TABLE Temp3;
---INSERT INTO Temp3(X,Y,Z) SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY Y>>19+X>>20,Y>>17+X>>19,Y>>15+X>>18,Y>>13+X>>17,Y>>11+X>>16,Y>>9+X>>15,Y>>7+X>>14,Y>>5+X>>13,Y>>3+X>>12,Y>>1+X>>11,Y<<1+X>>10,Y<<3+X>>9,Y<<5+X>>8;
-INSERT INTO Temp3(X,Y,Z) SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY ((Y>>20)<<1)+(X>>20),((Y>>19)<<2)+(X>>19),((Y>>18)<<3)+(X>>18),((Y>>17)<<4)+(X>>17),((Y>>16)<<5)+(X>>16),((Y>>15)<<6)+(X>>15),((Y>>14)<<7)+(X>>14),((Y>>13)<<8)+(X>>13),((Y>>12)<<9)+(X>>12),((Y>>11)<<10)+(X>>11),((Y>>10)<<11)+(X>>10),((Y>>9)<<12)+(X>>9),((Y>>8)<<13)+(X>>8);
-DROP TABLE Temp2;
-COMMIT TRANSACTION;
+--BEGIN TRANSACTION;
+--CREATE TEMPORARY TABLE IF NOT EXISTS Temp3(ID SERIAL PRIMARY KEY, X INT, Y INT, Z INT);
+--TRUNCATE TABLE Temp3;
+-- --INSERT INTO Temp3(X,Y,Z) SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY Y>>19+X>>20,Y>>17+X>>19,Y>>15+X>>18,Y>>13+X>>17,Y>>11+X>>16,Y>>9+X>>15,Y>>7+X>>14,Y>>5+X>>13,Y>>3+X>>12,Y>>1+X>>11,Y<<1+X>>10,Y<<3+X>>9,Y<<5+X>>8;
+--INSERT INTO Temp3(X,Y,Z) SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY ((Y>>20)<<1)+(X>>20),((Y>>19)<<2)+(X>>19),((Y>>18)<<3)+(X>>18),((Y>>17)<<4)+(X>>17),((Y>>16)<<5)+(X>>16),((Y>>15)<<6)+(X>>15),((Y>>14)<<7)+(X>>14),((Y>>13)<<8)+(X>>13),((Y>>12)<<9)+(X>>12),((Y>>11)<<10)+(X>>11),((Y>>10)<<11)+(X>>10),((Y>>9)<<12)+(X>>9),((Y>>8)<<13)+(X>>8);
+--DROP TABLE Temp2;
+--COMMIT TRANSACTION;
+
+-- 2014-04-15 ND: ignore below, 32-bit only!
+\copy (SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY ORDER BY ((Y>>20)<<1)+(X>>20),((Y>>19)<<2)+(X>>19),((Y>>18)<<3)+(X>>18),((Y>>17)<<4)+(X>>17),((Y>>16)<<5)+(X>>16),((Y>>15)<<6)+(X>>15),((Y>>14)<<7)+(X>>14),((Y>>13)<<8)+(X>>13),((Y>>12)<<9)+(X>>12),((Y>>11)<<10)+(X>>11),((Y>>10)<<11)+(X>>10),((Y>>9)<<12)+(X>>9),((Y>>8)<<13)+(X>>8) to '/tmp/ios13_32.csv' csv
 
 -- 2014-04-15 ND: 32-bit first for better cache hit, no branching on case MIN
-
-\copy (SELECT X,Y,Z FROM Temp3 ORDER BY ID ASC) to '/tmp/ios13_32.csv' csv
-
-\copy (SELECT X,Y,CASE WHEN Z > 65535 THEN 65535 ELSE Z END AS Z FROM Temp3 ORDER BY ID ASC) to '/tmp/ios13.csv' csv
+--\copy (SELECT X,Y,Z FROM Temp3 ORDER BY ID ASC) to '/tmp/ios13_32.csv' csv
+--\copy (SELECT X,Y,CASE WHEN Z > 65535 THEN 65535 ELSE Z END AS Z FROM Temp3 ORDER BY ID ASC) to '/tmp/ios13.csv' csv
 
 -- 16-bit output: iOS client 1.6.9 
 --\copy (SELECT X,Y,CASE WHEN Z > 65.535 THEN 65535 ELSE CAST(Z*1000.0 AS INT) END AS Z FROM Temp2 ORDER BY Y>>19+X>>20,Y>>17+X>>19,Y>>15+X>>18,Y>>13+X>>17,Y>>11+X>>16,Y>>9+X>>15,Y>>7+X>>14,Y>>5+X>>13,Y>>3+X>>12,Y>>1+X>>11,Y<<1+X>>10,Y<<3+X>>9,Y<<5+X>>8) to '/tmp/ios13.csv' csv
@@ -338,20 +342,20 @@ COMMIT TRANSACTION;
 
 BEGIN TRANSACTION;
 DELETE FROM iOSLastExport 
-WHERE (SELECT COUNT(*) FROM Temp3) > 0 -- in case rows got added partway through -- 2014-04-15 ND: Temp2->Temp3
+WHERE (SELECT COUNT(*) FROM Temp2) > 0 -- in case rows got added partway through -- 2014-04-15 ND: Temp2->Temp3  -- 2014-04-15 ND: revert Temp3->Temp2
 AND LastMaxID < (SELECT MAX(id) FROM measurements);
 
 INSERT INTO iOSLastExport(LastMaxID,ExportDate) 
 SELECT MAX(id), CURRENT_TIMESTAMP 
 FROM measurements
-WHERE (SELECT COUNT(*) FROM Temp3) > 0 -- 2014-04-15 ND: Temp2->Temp3
+WHERE (SELECT COUNT(*) FROM Temp2) > 0 -- 2014-04-15 ND: Temp2->Temp3  -- 2014-04-15 ND: revert Temp3->Temp2
     AND (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0);
 
 DELETE FROM iOSLastExport WHERE LastMaxID IS NULL OR LastMaxID = 0;
 COMMIT TRANSACTION;
 
 BEGIN TRANSACTION;
-DROP TABLE Temp3; -- 2014-04-15 ND: Temp2->Temp3
+DROP TABLE Temp2; -- 2014-04-15 ND: Temp2->Temp3   -- 2014-04-15 ND: revert Temp3->Temp2
 COMMIT TRANSACTION;
 
 
