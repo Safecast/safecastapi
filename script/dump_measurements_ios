@@ -3,7 +3,7 @@
 rm -f /tmp/ios13.csv
 rm -f /tmp/ios13_32.csv
 
-# psql -U safecast --host $POSTGRESQL_ADDRESS safecast -f /var/deploy/api.safecast.org/web_head/current/script/ios_query.sql
+psql -U safecast --host $POSTGRESQL_ADDRESS safecast -f /var/deploy/api.safecast.org/web_head/current/script/ios_query.sql
 
 # don't purge sqlite output if nothing resulted from psql, so as to do less work and retain date on http file
 # this is to support only updating if newer data
