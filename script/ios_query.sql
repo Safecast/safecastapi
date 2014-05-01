@@ -142,24 +142,25 @@ TRUNCATE TABLE Temp1;
 -- also filters the user QuartaRad (345) who repeatedly submits bad data
 -- temp ban on user_id=366 (Brian Jones) until backend delete is fixed or someone identifies points manually
 --      verify with: https://api.safecast.org/en-US/measurements?utf8=%E2%9C%93&latitude=-26.9918&longitude=137.3043&distance=10000&captured_after=&captured_before=&since=&until=&commit=Filter
--- temp ban on user_id=9 until bad data is removed
+-- temp ban on user_id=9 and user_id=442 until bad data is removed (Tokyo only)
+-- --> bans for 9,366,442 made location and value specific to recover valid measurements
 -- uSv/h upper limit 75 -> 5 to correct for users submitting web measurements in CPM
 INSERT INTO Temp1(X1, Y1, captured_at, DRE)
 SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT) AS X1
     ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*0.0174532925199433))/(1.0-SIN(ST_Y(location::geometry)*0.0174532925199433)))*0.0795774715459477)*2097152.0+0.5 AS INT) AS Y1
     ,CAST(EXTRACT(epoch FROM captured_at)/86400 AS INT2) AS captured_at
     ,CASE
-        WHEN unit='cpm' AND device_id IS NULL THEN value * 0.0028571428571429
-        WHEN unit IN ('microsievert','usv') THEN value
+        WHEN unit='cpm' AND device_id IS NULL               THEN value * 0.0028571428571429
+        WHEN unit IN ('microsievert','usv')                 THEN value
         WHEN unit='cpm' AND device_id IN (5,15,16,17,18,22) THEN value * 0.0028571428571429
-        WHEN unit='cpm' AND device_id IN (6,7,11,13,23) THEN value * 0.01
-        WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24) THEN value * 0.0075757575757576
-        WHEN unit='cpm' AND device_id IN (21) THEN value * 0.0005714285714285714
+        WHEN unit='cpm' AND device_id IN (6,7,11,13,23)     THEN value * 0.01
+        WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24)  THEN value * 0.0075757575757576
+        WHEN unit='cpm' AND device_id IN (21)               THEN value * 0.0005714285714285714
         ELSE 0.0
     END AS DRE
 FROM measurements
 WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0)
-    AND user_id NOT IN (345,347,366,9)
+    AND user_id NOT IN (345,347)
     AND (id < 23181608 OR id > 23182462) -- 100% bad
     AND (id < 20798302 OR id > 20803607) -- 20% bad, but better filtering too slow
     AND (id < 21977826 OR id > 21979768) -- 100% bad
@@ -177,7 +178,19 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND ST_Y(location::geometry) < 85.05
     AND ST_Y(location::geometry) > -85.05
     AND ST_X(location::geometry) >= -180.0
-    AND ST_X(location::geometry) <=  180.0;
+    AND ST_X(location::geometry) <=  180.0
+    AND (   user_id NOT IN (9,442) -- "friendly" ban, specific to area and measurement value
+         OR value        < 35.0
+         OR ST_Y(location::geometry) <  35.4489
+         OR ST_Y(location::geometry) >  35.7278
+         OR ST_X(location::geometry) < 139.5706
+         OR ST_X(location::geometry) > 139.9186)
+    AND (   user_id != 366 -- "friendly" ban, specific to area and measurement value
+         OR value    <  35.0
+         OR ST_Y(location::geometry) < -45.5201
+         OR ST_Y(location::geometry) >  -7.6228
+         OR ST_X(location::geometry) < 111.3241
+         OR ST_X(location::geometry) > 153.8620);
 COMMIT TRANSACTION;
 
 -- ==============================================================================================================
@@ -196,12 +209,12 @@ SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT)+2 AS 
     ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*0.0174532925199433))/(1.0-SIN(ST_Y(location::geometry)*0.0174532925199433)))*0.0795774715459477)*2097152.0+0.5 AS INT)-2 AS Y1
     ,CAST(EXTRACT(epoch FROM captured_at)/86400 AS INT2)-10950 AS captured_at
     ,CASE
-        WHEN unit='cpm' AND device_id IS NULL THEN value * 0.0028571428571429
-        WHEN unit IN ('microsievert','usv') THEN value
+        WHEN unit='cpm' AND device_id IS NULL               THEN value * 0.0028571428571429
+        WHEN unit IN ('microsievert','usv')                 THEN value
         WHEN unit='cpm' AND device_id IN (5,15,16,17,18,22) THEN value * 0.0028571428571429
-        WHEN unit='cpm' AND device_id IN (6,7,11,13,23) THEN value * 0.01
-        WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24) THEN value * 0.0075757575757576
-        WHEN unit='cpm' AND device_id IN (21) THEN value * 0.0005714285714285714
+        WHEN unit='cpm' AND device_id IN (6,7,11,13,23)     THEN value * 0.01
+        WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24)  THEN value * 0.0075757575757576
+        WHEN unit='cpm' AND device_id IN (21)               THEN value * 0.0005714285714285714
         ELSE 0.0
     END AS DRE
 FROM measurements
