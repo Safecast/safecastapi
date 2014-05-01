@@ -138,17 +138,25 @@ TRUNCATE TABLE Temp1;
 -- PRIMARY DATA QUERY
 -- ==============================================================================================================
 
--- first insert is for NON Japan Post (ie, normal) data
--- also filters the user QuartaRad (345) who repeatedly submits bad data
--- temp ban on user_id=366 (Brian Jones) until backend delete is fixed or someone identifies points manually
---      verify with: https://api.safecast.org/en-US/measurements?utf8=%E2%9C%93&latitude=-26.9918&longitude=137.3043&distance=10000&captured_after=&captured_before=&since=&until=&commit=Filter
--- temp ban on user_id=9 and user_id=442 until bad data is removed (Tokyo only)
--- --> bans for 9,366,442 made location and value specific to recover valid measurements
+-- **** TEST: JP POST MOVED TO MAIN QUERY VIA CASE ****     -- first insert is for NON Japan Post (ie, normal) data
 -- uSv/h upper limit 75 -> 5 to correct for users submitting web measurements in CPM
+
+-- Blacklists now specific to area and value to reduce collateral damage.
+
+-- User Blacklists/Filtering       Details
+-- =========================       ===========================================================================
+-- - user_id = 345 (QuartaRad)   - All data (user submitted only bad data)
+-- **** TEST: JP POST MOVED TO MAIN QUERY VIA CASE **** -- - user_id = 347 (JP Post)     - Not blacklisted, just in separate query below to avoid ugly case branching
+-- - user_id = 366 (Brain Jones) - Aircraft flight.  Filter:   .au extent only, > 0.30 uSv/h only.
+-- - user_id =   9 (Rob)         - Test data.        Filter: Tokyo extent only, > 0.10 uSv/h only.
+-- - user_id = 442 (?)           - Test data.        Filter: Tokyo extent only, > 0.10 uSv/h only.
+
+--    user_id=366 check: https://api.safecast.org/en-US/measurements?utf8=%E2%9C%93&latitude=-26.9918&longitude=137.3043&distance=10000&captured_after=&captured_before=&since=&until=&commit=Filter
+
 INSERT INTO Temp1(X1, Y1, captured_at, DRE)
-SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT) AS X1
-    ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*0.0174532925199433))/(1.0-SIN(ST_Y(location::geometry)*0.0174532925199433)))*0.0795774715459477)*2097152.0+0.5 AS INT) AS Y1
-    ,CAST(EXTRACT(epoch FROM captured_at)/86400 AS INT2) AS captured_at
+SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT) + CASE WHEN user_id=347 THEN 2 ELSE 0 END AS X1
+    ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*0.0174532925199433))/(1.0-SIN(ST_Y(location::geometry)*0.0174532925199433)))*0.0795774715459477)*2097152.0+0.5 AS INT) + CASE WHEN user_id=347 THEN -2 ELSE 0 END AS Y1
+    ,CAST(EXTRACT(epoch FROM captured_at)/86400 AS INT2) + CASE WHEN user_id=347 THEN -10950 ELSE 0 END AS captured_at
     ,CASE
         WHEN unit='cpm' AND device_id IS NULL               THEN value * 0.0028571428571429
         WHEN unit IN ('microsievert','usv')                 THEN value
@@ -160,7 +168,7 @@ SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT) AS X1
     END AS DRE
 FROM measurements
 WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0)
-    AND user_id NOT IN (345,347)
+    AND user_id NOT IN (345)--347
     AND (id < 23181608 OR id > 23182462) -- 100% bad
     AND (id < 20798302 OR id > 20803607) -- 20% bad, but better filtering too slow
     AND (id < 21977826 OR id > 21979768) -- 100% bad
@@ -175,23 +183,25 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND location IS NOT NULL
     AND (  ST_X(location::geometry) != 0.0
         OR ST_Y(location::geometry) != 0.0)
-    AND ST_Y(location::geometry) < 85.05
-    AND ST_Y(location::geometry) > -85.05
+    AND ST_Y(location::geometry) <    85.05
+    AND ST_Y(location::geometry) >   -85.05
     AND ST_X(location::geometry) >= -180.0
     AND ST_X(location::geometry) <=  180.0
-    AND (   user_id NOT IN (9,442) -- "friendly" ban, specific to area and measurement value
-         OR value        < 35.0
-         OR ST_Y(location::geometry) <  35.4489
+    AND (   user_id NOT IN (9,442)                -- "friendly" ban, specific to area and measurement value
+         OR value        < 35.0                   -- 0.10 uSv/h
+         OR ST_Y(location::geometry) <  35.4489   -- tokyo extent
          OR ST_Y(location::geometry) >  35.7278
          OR ST_X(location::geometry) < 139.5706
          OR ST_X(location::geometry) > 139.9186)
-    AND (   user_id != 366 -- "friendly" ban, specific to area and measurement value
-         OR value    <  35.0
-         OR ST_Y(location::geometry) < -45.5201
+    AND (   user_id != 366                        -- "friendly" ban, specific to area and measurement value
+         OR value    <  105.0                     -- 0.30 uSv/h
+         OR ST_Y(location::geometry) < -45.5201   -- .au extent
          OR ST_Y(location::geometry) >  -7.6228
          OR ST_X(location::geometry) < 111.3241
          OR ST_X(location::geometry) > 153.8620);
 COMMIT TRANSACTION;
+
+-- TEST: disable 2nd query for JP Post, incorporated into CASE above
 
 -- ==============================================================================================================
 -- JAPAN POST WORKAORUND SELECT
@@ -203,37 +213,38 @@ COMMIT TRANSACTION;
 
 
 
-BEGIN TRANSACTION;
-INSERT INTO Temp1(X1, Y1, captured_at, DRE)
-SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT)+2 AS X1
-    ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*0.0174532925199433))/(1.0-SIN(ST_Y(location::geometry)*0.0174532925199433)))*0.0795774715459477)*2097152.0+0.5 AS INT)-2 AS Y1
-    ,CAST(EXTRACT(epoch FROM captured_at)/86400 AS INT2)-10950 AS captured_at
-    ,CASE
-        WHEN unit='cpm' AND device_id IS NULL               THEN value * 0.0028571428571429
-        WHEN unit IN ('microsievert','usv')                 THEN value
-        WHEN unit='cpm' AND device_id IN (5,15,16,17,18,22) THEN value * 0.0028571428571429
-        WHEN unit='cpm' AND device_id IN (6,7,11,13,23)     THEN value * 0.01
-        WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24)  THEN value * 0.0075757575757576
-        WHEN unit='cpm' AND device_id IN (21)               THEN value * 0.0005714285714285714
-        ELSE 0.0
-    END AS DRE
-FROM measurements
-WHERE (SELECT COUNT(*) FROM Temp1) > 0 -- in case new rows get added to measurements between insert blocks
-    AND (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0)
-    AND user_id = 347
-    AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
-    AND captured_at < localtimestamp + interval '48 hours'
-    AND captured_at IS NOT NULL
-    AND (  (unit='cpm' AND value IS NOT NULL AND value > 10.0 AND ( (device_id IS NULL AND value < 350000.0) OR (device_id <= 24 AND value < 30000.0) ))
-        OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 5.0))
-    AND location IS NOT NULL
-    AND (  ST_X(location::geometry) != 0.0
-        OR ST_Y(location::geometry) != 0.0)
-    AND ST_Y(location::geometry) < 85.05
-    AND ST_Y(location::geometry) > -85.05
-    AND ST_X(location::geometry) >= -180.0
-    AND ST_X(location::geometry) <=  180.0;
-COMMIT TRANSACTION;
+--BEGIN TRANSACTION;
+--INSERT INTO Temp1(X1, Y1, captured_at, DRE)
+--SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT)+2 AS X1
+--    ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*0.0174532925199433))/(1.0-SIN(ST_Y(location::geometry)*0.0174532925199433)))*0.0795774715459477)*2097152.0+0.5 AS INT)-2 AS Y1
+--    ,CAST(EXTRACT(epoch FROM captured_at)/86400 AS INT2)-10950 AS captured_at
+--    ,CASE
+--        WHEN unit='cpm' AND device_id IS NULL               THEN value * 0.0028571428571429
+--        WHEN unit IN ('microsievert','usv')                 THEN value
+--        WHEN unit='cpm' AND device_id IN (5,15,16,17,18,22) THEN value * 0.0028571428571429
+--        WHEN unit='cpm' AND device_id IN (6,7,11,13,23)     THEN value * 0.01
+--        WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24)  THEN value * 0.0075757575757576
+--        WHEN unit='cpm' AND device_id IN (21)               THEN value * 0.0005714285714285714
+--        ELSE 0.0
+--    END AS DRE
+--FROM measurements
+--WHERE (SELECT COUNT(*) FROM Temp1) > 0 -- in case new rows get added to measurements between insert blocks
+--    AND (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0)
+--    AND user_id = 347
+--    AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
+--    AND captured_at < localtimestamp + interval '48 hours'
+--    AND captured_at IS NOT NULL
+--    AND (  (unit='cpm' AND value IS NOT NULL AND value > 10.0 AND ( (device_id IS NULL AND value < 350000.0) OR (device_id <= 24 AND value < 30000.0) ))
+--        OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 5.0))
+--    AND location IS NOT NULL
+--    AND (  ST_X(location::geometry) != 0.0
+--        OR ST_Y(location::geometry) != 0.0)
+--    AND ST_Y(location::geometry) < 85.05
+--    AND ST_Y(location::geometry) > -85.05
+--   AND ST_X(location::geometry) >= -180.0
+--    AND ST_X(location::geometry) <=  180.0;
+--COMMIT TRANSACTION;
+
 
 BEGIN TRANSACTION;
 CREATE INDEX idx_Temp1_X1Y1CD ON Temp1(X1,Y1,captured_at);
