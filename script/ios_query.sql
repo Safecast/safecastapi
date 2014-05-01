@@ -142,6 +142,7 @@ TRUNCATE TABLE Temp1;
 -- also filters the user QuartaRad (345) who repeatedly submits bad data
 -- temp ban on user_id=366 (Brian Jones) until backend delete is fixed or someone identifies points manually
 --      verify with: https://api.safecast.org/en-US/measurements?utf8=%E2%9C%93&latitude=-26.9918&longitude=137.3043&distance=10000&captured_after=&captured_before=&since=&until=&commit=Filter
+-- temp ban on user_id=9 until bad data is removed
 -- uSv/h upper limit 75 -> 5 to correct for users submitting web measurements in CPM
 INSERT INTO Temp1(X1, Y1, captured_at, DRE)
 SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT) AS X1
@@ -158,7 +159,7 @@ SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT) AS X1
     END AS DRE
 FROM measurements
 WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0)
-    AND user_id NOT IN (345,347,366)
+    AND user_id NOT IN (345,347,366,9)
     AND (id < 23181608 OR id > 23182462) -- 100% bad
     AND (id < 20798302 OR id > 20803607) -- 20% bad, but better filtering too slow
     AND (id < 21977826 OR id > 21979768) -- 100% bad
