@@ -87,7 +87,7 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 
 
 BEGIN TRANSACTION;
-CREATE TABLE IF NOT EXISTS iOSLastExport(LastMaxID INT, ExportDate TIMESTAMP);
+     CREATE TABLE IF NOT EXISTS iOSLastExport(LastMaxID INT, ExportDate TIMESTAMP);
 COMMIT TRANSACTION;
 
 -- performance note: Temp1 is created with as limited of width data types as possible, for example
@@ -96,7 +96,7 @@ COMMIT TRANSACTION;
 --                   disk IO and more efficient composite b-tree indexing.
 
 BEGIN TRANSACTION;
-CREATE TEMPORARY TABLE IF NOT EXISTS Temp1(X1 INT, Y1 INT, captured_at INT2, DRE FLOAT4);
+     CREATE TEMPORARY TABLE IF NOT EXISTS Temp1(X1 INT, Y1 INT, captured_at INT2, DRE FLOAT4);
 TRUNCATE TABLE Temp1;
 
 -- ======================================================
@@ -160,7 +160,8 @@ SELECT CAST(
               (ST_X(location::geometry) + 180.0) * 5825.422222222222 + 0.5 
             AS INT
            )
-       + (CASE WHEN (user_id = 347) THEN 2 ELSE 0 END) AS X1
+       + (CASE WHEN (user_id = 347) THEN 2 ELSE 0 END) -- JP Post: correct offset to centroid vs. WGS84 trunc
+       AS X1
     ,CAST(
             (0.5 - LN(  (1.0 + SIN(ST_Y(location::geometry) * 0.0174532925199433))
                       / (1.0 - SIN(ST_Y(location::geometry) * 0.0174532925199433)))
@@ -168,12 +169,14 @@ SELECT CAST(
             ) * 2097152.0 + 0.5 
           AS INT
          )
-     + (CASE WHEN (user_id = 347) THEN -2 ELSE 0 END) AS Y1
+     + (CASE WHEN (user_id = 347) THEN -2 ELSE 0 END) -- JP Post: correct offset to centroid vs. WGS84 trunc
+     AS Y1
     ,CAST( 
             EXTRACT(epoch FROM captured_at) / 86400 
           AS INT2
          )
-     + (CASE WHEN (user_id = 347) THEN -10950 ELSE 0 END) AS captured_at
+     + (CASE WHEN (user_id = 347) THEN -10950 ELSE 0 END) -- JP Post: penalty during binning due to low spatial rez
+     AS captured_at
     ,CASE
         WHEN unit='cpm' AND device_id IS NULL               THEN value * 0.0028571428571429
         WHEN unit IN ('microsievert','usv')                 THEN value
@@ -182,17 +185,18 @@ SELECT CAST(
         WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24)  THEN value * 0.0075757575757576
         WHEN unit='cpm' AND device_id IN (21)               THEN value * 0.0005714285714285714
         ELSE 0.0
-    END AS DRE
+    END 
+    AS DRE
 FROM measurements
 WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0)
-    AND user_id NOT IN (345)--347
     AND id NOT BETWEEN 23181608 AND 23182462 -- 100% bad
     AND id NOT BETWEEN 20798302 AND 20803607 -- 20% bad, but better filtering too slow
     AND id NOT BETWEEN 21977826 AND 21979768 -- 100% bad
     AND id NOT BETWEEN 24060795 AND 24067649 -- invalidated, raining, most 2x normal
     AND id NOT IN (13194822,15768545,15768817,15690104,15768346,15768782,15768792,16381794,18001818,17342620,14669786,25389168,25389158,25389157,25389153,24482487,16537265,16537266,19554057,19554058,19554059,19554060,19555677,19589301,19589302,19589303,19589304,19589305,19589303,19589304,19589305,19600634,19699406,17461603,17461607,17461611,17461615,16981355,16240105,16240101,16240097,16240093,16241392,16241388,18001769,25702033,25702031)
     AND id NOT IN (14764408,14764409,14764410,14764411,14764412,14764413,13872611,13872612,14764388,14764389,14764390,14764391,14764392,14764393,14764394,14764395,14764396,14764397,14764398,14764399,14764400,14764401,14764402,14764403,14764404,14764405,14764406,14764407) -- bad streak in hot area
-    AND captured_at BETWEEEN TIMESTAMP '2011-03-01 00:00:00' AND localtimestamp + interval '48 hours'
+    AND user_id NOT IN (345)--347
+    AND captured_at BETWEEEN (TIMESTAMP '2011-03-01 00:00:00') AND (localtimestamp + interval '48 hours')
     AND captured_at IS NOT NULL
     AND value       IS NOT NULL
     AND location    IS NOT NULL
@@ -261,15 +265,15 @@ COMMIT TRANSACTION;
 
 
 BEGIN TRANSACTION;
-CREATE INDEX idx_Temp1_X1Y1CD ON Temp1(X1,Y1,captured_at);
+     CREATE INDEX idx_Temp1_X1Y1CD ON Temp1(X1,Y1,captured_at);
 COMMIT TRANSACTION;
 
 -- clamp to bounds of projection (shouldn't ever be hit, but...)
 BEGIN TRANSACTION;
-UPDATE Temp1 SET X1=0 WHERE X1<0;
-UPDATE Temp1 SET X1=2097151 WHERE X1>2097151;
-UPDATE Temp1 SET Y1=0 WHERE Y1<0;
-UPDATE Temp1 SET Y1=2097151 WHERE Y1>2097151;
+     UPDATE Temp1 SET X1 =       0 WHERE X1 <       0;
+     UPDATE Temp1 SET X1 = 2097151 WHERE X1 > 2097151;
+     UPDATE Temp1 SET Y1 =       0 WHERE Y1 <       0;
+     UPDATE Temp1 SET Y1 = 2097151 WHERE Y1 > 2097151;
 COMMIT TRANSACTION;
 
 -- ==============================================================================================================
@@ -291,14 +295,28 @@ COMMIT TRANSACTION;
 --   - You have been warned.
 
 BEGIN TRANSACTION;
-CREATE TEMPORARY TABLE IF NOT EXISTS Temp2(X INT,Y INT,T INT2,Z FLOAT4);
-TRUNCATE TABLE Temp2;
-INSERT INTO Temp2(X,Y,T) SELECT X1,Y1,MAX(captured_at)-270 FROM Temp1 GROUP BY X1,Y1;
+
+     CREATE TEMPORARY TABLE IF NOT EXISTS Temp2(X INT,Y INT,T INT2,Z FLOAT4);
+
+     TRUNCATE TABLE Temp2;
+
+     INSERT INTO Temp2(X,Y,T) 
+     SELECT X1
+           ,Y1
+           ,MAX(captured_at) - 270 
+     FROM Temp1 
+     GROUP BY X1,Y1;
+
 COMMIT TRANSACTION;
 
+
+
 BEGIN TRANSACTION;
-UPDATE Temp2 SET Z = (SELECT AVG(DRE) FROM Temp1 WHERE X1=X AND Y1=Y AND captured_at > T);
-DROP TABLE Temp1;
+
+     UPDATE Temp2 SET Z = (SELECT AVG(DRE) FROM Temp1 WHERE X1=X AND Y1=Y AND captured_at > T);
+     
+     DROP TABLE Temp1;
+
 COMMIT TRANSACTION;
 
 -- old ORDER BY: ORDER BY Y/256*8192+X/256
@@ -371,20 +389,29 @@ COMMIT TRANSACTION;
 
 \copy (SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY ((Y>>20)<<1)+(X>>20),((Y>>19)<<2)+(X>>19),((Y>>18)<<3)+(X>>18),((Y>>17)<<4)+(X>>17),((Y>>16)<<5)+(X>>16),((Y>>15)<<6)+(X>>15),((Y>>14)<<7)+(X>>14),((Y>>13)<<8)+(X>>13),((Y>>12)<<9)+(X>>12),((Y>>11)<<10)+(X>>11),((Y>>10)<<11)+(X>>10),((Y>>9)<<12)+(X>>9),((Y>>8)<<13)+(X>>8)) to '/tmp/ios13_32.csv' csv
 
+
 BEGIN TRANSACTION;
-DELETE FROM iOSLastExport 
-WHERE (SELECT COUNT(*) FROM Temp2) > 0 -- in case rows got added partway through
-AND LastMaxID < (SELECT MAX(id) FROM measurements);
 
-INSERT INTO iOSLastExport(LastMaxID,ExportDate) 
-SELECT MAX(id), CURRENT_TIMESTAMP 
-FROM measurements
-WHERE (SELECT COUNT(*) FROM Temp2) > 0
-    AND (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0);
+     DELETE FROM iOSLastExport 
+     WHERE    (SELECT COUNT(*) FROM Temp2) > 0 -- in case rows got added partway through
+          AND LastMaxID                    < (SELECT MAX(id) FROM measurements);
 
-DELETE FROM iOSLastExport WHERE LastMaxID IS NULL OR LastMaxID = 0;
+     INSERT INTO iOSLastExport(LastMaxID,ExportDate) 
+     SELECT MAX(id), CURRENT_TIMESTAMP 
+     FROM measurements
+     WHERE   (SELECT COUNT(*) FROM Temp2)        > 0
+         AND (SELECT  MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0);
+
+     DELETE FROM iOSLastExport 
+     WHERE   LastMaxID IS NULL 
+          OR LastMaxID  = 0;
+
 COMMIT TRANSACTION;
 
+
+
 BEGIN TRANSACTION;
-DROP TABLE Temp2;
+
+     DROP TABLE Temp2;
+
 COMMIT TRANSACTION;
