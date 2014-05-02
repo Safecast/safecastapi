@@ -175,7 +175,7 @@ SELECT CAST(
             EXTRACT(epoch FROM captured_at) / 86400 
           AS INT2
          )
-     + (CASE WHEN (user_id = 347) THEN -10950 ELSE 0 END) -- JP Post: penalty during binning due to low spatial rez
+     + (CASE WHEN (user_id = 347) THEN -730 ELSE 0 END) -- JP Post: penalty during binning due to low spatial rez
      AS captured_at
     ,CASE
         WHEN unit='cpm' AND device_id IS NULL               THEN value * 0.0028571428571429
