@@ -153,10 +153,27 @@ TRUNCATE TABLE Temp1;
 
 --    user_id=366 check: https://api.safecast.org/en-US/measurements?utf8=%E2%9C%93&latitude=-26.9918&longitude=137.3043&distance=10000&captured_after=&captured_before=&since=&until=&commit=Filter
 
+BEGIN TRANSACTION;
+
 INSERT INTO Temp1(X1, Y1, captured_at, DRE)
-SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT) + CASE WHEN user_id=347 THEN 2 ELSE 0 END AS X1
-    ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*0.0174532925199433))/(1.0-SIN(ST_Y(location::geometry)*0.0174532925199433)))*0.0795774715459477)*2097152.0+0.5 AS INT) + CASE WHEN user_id=347 THEN -2 ELSE 0 END AS Y1
-    ,CAST(EXTRACT(epoch FROM captured_at)/86400 AS INT2) + CASE WHEN user_id=347 THEN -10950 ELSE 0 END AS captured_at
+SELECT CAST( 
+              (ST_X(location::geometry) + 180.0) * 5825.422222222222 + 0.5 
+            AS INT
+           )
+       + (CASE WHEN (user_id = 347) THEN 2 ELSE 0 END) AS X1
+    ,CAST(
+            (0.5 - LN(  (1.0 + SIN(ST_Y(location::geometry) * 0.0174532925199433))
+                      / (1.0 - SIN(ST_Y(location::geometry) * 0.0174532925199433)))
+                   * 0.0795774715459477
+            ) * 2097152.0 + 0.5 
+          AS INT
+         )
+     + (CASE WHEN (user_id = 347) THEN -2 ELSE 0 END) AS Y1
+    ,CAST( 
+            EXTRACT(epoch FROM captured_at) / 86400 
+          AS INT2
+         )
+     + (CASE WHEN (user_id = 347) THEN -10950 ELSE 0 END) AS captured_at
     ,CASE
         WHEN unit='cpm' AND device_id IS NULL               THEN value * 0.0028571428571429
         WHEN unit IN ('microsievert','usv')                 THEN value
@@ -169,36 +186,33 @@ SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT) + CAS
 FROM measurements
 WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0)
     AND user_id NOT IN (345)--347
-    AND (id < 23181608 OR id > 23182462) -- 100% bad
-    AND (id < 20798302 OR id > 20803607) -- 20% bad, but better filtering too slow
-    AND (id < 21977826 OR id > 21979768) -- 100% bad
-    AND (id < 24060795 OR id > 24067649) -- invalidated, raining, most 2x normal
+    AND id NOT BETWEEN 23181608 AND 23182462 -- 100% bad
+    AND id NOT BETWEEN 20798302 AND 20803607 -- 20% bad, but better filtering too slow
+    AND id NOT BETWEEN 21977826 AND 21979768 -- 100% bad
+    AND id NOT BETWEEN 24060795 AND 24067649 -- invalidated, raining, most 2x normal
     AND id NOT IN (13194822,15768545,15768817,15690104,15768346,15768782,15768792,16381794,18001818,17342620,14669786,25389168,25389158,25389157,25389153,24482487,16537265,16537266,19554057,19554058,19554059,19554060,19555677,19589301,19589302,19589303,19589304,19589305,19589303,19589304,19589305,19600634,19699406,17461603,17461607,17461611,17461615,16981355,16240105,16240101,16240097,16240093,16241392,16241388,18001769,25702033,25702031)
     AND id NOT IN (14764408,14764409,14764410,14764411,14764412,14764413,13872611,13872612,14764388,14764389,14764390,14764391,14764392,14764393,14764394,14764395,14764396,14764397,14764398,14764399,14764400,14764401,14764402,14764403,14764404,14764405,14764406,14764407) -- bad streak in hot area
-    AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
-    AND captured_at < localtimestamp + interval '48 hours'
+    AND captured_at BETWEEEN TIMESTAMP '2011-03-01 00:00:00' AND localtimestamp + interval '48 hours'
     AND captured_at IS NOT NULL
-    AND (  (unit='cpm' AND value IS NOT NULL AND value > 10.0 AND ( (device_id IS NULL AND value < 350000.0) OR (device_id <= 24 AND value < 30000.0) ))
-        OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 5.0))
-    AND location IS NOT NULL
-    AND (  ST_X(location::geometry) != 0.0
-        OR ST_Y(location::geometry) != 0.0)
-    AND ST_Y(location::geometry) <    85.05
-    AND ST_Y(location::geometry) >   -85.05
-    AND ST_X(location::geometry) >= -180.0
-    AND ST_X(location::geometry) <=  180.0
-    AND (   user_id NOT IN (9,442)                -- "friendly" ban, specific to area and measurement value
-         OR value        < 35.0                   -- 0.10 uSv/h
-         OR ST_Y(location::geometry) <  35.4489   -- tokyo extent
-         OR ST_Y(location::geometry) >  35.7278
-         OR ST_X(location::geometry) < 139.5706
-         OR ST_X(location::geometry) > 139.9186)
-    AND (   user_id != 366                        -- "friendly" ban, specific to area and measurement value
-         OR value    <  105.0                     -- 0.30 uSv/h
-         OR ST_Y(location::geometry) < -45.5201   -- .au extent
-         OR ST_Y(location::geometry) >  -7.6228
-         OR ST_X(location::geometry) < 111.3241
-         OR ST_X(location::geometry) > 153.8620);
+    AND value       IS NOT NULL
+    AND location    IS NOT NULL
+    AND (   (unit  = 'cpm' AND (   (device_id IS NULL AND value BETWEEN 10.0 AND 350000.0) 
+                                OR (device_id <=   24 AND value BETWEEN 10.0 AND  30000.0)))
+         OR (unit IN ('microsievert','usv')           AND value BETWEEN 0.02 AND      5.0))
+    AND (   ST_X(location::geometry) != 0.0
+         OR ST_Y(location::geometry) != 0.0)
+    AND ST_Y(location::geometry) BETWEEN  -85.05 AND  85.05
+    AND ST_X(location::geometry) BETWEEN -180.00 AND 180.00
+    AND (   user_id NOT IN (9,442)                                      -- "friendly" ban, specific to area and measurement value
+         OR value        < 35.0                                         -- 0.10 uSv/h
+         OR ST_Y(location::geometry) NOT BETWEEN  35.4489 AND  35.7278  -- not in tokyo extent
+         OR ST_X(location::geometry) NOT BETWEEN 139.5706 AND 139.9186)
+    AND (   user_id != 366                                              -- "friendly" ban, specific to area and measurement value
+         OR value    <  35.0                                            -- 0.10 uSv/h
+         OR ST_Y(location::geometry) NOT BETWEEN -45.5201 AND  -7.6228  -- not in .au extent
+         OR ST_X(location::geometry) NOT BETWEEN 111.3241 AND 153.8620
+         OR (value < 105.0 AND ST_X(location::geometry) < 111.3241)   );-- western .au coast only - slightly higher max
+
 COMMIT TRANSACTION;
 
 -- TEST: disable 2nd query for JP Post, incorporated into CASE above
