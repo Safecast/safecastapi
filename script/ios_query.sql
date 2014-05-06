@@ -131,6 +131,7 @@ COMMIT TRANSACTION;
 --      6,7,11,13,23       100.0                     0.01
 --   4,9,10,12,19,24       132.0       0.0075757575757576
 --                21      1750.0    0.0005714285714285714
+--  21 & user_id=530     11000.0    0.0000909090909090909  *** TEMPORARY ***
 
 
 
@@ -148,7 +149,9 @@ COMMIT TRANSACTION;
 -- - user_id = 366 (Brain Jones) - Aircraft flight.  Filter:   .au extent only, > 0.30 uSv/h only.
 --    user_id= 366 check: https://api.safecast.org/en-US/measurements?utf8=%E2%9C%93&latitude=-26.9918&longitude=137.3043&distance=10000&captured_after=&captured_before=&since=&until=&commit=Filter
 -- - user_id = 442 (?)           - Test data.        Filter: Tokyo extent only, > 0.10 uSv/h only.
--- - user_id = 530 (Ferez Yvan)  - Device was more sensitive than device_id=21, filtering out that device for user
+-- - user_id = 530 (Ferez Yvan)  - Device was more sensitive than device_id=21, due to static device_id list in iOS app
+--                                     converting these specifically until new device_id set up later and
+--                                     dynamic device_id selection in iOS app is implemented.
 
 
 -- Value Blacklists/Filtering      Details
@@ -196,6 +199,7 @@ SELECT CAST(
         WHEN unit='cpm' AND device_id IN (5,15,16,17,18,22) THEN value * 0.0028571428571429
         WHEN unit='cpm' AND device_id IN (6,7,11,13,23)     THEN value * 0.01
         WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24)  THEN value * 0.0075757575757576
+        WHEN unit='cpm' AND device_id=21 AND user_id=530    THEN value * 0.0000909090909090909 -- *** TEMPORARY ***
         WHEN unit='cpm' AND device_id IN (21)               THEN value * 0.0005714285714285714
         ELSE 0.0
     END 
@@ -230,8 +234,7 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
          OR value    <  35.0                                            -- 0.10 uSv/h
          OR ST_Y(location::geometry) NOT BETWEEN -45.5201 AND  -7.6228  -- not in .au extent
          OR ST_X(location::geometry) NOT BETWEEN 111.3241 AND 153.8620
-         OR (value < 105.0 AND ST_X(location::geometry) < 111.3241)   ) -- western .au coast only - slightly higher max
-    AND (   user_id != 530 OR device_id != 21 );                        -- bad hotspot in .uk, device actual does match device_id gamma sensitivity
+         OR (value < 105.0 AND ST_X(location::geometry) < 111.3241)   );-- western .au coast only - slightly higher max
 COMMIT TRANSACTION;
 
 
