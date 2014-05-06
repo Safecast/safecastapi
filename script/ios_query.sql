@@ -139,20 +139,32 @@ COMMIT TRANSACTION;
 -- PRIMARY DATA QUERY
 -- ==============================================================================================================
 
--- **** TEST: JP POST MOVED TO MAIN QUERY VIA CASE ****     -- first insert is for NON Japan Post (ie, normal) data
--- uSv/h upper limit 75 -> 5 to correct for users submitting web measurements in CPM
-
--- Blacklists now specific to area and value to reduce collateral damage.
+-- User filtering now specific to area and value to reduce collateral damage.
 
 -- User Blacklists/Filtering       Details
 -- =========================       ===========================================================================
--- - user_id = 345 (QuartaRad)   - All data (user submitted only bad data)
--- **** TEST: JP POST MOVED TO MAIN QUERY VIA CASE **** -- - user_id = 347 (JP Post)     - Not blacklisted, just in separate query below to avoid ugly case branching
--- - user_id = 366 (Brain Jones) - Aircraft flight.  Filter:   .au extent only, > 0.30 uSv/h only.
 -- - user_id =   9 (Rob)         - Test data.        Filter: Tokyo extent only, > 0.10 uSv/h only.
+-- - user_id = 345 (QuartaRad)   - All data (user submitted only bad data)
+-- - user_id = 366 (Brain Jones) - Aircraft flight.  Filter:   .au extent only, > 0.30 uSv/h only.
+--    user_id= 366 check: https://api.safecast.org/en-US/measurements?utf8=%E2%9C%93&latitude=-26.9918&longitude=137.3043&distance=10000&captured_after=&captured_before=&since=&until=&commit=Filter
 -- - user_id = 442 (?)           - Test data.        Filter: Tokyo extent only, > 0.10 uSv/h only.
+-- - user_id = 530 (Ferez Yvan)  - Device was more sensitive than device_id=21, filtering out that device for user
 
---    user_id=366 check: https://api.safecast.org/en-US/measurements?utf8=%E2%9C%93&latitude=-26.9918&longitude=137.3043&distance=10000&captured_after=&captured_before=&since=&until=&commit=Filter
+
+-- Value Blacklists/Filtering      Details
+-- ==========================      ============================================================================
+-- - unit = 'usv'                  Max of 5.0 uSv/h sanity filter due to repeated bad data entry on web form / human error.
+
+-- Japan Post (347) Workarounds    Details
+-- ============================    ============================================================================
+-- - Centroid offset               Projected x/y +2 and -2, respectively.  This is because JP Post units truncate to nearest ~100m lat/lon.
+--                                     Shifting the point to the approximate centroid reduces the error.
+--                                     (2px @ 19m = 38m, the closest integer value to 50m without exceeding it)
+-- - Binning penalty               Lower spatial resolution, so given a penalty of two years when binning.
+--                                     This means JP Post will only take precedent over the oldest measurements.
+
+
+
 
 BEGIN TRANSACTION;
 
@@ -203,9 +215,9 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND captured_at IS NOT NULL
     AND value       IS NOT NULL
     AND location    IS NOT NULL
-    AND (   (unit  = 'cpm' AND (   (device_id IS NULL AND value BETWEEN 10.0 AND 350000.0) 
-                                OR (device_id <=   24 AND value BETWEEN 10.0 AND  30000.0)))
-         OR (unit IN ('microsievert','usv')           AND value BETWEEN 0.02 AND      5.0))
+    AND (   (unit  = 'cpm' AND (   (device_id IS NULL AND value BETWEEN 10.00 AND 350000.0) 
+                                OR (device_id <=   24 AND value BETWEEN 10.00 AND  30000.0)))
+         OR (unit IN ('microsievert','usv')           AND value BETWEEN  0.02 AND     5.0))
     AND (   ST_X(location::geometry) != 0.0
          OR ST_Y(location::geometry) != 0.0)
     AND ST_Y(location::geometry) BETWEEN  -85.05 AND  85.05
@@ -222,49 +234,7 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND (   user_id != 530 OR device_id != 21 );                        -- bad hotspot in .uk, device actual does match device_id gamma sensitivity
 COMMIT TRANSACTION;
 
--- TEST: disable 2nd query for JP Post, incorporated into CASE above
 
--- ==============================================================================================================
--- JAPAN POST WORKAORUND SELECT
--- ==============================================================================================================
--- This 2nd insert is a hack workaround for JP post data
--- it partially corrects the spatial error by approximating the centroid from the original trunc in the firmware
--- -10k to the "days since 1970" is approx a -30 year penalty to the date restrictive binning so as not to
---       contaminate measurements with superior spatial resolution
-
-
-
---BEGIN TRANSACTION;
---INSERT INTO Temp1(X1, Y1, captured_at, DRE)
---SELECT CAST((ST_X(location::geometry)+180.0)*5825.422222222222+0.5 AS INT)+2 AS X1
---    ,CAST((0.5-LN((1.0+SIN(ST_Y(location::geometry)*0.0174532925199433))/(1.0-SIN(ST_Y(location::geometry)*0.0174532925199433)))*0.0795774715459477)*2097152.0+0.5 AS INT)-2 AS Y1
---    ,CAST(EXTRACT(epoch FROM captured_at)/86400 AS INT2)-10950 AS captured_at
---    ,CASE
---        WHEN unit='cpm' AND device_id IS NULL               THEN value * 0.0028571428571429
---        WHEN unit IN ('microsievert','usv')                 THEN value
---        WHEN unit='cpm' AND device_id IN (5,15,16,17,18,22) THEN value * 0.0028571428571429
---        WHEN unit='cpm' AND device_id IN (6,7,11,13,23)     THEN value * 0.01
---        WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24)  THEN value * 0.0075757575757576
---        WHEN unit='cpm' AND device_id IN (21)               THEN value * 0.0005714285714285714
---        ELSE 0.0
---    END AS DRE
---FROM measurements
---WHERE (SELECT COUNT(*) FROM Temp1) > 0 -- in case new rows get added to measurements between insert blocks
---    AND (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0)
---    AND user_id = 347
---    AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
---    AND captured_at < localtimestamp + interval '48 hours'
---    AND captured_at IS NOT NULL
---    AND (  (unit='cpm' AND value IS NOT NULL AND value > 10.0 AND ( (device_id IS NULL AND value < 350000.0) OR (device_id <= 24 AND value < 30000.0) ))
---        OR (unit IN ('microsievert','usv') AND value IS NOT NULL AND value > 0.02 AND value < 5.0))
---    AND location IS NOT NULL
---    AND (  ST_X(location::geometry) != 0.0
---        OR ST_Y(location::geometry) != 0.0)
---    AND ST_Y(location::geometry) < 85.05
---    AND ST_Y(location::geometry) > -85.05
---   AND ST_X(location::geometry) >= -180.0
---    AND ST_X(location::geometry) <=  180.0;
---COMMIT TRANSACTION;
 
 
 BEGIN TRANSACTION;
