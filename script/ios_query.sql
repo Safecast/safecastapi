@@ -218,8 +218,8 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
          OR value    <  35.0                                            -- 0.10 uSv/h
          OR ST_Y(location::geometry) NOT BETWEEN -45.5201 AND  -7.6228  -- not in .au extent
          OR ST_X(location::geometry) NOT BETWEEN 111.3241 AND 153.8620
-         OR (value < 105.0 AND ST_X(location::geometry) < 111.3241)   );-- western .au coast only - slightly higher max
-
+         OR (value < 105.0 AND ST_X(location::geometry) < 111.3241)   ) -- western .au coast only - slightly higher max
+    AND (   user_id != 530 OR device_id != 21 );                        -- bad hotspot in .uk, device actual does match device_id gamma sensitivity
 COMMIT TRANSACTION;
 
 -- TEST: disable 2nd query for JP Post, incorporated into CASE above
