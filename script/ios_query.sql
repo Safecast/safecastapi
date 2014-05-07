@@ -362,6 +362,35 @@ COMMIT TRANSACTION;
 -- 1. Use normal, traditional image pixel addressing conventions to reference each tile at a particular zoom level with unique single integer index.
 --     - eg: "imageBuffer[y * numRows + x] = 255;"
 -- 2. To make this recursive, scale to each zoom level from 1 to the actual resolution, in ascending order.
+--
+--
+-- Future Clustering Improvements - 17% Theoretical Improvement
+-- ============================================================
+--
+-- Currently the pixel x/y are 32-bit integers.  This will likely not change in the near future.
+-- However, it is possible to be more efficient than this, by describing the tile and pixel indices separately.
+--
+-- For example, the tile (3,2) at zoom level 4 (world size 4x4 tiles) can be described as the index y*width+x, or 7.
+-- Then, any specific pixel in that tile can be addressed using a 16-bit integer, as there are only 64k pixels.
+--
+-- In other words, the x and y columns are replaced by:
+--   - tileIdx = (py*(2^z * 256) + px) / 256
+--   -   pxIdx = (py*(2^z * 256) + px) - (tileIdx * 256)
+--
+-- Because pxIdx is guaranteed 16-bit, tileIdx is assumed 32-bit, for a total of 48 bits, compared to 64 bits for px/py.
+-- Along with the DRE column, that is 32+32+16 or 10 bytes vs. 12 bytes per row.
+-- For 5.7m rows, overall that is 10.9 MB (17%) less storage used and therefore faster I/O.
+--
+-- Caveats:
+--   - This is only true as long as the number of tiles for a zoom level is less than INT32_MAX (or UINT32_MAX with offsets).
+--   - eg z=13 has 67m tiles.  z=23 has 70t tiles.  INT32_MAX is 2b.  So z=13 works; z=23 will go 64-bit and there is no benefit.
+--   - Actual benefits will be less than the theoretical because of SQLite variable integer widths.
+--   - The pixel index would always need to be offset for storage by -32768 as SQLite uses signed integers, not unsigned.
+--
+-- Of course, for very low zoom levels, px*py will always produce a single 32-bit integer.  But it will roll to 64-bit
+-- at zoom level 8, and z=7 isn't high enough resolution.  (1.2km)
+--
+-- This also hs the advantage of being non-descructive, and the original px/py can be derived from the tile/px indices.
 
 \copy (SELECT X,Y,CAST(Z*1000.0 AS INT) FROM Temp2 ORDER BY ((Y>>20)<<1)+(X>>20),((Y>>19)<<2)+(X>>19),((Y>>18)<<3)+(X>>18),((Y>>17)<<4)+(X>>17),((Y>>16)<<5)+(X>>16),((Y>>15)<<6)+(X>>15),((Y>>14)<<7)+(X>>14),((Y>>13)<<8)+(X>>13),((Y>>12)<<9)+(X>>12),((Y>>11)<<10)+(X>>11),((Y>>10)<<11)+(X>>10),((Y>>9)<<12)+(X>>9),((Y>>8)<<13)+(X>>8)) to '/tmp/ios13_32.csv' csv
 
