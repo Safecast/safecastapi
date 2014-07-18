@@ -60,7 +60,7 @@ class BgeigieImportsController < ApplicationController
     @bgeigie_import = BgeigieImport.new(params[:bgeigie_import])
     @bgeigie_import.user = current_user
     if @bgeigie_import.save
-      @bgeigie_import.delay.process
+      @bgeigie_import.process_in_background
     end
     respond_with @bgeigie_import
   end

@@ -71,9 +71,13 @@ class BgeigieImport < MeasurementImport
     delete_tmp_file
   end
 
+  def process_in_background
+    Delayed::Job.enqueue ProcessBgeigieImportJob.new(id)
+  end
+
   def approve!
     self.update_column(:approved, true)
-    self.delay.finalize!
+    Delayed::Job.enqueue FinalizeBgeigieImportJob.new(id)
     Notifications.import_approved(self).deliver
   end
   
