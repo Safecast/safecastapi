@@ -34,6 +34,13 @@ class BgeigieImportsController < ApplicationController
     redirect_to @bgeigie_import
   end
 
+  def fixdrive
+    @bgeigie_import = BgeigieImport.find(params[:id])
+    @bgeigie_import.fixdrive!
+    redirect_to @bgeigie_import
+  end
+
+
   def submit
     @bgeigie_import = scope.find(params[:id])
     @bgeigie_import.update_column(:status, 'submitted')

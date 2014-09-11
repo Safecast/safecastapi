@@ -12,7 +12,15 @@
             <%= f.submit t('.approve'), :class => 'btn btn-primary' %>
           <%- end -%>
         </li>
-      <%- end -%>
+	   <%- end -%>
+          <%- if user_signed_in? && current_user.moderator? -%>
+	        <li>
+          <%= form_for [:fixdrive, @bgeigie_import] do |f| %>
+            <%= f.submit t('.fixdrive'), :class => 'btn btn-primary' %>
+
+	      <%- end -%>
+               </li>
+				   <%- end -%>
       <li>
         <%= link_to t(".download_original_file"),
               @bgeigie_import.source.url,
