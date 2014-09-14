@@ -13,7 +13,7 @@
           <%- end -%>
         </li>
 	   <%- end -%>
-          <%- if @bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? && !@bgeigie_import.processed? -%>
+          <%- if !@bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? && !@bgeigie_import.done? -%>
 	        <li>
           <%= form_for [:fixdrive, @bgeigie_import] do |f| %>
             <%= f.submit t('.fixdrive'), :class => 'btn btn-primary' %>
