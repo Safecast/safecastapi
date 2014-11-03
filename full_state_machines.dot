@@ -1,0 +1,3 @@
+digraph models_diagram {
+	graph[overlap=false, splines=true]
+}
