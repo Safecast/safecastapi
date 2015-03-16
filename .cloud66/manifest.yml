@@ -1,5 +1,5 @@
 production:
-  postgresql:
+   postgresql:
     server:
       vendor: digitalocean
       region: 4
@@ -7,3 +7,9 @@ production:
       unique_name: db
     configuration:
       postgis: true
+   rails:
+     configuration:
+      nginx:
+        cors:
+          origin: '*'
+          methods: 'GET, OPTION'

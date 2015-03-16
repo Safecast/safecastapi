@@ -4,7 +4,7 @@ working_directory "#{ENV['RAILS_STACK_PATH']}"
 
 listen "/tmp/web_server.sock", :backlog => 64
 
-timeout 60
+timeout 120
 
 pid '/tmp/web_server.pid'
 

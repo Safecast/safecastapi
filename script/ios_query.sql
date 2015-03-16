@@ -1,6 +1,13 @@
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 
 -- =============================================================================================
+-- UPDATE HISTORY: (SINCE 2014-10-25)
+-- =============================================================================================
+-- 2014-10-25 ND: Added support for device_id 69 and 89.  Manually filtered some bad test points
+--                for user_id 531, 541.  Did not see any other valid devices to add gamma
+--                sensitivities for that were in-use, other than static sensors.
+
+-- =============================================================================================
 -- ABSTRACT:
 -- =============================================================================================
 --
@@ -127,7 +134,7 @@ COMMIT TRANSACTION;
 --         device_id  uSvh=CPM/x      Reciprocal Estimate
 -- =================  ==========     ====================
 --              NULL       350.0       0.0028571428571429
---  5,15,16,17,18,22       350.0       0.0028571428571429
+--5,15,16,17,18,22,69,89   350.0       0.0028571428571429
 --      6,7,11,13,23       100.0                     0.01
 --   4,9,10,12,19,24       132.0       0.0075757575757576
 --                21      1750.0    0.0005714285714285714
@@ -166,7 +173,11 @@ COMMIT TRANSACTION;
 -- - Binning penalty               Lower spatial resolution, so given a penalty of two years when binning.
 --                                     This means JP Post will only take precedent over the oldest measurements.
 
-
+-- New ID-based Blacklists         Details
+-- =============================   ============================================================================
+-- 33708769, 33708779, 33709181,   2014-10-25 ND: specific filtering for a couple points by user_id 531 in .au.
+-- 33709199, 33709164
+-- 39366523, 39417687              2014-10-25 ND: filter test data from user_id 541 to add new device_id of 89.
 
 
 BEGIN TRANSACTION;
@@ -194,13 +205,13 @@ SELECT CAST(
      + (CASE WHEN (user_id = 347) THEN -730 ELSE 0 END) -- JP Post: penalty during binning due to low spatial rez
      AS captured_at
     ,CASE
-        WHEN unit='cpm' AND device_id IS NULL               THEN value * 0.0028571428571429
-        WHEN unit IN ('microsievert','usv')                 THEN value
-        WHEN unit='cpm' AND device_id IN (5,15,16,17,18,22) THEN value * 0.0028571428571429
-        WHEN unit='cpm' AND device_id IN (6,7,11,13,23)     THEN value * 0.01
-        WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24)  THEN value * 0.0075757575757576
-        WHEN unit='cpm' AND device_id=21 AND user_id=530    THEN value * 0.0000909090909090909 -- *** TEMPORARY ***
-        WHEN unit='cpm' AND device_id IN (21)               THEN value * 0.0005714285714285714
+        WHEN unit='cpm' AND device_id IS NULL                     THEN value * 0.0028571428571429
+        WHEN unit IN ('microsievert','usv')                       THEN value
+        WHEN unit='cpm' AND device_id IN (5,15,16,17,18,22,69,89) THEN value * 0.0028571428571429
+        WHEN unit='cpm' AND device_id IN (6,7,11,13,23)           THEN value * 0.01
+        WHEN unit='cpm' AND device_id IN (4,9,10,12,19,24)        THEN value * 0.0075757575757576
+        WHEN unit='cpm' AND device_id=21 AND user_id=530          THEN value * 0.0000909090909090909 -- *** TEMPORARY ***
+        WHEN unit='cpm' AND device_id IN (21)                     THEN value * 0.0005714285714285714
         ELSE 0.0
     END 
     AS DRE
@@ -212,6 +223,7 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND id NOT BETWEEN 24060795 AND 24067649 -- invalidated, raining, most 2x normal
     AND id NOT IN (13194822,15768545,15768817,15690104,15768346,15768782,15768792,16381794,18001818,17342620,14669786,25389168,25389158,25389157,25389153,24482487,16537265,16537266,19554057,19554058,19554059,19554060,19555677,19589301,19589302,19589303,19589304,19589305,19589303,19589304,19589305,19600634,19699406,17461603,17461607,17461611,17461615,16981355,16240105,16240101,16240097,16240093,16241392,16241388,18001769,25702033,25702031)
     AND id NOT IN (14764408,14764409,14764410,14764411,14764412,14764413,13872611,13872612,14764388,14764389,14764390,14764391,14764392,14764393,14764394,14764395,14764396,14764397,14764398,14764399,14764400,14764401,14764402,14764403,14764404,14764405,14764406,14764407) -- bad streak in hot area
+    AND id NOT IN (33708769,33708779,33709181,33709199,33709164,39366523,39417687)
     AND user_id NOT IN (345)--347
     --AND captured_at BETWEEEN TIMESTAMP '2011-03-01 00:00:00' AND localtimestamp + interval '48 hours'
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
@@ -219,9 +231,10 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND captured_at IS NOT NULL
     AND value       IS NOT NULL
     AND location    IS NOT NULL
-    AND (   (unit  = 'cpm' AND (   (device_id IS NULL AND value BETWEEN 10.00 AND 350000.0) 
-                                OR (device_id <=   24 AND value BETWEEN 10.00 AND  30000.0)))
-         OR (unit IN ('microsievert','usv')           AND value BETWEEN  0.02 AND     5.0))
+    AND (   (unit  = 'cpm' AND (   (    device_id IS NULL     AND value BETWEEN 10.00 AND 350000.0) 
+                                OR ((   device_id <= 24 
+                                     OR device_id IN (69,89)) AND value BETWEEN 10.00 AND  30000.0)))
+         OR (unit IN ('microsievert','usv')                   AND value BETWEEN  0.02 AND      5.0))
     AND (   ST_X(location::geometry) != 0.0
          OR ST_Y(location::geometry) != 0.0)
     AND ST_Y(location::geometry) BETWEEN  -85.05 AND  85.05
