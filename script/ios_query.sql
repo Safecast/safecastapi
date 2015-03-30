@@ -3,6 +3,9 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- =============================================================================================
 -- UPDATE HISTORY: (SINCE 2014-10-25)
 -- =============================================================================================
+-- 2015-03-30 ND: Add temp hack to disable use of the "last export" table due to issues with new
+--                load balancing and two servers.  Should be removed when the DB job is
+--                coalesced to a single server and copied to the others.
 -- 2014-10-25 ND: Added support for device_id 69 and 89.  Manually filtered some bad test points
 --                for user_id 531, 541.  Did not see any other valid devices to add gamma
 --                sensitivities for that were in-use, other than static sensors.
@@ -91,11 +94,23 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 --   - Note a device_id of NULL is assumed to be a bGeigie with a LND7317 sensor.
 
 
-
-
 BEGIN TRANSACTION;
      CREATE TABLE IF NOT EXISTS iOSLastExport(LastMaxID INT, ExportDate TIMESTAMP);
 COMMIT TRANSACTION;
+
+--                ***********************
+-- 2015-03-30 ND: ******** HACK *********
+-- We can't stop here, this is hack country!
+
+TRUNCATE TABLE iOSLastExport; -- 2015-03-30 ND: Temp hack for multiple load-balanced servers
+                              --                without redoing entire script.  Should be
+                              --                removed when this job is running on 1x server
+                              --                only and copied to other server(s).
+
+-- 2015-03-30 ND: ****** END HACK *******
+--                ***********************
+
+
 
 -- performance note: Temp1 is created with as limited of width data types as possible, for example
 --                   32-bit floats and 16-bit date integers.  While the numerics time on the CPU
