@@ -62,3 +62,7 @@ fi
 # TODO: final output as .tar.gz instead of sqlite.  Requires finding non-memory bound decompressor on iOS.
 
 
+# rsync to the other server (this only runs on kangaroo)
+rsync -Havq --bwlimit 10000 /var/deploy/api.safecast.org/web_head/shared/system/ios13* lion.api.safecast.org.c66.me:/var/deploy/api.safecast.org/web_head/shared/system/
+
+

@@ -3,6 +3,10 @@ psql -U safecast --host $POSTGRESQL_ADDRESS safecast -c "\copy (select captured_
 echo "Captured Time,Latitude,Longitude,Value,Unit,Location Name,Device ID,MD5Sum,Height,Surface,Radiation,Uploaded Time,Loader ID" | cat - /tmp/measurements.csv > /var/deploy/api.safecast.org/web_head/shared/system/measurements-out.csv
 cd /var/deploy/api.safecast.org/web_head/shared/system && tar -czf measurements-out.tar.gz measurements-out.csv
 mv measurements-out.tar.gz measurements.tar.gz && mv measurements-out.csv measurements.csv
+
+# rsync to the other server (this only runs on kangaroo)
+rsync -Havq --bwlimit 10000 /var/deploy/api.safecast.org/web_head/shared/system/measurements.* lion.api.safecast.org.c66.me:/var/deploy/api.safecast.org/web_head/shared/system/
+
 #
 # Now this is available as https://api.safecast.org/system/measurements.tar.gz
 #
