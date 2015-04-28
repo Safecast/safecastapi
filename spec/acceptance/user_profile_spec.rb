@@ -5,7 +5,6 @@ feature "User Profile" do
   before { sign_in(user) }
 
   scenario "viewing a user profile" do
-    click_link("Profile")
     page.should have_content(user.authentication_token)
   end
 end

@@ -1,7 +1,7 @@
 require "spec_helper"
 
 feature "User submits a reading" do
-  let!(:user) { Fabricate(:user, :confirmed_at => Time.now) }
+  let!(:user) { Fabricate(:user) }
   let!(:measurement) { Fabricate(:measurement, :user => user, :value => 10101) }
   
   before { sign_in(user) }
