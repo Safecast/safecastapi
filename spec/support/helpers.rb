@@ -5,7 +5,7 @@ module Helpers
     fill_in("Name", :with => name)
     fill_in("Password", :with => password)
     fill_in("Password confirmation", :with => password)
-    click_button("Sign up")
+    click_button("Register")
   end
   
   def sign_in(user)
