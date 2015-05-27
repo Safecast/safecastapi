@@ -3,7 +3,7 @@ require "spec_helper"
 feature "User submits a reading" do
   let!(:user) { Fabricate(:user) }
   let!(:measurement) { Fabricate(:measurement, :user => user, :value => 10101) }
-  
+
   before { sign_in(user) }
 
   scenario "First reading" do
@@ -13,9 +13,10 @@ feature "User submits a reading" do
   end
 
   scenario "Viewing a single measurement entry" do
-    measurement.captured_at = nil
+    measurement.captured_at = 1.day.ago
+    measurement.value = 42
     measurement.save
     visit("/en-US/measurements/#{measurement.id}")
-    find(".dl-horizontal > dd:nth-child(4)").should have_text("null")
+    page.should have_content("42.0cpm")
   end
 end
