@@ -1,4 +1,6 @@
 database:
   override:
+    - pwd
+    - cd ~/safecastapi
     - cp config/database.yml.ci config/database.yml
     - bundle exec rake db:create db:schema:load
