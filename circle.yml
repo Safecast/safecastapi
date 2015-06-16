@@ -1,0 +1,8 @@
+machine:
+  ruby:
+    version: 1.9.3-p327
+
+database:
+  override:
+    - mv config/database.ci.yml config/database.yml
+    - bundle exec rake db:create db:schema:load --trace
