@@ -1,5 +1,0 @@
-test:
-  username: ubuntu
-  adapter: postgis
-  schema_search_path: public
-  database: circle_test
