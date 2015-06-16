@@ -4,5 +4,5 @@ machine:
 
 database:
   override:
-    - mv config/database.ci.yml config/database.yml
+    - mv config/database.yml.ci config/database.yml
     - bundle exec rake db:create db:schema:load --trace
