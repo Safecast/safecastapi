@@ -1,7 +1,8 @@
+# Circle CI config file
 dependencies:
   cache_directories:
     - "vendor/bundle"
 
 database:
   override:
-    - bundle exec rake db:create db:schema:load --trace
+    - bundle exec rake db:schema:load --trace
