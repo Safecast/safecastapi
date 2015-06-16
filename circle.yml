@@ -1,0 +1,3 @@
+database:
+  pre:
+    - mv config/database.yml.ci config/database.yml
