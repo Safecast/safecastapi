@@ -1,3 +1,7 @@
+# Send test-coverage to code climate
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
 # Loading more in this block will cause your tests to run faster. However,
 # if you change any configuration or code from libraries loaded here, you'll
 # need to restart spork for it take effect.
@@ -18,7 +22,7 @@ RSpec.configure do |config|
   config.include EmailSpec::Helpers
   config.include EmailSpec::Matchers
   config.include ActionDispatch::TestProcess
-  
+
   # == Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -40,26 +44,26 @@ RSpec.configure do |config|
   # automatically. This will be the default behavior in future versions of
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
-  
+
   config.before(:all) do
     FileUtils.rm_rf Dir[Rails.root.join('tmp', 'cache', 'assets', '**', '*')]
   end
-  
+
   config.after(:all) do
     FileUtils.rm_f Rails.root.join('tmp', 'capybara', '*')
     FileUtils.rm_rf Dir[Rails.root.join('tmp', 'cache', 'assets', '**', '*')]
     FileUtils.rm_rf Dir[Rails.root.join('public', 'uploads', '**', '*')]
   end
-  
+
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean_with(:truncation)
   end
-  
+
   config.before(:each) do
     DatabaseCleaner.start
   end
-  
+
   config.after(:each) do
     DatabaseCleaner.clean
   end

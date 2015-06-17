@@ -1,0 +1,9 @@
+# Circle CI config file
+machine:
+  environment:
+    CODECLIMATE_REPO_TOKEN: 5c8cf31b2e26162799d5873961125d7884136a0f62e22eb7b97f2f944d63e65c
+
+database:
+  override:
+    - psql -d circle_test -c 'CREATE EXTENSION Postgis;'
+    - bundle exec rake db:schema:load --trace
