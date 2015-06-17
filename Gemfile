@@ -6,7 +6,7 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'cancan'
 
-gem 'rails',                    '3.2.17'
+gem 'rails',                    '3.2.21'
 gem 'unicorn'
 gem 'pg'
 gem 'activerecord-postgis-adapter'
