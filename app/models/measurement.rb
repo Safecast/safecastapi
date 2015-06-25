@@ -34,7 +34,9 @@ class Measurement < ActiveRecord::Base
   def self.by_unit(unit)
     where(:unit => unit)
   end
-
+  def self.by_height(height)
+    where(:height => height)
+  end
   def self.captured_after(time)
     where('captured_at > ?', ActiveSupport::TimeZone['UTC'].parse(time))
   end
@@ -60,14 +62,14 @@ class Measurement < ActiveRecord::Base
     self.md5sum = Digest::MD5.hexdigest("#{value}#{latitude}#{longitude}#{captured_at}")
   end
   
-  def serializable_hash(options = {})
-    options ||= {}
-    super(options.merge(:only => [
-      :id, :value, :user_id,
-      :unit, :device_id, :location_name, :original_id,
-      :captured_at
-    ], :methods => [:latitude, :longitude]))
-  end
+def serializable_hash(options = {})
+   options ||= {}
+   super(options.merge(:only => [
+     :id, :value, :height, :user_id,
+     :unit, :device_id, :location_name, :original_id,
+     :captured_at
+   ], :methods => [:latitude, :longitude]))
+ end
   
   
   def revise(new_params)
