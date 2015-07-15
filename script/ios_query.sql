@@ -4,6 +4,7 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- UPDATE HISTORY: (SINCE 2014-10-25)
 -- =============================================================================================
 -- 2015-07-15 ND: Add filter for bad/deleted drive orphan points in .cz (user_id = 671)
+--                Removed load balancing hack added on 2015-03-31.
 -- 2015-03-31 ND: Add 1.0DD deadzone around (0, 0) because GPS chipset firmware is hard.
 --                (was: test for 0.0 exactly with no epsilon)
 -- 2015-03-30 ND: Add temp hack to disable use of the "last export" table due to issues with new
@@ -101,20 +102,6 @@ BEGIN TRANSACTION;
      CREATE TABLE IF NOT EXISTS iOSLastExport(LastMaxID INT, ExportDate TIMESTAMP);
 COMMIT TRANSACTION;
 
---                ***********************
--- 2015-03-30 ND: ******** HACK *********
--- We can't stop here, this is hack country!
-
-TRUNCATE TABLE iOSLastExport; -- 2015-03-30 ND: Temp hack for multiple load-balanced servers
-                              --                without redoing entire script.  Should be
-                              --                removed when this job is running on 1x server
-                              --                only and copied to other server(s).
-
--- 2015-03-30 ND: ****** END HACK *******
---                ***********************
-
-
-
 -- performance note: Temp1 is created with as limited of width data types as possible, for example
 --                   32-bit floats and 16-bit date integers.  While the numerics time on the CPU
 --                   is not affected, this produces a 2x-5x increase in query performance due to less
@@ -177,8 +164,6 @@ COMMIT TRANSACTION;
 -- - user_id = 530 (Ferez Yvan)  - Device was more sensitive than device_id=21, due to static device_id list in iOS app
 --                                     converting these specifically until new device_id set up later and
 --                                     dynamic device_id selection in iOS app is implemented.
--- - user_id = 671 (.cz RPI)     - Bad drive data due to source.  Drive was deleted but points ophaned.
---                                 Filter for anything above background levels in extent.
 
 
 -- Value Blacklists/Filtering      Details
@@ -198,7 +183,7 @@ COMMIT TRANSACTION;
 -- 33708769, 33708779, 33709181,   2014-10-25 ND: specific filtering for a couple points by user_id 531 in .au.
 -- 33709199, 33709164
 -- 39366523, 39417687              2014-10-25 ND: filter test data from user_id 541 to add new device_id of 89.
-
+-- 48825707--48821163)             2015-07-15 ND: filter bad .cz drive data submission
 
 BEGIN TRANSACTION;
 
@@ -243,6 +228,7 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND id NOT BETWEEN 24060795 AND 24067649 -- invalidated, raining, most 2x normal
     AND id NOT IN (13194822,15768545,15768817,15690104,15768346,15768782,15768792,16381794,18001818,17342620,14669786,25389168,25389158,25389157,25389153,24482487,16537265,16537266,19554057,19554058,19554059,19554060,19555677,19589301,19589302,19589303,19589304,19589305,19589303,19589304,19589305,19600634,19699406,17461603,17461607,17461611,17461615,16981355,16240105,16240101,16240097,16240093,16241392,16241388,18001769,25702033,25702031)    AND id NOT IN (14764408,14764409,14764410,14764411,14764412,14764413,13872611,13872612,14764388,14764389,14764390,14764391,14764392,14764393,14764394,14764395,14764396,14764397,14764398,14764399,14764400,14764401,14764402,14764403,14764404,14764405,14764406,14764407) -- bad streak in hot area
     AND id NOT IN (33708769,33708779,33709181,33709199,33709164,39366523,39417687)
+    AND id NOT BETWEEN (48825707, 48821163)  -- bad .cz drive data
     AND user_id NOT IN (345)--347
     --AND captured_at BETWEEEN TIMESTAMP '2011-03-01 00:00:00' AND localtimestamp + interval '48 hours'
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
@@ -260,12 +246,6 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
          OR ST_Y(location::geometry) < -1.0)
     AND ST_Y(location::geometry) BETWEEN  -85.05 AND  85.05
     AND ST_X(location::geometry) BETWEEN -180.00 AND 180.00
-    AND (   user_id != 671                                              -- filter, specific to area and measurement value
-         OR value    < 38.5                                             -- 0.11 uSv/h
-         OR ST_Y(location::geometry) NOT BETWEEN  35.4489 AND  50.0516  -- not in .cz extent
-         OR ST_X(location::geometry) NOT BETWEEN  12.8861 AND  14.4561
-         OR captured_at NOT BETWEEN TIMESTAMP '2015-06-25 00:00:00'     -- limit date range
-                                AND TIMESTAMP '2015-07-14 23:59:59')
     AND (   user_id NOT IN (9,442)                                      -- filter, specific to area and measurement value
          OR value        < 35.0                                         -- 0.10 uSv/h
          OR ST_Y(location::geometry) NOT BETWEEN  35.4489 AND  35.7278  -- not in tokyo extent
