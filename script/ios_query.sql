@@ -264,8 +264,8 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
          OR value    < 38.5                                             -- 0.11 uSv/h
          OR ST_Y(location::geometry) NOT BETWEEN  35.4489 AND  50.0516  -- not in .cz extent
          OR ST_X(location::geometry) NOT BETWEEN  12.8861 AND  14.4561
-         OR captured_at < TIMESTAMP '2015-06-14 00:00:00'               -- limit date range
-         OR captured_at > TIMESTAMP '2015-06-14 23:59:59')
+         OR captured_at NOT BETWEEN TIMESTAMP '2015-06-25 00:00:00'     -- limit date range
+                                AND TIMESTAMP '2015-07-14 23:59:59')
     AND (   user_id NOT IN (9,442)                                      -- filter, specific to area and measurement value
          OR value        < 35.0                                         -- 0.10 uSv/h
          OR ST_Y(location::geometry) NOT BETWEEN  35.4489 AND  35.7278  -- not in tokyo extent
