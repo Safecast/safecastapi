@@ -3,6 +3,7 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- =============================================================================================
 -- UPDATE HISTORY: (SINCE 2014-10-25)
 -- =============================================================================================
+-- 2015-07-15 ND: Add filter for bad/deleted drive orphan points in .cz (user_id = 671)
 -- 2015-03-31 ND: Add 1.0DD deadzone around (0, 0) because GPS chipset firmware is hard.
 --                (was: test for 0.0 exactly with no epsilon)
 -- 2015-03-30 ND: Add temp hack to disable use of the "last export" table due to issues with new
@@ -176,6 +177,8 @@ COMMIT TRANSACTION;
 -- - user_id = 530 (Ferez Yvan)  - Device was more sensitive than device_id=21, due to static device_id list in iOS app
 --                                     converting these specifically until new device_id set up later and
 --                                     dynamic device_id selection in iOS app is implemented.
+-- - user_id = 671 (.cz RPI)     - Bad drive data due to source.  Drive was deleted but points ophaned.
+--                                 Filter for anything above background levels in extent.
 
 
 -- Value Blacklists/Filtering      Details
@@ -257,11 +260,17 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
          OR ST_Y(location::geometry) < -1.0)
     AND ST_Y(location::geometry) BETWEEN  -85.05 AND  85.05
     AND ST_X(location::geometry) BETWEEN -180.00 AND 180.00
-    AND (   user_id NOT IN (9,442)                                      -- "friendly" ban, specific to area and measurement value
+    AND (   user_id != 671                                              -- filter, specific to area and measurement value
+         OR value    < 38.5                                             -- 0.11 uSv/h
+         OR ST_Y(location::geometry) NOT BETWEEN  35.4489 AND  50.0516  -- not in .cz extent
+         OR ST_X(location::geometry) NOT BETWEEN  12.8861 AND  14.4561
+         OR captured_at < TIMESTAMP '2015-06-14 00:00:00'               -- limit date range
+         OR captured_at > TIMESTAMP '2015-06-14 23:59:59')
+    AND (   user_id NOT IN (9,442)                                      -- filter, specific to area and measurement value
          OR value        < 35.0                                         -- 0.10 uSv/h
          OR ST_Y(location::geometry) NOT BETWEEN  35.4489 AND  35.7278  -- not in tokyo extent
          OR ST_X(location::geometry) NOT BETWEEN 139.5706 AND 139.9186)
-    AND (   user_id != 366                                              -- "friendly" ban, specific to area and measurement value
+    AND (   user_id != 366                                              -- filter, specific to area and measurement value
          OR value    <  35.0                                            -- 0.10 uSv/h
          OR ST_Y(location::geometry) NOT BETWEEN -45.5201 AND  -7.6228  -- not in .au extent
          OR ST_X(location::geometry) NOT BETWEEN 111.3241 AND 153.8620
