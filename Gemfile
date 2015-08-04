@@ -34,6 +34,7 @@ gem 'bootstrap-kaminari-views'
 
 gem 'rails_admin'
 
+gem 'newrelic_rpm'
 
 #for docs
 gem 'pygments.rb'
@@ -62,4 +63,8 @@ end
 group :development do
   gem 'pry-rails'
   gem 'quiet_assets'
+end
+
+group :development, :test do
+  gem 'dotenv-rails'
 end
