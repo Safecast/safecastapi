@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/Safecast/safecastapi.png?label=ready&title=Ready)](https://waffle.io/Safecast/safecastapi)
 # Safecast/safecastapi
 [![Build Status](https://travis-ci.org/Safecast/safecastapi.svg?branch=master)](https://travis-ci.org/Safecast/safecastapi) [![Circle CI](https://circleci.com/gh/Safecast/safecastapi.svg?style=svg)](https://circleci.com/gh/Safecast/safecastapi) [![Code Climate](https://codeclimate.com/github/Safecast/safecastapi/badges/gpa.svg)](https://codeclimate.com/github/Safecast/safecastapi) [![Test Coverage](https://codeclimate.com/github/Safecast/safecastapi/badges/coverage.svg)](https://codeclimate.com/github/Safecast/safecastapi/coverage)
 
