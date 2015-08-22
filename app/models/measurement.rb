@@ -2,7 +2,7 @@ class Measurement < ActiveRecord::Base
   set_rgeo_factory_for_column(:location,
     RGeo::Geographic.spherical_factory(:srid => 4326))
 
-  attr_accessible :value, :unit, :location, :location_name, :device_id, :height, :surface, :radiation, :latitude, :longitude, :captured_at
+  attr_accessible :value, :unit, :location, :location_name, :device_id, :height, :surface, :radiation, :latitude, :longitude, :captured_at, :devicetype_id
   
   include MeasurementConcerns
   
@@ -37,6 +37,11 @@ class Measurement < ActiveRecord::Base
   def self.by_height(height)
     where(:height => height)
   end
+
+  def self.by_devicetype_id(devicetype_id)
+    where(:devicetype_id => devicetype_id)
+  end
+
   def self.captured_after(time)
     where('captured_at > ?', ActiveSupport::TimeZone['UTC'].parse(time))
   end
@@ -67,7 +72,7 @@ def serializable_hash(options = {})
    super(options.merge(:only => [
      :id, :value, :height, :user_id,
      :unit, :device_id, :location_name, :original_id,
-     :captured_at
+     :captured_at, :devicetype_id
    ], :methods => [:latitude, :longitude]))
  end
   
