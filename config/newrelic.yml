@@ -36,6 +36,7 @@ development:
   # Do not use for production or load testing.
   developer_mode: true
   rules.ignore_url_regexes: ["^/assets"]
+  agent_enabled: <%= ENV['NEW_RELIC_ENABLED'] || false %>
 
 test:
   <<: *default_settings
