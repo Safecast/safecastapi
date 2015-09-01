@@ -85,6 +85,9 @@ GEM
     devise-i18n (0.8.3)
     diff-lcs (1.1.3)
     docile (1.1.5)
+    dotenv (2.0.1)
+    dotenv-rails (2.0.1)
+      dotenv (= 2.0.1)
     email_spec (1.4.0)
       launchy (~> 2.1)
       mail (~> 2.2)
@@ -143,6 +146,7 @@ GEM
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.6.7)
+    newrelic_rpm (3.12.1.298)
     nokogiri (1.5.9)
     orm_adapter (0.4.0)
     pg (0.15.1)
@@ -287,6 +291,7 @@ DEPENDENCIES
   delayed_job_active_record
   devise
   devise-i18n
+  dotenv-rails
   email_spec
   fabrication (= 2.2.2)
   fog (~> 1.8.0)
@@ -300,6 +305,7 @@ DEPENDENCIES
   kaminari
   launchy
   mustache
+  newrelic_rpm
   pg
   pry
   pry-rails
@@ -314,3 +320,6 @@ DEPENDENCIES
   thin
   uglifier
   unicorn
+
+BUNDLED WITH
+   1.10.6

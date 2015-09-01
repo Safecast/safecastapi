@@ -14,3 +14,4 @@ log/localeapp.yml
 zeus.json
 custom_plan.rb
 .localeapp.localeapp
+.env
