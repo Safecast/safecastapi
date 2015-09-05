@@ -84,7 +84,7 @@ def serializable_hash(options = {})
      :id, :value, :height, :user_id,
      :unit, :device_id, :location_name, :original_id,
      :captured_at, :devicetype_id, :sensor_id, :channel_id, 
-     :station-id
+     :station_id
    ], :methods => [:latitude, :longitude]))
  end
   
