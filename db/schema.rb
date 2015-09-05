@@ -181,6 +181,10 @@ ActiveRecord::Schema.define(:version => 20140718095222) do
     t.integer  "height"
     t.string   "surface"
     t.string   "radiation"
+    t.integer  "sensor_id"
+    t.integer  "station_id"
+    t.integer  "channel_id"
+    t.string   "devicetype_id"
   end
 
   add_index "measurements", ["captured_at"], :name => "index_measurements_on_captured_at"
