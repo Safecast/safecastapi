@@ -49,7 +49,7 @@ class Measurement < ActiveRecord::Base
     def self.by_channel_id(channel_id)
     where(:channel_id => channel_id)
   end
-    def self.by_station-id(station_id)
+    def self.by_station_id(station_id)
     where(:station_id => station_id)
   end
 
