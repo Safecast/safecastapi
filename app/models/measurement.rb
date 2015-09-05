@@ -2,7 +2,7 @@ class Measurement < ActiveRecord::Base
   set_rgeo_factory_for_column(:location,
     RGeo::Geographic.spherical_factory(:srid => 4326))
 
-  attr_accessible :value, :unit, :location, :location_name, :device_id, :height, :surface, :radiation, :latitude, :longitude, :captured_at, :devicetype_id :sensor_id :channel_id :station_id
+  attr_accessible :value, :unit, :location, :location_name, :device_id, :height, :surface, :radiation, :latitude, :longitude, :captured_at, :devicetype_id, :sensor_id, :channel_id, :station_id
   
   include MeasurementConcerns
   
@@ -49,8 +49,8 @@ class Measurement < ActiveRecord::Base
     def self.by_channel_id(channel_id)
     where(:channel_id => channel_id)
   end
-    def self.by_station-id(station-id)
-    where(:station-id => station-id)
+    def self.by_station-id(station_id)
+    where(:station_id => station_id)
   end
 
   def self.captured_after(time)
