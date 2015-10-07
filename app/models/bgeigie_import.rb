@@ -71,10 +71,6 @@ class BgeigieImport < MeasurementImport
     delete_tmp_file
   end
 
-  def process_in_background
-    Delayed::Job.enqueue ProcessBgeigieImportJob.new(id)
-  end
-
   def approve!
     self.update_column(:approved, true)
     Delayed::Job.enqueue FinalizeBgeigieImportJob.new(id)
