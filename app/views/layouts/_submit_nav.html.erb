@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs">
   <li
-    <%- if controller_name == 'measurements' && action_name == 'new' -%>
+    <%- if controller_name == 'measurements' && %w(new create).include?(action_name) -%>
       class="active"
     <%- end -%>
   >
@@ -9,7 +9,7 @@
     <%- end -%>
   </li>
   <li
-    <%- if controller_name == 'bgeigie_imports' && action_name == 'new' -%>
+    <%- if controller_name == 'bgeigie_imports' && %w(new create).include?(action_name) -%>
       class="active"
     <%- end -%>
   >
@@ -18,7 +18,7 @@
     <%- end -%>
   </li>
   <li
-    <%- if controller_name == 'air_imports' && action_name == 'new' -%>
+    <%- if controller_name == 'air_imports' && %w(new create).include?(action_name) -%>
     class="active"
     <%- end -%>
   >
