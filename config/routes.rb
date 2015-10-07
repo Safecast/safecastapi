@@ -25,7 +25,7 @@ Safecast::Application.routes.draw do
     end
 
     resources :air_imports
-    
+
     resources :devices do
       resources :measurements, :only => :index
     end

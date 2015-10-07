@@ -7,7 +7,7 @@ feature "/air_imports API endpoint" do
     @user ||= Fabricate(:user)
     @result ||= api_post('/air_imports',{
                                                :api_key        => @user.authentication_token,
-                                               :import => {
+                                               :air_import => {
                                                    :source => fixture_file_upload('/air0.log')
                                                }
                                            }, {'HTTP_ACCEPT' => 'application/json'})

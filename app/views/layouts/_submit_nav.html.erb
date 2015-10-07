@@ -17,4 +17,13 @@
       <%= t('.upload_a_bgeigie_log_file') -%>
     <%- end -%>
   </li>
+  <li
+    <%- if controller_name == 'air_imports' && action_name == 'new' -%>
+    class="active"
+    <%- end -%>
+  >
+    <%= link_to [:new, :air_import] do %>
+      <%= t('.upload_an_air_log_file') -%>
+    <%- end -%>
+  </li>
 </ul>
