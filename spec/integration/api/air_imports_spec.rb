@@ -20,4 +20,26 @@ feature "/air_imports API endpoint" do
       @result['md5sum'].should == '689ef3703d403ba8c2f42669c313d977'
     end
   end
+
+  context "after processing" do
+
+    before(:each) { Delayed::Worker.new.work_off; AirImport.find_each(&:finalize!) }
+    let!(:updated_result) do
+      api_get(
+          "/air_imports/#{@result['id']}",
+          {},
+          {'HTTP_ACCEPT' => 'application/json'}
+      )
+    end
+
+    subject { updated_result }
+
+    scenario "response should be processed" do
+      updated_result['status'].should == 'done'
+    end
+
+    scenario "it should have imported a bunch of measurements" do
+      updated_result['measurements_count'].should == 5
+    end
+  end
 end
