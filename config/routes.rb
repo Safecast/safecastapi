@@ -23,6 +23,9 @@ Safecast::Application.routes.draw do
         put :approve
       end
     end
+
+    resources :air_imports
+    
     resources :devices do
       resources :measurements, :only => :index
     end
