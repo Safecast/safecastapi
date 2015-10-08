@@ -14,7 +14,6 @@ class AddAirObjectsAndLogsTable < ActiveRecord::Migration
       t.string   "model"
       t.datetime "created_at",         :null => false
       t.datetime "updated_at",         :null => false
-      t.datetime "created_at"
     end
     
     create_table "device_units", :force => true do |t|
@@ -23,7 +22,6 @@ class AddAirObjectsAndLogsTable < ActiveRecord::Migration
       t.string   "model"
       t.datetime "created_at",         :null => false
       t.datetime "updated_at",         :null => false
-      t.datetime "created_at"
     end
     
     create_table "stations", :force => true do |t|
@@ -31,7 +29,6 @@ class AddAirObjectsAndLogsTable < ActiveRecord::Migration
       t.string   "model"
       t.datetime "created_at",         :null => false
       t.datetime "updated_at",         :null => false
-      t.datetime "created_at"
     end
     
     create_table "air_logs", :force => true do |t|
