@@ -5,10 +5,13 @@ feature "/air_imports API endpoint" do
   before(:each) do
     User.destroy_all
     @user ||= Fabricate(:user)
+
+    create_air_v0_station
+
     @result ||= api_post('/air_imports',{
                                                :api_key        => @user.authentication_token,
                                                :air_import => {
-                                                   :source => fixture_file_upload('/air0.log')
+                                                   :source => fixture_file_upload('/air0simple.log')
                                                }
                                            }, {'HTTP_ACCEPT' => 'application/json'})
   end
@@ -17,7 +20,7 @@ feature "/air_imports API endpoint" do
     scenario "response should be unprocessed" do
       @result['id'].should_not be_blank
       @result['status'].should == 'unprocessed'
-      @result['md5sum'].should == '689ef3703d403ba8c2f42669c313d977'
+      @result['md5sum'].should == '1222b307e14ab97e995750b2462ce912'
     end
   end
 
@@ -38,8 +41,8 @@ feature "/air_imports API endpoint" do
       updated_result['status'].should == 'done'
     end
 
-    scenario "it should have imported a bunch of measurements" do
-      updated_result['measurements_count'].should == 5
+    scenario "it should have imported a measurements for each value" do
+      updated_result['measurements_count'].should == 53
     end
   end
 end

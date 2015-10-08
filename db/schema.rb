@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150919060031) do
+ActiveRecord::Schema.define(:version => 20151007060031) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -30,6 +30,23 @@ ActiveRecord::Schema.define(:version => 20150919060031) do
 
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
+
+  create_table "air_logs", :force => true do |t|
+    t.string   "device_tag"
+    t.string   "device_serial_id"
+    t.integer  "device_id"
+    t.datetime "captured_at"
+    t.float    "measurement"
+    t.string   "unit"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.float    "altitude"
+    t.datetime "created_at",                                                                    :null => false
+    t.datetime "updated_at",                                                                    :null => false
+    t.integer  "air_import_id"
+    t.spatial  "computed_location", :limit => {:srid=>4326, :type=>"point", :geographic=>true}
+    t.string   "md5sum"
+  end
 
   create_table "bgeigie_logs", :force => true do |t|
     t.string   "device_tag"
@@ -81,6 +98,22 @@ ActiveRecord::Schema.define(:version => 20150919060031) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "device_groups", :force => true do |t|
+    t.integer  "device_unit_id", :null => false
+    t.string   "manufacturer"
+    t.string   "model"
+    t.datetime "created_at"
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "device_units", :force => true do |t|
+    t.integer  "station_id",   :null => false
+    t.string   "manufacturer"
+    t.string   "model"
+    t.datetime "created_at"
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "devices", :force => true do |t|
     t.string   "manufacturer"
     t.string   "model"
@@ -88,6 +121,8 @@ ActiveRecord::Schema.define(:version => 20150919060031) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.integer  "measurements_count"
+    t.integer  "device_group_id"
+    t.string   "unit"
   end
 
   create_table "drive_logs", :force => true do |t|
@@ -181,10 +216,6 @@ ActiveRecord::Schema.define(:version => 20150919060031) do
     t.integer  "height"
     t.string   "surface"
     t.string   "radiation"
-    t.string   "devicetype_id"
-    t.integer  "sensor_id"
-    t.integer  "channel_id"
-    t.integer  "station_id"
   end
 
   add_index "measurements", ["captured_at"], :name => "index_measurements_on_captured_at"
@@ -209,6 +240,13 @@ ActiveRecord::Schema.define(:version => 20150919060031) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
+  create_table "stations", :force => true do |t|
+    t.string   "manufacturer"
+    t.string   "model"
+    t.datetime "created_at"
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "",    :null => false
