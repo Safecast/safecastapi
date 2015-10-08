@@ -44,7 +44,7 @@ describe AirImport do
       ]
 
       # only testing units for gas, since logic is the same for all
-      air_import.air_logs[0..3].map(&:unit).should        == %w(volts volts ppb ppb)
+      air_import.air_logs[0..3].map(&:unit).should        == %w(V V ppb ppb)
 
       # only testing gps for first, since gps is only assembled once then copied
       sample_log = air_import.air_logs.first
