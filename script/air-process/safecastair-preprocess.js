@@ -19,12 +19,24 @@ if (myArgs.length != 2) {
     process.exit();
 }
 
+// small utility to convert DDMM.MMMX to decimal
+var parseDecDeg = function (nmeacoord) {
+    var i = nmeacoord.indexOf('.');
+    var deg = nmeacoord.substring(0, i - 2);
+    var decMin = nmeacoord.substring(i - 2, nmeacoord.length - 1);
+    var dir = nmeacoord.charAt(nmeacoord.length - 1);
+    var decDeg = parseInt(deg, 10) + (decMin / 60.0);
+    if (dir === 'W' || dir === 'S') {
+        decDeg *= -1;
+    }
+    return decDeg;
+};
+
 // Read the config files
 var config = jsonfile.readFileSync(myArgs[0]);
 
 // We need to read the log line by line because it's not proper JSON, but
 // rather a successful of JSON structures, line by line
-
 var log = rl.createInterface({
     input: fs.createReadStream(myArgs[1])
 });
@@ -40,66 +52,64 @@ log.on('line', function (line) {
         tmp: [],
         pm: []
     };
-    
+
     // Fix the date (the firmware has a bug that forgets leading zeroes
     // on values < 10
     var bad_date = jline.gps.date;
     var spl = bad_date.indexOf('T');
-    var ymd = bad_date.substr(0,spl).split('-');
-    var hms = bad_date.substr(spl+1, bad_date.length-spl-2).split(':');
-    processed_line.gps.date = ymd[0] + '-' + ((ymd[1] < 10) ? '0': '') + ymd[1] + '-' +
-        ((ymd[2]<10) ? '0' : '') + ymd[2] + 'T' +
-        ((hms[0] < 10) ? '0':'') +hms[0] + ':' + ((hms[1] < 10) ? '0': '') + hms[1] + ':' +
-        ((hms[2]<10) ? '0' : '') + hms[2] + 'Z';
-        
-        ;
-    
+    var ymd = bad_date.substr(0, spl).split('-');
+    var hms = bad_date.substr(spl + 1, bad_date.length - spl - 2).split(':');
+    processed_line.gps.date = ymd[0] + '-' + ((ymd[1] < 10) ? '0' : '') + ymd[1] + '-' +
+        ((ymd[2] < 10) ? '0' : '') + ymd[2] + 'T' +
+        ((hms[0] < 10) ? '0' : '') + hms[0] + ':' + ((hms[1] < 10) ? '0' : '') + hms[1] + ':' +
+        ((hms[2] < 10) ? '0' : '') + hms[2] + 'Z';
+
+    ;
+
     // Fix the GPS coordinates to use simple decimal degrees
-    var bad_lat = parseFloat(jline.gps.lat.substr(0,jline.gps.lat.length-1));
-    processed_line.gps.lat = bad_lat/100 * ((jline.gps.lat.charAt(jline.gps.lat.length-1) == 'N') ? 1 : -1);
-    var bad_lon = parseFloat(jline.gps.lon.substr(0,jline.gps.lon.length-1));
-    processed_line.gps.lon = bad_lon/100 * ((jline.gps.lon.charAt(jline.gps.lon.length-1) == 'E') ? 1 : -1);
-    
-    
-//    processed_line.gps.lat = 
-    
+    processed_line.gps.lat = parseDecDeg(jline.gps.lat);
+    processed_line.gps.lon = parseDecDeg(jline.gps.lon);
+
+
+    //    processed_line.gps.lat = 
+
     for (sensor in jline.gas) {
         var s = jline.gas[sensor]
         if (s.hdr == 0) {
             switch (s.pos) {
-                case 0:
-                    s['ids'] = config.gas.header0.pos0;
-                    break;
-                case 1:
-                    s['ids'] = config.gas.header0.pos1;
-                    break;  
-                case 2:
-                    s['ids'] = config.gas.header0.pos2;
-                    break;
+            case 0:
+                s['ids'] = config.gas.header0.pos0;
+                break;
+            case 1:
+                s['ids'] = config.gas.header0.pos1;
+                break;
+            case 2:
+                s['ids'] = config.gas.header0.pos2;
+                break;
             }
         } else if (s.hdr == 1) {
             switch (s.pos) {
-                case 0:
-                    s['ids'] = config.gas.header1.pos0;
-                    break;
-                case 1:
-                    s['ids'] = config.gas.header1.pos1;
-                    break;  
-                case 2:
-                    s['ids'] = config.gas.header1.pos2;
-                    break;
+            case 0:
+                s['ids'] = config.gas.header1.pos0;
+                break;
+            case 1:
+                s['ids'] = config.gas.header1.pos1;
+                break;
+            case 2:
+                s['ids'] = config.gas.header1.pos2;
+                break;
             }
         } else if (s.hdr == 2) {
             switch (s.pos) {
-                case 0:
-                    s['ids'] = config.gas.header2.pos0;
-                    break;
-                case 1:
-                    s['ids'] = config.gas.header2.pos1;
-                    break;  
-                case 2:
-                    s['ids'] = config.gas.header2.pos2;
-                    break;
+            case 0:
+                s['ids'] = config.gas.header2.pos0;
+                break;
+            case 1:
+                s['ids'] = config.gas.header2.pos1;
+                break;
+            case 2:
+                s['ids'] = config.gas.header2.pos2;
+                break;
             }
         }
         processed_line.gas.push(s);
@@ -121,7 +131,7 @@ log.on('line', function (line) {
     }
     jline.pm[0]['ids'] = config.pm;
     processed_line.pm.push(jline.pm[0]);
-    
+
     console.log(JSON.stringify(processed_line));
 
 });
