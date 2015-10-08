@@ -1,14 +1,27 @@
 module Helpers
+  def create_air_v0_gas_sensor(air_unit, details)
+    air_group = air_unit.device_groups.build
+    air_group.devices.build(details.merge(id: @current_air_v0_device_id + 1, unit: "volts", sensor: "working electrode voltage"))
+    air_group.devices.build(details.merge(id: @current_air_v0_device_id + 2, unit: "volts", sensor: "auxiliary electrode voltage"))
+    air_group.devices.build(details.merge(id: @current_air_v0_device_id + 3, unit: "ppb",   sensor: "gas concentration"))
+    air_group.devices.build(details.merge(id: @current_air_v0_device_id + 4, unit: "ppb",   sensor: "gas concentration, lowpass filtered"))
+    @current_air_v0_device_id += 4
+  end
+
   def create_air_v0_station
     air_station = Station.new(id: 1)
     air_unit = air_station.device_units.build(id: 1)
-    air_group = air_unit.device_groups.build(id: 1)
 
-    co_2 = {manufacturer: "Alphasense", model: "CO2-D1"}
-    air_group.devices.build(co_2.merge(id: 1, unit: "volts", sensor: "working electrode voltage"))
-    air_group.devices.build(co_2.merge(id: 2, unit: "volts", sensor: "auxiliary electrode voltage"))
-    air_group.devices.build(co_2.merge(id: 3, unit: "ppb",   sensor: "gas concentration"))
-    air_group.devices.build(co_2.merge(id: 4, unit: "ppb",   sensor: "gas concentration, lowpass filtered"))
+    @current_air_v0_device_id = 1
+
+    create_air_v0_gas_sensor(air_unit, {manufacturer: "Alphasense", model: "NO2-B42F"})
+    create_air_v0_gas_sensor(air_unit, {manufacturer: "Alphasense", model: "OX-B421"})
+    create_air_v0_gas_sensor(air_unit, {manufacturer: "Alphasense", model: "CO-B4"})
+
+    create_air_v0_gas_sensor(air_unit, {manufacturer: "Alphasense", model: "NO2-B42F"})
+    create_air_v0_gas_sensor(air_unit, {manufacturer: "Alphasense", model: "OX-B421"})
+    create_air_v0_gas_sensor(air_unit, {manufacturer: "Alphasense", model: "CO-B4"})
+
     air_station.save!
     air_station
   end
