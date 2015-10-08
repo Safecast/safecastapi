@@ -22,10 +22,16 @@ describe AirImport do
       air_import.process
     end
 
-    it "should create air logs with individual values" do
+    it "should create air logs with populated values" do
       air_import.air_logs.count.should == lines * measurements
       air_import.air_logs.map(&:measurement).should == [0.27, 0.26, 27.86, 26.98]
       air_import.air_logs.map(&:unit).should        == %w(volts volts ppb ppb)
+
+      sample_log = air_import.air_logs.first
+      sample_log.captured_at.should     == Time.parse("2015-09-24T21:58:54Z")
+      sample_log.latitude.round.should  == 34
+      sample_log.longitude.round.should == -118
+      sample_log.altitude.round.should  == 128
     end
 
     it "should count the number of lines in the file" do

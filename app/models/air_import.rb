@@ -45,17 +45,26 @@ class AirImport < MeasurementImport
   def process_message(message)
     return unless message["msg"] == DATA_MESSAGE
 
-    # TODO include gps data
     gps = message["gps"]
+    gps_attributes = {
+        captured_at: Time.parse(gps['date']),
+        latitude: gps['lat'],
+        longitude: gps['lon'],
+        altitude: gps['alt']
+    }
 
-    process_gas(gps, message["gas"])
+    process_gas(gps_attributes, message["gas"])
   end
 
-  def process_gas(gps, gas_measurements)
+  def process_gas(gps_attributes, gas_measurements)
     gas_measurements.each do |gas_measurement|
       gas_measurement['ids'].each do |channel, id|
         device = Device.find(id)
-        air_logs.create(device_id: id, measurement: gas_measurement[channel], unit: device.unit)
+        air_logs.create(gps_attributes.merge(
+                            device_id: id,
+                            measurement: gas_measurement[channel],
+                            unit: device.unit,
+                        ))
       end
     end
   end
