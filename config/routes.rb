@@ -40,6 +40,8 @@ Safecast::Application.routes.draw do
     resources :users do
       resources :measurements, :only => :index
     end
+
+    resources :stations
   end
 
   match '/api/*path' => redirect('/%{path}.%{format}'), :format => true

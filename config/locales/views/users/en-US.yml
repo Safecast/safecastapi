@@ -3,3 +3,7 @@ en-US:
     index: 
       users: Users
       number_of_measurements: Number of Measurements
+  stations:
+    index:
+      stations:
+        new: "Provision a new station"

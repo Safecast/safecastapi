@@ -49,6 +49,11 @@
               <li <%= raw('class="active"') if controller_name == 'devices' %>>
                 <%= link_to t('.devices'), :devices %>
               </li>
+              <% if current_user.moderator -%>
+              <li <%= raw('class="active"') if controller_name == 'stations' %>>
+                <%= link_to t('.stations'), :stations %>
+              </li>
+              <% end %>
             </ul>
           </div>
         </div>
