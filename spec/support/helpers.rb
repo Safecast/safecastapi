@@ -15,6 +15,25 @@ module Helpers
     @current_air_v0_device_id += 2
   end
 
+  def create_air_v0_particle_sensor(air_unit, details)
+    air_group = air_unit.device_groups.build
+    air_group.devices.build(details.merge(id: @current_air_v0_device_id + 1, unit: 'ug/m^3', sensor: 'PM 1 data'))
+    air_group.devices.build(details.merge(id: @current_air_v0_device_id + 2, unit: 'ug/m^3', sensor: 'PM 2.5 data'))
+    air_group.devices.build(details.merge(id: @current_air_v0_device_id + 3, unit: 'ug/m^3', sensor: 'PM 10 data'))
+    air_group.devices.build(details.merge(id: @current_air_v0_device_id + 4, unit: 'ml/s',   sensor: 'sample flow rate'))
+    air_group.devices.build(details.merge(id: @current_air_v0_device_id + 5, unit: 's',      sensor: 'sample period'))
+    air_group.devices.build(details.merge(id: @current_air_v0_device_id + 6, unit: 'units 1/3 ms', sensor: 'mean time of flight bin1'))
+    air_group.devices.build(details.merge(id: @current_air_v0_device_id + 7, unit: 'units 1/3 ms', sensor: 'mean time of flight bin3'))
+    air_group.devices.build(details.merge(id: @current_air_v0_device_id + 8, unit: 'units 1/3 ms', sensor: 'mean time of flight bin5'))
+    air_group.devices.build(details.merge(id: @current_air_v0_device_id + 9, unit: 'units 1/3 ms', sensor: 'mean time of flight bin7'))
+    @current_air_v0_device_id += 9
+
+    16.times do |i|
+      air_group.devices.build(details.merge(id: @current_air_v0_device_id + i + 1, unit: 'ppm', sensor: "histogram count, bin #{i + 1}"))
+    end
+    @current_air_v0_device_id += 16
+  end
+
   def create_air_v0_station
     air_station = Station.new(id: 1)
     air_unit = air_station.device_units.build(id: 1)
@@ -30,6 +49,8 @@ module Helpers
     2.times do
       create_air_v0_temperature_sensor(air_unit, {manufacturer: "Generic", model: "thermistor"})
     end
+
+    create_air_v0_particle_sensor(air_unit, {manufacturer: "Alphasense", model: "OPC-N2"})
 
     air_station.save!
     air_station

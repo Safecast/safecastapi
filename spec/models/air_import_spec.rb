@@ -11,7 +11,7 @@ describe AirImport do
   end
 
   let(:lines)        { 1 }
-  let(:measurements) { 28 }
+  let(:measurements) { 53 }
 
   before(:each) do
     create_air_v0_station
@@ -24,19 +24,29 @@ describe AirImport do
 
     it "should create air logs with populated values" do
       air_import.air_logs.count.should == lines * measurements
-      air_import.air_logs.map(&:measurement).should == [0.27, 0.26, 27.86, 26.98,
-                                                        0.36, 0.35, 15.81, 11.76,
-                                                        0.63, 0.32, 633.26, 623.23,
+      air_import.air_logs.map(&:measurement).should == [
+        # gas array 1
+        0.27, 0.26, 27.86, 26.98,
+        0.36, 0.35, 15.81, 11.76,
+        0.63, 0.32, 633.26, 623.23,
 
-                                                        0.28, 0.27, 11.2, 21.92,
-                                                        0.39, 0.38, 73.72, 58.28,
-                                                        0.63, 0.35, 617.96, 605.38,
+        # gas array 2
+        0.28, 0.27, 11.2, 21.92,
+        0.39, 0.38, 73.72, 58.28,
+        0.63, 0.35, 617.96, 605.38,
 
-                                                        23.89, 23.45,
-                                                        23.8, 23.22
+        # temp
+        23.89, 23.45,
+        23.8, 23.22,
+
+        # particle
+        0.0, 0.0, 0.0, 3.7, 60.13, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
       ]
+
+      # only testing units for gas, since logic is the same for all
       air_import.air_logs[0..3].map(&:unit).should        == %w(volts volts ppb ppb)
 
+      # only testing gps for first, since gps is only assembled once then copied
       sample_log = air_import.air_logs.first
       sample_log.captured_at.should     == Time.parse("2015-09-24T21:58:54Z")
       sample_log.latitude.round.should  == 34
