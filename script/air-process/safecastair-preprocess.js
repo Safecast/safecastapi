@@ -56,10 +56,8 @@ log.on('line', function (line) {
     
     // Fix the GPS coordinates to use simple decimal degrees
     var bad_lat = parseFloat(jline.gps.lat.substr(0,jline.gps.lat.length-1));
-    console.log(bad_lat);
     processed_line.gps.lat = bad_lat/100 * ((jline.gps.lat.charAt(jline.gps.lat.length-1) == 'N') ? 1 : -1);
     var bad_lon = parseFloat(jline.gps.lon.substr(0,jline.gps.lon.length-1));
-    console.log(bad_lon);
     processed_line.gps.lon = bad_lon/100 * ((jline.gps.lon.charAt(jline.gps.lon.length-1) == 'E') ? 1 : -1);
     
     
