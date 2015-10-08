@@ -5,6 +5,9 @@ feature "/air_imports API endpoint" do
   before(:each) do
     User.destroy_all
     @user ||= Fabricate(:user)
+
+    create_air_v0_station
+
     @result ||= api_post('/air_imports',{
                                                :api_key        => @user.authentication_token,
                                                :air_import => {
