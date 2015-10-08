@@ -20,6 +20,8 @@ if (myArgs.length != 2) {
 }
 
 // small utility to convert DDMM.MMMX to decimal
+// thanks to John Petersen (BSD License)
+// Copyright (c) 2013, John Petersen
 var parseDecDeg = function (nmeacoord) {
     var i = nmeacoord.indexOf('.');
     var deg = nmeacoord.substring(0, i - 2);
