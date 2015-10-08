@@ -36,6 +36,7 @@ class AirImport < MeasurementImport
       lines += 1
     end
     self.lines_count = lines
+    self.measurements_count = air_logs.count
     save
   end
 
