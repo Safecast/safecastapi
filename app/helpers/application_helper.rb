@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def current_user_is_moderator?
+    user_signed_in? && current_user.moderator?
+  end
+
   def link_to_switch_locale
     if params[:locale] == "en-US"
       link_to "JA", :locale => "ja"
