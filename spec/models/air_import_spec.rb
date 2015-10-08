@@ -11,7 +11,7 @@ describe AirImport do
   end
 
   let(:lines)        { 1 }
-  let(:measurements) { 24 }
+  let(:measurements) { 28 }
 
   before(:each) do
     create_air_v0_station
@@ -30,7 +30,11 @@ describe AirImport do
 
                                                         0.28, 0.27, 11.2, 21.92,
                                                         0.39, 0.38, 73.72, 58.28,
-                                                        0.63, 0.35, 617.96, 605.38]
+                                                        0.63, 0.35, 617.96, 605.38,
+
+                                                        23.89, 23.45,
+                                                        23.8, 23.22
+      ]
       air_import.air_logs[0..3].map(&:unit).should        == %w(volts volts ppb ppb)
 
       sample_log = air_import.air_logs.first

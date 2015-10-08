@@ -53,16 +53,17 @@ class AirImport < MeasurementImport
         altitude: gps['alt']
     }
 
-    process_gas(gps_attributes, message["gas"])
+    process_measurements(gps_attributes, message["gas"])
+    process_measurements(gps_attributes, message["tmp"])
   end
 
-  def process_gas(gps_attributes, gas_measurements)
-    gas_measurements.each do |gas_measurement|
-      gas_measurement['ids'].each do |channel, id|
+  def process_measurements(gps_attributes, measurements)
+    measurements.each do |measurements|
+      measurements['ids'].each do |channel, id|
         device = Device.find(id)
         air_logs.create(gps_attributes.merge(
                             device_id: id,
-                            measurement: gas_measurement[channel],
+                            measurement: measurements[channel],
                             unit: device.unit,
                         ))
       end

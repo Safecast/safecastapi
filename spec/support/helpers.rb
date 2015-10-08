@@ -8,19 +8,28 @@ module Helpers
     @current_air_v0_device_id += 4
   end
 
+  def create_air_v0_temperature_sensor(air_unit, details)
+    air_group = air_unit.device_groups.build
+    air_group.devices.build(details.merge(id: @current_air_v0_device_id + 1, unit: 'C', sensor: 'temperature value'))
+    air_group.devices.build(details.merge(id: @current_air_v0_device_id + 2, unit: 'C', sensor: 'temperature value, lowpass filtered'))
+    @current_air_v0_device_id += 2
+  end
+
   def create_air_v0_station
     air_station = Station.new(id: 1)
     air_unit = air_station.device_units.build(id: 1)
 
     @current_air_v0_device_id = 1
 
-    create_air_v0_gas_sensor(air_unit, {manufacturer: "Alphasense", model: "NO2-B42F"})
-    create_air_v0_gas_sensor(air_unit, {manufacturer: "Alphasense", model: "OX-B421"})
-    create_air_v0_gas_sensor(air_unit, {manufacturer: "Alphasense", model: "CO-B4"})
+    2.times do
+      create_air_v0_gas_sensor(air_unit, {manufacturer: "Alphasense", model: "NO2-B42F"})
+      create_air_v0_gas_sensor(air_unit, {manufacturer: "Alphasense", model: "OX-B421"})
+      create_air_v0_gas_sensor(air_unit, {manufacturer: "Alphasense", model: "CO-B4"})
+    end
 
-    create_air_v0_gas_sensor(air_unit, {manufacturer: "Alphasense", model: "NO2-B42F"})
-    create_air_v0_gas_sensor(air_unit, {manufacturer: "Alphasense", model: "OX-B421"})
-    create_air_v0_gas_sensor(air_unit, {manufacturer: "Alphasense", model: "CO-B4"})
+    2.times do
+      create_air_v0_temperature_sensor(air_unit, {manufacturer: "Generic", model: "thermistor"})
+    end
 
     air_station.save!
     air_station
