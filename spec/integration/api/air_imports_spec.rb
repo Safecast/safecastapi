@@ -20,7 +20,7 @@ feature "/air_imports API endpoint" do
     scenario "response should be unprocessed" do
       @result['id'].should_not be_blank
       @result['status'].should == 'unprocessed'
-      @result['md5sum'].should == '5333fa1135f8e95502f8dd0d8cd84898'
+      @result['md5sum'].should == '672d1044f2c0861a846faa36c7a94a03'
     end
   end
 
@@ -42,7 +42,7 @@ feature "/air_imports API endpoint" do
     end
 
     scenario "it should have imported a measurements for each value" do
-      updated_result['measurements_count'].should == 4
+      updated_result['measurements_count'].should == 24
     end
   end
 end
