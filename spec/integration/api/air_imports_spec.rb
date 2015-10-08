@@ -20,7 +20,7 @@ feature "/air_imports API endpoint" do
     scenario "response should be unprocessed" do
       @result['id'].should_not be_blank
       @result['status'].should == 'unprocessed'
-      @result['md5sum'].should == '1222b307e14ab97e995750b2462ce912'
+      @result['md5sum'].should == '55ae85eabd50cad18f5b2ee013912b7f'
     end
   end
 
