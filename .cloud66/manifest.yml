@@ -1,5 +1,6 @@
 production:
    postgresql:
+    version: 9.2.5
     server:
       vendor: digitalocean
       region: 4
