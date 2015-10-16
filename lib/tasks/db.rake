@@ -13,7 +13,7 @@ namespace :db do
     SQL
 
     if postgis_tables.count == 0
-      connection.exec_query('CREATE EXTENSION postgis')
+      c.exec_query('CREATE EXTENSION postgis')
     end
   end
 end
