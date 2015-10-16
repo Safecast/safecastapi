@@ -10,7 +10,6 @@ production:
       postgis: true
    rails:
      configuration:
-       do_initial_db_schema_load: true
        nginx:
          cors:
            origin: '*'
