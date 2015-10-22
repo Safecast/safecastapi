@@ -3,8 +3,8 @@ production:
     version: 9.2.5
     server:
       vendor: digitalocean
-      region: 4
-      size: 61
+      region: nyc2
+      size: 2gb
       unique_name: db
     configuration:
       postgis: true
