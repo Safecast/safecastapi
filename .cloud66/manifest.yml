@@ -1,5 +1,5 @@
 production:
-   postgresql:
+  postgresql:
     version: 9.2.5
     server:
       vendor: digitalocean
@@ -8,9 +8,21 @@ production:
       unique_name: db
     configuration:
       postgis: true
-   rails:
-     configuration:
-       nginx:
-         cors:
-           origin: '*'
-           methods: 'GET, OPTION'
+  rails:
+    configuration:
+      nginx:
+        cors:
+          origin: '*'
+          methods: 'GET, OPTION'
+
+staging:
+  postgresql:
+    configuration:
+      version: 9.2.5
+      postgis: true
+  rails:
+    configuration:
+      nginx:
+        cors:
+          origin: '*'
+          methods: 'GET, OPTION'
