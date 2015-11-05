@@ -1,0 +1,25 @@
+# The default ‘hack’ overrides in activerecord-postgis-adapter was too clever
+# and does not work well with a single `structure.sql` being provided for all environments
+# therefore a hack to fix that hack is required.
+
+# See: activerecord-postgis-adapter-0.6.5/lib/active_record/connection_adapters/postgis_adapter/rails3/databases.rake
+
+::RGeo::ActiveRecord::TaskHacker.modify('db:structure:dump', nil, 'postgis') do |config|
+  set_psql_env(config)
+  filename = ::Rails.root.join('db', 'structure.sql')
+  search_path = config['schema_search_path'].to_s.strip
+  search_path = search_path.split(',').map(&:strip)
+  search_path.delete('postgis')
+  search_path = ['public'] if search_path.empty?
+  search_path = search_path.map { |component| "--schema=#{component}" }.join(' ')
+  `pg_dump -i -U "#{config["username"]}" -s -x -O -f #{filename} #{search_path} #{config["database"]}`
+  if $?.exitstatus == 1
+    raise "Error dumping database"
+  end
+end
+
+::RGeo::ActiveRecord::TaskHacker.modify('db:structure:load', nil, 'postgis') do |config|
+  set_psql_env(config)
+  filename = ::Rails.root.join('db', 'structure.sql')
+  `psql -f #{filename} #{config["database"]}`
+end
