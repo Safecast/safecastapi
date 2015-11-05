@@ -55,7 +55,7 @@ test:
   password:
   min_messages: warning
 
-production:
+production: &production
   adapter: postgis
   schema_search_path: "public,postgis"
   script_dir: /usr/local/share/postgis
@@ -66,3 +66,7 @@ production:
   password:
   su_username: safecast
   su_password: <%= ENV['POSTGRESQL_PASSWORD'] %>
+
+staging:
+  <<: *production
+  database: safecast_staging
