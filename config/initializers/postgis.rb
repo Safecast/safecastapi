@@ -10,8 +10,10 @@ require 'rake'
 
 ::RGeo::ActiveRecord::TaskHacker.modify('db:structure:dump', nil, 'postgis') do |config|
   set_psql_env(config)
+  username = config['username']
   filename = ::Rails.root.join('db', 'structure.sql')
-  `pg_dump -i -U "#{config["username"]}" -s -x -O -f #{filename} #{config["database"]}`
+  database = config['database']
+  `pg_dump -i -U "#{ username }" -s -x -O -f #{ filename } #{ database }`
   
   if $?.exitstatus == 1
     raise "Error dumping database"
@@ -21,5 +23,8 @@ end
 ::RGeo::ActiveRecord::TaskHacker.modify('db:structure:load', nil, 'postgis') do |config|
   set_psql_env(config)
   filename = ::Rails.root.join('db', 'structure.sql')
-  `psql -f #{filename} #{config["database"]}`
+  database = config["database"]
+  `psql -f #{ filename } #{ database }`
+  `psql -c 'GRANT ALL ON postgis.geometry_columns TO PUBLIC' #{ database }`
+  `psql -c 'GRANT ALL ON postgis.spatial_ref_sys TO PUBLIC' #{ database }`
 end
