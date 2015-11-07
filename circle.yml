@@ -6,4 +6,4 @@ machine:
 database:
   override:
     - bundle exec rake db:structure:load --trace
-    - "sed -i '' 's/schema_search_path: public/schema_search_path: public, postgis/g' test.yml"
+    - "sed -i 's/schema_search_path: public/schema_search_path: public, postgis/g' test.yml"
