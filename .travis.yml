@@ -10,7 +10,6 @@ addons:
 before_script:
   - cp config/database.yml.travis config/database.yml
   - psql -U postgres -c 'create database travis_ci_test'
-  - psql -U postgres -c 'create extension postgis' travis_ci_test
 script:
-  - bundle exec rake db:schema:load
+  - bundle exec rake db:structure:load
   - bundle exec rspec spec

@@ -5,5 +5,4 @@ machine:
 
 database:
   override:
-    - psql -d circle_test -c 'CREATE EXTENSION Postgis;'
-    - bundle exec rake db:schema:load --trace
+    - bundle exec rake db:structure:load --trace
