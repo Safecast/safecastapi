@@ -15,6 +15,11 @@ require 'rake'
   database = config['database']
   `pg_dump -i -U "#{ username }" -s -x -O -f #{ filename } #{ database }`
   
+  File.open(filename, 'a') { |f|
+    f.puts ActiveRecord::Base.connection.dump_schema_information
+    f.print "\n"
+  }
+  
   if $?.exitstatus == 1
     raise "Error dumping database"
   end
