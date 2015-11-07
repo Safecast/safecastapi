@@ -4,6 +4,10 @@
 
 # See: activerecord-postgis-adapter-0.6.5/lib/active_record/connection_adapters/postgis_adapter/rails3/databases.rake
 
+require 'active_record/connection_adapters/postgis_adapter/railtie'
+require 'rgeo/active_record/task_hacker'
+require 'rake'
+
 ::RGeo::ActiveRecord::TaskHacker.modify('db:structure:dump', nil, 'postgis') do |config|
   set_psql_env(config)
   filename = ::Rails.root.join('db', 'structure.sql')
