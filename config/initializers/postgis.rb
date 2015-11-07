@@ -24,6 +24,8 @@ end
   set_psql_env(config)
   filename = ::Rails.root.join('db', 'structure.sql')
   database = config["database"]
+  `psql -c 'drop extension if exists postgis' #{ database }`
+  `psql -c 'drop schema if exists postgis cascade' #{ database }`
   `psql -f #{ filename } #{ database }`
   `psql -c 'GRANT ALL ON postgis.geometry_columns TO PUBLIC' #{ database }`
   `psql -c 'GRANT ALL ON postgis.spatial_ref_sys TO PUBLIC' #{ database }`
