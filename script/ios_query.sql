@@ -231,6 +231,7 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND id NOT IN (33708769,33708779,33709181,33709199,33709164,39366523,39417687)
     AND id NOT BETWEEN 48821163 AND 48825707 -- bad .cz drive data
     AND id NOT BETWEEN 51725281 AND 51730948 -- bad .fr drive data bgeigie_import_id=19980
+    AND id NOT BETWEEN 54522618 AND 54523174 -- bad .ua drive data bgeigie_import_id=20582
     AND user_id NOT IN (345)--347
     --AND captured_at BETWEEEN TIMESTAMP '2011-03-01 00:00:00' AND localtimestamp + interval '48 hours'
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
