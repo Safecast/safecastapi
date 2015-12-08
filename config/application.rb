@@ -60,7 +60,5 @@ module Safecast
       g.javascripts false
       g.stylesheets false
     end
-
-    config.log_tags = [:uuid, :remote_ip]
   end
 end
