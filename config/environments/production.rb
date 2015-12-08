@@ -64,4 +64,6 @@ Safecast::Application.configure do
     :host => 'api.safecast.org',
     :protocol => 'https'
   }
+
+  config.log_tags = [:uuid, :remote_ip]
 end
