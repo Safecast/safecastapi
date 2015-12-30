@@ -3,6 +3,7 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- =============================================================================================
 -- UPDATE HISTORY: (SINCE 2014-10-25)
 -- =============================================================================================
+-- 2015-12-30 ND: Add filter for bad drive id 21112.
 -- 2015-12-13 ND: Add filter for bad drive id 19900 per Azby.
 -- 2015-09-13 ND: Add filter for bad drive id 19980 per Azby.
 -- 2015-07-15 ND: Add filter for bad/deleted drive orphan points in .cz (user_id = 671)
@@ -234,6 +235,7 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND id NOT BETWEEN 51725281 AND 51730948 -- bad .fr drive data bgeigie_import_id=19980
     AND id NOT BETWEEN 54522618 AND 54523174 -- bad .ua drive data bgeigie_import_id=20582
     AND id NOT BETWEEN 55671785 AND 55676469 -- bad .fr drive data bgeigie_import_id=20900
+    AND id NOT BETWEEN 56496499 AND 56499124 -- bad .jp flight data bgeigie_import_id=21112
     AND user_id NOT IN (345)--347
     --AND captured_at BETWEEEN TIMESTAMP '2011-03-01 00:00:00' AND localtimestamp + interval '48 hours'
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
