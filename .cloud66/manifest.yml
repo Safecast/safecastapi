@@ -1,15 +1,31 @@
 production:
+<<<<<<< HEAD
    postgresql:
+=======
+  postgresql:
+>>>>>>> d6b29966200ded0105da72c2d95d7529c3bba56d
     version: 9.2.5
     server:
       vendor: digitalocean
-      region: 4
-      size: 61
+      region: nyc2
+      size: 2gb
       unique_name: db
     configuration:
       postgis: true
-   rails:
-     configuration:
+  rails:
+    configuration:
+      nginx:
+        cors:
+          origin: '*'
+          methods: 'GET, OPTION'
+
+staging:
+  postgresql:
+    configuration:
+      version: 9.2.5
+      postgis: true
+  rails:
+    configuration:
       nginx:
         cors:
           origin: '*'

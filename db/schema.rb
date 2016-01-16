@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140718095222) do
+ActiveRecord::Schema.define(:version => 20150919060031) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -181,10 +181,17 @@ ActiveRecord::Schema.define(:version => 20140718095222) do
     t.integer  "height"
     t.string   "surface"
     t.string   "radiation"
+<<<<<<< HEAD
     t.integer  "sensor_id"
     t.integer  "station_id"
     t.integer  "channel_id"
     t.string   "devicetype_id"
+=======
+    t.string   "devicetype_id"
+    t.integer  "sensor_id"
+    t.integer  "channel_id"
+    t.integer  "station_id"
+>>>>>>> d6b29966200ded0105da72c2d95d7529c3bba56d
   end
 
   add_index "measurements", ["captured_at"], :name => "index_measurements_on_captured_at"
