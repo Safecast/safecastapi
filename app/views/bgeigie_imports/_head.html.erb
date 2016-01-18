@@ -21,7 +21,18 @@
             <%- end -%>
           </li>
       <%- end -%>
+<<<<<<< HEAD
 
+=======
+      <%- if !@bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? && !@bgeigie_import.done? -%>
+        <li>
+          <%= form_for [:fixdrive, @bgeigie_import] do |f| %>
+            <%= f.submit t('.fixdrive'), :class => 'btn btn-primary' %>
+
+          <%- end -%>
+        </li>
+      <%- end -%>
+>>>>>>> 05ce4ee42c3083e2e6c1264423e973f661a0f72e
       <li>
         <%= link_to t(".download_original_file"),
               @bgeigie_import.source.url,

@@ -3,7 +3,7 @@ class BgeigieImportsController < ApplicationController
   respond_to :html, :json
 
   before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy]
-  before_filter :require_moderator, :only => :approve
+  before_filter :require_moderator, :only => [:approve, :fixdrive]
 
   has_scope :by_status
   has_scope :by_user_id
@@ -40,6 +40,10 @@ class BgeigieImportsController < ApplicationController
     redirect_to @bgeigie_import
   end
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 05ce4ee42c3083e2e6c1264423e973f661a0f72e
   def submit
     @bgeigie_import = scope.find(params[:id])
     @bgeigie_import.update_column(:status, 'submitted')
