@@ -13,14 +13,13 @@
           <%- end -%>
         </li>
 	    <%- end -%>
-
-        <%- if !@bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? && @bgeigie_import.approved? && !@bgeigie_import.done? -%>
-          <li>
+      <%- if @bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? && !@bgeigie_import.done -%>
+	        <li>
           <%= form_for [:fixdrive, @bgeigie_import] do |f| %>
             <%= f.submit t('.fixdrive'), :class => 'btn btn-primary' %>
-            <%- end -%>
+	          <%- end -%>
           </li>
-      <%- end -%>
+			<%- end -%>
       <li>
         <%= link_to t(".download_original_file"),
               @bgeigie_import.source.url,

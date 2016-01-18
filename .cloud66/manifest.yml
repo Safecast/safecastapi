@@ -1,5 +1,9 @@
 production:
+<<<<<<< HEAD
+   postgresql:
+=======
   postgresql:
+>>>>>>> d6b29966200ded0105da72c2d95d7529c3bba56d
     version: 9.2.5
     server:
       vendor: digitalocean

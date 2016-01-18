@@ -40,7 +40,10 @@ class BgeigieImportsController < ApplicationController
     redirect_to @bgeigie_import
   end
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 05ce4ee42c3083e2e6c1264423e973f661a0f72e
   def submit
     @bgeigie_import = scope.find(params[:id])
     @bgeigie_import.update_column(:status, 'submitted')

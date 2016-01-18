@@ -69,4 +69,8 @@ production: &production
 
 staging:
   <<: *production
+<<<<<<< HEAD
   database: safecast_staging
+=======
+  database: safecast_staging
+>>>>>>> d6b29966200ded0105da72c2d95d7529c3bba56d

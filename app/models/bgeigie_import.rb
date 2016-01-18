@@ -88,6 +88,15 @@ class BgeigieImport < MeasurementImport
     self.update_column(:status, 'done')
   end
 
+<<<<<<< HEAD
+
+ def fixdrive!
+   import_measurements_fix
+   update_counter_caches
+   confirm_status(:measurements_added)
+   self.update_column(:status, 'done')
+ end
+=======
   def fixdrive!
     import_measurements_fix
     update_counter_caches
@@ -105,6 +114,7 @@ class BgeigieImport < MeasurementImport
      from bgeigie_logs WHERE
      bgeigie_import_id = #{self.id}])
   end
+>>>>>>> 05ce4ee42c3083e2e6c1264423e973f661a0f72e
 
   def create_tmp_file
     lines_count = 0
@@ -217,6 +227,20 @@ class BgeigieImport < MeasurementImport
         );
     ])
   end
+
+
+ 
+ def import_measurements_fix
+   self.connection.execute(%Q[
+     insert into measurements
+     (user_id, value, unit, created_at, updated_at, captured_at,
+     measurement_import_id, location)
+     select #{self.user_id},cpm,'cpm', now(), now(), captured_at,
+     #{self.id}, computed_location
+     from bgeigie_logs WHERE
+     bgeigie_import_id = #{self.id}])
+ end
+ 
 
   def import_measurements
     self.connection.execute(%Q[

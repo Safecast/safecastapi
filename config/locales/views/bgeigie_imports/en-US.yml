@@ -71,6 +71,7 @@ en-US:
       fixdrive: Fix Drive
       download_original_file: Download Original File
       bgeigie_import: Bgeigie Import
+      fixdrive: Fix Drive
       reload_to_see_map: "If you don't see the map, please manually reload the page."
     current_status:
       edit_metadata: Edit Metadata
