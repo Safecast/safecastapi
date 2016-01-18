@@ -21,6 +21,7 @@ Safecast::Application.routes.draw do
       member do
         put :submit
         put :approve
+        put :fixdrive
       end
     end
     resources :devices do
