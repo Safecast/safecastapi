@@ -240,6 +240,8 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
+    skylight (0.10.3)
+      activesupport (>= 3.0.0)
     slop (3.4.4)
     sprockets (2.2.3)
       hike (~> 1.2)
@@ -317,9 +319,10 @@ DEPENDENCIES
   rspec-rails (~> 2.12.2)
   sass-rails
   simple_form (~> 2.0.4)
+  skylight
   thin
   uglifier
   unicorn
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
