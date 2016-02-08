@@ -143,6 +143,7 @@ RailsAdmin.config do |config|
   #     configure :credits, :text 
   #     configure :height, :decimal 
   #     configure :orientation, :string 
+  #     configure :subtype, :string 
   #     configure :cities, :text 
 
   #   # Cross-section configuration:
@@ -353,6 +354,7 @@ RailsAdmin.config do |config|
   #     configure :credits, :text 
   #     configure :height, :decimal 
   #     configure :orientation, :string 
+  #     configure :subtype, :string 
   #     configure :cities, :text 
 
   #   # Cross-section configuration:
@@ -578,7 +580,8 @@ RailsAdmin.config do |config|
   #     configure :lines_count, :integer 
   #     configure :credits, :text 
   #     configure :height, :decimal 
-  #     configure :orientation, :string 
+  #     configure :orientation, :string
+  #     configure :subtype, :string  
   #     configure :cities, :text 
 
   #   # Cross-section configuration:

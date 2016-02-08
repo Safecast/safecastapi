@@ -38,6 +38,7 @@ en-US:
         cities: "Cities"
         height: "Sensor Height"
         orientation: "Sensor Orientation"
+        subtype: "Type of Measurement"
     #       email: 'E-mail to sign in.'
     #     edit:
     #       email: 'E-mail.'
