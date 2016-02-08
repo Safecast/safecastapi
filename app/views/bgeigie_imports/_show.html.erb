@@ -47,6 +47,13 @@
         <%= t('.not_set') if @bgeigie_import.orientation.blank? %>
       </dd>
       <dt>
+        <%= t('.subtype') %>
+      </dt>
+      <dd>
+        <%= @bgeigie_import.subtype if @bgeigie_import.subtype.present? %>
+        <%= t('.not_set') if @bgeigie_import.subtype.blank? %>
+      </dd>
+      <dt>
         <%= t('.cities') %>
       </dt>
       <dd>

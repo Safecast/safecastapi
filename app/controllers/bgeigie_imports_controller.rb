@@ -66,7 +66,7 @@ class BgeigieImportsController < ApplicationController
   def show
     @bgeigie_import = BgeigieImport.find(params[:id])
     render(:partial => params[:partial]) and return if params[:partial].present?
-    respond_with @bgeigie_import
+    # respond_with @bgeigie_import
   end
 
   def create

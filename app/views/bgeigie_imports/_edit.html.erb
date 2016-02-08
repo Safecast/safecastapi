@@ -80,6 +80,18 @@
               }
             }
       %>
+      <%= f.input :subtype, :collection => [
+        'Drive',
+        'Surface',
+        'Cosmic',
+        ],  :label_html => {
+              :class => 'activate-tooltip',
+              :data => {
+                'original-title' => t('.subtype_tooltip'),
+                :placement => 'right'
+              }
+            }
+      %>
       <%= f.button :wrapped, :cancel => @bgeigie_import %>
     <%- end -%>
   </div>
