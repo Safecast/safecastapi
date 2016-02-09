@@ -10,6 +10,7 @@ ja:
       credits: データ提出者
       sensor_height: センサーの地面からの高さ
       sensor_orientation: センサーの方向付け
+      sensor_subtype:サブタイプ
     progress:
       progress: 進歩状況
       process_file: ファイルを処理する
