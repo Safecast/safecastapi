@@ -95,7 +95,7 @@ en-US:
       cities: Cities
       credits: Credits
       sensor_height: Sensor Height
-      sensor_orientation: Sensor Subtype
+      sensor_orientation: Sensor Orientation
       sensor_subtype: Subtype
     process_log:
       progress: Progress
