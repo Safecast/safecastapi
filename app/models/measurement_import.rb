@@ -18,4 +18,8 @@ class MeasurementImport < ActiveRecord::Base
   def set_md5sum
     self.md5sum = Digest::MD5.hexdigest(source.read)
   end
+
+  def process_in_background
+    Delayed::Job.enqueue ProcessMeasurementImportJob.new(id)
+  end
 end
