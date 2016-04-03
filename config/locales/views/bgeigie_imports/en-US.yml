@@ -29,6 +29,7 @@ en-US:
       height_tooltip: The height about ground the sensor was held
       orientation_tooltip: How the sensor was held
       subtype_tooltip: Was the data collected while on a flight?
+      comment_tooltip: Admin comment
     index:
       filter_bgeigie_imports: Filter bGeigie Imports
       everyone: Everyone

@@ -60,6 +60,13 @@
         <%= @bgeigie_import.cities if @bgeigie_import.cities.present? %>
         <%= t('.none') if @bgeigie_import.cities.blank? %>
       </dd>
+      <dt>
+      <%= t('.comment') %>
+      </dt>
+      <dd>
+        <%= @bgeigie_import.comment if @bgeigie_import.comment.present? %>
+        <%= t('.none') if @bgeigie_import.comment.blank? %>
+      </dd>
     </dl>
   </div>
 </div>
