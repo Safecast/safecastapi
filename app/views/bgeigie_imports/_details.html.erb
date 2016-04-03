@@ -4,7 +4,8 @@
   @bgeigie_import.cities.present? ||
   @bgeigie_import.height.present? ||
   @bgeigie_import.orientation.present?||
-  @bgeigie_import.subtype.present? %>
+  @bgeigie_import.subtype.present? ||
+  @bgeigie_import.comment.present? %>
   <ul class="unstyled nav">
     <li class="nav-header"><%= t(".details") %></li>
     <%- if @bgeigie_import.name.present? -%>
@@ -48,6 +49,14 @@
         <%= t ".sensor_subtype" -%>
         <span class="pull-right"><%= @bgeigie_import.subtype %></span>
       </li>
+    <%- end -%>
+    <%- if admin? -%>
+        <%- if @bgeigie_import.comment.present? -%>
+          <li>
+            <%= t ".comment" -%>
+            <span class="pull-right"><%= @bgeigie_import.comment %></span>
+          </li>
+          <%- end -%>
     <%- end -%>
   </ul>
 <%- end -%>

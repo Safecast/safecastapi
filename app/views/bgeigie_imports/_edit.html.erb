@@ -53,6 +53,21 @@
                     }
                   }
       %>
+            <%= f.input :comment,
+                        :as => :text,
+                        :input_html => {
+                          :rows => 3,
+                          :class => 'span4'
+                        },
+                        :label_html => {
+                          :class => 'activate-tooltip',
+                          :data => {
+                            'original-title' => t('.comment_tooltip'),
+                            :placement => 'right'
+                          }
+                        }
+            %>
+
       <%= f.input :height,
                   :input_html => {
                     :class => 'span2'
@@ -94,5 +109,6 @@
       %>
       <%= f.button :wrapped, :cancel => @bgeigie_import %>
     <%- end -%>
+
   </div>
 </div>

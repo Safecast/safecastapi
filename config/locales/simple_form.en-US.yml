@@ -36,6 +36,7 @@ en-US:
         description: Description
         credits: "Credits"
         cities: "Cities"
+        comment: "Comment"
         height: "Sensor Height"
         orientation: "Sensor Orientation"
         subtype: "Type of Measurement"
