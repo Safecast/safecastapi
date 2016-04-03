@@ -50,7 +50,9 @@
         <span class="pull-right"><%= @bgeigie_import.subtype %></span>
       </li>
     <%- end -%>
-    <%- if admin? -%>
+  </ul>
+<%- end -%>
+  <%- if user_signed_in? && (@bgeigie_import.user == current_user.moderator?)-%>
         <%- if @bgeigie_import.comment.present? -%>
           <li>
             <%= t ".comment" -%>
@@ -58,5 +60,3 @@
           </li>
           <%- end -%>
     <%- end -%>
-  </ul>
-<%- end -%>
