@@ -29,7 +29,7 @@ module Safecast
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
     config.force_ssl = Rails.env.production?
-    config.ssl_options = { 
+    config.ssl_options = {
       :exclude => proc { |env| env['PATH_INFO'].ends_with?('.json') }
     }
 
@@ -51,7 +51,9 @@ module Safecast
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    
+
+    config.skylight.environments += ['staging']
+
     config.generators do |g|
       g.test_framework :rspec,
                        :fixture => false,

@@ -68,6 +68,7 @@ en-US:
       about_to_delete: You are about to delete this log. This action cannot be undone.
     head:
       approve: Approve
+      fixdrive: Fix Drive
       download_original_file: Download Original File
       bgeigie_import: Bgeigie Import
       reload_to_see_map: "If you don't see the map, please manually reload the page."

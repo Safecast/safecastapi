@@ -43,6 +43,7 @@ Design, hardware, software, design and website content is shared by Safecast und
 - All functional aspects of design are under the [Berkeley Software Distribution License][BSD] in respect of copyright and the [XL1.0 Cross License][CL] in respect of patent.
 - Web Content is under [Creative Commons Attribution Non Commercial][CCANC], anyone can copy and remix the what is on the website but must attribute Safecast and anyone else specified by Safecast.
 - “Safecast” and the safecast logo are Registered Trademarks of the Momoko Ito Foundation, a 501(c)3 Non-profit, you can't use them without permission.
+- Software is licensed under [the MIT license][MIT] unless otherwise specified.
 
 [event]: http://blog.safecast.org/2013/02/tokyo-hackathon-roundup/
 [blog]: https://blog.safecast.org
@@ -54,3 +55,4 @@ Design, hardware, software, design and website content is shared by Safecast und
 [BSD]: https://blog.safecast.org/bsd/
 [CL]: http://blog.safecast.org/wp-content/uploads/2012/05/xl_crosslicense.pdf
 [CCANC]: http://creativecommons.org/licenses/by-nc/3.0/
+[MIT]: http://blog.safecast.org/mit/

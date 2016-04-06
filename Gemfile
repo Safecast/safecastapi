@@ -35,6 +35,7 @@ gem 'bootstrap-kaminari-views'
 gem 'rails_admin'
 
 gem 'newrelic_rpm'
+gem 'skylight'
 
 #for docs
 gem 'pygments.rb'
