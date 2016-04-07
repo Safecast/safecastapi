@@ -69,6 +69,7 @@ en-US:
     head:
       approve: Approve
       fixdrive: Fix Drive
+      process: Process
       download_original_file: Download Original File
       bgeigie_import: Bgeigie Import
       reload_to_see_map: "If you don't see the map, please manually reload the page."
