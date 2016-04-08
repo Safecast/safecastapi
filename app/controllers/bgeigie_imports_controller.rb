@@ -39,6 +39,12 @@ class BgeigieImportsController < ApplicationController
     @bgeigie_import.fixdrive!
     redirect_to @bgeigie_import
   end
+  
+  def process_button
+    @bgeigie_import = scope.find(params[:id])
+    @bgeigie_import.process_button!
+    redirect_to @bgeigie_import
+  end
 
 
   def submit

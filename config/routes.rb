@@ -22,6 +22,7 @@ Safecast::Application.routes.draw do
         put :submit
         put :approve
         put :fixdrive
+        put :process_button
       end
     end
     resources :devices do

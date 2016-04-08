@@ -71,6 +71,14 @@ class BgeigieImport < MeasurementImport
     delete_tmp_file
   end
 
+def process_button!
+    create_tmp_file
+    import_to_bgeigie_logs
+    confirm_status(:compute_latlng)
+    self.update_column(:status, 'processed')
+    delete_tmp_file
+  end
+
   def process_in_background
     Delayed::Job.enqueue ProcessBgeigieImportJob.new(id)
   end
