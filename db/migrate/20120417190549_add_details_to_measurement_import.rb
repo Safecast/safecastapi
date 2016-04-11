@@ -6,8 +6,6 @@ class AddDetailsToMeasurementImport < ActiveRecord::Migration
 
     add_column :measurement_imports, :orientation, :string
 
-    add_column :measurement_imports, :subtype, :string
-
     add_column :measurement_imports, :cities, :text
 
   end
