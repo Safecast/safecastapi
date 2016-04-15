@@ -293,6 +293,16 @@ ALTER SEQUENCE drive_logs_id_seq OWNED BY drive_logs.id;
 
 
 --
+-- Name: ioslastexport; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ioslastexport (
+    lastmaxid integer,
+    exportdate timestamp without time zone
+);
+
+
+--
 -- Name: maps; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -383,8 +393,8 @@ CREATE TABLE measurement_imports (
     map_id integer,
     status_details text,
     approved boolean DEFAULT false,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     name character varying(255),
     description text,
     lines_count integer,
@@ -438,10 +448,10 @@ CREATE TABLE measurements (
     height integer,
     surface character varying(255),
     radiation character varying(255),
+    devicetype_id character varying(255),
     sensor_id integer,
-    channel_id integer,
     station_id integer,
-    devicetype_id character varying(255)
+    channel_id integer
 );
 
 
@@ -743,6 +753,34 @@ ALTER TABLE ONLY users
 --
 
 CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at);
+
+
+--
+-- Name: idx_bgeigie_logs_bgeigie_import_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX idx_bgeigie_logs_bgeigie_import_id_index ON bgeigie_logs USING btree (bgeigie_import_id);
+
+
+--
+-- Name: idx_bgeigie_logs_device_serial_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX idx_bgeigie_logs_device_serial_id_index ON bgeigie_logs USING btree (device_serial_id);
+
+
+--
+-- Name: idx_measurements_captured_at_unit_device_id_device_id_not_null; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX idx_measurements_captured_at_unit_device_id_device_id_not_null ON measurements USING btree (captured_at, unit, device_id) WHERE (device_id IS NOT NULL);
+
+
+--
+-- Name: idx_measurements_value_device_id_device_id_not_null; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX idx_measurements_value_device_id_device_id_not_null ON measurements USING btree (value, device_id) WHERE (device_id IS NOT NULL);
 
 
 --
