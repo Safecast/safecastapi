@@ -46,6 +46,18 @@ COMMENT ON EXTENSION postgis IS 'PostGIS geometry, geography, and raster spatial
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: measurement_imports_subtype; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE measurement_imports_subtype AS ENUM (
+    'None',
+    'Drive',
+    'Surface',
+    'Cosmic'
+);
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -401,7 +413,9 @@ CREATE TABLE measurement_imports (
     credits text,
     height numeric(8,2),
     orientation character varying(255),
-    cities text
+    cities text,
+    comment character varying(255),
+    subtype measurement_imports_subtype DEFAULT 'None'::measurement_imports_subtype
 );
 
 
@@ -840,6 +854,20 @@ CREATE INDEX index_maps_on_user_id ON maps USING btree (user_id);
 
 
 --
+-- Name: index_measurement_imports_on_id_and_subtype; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_measurement_imports_on_id_and_subtype ON measurement_imports USING btree (id, subtype);
+
+
+--
+-- Name: index_measurement_imports_on_subtype; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_measurement_imports_on_subtype ON measurement_imports USING btree (subtype);
+
+
+--
 -- Name: index_measurements_on_captured_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1068,4 +1096,8 @@ INSERT INTO schema_migrations (version) VALUES ('20130705092519');
 INSERT INTO schema_migrations (version) VALUES ('20140718095222');
 
 INSERT INTO schema_migrations (version) VALUES ('20150919060031');
+
+INSERT INTO schema_migrations (version) VALUES ('20160208190731');
+
+INSERT INTO schema_migrations (version) VALUES ('20160403092926');
 

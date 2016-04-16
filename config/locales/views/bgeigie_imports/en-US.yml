@@ -28,6 +28,8 @@ en-US:
       cities_tooltip: The nearby cities
       height_tooltip: The height about ground the sensor was held
       orientation_tooltip: How the sensor was held
+      subtype_tooltip: Was the data collected while on a flight?
+      comment_tooltip: Admin comment
     index:
       filter_bgeigie_imports: Filter bGeigie Imports
       everyone: Everyone
@@ -95,6 +97,7 @@ en-US:
       credits: Credits
       sensor_height: Sensor Height
       sensor_orientation: Sensor Orientation
+      sensor_subtype: Subtype
     process_log:
       progress: Progress
       process_file: Process file
