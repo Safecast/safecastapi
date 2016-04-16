@@ -27,7 +27,7 @@ class BgeigieImportsController < ApplicationController
   def new
     @bgeigie_import = BgeigieImport.new
   end
-  
+
   def approve
     @bgeigie_import = BgeigieImport.find(params[:id])
     @bgeigie_import.approve!
@@ -37,6 +37,12 @@ class BgeigieImportsController < ApplicationController
   def fixdrive
     @bgeigie_import = scope.find(params[:id])
     @bgeigie_import.fixdrive!
+    redirect_to @bgeigie_import
+  end
+
+  def process_button
+    @bgeigie_import = scope.find(params[:id])
+    @bgeigie_import.process
     redirect_to @bgeigie_import
   end
 
