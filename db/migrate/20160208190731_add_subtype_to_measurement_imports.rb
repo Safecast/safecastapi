@@ -4,7 +4,6 @@ class AddSubtypeToMeasurementImports < ActiveRecord::Migration
       CREATE TYPE measurement_imports_subtype AS ENUM ('None', 'Drive', 'Surface', 'Cosmic');
       ALTER TABLE measurement_imports
         ADD COLUMN subtype measurement_imports_subtype
-        NOT NULL
         DEFAULT 'None';
     SQL
     add_index :measurement_imports, :subtype
