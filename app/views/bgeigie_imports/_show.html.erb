@@ -47,11 +47,25 @@
         <%= t('.not_set') if @bgeigie_import.orientation.blank? %>
       </dd>
       <dt>
+        <%= t('.subtype') %>
+      </dt>
+      <dd>
+        <%= @bgeigie_import.subtype if @bgeigie_import.subtype.present? %>
+        <%= t('.not_set') if @bgeigie_import.subtype.blank? %>
+      </dd>
+      <dt>
         <%= t('.cities') %>
       </dt>
       <dd>
         <%= @bgeigie_import.cities if @bgeigie_import.cities.present? %>
         <%= t('.none') if @bgeigie_import.cities.blank? %>
+      </dd>
+      <dt>
+      <%= t('.comment') %>
+      </dt>
+      <dd>
+        <%= @bgeigie_import.comment if @bgeigie_import.comment.present? %>
+        <%= t('.none') if @bgeigie_import.comment.blank? %>
       </dd>
     </dl>
   </div>
