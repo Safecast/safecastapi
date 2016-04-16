@@ -415,7 +415,7 @@ CREATE TABLE measurement_imports (
     orientation character varying(255),
     cities text,
     comment character varying(255),
-    subtype measurement_imports_subtype DEFAULT 'None'::measurement_imports_subtype NOT NULL
+    subtype measurement_imports_subtype DEFAULT 'None'::measurement_imports_subtype
 );
 
 
