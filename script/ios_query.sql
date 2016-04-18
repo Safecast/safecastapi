@@ -3,6 +3,7 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- =============================================================================================
 -- UPDATE HISTORY: (SINCE 2014-10-25)
 -- =============================================================================================
+-- 2016-04-18 ND: Add filter for cosmic radiation data subtype (actually non-unknown, non-drive subtypes)
 -- 2016-03-15 ND: Add filter for bad drive id 21887 per Sean/Azby/Joe.
 -- 2015-12-30 ND: Add filter for bad drive id 21112.
 -- 2015-12-13 ND: Add filter for bad drive id 19900 per Azby.
@@ -226,6 +227,8 @@ SELECT CAST(
     AS DRE
 FROM measurements
 WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM iOSLastExport),0)
+    AND (   measurement_import_id NOT IN (SELECT id FROM measurement_imports WHERE subtype NOT IN ('None', 'Drive'))
+         OR measurement_import_id IS NULL)
     AND id NOT BETWEEN 23181608 AND 23182462 -- 100% bad
     AND id NOT BETWEEN 20798302 AND 20803607 -- 20% bad, but better filtering too slow
     AND id NOT BETWEEN 21977826 AND 21979768 -- 100% bad
