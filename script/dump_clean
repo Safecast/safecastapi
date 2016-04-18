@@ -17,7 +17,7 @@ cd /var/deploy/api.safecast.org/web_head/shared/system && tar -czf mclean-out.ta
 mv mclean-out.tar.gz mclean.tar.gz && mv mclean-out.csv mclean.csv
 
 # rsync to the other server (this only runs on kangaroo)
-rsync -Havq --bwlimit 10000 /var/deploy/api.safecast.org/web_head/shared/system/mclean.* lion.api.safecast.org.c66.me:/var/deploy/api.safecast.org/web_head/shared/system/
+rsync -Havq --bwlimit 10000 /var/deploy/api.safecast.org/web_head/shared/system/mclean.* horse.api.safecast.org.c66.me:/var/deploy/api.safecast.org/web_head/shared/system/
 
 #
 # Now this is available as https://api.safecast.org/system/mclean.tar.gz
