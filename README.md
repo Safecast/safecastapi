@@ -29,7 +29,7 @@ Happy translating!
 
 See one of the wiki pages for instructions on setting up for local development:
 
-* [OS X and homebrew](https://github.com/Safecast/safecastapi/wiki/Development-Setup-on-OS-X)
+* [Dev: Setup on OS X](https://github.com/Safecast/safecastapi/wiki/Dev:-Setup-on-OS-X)
 
 ### Licensing
 Licensing can be confusing. We’ll try to make it a little less so.
