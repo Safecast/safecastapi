@@ -92,7 +92,7 @@ GEM
       launchy (~> 2.1)
       mail (~> 2.2)
     erubis (2.7.0)
-    eventmachine (1.0.3)
+    eventmachine (1.0.9.1)
     excon (0.20.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
