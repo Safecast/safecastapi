@@ -169,6 +169,7 @@ COMMIT TRANSACTION;
 -- - user_id = 530 (Ferez Yvan)  - Device was more sensitive than device_id=21, due to static device_id list in iOS app
 --                                     converting these specifically until new device_id set up later and
 --                                     dynamic device_id selection in iOS app is implemented.
+-- - user_id = 902 (Mickael)     - Appears to submit 100% bad data.
 
 
 -- Value Blacklists/Filtering      Details
@@ -188,7 +189,8 @@ COMMIT TRANSACTION;
 -- 33708769, 33708779, 33709181,   2014-10-25 ND: specific filtering for a couple points by user_id 531 in .au.
 -- 33709199, 33709164
 -- 39366523, 39417687              2014-10-25 ND: filter test data from user_id 541 to add new device_id of 89.
--- 48825707--48821163)             2015-07-15 ND: filter bad .cz drive data submission
+-- 48825707--48821163              2015-07-15 ND: filter bad .cz drive data submission
+-- 63242347                        2016-05-29 ND: filter bad single point from bGeigie log
 
 BEGIN TRANSACTION;
 
@@ -234,14 +236,14 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND id NOT BETWEEN 21977826 AND 21979768 -- 100% bad
     AND id NOT BETWEEN 24060795 AND 24067649 -- invalidated, raining, most 2x normal
     AND id NOT IN (13194822,15768545,15768817,15690104,15768346,15768782,15768792,16381794,18001818,17342620,14669786,25389168,25389158,25389157,25389153,24482487,16537265,16537266,19554057,19554058,19554059,19554060,19555677,19589301,19589302,19589303,19589304,19589305,19589303,19589304,19589305,19600634,19699406,17461603,17461607,17461611,17461615,16981355,16240105,16240101,16240097,16240093,16241392,16241388,18001769,25702033,25702031)    AND id NOT IN (14764408,14764409,14764410,14764411,14764412,14764413,13872611,13872612,14764388,14764389,14764390,14764391,14764392,14764393,14764394,14764395,14764396,14764397,14764398,14764399,14764400,14764401,14764402,14764403,14764404,14764405,14764406,14764407) -- bad streak in hot area
-    AND id NOT IN (33708769,33708779,33709181,33709199,33709164,39366523,39417687)
+    AND id NOT IN (33708769,33708779,33709181,33709199,33709164,39366523,39417687,63242347)
     AND id NOT BETWEEN 48821163 AND 48825707 -- bad .cz drive data
     AND id NOT BETWEEN 51725281 AND 51730948 -- bad .fr drive data bgeigie_import_id=19980
     AND id NOT BETWEEN 54522618 AND 54523174 -- bad .ua drive data bgeigie_import_id=20582
     AND id NOT BETWEEN 55671785 AND 55676469 -- bad .fr drive data bgeigie_import_id=20900
     AND id NOT BETWEEN 56496499 AND 56499124 -- bad .jp flight data bgeigie_import_id=21112
     AND id NOT BETWEEN 59724187 AND 59724235 -- bad .us test data bgeigie_import_id=21887
-    AND user_id NOT IN (345)--347
+    AND user_id NOT IN (345,902)--347
     --AND captured_at BETWEEEN TIMESTAMP '2011-03-01 00:00:00' AND localtimestamp + interval '48 hours'
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
     AND captured_at < localtimestamp + interval '48 hours'
