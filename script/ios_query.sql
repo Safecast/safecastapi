@@ -3,6 +3,7 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- =============================================================================================
 -- UPDATE HISTORY: (SINCE 2014-10-25)
 -- =============================================================================================
+-- 2016-05-31 ND: bGeigie conversion /350.0 -> /334.0 per Pieter.
 -- 2016-05-31 ND: Add filter for user_id=1032
 -- 2016-05-29 ND: Add filters for id=63242347, user_id=902
 -- 2016-04-18 ND: Add filter for cosmic radiation data subtype (actually non-unknown, non-drive subtypes)
@@ -145,7 +146,7 @@ COMMIT TRANSACTION;
 --
 --         device_id  uSvh=CPM/x      Reciprocal Estimate
 -- =================  ==========     ====================
---              NULL       350.0       0.0028571428571429
+--              NULL       334.0       0.0029940119760479  Per Pieter
 --5,15,16,17,18,22,69,89   350.0       0.0028571428571429
 --      6,7,11,13,23       100.0                     0.01
 --   4,9,10,12,19,24       132.0       0.0075757575757576
@@ -220,7 +221,7 @@ SELECT CAST(
      + (CASE WHEN (user_id = 347) THEN -730 ELSE 0 END) -- JP Post: penalty during binning due to low spatial rez
      AS captured_at
     ,CASE
-        WHEN unit='cpm' AND device_id IS NULL                     THEN value * 0.0028571428571429
+        WHEN unit='cpm' AND device_id IS NULL                     THEN value * 0.0029940119760479
         WHEN unit IN ('microsievert','usv')                       THEN value
         WHEN unit='cpm' AND device_id IN (5,15,16,17,18,22,69,89) THEN value * 0.0028571428571429
         WHEN unit='cpm' AND device_id IN (6,7,11,13,23)           THEN value * 0.01
