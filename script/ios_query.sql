@@ -3,6 +3,8 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- =============================================================================================
 -- UPDATE HISTORY: (SINCE 2014-10-25)
 -- =============================================================================================
+-- 2016-05-31 ND: Add filter for user_id=1032
+-- 2016-05-29 ND: Add filters for id=63242347, user_id=902
 -- 2016-04-18 ND: Add filter for cosmic radiation data subtype (actually non-unknown, non-drive subtypes)
 -- 2016-03-15 ND: Add filter for bad drive id 21887 per Sean/Azby/Joe.
 -- 2015-12-30 ND: Add filter for bad drive id 21112.
@@ -170,6 +172,7 @@ COMMIT TRANSACTION;
 --                                     converting these specifically until new device_id set up later and
 --                                     dynamic device_id selection in iOS app is implemented.
 -- - user_id = 902 (Mickael)     - Appears to submit 100% bad data.
+-- - user_id = 1032 (Johan)      - Appears to submit 100% bad data.
 
 
 -- Value Blacklists/Filtering      Details
@@ -243,7 +246,7 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND id NOT BETWEEN 55671785 AND 55676469 -- bad .fr drive data bgeigie_import_id=20900
     AND id NOT BETWEEN 56496499 AND 56499124 -- bad .jp flight data bgeigie_import_id=21112
     AND id NOT BETWEEN 59724187 AND 59724235 -- bad .us test data bgeigie_import_id=21887
-    AND user_id NOT IN (345,902)--347
+    AND user_id NOT IN (345,902,1032)--347
     --AND captured_at BETWEEEN TIMESTAMP '2011-03-01 00:00:00' AND localtimestamp + interval '48 hours'
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
     AND captured_at < localtimestamp + interval '48 hours'
