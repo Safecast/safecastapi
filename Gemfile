@@ -52,7 +52,7 @@ gem 'thin'
 
 group :test do
   gem "codeclimate-test-reporter", require: nil
-  gem 'capybara', '~> 2.1.0'
+  gem 'capybara'
   gem 'database_cleaner'
   gem 'fabrication', '2.2.2'
   gem 'launchy'
