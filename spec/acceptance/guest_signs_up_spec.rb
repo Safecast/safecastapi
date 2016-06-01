@@ -1,6 +1,6 @@
 require "spec_helper"
 
-feature "Guest signs up" do
+feature "Guest signs up", type: :feature do
   context "as a new user" do
     scenario "signing up" do
       sign_up

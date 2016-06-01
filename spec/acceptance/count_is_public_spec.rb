@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Publicly viewable measurement count' do
+feature 'Publicly viewable measurement count', type: :feature do
   let(:user) { Fabricate(:user) }
   let!(:m1) { Fabricate(:measurement, :value => 66, :user_id => user.id) }
   let!(:m2) { Fabricate(:measurement, :value => 60, :user_id => user.id) }

@@ -1,6 +1,6 @@
 require "spec_helper"
 
-feature "User views bGeigie imports" do
+feature "User views bGeigie imports", type: :feature do
   let!(:user) { Fabricate(:user) }
   let!(:bgeigie_import) { Fabricate(:bgeigie_import, :user => user, :name => 'my import', :status => "done") }
 

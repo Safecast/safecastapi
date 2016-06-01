@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "User submits a reading when a device does not exist" do
+feature "User submits a reading when a device does not exist", type: :feature do
   let(:user) { Fabricate(:user) }
   let(:measurement) { user.measurements.last }
 
@@ -21,7 +21,7 @@ feature "User submits a reading when a device does not exist" do
   end
 end
 
-feature "User submits a reading while devices exist" do
+feature "User submits a reading while devices exist", type: :feature do
   let(:user) { Fabricate(:user) }
   let(:measurement) { user.measurements.last }
   let(:device) { Fabricate(:device) }

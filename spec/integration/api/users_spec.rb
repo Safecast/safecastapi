@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "/api/users API endpoint" do
+feature "/api/users API endpoint", type: :feature do
 
   before(:all) { User.destroy_all }
   before do

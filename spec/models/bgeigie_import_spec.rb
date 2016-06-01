@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe BgeigieImport do
+RSpec.describe BgeigieImport, type: :model do
   
   let!(:user) { User.first || Fabricate(:user) }
   

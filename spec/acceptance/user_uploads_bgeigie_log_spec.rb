@@ -1,6 +1,6 @@
 require "spec_helper"
 
-feature "User uploads bgeigie log" do
+feature "User uploads bgeigie log", type: :feature do
   let!(:user) { Fabricate(:user) }
   let!(:moderator) { Fabricate(:user, :moderator => true) }
 

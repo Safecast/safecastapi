@@ -1,6 +1,6 @@
 require "spec_helper"
 
-feature "User submits a reading" do
+feature "User submits a reading", type: :feature do
   let!(:user) { Fabricate(:user) }
   let!(:measurement) { Fabricate(:measurement, :user => user, :value => 10101) }
   

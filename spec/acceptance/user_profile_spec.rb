@@ -1,6 +1,6 @@
 require "spec_helper"
 
-feature "User Profile" do
+feature "User Profile", type: :feature do
   let(:user) { Fabricate(:user) }
   before { sign_in(user) }
 

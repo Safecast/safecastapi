@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "/bgeigie_imports API endpoint" do
+feature "/bgeigie_imports API endpoint", type: :feature do
 
   before(:each) do
     User.destroy_all
