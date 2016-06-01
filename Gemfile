@@ -57,7 +57,7 @@ group :test do
   gem 'fabrication', '2.2.2'
   gem 'launchy'
   gem 'pry'
-  gem 'rspec-rails',            '~> 2.12.2'
+  gem 'rspec-rails', '~> 2.99.0'
   gem 'email_spec'
 end
 
