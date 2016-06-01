@@ -126,7 +126,7 @@ class BgeigieImport < MeasurementImport
     return false unless line_items.length >= 13
 
     #check header
-    return false unless line_items[0].eql? '$BMRDD' or line_items[0].eql? '$BGRDD' or line_items[0].eql? '$BNRDD' or line_items[0].eql? '$BNXRDD'
+    return false unless line_items[0].eql? '$BMRDD' or line_items[0].eql? '$BGRDD' or line_items[0].eql? '$BNRDD' or line_items[0].eql? '$BNXRDD' or line_items[0].eql? '$PNTDD'
 
     #check for Valid CPM
     return false unless line_items[6].eql? 'A' or line_items[6].eql? 'V'
