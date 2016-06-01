@@ -3,6 +3,9 @@ require "spec_helper"
 describe Notifications do
   # describe "import_approved" do
   #   let(:mail) { Notifications.import_approved }
+  
+  # describe "import_rejected" do
+  #   let(:mail) { Notifications.import_rejected }
 
   #   it "renders the headers" do
   #     mail.subject.should eq("Import approved")

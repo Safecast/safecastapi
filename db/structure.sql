@@ -2,12 +2,16 @@
 -- PostgreSQL database dump
 --
 
+-- Dumped from database version 9.5.2
+-- Dumped by pg_dump version 9.5.2
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
+SET row_security = off;
 
 --
 -- Name: postgis; Type: SCHEMA; Schema: -; Owner: -
@@ -63,7 +67,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: admins; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: admins; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE admins (
@@ -103,7 +107,7 @@ ALTER SEQUENCE admins_id_seq OWNED BY admins.id;
 
 
 --
--- Name: bgeigie_logs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: bgeigie_logs; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE bgeigie_logs (
@@ -151,7 +155,7 @@ ALTER SEQUENCE bgeigie_logs_id_seq OWNED BY bgeigie_logs.id;
 
 
 --
--- Name: configurables; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: configurables; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE configurables (
@@ -183,7 +187,7 @@ ALTER SEQUENCE configurables_id_seq OWNED BY configurables.id;
 
 
 --
--- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE delayed_jobs (
@@ -222,7 +226,7 @@ ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
 
 
 --
--- Name: devices; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: devices; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE devices (
@@ -256,7 +260,7 @@ ALTER SEQUENCE devices_id_seq OWNED BY devices.id;
 
 
 --
--- Name: drive_logs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: drive_logs; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE drive_logs (
@@ -305,7 +309,7 @@ ALTER SEQUENCE drive_logs_id_seq OWNED BY drive_logs.id;
 
 
 --
--- Name: ioslastexport; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: ioslastexport; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE ioslastexport (
@@ -315,7 +319,7 @@ CREATE TABLE ioslastexport (
 
 
 --
--- Name: maps; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: maps; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE maps (
@@ -349,7 +353,7 @@ ALTER SEQUENCE maps_id_seq OWNED BY maps.id;
 
 
 --
--- Name: maps_measurements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: maps_measurements; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE maps_measurements (
@@ -359,7 +363,7 @@ CREATE TABLE maps_measurements (
 
 
 --
--- Name: measurement_import_logs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: measurement_import_logs; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE measurement_import_logs (
@@ -391,7 +395,7 @@ ALTER SEQUENCE measurement_import_logs_id_seq OWNED BY measurement_import_logs.i
 
 
 --
--- Name: measurement_imports; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: measurement_imports; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE measurement_imports (
@@ -415,7 +419,9 @@ CREATE TABLE measurement_imports (
     orientation character varying(255),
     cities text,
     comment character varying(255),
-    subtype measurement_imports_subtype DEFAULT 'None'::measurement_imports_subtype
+    subtype measurement_imports_subtype DEFAULT 'None'::measurement_imports_subtype,
+    rejected boolean DEFAULT false,
+    rejected_by character varying(255)
 );
 
 
@@ -439,7 +445,7 @@ ALTER SEQUENCE measurement_imports_id_seq OWNED BY measurement_imports.id;
 
 
 --
--- Name: measurements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: measurements; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE measurements (
@@ -489,7 +495,7 @@ ALTER SEQUENCE measurements_id_seq OWNED BY measurements.id;
 
 
 --
--- Name: rails_admin_histories; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: rails_admin_histories; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE rails_admin_histories (
@@ -525,7 +531,7 @@ ALTER SEQUENCE rails_admin_histories_id_seq OWNED BY rails_admin_histories.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE schema_migrations (
@@ -534,7 +540,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE users (
@@ -667,7 +673,7 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
--- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admins
@@ -675,7 +681,7 @@ ALTER TABLE ONLY admins
 
 
 --
--- Name: bgeigie_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: bgeigie_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY bgeigie_logs
@@ -683,7 +689,7 @@ ALTER TABLE ONLY bgeigie_logs
 
 
 --
--- Name: configurables_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: configurables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY configurables
@@ -691,7 +697,7 @@ ALTER TABLE ONLY configurables
 
 
 --
--- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY delayed_jobs
@@ -699,7 +705,7 @@ ALTER TABLE ONLY delayed_jobs
 
 
 --
--- Name: devices_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: devices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY devices
@@ -707,7 +713,7 @@ ALTER TABLE ONLY devices
 
 
 --
--- Name: drive_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: drive_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY drive_logs
@@ -715,7 +721,7 @@ ALTER TABLE ONLY drive_logs
 
 
 --
--- Name: maps_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: maps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY maps
@@ -723,7 +729,7 @@ ALTER TABLE ONLY maps
 
 
 --
--- Name: measurement_import_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: measurement_import_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY measurement_import_logs
@@ -731,7 +737,7 @@ ALTER TABLE ONLY measurement_import_logs
 
 
 --
--- Name: measurement_imports_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: measurement_imports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY measurement_imports
@@ -739,7 +745,7 @@ ALTER TABLE ONLY measurement_imports
 
 
 --
--- Name: measurements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: measurements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY measurements
@@ -747,7 +753,7 @@ ALTER TABLE ONLY measurements
 
 
 --
--- Name: rails_admin_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: rails_admin_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY rails_admin_histories
@@ -755,7 +761,7 @@ ALTER TABLE ONLY rails_admin_histories
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -763,203 +769,203 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at);
 
 
 --
--- Name: idx_bgeigie_logs_bgeigie_import_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: idx_bgeigie_logs_bgeigie_import_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_bgeigie_logs_bgeigie_import_id_index ON bgeigie_logs USING btree (bgeigie_import_id);
 
 
 --
--- Name: idx_bgeigie_logs_device_serial_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: idx_bgeigie_logs_device_serial_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_bgeigie_logs_device_serial_id_index ON bgeigie_logs USING btree (device_serial_id);
 
 
 --
--- Name: idx_measurements_captured_at_unit_device_id_device_id_not_null; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: idx_measurements_captured_at_unit_device_id_device_id_not_null; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_measurements_captured_at_unit_device_id_device_id_not_null ON measurements USING btree (captured_at, unit, device_id) WHERE (device_id IS NOT NULL);
 
 
 --
--- Name: idx_measurements_value_device_id_device_id_not_null; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: idx_measurements_value_device_id_device_id_not_null; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_measurements_value_device_id_device_id_not_null ON measurements USING btree (value, device_id) WHERE (device_id IS NOT NULL);
 
 
 --
--- Name: index_admins_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_admins_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_admins_on_email ON admins USING btree (email);
 
 
 --
--- Name: index_admins_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_admins_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_admins_on_reset_password_token ON admins USING btree (reset_password_token);
 
 
 --
--- Name: index_bgeigie_logs_on_md5sum; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_bgeigie_logs_on_md5sum; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_bgeigie_logs_on_md5sum ON bgeigie_logs USING btree (md5sum);
 
 
 --
--- Name: index_configurables_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_configurables_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_configurables_on_name ON configurables USING btree (name);
 
 
 --
--- Name: index_drive_logs_on_md5sum; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_drive_logs_on_md5sum; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_drive_logs_on_md5sum ON drive_logs USING btree (md5sum);
 
 
 --
--- Name: index_drive_logs_on_measurement_import_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_drive_logs_on_measurement_import_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_drive_logs_on_measurement_import_id ON drive_logs USING btree (drive_import_id);
 
 
 --
--- Name: index_maps_on_device_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_maps_on_device_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_maps_on_device_id ON maps USING btree (device_id);
 
 
 --
--- Name: index_maps_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_maps_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_maps_on_user_id ON maps USING btree (user_id);
 
 
 --
--- Name: index_measurement_imports_on_id_and_subtype; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_measurement_imports_on_id_and_subtype; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_measurement_imports_on_id_and_subtype ON measurement_imports USING btree (id, subtype);
 
 
 --
--- Name: index_measurement_imports_on_subtype; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_measurement_imports_on_subtype; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_measurement_imports_on_subtype ON measurement_imports USING btree (subtype);
 
 
 --
--- Name: index_measurements_on_captured_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_measurements_on_captured_at; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_measurements_on_captured_at ON measurements USING btree (captured_at);
 
 
 --
--- Name: index_measurements_on_device_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_measurements_on_device_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_measurements_on_device_id ON measurements USING btree (device_id);
 
 
 --
--- Name: index_measurements_on_location; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_measurements_on_location; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_measurements_on_location ON measurements USING gist (location);
 
 
 --
--- Name: index_measurements_on_md5sum; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_measurements_on_md5sum; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_measurements_on_md5sum ON measurements USING btree (md5sum);
 
 
 --
--- Name: index_measurements_on_measurement_import_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_measurements_on_measurement_import_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_measurements_on_measurement_import_id ON measurements USING btree (measurement_import_id);
 
 
 --
--- Name: index_measurements_on_original_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_measurements_on_original_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_measurements_on_original_id ON measurements USING btree (original_id);
 
 
 --
--- Name: index_measurements_on_unit; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_measurements_on_unit; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_measurements_on_unit ON measurements USING btree (unit);
 
 
 --
--- Name: index_measurements_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_measurements_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_measurements_on_user_id ON measurements USING btree (user_id);
 
 
 --
--- Name: index_measurements_on_value_and_unit; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_measurements_on_value_and_unit; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_measurements_on_value_and_unit ON measurements USING btree (value, unit);
 
 
 --
--- Name: index_rails_admin_histories; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_rails_admin_histories; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_rails_admin_histories ON rails_admin_histories USING btree (item, "table", month, year);
 
 
 --
--- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_users_on_confirmation_token ON users USING btree (confirmation_token);
 
 
 --
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
@@ -1100,4 +1106,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150919060031');
 INSERT INTO schema_migrations (version) VALUES ('20160208190731');
 
 INSERT INTO schema_migrations (version) VALUES ('20160403092926');
+
+INSERT INTO schema_migrations (version) VALUES ('20160531111906');
 

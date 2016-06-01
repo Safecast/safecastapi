@@ -23,13 +23,21 @@
       <li>
         <a href="#process-log" data-toggle="tab"><%= t('.process_log') %></a>
       </li>
-      <%- if user_signed_in? && (@bgeigie_import.user == current_user || current_user.moderator?)-%>
+      <%- if user_signed_in? && current_user.moderator? -%>
+        <li>
+          <a href="#send-email" data-toggle="tab">
+            <%= t('.send_email') %>
+          </a>
+        </li>
+      <%- end -%>
+      <%- if user_signed_in? && (@bgeigie_import.user == current_user.id || current_user.moderator?)-%>
         <li class="pull-right <%= 'active' if ['edit', 'update'].include?(action_name) %>">
           <a href="#edit-details" data-toggle="tab">
             <%= t('.edit_details') %>
           </a>
         </li>
       <%- end -%>
+
     </ul>
   </div>
 </div>
@@ -44,6 +52,9 @@
   </div>
   <div class="tab-pane" id="process-log">
     <%= render 'process_log' -%>
+  </div>
+  <div class="tab-pane" id="send-email">
+    <%= render 'send_email' -%>
   </div>
   <div class="tab-pane <%= 'active' if ['edit', 'update'].include?(action_name) %>" id="edit-details">
     <%= render 'edit' %>

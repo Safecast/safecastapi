@@ -8,6 +8,8 @@ en-US:
       processed: Processed
       unprocessed: New
       approved: Approved
+      not_approved: Not Approved
+      rejected: Rejected
     approval:
       approve: Approve
     status:
@@ -31,7 +33,9 @@ en-US:
       subtype_tooltip: Was the data collected while on a flight?
       comment_tooltip: Admin comment
     index:
+      all: All
       filter_bgeigie_imports: Filter bGeigie Imports
+      rejected_by: Rejected By
       everyone: Everyone
       cities: Cities
       credits: Credits
@@ -57,6 +61,7 @@ en-US:
       metadata: Metadata
       map: Map
       process_log: Process Log
+      send_email: Send Email
       uploaded_by: Uploaded By
       filename: Filename
       number_of_measurements: Number of Measurements
@@ -69,6 +74,8 @@ en-US:
       confirm_delete: Confirm Delete
       about_to_delete: You are about to delete this log. This action cannot be undone.
     head:
+      reject: Reject
+      unreject: Unreject
       approve: Approve
       fixdrive: Fix Drive
       process_button: Process
@@ -98,6 +105,9 @@ en-US:
       sensor_height: Sensor Height
       sensor_orientation: Sensor Orientation
       sensor_subtype: Subtype
+    send_email:
+      email_body: Email Body
+      send_email: Send Email
     process_log:
       progress: Progress
       process_file: Process file
@@ -113,7 +123,7 @@ en-US:
       map_created: Map created
     map:
       loading_html: "Loading map&hellip;"
-      captured_at: 
+      captured_at:
       latitude: Latitude
       longitude: Longitude
       cpm: CPM

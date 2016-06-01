@@ -7,6 +7,7 @@ class BgeigieImportsController < ApplicationController
 
   has_scope :by_status
   has_scope :by_user_id
+  has_scope :by_rejected
   has_scope :order
   has_scope :uploaded_after
   has_scope :uploaded_before
@@ -23,7 +24,6 @@ class BgeigieImportsController < ApplicationController
     end
   end
 
-
   def new
     @bgeigie_import = BgeigieImport.new
   end
@@ -31,6 +31,24 @@ class BgeigieImportsController < ApplicationController
   def approve
     @bgeigie_import = BgeigieImport.find(params[:id])
     @bgeigie_import.approve!
+    redirect_to @bgeigie_import
+  end
+
+  def reject
+    @bgeigie_import = BgeigieImport.find(params[:id])
+    @bgeigie_import.reject!
+    redirect_to @bgeigie_import
+  end
+
+  def unreject
+    @bgeigie_import = BgeigieImport.find(params[:id])
+    @bgeigie_import.unreject!
+    redirect_to @bgeigie_import
+  end
+
+  def send_email
+    @bgeigie_import = BgeigieImport.find(params[:id])
+    @bgeigie_import.send_email(params[:email_body])
     redirect_to @bgeigie_import
   end
 
@@ -45,7 +63,6 @@ class BgeigieImportsController < ApplicationController
     @bgeigie_import.process
     redirect_to @bgeigie_import
   end
-
 
   def submit
     @bgeigie_import = scope.find(params[:id])
@@ -71,7 +88,7 @@ class BgeigieImportsController < ApplicationController
 
   def create
     @bgeigie_import = BgeigieImport.new(params[:bgeigie_import])
-    @bgeigie_import.user = current_user
+    @bgeigie_import.user = current_user.id
     if @bgeigie_import.save
       @bgeigie_import.process_in_background
     end

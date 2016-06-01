@@ -42,6 +42,10 @@ class BgeigieImport < MeasurementImport
     where(:user_id => user_id)
   end
 
+  def self.by_rejected(rejected)
+    where(:rejected => rejected)
+  end
+
   def self.uploaded_before(time)
     where("created_at < ?", time)
   end
@@ -79,6 +83,21 @@ class BgeigieImport < MeasurementImport
     self.update_column(:approved, true)
     Delayed::Job.enqueue FinalizeBgeigieImportJob.new(id)
     Notifications.import_approved(self).deliver
+  end
+
+  def reject!
+    self.update_column(:rejected, true)
+    self.update_column(:rejected_by, user.email)
+    Notifications.import_rejected(self).deliver
+  end
+
+  def unreject!
+    self.update_column(:rejected, false)
+    self.update_column(:rejected_by, nil)
+  end
+
+  def send_email(email_body)!
+    Notifications.send_email(self, email_body).deliver
   end
 
   def finalize!

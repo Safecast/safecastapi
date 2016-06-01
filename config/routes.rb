@@ -20,9 +20,12 @@ Safecast::Application.routes.draw do
       resources :bgeigie_logs, :only => :index
       member do
         put :submit
+        put :reject
+        put :unreject
         put :approve
         put :fixdrive
         put :process_button
+        put :send_email
       end
     end
     resources :devices do
