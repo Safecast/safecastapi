@@ -18,30 +18,30 @@ describe BgeigieImport do
     end
 
     it "should create 23 Bgeigie Logs" do
-      BgeigieLog.count.should == 23
+      expect(BgeigieLog.count).to eq(23)
     end
 
     it "should count the number of lines in the file" do
-      bgeigie_import.lines_count.should == 23
+      expect(bgeigie_import.lines_count).to eq(23)
     end
     
     it "should set the id" do
-      BgeigieLog.all.collect { |bl| bl.bgeigie_import_id }.uniq.should == [bgeigie_import.id]
+      expect(BgeigieLog.all.collect { |bl| bl.bgeigie_import_id }.uniq).to eq([bgeigie_import.id])
     end
     
     it "should create measurements" do
-      Measurement.count.should == 23
+      expect(Measurement.count).to eq(23)
     end
     
     it "should not load them twice" do
       bgeigie_import.process
-      Measurement.count.should == 23
+      expect(Measurement.count).to eq(23)
     end
     
     it "should set measurement attributes" do
       measurement = Measurement.find_by_md5sum('6750a7cf2a630c2dde416dc7d138fa74')
-      measurement.location.should_not be_blank
-      measurement.captured_at.should_not be_blank
+      expect(measurement.location).not_to be_blank
+      expect(measurement.captured_at).not_to be_blank
     end
 
     it "should calculate measurements to the correct hemisphere" do
@@ -54,8 +54,8 @@ describe BgeigieImport do
 
       measurement = Measurement.find_by_md5sum('c435ff4da6a7a16e92282bd10381b6d7')
 
-      measurement.location.x.should == -73.92277166666666
-      measurement.location.y.should == 41.698078333333335
+      expect(measurement.location.x).to eq(-73.92277166666666)
+      expect(measurement.location.y).to eq(41.698078333333335)
     end
 
 
@@ -69,8 +69,8 @@ describe BgeigieImport do
 
       measurement = Measurement.find_by_md5sum('97badba59dda4a56958fc40b16277db4')
 
-      measurement.location.x.should == -73.92259666666666
-      measurement.location.y.should == 41.69836166666666
+      expect(measurement.location.x).to eq(-73.92259666666666)
+      expect(measurement.location.y).to eq(41.69836166666666)
     end
 
     it "should handle files with corrupt or incomplete lines" do
@@ -81,7 +81,7 @@ describe BgeigieImport do
       bgeigie_with_bugs.process
       bgeigie_with_bugs.finalize!
 
-      Measurement.all.count.should == 30 #the before :each import has 23, and the corrupted file should have 7 valid measurements
+      expect(Measurement.all.count).to eq(30) #the before :each import has 23, and the corrupted file should have 7 valid measurements
 
     end
     

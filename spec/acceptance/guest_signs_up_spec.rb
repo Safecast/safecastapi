@@ -9,7 +9,7 @@ feature "Guest signs up" do
       new_user.save
       new_user.password = "mynewpassword"
       sign_in(new_user)
-      page.should have_content("Sign out")
+      expect(page).to have_content("Sign out")
     end
   end
 end

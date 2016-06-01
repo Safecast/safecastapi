@@ -22,12 +22,12 @@ feature "/devices API endpoint" do
       }
     )
     result = ActiveSupport::JSON.decode(response.body)
-    result['manufacturer'].should == 'Safecast'
-    result['model'].should == 'bGeigie'
-    result['sensor'].should == 'LND-7317'
+    expect(result['manufacturer']).to eq('Safecast')
+    expect(result['model']).to eq('bGeigie')
+    expect(result['sensor']).to eq('LND-7317')
     
     idCreated = result.include?('id')
-    idCreated.should == true
+    expect(idCreated).to eq(true)
   end
   
   scenario "empty post" do
@@ -41,9 +41,9 @@ feature "/devices API endpoint" do
     )
     
     result = ActiveSupport::JSON.decode(response.body)
-    result['errors']['manufacturer'].should be_present
-    result['errors']['model'].should be_present
-    result['errors']['sensor'].should be_present
+    expect(result['errors']['manufacturer']).to be_present
+    expect(result['errors']['model']).to be_present
+    expect(result['errors']['sensor']).to be_present
   end
   
 end
@@ -90,15 +90,15 @@ feature "/devices with existing devices" do
       }  
     )
     result = ActiveSupport::JSON.decode(response.body)
-    result['id'].should == first_device.id
+    expect(result['id']).to eq(first_device.id)
   end
   
   scenario "lookup all devices" do
     result = api_get('/devices', {}, {'HTTP_ACCEPT' => 'application/json'})
-    result.length.should == 3
-    result.map { |obj| obj['manufacturer'] }.should == ['Safecast', 'Medcom', 'Safecast']
-    result.map { |obj| obj['model'] }.should == ['bGeigie', 'Inspector', 'iGeigie']
-    result.map { |obj| obj['sensor'] }.should == ['LND-7317', 'LND-712', 'LND-712']
+    expect(result.length).to eq(3)
+    expect(result.map { |obj| obj['manufacturer'] }).to eq(['Safecast', 'Medcom', 'Safecast'])
+    expect(result.map { |obj| obj['model'] }).to eq(['bGeigie', 'Inspector', 'iGeigie'])
+    expect(result.map { |obj| obj['sensor'] }).to eq(['LND-7317', 'LND-712', 'LND-712'])
   end
   
   scenario "lookup all Safecast devices" do
@@ -110,10 +110,10 @@ feature "/devices with existing devices" do
         'HTTP_ACCEPT' => 'application/json'
       }
     )
-    result.length.should == 2
-    result.map { |obj| obj['manufacturer'] }.should == ['Safecast', 'Safecast']
-    result.map { |obj| obj['model'] }.should == ['bGeigie', 'iGeigie']
-    result.map { |obj| obj['sensor'] }.should == ['LND-7317', 'LND-712']
+    expect(result.length).to eq(2)
+    expect(result.map { |obj| obj['manufacturer'] }).to eq(['Safecast', 'Safecast'])
+    expect(result.map { |obj| obj['model'] }).to eq(['bGeigie', 'iGeigie'])
+    expect(result.map { |obj| obj['sensor'] }).to eq(['LND-7317', 'LND-712'])
   end
   
   scenario "lookup a particular device" do
@@ -125,10 +125,10 @@ feature "/devices with existing devices" do
         'HTTP_ACCEPT' => 'application/json'
       }
     )
-    result.length.should == 1
-    result.first['manufacturer'].should == "Safecast"
-    result.first['model'].should == "iGeigie"
-    result.first['sensor'].should == "LND-712"
+    expect(result.length).to eq(1)
+    expect(result.first['manufacturer']).to eq("Safecast")
+    expect(result.first['model']).to eq("iGeigie")
+    expect(result.first['sensor']).to eq("LND-712")
   end
   
 end

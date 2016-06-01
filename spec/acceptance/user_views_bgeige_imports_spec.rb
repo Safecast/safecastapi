@@ -8,7 +8,7 @@ feature "User views bGeigie imports" do
     sign_in(user)
     visit('/')
     click_link("Imports")
-    page.should have_content("bgeigie0.log")
+    expect(page).to have_content("bgeigie0.log")
   end
 
 

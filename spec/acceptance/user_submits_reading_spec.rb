@@ -13,11 +13,11 @@ feature "User submits a reading when a device does not exist" do
     fill_in('Radiation Level', :with => '123')
     fill_in('Location',        :with => 'Colwyn Bay, Wales')
     click_button('Submit')
-    page.should have_content('123')
-    page.should have_content('cpm')
-    user.should have(1).measurements
-    measurement.value.should == 123
-    measurement.location_name.should == 'Colwyn Bay, Wales'
+    expect(page).to have_content('123')
+    expect(page).to have_content('cpm')
+    expect(user.measurements.size).to eq(1)
+    expect(measurement.value).to eq(123)
+    expect(measurement.location_name).to eq('Colwyn Bay, Wales')
   end
 end
 
@@ -39,10 +39,10 @@ feature "User submits a reading while devices exist" do
     fill_in('Location',         :with => 'Los Angeles, CA')
     select('', :from => 'Device')
     click_button('Submit')
-    page.should have_content('456')
-    page.should have_content('cpm')
-    measurement.value.should == 456
-    measurement.device.should == nil
+    expect(page).to have_content('456')
+    expect(page).to have_content('cpm')
+    expect(measurement.value).to eq(456)
+    expect(measurement.device).to eq(nil)
   end
 
   scenario 'reading with a device' do
@@ -53,11 +53,11 @@ feature "User submits a reading while devices exist" do
     fill_in('Location',         :with => 'Tokyo, JP')
     select(device.name, :from => 'Device')
     click_button('Submit')
-    page.should have_content('789')
-    page.should have_content('cpm')
+    expect(page).to have_content('789')
+    expect(page).to have_content('cpm')
 
-    measurement.value.should == 789
-    measurement.device.should == device
+    expect(measurement.value).to eq(789)
+    expect(measurement.device).to eq(device)
 
   end
 end

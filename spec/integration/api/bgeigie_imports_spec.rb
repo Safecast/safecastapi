@@ -18,9 +18,9 @@ feature "/bgeigie_imports API endpoint" do
   
   context "just an upload" do
     scenario "response should be unprocessed" do
-      @result['id'].should_not be_blank
-      @result['status'].should == 'unprocessed'
-      @result['md5sum'].should == 'aad36f9743753b490745c9656cd8fc79'
+      expect(@result['id']).not_to be_blank
+      expect(@result['status']).to eq('unprocessed')
+      expect(@result['md5sum']).to eq('aad36f9743753b490745c9656cd8fc79')
     end
   end
   
@@ -38,11 +38,11 @@ feature "/bgeigie_imports API endpoint" do
     subject { updated_result }
 
     scenario "response should be processed" do      
-      updated_result['status'].should == 'done'
+      expect(updated_result['status']).to eq('done')
     end
     
     scenario "it should have imported a bunch of measurements" do
-      updated_result['measurements_count'].should == 23
+      expect(updated_result['measurements_count']).to eq(23)
     end
   end
 end

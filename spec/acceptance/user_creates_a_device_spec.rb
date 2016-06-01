@@ -14,6 +14,6 @@ feature "User creates a new device when submitting a reading" do
     fill_in('Sensor', :with => 'LND-712')
 
     click_button('Save')
-    page.should have_content('LND-712')
+    expect(page).to have_content('LND-712')
   end
 end

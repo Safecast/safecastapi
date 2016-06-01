@@ -11,6 +11,6 @@ feature 'Publicly viewable measurement count' do
 
   scenario 'view http://maps.safecast.org/count' do
     visit('/count')
-    page.should have_content('6 measurements')
+    expect(page).to have_content('6 measurements')
   end
 end

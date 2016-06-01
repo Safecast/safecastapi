@@ -5,6 +5,6 @@ feature "User Profile" do
   before { sign_in(user) }
 
   scenario "viewing a user profile" do
-    page.should have_content(user.authentication_token)
+    expect(page).to have_content(user.authentication_token)
   end
 end
