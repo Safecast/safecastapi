@@ -1,4 +1,3 @@
-<%= (@bgeigie_import.user == current_user) =%>
 <%= content_for :current_status do %>
   <%- if @bgeigie_import.queued_for_processing? -%>
     <div class="alert alert-block">
