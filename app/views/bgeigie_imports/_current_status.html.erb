@@ -1,5 +1,5 @@
 <%= content_for :current_status do %>
-  <%- if @bgeigie_import.queued_for_processing? -%>
+  <%- if !@bgeigie_import.rejected? && @bgeigie_import.queued_for_processing? -%>
     <div class="alert alert-block">
       <%= link_to t('.edit_metadata'), '#edit-details',
             :class => 'pull-right btn',
@@ -9,7 +9,7 @@
     </div>
   <%- end -%>
 
-  <%- if @bgeigie_import.processed? && !@bgeigie_import.ready_for_submission? -%>
+  <%- if !@bgeigie_import.rejected? &&@bgeigie_import.processed? && !@bgeigie_import.ready_for_submission? -%>
     <div class="alert alert-block">
       <%= link_to t('.edit_metadata'), '#edit-details',
             :class => 'pull-right btn',
