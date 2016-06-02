@@ -88,7 +88,7 @@ class BgeigieImportsController < ApplicationController
 
   def create
     @bgeigie_import = BgeigieImport.new(params[:bgeigie_import])
-    @bgeigie_import.user = current_user.id
+    @bgeigie_import.user = current_user
     if @bgeigie_import.save
       @bgeigie_import.process_in_background
     end
