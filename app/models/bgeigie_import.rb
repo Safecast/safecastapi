@@ -96,7 +96,7 @@ class BgeigieImport < MeasurementImport
     self.update_column(:rejected_by, nil)
   end
 
-  def send_email(email_body)!
+  def send_email(email_body)
     Notifications.send_email(self, email_body).deliver
   end
 
