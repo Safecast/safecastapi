@@ -36,7 +36,7 @@ class BgeigieImportsController < ApplicationController
 
   def reject
     @bgeigie_import = BgeigieImport.find(params[:id])
-    @bgeigie_import.reject!
+    @bgeigie_import.reject!(current_user.email)
     redirect_to @bgeigie_import
   end
 

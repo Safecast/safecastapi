@@ -85,9 +85,9 @@ class BgeigieImport < MeasurementImport
     Notifications.import_approved(self).deliver
   end
 
-  def reject!
+  def reject!(userinfo)
     self.update_column(:rejected, true)
-    self.update_column(:rejected_by, user.email)
+    self.update_column(:rejected_by, userinfo)
     Notifications.import_rejected(self).deliver
   end
 
