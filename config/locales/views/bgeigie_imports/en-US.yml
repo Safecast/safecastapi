@@ -36,6 +36,7 @@ en-US:
       all: All
       filter_bgeigie_imports: Filter bGeigie Imports
       rejected_by: Rejected By
+      rejected: Rejected
       everyone: Everyone
       cities: Cities
       credits: Credits
