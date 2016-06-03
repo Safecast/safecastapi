@@ -59,3 +59,22 @@ RSpec.describe RailsAdmin::MainController, 'login as admin', type: :controller d
     it { expect(response).to be_ok }
   end
 end
+
+RSpec.describe RailsAdmin::MainController, 'login as user', type: :controller do
+  before do
+    @request.env['devise.mapping'] = Devise.mappings[:user]
+
+    sign_in Fabricate(:user)
+  end
+
+  let!(:bgeigie_log) { BgeigieLog.create }
+  let(:model_name) { 'bgeigie_log' }
+
+  describe 'GET #dashboard' do
+    before do
+      get :dashboard
+    end
+
+    it { expect(response).to redirect_to('/en-US') }
+  end
+end
