@@ -60,6 +60,7 @@ group :test do
   gem 'rspec-its'
   gem 'rspec-rails', '~> 2.99.0'
   gem 'email_spec'
+  gem 'rubocop', group: :development
 end
 
 group :development do
