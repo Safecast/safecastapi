@@ -52,12 +52,13 @@ gem 'thin'
 
 group :test do
   gem "codeclimate-test-reporter", require: nil
-  gem 'capybara', '~> 2.1.0'
+  gem 'capybara'
   gem 'database_cleaner'
   gem 'fabrication', '2.2.2'
   gem 'launchy'
   gem 'pry'
-  gem 'rspec-rails',            '~> 2.12.2'
+  gem 'rspec-its'
+  gem 'rspec-rails', '~> 2.99.0'
   gem 'email_spec'
 end
 

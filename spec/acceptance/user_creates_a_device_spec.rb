@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "User creates a new device when submitting a reading" do
+feature "User creates a new device when submitting a reading", type: :feature do
   let(:user) { Fabricate(:user) }
 
   before { sign_in(user) }
@@ -14,6 +14,6 @@ feature "User creates a new device when submitting a reading" do
     fill_in('Sensor', :with => 'LND-712')
 
     click_button('Save')
-    page.should have_content('LND-712')
+    expect(page).to have_content('LND-712')
   end
 end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Device do
+RSpec.describe Device, type: :model do
   let(:device) { Fabricate(:device, {
     :manufacturer     => 'Safecast',
     :model            => 'iGeigie',

@@ -1,6 +1,6 @@
 require "spec_helper"
 
-feature "User uploads bgeigie log" do
+feature "User uploads bgeigie log", type: :feature do
   let!(:user) { Fabricate(:user) }
   let!(:moderator) { Fabricate(:user, :moderator => true) }
 
@@ -12,16 +12,16 @@ feature "User uploads bgeigie log" do
       click_link('Upload a bGeigie log file')
       attach_file("File", Rails.root.join('spec', 'fixtures', 'bgeigie.log'))
       click_button("Upload")
-      page.should have_content('Unprocessed')
+      expect(page).to have_content('Unprocessed')
       fill_in 'Credits', :with => 'Bill'
       fill_in 'Cities', :with => 'Dublin'
       Delayed::Worker.new.work_off
       click_button 'Save'
-      page.should have_content('Processed')
+      expect(page).to have_content('Processed')
       click_button 'Submit for Approval'
-      page.should have_content('Submitted')
-      find_email(moderator.email, 
-        :with_subject => 'A Safecast import is awaiting approval').should be_present
+      expect(page).to have_content('Submitted')
+      expect(find_email(moderator.email, 
+        :with_subject => 'A Safecast import is awaiting approval')).to be_present
     end
   end
   
@@ -42,9 +42,9 @@ feature "User uploads bgeigie log" do
       click_button 'Approve'
       Delayed::Worker.new.work_off 
       visit(current_path)
-      page.should have_content('Processed')
-      find_email(user.email, 
-        :with_subject => 'Your Safecast import has been approved').should be_present
+      expect(page).to have_content('Processed')
+      expect(find_email(user.email, 
+        :with_subject => 'Your Safecast import has been approved')).to be_present
     end
   end
 end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Measurement do
+RSpec.describe Measurement, type: :model do
   context "setting location" do
     let(:measurement) { Fabricate(:measurement, {
       :location => 'POINT(12.001 14.002)'

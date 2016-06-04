@@ -1,6 +1,6 @@
 require "spec_helper"
 
-feature "User submits a reading" do
+feature "User submits a reading", type: :feature do
   let!(:user) { Fabricate(:user) }
   let!(:measurement) { Fabricate(:measurement, :user => user, :value => 10101) }
   
@@ -9,13 +9,13 @@ feature "User submits a reading" do
   scenario "First reading" do
     visit("/")
     click_link("Submissions")
-    page.should have_content("10101")
+    expect(page).to have_content("10101")
   end
 
   scenario "Viewing a single measurement entry" do
     measurement.captured_at = nil
     measurement.save
     visit("/en-US/measurements/#{measurement.id}")
-    find(".dl-horizontal > dd:nth-child(4)").should have_text("null")
+    expect(find(".dl-horizontal > dd:nth-child(4)")).to have_text("null")
   end
 end
