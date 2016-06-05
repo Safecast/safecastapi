@@ -51,8 +51,8 @@ class BgeigieImport < MeasurementImport
   end
 
   class << self
-    def subtype(type)
-      where(subtype: type)
+    def by_subtype(type_or_types)
+      where(subtype: type_or_types)
     end
   end
 

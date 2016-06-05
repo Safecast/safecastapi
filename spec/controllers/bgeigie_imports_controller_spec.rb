@@ -30,6 +30,16 @@ RSpec.describe BgeigieImportsController, type: :controller do
         expect(bgeigie_imports.size).to eq(1)
       end
     end
+
+    context 'subtype=Drive,None' do
+      before do
+        get :index, subtype: 'Drive,None', format: :json
+      end
+
+      it 'should filter by subtype' do
+        expect(bgeigie_imports.size).to eq(2)
+      end
+    end
   end
 
   describe 'POST #create', format: :json do
