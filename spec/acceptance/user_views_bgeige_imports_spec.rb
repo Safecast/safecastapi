@@ -8,7 +8,7 @@ feature "User views bGeigie imports", type: :feature do
     sign_in(user)
     visit('/')
     click_link("Imports")
-    expect(page).to have_content("bgeigie0.log")
+    expect(page).to have_content(File.basename(bgeigie_import.source.filename))
   end
 
 

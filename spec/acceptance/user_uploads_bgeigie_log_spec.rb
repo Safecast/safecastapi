@@ -38,7 +38,7 @@ feature "User uploads bgeigie log", type: :feature do
       visit('/')
       click_link 'Imports'
       click_link 'Submitted'
-      click_link 'bgeigie0.log'
+      click_link File.basename(bgeigie_import.source.filename)
       click_button 'Approve'
       Delayed::Worker.new.work_off 
       visit(current_path)
