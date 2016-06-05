@@ -1,5 +1,37 @@
 RSpec.describe BgeigieImportsController, type: :controller do
   let(:user) { Fabricate(:user) }
+
+  describe 'GET #index', format: :json do
+    before do
+      args = { cities: 'Tokyo', credits: 'John Doe' }
+      %w(None Drive Surface Cosmic).each do |type|
+        Fabricate(:bgeigie_import, args.merge(subtype: type))
+      end
+    end
+
+    subject(:bgeigie_imports) { assigns(:bgeigie_imports) }
+
+    context 'no filter' do
+      before do
+        get :index, format: :json
+      end
+
+      it 'should get all imports' do
+        expect(bgeigie_imports.size).to eq(4)
+      end
+    end
+
+    context 'subtype=Cosmic' do
+      before do
+        get :index, subtype: 'Cosmic', format: :json
+      end
+
+      it 'should filter by subtype' do
+        expect(bgeigie_imports.size).to eq(1)
+      end
+    end
+  end
+
   describe 'POST #create', format: :json do
     let(:bgeigie_import_params) do
       {

@@ -22,7 +22,7 @@ class BgeigieImportsController < ApplicationController
       scope
     end
   end
-
+  has_scope :subtype
 
   def new
     @bgeigie_import = BgeigieImport.new

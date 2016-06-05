@@ -50,6 +50,12 @@ class BgeigieImport < MeasurementImport
     where("created_at > ?", time)
   end
 
+  class << self
+    def subtype(type)
+      where(subtype: type)
+    end
+  end
+
   def name
     read_attribute(:name).presence || "bGeigie Import ##{id}"
   end
