@@ -63,15 +63,13 @@ class MeasurementsController < ApplicationController
   end
 
   def create
-    @map = Map.find params[:map_id] if params[:map_id].present?
-    @measurement = Measurement.new(params[:measurement])
-    @measurement.user = current_user
-    Measurement.transaction do
-      @measurement.save
-      @measurement.original_id = @measurement.id
-      @measurement.save
+    @measurement = current_user.measurements.build(params[:measurement])
+    ActiveRecord::Base.transaction do
+      @measurement.save!
+      @measurement.update_attributes!(original_id: @measurement.id)
     end
-    @map.measurements<< @measurement if @map   #this could be done by calling add_to_map, but that seems misleading
+    respond_with @measurement
+  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     respond_with @measurement
   end
 
