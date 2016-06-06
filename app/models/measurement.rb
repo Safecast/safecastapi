@@ -9,12 +9,13 @@ class Measurement < ActiveRecord::Base
   validates :location,  :presence => true
   validates :value,     :presence => true
   validates :unit,      :presence => true
+  validates :md5sum, uniqueness: true
   
   belongs_to :user, :counter_cache => true
   belongs_to :device, :counter_cache => true
   belongs_to :measurement_import
   belongs_to :last_updater, :class_name => "User", :foreign_key => "updated_by"
-  before_save :set_md5sum
+  before_validation :set_md5sum
   
   has_and_belongs_to_many :maps  
 
