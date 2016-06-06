@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   if !Rails.env.production?
     skip_after_filter :intercom_rails_auto_include
   end
+  before_filter :new_relic_custom_attributes
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
@@ -68,5 +69,12 @@ protected
 
   def default_url_options(options={})
     { :locale => I18n.locale }
+  end
+
+  def new_relic_custom_attributes
+    if current_user
+      custom_attrs = { user_id: current_user.id }
+      ::NewRelic::Agent.add_custom_attributes(custom_attrs)
+    end
   end
 end
