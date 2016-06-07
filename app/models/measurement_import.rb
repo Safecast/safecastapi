@@ -9,12 +9,16 @@ class MeasurementImport < ActiveRecord::Base
   mount_uploader :source, FileUploader
 
   before_validation :set_md5sum, :on => :create
-  after_initialize :set_status
+  after_initialize :set_default_values
 
-  def set_status
+  AVAILABLE_SUBTYPES = %w(None Drive Surface Cosmic).freeze
+
+  def set_default_values
     self.status ||= 'unprocessed'
-  end 
-  
+    self.subtype =
+      AVAILABLE_SUBTYPES[0] unless AVAILABLE_SUBTYPES.include?(subtype)
+  end
+
   def set_md5sum
     self.md5sum = Digest::MD5.hexdigest(source.read)
   end
