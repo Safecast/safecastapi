@@ -11,9 +11,12 @@ class MeasurementImport < ActiveRecord::Base
   before_validation :set_md5sum, :on => :create
   after_initialize :set_default_values
 
+  AVAILABLE_SUBTYPES = %w(None Drive Surface Cosmic).freeze
+
   def set_default_values
     self.status ||= 'unprocessed'
-    self.subtype ||= 'None'
+    self.subtype =
+      AVAILABLE_SUBTYPES[0] unless AVAILABLE_SUBTYPES.include?(subtype)
   end
 
   def set_md5sum

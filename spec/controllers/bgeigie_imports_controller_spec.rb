@@ -36,5 +36,17 @@ RSpec.describe BgeigieImportsController, type: :controller do
         expect(assigns(:bgeigie_import).subtype).to eq('Drive')
       end
     end
+
+    context 'with empty subtype' do
+      let(:post_params) do
+        { bgeigie_import: bgeigie_import_params.merge(subtype: '') }
+      end
+
+      it { expect(response.status).to eq(201) }
+      it { expect(assigns(:bgeigie_import)).to be_persisted }
+      it 'should set subtype of import to "None"' do
+        expect(assigns(:bgeigie_import).subtype).to eq('None')
+      end
+    end
   end
 end
