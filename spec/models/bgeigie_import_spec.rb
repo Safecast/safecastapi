@@ -8,6 +8,17 @@ RSpec.describe BgeigieImport, type: :model do
              )
   end
 
+  describe '#initialize' do
+    it 'should set subtype to "None" by default' do
+      expect(described_class.new.subtype).to eq('None')
+    end
+
+    it 'should use provided subtype' do
+      expect(described_class.new(subtype: 'Drive').subtype)
+        .to eq('Drive')
+    end
+  end
+
   describe "#process" do
     before(:each) do
       bgeigie_import.process

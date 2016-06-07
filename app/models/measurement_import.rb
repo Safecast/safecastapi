@@ -9,12 +9,13 @@ class MeasurementImport < ActiveRecord::Base
   mount_uploader :source, FileUploader
 
   before_validation :set_md5sum, :on => :create
-  after_initialize :set_status
+  after_initialize :set_default_values
 
-  def set_status
+  def set_default_values
     self.status ||= 'unprocessed'
-  end 
-  
+    self.subtype ||= 'None'
+  end
+
   def set_md5sum
     self.md5sum = Digest::MD5.hexdigest(source.read)
   end
