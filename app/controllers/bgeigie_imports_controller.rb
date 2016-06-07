@@ -22,7 +22,9 @@ class BgeigieImportsController < ApplicationController
       scope
     end
   end
-
+  has_scope :subtype do |controller, scope, value|
+    scope.by_subtype(value.split(',').map(&:strip).reject(&:blank?))
+  end
 
   def new
     @bgeigie_import = BgeigieImport.new
