@@ -21,5 +21,17 @@ RSpec.describe Measurement, type: :model do
     its(:longitude) { should == 12.001 }
     its(:latitude) { should == 14.002 }
   end
-  
+
+  context 'validation' do
+    context 'md5sum' do
+      describe 'uniqueness: true' do
+        let(:params) { Fabricate.attributes_for(:measurement) }
+        before do
+          described_class.create!(params)
+        end
+        subject { described_class.create(params) }
+        it { is_expected.to be_invalid }
+      end
+    end
+  end
 end
