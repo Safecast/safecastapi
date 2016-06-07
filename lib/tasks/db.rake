@@ -11,17 +11,17 @@ end
 
 namespace :db do
   namespace :structure do
-    task :dump => [:environment] do |_t| # rubocop:disable Style/HashSyntax
+    task :dump => [:environment] do |_t|
       setup_psql_env
       system('pg_dump', '-s', '-x', '-O', '-f', schema_file.to_s)
-      raise 'Error dumping database' unless $CHILD_STATUS.success?
+      raise 'Error dumping database' unless $?.success?
       schema_file.open(::File::RDWR | ::File::APPEND) do |f|
         f.puts(::ActiveRecord::Base.connection.dump_schema_information)
         f.puts
       end
     end
 
-    task :load => [:environment] do |_t| # rubocop:disable Style/HashSyntax
+    task :load => [:environment] do |_t|
       setup_psql_env
       [
         ['-c', 'drop extension if exists postgis'],
