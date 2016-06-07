@@ -50,10 +50,8 @@ class BgeigieImport < MeasurementImport
     where("created_at > ?", time)
   end
 
-  class << self
-    def by_subtype(type_or_types)
-      where(subtype: type_or_types)
-    end
+  def self.by_subtype(type_or_types)
+    where(subtype: type_or_types)
   end
 
   def name
