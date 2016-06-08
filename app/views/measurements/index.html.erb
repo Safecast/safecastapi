@@ -78,7 +78,7 @@
       <%- end -%>
     </tbody>
   </table>
-  <%= paginate @measurements, theme: 'twitter-bootstrap' -%>
+  <%= paginate_without_count @measurements, theme: 'twitter-bootstrap' -%>
 <%- end -%>
 
 <div id="filter-modal" class="modal hide fade" tabindex="-1">
