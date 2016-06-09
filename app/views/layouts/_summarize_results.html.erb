@@ -1,8 +1,6 @@
 <div class="well">
-  <%- unless controller_name == 'measurements' -%>
-    <%= page_entries_info collection %>
-    <%= number_with_delimiter collection.count %> <%= t('.results') %>.
-  <%- end -%>
+  <%= page_entries_info collection %>
+  <%= number_with_delimiter collection.count %> <%= t('.results') %>.
   <%= link_to 'Change Filter', "#filter-modal", :data => {
         :toggle => 'modal'
       }, :class => 'pull-right' %>
