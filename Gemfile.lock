@@ -69,8 +69,6 @@ GEM
     configurable_engine (0.2.9)
       activerecord (~> 3)
       rails (~> 3)
-    csv_builder (2.1.1)
-      actionpack (>= 3.0.0)
     daemons (1.1.9)
     database_cleaner (0.9.1)
     decent_exposure (2.1.0)
@@ -306,7 +304,6 @@ DEPENDENCIES
   codeclimate-test-reporter
   coffee-rails
   configurable_engine
-  csv_builder (~> 2.1.1)
   database_cleaner
   decent_exposure
   delayed_job (~> 4.0.2)

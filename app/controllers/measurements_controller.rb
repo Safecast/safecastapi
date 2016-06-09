@@ -28,18 +28,12 @@ class MeasurementsController < ApplicationController
   has_scope :since
   has_scope :limit
 
-  respond_to :html, :json, :csv
+  respond_to :html, :json
 
   def index
-    @filename = "measurements.csv"
-    @streaming = true
-
-    @measurements = apply_scopes(Measurement).includes(:measurement_import, :user)
-
-    # In Kaminari page an per_page cannot be overriden
-    if request.format != :csv
-      @measurements = @measurements.page(params[:page]).per(params[:per_page])
-    end
+    @measurements = apply_scopes(Measurement)
+      .includes(:measurement_import, :user)
+      .page(params[:page]).per(params[:per_page])
 
     respond_with @measurements
   end
