@@ -15,7 +15,7 @@ module BgeigieImportsHelper
       status == :all
     else
       params[:by_status] == status.to_s
-    end
+             end
     content_tag(:li, :class => ('active' if active)) do
       p = params.merge(:by_status => (status unless status == :all))
       p[:page] = nil unless active

@@ -52,7 +52,7 @@ class MeasurementsController < ApplicationController
         :location => "POINT(140.47335610000005 37.7607226)",
         :location_name => 'Fukushima City Office'
       )
-    end
+                   end
     @measurement.captured_at = Time.now.strftime("%d %B %Y, %H:%M:%S")
   end
 
