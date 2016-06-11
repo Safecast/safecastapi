@@ -10,7 +10,7 @@ def self.filter(query)
     where("lower(manufacturer) LIKE :query
            OR lower(model) LIKE :query
            OR lower(sensor) LIKE :query", :query => "%#{query.downcase}%")
-  end
+end
   
   def serializable_hash(options)
     options ||= {}

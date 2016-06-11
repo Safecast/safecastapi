@@ -45,14 +45,14 @@ class Measurement < ActiveRecord::Base
 
     def self.by_sensor_id(sensor_id)
     where(:sensor_id => sensor_id)
-  end
+    end
 
     def self.by_channel_id(channel_id)
     where(:channel_id => channel_id)
-  end
+    end
     def self.by_station_id(station_id)
     where(:station_id => station_id)
-  end
+    end
 
   def self.captured_after(time)
     where('captured_at > ?', ActiveSupport::TimeZone['UTC'].parse(time))
@@ -87,7 +87,7 @@ def serializable_hash(options = {})
      :captured_at, :devicetype_id, :sensor_id, :channel_id, 
      :station_id
    ], :methods => [:latitude, :longitude]))
- end
+end
   
   
   def revise(new_params)
