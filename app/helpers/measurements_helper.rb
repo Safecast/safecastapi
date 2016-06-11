@@ -5,7 +5,7 @@ module MeasurementsHelper
 
   def collect_measurements(measurements)
     measurements.collect do |b|
-      point = {
+      {
         :lat => b.latitude, 
         :lng => b.longitude
       }

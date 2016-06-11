@@ -8,17 +8,6 @@ Lint/DefEndAlignment:
     - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
     - 'db/migrate/20150919060031_add_extra_fields_to_measurements_table.rb'
 
-# Offense count: 7
-Lint/UselessAssignment:
-  Exclude:
-    - 'app/controllers/application_controller.rb'
-    - 'app/helpers/bgeigie_imports_helper.rb'
-    - 'app/helpers/measurements_helper.rb'
-    - 'app/models/bgeigie_log.rb'
-    - 'lib/haml/filters/code.rb'
-    - 'spec/integration/api/measurements_spec.rb'
-    - 'spec/support/fabrication.rb'
-
 # Offense count: 31
 Lint/Void:
   Exclude:

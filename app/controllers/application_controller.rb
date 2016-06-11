@@ -19,7 +19,6 @@ class ApplicationController < ActionController::Base
 
   def index
     cors_set_access_control_headers
-    result = { }
     respond_with @result = @doc 
   end
 
