@@ -22,7 +22,7 @@ before_fork do |server, worker|
   if File.exist?(old_pid) && server.pid != old_pid
     begin
       Process.kill("QUIT", File.read(old_pid).to_i)
-    rescue Errno::ENOENT, Errno::ESRCH
+    rescue Errno::ENOENT, Errno::ESRCH # rubocop:disable Lint/HandleExceptions
       # someone else did our job for us
     end
   end

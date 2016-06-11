@@ -8,11 +8,6 @@ Lint/DefEndAlignment:
     - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
     - 'db/migrate/20150919060031_add_extra_fields_to_measurements_table.rb'
 
-# Offense count: 1
-Lint/HandleExceptions:
-  Exclude:
-    - 'config/unicorn.rb'
-
 # Offense count: 18
 # Cop supports --auto-correct.
 # Configuration parameters: AllowUnusedKeywordArguments.
