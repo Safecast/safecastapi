@@ -17,7 +17,7 @@ GC.respond_to?(:copy_on_write_friendly=) and
 
 check_client_connection false
 
-before_fork do |server, worker|
+before_fork do |server, _worker|
   old_pid = '/tmp/web_server.pid.oldbin'
   if File.exist?(old_pid) && server.pid != old_pid
     begin
@@ -31,7 +31,7 @@ before_fork do |server, worker|
     ActiveRecord::Base.connection.disconnect!
 end
 
-after_fork do |server, worker|
+after_fork do |_server, _worker|
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.establish_connection
 end

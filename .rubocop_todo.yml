@@ -8,20 +8,6 @@ Lint/DefEndAlignment:
     - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
     - 'db/migrate/20150919060031_add_extra_fields_to_measurements_table.rb'
 
-# Offense count: 18
-# Cop supports --auto-correct.
-# Configuration parameters: AllowUnusedKeywordArguments.
-Lint/UnusedBlockArgument:
-  Exclude:
-    - 'app/controllers/bgeigie_imports_controller.rb'
-    - 'app/controllers/devices_controller.rb'
-    - 'app/controllers/measurements_controller.rb'
-    - 'app/controllers/users_controller.rb'
-    - 'config/initializers/rails_admin.rb'
-    - 'config/unicorn.rb'
-    - 'script/add_checksum_to_each_line'
-    - 'spec/support/fabrication.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods.
