@@ -13,7 +13,6 @@
 Lint/BlockAlignment:
   Exclude:
     - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
-    - 'spec/acceptance/user_views_bgeige_imports_spec.rb'
 
 # Offense count: 7
 # Cop supports --auto-correct.
