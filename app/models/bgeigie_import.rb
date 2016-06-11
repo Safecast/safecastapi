@@ -242,7 +242,7 @@ class BgeigieImport < MeasurementImport
     File.unlink(tmp_file)
   end
 
-  def nmea_to_lat_lng(latitude_nmea, north_south_indicator, longitude_nmea, east_west_indicator)
+  def nmea_to_lat_lng(latitude_nmea, _north_south_indicator, longitude_nmea, _east_west_indicator)
     #algorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
 
     #protect against buggy nmea values that have negative values

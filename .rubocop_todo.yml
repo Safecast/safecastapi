@@ -8,14 +8,6 @@ Lint/DefEndAlignment:
     - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
     - 'db/migrate/20150919060031_add_extra_fields_to_measurements_table.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods.
-Lint/UnusedMethodArgument:
-  Exclude:
-    - 'app/controllers/application_controller.rb'
-    - 'app/models/bgeigie_import.rb'
-
 # Offense count: 7
 Lint/UselessAssignment:
   Exclude:

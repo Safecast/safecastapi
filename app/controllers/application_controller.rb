@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
     
 protected
   
-  def rescue_action(env)
+  def rescue_action(_env)
     respond_to do |wants|
       wants.json { render :json => "Error", :status => 500 }
     end
@@ -67,7 +67,7 @@ protected
     end
   end
 
-  def default_url_options(options={})
+  def default_url_options(_options={})
     { :locale => I18n.locale }
   end
 
