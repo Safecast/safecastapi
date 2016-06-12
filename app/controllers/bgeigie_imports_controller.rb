@@ -87,9 +87,12 @@ class BgeigieImportsController < ApplicationController
   end
 
   def destroy
-    @bgeigie_import = BgeigieImport.where(:id => params[:id]).first
-    @bgeigie_import.destroy if @bgeigie_import.present?
-    redirect_to :bgeigie_imports
+    bgeigie_import = scope.where(id: params[:id]).first
+    if bgeigie_import && bgeigie_import.destroy
+      redirect_to :bgeigie_imports
+    else
+      render text: '404 Not Found', status: :not_found
+    end
   end
 
 private
