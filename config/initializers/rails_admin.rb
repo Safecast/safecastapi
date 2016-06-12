@@ -1,6 +1,7 @@
 # RailsAdmin config file. Generated on July 05, 2013 17:25
 # See github.com/sferik/rails_admin for more informations
 
+# rubocop:disable Metrics/LineLength
 RailsAdmin.config do |config|
 
 
@@ -722,3 +723,4 @@ RailsAdmin.config do |config|
   end
 
 end
+# rubocop:enable Metrics/LineLength
