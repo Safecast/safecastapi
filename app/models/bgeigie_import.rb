@@ -125,7 +125,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     confirm_status(:process_file)
   end
 
-  def is_sane?(line) # rubocop:disable Metrics/AbcSize
+  def is_sane?(line) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
     line_items = line.strip.split(',')
     return false unless line_items.length >= 13
 
