@@ -41,7 +41,7 @@ protected
       host = request.env['HTTP_ORIGIN']
     else 
       host = request.env['HTTP_ORIGIN']
-      unless /safecast.org$/.match host
+      unless /safecast.org$/ =~ host
         host = 'safecast.org'
       end
     end

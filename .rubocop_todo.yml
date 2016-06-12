@@ -28,12 +28,6 @@ Metrics/MethodLength:
     - 'db/migrate/20120323105044_create_drive_logs.rb'
     - 'db/migrate/20120418231658_devise_create_admins.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Performance/RedundantMatch:
-  Exclude:
-    - 'app/controllers/application_controller.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: SupportedStyles, IndentationWidth.
