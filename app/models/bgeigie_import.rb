@@ -1,4 +1,4 @@
-class BgeigieImport < MeasurementImport
+class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   # States:
   # - unprocessed
   # - processed
