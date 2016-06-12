@@ -10,7 +10,9 @@ Lint/DefEndAlignment:
 
 # Offense count: 11
 Metrics/AbcSize:
-  Max: 45
+  Exclude:
+    - 'db/migrate/20111214162214_create_bgeigie_logs.rb'
+    - 'db/migrate/20120323105044_create_drive_logs.rb'
 
 # Offense count: 1
 # Configuration parameters: CountComments.

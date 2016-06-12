@@ -12,7 +12,7 @@ module MeasurementsHelper
     end
   end
 
-  def measurement_nav_li(unit)
+  def measurement_nav_li(unit) # rubocop:disable Metrics/AbcSize
     active = if params[:unit].blank?
       unit == :all
     else
