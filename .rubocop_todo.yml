@@ -8,7 +8,6 @@ Lint/DefEndAlignment:
     - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
     - 'db/migrate/20150919060031_add_extra_fields_to_measurements_table.rb'
 
-# Offense count: 11
 Metrics/AbcSize:
   Exclude:
     - 'db/migrate/20111214162214_create_bgeigie_logs.rb'
@@ -22,10 +21,12 @@ Metrics/LineLength:
     - http
     - https
 
-# Offense count: 13
-# Configuration parameters: CountComments.
 Metrics/MethodLength:
-  Max: 22
+  Exclude:
+    - 'db/migrate/20111214154833_create_delayed_jobs.rb'
+    - 'db/migrate/20111214162214_create_bgeigie_logs.rb'
+    - 'db/migrate/20120323105044_create_drive_logs.rb'
+    - 'db/migrate/20120418231658_devise_create_admins.rb'
 
 # Offense count: 1
 Metrics/PerceivedComplexity:

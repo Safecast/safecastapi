@@ -35,7 +35,7 @@ protected
     end
   end
 
-  def cors_set_access_control_headers # rubocop:disable Metrics/AbcSize
+  def cors_set_access_control_headers # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     return unless request.env['HTTP_ACCEPT'].eql? 'application/json'
     if current_user 
       host = request.env['HTTP_ORIGIN']

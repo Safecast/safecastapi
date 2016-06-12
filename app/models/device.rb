@@ -19,7 +19,7 @@ end
     ]))
   end
   
-  def self.get_or_create(dev_params)
+  def self.get_or_create(dev_params) # rubocop:disable Metrics/MethodLength
     device = self.new(dev_params)
     if device.valid?
       device.save

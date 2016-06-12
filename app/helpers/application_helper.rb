@@ -87,7 +87,7 @@ module ApplicationHelper
     }
   end
 
-  def table_sort_header(model_name, attr_name)
+  def table_sort_header(model_name, attr_name) # rubocop:disable Metrics/MethodLength
     current_sort_field, current_sort_direction = params[:order].to_s.split(' ', 2)
 
     new_order = params[:order] == "#{attr_name} asc" ? "#{attr_name} desc" : "#{attr_name} asc"

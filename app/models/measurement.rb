@@ -112,7 +112,7 @@ end
     Measurement.where(:replaced_by => nil, :original_id => original_id).first
   end
 
-  def clone
+  def clone # rubocop:disable Metrics/MethodLength
     #override clone to remove timestamps, original_id, and expired_at
     attrs = clone_attributes(:read_attribute_before_type_cast)
     attrs.delete(self.class.primary_key)

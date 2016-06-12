@@ -110,7 +110,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
      bgeigie_import_id = #{self.id}])
   end
 
-  def create_tmp_file # rubocop:disable Metrics/AbcSize
+  def create_tmp_file # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     lines_count = 0
     File.open(tmp_file, 'at:UTF-8') do |file|
       source.read.each_line do |line|
@@ -125,7 +125,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     confirm_status(:process_file)
   end
 
-  def is_sane?(line) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  def is_sane?(line) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
     line_items = line.strip.split(',')
     return false unless line_items.length >= 13
 
@@ -201,7 +201,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     confirm_status(:import_bgeigie_logs)
   end
 
-  def compute_latlng_from_nmea
+  def compute_latlng_from_nmea # rubocop:disable Metrics/MethodLength
     #a\lgorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
     # (converted to SQL)
     self.connection.execute(%Q[
@@ -248,7 +248,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     File.unlink(tmp_file)
   end
 
-  def nmea_to_lat_lng(latitude_nmea, _north_south_indicator, longitude_nmea, _east_west_indicator) # rubocop:disable Metrics/AbcSize
+  def nmea_to_lat_lng(latitude_nmea, _north_south_indicator, longitude_nmea, _east_west_indicator) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     #algorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
 
     #protect against buggy nmea values that have negative values
