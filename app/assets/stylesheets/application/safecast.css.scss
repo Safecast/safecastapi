@@ -119,7 +119,7 @@ h2 {
           span.caret {
             margin-top:6px;
             margin-left:0px;
-            
+
           }
         }
       }
@@ -192,14 +192,14 @@ section {
         margin: 0 -15px;
         background: transparent url(image-path('ridge.png')) bottom left repeat-x;
       }
-      
+
       label {
         overflow: hidden;
         clear: both;
         display: block;
         padding: 0 3px 5px;
       }
-      
+
       textarea {
         height: 5em;
       }
@@ -208,7 +208,7 @@ section {
         margin-bottom: 0;
       }
     }
-    
+
     p.note {
       float: left;
       font-size: 13px;
@@ -283,7 +283,7 @@ form.submission {
         }
       }
       &.reading {
-        
+
         input[type='text'], input[type='password'], input[type='email'] {
           font-size: 72px;
           text-shadow: 0 0 3px #fff;
@@ -471,8 +471,8 @@ ul.measurement-listed {
 .hidden { display: none; }
 
 .affix {
-  position: fixed; 
-  top: 20px; 
+  position: fixed;
+  top: 20px;
   width: 180px;
 }
 
@@ -505,3 +505,7 @@ i.muted {
   color: #f9a732;
 }
 
+.email-textarea {
+  width: 360px;
+  height: 250px;
+}
