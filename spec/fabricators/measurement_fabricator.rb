@@ -3,4 +3,5 @@ Fabricator(:measurement) do
   unit 'cpm'
   longitude '56'
   latitude '-6'
+  captured_at { Time.current }
 end

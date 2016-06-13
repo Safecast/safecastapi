@@ -6,12 +6,11 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'cancan'
 
-gem 'rails',                    '3.2.21'
+gem 'rails', '3.2.22.2'
 gem 'unicorn'
 gem 'pg'
 gem 'activerecord-postgis-adapter'
 gem 'json', '1.8.1'
-gem 'haml'
 
 gem 'aws-ses',                  '0.4.4', :require => 'aws/ses'
 gem 'bootstrap-sass',           '~> 2.2.2.0'
@@ -26,7 +25,6 @@ gem 'formatted-dates'
 gem 'has_scope',                '~> 0.5.1'
 gem 'intercom-rails'
 gem 'jbuilder'
-gem 'mustache'
 gem 'simple_form',              '~> 2.0.4'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
@@ -52,13 +50,15 @@ gem 'thin'
 
 group :test do
   gem "codeclimate-test-reporter", require: nil
-  gem 'capybara', '~> 2.1.0'
+  gem 'capybara'
   gem 'database_cleaner'
   gem 'fabrication', '2.2.2'
   gem 'launchy'
   gem 'pry'
-  gem 'rspec-rails',            '~> 2.12.2'
+  gem 'rspec-its'
+  gem 'rspec-rails', '~> 2.99.0'
   gem 'email_spec'
+  gem 'rubocop', group: :development
 end
 
 group :development do

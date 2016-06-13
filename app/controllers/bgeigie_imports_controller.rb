@@ -11,10 +11,10 @@ class BgeigieImportsController < ApplicationController
   has_scope :order
   has_scope :uploaded_after
   has_scope :uploaded_before
-  has_scope :q do |controller, scope, value|
+  has_scope :q do |_controller, scope, value|
     scope.filter(value)
   end
-  has_scope :approved do |controller, scope, value|
+  has_scope :approved do |_controller, scope, value|
     if value == 'yes'
       scope.where(:approved => true)
     elsif value == 'no'
@@ -22,6 +22,9 @@ class BgeigieImportsController < ApplicationController
     else
       scope
     end
+  end
+  has_scope :subtype do |_controller, scope, value|
+    scope.by_subtype(value.split(',').map(&:strip).reject(&:blank?))
   end
 
   def new
@@ -37,12 +40,6 @@ class BgeigieImportsController < ApplicationController
   def reject
     @bgeigie_import = BgeigieImport.find(params[:id])
     @bgeigie_import.reject!(current_user.email)
-    redirect_to @bgeigie_import
-  end
-
-  def unreject
-    @bgeigie_import = BgeigieImport.find(params[:id])
-    @bgeigie_import.unreject!
     redirect_to @bgeigie_import
   end
 
@@ -104,9 +101,12 @@ class BgeigieImportsController < ApplicationController
   end
 
   def destroy
-    @bgeigie_import = BgeigieImport.where(:id => params[:id]).first
-    @bgeigie_import.destroy if @bgeigie_import.present?
-    redirect_to :bgeigie_imports
+    bgeigie_import = scope.where(id: params[:id]).first
+    if bgeigie_import && bgeigie_import.destroy
+      redirect_to :bgeigie_imports
+    else
+      render text: '404 Not Found', status: :not_found
+    end
   end
 
 private

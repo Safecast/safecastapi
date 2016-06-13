@@ -11,5 +11,6 @@ before_script:
   - psql -U postgres -c 'create database travis_ci_test'
   - "sed -i 's/SET lock_timeout = 0;//g' db/structure.sql"
 script:
+  - bundle exec rubocop
   - bundle exec rake db:structure:load
   - bundle exec rspec spec

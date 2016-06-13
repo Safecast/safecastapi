@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Notifications do
+RSpec.describe Notifications, type: :mailer do
   # describe "import_approved" do
   #   let(:mail) { Notifications.import_approved }
   

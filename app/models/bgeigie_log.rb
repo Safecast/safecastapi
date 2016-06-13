@@ -15,7 +15,7 @@ class BgeigieLog < ActiveRecord::Base
   end
   
   def location=(value)
-    computed_location=value
+    self.computed_location = value
   end
 
   def usv

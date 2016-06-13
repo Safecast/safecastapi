@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   has_scope :order
-  has_scope :name do |controller, scope, value|
+  has_scope :name do |_controller, scope, value|
     scope.by_name(value)
   end
 

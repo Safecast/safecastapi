@@ -419,7 +419,7 @@ CREATE TABLE measurement_imports (
     orientation character varying(255),
     cities text,
     comment character varying(255),
-    subtype measurement_imports_subtype DEFAULT 'None'::measurement_imports_subtype,
+    subtype measurement_imports_subtype DEFAULT 'None'::measurement_imports_subtype NOT NULL,
     rejected boolean DEFAULT false,
     rejected_by character varying(255)
 );
@@ -1108,4 +1108,3 @@ INSERT INTO schema_migrations (version) VALUES ('20160208190731');
 INSERT INTO schema_migrations (version) VALUES ('20160403092926');
 
 INSERT INTO schema_migrations (version) VALUES ('20160531111906');
-
