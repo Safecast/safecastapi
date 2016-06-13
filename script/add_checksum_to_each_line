@@ -3,6 +3,6 @@
 # to the end of the line
 require 'digest/md5'
 
-ARGF.each_with_index do |line, idx|
+ARGF.each_with_index do |line, _idx|
   puts "#{line.strip},#{Digest::MD5.hexdigest(line.strip)}"
 end

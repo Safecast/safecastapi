@@ -1,6 +1,7 @@
 # RailsAdmin config file. Generated on July 05, 2013 17:25
 # See github.com/sferik/rails_admin for more informations
 
+# rubocop:disable Metrics/LineLength
 RailsAdmin.config do |config|
 
 
@@ -13,7 +14,7 @@ RailsAdmin.config do |config|
 
   # RailsAdmin may need a way to know who the current user is]
   config.current_user_method { current_user } # auto-generated
-  config.authorize_with do |controller|
+  config.authorize_with do |_controller|
     redirect_to main_app.root_path unless current_user.try(:moderator)
   end
 
@@ -722,3 +723,4 @@ RailsAdmin.config do |config|
   end
 
 end
+# rubocop:enable Metrics/LineLength

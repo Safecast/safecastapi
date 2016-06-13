@@ -87,7 +87,7 @@ feature "/measurements", type: :feature do
     cutoff_time = DateTime.now
     sleep 3 
 
-    new_measurement = api_post('/measurements.json',{
+    api_post('/measurements.json',{
       :api_key => user.authentication_token,
       :measurement => {
         :value      => 4342,

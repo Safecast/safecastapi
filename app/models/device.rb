@@ -10,7 +10,7 @@ def self.filter(query)
     where("lower(manufacturer) LIKE :query
            OR lower(model) LIKE :query
            OR lower(sensor) LIKE :query", :query => "%#{query.downcase}%")
-  end
+end
   
   def serializable_hash(options)
     options ||= {}
@@ -19,7 +19,7 @@ def self.filter(query)
     ]))
   end
   
-  def self.get_or_create(dev_params)
+  def self.get_or_create(dev_params) # rubocop:disable Metrics/MethodLength
     device = self.new(dev_params)
     if device.valid?
       device.save

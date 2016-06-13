@@ -10,10 +10,10 @@ class BgeigieImportsController < ApplicationController
   has_scope :order
   has_scope :uploaded_after
   has_scope :uploaded_before
-  has_scope :q do |controller, scope, value|
+  has_scope :q do |_controller, scope, value|
     scope.filter(value)
   end
-  has_scope :approved do |controller, scope, value|
+  has_scope :approved do |_controller, scope, value|
     if value == 'yes'
       scope.where(:approved => true)
     elsif value == 'no'
@@ -22,7 +22,7 @@ class BgeigieImportsController < ApplicationController
       scope
     end
   end
-  has_scope :subtype do |controller, scope, value|
+  has_scope :subtype do |_controller, scope, value|
     scope.by_subtype(value.split(',').map(&:strip).reject(&:blank?))
   end
 

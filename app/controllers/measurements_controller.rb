@@ -3,26 +3,26 @@ class MeasurementsController < ApplicationController
   before_filter :authenticate_user!, :only => [:new, :create, :update, :destroy]
 
   has_scope :captured_after
-  has_scope :unit do |controller, scope, value|
+  has_scope :unit do |_controller, scope, value|
     scope.by_unit(value)
   end
   has_scope :captured_before
-  has_scope :distance do |controller, scope, value|
+  has_scope :distance do |controller, scope, _value|
     scope.nearby_to(controller.params[:latitude], controller.params[:longitude], controller.params[:distance])
   end
   has_scope :order
-  has_scope :original_id do |controller, scope, value|
+  has_scope :original_id do |_controller, scope, value|
     scope.where("original_id = :value OR id = :value", :value => value)
   end
   has_scope :until
 
-  has_scope :device_id do |controller, scope, value|
+  has_scope :device_id do |_controller, scope, value|
     scope.where(:device_id => value)
   end
-  has_scope :user_id do |controller, scope, value|
+  has_scope :user_id do |_controller, scope, value|
     scope.where(:user_id => value)
   end
-  has_scope :measurement_import_id do |controller, scope, value|
+  has_scope :measurement_import_id do |_controller, scope, value|
     scope.where(:measurement_import_id => value)
   end
   has_scope :since
@@ -52,7 +52,7 @@ class MeasurementsController < ApplicationController
         :location => "POINT(140.47335610000005 37.7607226)",
         :location_name => 'Fukushima City Office'
       )
-    end
+                   end
     @measurement.captured_at = Time.now.strftime("%d %B %Y, %H:%M:%S")
   end
 

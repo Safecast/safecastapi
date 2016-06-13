@@ -2,7 +2,9 @@ class Measurement < ActiveRecord::Base
   set_rgeo_factory_for_column(:location,
     RGeo::Geographic.spherical_factory(:srid => 4326))
 
-  attr_accessible :value, :unit, :location, :location_name, :device_id, :height, :surface, :radiation, :latitude, :longitude, :captured_at, :devicetype_id, :sensor_id, :channel_id, :station_id
+  attr_accessible :value, :unit, :location, :location_name, :device_id,
+    :height, :surface, :radiation, :latitude, :longitude, :captured_at,
+    :devicetype_id, :sensor_id, :channel_id, :station_id
   
   include MeasurementConcerns
   
@@ -45,14 +47,14 @@ class Measurement < ActiveRecord::Base
 
     def self.by_sensor_id(sensor_id)
     where(:sensor_id => sensor_id)
-  end
+    end
 
     def self.by_channel_id(channel_id)
     where(:channel_id => channel_id)
-  end
+    end
     def self.by_station_id(station_id)
     where(:station_id => station_id)
-  end
+    end
 
   def self.captured_after(time)
     where('captured_at > ?', ActiveSupport::TimeZone['UTC'].parse(time))
@@ -87,7 +89,7 @@ def serializable_hash(options = {})
      :captured_at, :devicetype_id, :sensor_id, :channel_id, 
      :station_id
    ], :methods => [:latitude, :longitude]))
- end
+end
   
   
   def revise(new_params)
@@ -110,7 +112,7 @@ def serializable_hash(options = {})
     Measurement.where(:replaced_by => nil, :original_id => original_id).first
   end
 
-  def clone
+  def clone # rubocop:disable Metrics/MethodLength
     #override clone to remove timestamps, original_id, and expired_at
     attrs = clone_attributes(:read_attribute_before_type_cast)
     attrs.delete(self.class.primary_key)

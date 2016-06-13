@@ -1,4 +1,4 @@
-class BgeigieImport < MeasurementImport
+class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   # States:
   # - unprocessed
   # - processed
@@ -110,7 +110,7 @@ class BgeigieImport < MeasurementImport
      bgeigie_import_id = #{self.id}])
   end
 
-  def create_tmp_file
+  def create_tmp_file # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     lines_count = 0
     File.open(tmp_file, 'at:UTF-8') do |file|
       source.read.each_line do |line|
@@ -125,12 +125,14 @@ class BgeigieImport < MeasurementImport
     confirm_status(:process_file)
   end
 
-  def is_sane?(line)
+  def is_sane?(line) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
     line_items = line.strip.split(',')
     return false unless line_items.length >= 13
 
     #check header
+    # rubocop:disable Metrics/LineLength
     return false unless line_items[0].eql? '$BMRDD' or line_items[0].eql? '$BGRDD' or line_items[0].eql? '$BNRDD' or line_items[0].eql? '$BNXRDD' or line_items[0].eql? '$PNTDD'
+    # rubocop:enable Metrics/LineLength
 
     #check for Valid CPM
     return false unless line_items[6].eql? 'A' or line_items[6].eql? 'V'
@@ -160,7 +162,9 @@ class BgeigieImport < MeasurementImport
   end
 
   def psql_command
+    # rubocop:disable Metrics/LineLength
     %Q[psql -U #{db_config['username']} -h #{db_config['host'] || 'localhost'} #{db_config['database']} -c "\\copy bgeigie_logs_tmp (device_tag, device_serial_id, captured_at, cpm, counts_per_five_seconds, total_counts,  cpm_validity, latitude_nmea, north_south_indicator, longitude_nmea,  east_west_indicator, altitude, gps_fix_indicator,horizontal_dilution_of_precision,  gps_fix_quality_indicator,md5sum) FROM '#{tmp_file}' CSV"]
+    # rubocop:enable Metrics/LineLength
   end
 
   def run_psql_command
@@ -177,7 +181,9 @@ class BgeigieImport < MeasurementImport
   end
 
   def populate_bgeigie_logs_table
+    # rubocop:disable Metrics/LineLength
     self.connection.execute(%Q[insert into bgeigie_logs (device_tag, device_serial_id, captured_at, cpm, counts_per_five_seconds, total_counts, cpm_validity, latitude_nmea, north_south_indicator, longitude_nmea, east_west_indicator, altitude, gps_fix_indicator, horizontal_dilution_of_precision, gps_fix_quality_indicator, created_at, updated_at, bgeigie_import_id, computed_location, md5sum) select distinct bt.device_tag, bt.device_serial_id, bt.captured_at, bt.cpm, bt.counts_per_five_seconds, bt.total_counts, bt.cpm_validity, bt.latitude_nmea, bt.north_south_indicator, bt.longitude_nmea, bt.east_west_indicator, bt.altitude, bt.gps_fix_indicator, bt.horizontal_dilution_of_precision, bt.gps_fix_quality_indicator, bt.created_at, bt.updated_at, bt.bgeigie_import_id, bt.computed_location, bt.md5sum from bgeigie_logs_tmp bt left join bgeigie_logs bl on bl.md5sum = bt.md5sum where bl.md5sum is null])
+    # rubocop:enable Metrics/LineLength
   end
 
   def drop_tmp_table
@@ -195,7 +201,7 @@ class BgeigieImport < MeasurementImport
     confirm_status(:import_bgeigie_logs)
   end
 
-  def compute_latlng_from_nmea
+  def compute_latlng_from_nmea # rubocop:disable Metrics/MethodLength
     #a\lgorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
     # (converted to SQL)
     self.connection.execute(%Q[
@@ -242,7 +248,7 @@ class BgeigieImport < MeasurementImport
     File.unlink(tmp_file)
   end
 
-  def nmea_to_lat_lng(latitude_nmea, north_south_indicator, longitude_nmea, east_west_indicator)
+  def nmea_to_lat_lng(latitude_nmea, _north_south_indicator, longitude_nmea, _east_west_indicator) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     #algorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
 
     #protect against buggy nmea values that have negative values

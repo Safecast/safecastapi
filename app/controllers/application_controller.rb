@@ -19,7 +19,6 @@ class ApplicationController < ActionController::Base
 
   def index
     cors_set_access_control_headers
-    result = { }
     respond_with @result = @doc 
   end
 
@@ -30,19 +29,19 @@ class ApplicationController < ActionController::Base
     
 protected
   
-  def rescue_action(env)
+  def rescue_action(_env)
     respond_to do |wants|
       wants.json { render :json => "Error", :status => 500 }
     end
   end
 
-  def cors_set_access_control_headers
+  def cors_set_access_control_headers # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     return unless request.env['HTTP_ACCEPT'].eql? 'application/json'
     if current_user 
       host = request.env['HTTP_ORIGIN']
     else 
       host = request.env['HTTP_ORIGIN']
-      unless /safecast.org$/.match host
+      unless /safecast.org$/ =~ host
         host = 'safecast.org'
       end
     end
@@ -67,7 +66,7 @@ protected
     end
   end
 
-  def default_url_options(options={})
+  def default_url_options(_options={})
     { :locale => I18n.locale }
   end
 
