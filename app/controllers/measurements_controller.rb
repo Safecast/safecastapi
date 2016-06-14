@@ -31,6 +31,8 @@ class MeasurementsController < ApplicationController
   respond_to :html, :json, :csv
 
   def index
+    # Don't delete these @filename and @streaming. They are for
+    # csvbuilder.
     @filename = "measurements.csv"
     @streaming = true
 
