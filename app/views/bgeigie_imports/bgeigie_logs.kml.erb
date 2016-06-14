@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <Style id="grey">
+      <IconStyle>
+        <scale>0.5</scale>
+        <Icon>
+          <href>http://www.safecast.org/kml/grey.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <color>00000000</color>
+        <scale>0</scale>
+      </LabelStyle>
+      <PolyStyle>
+        <color>ff000000</color>
+        <outline>0</outline>
+      </PolyStyle>
+    </Style>
+    <Style id="darkRed">
+      <IconStyle>
+        <scale>0.5</scale>
+        <Icon>
+          <href>http://www.safecast.org/kml/darkRed.png</href>
+        </Icon>
+            </IconStyle>
+      <LabelStyle>
+        <color>00000000</color>
+        <scale>0</scale>
+      </LabelStyle>
+      <PolyStyle>
+        <color>ff000000</color>
+        <outline>0</outline>
+      </PolyStyle>
+    </Style>
+    <Style id="red">
+      <IconStyle>
+        <scale>0.5</scale>
+        <Icon>
+          <href>http://www.safecast.org/kml/red.png</href>
+        </Icon>
+            </IconStyle>
+      <LabelStyle>
+        <color>00000000</color>
+        <scale>0</scale>
+      </LabelStyle>
+      <PolyStyle>
+        <color>ff000000</color>
+        <outline>0</outline>
+      </PolyStyle>
+    </Style>
+    <Style id="darkOrange">
+      <IconStyle>
+        <scale>0.5</scale>
+        <Icon>
+          <href>http://www.safecast.org/kml/darkOrange.png</href>
+        </Icon>
+            </IconStyle>
+      <LabelStyle>
+        <color>00000000</color>
+        <scale>0</scale>
+      </LabelStyle>
+      <PolyStyle>
+        <color>ff000000</color>
+        <outline>0</outline>
+      </PolyStyle>
+    </Style>
+    <Style id="orange">
+      <IconStyle>
+        <scale>0.5</scale>
+        <Icon>
+          <href>http://www.safecast.org/kml/orange.png</href>
+        </Icon>
+            </IconStyle>
+      <LabelStyle>
+        <color>00000000</color>
+        <scale>0</scale>
+      </LabelStyle>
+      <PolyStyle>
+        <color>ff000000</color>
+        <outline>0</outline>
+      </PolyStyle>
+    </Style>
+    <Style id="yellow">
+      <IconStyle>
+        <scale>0.5</scale>
+        <Icon>
+          <href>http://www.safecast.org/kml/yellow.png</href>
+        </Icon>
+            </IconStyle>
+      <LabelStyle>
+        <color>00000000</color>
+        <scale>0</scale>
+      </LabelStyle>
+      <PolyStyle>
+        <color>ff000000</color>
+        <outline>0</outline>
+      </PolyStyle>
+    </Style>
+    <Style id="lightGreen">
+      <IconStyle>
+        <scale>0.5</scale>
+        <Icon>
+          <href>http://www.safecast.org/kml/lightGreen.png</href>
+        </Icon>
+            </IconStyle>
+      <LabelStyle>
+        <color>00000000</color>
+        <scale>0</scale>
+      </LabelStyle>
+      <PolyStyle>
+        <color>ff000000</color>
+        <outline>0</outline>
+      </PolyStyle>
+    </Style>
+    <Style id="green">
+      <IconStyle>
+        <scale>0.5</scale>
+        <Icon>
+          <href>http://www.safecast.org/kml/green.png</href>
+        </Icon>
+            </IconStyle>
+      <LabelStyle>
+        <color>00000000</color>
+        <scale>0</scale>
+      </LabelStyle>
+      <PolyStyle>
+        <color>ff000000</color>
+        <outline>0</outline>
+      </PolyStyle>
+    </Style>
+    <Style id="midgreen">
+      <IconStyle>
+        <scale>0.5</scale>
+        <Icon>
+          <href>http://www.safecast.org/kml/midgreen.png</href>
+        </Icon>
+            </IconStyle>
+      <LabelStyle>
+        <color>00000000</color>
+        <scale>0</scale>
+      </LabelStyle>
+      <PolyStyle>
+        <color>ff000000</color>
+        <outline>0</outline>
+      </PolyStyle>
+    </Style>
+    <Style id="white">
+      <IconStyle>
+        <scale>0.5</scale>
+        <Icon>
+          <href>http://www.safecast.org/kml/white.png</href>
+        </Icon>
+            </IconStyle>
+      <LabelStyle>
+        <color>00000000</color>
+        <scale>0</scale>
+      </LabelStyle>
+      <PolyStyle>
+        <color>ff000000</color>
+        <outline>0</outline>
+      </PolyStyle>
+    </Style>
+    <%- @bgeigie_logs.each do |bgeigie_log| -%>
+      <Placemark>
+        <name><%= bgeigie_log.usv %></name>
+        <description>CPM Value = <%= bgeigie_log.cpm %>
+<%= bgeigie_log.captured_at %></description>
+        <styleUrl>#<%= bgeigie_log.icon_color %></styleUrl>
+        <Point>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates><%= bgeigie_log.coordinates %></coordinates>
+        </Point>
+      </Placemark>
+    <%- end -%>
+  </Document>
+</kml>
