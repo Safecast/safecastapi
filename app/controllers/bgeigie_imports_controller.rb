@@ -97,10 +97,9 @@ class BgeigieImportsController < ApplicationController
 
   def kml
     bgeigie_import = BgeigieImport.find(params[:id])
-    @bgeigie_logs = bgeigie_import.bgeigie_logs.map(&:decorate)
-    # FIXME: should use render. will revise when we update to Rails 4
-    erb = ERB.new(Rails.root.join('app/views/bgeigie_imports/bgeigie_logs.kml.erb').read, nil, '-')
-    send_data(erb.result(binding), type: Mime::KML.to_s, filename: bgeigie_import.source.filename + '.kml')
+    ::Actions::BgeigieImports::Kml.new(
+      bgeigie_import.bgeigie_logs.map(&:decorate)
+    ).execute(self, bgeigie_import.source.filename + '.kml')
   rescue ActiveRecord::RecordNotFound
     render text: '404 Not Found', status: :not_found
   end
