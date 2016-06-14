@@ -924,6 +924,13 @@ CREATE INDEX index_measurements_on_user_id ON measurements USING btree (user_id)
 
 
 --
+-- Name: index_measurements_on_user_id_and_captured_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_measurements_on_user_id_and_captured_at ON measurements USING btree (user_id, captured_at);
+
+
+--
 -- Name: index_measurements_on_value_and_unit; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1102,4 +1109,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160208190731');
 INSERT INTO schema_migrations (version) VALUES ('20160403092926');
 
 INSERT INTO schema_migrations (version) VALUES ('20160607005457');
+
+INSERT INTO schema_migrations (version) VALUES ('20160614042818');
 
