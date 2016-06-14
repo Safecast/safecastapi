@@ -6,14 +6,14 @@ class Notifications < ActionMailer::Base
     @import = import
     mail(
       :to => import.user.email,
-      :subject => "Your Safecast import has been approved")
+      :subject => "Your Safecast import has been approved - " << import.filename)
   end
 
   def import_rejected(import)
     @import = import
     mail(
       :to => import.user.email,
-      :subject => "Your Safecast import has been rejected")
+      :subject => "Your Safecast import has been rejected - " << import.filename)
   end
 
   def import_awaiting_approval(import)
@@ -29,7 +29,7 @@ class Notifications < ActionMailer::Base
     @body = body
     mail(
       :to => import.user.email,
-      :subject => "Email from Safecast Moderator regarding your Safecast Import",
+      :subject => "Email from Safecast Moderator regarding your Safecast Import - " << import.filename,
       :body => body)
   end
 end

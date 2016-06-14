@@ -62,6 +62,10 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     read_attribute(:name).presence || "bGeigie Import ##{id}"
   end
 
+  def filename
+    read_attribute(:source).presence
+  end
+
   def tmp_file
     @tmp_file ||= "/tmp/bgeigie-#{Kernel.rand}"
   end

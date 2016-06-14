@@ -24,8 +24,13 @@
       <%= form_for [:submit, @bgeigie_import], :html => {:class => 'pull-right'} do |f| %>
           <%= f.submit t('.submit_for_approval'), :class => 'btn btn-primary' %>
         <%- end -%>
+        <%- if !@bgeigie_import.rejected -%>
       <h4><%= t(".file_ready") %></h4>
       <%= t(".you_are_all_set") %>
+      <%- else -%>
+      <h4><%= t(".file_rejected") %></h4>
+      <%= t(".rejected_instructions") %>
+      <%- end -%>
     </div>
   <%- end -%>
 <%- end -%>
