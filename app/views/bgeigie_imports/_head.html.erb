@@ -28,6 +28,9 @@
         </li>
       <%- end -%>
       <li>
+        <%= link_to t('.download_in_kml'), kml_bgeigie_import_path(@bgeigie_import), class: 'btn' %>
+      </li>
+      <li>
         <%= link_to t(".download_original_file"),
               @bgeigie_import.source.url,
               :class => 'btn' %>
