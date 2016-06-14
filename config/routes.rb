@@ -23,6 +23,7 @@ Safecast::Application.routes.draw do
         put :approve
         put :fixdrive
         put :process_button
+        get :kml
       end
     end
     resources :devices do

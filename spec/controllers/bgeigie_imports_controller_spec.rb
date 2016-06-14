@@ -139,4 +139,22 @@ RSpec.describe BgeigieImportsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #kml' do
+    let(:bgeigie_import) do
+      Fabricate(:bgeigie_import, cities: 'Tokyo', credits: 'John Doe')
+    end
+
+    before do
+      get :kml, id: bgeigie_import.id
+    end
+
+    it { expect(response).to be_ok }
+    it { expect(response.content_type).to eq(Mime::KML.to_s) }
+    it 'should use original filename' do
+      disposition = response.headers['Content-Disposition']
+      expect(disposition)
+        .to match(/#{bgeigie_import.source.filename}\.kml/)
+    end
+  end
 end
