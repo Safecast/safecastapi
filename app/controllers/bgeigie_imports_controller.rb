@@ -97,6 +97,8 @@ class BgeigieImportsController < ApplicationController
 
   def kml
     bgeigie_import = BgeigieImport.find(params[:id])
+    # FIXME: Try to use render after updating Rails 4
+    #        See https://github.com/Safecast/safecastapi/pull/287#discussion_r66911137
     ::Actions::BgeigieImports::Kml.new(
       bgeigie_import.bgeigie_logs.map(&:decorate)
     ).execute(self, bgeigie_import.source.filename + '.kml')
