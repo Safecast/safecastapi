@@ -26,6 +26,7 @@ Safecast::Application.routes.draw do
         put :fixdrive
         put :process_button
         put :send_email
+        put :contact_moderator
       end
     end
     resources :devices do

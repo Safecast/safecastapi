@@ -14,5 +14,12 @@
 <%- if @bgeigie_import.rejected == true -%>
   <span class="label label-warning">
     Rejected by: <%= @bgeigie_import.rejected_by %>
-  </span>
+  </span><span style="color: #202020;font-size: 13px;font-family: proxima-nova, sans-serif;">
+  <b>comment:</b>
+  <%= @bgeigie_import.comment if @bgeigie_import.comment.present? %>
+</span>
+<%- end -%>
+<%- if !@bgeigie_import.rejected? && @bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? -%>
+<span style="color: #202020;font-size: 13px; font-family: proxima-nova, sans-serif;">
+If rejecting, please enter a comment in Metadata.</span>
 <%- end -%>

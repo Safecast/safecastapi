@@ -24,12 +24,26 @@ class Notifications < ActionMailer::Base
       :subject => "A Safecast import is awaiting approval")
   end
   
-  def send_email(import, body)
+  def send_email(import, body, sender)
     @import = import
     @body = body
+    @sender = sender
     mail(
+      :from => sender,
       :to => import.user.email,
       :subject => "Email from Safecast Moderator regarding your Safecast Import - " << import.filename,
       :body => body)
   end
+  
+  def contact_moderator(import, body, sender)
+    @import = import
+    @body = body
+    @sender = sender
+    mail(
+      :from => sender,
+      :to => import.rejected_by,
+      :subject => "Email from Safecast User regarding Safecast Import - " << import.filename,
+      :body => body)
+  end
+  
 end

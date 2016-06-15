@@ -1,0 +1,4 @@
+<%= form_for [:contact_moderator, @bgeigie_import] do |f| %>
+  <%= text_area_tag "email_body", nil, class: 'email-textarea' %><br>
+  <%= f.submit t('.contact_moderator'), :class => 'btn btn-primary' %>
+<%- end -%>

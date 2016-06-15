@@ -20,12 +20,6 @@
       <% bgeigie_nav_li(:error) %>
     </ul>
     <ul class="nav pull-right">
-      <li class="pull-right <%= 'active' if params[:by_rejected].blank? %>">
-        <%= link_to t(".all"), params.except(:by_rejected) %>
-      </li>
-      <li class="pull-right <%= 'active' if params[:by_rejected] == "true" %>">
-        <%= link_to t(".rejected"), params.merge(:by_rejected => "true") %>
-      </li>
       <%- if user_signed_in? -%>
         <li class="pull-right <%= 'active' if params[:by_user_id].blank? %>">
           <%= link_to t(".everyone"), params.except(:by_user_id) %>
@@ -49,7 +43,6 @@
   <%= filter_field :bgeigie_import, :q %>
   <%= filter_field :bgeigie_import, :approved %>
   <%= filter_field :bgeigie_import, :by_user_id %>
-  <%= filter_field :bgeigie_import, :rejected %>
   <%= datetime_picker :bgeigie_import, :uploaded_after %>
   <%= datetime_picker :bgeigie_import, :uploaded_before %>
   <%= hidden_field_tag 'by_status', params[:by_status] %>

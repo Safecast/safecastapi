@@ -36,7 +36,6 @@ en-US:
       all: All
       filter_bgeigie_imports: Filter bGeigie Imports
       rejected_by: Rejected By
-      rejected: Rejected
       everyone: Everyone
       cities: Cities
       credits: Credits
@@ -62,7 +61,8 @@ en-US:
       metadata: Metadata
       map: Map
       process_log: Process Log
-      send_email: Send Email
+      send_email: Send Email To Uploader
+      contact_moderator: Send Email to Moderator
       uploaded_by: Uploaded By
       filename: Filename
       number_of_measurements: Number of Measurements
@@ -91,7 +91,7 @@ en-US:
       you_are_all_set: "You're all set. You can now submit this file for approval from a Safecast moderator."
       submit_for_approval: Submit for Approval
       file_rejected: This File was rejected.
-      rejected_instructions: Please check comments bellow.
+      rejected_instructions: Please check comment below.
     progress:
       progress_uploaded: 1. Uploaded
       progress_processed: 2. Processed
@@ -110,7 +110,10 @@ en-US:
       sensor_subtype: Subtype
     send_email:
       email_body: Email Body
-      send_email: Send Email
+      send_email: Send Email To Uploader
+    contact_moderator:
+      email_body: Email Body
+      contact_moderator: Send Email to Moderator
     process_log:
       progress: Progress
       process_file: Process file

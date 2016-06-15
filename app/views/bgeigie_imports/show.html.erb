@@ -29,6 +29,13 @@
             <%= t('.send_email') %>
           </a>
         </li>
+        <%- end -%>
+      <%- if user_signed_in? && @bgeigie_import.rejected? && (@bgeigie_import.rejected_by != current_user.email)-%>
+      <li>
+        <a href="#contact-moderator" data-toggle="tab">
+          <%= t('.contact_moderator') %>
+        </a>
+      </li>
       <%- end -%>
       <%- if user_signed_in? && (@bgeigie_import.user == current_user || current_user.moderator?)-%>
         <li class="pull-right <%= 'active' if ['edit', 'update'].include?(action_name) %>">
@@ -55,6 +62,9 @@
   </div>
   <div class="tab-pane" id="send-email">
     <%= render 'send_email' -%>
+  </div>
+  <div class="tab-pane" id="contact-moderator">
+    <%= render 'contact_moderator' -%>
   </div>
   <div class="tab-pane <%= 'active' if ['edit', 'update'].include?(action_name) %>" id="edit-details">
     <%= render 'edit' %>

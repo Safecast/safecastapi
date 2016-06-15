@@ -45,7 +45,13 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
 
   def send_email
     @bgeigie_import = BgeigieImport.find(params[:id])
-    @bgeigie_import.send_email(params[:email_body])
+    @bgeigie_import.send_email(params[:email_body],current_user.email)
+    redirect_to @bgeigie_import
+  end
+
+  def contact_moderator
+    @bgeigie_import = BgeigieImport.find(params[:id])
+    @bgeigie_import.contact_moderator(params[:email_body],current_user.email)
     redirect_to @bgeigie_import
   end
 
