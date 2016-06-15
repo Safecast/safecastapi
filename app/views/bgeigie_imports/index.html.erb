@@ -36,7 +36,8 @@
 
 <%= summarize_results(@bgeigie_imports) %>
 
-<%= show_filters :bgeigie_import, [:q, :uploaded_after, :uploaded_before, :approved] %>
+<%= show_filters :bgeigie_import,
+[:q, :uploaded_after, :uploaded_before, :approved, :rejected] %>
 
 <%= filter_modal :bgeigie_imports do %>
   <%= filter_field :bgeigie_import, :q %>
@@ -58,6 +59,7 @@
       <%= table_sort_header(:bgeigie_import, :source) %>
       <%= table_sort_header(:bgeigie_import, :measurements_count) %>
       <%= table_sort_header(:bgeigie_import, :status) %>
+      <%= table_sort_header(:bgeigie_import, :rejected_by) %>
     </thead>
     <tbody>
       <%- @bgeigie_imports.each do |bgeigie_import| -%>
@@ -74,7 +76,7 @@
             <%- end -%>
           </td>
           <td>
-            <%= link_to File.basename(bgeigie_import.source.filename), 
+            <%= link_to File.basename(bgeigie_import.source.filename),
                   bgeigie_import
                     -%><br/>
             <small>
@@ -98,6 +100,12 @@
             <%- if !bgeigie_import.approved? -%>
               <span class="notapproved">(<%= t("bgeigie_imports.states.not_approved") %>)</span>
             <%- end -%>
+            <%- if bgeigie_import.rejected? -%>
+              <span class="notapproved">(<%= t("bgeigie_imports.states.rejected") %>)</span>
+            <%- end -%>
+          </td>
+          <td>
+            <%= bgeigie_import.rejected_by %>
           </td>
         </tr>
       <%- end -%>

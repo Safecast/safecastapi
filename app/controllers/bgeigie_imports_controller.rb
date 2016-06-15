@@ -1,4 +1,4 @@
-class BgeigieImportsController < ApplicationController
+class BgeigieImportsController < ApplicationController # rubocop:disable Metrics/ClassLength
 
   respond_to :html, :json
 
@@ -7,6 +7,7 @@ class BgeigieImportsController < ApplicationController
 
   has_scope :by_status
   has_scope :by_user_id
+  has_scope :by_rejected
   has_scope :order
   has_scope :uploaded_after
   has_scope :uploaded_before
@@ -36,6 +37,24 @@ class BgeigieImportsController < ApplicationController
     redirect_to @bgeigie_import
   end
 
+  def reject
+    @bgeigie_import = BgeigieImport.find(params[:id])
+    @bgeigie_import.reject!(current_user.email)
+    redirect_to @bgeigie_import
+  end
+
+  def send_email
+    @bgeigie_import = BgeigieImport.find(params[:id])
+    @bgeigie_import.send_email(params[:email_body], current_user.email)
+    redirect_to @bgeigie_import
+  end
+
+  def contact_moderator
+    @bgeigie_import = BgeigieImport.find(params[:id])
+    @bgeigie_import.contact_moderator(params[:email_body], current_user.email)
+    redirect_to @bgeigie_import
+  end
+
   def fixdrive
     @bgeigie_import = scope.find(params[:id])
     @bgeigie_import.fixdrive!
@@ -48,10 +67,11 @@ class BgeigieImportsController < ApplicationController
     redirect_to @bgeigie_import
   end
 
-
   def submit
     @bgeigie_import = scope.find(params[:id])
     @bgeigie_import.update_column(:status, 'submitted')
+    @bgeigie_import.update_column(:rejected, 'false')
+    @bgeigie_import.update_column(:rejected_by, nil)
     Notifications.import_awaiting_approval(@bgeigie_import).deliver
     redirect_to @bgeigie_import
   end

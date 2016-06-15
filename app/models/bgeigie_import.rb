@@ -42,6 +42,10 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     where(:user_id => user_id)
   end
 
+  def self.by_rejected(rejected)
+    where(:rejected => rejected)
+  end
+
   def self.uploaded_before(time)
     where("created_at < ?", time)
   end
@@ -56,6 +60,10 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
   def name
     read_attribute(:name).presence || "bGeigie Import ##{id}"
+  end
+
+  def filename
+    read_attribute(:source).presence
   end
 
   def tmp_file
@@ -83,6 +91,26 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     self.update_column(:approved, true)
     Delayed::Job.enqueue FinalizeBgeigieImportJob.new(id)
     Notifications.import_approved(self).deliver
+  end
+
+  def reject!(userinfo)
+    self.update_column(:rejected, true)
+    self.update_column(:rejected_by, userinfo)
+    self.update_column(:status, 'processed')
+    Notifications.import_rejected(self).deliver
+  end
+
+  def unreject!
+    self.update_column(:rejected, false)
+    self.update_column(:rejected_by, nil)
+  end
+
+  def send_email(email_body, sender)
+    Notifications.send_email(self, email_body, sender).deliver
+  end
+
+  def contact_moderator(email_body, sender)
+    Notifications.contact_moderator(self, email_body, sender).deliver
   end
 
   def finalize!

@@ -4,16 +4,22 @@
     <%- if content_for?(:current_status) -%>
       <div id="current-status"><%= content_for(:current_status) %></div>
     <%- end -%>
-
     <ul class="inline nav-stacked pull-right">
-      <%- if @bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? -%>
+      <%- if !@bgeigie_import.rejected? && !@bgeigie_import.approved? && @bgeigie_import.ready_for_submission? && user_signed_in? && @bgeigie_import.processed? && (current_user.moderator? || @bgeigie_import.user_id == current_user.id ) -%>
+        <li>
+          <%= form_for [:reject, @bgeigie_import] do |f| %>
+            <%= f.submit t('.reject'), :class => 'btn btn-primary' %>
+          <%- end -%>
+        </li>
+      <%- end -%>
+      <%- if !@bgeigie_import.rejected? && @bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? -%>
         <li>
           <%= form_for [:approve, @bgeigie_import] do |f| %>
             <%= f.submit t('.approve'), :class => 'btn btn-primary' %>
           <%- end -%>
         </li>
       <%- end -%>
-      <%- if !@bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? && @bgeigie_import.approved? && !@bgeigie_import.done? -%>
+      <%- if !@bgeigie_import.rejected? && !@bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? && @bgeigie_import.approved? && !@bgeigie_import.done? -%>
         <li>
           <%= form_for [:fixdrive, @bgeigie_import] do |f| %>
             <%= f.submit t('.fixdrive'), :class => 'btn btn-primary' %>
