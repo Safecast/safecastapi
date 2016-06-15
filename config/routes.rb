@@ -27,6 +27,7 @@ Safecast::Application.routes.draw do
         put :process_button
         put :send_email
         put :contact_moderator
+        get :kml
       end
     end
     resources :devices do

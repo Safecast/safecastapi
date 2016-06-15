@@ -80,6 +80,7 @@ en-US:
       approve: Approve
       fixdrive: Fix Drive
       process_button: Process
+      download_in_kml: Download in KML
       download_original_file: Download Original File
       bgeigie_import: Bgeigie Import
       reload_to_see_map: "If you don't see the map, please manually reload the page."
