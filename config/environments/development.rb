@@ -33,4 +33,6 @@ Safecast::Application.configure do
     :port => '3000',
     :protocol => 'http'
   }
+
+  config.eager_load = false
 end
