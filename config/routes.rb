@@ -1,9 +1,6 @@
 Safecast::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  root :to => "dashboards#show"
-
-
   scope "(:locale)", :constraints => { :locale => /(en-US|ja)/ } do
     root :to => "dashboards#show"
     devise_for :users
