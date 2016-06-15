@@ -4,6 +4,7 @@ ruby '2.0.0'
 
 gem 'devise'
 gem 'devise-i18n'
+gem 'devise-token_authenticatable'
 gem 'cancan'
 
 gem 'rails', '4.0.13'

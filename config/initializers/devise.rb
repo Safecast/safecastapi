@@ -151,10 +151,6 @@ Devise.setup do |config|
   # REST_AUTH_SITE_KEY to pepper)
   # config.encryptor = :sha512
 
-  # ==> Configuration for :token_authenticatable
-  # Defines name of the authentication token params key
-  config.token_authentication_key = :api_key
-
   # If true, authentication through token does not store user in session and needs
   # to be supplied on each request. Useful if you are using the token as API token.
   # config.stateless_token = false
