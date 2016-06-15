@@ -2,9 +2,10 @@ class Measurement < ActiveRecord::Base
   set_rgeo_factory_for_column(:location,
     RGeo::Geographic.spherical_factory(:srid => 4326))
 
-  attr_accessible :value, :unit, :location, :location_name, :device_id,
-    :height, :surface, :radiation, :latitude, :longitude, :captured_at,
-    :devicetype_id, :sensor_id, :channel_id, :station_id
+  # TODO: remove later
+  # attr_accessible :value, :unit, :location, :location_name, :device_id,
+  #   :height, :surface, :radiation, :latitude, :longitude, :captured_at,
+  #   :devicetype_id, :sensor_id, :channel_id, :station_id
   
   include MeasurementConcerns
   

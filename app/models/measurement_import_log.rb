@@ -1,3 +1,4 @@
 class MeasurementImportLog < ActiveRecord::Base
-  attr_accessible :description
+  # TODO: remove later
+  # attr_accessible :description
 end
