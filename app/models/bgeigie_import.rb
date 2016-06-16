@@ -14,10 +14,10 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   belongs_to :user
   has_many :bgeigie_logs, :dependent => :delete_all
 
-  scope :newest, order("created_at DESC")
-  scope :oldest, order("created_at")
-  scope :done, where(:status => "done")
-  scope :unapproved, where(:approved => false)
+  scope :newest, -> { order("created_at DESC") }
+  scope :oldest, -> { order("created_at") }
+  scope :done, -> { where(:status => "done") }
+  scope :unapproved, -> { where(:approved => false) }
 
   store :status_details, :accessors => [
     :process_file,

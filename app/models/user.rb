@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :measurements
   has_many :maps
 
-  scope :moderator, where(:moderator => true)
+  scope :moderator, -> { where(:moderator => true) }
   
   # Include default devise modules. Others available are:
   # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
