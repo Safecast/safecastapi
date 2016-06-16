@@ -52,16 +52,8 @@ class MeasurementsController < ApplicationController
   end
   
   def new
-    @last_measurement = current_user.measurements.last
-    @measurement = if @last_measurement.present?
-      @last_measurement.clone
-    else
-      Measurement.new(
-        :location => "POINT(140.47335610000005 37.7607226)",
-        :location_name => 'Fukushima City Office'
-      )
-                   end
-    @measurement.captured_at = Time.now.strftime("%d %B %Y, %H:%M:%S")
+    @measurement = current_user.measurements.last.try(:dup) || Measurement.default
+    @measurement.captured_at = Time.current.strftime('%d %B %Y, %H:%M:%S')
   end
 
   def create

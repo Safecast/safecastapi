@@ -72,7 +72,14 @@ class Measurement < ActiveRecord::Base
   def self.until(time)
     where('updated_at < ?', ActiveSupport::TimeZone['UTC'].parse(time))
   end
-  
+
+  def self.default
+    new(
+      location: 'POINT(140.47335610000005 37.7607226)',
+      location_name: 'Fukushima City Office'
+    )
+  end
+
   def set_md5sum
     self.md5sum = Digest::MD5.hexdigest("#{value}#{latitude}#{longitude}#{captured_at}")
   end
@@ -107,21 +114,4 @@ end
   def self.most_recent(original_id)
     Measurement.where(:replaced_by => nil, :original_id => original_id).first
   end
-
-  def clone # rubocop:disable Metrics/MethodLength
-    #override clone to remove timestamps, original_id, and expired_at
-    attrs = clone_attributes(:read_attribute_before_type_cast)
-    attrs.delete(self.class.primary_key)
-    attrs.delete 'created_at'
-    attrs.delete 'updated_at'
-    attrs.delete 'original_id'
-    attrs.delete 'replaced_by'
-    attrs.delete 'expired_at'
-    attrs.delete 'updated_by'
-    attrs.delete 'captured_at'
-    record = self.class.new
-    record.send :instance_variable_set, '@attributes', attrs
-    record
-  end
-  
 end
