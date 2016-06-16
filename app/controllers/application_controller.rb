@@ -1,15 +1,13 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :set_locale
-
   respond_to :html, :json, :safecast_api_v1_json 
 
+  before_filter :set_locale
+  before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :cors_set_access_control_headers
   skip_before_filter :verify_authenticity_token
-  if !Rails.env.production?
-    skip_after_filter :intercom_rails_auto_include
-  end
+  skip_after_filter :intercom_rails_auto_include if !Rails.env.production?
   before_filter :new_relic_custom_attributes
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -64,6 +62,10 @@ protected
     else
       I18n.locale = params[:locale] || I18n.default_locale
     end
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) << :name
   end
 
   def default_url_options(_options={})
