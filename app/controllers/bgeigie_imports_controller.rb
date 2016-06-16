@@ -92,17 +92,14 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
   end
 
   def create
-    @bgeigie_import = BgeigieImport.new(params[:bgeigie_import])
-    @bgeigie_import.user = current_user
-    if @bgeigie_import.save
-      @bgeigie_import.process_in_background
-    end
+    @bgeigie_import = current_user.bgeigie_imports.build(bgeigie_import_params)
+    @bgeigie_import.process_in_background if @bgeigie_import.save
     respond_with @bgeigie_import
   end
 
   def update
     @bgeigie_import = scope.find(params[:id])
-    @bgeigie_import.update_attributes(params[:bgeigie_import])
+    @bgeigie_import.update_attributes(bgeigie_import_params)
     respond_with @bgeigie_import
   end
 
@@ -133,5 +130,9 @@ private
     else
       current_user.bgeigie_imports
     end
+  end
+
+  def bgeigie_import_params
+    params.fetch(:bgeigie_import, {}).permit!
   end
 end

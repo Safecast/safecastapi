@@ -65,7 +65,7 @@ class MeasurementsController < ApplicationController
   end
 
   def create
-    @measurement = current_user.measurements.build(params[:measurement])
+    @measurement = current_user.measurements.build(measurement_params)
     ActiveRecord::Base.transaction do
       @measurement.save!
       @measurement.update_attributes!(original_id: @measurement.id)
@@ -77,7 +77,7 @@ class MeasurementsController < ApplicationController
 
   def update
     @measurement = Measurement.find(params[:id])
-    @new_measurement = @measurement.revise(params[:measurement])
+    @new_measurement = @measurement.revise(measurement_params)
 
     # respond_with typically doesn't pass the resource for PUT, but since we're being non-destructive, our PUT actually returns a new resource
     # see: https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/5199-respond_with-returns-on-put-and-delete-verb#ticket-5199-14
@@ -98,5 +98,13 @@ class MeasurementsController < ApplicationController
     @count[:count] = Measurement.count
     respond_with @count
   end
-  
+
+private
+
+  def measurement_params
+    params.fetch(:measurement, {})
+      .permit(*%i(value unit location location_name device_id height
+                  surface :radiation latitude longitude captured_at
+                  devicetype_id sensor_id channel_id station_id))
+  end
 end
