@@ -96,7 +96,7 @@ private
   def measurement_params
     params.fetch(:measurement, {})
       .permit(*%i(value unit location location_name device_id height
-                  surface :radiation latitude longitude captured_at
+                  surface radiation latitude longitude captured_at
                   devicetype_id sensor_id channel_id station_id))
   end
 end

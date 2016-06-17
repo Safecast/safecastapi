@@ -10,7 +10,10 @@ RSpec.describe MeasurementsController, type: :controller do
       value: '0.1',
       latitude: '38.6',
       longitude: '-12.4',
-      location_name: 'Tokyo'
+      location_name: 'Tokyo',
+      height: '1m',
+      surface: 'Soil',
+      radiation: 'Air'
     }
   end
   let(:existing_measurement) { Fabricate(:measurement, user: user) }
@@ -25,6 +28,10 @@ RSpec.describe MeasurementsController, type: :controller do
 
       it { expect(response.status).to eq(201) }
       it { expect(user.reload.measurements.count).to eq(1) }
+      it 'should have values in post data' do
+        measurement = user.reload.measurements.first
+        expect(measurement.radiation).to eq(valid_data[:radiation])
+      end
     end
 
     context 'empty data' do
