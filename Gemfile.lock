@@ -83,7 +83,7 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    devise-i18n (0.8.3)
+    devise-i18n (1.1.0)
     devise-token_authenticatable (0.4.9)
       devise (>= 3.5.2, < 4.0.0)
     diff-lcs (1.2.5)
