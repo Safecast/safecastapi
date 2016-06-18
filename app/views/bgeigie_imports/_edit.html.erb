@@ -1,7 +1,7 @@
 <div class="row">
   <%= render 'static_metadata' %>
   <div class="span7">
-    <%= simple_form_for @bgeigie_import do |f| %>
+    <%= simple_form_for @bgeigie_import, html: { class: 'form-horizontal' } do |f| %>
       <%= f.input :name,
                   :input_html => {:class => 'span4'},
                   :label_html => {

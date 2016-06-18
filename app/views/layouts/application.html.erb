@@ -117,7 +117,7 @@
                 </div>
               </div>
               <div class="tab-pane" id="edit-user">
-                <%= simple_form_for current_user, :url => :profile do |f| %>
+                <%= simple_form_for current_user, url: :profile, html: { class: 'form-horizontal' } do |f| %>
                   <%= f.input :email %>
                   <%= f.input :name %>
                   <%= f.input :time_zone %>
@@ -130,7 +130,7 @@
                 <%- end -%>
               </div>
                <div class="tab-pane" id="change-password">
-                <%= simple_form_for current_user, :url => :profile do |f| %>
+                 <%= simple_form_for current_user, url: :profile, html: { class: 'form-horizontal' } do |f| %>
                   <%= f.input :password, :as => :password %>
                   <%= f.input :password_confirmation, :as => :password %>
                   <%= f.button :wrapped, :cancel => '#', :cancel_options => {
