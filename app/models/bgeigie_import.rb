@@ -14,10 +14,10 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   belongs_to :user
   has_many :bgeigie_logs, :dependent => :delete_all
 
-  scope :newest, order("created_at DESC")
-  scope :oldest, order("created_at")
-  scope :done, where(:status => "done")
-  scope :unapproved, where(:approved => false)
+  scope :newest, -> { order("created_at DESC") }
+  scope :oldest, -> { order("created_at") }
+  scope :done, -> { where(:status => "done") }
+  scope :unapproved, -> { where(:approved => false) }
 
   store :status_details, :accessors => [
     :process_file,
@@ -128,7 +128,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def import_measurements_fix
-    self.connection.execute(%Q[
+    ActiveRecord::Base.connection.execute(%Q[
      insert into measurements
      (user_id, value, unit, created_at, updated_at, captured_at,
      measurement_import_id, location)
@@ -200,22 +200,22 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def drop_and_create_tmp_table
-    self.connection.execute("DROP TABLE IF EXISTS bgeigie_logs_tmp")
-    self.connection.execute "create table bgeigie_logs_tmp (like bgeigie_logs including defaults)"
+    ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS bgeigie_logs_tmp")
+    ActiveRecord::Base.connection.execute "create table bgeigie_logs_tmp (like bgeigie_logs including defaults)"
   end
 
   def set_bgeigie_import_id
-    self.connection.execute(%Q[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
+    ActiveRecord::Base.connection.execute(%Q[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
   end
 
   def populate_bgeigie_logs_table
     # rubocop:disable Metrics/LineLength
-    self.connection.execute(%Q[insert into bgeigie_logs (device_tag, device_serial_id, captured_at, cpm, counts_per_five_seconds, total_counts, cpm_validity, latitude_nmea, north_south_indicator, longitude_nmea, east_west_indicator, altitude, gps_fix_indicator, horizontal_dilution_of_precision, gps_fix_quality_indicator, created_at, updated_at, bgeigie_import_id, computed_location, md5sum) select distinct bt.device_tag, bt.device_serial_id, bt.captured_at, bt.cpm, bt.counts_per_five_seconds, bt.total_counts, bt.cpm_validity, bt.latitude_nmea, bt.north_south_indicator, bt.longitude_nmea, bt.east_west_indicator, bt.altitude, bt.gps_fix_indicator, bt.horizontal_dilution_of_precision, bt.gps_fix_quality_indicator, bt.created_at, bt.updated_at, bt.bgeigie_import_id, bt.computed_location, bt.md5sum from bgeigie_logs_tmp bt left join bgeigie_logs bl on bl.md5sum = bt.md5sum where bl.md5sum is null])
+    ActiveRecord::Base.connection.execute(%Q[insert into bgeigie_logs (device_tag, device_serial_id, captured_at, cpm, counts_per_five_seconds, total_counts, cpm_validity, latitude_nmea, north_south_indicator, longitude_nmea, east_west_indicator, altitude, gps_fix_indicator, horizontal_dilution_of_precision, gps_fix_quality_indicator, created_at, updated_at, bgeigie_import_id, computed_location, md5sum) select distinct bt.device_tag, bt.device_serial_id, bt.captured_at, bt.cpm, bt.counts_per_five_seconds, bt.total_counts, bt.cpm_validity, bt.latitude_nmea, bt.north_south_indicator, bt.longitude_nmea, bt.east_west_indicator, bt.altitude, bt.gps_fix_indicator, bt.horizontal_dilution_of_precision, bt.gps_fix_quality_indicator, bt.created_at, bt.updated_at, bt.bgeigie_import_id, bt.computed_location, bt.md5sum from bgeigie_logs_tmp bt left join bgeigie_logs bl on bl.md5sum = bt.md5sum where bl.md5sum is null])
     # rubocop:enable Metrics/LineLength
   end
 
   def drop_tmp_table
-    self.connection.execute("DROP TABLE bgeigie_logs_tmp")
+    ActiveRecord::Base.connection.execute("DROP TABLE bgeigie_logs_tmp")
   end
 
   def import_to_bgeigie_logs
@@ -232,7 +232,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   def compute_latlng_from_nmea # rubocop:disable Metrics/MethodLength
     #a\lgorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
     # (converted to SQL)
-    self.connection.execute(%Q[
+    ActiveRecord::Base.connection.execute(%Q[
       update bgeigie_logs_tmp set computed_location =
         ST_GeogFromText(
           concat(
@@ -257,7 +257,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def import_measurements
-    self.connection.execute(%Q[
+    ActiveRecord::Base.connection.execute(%Q[
       insert into measurements
       (user_id, value, unit, created_at, updated_at, captured_at,
       measurement_import_id, md5sum, location)

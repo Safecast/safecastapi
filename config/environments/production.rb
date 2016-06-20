@@ -66,4 +66,6 @@ Safecast::Application.configure do
   }
 
   config.log_tags = [:uuid, :remote_ip]
+
+  config.eager_load = true
 end

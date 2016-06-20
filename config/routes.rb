@@ -1,9 +1,6 @@
 Safecast::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  root :to => "dashboards#show"
-
-
   scope "(:locale)", :constraints => { :locale => /(en-US|ja)/ } do
     root :to => "dashboards#show"
     devise_for :users
@@ -19,14 +16,14 @@ Safecast::Application.routes.draw do
     resources :bgeigie_imports do
       resources :bgeigie_logs, :only => :index
       member do
-        put :submit
-        put :reject
-        put :unreject
-        put :approve
-        put :fixdrive
-        put :process_button
-        put :send_email
-        put :contact_moderator
+        patch :submit
+        patch :reject
+        patch :unreject
+        patch :approve
+        patch :fixdrive
+        patch :process_button
+        patch :send_email
+        patch :contact_moderator
         get :kml
       end
     end
@@ -46,12 +43,12 @@ Safecast::Application.routes.draw do
     end
   end
 
-  match '/api/*path' => redirect('/%{path}.%{format}'), :format => true
-  match '/api/*path' => redirect('/%{path}'), :format => false
+  match '/api/*path' => redirect('/%{path}.%{format}'), :format => true, via: %i(get post put delete)
+  match '/api/*path' => redirect('/%{path}'), :format => false, via: %i(get post put delete)
   post '/api/measurements' => 'measurements#create'
   post '/api/measurements.(:format)' => 'measurements#create'
 
   #legacy fixes (maps.safecast.org now redirects to api.safecast.org, so people might be using the old maps.safecast.org/drive/add URI)
-  match "/drive/add", :to => redirect("/")
-  match '/count', :to => 'measurements#count'
+  match "/drive/add", :to => redirect("/"), via: %i(get)
+  match '/count', :to => 'measurements#count', via: %i(get)
 end

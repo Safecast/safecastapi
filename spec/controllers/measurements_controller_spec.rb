@@ -10,7 +10,10 @@ RSpec.describe MeasurementsController, type: :controller do
       value: '0.1',
       latitude: '38.6',
       longitude: '-12.4',
-      location_name: 'Tokyo'
+      location_name: 'Tokyo',
+      height: '1m',
+      surface: 'Soil',
+      radiation: 'Air'
     }
   end
   let(:existing_measurement) { Fabricate(:measurement, user: user) }
@@ -25,6 +28,10 @@ RSpec.describe MeasurementsController, type: :controller do
 
       it { expect(response.status).to eq(201) }
       it { expect(user.reload.measurements.count).to eq(1) }
+      it 'should have values in post data' do
+        measurement = user.reload.measurements.first
+        expect(measurement.radiation).to eq(valid_data[:radiation])
+      end
     end
 
     context 'empty data' do
@@ -46,6 +53,36 @@ RSpec.describe MeasurementsController, type: :controller do
       it { expect(response.status).to eq(422) }
       it 'should not create new measurement' do
         expect(user.reload.measurements.count).to eq(1)
+      end
+    end
+  end
+
+  describe 'GET #new' do
+    before do
+      sign_in user
+
+      get :new, locale: 'en-US'
+    end
+
+    context 'when user has no measurement' do
+      it { expect(response).to be_ok }
+      it 'should use default measurement' do
+        measurement = assigns(:measurement)
+        expect(measurement.location).to eq(Measurement.default.location)
+        expect(measurement.location_name)
+          .to eq(Measurement.default.location_name)
+      end
+    end
+
+    context 'when user has measurement' do
+      let!(:last_measurement) { Fabricate(:measurement, user: user) }
+
+      it { expect(response).to be_ok }
+      it 'should use last measurement' do
+        extract_attributes =
+          ->(m) { m.attributes.slice(*%i(value location location_name)) }
+        expect(extract_attributes.(assigns(:measurement)))
+          .to eq(extract_attributes.(last_measurement))
       end
     end
   end

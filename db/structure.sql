@@ -565,7 +565,8 @@ CREATE TABLE users (
     default_locale character varying(255),
     confirmation_token character varying(255),
     confirmed_at timestamp without time zone,
-    confirmation_sent_at timestamp without time zone
+    confirmation_sent_at timestamp without time zone,
+    authentication_token_created_at timestamp without time zone
 );
 
 
@@ -1119,3 +1120,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160531111906');
 INSERT INTO schema_migrations (version) VALUES ('20160607005457');
 
 INSERT INTO schema_migrations (version) VALUES ('20160614042818');
+
+INSERT INTO schema_migrations (version) VALUES ('20160615215212');
+

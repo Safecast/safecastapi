@@ -1,7 +1,7 @@
-require 'spec_helper'
-
 # XXX: Currently, this spec is for checking rails_admin gem installation.
 RSpec.describe RailsAdmin::MainController, 'login as admin', type: :controller do
+  routes { RailsAdmin::Engine.routes }
+
   before do
     @request.env['devise.mapping'] = Devise.mappings[:user]
 
@@ -61,6 +61,8 @@ RSpec.describe RailsAdmin::MainController, 'login as admin', type: :controller d
 end
 
 RSpec.describe RailsAdmin::MainController, 'login as user', type: :controller do
+  routes { RailsAdmin::Engine.routes }
+
   before do
     @request.env['devise.mapping'] = Devise.mappings[:user]
 

@@ -32,8 +32,13 @@ class DevicesController < ApplicationController
   end
 
   def create
-    @device = Device.get_or_create(params[:device])
+    @device = Device.get_or_create(device_params)
     respond_with @device, :location => :devices
   end
   
+private
+
+  def device_params
+    params.fetch(:device, {}).permit!
+  end
 end

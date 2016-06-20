@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :measurements
   has_many :maps
 
-  scope :moderator, where(:moderator => true)
+  scope :moderator, -> { where(:moderator => true) }
   
   # Include default devise modules. Others available are:
   # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -14,8 +14,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :token_authenticatable
 
+  # TODO: remove later
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :time_zone, :default_locale
+  # attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :time_zone, :default_locale
 
   validates :email, :presence => true
   validates :name, :presence => true
