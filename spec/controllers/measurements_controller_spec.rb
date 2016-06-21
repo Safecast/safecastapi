@@ -57,6 +57,23 @@ RSpec.describe MeasurementsController, type: :controller do
     end
   end
 
+  describe 'POST #create', format: :json, from: 'API-Gateway' do
+    # https://github.com/Safecast/API-Gateways posts measurement
+    # JSON data in this way.
+    context 'valid data without measurement prefix' do
+      let(:post_params) { valid_data }
+
+      before do
+        request.headers['Content-Type'] = 'application/json'
+
+        post :create, { api_key: api_key, format: :json }.merge(post_params)
+      end
+
+      it { expect(response.status).to eq(201) }
+      it { expect(user.reload.measurements.count).to eq(1) }
+    end
+  end
+
   describe 'GET #new' do
     before do
       sign_in user

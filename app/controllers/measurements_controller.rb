@@ -1,4 +1,16 @@
 class MeasurementsController < ApplicationController
+  class << self
+    def attribute_names_to_be_wrapped
+      names = Measurement.attribute_names
+      names -= %w(id created_at updated_at)
+      names += %w(latitude longitude)
+      names
+    end
+  end
+
+  # Need this to wrap longitude and latitude even we enable in
+  # config/initializers/wrap_parameters.rb
+  wrap_parameters include: attribute_names_to_be_wrapped, format: %i(json)
 
   before_filter :authenticate_user!, :only => [:new, :create, :update, :destroy]
 
