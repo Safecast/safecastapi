@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   force_ssl if: :ssl_enabled?
 
+  before_filter :strict_transport_security
   before_filter :set_locale
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :cors_set_access_control_headers
@@ -81,8 +82,9 @@ protected
     end
   end
 
+  # API-Gateway needs to send in HTTP
   def ssl_enabled?
-    Rails.env.production? && !request.format.symbol == :json
+    Rails.env.production? && request.format.symbol != :json
   end
 
   def strict_transport_security
