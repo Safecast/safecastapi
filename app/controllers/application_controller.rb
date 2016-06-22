@@ -82,7 +82,7 @@ protected
   end
 
   def ssl_enabled?
-    Rails.env.production? && !request.format.json?
+    Rails.env.production? && !request.format.symbol == :json
   end
 
   def strict_transport_security
