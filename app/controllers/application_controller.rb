@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  respond_to :html, :json, :safecast_api_v1_json 
+  respond_to :html, :json, :safecast_api_v1_json
+
+  force_ssl if: :ssl_enabled?
 
   before_filter :set_locale
   before_filter :configure_permitted_parameters, if: :devise_controller?
@@ -77,5 +79,13 @@ protected
       custom_attrs = { user_id: current_user.id }
       ::NewRelic::Agent.add_custom_attributes(custom_attrs)
     end
+  end
+
+  def ssl_enabled?
+    Rails.env.production? && !request.format.symbol == :json
+  end
+
+  def strict_transport_security
+    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains" if request.ssl?
   end
 end
