@@ -8,7 +8,7 @@ Fabricator(:bgeigie_log) do
   cpm_validity 'A'
   latitude_nmea 3538.5284
   north_south_indicator 'N'
-  longitude_nmea 13943.1506
+  longitude_nmea 13_943.1506
   east_west_indicator 'E'
   altitude { Random.rand(0..999) }
   gps_fix_indicator 'A'
