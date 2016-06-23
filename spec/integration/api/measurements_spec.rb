@@ -20,7 +20,7 @@ feature "/measurements API endpoint", type: :feature do
   end
   
   scenario "empty post" do
-    result = api_post('/measurements.json',api_key: user.authentication_token)
+    result = api_post('/measurements.json', api_key: user.authentication_token)
     expect(result['errors']['value']).to be_present
   end
 end

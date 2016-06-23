@@ -7,7 +7,7 @@ feature "/bgeigie_imports API endpoint", type: :feature do
                         email: 'paul@rslw.com',
                         name: 'Paul Campbell')
     
-    @result ||= api_post('/bgeigie_imports',{
+    @result ||= api_post('/bgeigie_imports', {
       api_key: @user.authentication_token,
       bgeigie_import: {
         source: fixture_file_upload('/bgeigie.log')
