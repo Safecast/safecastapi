@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) << :name
   end
 
-  def default_url_options(_options={})
+  def default_url_options(_options = {})
     { locale: I18n.locale }
   end
 
