@@ -69,7 +69,7 @@ class DriveImport < MeasurementImport
   end
   
   def add_measurements_to_map
-    ActiveRecord::Base.connection.execute(%Q[insert into maps_measurements (map_id, measurement_id)
+    ActiveRecord::Base.connection.execute(%[insert into maps_measurements (map_id, measurement_id)
                                 select #{@map.id}, id from measurements
                                 where measurement_import_id = #{self.id}])
   end
