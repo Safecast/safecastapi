@@ -41,17 +41,17 @@ class Measurement < ActiveRecord::Base
     where(devicetype_id: devicetype_id)
   end
 
-    def self.by_sensor_id(sensor_id)
-    where(sensor_id: sensor_id)
-    end
+  def self.by_sensor_id(sensor_id)
+  where(sensor_id: sensor_id)
+  end
 
-    def self.by_channel_id(channel_id)
-    where(channel_id: channel_id)
-    end
+  def self.by_channel_id(channel_id)
+  where(channel_id: channel_id)
+  end
 
-    def self.by_station_id(station_id)
-    where(station_id: station_id)
-    end
+  def self.by_station_id(station_id)
+  where(station_id: station_id)
+  end
 
   def self.captured_after(time)
     where('captured_at > ?', ActiveSupport::TimeZone['UTC'].parse(time))
@@ -85,15 +85,15 @@ class Measurement < ActiveRecord::Base
     self.md5sum = Digest::MD5.hexdigest("#{value}#{latitude}#{longitude}#{captured_at}")
   end
   
-def serializable_hash(options = {})
-   options ||= {}
-   super(options.merge(only: [
-     :id, :value, :height, :user_id,
-     :unit, :device_id, :location_name, :original_id,
-     :captured_at, :devicetype_id, :sensor_id, :channel_id, 
-     :station_id
-   ], methods: [:latitude, :longitude]))
-end
+  def serializable_hash(options = {})
+     options ||= {}
+     super(options.merge(only: [
+       :id, :value, :height, :user_id,
+       :unit, :device_id, :location_name, :original_id,
+       :captured_at, :devicetype_id, :sensor_id, :channel_id, 
+       :station_id
+     ], methods: [:latitude, :longitude]))
+  end
   
   
   def revise(new_params)

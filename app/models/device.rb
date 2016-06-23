@@ -6,11 +6,11 @@ class Device < ActiveRecord::Base
   validates :model, presence: true, uniqueness: { scope: :manufacturer }
   validates :sensor, presence: true
 
-def self.filter(query)
-    where("lower(manufacturer) LIKE :query
-           OR lower(model) LIKE :query
-           OR lower(sensor) LIKE :query", query: "%#{query.downcase}%")
-end
+  def self.filter(query)
+      where("lower(manufacturer) LIKE :query
+             OR lower(model) LIKE :query
+             OR lower(sensor) LIKE :query", query: "%#{query.downcase}%")
+  end
   
   def serializable_hash(options)
     options ||= {}
