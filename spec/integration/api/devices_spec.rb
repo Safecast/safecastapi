@@ -22,8 +22,8 @@ feature '/devices API endpoint', type: :feature do
     expect(result['model']).to eq('bGeigie')
     expect(result['sensor']).to eq('LND-7317')
 
-    idCreated = result.include?('id')
-    expect(idCreated).to eq(true)
+    id_created = result.include?('id')
+    expect(id_created).to eq(true)
   end
 
   scenario 'empty post' do

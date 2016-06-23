@@ -15,7 +15,7 @@ feature '/api/users API endpoint', type: :feature do
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['email']).to eq('kevin@rkn.la')
     expect(result['id']).not_to eq(nil)
-    hasAuth = result.include?('authentication_token')
-    expect(hasAuth).to eq(true)
+    has_auth = result.include?('authentication_token')
+    expect(has_auth).to eq(true)
   end
 end
