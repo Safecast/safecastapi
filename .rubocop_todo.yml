@@ -1,14 +1,3 @@
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundModuleBody:
-  Exclude:
-    - 'app/concerns/measurement_concerns.rb'
-    - 'app/helpers/bgeigie_imports_helper.rb'
-    - 'app/helpers/docs_helper.rb'
-    - 'lib/haml/filters/code.rb'
-
 # Offense count: 18
 # Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment, ForceEqualSignAlignment.

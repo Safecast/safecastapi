@@ -1,5 +1,4 @@
 module DocsHelper
-
   def api_example_urls(url_method, *args)
     json_args = args.collect { |h| (h.is_a?(Hash) ? h.merge(:format => :json, :locale => nil) : h)}
     if json_args.empty? || json_args.select{ |h| h.is_a?(Hash)}.none?
@@ -22,5 +21,4 @@ module DocsHelper
     json_path, path = api_example_urls(url_method, *args)
     link_to "#{http_method.to_s.upcase} #{json_path}", path
   end
-
 end

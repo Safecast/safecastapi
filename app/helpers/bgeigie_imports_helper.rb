@@ -1,5 +1,4 @@
 module BgeigieImportsHelper
-
   def collect_bgeigie_logs(bgeigie_logs)
     bgeigie_logs.collect do |b|
       {
@@ -22,5 +21,4 @@ module BgeigieImportsHelper
       link_to t("bgeigie_imports.states.#{status}"), bgeigie_imports_url(p)
     end
   end
-
 end
