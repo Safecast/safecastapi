@@ -27,7 +27,6 @@ class Measurement < ActiveRecord::Base
     return scoped unless lat.present? && lng.present? && distance.present?
     where("ST_DWithin(location, ST_GeogFromText('POINT (#{lng.to_f} #{lat.to_f})'), ?)", distance.to_i)
     .order("ST_Distance(location, ST_GeogFromText('POINT (#{lng.to_f} #{lat.to_f})')) ASC")
-
   end
 
   def self.by_unit(unit)

@@ -54,3 +54,15 @@ Style/EmptyLinesAroundClassBody:
   Exclude:
     - 'db/migrate/20111123174941_devise_create_users.rb'
     - 'db/migrate/20130114094100_change_height_on_measurement_import_from_integer_to_decimal.rb'
+
+Style/EmptyLinesAroundMethodBody:
+  Exclude:
+    - 'db/migrate/20120306150302_add_fields_to_measurements.rb'
+    - 'db/migrate/20120306202021_add_time_zone_to_user.rb'
+    - 'db/migrate/20120307130255_add_status_details_to_measurement_import.rb'
+    - 'db/migrate/20120307130803_add_approved_to_measurement_import.rb'
+    - 'db/migrate/20120315211955_add_name_and_description_to_measurement_import.rb'
+    - 'db/migrate/20120315220809_add_lines_count_to_measurement_import.rb'
+    - 'db/migrate/20120417190549_add_details_to_measurement_import.rb'
+    - 'db/migrate/20130606042505_add_devise_confirmable_to_user.rb'
+    - 'db/migrate/20150919060031_add_extra_fields_to_measurements_table.rb'

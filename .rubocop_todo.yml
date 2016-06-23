@@ -1,18 +1,3 @@
-# Offense count: 10
-# Cop supports --auto-correct.
-Style/EmptyLinesAroundMethodBody:
-  Exclude:
-    - 'app/models/measurement.rb'
-    - 'db/migrate/20120306150302_add_fields_to_measurements.rb'
-    - 'db/migrate/20120306202021_add_time_zone_to_user.rb'
-    - 'db/migrate/20120307130255_add_status_details_to_measurement_import.rb'
-    - 'db/migrate/20120307130803_add_approved_to_measurement_import.rb'
-    - 'db/migrate/20120315211955_add_name_and_description_to_measurement_import.rb'
-    - 'db/migrate/20120315220809_add_lines_count_to_measurement_import.rb'
-    - 'db/migrate/20120417190549_add_details_to_measurement_import.rb'
-    - 'db/migrate/20130606042505_add_devise_confirmable_to_user.rb'
-    - 'db/migrate/20150919060031_add_extra_fields_to_measurements_table.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
