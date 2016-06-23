@@ -33,6 +33,7 @@ class Measurement < ActiveRecord::Base
   def self.by_unit(unit)
     where(:unit => unit)
   end
+
   def self.by_height(height)
     where(:height => height)
   end
@@ -48,6 +49,7 @@ class Measurement < ActiveRecord::Base
     def self.by_channel_id(channel_id)
     where(:channel_id => channel_id)
     end
+
     def self.by_station_id(station_id)
     where(:station_id => station_id)
     end
