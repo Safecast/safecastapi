@@ -1,13 +1,3 @@
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'app/models/bgeigie_import.rb'
-    - 'app/models/drive_log.rb'
-    - 'lib/tasks/boostrap.rake'
-    - 'lib/tasks/watchr.rake'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.

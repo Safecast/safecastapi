@@ -205,7 +205,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def set_bgeigie_import_id
-    ActiveRecord::Base.connection.execute(%[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
+    ActiveRecord::Base.connection.execute(%(UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}))
   end
 
   def populate_bgeigie_logs_table
