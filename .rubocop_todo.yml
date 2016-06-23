@@ -1,11 +1,3 @@
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: only_raise, only_fail, semantic
-Style/SignalException:
-  Exclude:
-    - 'lib/tasks/boostrap.rake'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 Style/SpaceAfterComma:

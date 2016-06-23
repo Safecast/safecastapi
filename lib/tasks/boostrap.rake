@@ -2,7 +2,7 @@ namespace :db do
   desc "Prevent dangerous things in production"
   task :protect do
     if %w(production staging).include? Rails.env
-      fail "Refusing to run in non-development environment"
+      raise "Refusing to run in non-development environment"
     end
   end
 
