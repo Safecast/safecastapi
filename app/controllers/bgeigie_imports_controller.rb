@@ -124,6 +124,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
   end
 
   private
+
   def scope
     if current_user.moderator?
       BgeigieImport
