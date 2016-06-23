@@ -18,7 +18,7 @@ feature "/devices API endpoint", type: :feature do
            }
          },
          'HTTP_ACCEPT' => 'application/json'
-    )
+        )
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['manufacturer']).to eq('Safecast')
     expect(result['model']).to eq('bGeigie')
@@ -34,7 +34,7 @@ feature "/devices API endpoint", type: :feature do
            :api_key => user.authentication_token
          },
          'HTTP_ACCEPT' => 'application/json'
-    )
+        )
     
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['errors']['manufacturer']).to be_present
@@ -95,7 +95,7 @@ feature "/devices with existing devices", type: :feature do
                       :manufacturer => "Safecast"
                      },
                      'HTTP_ACCEPT' => 'application/json'
-    )
+                    )
     expect(result.length).to eq(2)
     expect(result.map { |obj| obj['manufacturer'] }).to eq(['Safecast', 'Safecast'])
     expect(result.map { |obj| obj['model'] }).to eq(['bGeigie', 'iGeigie'])
@@ -108,7 +108,7 @@ feature "/devices with existing devices", type: :feature do
                        :manufacturer => "Safecast", :model => "iGeigie"
                      },
                      'HTTP_ACCEPT' => 'application/json'
-    )
+                    )
     expect(result.length).to eq(1)
     expect(result.first['manufacturer']).to eq("Safecast")
     expect(result.first['model']).to eq("iGeigie")

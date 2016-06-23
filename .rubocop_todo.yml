@@ -1,9 +1,3 @@
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/ClosingParenthesisIndentation:
-  Exclude:
-    - 'spec/integration/api/devices_spec.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 Style/CommentIndentation:
