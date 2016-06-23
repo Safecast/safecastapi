@@ -53,10 +53,8 @@ class ApplicationController < ActionController::Base
   end
  
   def require_moderator
-    unless user_signed_in? && current_user.moderator?
-      set_flash_message(:alert, 'access_denied')
-      redirect_to root_path 
-    end
+    return if current_user && current_user.moderator?
+    redirect_to root_path, alert: 'access_denied'
   end
 
   def set_locale
@@ -74,10 +72,8 @@ class ApplicationController < ActionController::Base
   end
 
   def new_relic_custom_attributes
-    if current_user
-      custom_attrs = { user_id: current_user.id }
-      ::NewRelic::Agent.add_custom_attributes(custom_attrs)
-    end
+    return unless current_user
+    ::NewRelic::Agent.add_custom_attributes(user_id: current_user.id)
   end
 
   # API-Gateway needs to send in HTTP

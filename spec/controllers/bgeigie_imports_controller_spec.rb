@@ -140,6 +140,21 @@ RSpec.describe BgeigieImportsController, type: :controller do
     end
   end
 
+  describe 'PATCH #approve' do
+    let(:bgeigie_import) do
+      Fabricate(:bgeigie_import, cities: 'Tokyo', credits: 'John Doe')
+    end
+
+    context 'non-login user' do
+      before do
+        patch :approve, id: bgeigie_import.id
+      end
+
+      it { expect(response).to redirect_to(root_path) }
+      it { expect(flash[:alert]).to be_present }
+    end
+  end
+
   describe 'GET #kml' do
     let(:bgeigie_import) do
       Fabricate(:bgeigie_import, cities: 'Tokyo', credits: 'John Doe')
