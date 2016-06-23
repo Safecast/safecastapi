@@ -5,7 +5,7 @@ feature 'User submits a reading when a device does not exist', type: :feature do
   let(:measurement) { user.measurements.last }
 
   before { sign_in(user) }
-  
+
   scenario 'first reading' do
     visit('/')
     click_link('Submit')

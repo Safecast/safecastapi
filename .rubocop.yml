@@ -141,3 +141,16 @@ Style/TrailingBlankLines:
     - 'db/migrate/20111214154833_create_delayed_jobs.rb'
     - 'db/migrate/20120103213502_add_default_to_bgeigie_log.rb'
     - 'db/migrate/20120307232457_create_configurables.rb'
+
+Style/TrailingWhitespace:
+  Exclude:
+    - 'db/migrate/20111124211843_create_measurements.rb'
+    - 'db/migrate/20111128163114_add_lat_and_lng.rb'
+    - 'db/migrate/20111210235206_add_user_to_maps.rb'
+    - 'db/migrate/20111210235226_add_device_to_maps.rb'
+    - 'db/migrate/20111210235259_add_device_to_measurements.rb'
+    - 'db/migrate/20111214154833_create_delayed_jobs.rb'
+    - 'db/migrate/20111214224611_add_history_to_measurements.rb'
+    - 'db/migrate/20120103213502_add_default_to_bgeigie_log.rb'
+    - 'db/migrate/20120103213502_add_default_to_bgeigie_log.rb'
+    - 'db/migrate/20120307232457_create_configurables.rb'

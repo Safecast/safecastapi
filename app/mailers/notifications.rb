@@ -22,7 +22,7 @@ class Notifications < ActionMailer::Base
     moderators = User.moderator.collect(&:email)
     @import = import
     mail(
-      to: moderators, 
+      to: moderators,
       subject: "A Safecast import is awaiting approval - #{import.filename}"
     )
   end

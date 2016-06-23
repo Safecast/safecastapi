@@ -18,7 +18,7 @@ feature '/measurements API endpoint', type: :feature do
     expect(result['value']).to eq(123)
     expect(result['user_id']).to eq(user.id)
   end
-  
+
   scenario 'empty post' do
     result = api_post('/measurements.json', api_key: user.authentication_token)
     expect(result['errors']['value']).to be_present
@@ -26,15 +26,14 @@ feature '/measurements API endpoint', type: :feature do
 end
 
 feature '/measurements', type: :feature do
-  
   before(:all) { Measurement.destroy_all }
 
   let!(:user) { User.first || Fabricate(:user) }
   let!(:first_measurement) { Fabricate(:measurement, value: 10) }
-  let!(:second_measurement) do 
+  let!(:second_measurement) do
     Fabricate(:measurement, value: 12, user: user)
   end
-  
+
   scenario 'all measurements (/measurements)' do
     result = api_get('/measurements.json')
     expect(result.length).to eq(2)
@@ -46,32 +45,30 @@ feature '/measurements', type: :feature do
     expect(result.length).to eq(1)
     expect(result['count']).to eq(2)
   end
-  
+
   scenario 'get my measurements (/users/X/measurements)' do
     result = api_get("/measurements.json?user_id=#{user.id}")
     expect(result.length).to eq(1)
     expect(result.first['value']).to eq(12)
   end
-  
+
   scenario 'updating is non-destructive' do
     put("/measurements/#{second_measurement.id}.json", api_key: user.authentication_token,
                                                        measurement: {
                                                          value: 15
                                                        })
-    
+
     result = ActiveSupport::JSON.decode(response.body)
-    
+
     expect(result['value']).to eq(15)
     expect(result['original_id']).to eq(second_measurement.id)
 
-    
     # the above is pretty normal, now we do some gets to check that it was non-destructive
     result = api_get("/measurements.json?original_id=#{second_measurement.id}")
     expect(result.length).to eq(2)
     result.sort_by! { |obj| obj['value'] }
     expect(result.map { |obj| obj['value'] }).to eq([12, 15])
-    
-    
+
     # withHistory defaults to false, returns latest value
     result = api_get("/measurements/#{second_measurement.id}.json")
     expect(result['value']).to eq(12)
@@ -80,7 +77,7 @@ feature '/measurements', type: :feature do
   scenario 'get new measurements since some time' do
     sleep 1
     cutoff_time = DateTime.now
-    sleep 3 
+    sleep 3
 
     api_post('/measurements.json', api_key: user.authentication_token,
                                    measurement: {
@@ -96,5 +93,4 @@ feature '/measurements', type: :feature do
     expect(result.first['latitude']).to eq(76.667)
     expect(result.first['longitude']).to eq(33.321)
   end
-  
 end

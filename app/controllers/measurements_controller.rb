@@ -57,12 +57,12 @@ class MeasurementsController < ApplicationController
 
     respond_with @measurements
   end
-  
+
   def show
     @measurement = Measurement.find(params[:id])
     respond_with @measurement
   end
-  
+
   def new
     @measurement = current_user.measurements.last.try(:dup) || Measurement.default
     @measurement.captured_at = Time.current.strftime('%d %B %Y, %H:%M:%S')

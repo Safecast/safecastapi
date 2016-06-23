@@ -6,7 +6,7 @@ module MeasurementsHelper
   def collect_measurements(measurements)
     measurements.collect do |b|
       {
-        lat: b.latitude, 
+        lat: b.latitude,
         lng: b.longitude
       }
     end

@@ -16,20 +16,19 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, alert: exception.message
   end
-  
 
   def index
     cors_set_access_control_headers
-    respond_with @result = @doc 
+    respond_with @result = @doc
   end
 
   def options
     cors_set_access_control_headers
     render text: '', content_type: 'application/json'
   end
-    
+
   protected
-  
+
   def rescue_action(_env)
     respond_to do |wants|
       wants.json { render json: 'Error', status: 500 }
@@ -38,9 +37,9 @@ class ApplicationController < ActionController::Base
 
   def cors_set_access_control_headers # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     return unless request.env['HTTP_ACCEPT'].eql? 'application/json'
-    if current_user 
+    if current_user
       host = request.env['HTTP_ORIGIN']
-    else 
+    else
       host = request.env['HTTP_ORIGIN']
       host = 'safecast.org' unless /safecast.org$/ =~ host
     end
@@ -49,7 +48,7 @@ class ApplicationController < ActionController::Base
     headers['Access-Control-Allow-Headers'] = '*, X-Requested-With'
     headers['Access-Control-Max-Age'] = '100000'
   end
- 
+
   def require_moderator
     return if current_user && current_user.moderator?
     redirect_to root_path, alert: 'access_denied'

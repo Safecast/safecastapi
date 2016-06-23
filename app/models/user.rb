@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  
   include UserConcerns
 
   has_many :bgeigie_imports
@@ -7,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :maps
 
   scope :moderator, -> { where(moderator: true) }
-  
+
   # Include default devise modules. Others available are:
   # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -20,7 +19,7 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true
   validates :name, presence: true
-  
+
   before_save :ensure_authentication_token
 
   def self.by_name(q)
@@ -47,5 +46,4 @@ class User < ActiveRecord::Base
   def name_or_email
     name.presence || email
   end
-  
 end

@@ -1,12 +1,12 @@
 IntercomRails.config do |config|
   # == Intercom app_id
-  # 
+  #
   config.app_id = ENV['INTERCOM_APP_ID'] || Configurable.intercom_app_id
 
-  # == Intercom secret key 
-  # This is reuqired to enable secure mode, you can find it on your Intercom 
+  # == Intercom secret key
+  # This is reuqired to enable secure mode, you can find it on your Intercom
   # "security" configuration page.
-  # 
+  #
   config.api_secret = Configurable.intercom_api_secret
 
   # == Intercom API Key
@@ -20,7 +20,7 @@ IntercomRails.config do |config|
   # If it is `current_user` or `@user`, then you can ignore this
   #
   # config.user.current = Proc.new { current_user }
-  
+
   # == User model class
   # The class which defines your user model
   #
@@ -36,16 +36,15 @@ IntercomRails.config do |config|
   #   :favorite_color => :favorite_color
   # }
 
- 
   # == Inbox Style
   # This enables the Intercom inbox which allows your users to read their
-  # past conversations with your app, as well as start new ones. It is 
+  # past conversations with your app, as well as start new ones. It is
   # disabled by default.
   #   * :default shows a small tab with a question mark icon on it
   #   * :custom attaches the inbox open event to an anchor with an
   #             id of #Intercom.
   #
-  # config.inbox.style = :default 
+  # config.inbox.style = :default
   # config.inbox.style = :custom
 
   # == Inbox Counter

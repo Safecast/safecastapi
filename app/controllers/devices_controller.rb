@@ -19,12 +19,12 @@ class DevicesController < ApplicationController
   def new
     @device = Device.new
   end
-  
+
   def index
     @devices = apply_scopes(Device).page(params[:page])
     respond_with @devices
   end
-  
+
   def show
     @device = Device.find(params[:id])
     respond_with @device
@@ -34,7 +34,7 @@ class DevicesController < ApplicationController
     @device = Device.get_or_create(device_params)
     respond_with @device, location: :devices
   end
-  
+
   private
 
   def device_params

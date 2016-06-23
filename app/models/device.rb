@@ -1,7 +1,7 @@
 class Device < ActiveRecord::Base
   has_many :measurements
   # has_and_belongs_to_many :maps
-  
+
   validates :manufacturer, presence: true
   validates :model, presence: true, uniqueness: { scope: :manufacturer }
   validates :sensor, presence: true
@@ -11,14 +11,14 @@ class Device < ActiveRecord::Base
            OR lower(model) LIKE :query
            OR lower(sensor) LIKE :query", query: "%#{query.downcase}%")
   end
-  
+
   def serializable_hash(options)
     options ||= {}
     super(options.merge(only: [
       :id, :manufacturer, :model, :sensor
     ]))
   end
-  
+
   def self.get_or_create(dev_params) # rubocop:disable Metrics/MethodLength
     device = new(dev_params)
     if device.valid?

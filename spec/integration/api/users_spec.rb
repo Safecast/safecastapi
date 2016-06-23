@@ -5,7 +5,7 @@ feature '/api/users API endpoint', type: :feature do
   before do
     Fabricate(:user, email: 'paul@rslw.com', name: 'Paul Campbell')
   end
-  
+
   scenario 'create user' do
     post('/users.json', user: {
       email: 'kevin@rkn.la',
@@ -18,5 +18,4 @@ feature '/api/users API endpoint', type: :feature do
     hasAuth = result.include?('authentication_token')
     expect(hasAuth).to eq(true)
   end
-  
 end

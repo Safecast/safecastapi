@@ -5,7 +5,7 @@ feature '/devices API endpoint', type: :feature do
     @user = Fabricate(:user, email: 'paul@rslw.com', name: 'Paul Campbell')
   end
   let(:user) { @user.reload }
-  
+
   scenario 'create a device' do
     post('/devices',
          {
@@ -21,28 +21,26 @@ feature '/devices API endpoint', type: :feature do
     expect(result['manufacturer']).to eq('Safecast')
     expect(result['model']).to eq('bGeigie')
     expect(result['sensor']).to eq('LND-7317')
-    
+
     idCreated = result.include?('id')
     expect(idCreated).to eq(true)
   end
-  
+
   scenario 'empty post' do
     post('/devices',
          {
            api_key: user.authentication_token
          },
          'HTTP_ACCEPT' => 'application/json')
-    
+
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['errors']['manufacturer']).to be_present
     expect(result['errors']['model']).to be_present
     expect(result['errors']['sensor']).to be_present
   end
-  
 end
 
 feature '/devices with existing devices', type: :feature do
-  
   before do
     @user = Fabricate(:user, email: 'paul@rslw.com', name: 'Paul Campbell')
     @first_device = Fabricate(:device, manufacturer: 'Safecast',
@@ -59,8 +57,7 @@ feature '/devices with existing devices', type: :feature do
   let(:first_device) { @first_device.reload }
   let(:second_device) { @second_device.reload }
   let(:third_device) { @third_device.reload }
-  
-  
+
   scenario 'no duplicate devices' do
     post(
       '/devices',
@@ -72,12 +69,12 @@ feature '/devices with existing devices', type: :feature do
           sensor: 'LND-7317'
         }
       },
-      'HTTP_ACCEPT' => 'application/json'  
+      'HTTP_ACCEPT' => 'application/json'
     )
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['id']).to eq(first_device.id)
   end
-  
+
   scenario 'lookup all devices' do
     result = api_get('/devices', {}, 'HTTP_ACCEPT' => 'application/json')
     expect(result.length).to eq(3)
@@ -85,9 +82,9 @@ feature '/devices with existing devices', type: :feature do
     expect(result.map { |obj| obj['model'] }).to eq(['bGeigie', 'Inspector', 'iGeigie'])
     expect(result.map { |obj| obj['sensor'] }).to eq(['LND-7317', 'LND-712', 'LND-712'])
   end
-  
+
   scenario 'lookup all Safecast devices' do
-    result = api_get('/devices', 
+    result = api_get('/devices',
                      {
                        manufacturer: 'Safecast'
                      },
@@ -97,9 +94,9 @@ feature '/devices with existing devices', type: :feature do
     expect(result.map { |obj| obj['model'] }).to eq(['bGeigie', 'iGeigie'])
     expect(result.map { |obj| obj['sensor'] }).to eq(['LND-7317', 'LND-712'])
   end
-  
+
   scenario 'lookup a particular device' do
-    result = api_get('/devices', 
+    result = api_get('/devices',
                      {
                        manufacturer: 'Safecast', model: 'iGeigie'
                      },
@@ -109,5 +106,4 @@ feature '/devices with existing devices', type: :feature do
     expect(result.first['model']).to eq('iGeigie')
     expect(result.first['sensor']).to eq('LND-712')
   end
-  
 end

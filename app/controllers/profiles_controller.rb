@@ -1,5 +1,4 @@
 class ProfilesController < ApplicationController
-  
   def update
     @user = current_user
     if @user.update_attributes(params[:user])
@@ -8,5 +7,4 @@ class ProfilesController < ApplicationController
       render :edit
     end
   end
-  
 end

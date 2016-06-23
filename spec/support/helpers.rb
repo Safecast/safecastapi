@@ -7,7 +7,7 @@ module Helpers
     fill_in('Password confirmation', with: password)
     click_button('Register')
   end
-  
+
   def sign_in(user)
     visit('/users/sign_in')
     fill_in('Email', with: user.email)
@@ -15,7 +15,7 @@ module Helpers
     click_button('Sign in')
     user
   end
-  
+
   def api_get(*args)
     get(*args)
     ActiveSupport::JSON.decode(response.body)
