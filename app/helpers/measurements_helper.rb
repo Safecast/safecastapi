@@ -14,9 +14,9 @@ module MeasurementsHelper
 
   def measurement_nav_li(unit) # rubocop:disable Metrics/AbcSize
     active = if params[:unit].blank?
-      unit == :all
+               unit == :all
              else
-      params[:unit] == unit.to_s
+               params[:unit] == unit.to_s
              end
     content_tag(:li, class: ('active' if active)) do
       link_to t("#{unit}"),

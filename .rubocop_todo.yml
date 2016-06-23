@@ -1,18 +1,3 @@
-# Offense count: 14
-# Cop supports --auto-correct.
-# Configuration parameters: Width.
-Style/IndentationWidth:
-  Exclude:
-    - 'app/controllers/measurements_controller.rb'
-    - 'app/helpers/bgeigie_imports_helper.rb'
-    - 'app/helpers/measurements_helper.rb'
-    - 'app/models/device.rb'
-    - 'app/models/measurement.rb'
-    - 'db/migrate/20120307175658_add_timestamps_to_measurement_imports.rb'
-    - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
-    - 'db/migrate/20150919060031_add_extra_fields_to_measurements_table.rb'
-    - 'spec/acceptance/user_views_bgeige_imports_spec.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: SupportedStyles.
