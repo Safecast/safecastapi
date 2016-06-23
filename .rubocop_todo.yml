@@ -1,16 +1,3 @@
-# Offense count: 18
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment, ForceEqualSignAlignment.
-Style/ExtraSpacing:
-  Exclude:
-    - 'Gemfile'
-    - 'app/controllers/measurements_controller.rb'
-    - 'app/models/ability.rb'
-    - 'config.ru'
-    - 'config/environments/test.rb'
-    - 'config/initializers/carrierwave.rb'
-    - 'script/rails'
-
 # Offense count: 1
 Style/GuardClause:
   Exclude:
