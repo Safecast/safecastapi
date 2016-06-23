@@ -48,8 +48,14 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'thin'
 
+group :development do
+  gem 'dotenv-rails', group: :test
+  gem 'pry-rails'
+  gem 'quiet_assets'
+end
+
 group :test do
-  gem "codeclimate-test-reporter", require: nil
+  gem 'codeclimate-test-reporter', require: nil
   gem 'capybara'
   gem 'database_cleaner'
   gem 'fabrication', '2.2.2'
@@ -59,13 +65,4 @@ group :test do
   gem 'rspec-rails', '~> 2.99.0'
   gem 'email_spec'
   gem 'rubocop', group: :development
-end
-
-group :development do
-  gem 'pry-rails'
-  gem 'quiet_assets'
-end
-
-group :development, :test do
-  gem 'dotenv-rails'
 end
