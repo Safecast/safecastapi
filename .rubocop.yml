@@ -111,3 +111,7 @@ Style/MultilineMethodCallIndentation:
 Style/SpaceAroundOperators:
   Exclude:
     - 'db/migrate/20120521225350_add_spatial_index_on_measurements.rb'
+
+Style/SpaceInsideBrackets:
+  Exclude:
+    - 'db/migrate/20160208190731_add_subtype_to_measurement_imports.rb'
