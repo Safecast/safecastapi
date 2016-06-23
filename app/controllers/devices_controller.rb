@@ -36,7 +36,7 @@ class DevicesController < ApplicationController
     respond_with @device, :location => :devices
   end
   
-private
+  private
 
   def device_params
     params.fetch(:device, {}).permit!

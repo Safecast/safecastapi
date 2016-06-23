@@ -103,7 +103,7 @@ class MeasurementsController < ApplicationController
     respond_with @count
   end
 
-private
+  private
 
   def measurement_params
     params.fetch(:measurement, {})

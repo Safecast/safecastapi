@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     render :text => '', :content_type => 'application/json'
   end
     
-protected
+  protected
   
   def rescue_action(_env)
     respond_to do |wants|

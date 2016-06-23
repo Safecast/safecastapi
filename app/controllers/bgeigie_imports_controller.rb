@@ -123,7 +123,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
     render text: '404 Not Found', status: :not_found
   end
 
-private
+  private
   def scope
     if current_user.moderator?
       BgeigieImport
