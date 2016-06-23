@@ -1,15 +1,3 @@
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment.
-Style/SpaceAroundOperators:
-  Exclude:
-    - 'app/controllers/measurements_controller.rb'
-    - 'app/models/bgeigie_log.rb'
-    - 'config/environments/test.rb'
-    - 'config/initializers/carrierwave.rb'
-    - 'db/migrate/20120521225350_add_spatial_index_on_measurements.rb'
-    - 'spec/integration/api/devices_spec.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.

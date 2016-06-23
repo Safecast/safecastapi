@@ -107,3 +107,7 @@ Style/IndentationWidth:
 
 Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented
+
+Style/SpaceAroundOperators:
+  Exclude:
+    - 'db/migrate/20120521225350_add_spatial_index_on_measurements.rb'
