@@ -135,3 +135,9 @@ Style/SymbolProc:
 Style/Tab:
   Exclude:
     - 'db/migrate/20111214154833_create_delayed_jobs.rb'
+
+Style/TrailingBlankLines:
+  Exclude:
+    - 'db/migrate/20111214154833_create_delayed_jobs.rb'
+    - 'db/migrate/20120103213502_add_default_to_bgeigie_log.rb'
+    - 'db/migrate/20120307232457_create_configurables.rb'
