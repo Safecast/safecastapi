@@ -65,14 +65,14 @@ feature "/measurements", type: :feature do
     expect(result['original_id']).to eq(second_measurement.id)
 
     
-    #the above is pretty normal, now we do some gets to check that it was non-destructive
+    # the above is pretty normal, now we do some gets to check that it was non-destructive
     result = api_get("/measurements.json?original_id=#{second_measurement.id}")
     expect(result.length).to eq(2)
     result.sort_by! { |obj| obj['value']}
     expect(result.map { |obj| obj['value'] }).to eq([12, 15])
     
     
-    #withHistory defaults to false, returns latest value
+    # withHistory defaults to false, returns latest value
     result = api_get("/measurements/#{second_measurement.id}.json")
     expect(result['value']).to eq(12)
   end

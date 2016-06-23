@@ -88,7 +88,7 @@ RSpec.describe BgeigieImport, type: :model do
       bgeigie_with_bugs.process
       bgeigie_with_bugs.finalize!
 
-      expect(Measurement.all.count).to eq(30) #the before :each import has 23, and the corrupted file should have 7 valid measurements
+      expect(Measurement.all.count).to eq(30) # the before :each import has 23, and the corrupted file should have 7 valid measurements
     end
   end
 end

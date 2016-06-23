@@ -157,28 +157,28 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     line_items = line.strip.split(',')
     return false unless line_items.length >= 13
 
-    #check header
+    # check header
     # rubocop:disable Metrics/LineLength
     return false unless line_items[0].eql?('$BMRDD') || line_items[0].eql?('$BGRDD') || line_items[0].eql?('$BNRDD') || line_items[0].eql?('$BNXRDD') || line_items[0].eql?('$PNTDD')
     # rubocop:enable Metrics/LineLength
 
-    #check for Valid CPM
+    # check for Valid CPM
     return false unless line_items[6].eql?('A') || line_items[6].eql?('V')
 
-    #check for GPS lock
+    # check for GPS lock
     return false unless line_items[12].eql?('A') || line_items[12].eql?('V')
 
-    #check for date
+    # check for date
     date = DateTime.parse line_items[2] rescue nil
     return false unless date
 
-    #check for properly formatted floats
+    # check for properly formatted floats
     lat = Float(line_items[7]) rescue nil
     lon = Float(line_items[9]) rescue nil
     alt = Float(line_items[11]) rescue nil
     return false unless lat && lon && alt
 
-    #check for proper N/S and E/W
+    # check for proper N/S and E/W
     return false unless line_items[8].eql?('N') || line_items[8].eql?('S')
     return false unless line_items[10].eql?('E') || line_items[10].eql?('W')
 
@@ -230,7 +230,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def compute_latlng_from_nmea # rubocop:disable Metrics/MethodLength
-    #a\lgorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
+    # a\lgorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
     # (converted to SQL)
     ActiveRecord::Base.connection.execute(%[
       update bgeigie_logs_tmp set computed_location =
@@ -277,9 +277,9 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def nmea_to_lat_lng(latitude_nmea, _north_south_indicator, longitude_nmea, _east_west_indicator) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    #algorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
+    # algorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
 
-    #protect against buggy nmea values that have negative values
+    # protect against buggy nmea values that have negative values
     latitude_nmea = b.latitude_nmea.abs
     longitude_nmea = b.longitude_nmea.abs
 
