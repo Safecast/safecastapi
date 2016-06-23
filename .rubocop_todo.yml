@@ -1,9 +1,3 @@
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/Tab:
-  Exclude:
-    - 'db/migrate/20111214154833_create_delayed_jobs.rb'
-
 # Offense count: 37
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.

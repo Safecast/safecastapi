@@ -131,3 +131,7 @@ Style/StringLiterals:
 Style/SymbolProc:
   Exclude:
     - 'db/migrate/20120307175658_add_timestamps_to_measurement_imports.rb'
+
+Style/Tab:
+  Exclude:
+    - 'db/migrate/20111214154833_create_delayed_jobs.rb'
