@@ -2,7 +2,7 @@ module DocsHelper
   def api_example_urls(url_method, *args)
     json_args = args.collect { |h| (h.is_a?(Hash) ? h.merge(format: :json, locale: nil) : h) }
     if json_args.empty? || json_args.select { |h| h.is_a?(Hash) }.none?
-      (json_args ||= []) << {format: :json, locale: nil}
+      (json_args ||= []) << { format: :json, locale: nil }
     end
     json_url = send(url_method, *json_args)
     url = send(url_method, *args)

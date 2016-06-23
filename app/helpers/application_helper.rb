@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def current_page_api_example(url)
-    render partial: 'layouts/current_page_api_example', locals: {url: url}
+    render partial: 'layouts/current_page_api_example', locals: { url: url }
   end
 
   def human_label(model_name, attr_name)
