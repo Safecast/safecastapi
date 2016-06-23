@@ -1,11 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe Device, type: :model do
-  let(:device) { Fabricate(:device, {
+  let(:device) do Fabricate(:device, {
     :manufacturer     => 'Safecast',
     :model            => 'iGeigie',
     :sensor           => 'LND-712'
-  })}
+  }) 
+  end
 
   subject { device }
 
