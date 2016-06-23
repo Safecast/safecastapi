@@ -42,9 +42,7 @@ class ApplicationController < ActionController::Base
       host = request.env['HTTP_ORIGIN']
     else 
       host = request.env['HTTP_ORIGIN']
-      unless /safecast.org$/ =~ host
-        host = 'safecast.org'
-      end
+      host = 'safecast.org' unless /safecast.org$/ =~ host
     end
     headers['Access-Control-Allow-Origin'] = host
     headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'

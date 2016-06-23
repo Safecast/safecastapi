@@ -1,15 +1,3 @@
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: MaxLineLength.
-Style/IfUnlessModifier:
-  Exclude:
-    - 'app/controllers/application_controller.rb'
-    - 'app/controllers/bgeigie_imports_controller.rb'
-    - 'app/models/bgeigie_import.rb'
-    - 'app/models/device.rb'
-    - 'app/views/users/_user.json.jbuilder'
-    - 'config/initializers/postgis.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: SupportedStyles, IndentationWidth.

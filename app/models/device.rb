@@ -29,9 +29,7 @@ end
         model: device.model,
         sensor: device.sensor
       )
-      unless d.empty?
-        device = d.first
-      end
+      device = d.first unless d.empty?
     end
     device
   end
