@@ -1,12 +1,4 @@
 # Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: lower_case_q, upper_case_q
-Style/PercentQLiterals:
-  Exclude:
-    - 'app/models/bgeigie_import.rb'
-
-# Offense count: 1
 # Configuration parameters: NamePrefix, NamePrefixBlacklist, NameWhitelist.
 # NamePrefix: is_, has_, have_
 # NamePrefixBlacklist: is_, has_, have_
