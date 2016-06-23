@@ -1,12 +1,12 @@
 Safecast::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  scope "(:locale)", constraints: { locale: /(en-US|ja)/ } do
-    root to: "dashboards#show"
+  scope '(:locale)', constraints: { locale: /(en-US|ja)/ } do
+    root to: 'dashboards#show'
     devise_for :users
     devise_for :admins
     devise_scope :user do
-      get "/logout" => "devise/sessions#destroy", :as => :logout
+      get '/logout' => 'devise/sessions#destroy', :as => :logout
     end
 
     resource :home, controller: :home, only: :show
@@ -49,6 +49,6 @@ Safecast::Application.routes.draw do
   post '/api/measurements.(:format)' => 'measurements#create'
 
   # legacy fixes (maps.safecast.org now redirects to api.safecast.org, so people might be using the old maps.safecast.org/drive/add URI)
-  match "/drive/add", to: redirect("/"), via: %i(get)
+  match '/drive/add', to: redirect('/'), via: %i(get)
   match '/count', to: 'measurements#count', via: %i(get)
 end

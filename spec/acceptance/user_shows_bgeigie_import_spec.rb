@@ -1,4 +1,4 @@
-feature "Showing a bGeigie import", type: :feature do
+feature 'Showing a bGeigie import', type: :feature do
   let(:user) { Fabricate(:user) }
   let(:bgeigie_import) { Fabricate(:bgeigie_import, user: user) }
 

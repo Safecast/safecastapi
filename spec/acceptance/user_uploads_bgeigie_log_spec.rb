@@ -1,17 +1,17 @@
-require "spec_helper"
+require 'spec_helper'
 
-feature "User uploads bgeigie log", type: :feature do
+feature 'User uploads bgeigie log', type: :feature do
   let!(:user) { Fabricate(:user) }
   let!(:moderator) { Fabricate(:user, moderator: true) }
 
-  context "as a regular user" do
-    scenario "uploading a bgeigie log file" do
+  context 'as a regular user' do
+    scenario 'uploading a bgeigie log file' do
       sign_in(user)
       visit('/')
       click_link('Submit')
       click_link('Upload a bGeigie log file')
-      attach_file("File", Rails.root.join('spec', 'fixtures', 'bgeigie.log'))
-      click_button("Upload")
+      attach_file('File', Rails.root.join('spec', 'fixtures', 'bgeigie.log'))
+      click_button('Upload')
       expect(page).to have_content('Unprocessed')
       fill_in 'Credits', with: 'Bill'
       fill_in 'Cities', with: 'Dublin'
@@ -25,7 +25,7 @@ feature "User uploads bgeigie log", type: :feature do
     end
   end
   
-  context "as a moderator" do
+  context 'as a moderator' do
     let!(:bgeigie_import) { Fabricate(:bgeigie_import, user: user) }
 
     before do
@@ -33,7 +33,7 @@ feature "User uploads bgeigie log", type: :feature do
       bgeigie_import.update_attributes(cities: 'Tokyo', credits: 'Bill', status: 'submitted')
     end
 
-    scenario "approving a bGeigie log file" do
+    scenario 'approving a bGeigie log file' do
       sign_in(moderator)
       visit('/')
       click_link 'Imports'

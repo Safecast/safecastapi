@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-feature "User submits a reading when a device does not exist", type: :feature do
+feature 'User submits a reading when a device does not exist', type: :feature do
   let(:user) { Fabricate(:user) }
   let(:measurement) { user.measurements.last }
 
   before { sign_in(user) }
   
-  scenario "first reading" do
+  scenario 'first reading' do
     visit('/')
     click_link('Submit')
     select('Clicks Per Minute', from: 'Unit')
@@ -21,7 +21,7 @@ feature "User submits a reading when a device does not exist", type: :feature do
   end
 end
 
-feature "User submits a reading while devices exist", type: :feature do
+feature 'User submits a reading while devices exist', type: :feature do
   let(:user) { Fabricate(:user) }
   let(:measurement) { user.measurements.last }
   let(:device) { Fabricate(:device) }

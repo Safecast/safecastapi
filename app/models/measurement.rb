@@ -12,12 +12,12 @@ class Measurement < ActiveRecord::Base
   belongs_to :user, counter_cache: true
   belongs_to :device, counter_cache: true
   belongs_to :measurement_import
-  belongs_to :last_updater, class_name: "User", foreign_key: "updated_by"
+  belongs_to :last_updater, class_name: 'User', foreign_key: 'updated_by'
   before_validation :set_md5sum
   
   has_and_belongs_to_many :maps  
 
-  format_dates :captured_at, format: "%Y/%m/%d %H:%M:%S %z"
+  format_dates :captured_at, format: '%Y/%m/%d %H:%M:%S %z'
 
   def self.per_page
     100

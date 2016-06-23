@@ -1,7 +1,7 @@
 IntercomRails.config do |config|
   # == Intercom app_id
   # 
-  config.app_id = ENV["INTERCOM_APP_ID"] || Configurable.intercom_app_id
+  config.app_id = ENV['INTERCOM_APP_ID'] || Configurable.intercom_app_id
 
   # == Intercom secret key 
   # This is reuqired to enable secure mode, you can find it on your Intercom 

@@ -24,7 +24,7 @@ class MeasurementsController < ApplicationController
   end
   has_scope :order
   has_scope :original_id do |_controller, scope, value|
-    scope.where("original_id = :value OR id = :value", value: value)
+    scope.where('original_id = :value OR id = :value', value: value)
   end
   has_scope :until
 
@@ -45,7 +45,7 @@ class MeasurementsController < ApplicationController
   def index
     # Don't delete these @filename and @streaming. They are for
     # csvbuilder.
-    @filename = "measurements.csv"
+    @filename = 'measurements.csv'
     @streaming = true
 
     @measurements = apply_scopes(Measurement).includes(:measurement_import, :user)

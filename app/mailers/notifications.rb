@@ -1,6 +1,6 @@
 class Notifications < ActionMailer::Base
-  default from: "mailer@safecast.org"
-  default_url_options[:locale] = "en-US"
+  default from: 'mailer@safecast.org'
+  default_url_options[:locale] = 'en-US'
 
   def import_approved(import)
     @import = import

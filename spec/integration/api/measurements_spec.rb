@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-feature "/measurements API endpoint", type: :feature do
+feature '/measurements API endpoint', type: :feature do
   let!(:user) do
     User.first || Fabricate(:user,
                             email: 'paul@rslw.com',
                             name: 'Paul Campbell')
   end
 
-  scenario "post a new measurement" do
+  scenario 'post a new measurement' do
     result = api_post('/measurements.json', api_key: user.authentication_token,
                                             measurement: {
                                               value: 123,
@@ -19,13 +19,13 @@ feature "/measurements API endpoint", type: :feature do
     expect(result['user_id']).to eq(user.id)
   end
   
-  scenario "empty post" do
+  scenario 'empty post' do
     result = api_post('/measurements.json', api_key: user.authentication_token)
     expect(result['errors']['value']).to be_present
   end
 end
 
-feature "/measurements", type: :feature do
+feature '/measurements', type: :feature do
   
   before(:all) { Measurement.destroy_all }
 
@@ -35,25 +35,25 @@ feature "/measurements", type: :feature do
     Fabricate(:measurement, value: 12, user: user)
   end
   
-  scenario "all measurements (/measurements)" do
-    result = api_get("/measurements.json")
+  scenario 'all measurements (/measurements)' do
+    result = api_get('/measurements.json')
     expect(result.length).to eq(2)
     expect(result.map { |obj| obj['value'] }).to eq([10, 12])
   end
 
-  scenario "get measurement count (/measurements/count)" do
+  scenario 'get measurement count (/measurements/count)' do
     result = api_get('/measurements/count.json')
     expect(result.length).to eq(1)
     expect(result['count']).to eq(2)
   end
   
-  scenario "get my measurements (/users/X/measurements)" do
+  scenario 'get my measurements (/users/X/measurements)' do
     result = api_get("/measurements.json?user_id=#{user.id}")
     expect(result.length).to eq(1)
     expect(result.first['value']).to eq(12)
   end
   
-  scenario "updating is non-destructive" do
+  scenario 'updating is non-destructive' do
     put("/measurements/#{second_measurement.id}.json", api_key: user.authentication_token,
                                                        measurement: {
                                                          value: 15
@@ -77,7 +77,7 @@ feature "/measurements", type: :feature do
     expect(result['value']).to eq(12)
   end
 
-  scenario "get new measurements since some time" do
+  scenario 'get new measurements since some time' do
     sleep 1
     cutoff_time = DateTime.now
     sleep 3 

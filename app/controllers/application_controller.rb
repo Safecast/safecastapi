@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   
   def rescue_action(_env)
     respond_to do |wants|
-      wants.json { render json: "Error", status: 500 }
+      wants.json { render json: 'Error', status: 500 }
     end
   end
 
@@ -80,6 +80,6 @@ class ApplicationController < ActionController::Base
   end
 
   def strict_transport_security
-    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains" if request.ssl?
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains' if request.ssl?
   end
 end

@@ -2,7 +2,7 @@ worker_processes 4
 
 working_directory "#{ENV['RAILS_STACK_PATH']}"
 
-listen "/tmp/web_server.sock", backlog: 64
+listen '/tmp/web_server.sock', backlog: 64
 
 timeout 120
 
@@ -20,7 +20,7 @@ before_fork do |server, _worker|
   old_pid = '/tmp/web_server.pid.oldbin'
   if File.exist?(old_pid) && server.pid != old_pid
     begin
-      Process.kill("QUIT", File.read(old_pid).to_i)
+      Process.kill('QUIT', File.read(old_pid).to_i)
     rescue Errno::ENOENT, Errno::ESRCH # rubocop:disable Lint/HandleExceptions
       # someone else did our job for us
     end

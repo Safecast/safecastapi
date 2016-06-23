@@ -1,9 +1,9 @@
 module ApplicationHelper
   def link_to_switch_locale
-    if params[:locale] == "en-US"
-      link_to "JA", locale: "ja"
+    if params[:locale] == 'en-US'
+      link_to 'JA', locale: 'ja'
     else
-      link_to "EN", locale: "en-US"
+      link_to 'EN', locale: 'en-US'
     end
   end
 
@@ -81,8 +81,8 @@ module ApplicationHelper
 
   def flash_class(level)
     case level
-    when :notice then "alert-success"
-    when :error, :alert then "alert-error"
+    when :notice then 'alert-success'
+    when :error, :alert then 'alert-error'
     end
   end
   

@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 
 RSpec.describe Notifications, type: :mailer do
   # describe "import_approved" do

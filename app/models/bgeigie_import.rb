@@ -14,9 +14,9 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   belongs_to :user
   has_many :bgeigie_logs, dependent: :delete_all
 
-  scope :newest, -> { order("created_at DESC") }
-  scope :oldest, -> { order("created_at") }
-  scope :done, -> { where(status: "done") }
+  scope :newest, -> { order('created_at DESC') }
+  scope :oldest, -> { order('created_at') }
+  scope :done, -> { where(status: 'done') }
   scope :unapproved, -> { where(approved: false) }
 
   store :status_details, accessors: [
@@ -47,11 +47,11 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def self.uploaded_before(time)
-    where("created_at < ?", time)
+    where('created_at < ?', time)
   end
 
   def self.uploaded_after(time)
-    where("created_at > ?", time)
+    where('created_at > ?', time)
   end
 
   def self.by_subtype(type_or_types)
@@ -220,8 +220,8 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def drop_and_create_tmp_table
-    ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS bgeigie_logs_tmp")
-    ActiveRecord::Base.connection.execute "create table bgeigie_logs_tmp (like bgeigie_logs including defaults)"
+    ActiveRecord::Base.connection.execute('DROP TABLE IF EXISTS bgeigie_logs_tmp')
+    ActiveRecord::Base.connection.execute 'create table bgeigie_logs_tmp (like bgeigie_logs including defaults)'
   end
 
   def set_bgeigie_import_id
@@ -235,7 +235,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def drop_tmp_table
-    ActiveRecord::Base.connection.execute("DROP TABLE bgeigie_logs_tmp")
+    ActiveRecord::Base.connection.execute('DROP TABLE bgeigie_logs_tmp')
   end
 
   def import_to_bgeigie_logs
