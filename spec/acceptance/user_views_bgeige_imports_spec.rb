@@ -10,5 +10,4 @@ feature "User views bGeigie imports", type: :feature do
     click_link("Imports")
     expect(page).to have_content(File.basename(bgeigie_import.source.filename))
   end
-
 end

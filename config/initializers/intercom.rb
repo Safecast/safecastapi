@@ -53,5 +53,4 @@ IntercomRails.config do |config|
   # insert an `em` element into your anchor with the count of unread messages
   #
   # config.inbox.counter = true
-
 end

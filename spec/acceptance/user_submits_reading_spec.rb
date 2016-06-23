@@ -58,6 +58,5 @@ feature "User submits a reading while devices exist", type: :feature do
 
     expect(measurement.value).to eq(789)
     expect(measurement.device).to eq(device)
-
   end
 end

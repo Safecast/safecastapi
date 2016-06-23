@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 feature "/measurements API endpoint", type: :feature do
-
   let!(:user) do
     User.first || Fabricate(:user,
                             :email => 'paul@rslw.com',

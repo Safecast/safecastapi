@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 feature "/api/users API endpoint", type: :feature do
-
   before(:all) { User.destroy_all }
   before do
     Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')

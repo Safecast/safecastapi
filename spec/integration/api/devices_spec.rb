@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 feature "/devices API endpoint", type: :feature do
-
   before do
     @user = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
   end

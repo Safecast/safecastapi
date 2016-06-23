@@ -31,5 +31,4 @@ RSpec.describe Notifications, type: :mailer do
   #     mail.body.encoded.should match("Hi")
   #   end
   # end
-
 end

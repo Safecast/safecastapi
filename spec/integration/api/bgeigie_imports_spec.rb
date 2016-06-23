@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 feature "/bgeigie_imports API endpoint", type: :feature do
-
   before(:each) do
     User.destroy_all
     @user ||= Fabricate(:user,
@@ -25,7 +24,6 @@ feature "/bgeigie_imports API endpoint", type: :feature do
   end
   
   context "after processing" do
-
     before(:each) { Delayed::Worker.new.work_off; BgeigieImport.find_each(&:finalize!) }
     let!(:updated_result) do
       api_get(
