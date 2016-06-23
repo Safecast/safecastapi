@@ -115,3 +115,7 @@ Style/SpaceAroundOperators:
 Style/SpaceInsideBrackets:
   Exclude:
     - 'db/migrate/20160208190731_add_subtype_to_measurement_imports.rb'
+
+Style/SpaceInsideParens:
+  Exclude:
+    - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
