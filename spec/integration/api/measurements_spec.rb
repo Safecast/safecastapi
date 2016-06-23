@@ -4,8 +4,8 @@ feature "/measurements API endpoint", type: :feature do
 
   let!(:user) do
     User.first || Fabricate(:user,
-                      :email => 'paul@rslw.com',
-                      :name => 'Paul Campbell')
+                            :email => 'paul@rslw.com',
+                            :name => 'Paul Campbell')
   end
 
   scenario "post a new measurement" do

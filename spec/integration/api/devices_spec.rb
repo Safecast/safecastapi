@@ -9,17 +9,17 @@ feature "/devices API endpoint", type: :feature do
   
   scenario "create a device" do
     post('/devices',
-      {
-        :api_key        => user.authentication_token,
-        :device         => {
-          :manufacturer     => "Safecast",
-          :model            => "bGeigie",
-          :sensor           => "LND-7317"
-        }
-      },
-      {
-        'HTTP_ACCEPT' => 'application/json'
-      }
+         {
+           :api_key        => user.authentication_token,
+           :device         => {
+             :manufacturer     => "Safecast",
+             :model            => "bGeigie",
+             :sensor           => "LND-7317"
+           }
+         },
+         {
+           'HTTP_ACCEPT' => 'application/json'
+         }
     )
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['manufacturer']).to eq('Safecast')
@@ -32,12 +32,12 @@ feature "/devices API endpoint", type: :feature do
   
   scenario "empty post" do
     post('/devices',
-      {
-        :api_key => user.authentication_token
-      },
-      {
-        'HTTP_ACCEPT' => 'application/json'
-      }
+         {
+           :api_key => user.authentication_token
+         },
+         {
+           'HTTP_ACCEPT' => 'application/json'
+         }
     )
     
     result = ActiveSupport::JSON.decode(response.body)
@@ -103,12 +103,12 @@ feature "/devices with existing devices", type: :feature do
   
   scenario "lookup all Safecast devices" do
     result = api_get('/devices', 
-      {
-       :manufacturer => "Safecast"
-      },
-      {
-        'HTTP_ACCEPT' => 'application/json'
-      }
+                     {
+                      :manufacturer => "Safecast"
+                     },
+                     {
+                       'HTTP_ACCEPT' => 'application/json'
+                     }
     )
     expect(result.length).to eq(2)
     expect(result.map { |obj| obj['manufacturer'] }).to eq(['Safecast', 'Safecast'])
@@ -118,12 +118,12 @@ feature "/devices with existing devices", type: :feature do
   
   scenario "lookup a particular device" do
     result = api_get('/devices', 
-      {
-        :manufacturer => "Safecast", :model => "iGeigie"
-      },
-      {
-        'HTTP_ACCEPT' => 'application/json'
-      }
+                     {
+                       :manufacturer => "Safecast", :model => "iGeigie"
+                     },
+                     {
+                       'HTTP_ACCEPT' => 'application/json'
+                     }
     )
     expect(result.length).to eq(1)
     expect(result.first['manufacturer']).to eq("Safecast")

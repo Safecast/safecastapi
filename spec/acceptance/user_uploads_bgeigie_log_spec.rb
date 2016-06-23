@@ -21,7 +21,7 @@ feature "User uploads bgeigie log", type: :feature do
       click_button 'Submit for Approval'
       expect(page).to have_content('Submitted')
       expect(find_email(moderator.email, 
-        :with_subject => 'A Safecast import is awaiting approval')).to be_present
+                        :with_subject => 'A Safecast import is awaiting approval')).to be_present
     end
   end
   
@@ -44,7 +44,7 @@ feature "User uploads bgeigie log", type: :feature do
       visit(current_path)
       expect(page).to have_content('Processed')
       expect(find_email(user.email, 
-        :with_subject => 'Your Safecast import has been approved')).to be_present
+                        :with_subject => 'Your Safecast import has been approved')).to be_present
     end
   end
 end
