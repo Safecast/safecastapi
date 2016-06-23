@@ -14,3 +14,5 @@ script:
   - bundle exec rubocop
   - bundle exec rake db:structure:load
   - bundle exec rspec spec
+notifications:
+  slack: safecast:ANen3IrnH5Kp64Huskw6T9Ji
