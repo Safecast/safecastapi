@@ -17,9 +17,7 @@ feature "/devices API endpoint", type: :feature do
              :sensor           => "LND-7317"
            }
          },
-         {
-           'HTTP_ACCEPT' => 'application/json'
-         }
+         'HTTP_ACCEPT' => 'application/json'
     )
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['manufacturer']).to eq('Safecast')
@@ -35,9 +33,7 @@ feature "/devices API endpoint", type: :feature do
          {
            :api_key => user.authentication_token
          },
-         {
-           'HTTP_ACCEPT' => 'application/json'
-         }
+         'HTTP_ACCEPT' => 'application/json'
     )
     
     result = ActiveSupport::JSON.decode(response.body)
@@ -52,21 +48,15 @@ feature "/devices with existing devices", type: :feature do
   
   before do
     @user = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
-    @first_device = Fabricate(:device, {
-      :manufacturer     => 'Safecast',
-      :model            => 'bGeigie',
-      :sensor           => 'LND-7317'
-    })
-    @second_device = Fabricate(:device, {
-      :manufacturer     => 'Medcom',
-      :model            => 'Inspector',
-      :sensor           => 'LND-712'
-    })
-    @third_device = Fabricate(:device, {
-      :manufacturer     => 'Safecast',
-      :model            => 'iGeigie',
-      :sensor           => 'LND-712'
-    })
+    @first_device = Fabricate(:device, :manufacturer     => 'Safecast',
+                                       :model            => 'bGeigie',
+                                       :sensor           => 'LND-7317')
+    @second_device = Fabricate(:device, :manufacturer     => 'Medcom',
+                                        :model            => 'Inspector',
+                                        :sensor           => 'LND-712')
+    @third_device = Fabricate(:device, :manufacturer     => 'Safecast',
+                                       :model            => 'iGeigie',
+                                       :sensor           => 'LND-712')
   end
   let(:user) { @user.reload }
   let(:first_device) { @first_device.reload }
@@ -85,16 +75,14 @@ feature "/devices with existing devices", type: :feature do
           :sensor           => "LND-7317"
         }
       },
-      {
-        'HTTP_ACCEPT' => 'application/json'
-      }  
+      'HTTP_ACCEPT' => 'application/json'  
     )
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['id']).to eq(first_device.id)
   end
   
   scenario "lookup all devices" do
-    result = api_get('/devices', {}, {'HTTP_ACCEPT' => 'application/json'})
+    result = api_get('/devices', {}, 'HTTP_ACCEPT' => 'application/json')
     expect(result.length).to eq(3)
     expect(result.map { |obj| obj['manufacturer'] }).to eq(['Safecast', 'Medcom', 'Safecast'])
     expect(result.map { |obj| obj['model'] }).to eq(['bGeigie', 'Inspector', 'iGeigie'])
@@ -106,9 +94,7 @@ feature "/devices with existing devices", type: :feature do
                      {
                       :manufacturer => "Safecast"
                      },
-                     {
-                       'HTTP_ACCEPT' => 'application/json'
-                     }
+                     'HTTP_ACCEPT' => 'application/json'
     )
     expect(result.length).to eq(2)
     expect(result.map { |obj| obj['manufacturer'] }).to eq(['Safecast', 'Safecast'])
@@ -121,9 +107,7 @@ feature "/devices with existing devices", type: :feature do
                      {
                        :manufacturer => "Safecast", :model => "iGeigie"
                      },
-                     {
-                       'HTTP_ACCEPT' => 'application/json'
-                     }
+                     'HTTP_ACCEPT' => 'application/json'
     )
     expect(result.length).to eq(1)
     expect(result.first['manufacturer']).to eq("Safecast")

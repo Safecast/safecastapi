@@ -13,7 +13,7 @@ feature "/bgeigie_imports API endpoint", type: :feature do
       :bgeigie_import => {
         :source => fixture_file_upload('/bgeigie.log')
       }
-    }, {'HTTP_ACCEPT' => 'application/json'})
+    }, 'HTTP_ACCEPT' => 'application/json')
   end
   
   context "just an upload" do
@@ -31,7 +31,7 @@ feature "/bgeigie_imports API endpoint", type: :feature do
       api_get(
         "/bgeigie_imports/#{@result['id']}",
         {},
-        {'HTTP_ACCEPT' => 'application/json'}
+        'HTTP_ACCEPT' => 'application/json'
       )
     end
     
