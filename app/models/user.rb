@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :measurements
   has_many :maps
 
-  scope :moderator, -> { where(:moderator => true) }
+  scope :moderator, -> { where(moderator: true) }
   
   # Include default devise modules. Others available are:
   # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -18,8 +18,8 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   # attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :time_zone, :default_locale
 
-  validates :email, :presence => true
-  validates :name, :presence => true
+  validates :email, presence: true
+  validates :name, presence: true
   
   before_save :ensure_authentication_token
 
@@ -29,8 +29,8 @@ class User < ActiveRecord::Base
 
   def serializable_hash(options = {})
     super options.merge(
-      :only => [:id, :name, :email, :authentication_token],
-      :methods => [:first_name, :last_name]
+      only: [:id, :name, :email, :authentication_token],
+      methods: [:first_name, :last_name]
     )
   end
 

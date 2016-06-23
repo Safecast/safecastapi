@@ -49,8 +49,8 @@ module Safecast
 
     config.generators do |g|
       g.test_framework :rspec,
-                       :fixture => false,
-                       :views => false
+                       fixture: false,
+                       views: false
       g.assets false
       g.javascripts false
       g.stylesheets false

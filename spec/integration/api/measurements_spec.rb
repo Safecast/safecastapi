@@ -3,24 +3,24 @@ require 'spec_helper'
 feature "/measurements API endpoint", type: :feature do
   let!(:user) do
     User.first || Fabricate(:user,
-                            :email => 'paul@rslw.com',
-                            :name => 'Paul Campbell')
+                            email: 'paul@rslw.com',
+                            name: 'Paul Campbell')
   end
 
   scenario "post a new measurement" do
-    result = api_post('/measurements.json', :api_key => user.authentication_token,
-                                            :measurement => {
-        :value      => 123,
-        :unit       => 'cpm',
-        :latitude   => 1.1,
-        :longitude  => 2.2
+    result = api_post('/measurements.json', api_key: user.authentication_token,
+                                            measurement: {
+        value: 123,
+        unit: 'cpm',
+        latitude: 1.1,
+        longitude: 2.2
       })
     expect(result['value']).to eq(123)
     expect(result['user_id']).to eq(user.id)
   end
   
   scenario "empty post" do
-    result = api_post('/measurements.json',:api_key => user.authentication_token)
+    result = api_post('/measurements.json',api_key: user.authentication_token)
     expect(result['errors']['value']).to be_present
   end
 end
@@ -30,9 +30,9 @@ feature "/measurements", type: :feature do
   before(:all) { Measurement.destroy_all }
 
   let!(:user) { User.first || Fabricate(:user) }
-  let!(:first_measurement) { Fabricate(:measurement, :value => 10) }
+  let!(:first_measurement) { Fabricate(:measurement, value: 10) }
   let!(:second_measurement) do 
-    Fabricate(:measurement, :value => 12, :user => user)
+    Fabricate(:measurement, value: 12, user: user)
   end
   
   scenario "all measurements (/measurements)" do
@@ -54,9 +54,9 @@ feature "/measurements", type: :feature do
   end
   
   scenario "updating is non-destructive" do
-    put("/measurements/#{second_measurement.id}.json", :api_key => user.authentication_token,
-                                                       :measurement => {
-        :value => 15
+    put("/measurements/#{second_measurement.id}.json", api_key: user.authentication_token,
+                                                       measurement: {
+        value: 15
       })
     
     result = ActiveSupport::JSON.decode(response.body)
@@ -82,14 +82,14 @@ feature "/measurements", type: :feature do
     cutoff_time = DateTime.now
     sleep 3 
 
-    api_post('/measurements.json', :api_key => user.authentication_token,
-                                   :measurement => {
-        :value      => 4342,
-        :unit       => 'cpm',
-        :latitude   => 76.667,
-        :longitude  => 33.321
+    api_post('/measurements.json', api_key: user.authentication_token,
+                                   measurement: {
+        value: 4342,
+        unit: 'cpm',
+        latitude: 76.667,
+        longitude: 33.321
       })
-    result = api_get('/measurements.json', :since => cutoff_time)
+    result = api_get('/measurements.json', since: cutoff_time)
 
     expect(result.length).to eq(1)
     expect(result.first['value']).to eq(4342)

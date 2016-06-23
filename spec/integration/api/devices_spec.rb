@@ -2,18 +2,18 @@ require 'spec_helper'
 
 feature "/devices API endpoint", type: :feature do
   before do
-    @user = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
+    @user = Fabricate(:user, email: 'paul@rslw.com', name: 'Paul Campbell')
   end
   let(:user) { @user.reload }
   
   scenario "create a device" do
     post('/devices',
          {
-           :api_key        => user.authentication_token,
-           :device         => {
-             :manufacturer     => "Safecast",
-             :model            => "bGeigie",
-             :sensor           => "LND-7317"
+           api_key: user.authentication_token,
+           device: {
+             manufacturer: "Safecast",
+             model: "bGeigie",
+             sensor: "LND-7317"
            }
          },
          'HTTP_ACCEPT' => 'application/json'
@@ -30,7 +30,7 @@ feature "/devices API endpoint", type: :feature do
   scenario "empty post" do
     post('/devices',
          {
-           :api_key => user.authentication_token
+           api_key: user.authentication_token
          },
          'HTTP_ACCEPT' => 'application/json'
         )
@@ -46,16 +46,16 @@ end
 feature "/devices with existing devices", type: :feature do
   
   before do
-    @user = Fabricate(:user, :email => 'paul@rslw.com', :name => 'Paul Campbell')
-    @first_device = Fabricate(:device, :manufacturer     => 'Safecast',
-                                       :model            => 'bGeigie',
-                                       :sensor           => 'LND-7317')
-    @second_device = Fabricate(:device, :manufacturer     => 'Medcom',
-                                        :model            => 'Inspector',
-                                        :sensor           => 'LND-712')
-    @third_device = Fabricate(:device, :manufacturer     => 'Safecast',
-                                       :model            => 'iGeigie',
-                                       :sensor           => 'LND-712')
+    @user = Fabricate(:user, email: 'paul@rslw.com', name: 'Paul Campbell')
+    @first_device = Fabricate(:device, manufacturer: 'Safecast',
+                                       model: 'bGeigie',
+                                       sensor: 'LND-7317')
+    @second_device = Fabricate(:device, manufacturer: 'Medcom',
+                                        model: 'Inspector',
+                                        sensor: 'LND-712')
+    @third_device = Fabricate(:device, manufacturer: 'Safecast',
+                                       model: 'iGeigie',
+                                       sensor: 'LND-712')
   end
   let(:user) { @user.reload }
   let(:first_device) { @first_device.reload }
@@ -67,11 +67,11 @@ feature "/devices with existing devices", type: :feature do
     post(
       '/devices',
       {
-        :api_key => user.authentication_token,
-        :device         => {
-          :manufacturer     => "Safecast",
-          :model            => "bGeigie",
-          :sensor           => "LND-7317"
+        api_key: user.authentication_token,
+        device: {
+          manufacturer: "Safecast",
+          model: "bGeigie",
+          sensor: "LND-7317"
         }
       },
       'HTTP_ACCEPT' => 'application/json'  
@@ -91,7 +91,7 @@ feature "/devices with existing devices", type: :feature do
   scenario "lookup all Safecast devices" do
     result = api_get('/devices', 
                      {
-                      :manufacturer => "Safecast"
+                      manufacturer: "Safecast"
                      },
                      'HTTP_ACCEPT' => 'application/json'
                     )
@@ -104,7 +104,7 @@ feature "/devices with existing devices", type: :feature do
   scenario "lookup a particular device" do
     result = api_get('/devices', 
                      {
-                       :manufacturer => "Safecast", :model => "iGeigie"
+                       manufacturer: "Safecast", model: "iGeigie"
                      },
                      'HTTP_ACCEPT' => 'application/json'
                     )

@@ -9,9 +9,9 @@ feature "User creates a new device when submitting a reading", type: :feature do
     visit('/devices')
     click_link('Add a Device')
 
-    fill_in('Manufacturer', :with => 'Safecast')
-    fill_in('Model', :with => 'bGeigie')
-    fill_in('Sensor', :with => 'LND-712')
+    fill_in('Manufacturer', with: 'Safecast')
+    fill_in('Model', with: 'bGeigie')
+    fill_in('Sensor', with: 'LND-712')
 
     click_button('Save')
     expect(page).to have_content('LND-712')

@@ -3,8 +3,8 @@ RSpec.describe BgeigieImport, type: :model do
 
   let!(:bgeigie_import) do
     Fabricate(:bgeigie_import,
-              :source => File.new(Rails.root.join('spec/fixtures/bgeigie.log')),
-              :user_id => user.id
+              source: File.new(Rails.root.join('spec/fixtures/bgeigie.log')),
+              user_id: user.id
              )
   end
 
@@ -54,8 +54,8 @@ RSpec.describe BgeigieImport, type: :model do
 
     it "should calculate measurements to the correct hemisphere" do
       bgeigie_nyc = Fabricate(:bgeigie_import,
-                              :source => File.new(Rails.root + 'spec/fixtures/bgeigie_nyc.log'),
-                              :user => user)
+                              source: File.new(Rails.root + 'spec/fixtures/bgeigie_nyc.log'),
+                              user: user)
 
       bgeigie_nyc.process
       bgeigie_nyc.finalize!
@@ -68,8 +68,8 @@ RSpec.describe BgeigieImport, type: :model do
 
     it "should calculate measurements to the correct hemisphere" do
       bgeigie_with_bugs = Fabricate(:bgeigie_import,
-                                    :source => File.new(Rails.root + 'spec/fixtures/bgeigie_with_tinygps_bug.log'),
-                                    :user => user)
+                                    source: File.new(Rails.root + 'spec/fixtures/bgeigie_with_tinygps_bug.log'),
+                                    user: user)
 
       bgeigie_with_bugs.process
       bgeigie_with_bugs.finalize!
@@ -82,8 +82,8 @@ RSpec.describe BgeigieImport, type: :model do
 
     it "should handle files with corrupt or incomplete lines" do
       bgeigie_with_bugs = Fabricate(:bgeigie_import,
-                                    :source => File.new(Rails.root + 'spec/fixtures/bgeigie_with_corruption.log'),
-                                    :user => user)
+                                    source: File.new(Rails.root + 'spec/fixtures/bgeigie_with_corruption.log'),
+                                    user: user)
 
       bgeigie_with_bugs.process
       bgeigie_with_bugs.finalize!

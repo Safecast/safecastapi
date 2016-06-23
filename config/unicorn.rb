@@ -2,7 +2,7 @@ worker_processes 4
 
 working_directory "#{ENV['RAILS_STACK_PATH']}"
 
-listen "/tmp/web_server.sock", :backlog => 64
+listen "/tmp/web_server.sock", backlog: 64
 
 timeout 120
 

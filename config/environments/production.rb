@@ -60,8 +60,8 @@ Safecast::Application.configure do
   config.action_mailer.delivery_method = :ses
 
   config.action_mailer.default_url_options = {
-    :host => 'api.safecast.org',
-    :protocol => 'https'
+    host: 'api.safecast.org',
+    protocol: 'https'
   }
 
   config.log_tags = [:uuid, :remote_ip]

@@ -7,19 +7,19 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   # - done
   include BgeigieImportState
 
-  validates :user, :presence => true, :on => :create
-  validates :cities, :presence => true, :on => :update
-  validates :credits, :presence => true, :on => :update
+  validates :user, presence: true, on: :create
+  validates :cities, presence: true, on: :update
+  validates :credits, presence: true, on: :update
 
   belongs_to :user
-  has_many :bgeigie_logs, :dependent => :delete_all
+  has_many :bgeigie_logs, dependent: :delete_all
 
   scope :newest, -> { order("created_at DESC") }
   scope :oldest, -> { order("created_at") }
-  scope :done, -> { where(:status => "done") }
-  scope :unapproved, -> { where(:approved => false) }
+  scope :done, -> { where(status: "done") }
+  scope :unapproved, -> { where(approved: false) }
 
-  store :status_details, :accessors => [
+  store :status_details, accessors: [
     :process_file,
     :import_bgeigie_logs,
     :compute_latlng,
@@ -31,19 +31,19 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
            OR lower(source) LIKE :query
            OR lower(description) LIKE :query
            OR lower(cities) LIKE :query
-           OR lower(credits) LIKE :query", :query => "%#{query.downcase}%")
+           OR lower(credits) LIKE :query", query: "%#{query.downcase}%")
   end
 
   def self.by_status(status)
-    where(:status => status)
+    where(status: status)
   end
 
   def self.by_user_id(user_id)
-    where(:user_id => user_id)
+    where(user_id: user_id)
   end
 
   def self.by_rejected(rejected)
-    where(:rejected => rejected)
+    where(rejected: rejected)
   end
 
   def self.uploaded_before(time)
@@ -72,7 +72,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
   def confirm_status(item)
     self.status_details[item] = true
-    self.save!(:validate => false)
+    self.save!(validate: false)
   end
 
   def process
@@ -300,8 +300,8 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     lng_decimal = (longitude_nmea % 100) / 60
 
     {
-      :latitude => (lat_degrees + lat_decimal) * lat_sign,
-      :longitude => (lng_degrees + lng_decimal) * lng_sign
+      latitude: (lat_degrees + lat_decimal) * lat_sign,
+      longitude: (lng_degrees + lng_decimal) * lng_sign
     }
   end
 end

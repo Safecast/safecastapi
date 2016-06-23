@@ -13,7 +13,7 @@ gem 'pg'
 gem 'activerecord-postgis-adapter'
 gem 'json', '1.8.1'
 
-gem 'aws-ses',                  '0.4.4', :require => 'aws/ses'
+gem 'aws-ses',                  '0.4.4', require: 'aws/ses'
 gem 'bootstrap-sass',           '~> 2.2.2.0'
 gem "carrierwave",              '~> 0.6.2'
 gem 'configurable_engine'

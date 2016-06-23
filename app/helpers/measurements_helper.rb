@@ -6,8 +6,8 @@ module MeasurementsHelper
   def collect_measurements(measurements)
     measurements.collect do |b|
       {
-        :lat => b.latitude, 
-        :lng => b.longitude
+        lat: b.latitude, 
+        lng: b.longitude
       }
     end
   end
@@ -18,9 +18,9 @@ module MeasurementsHelper
              else
       params[:unit] == unit.to_s
              end
-    content_tag(:li, :class => ('active' if active)) do
+    content_tag(:li, class: ('active' if active)) do
       link_to t("#{unit}"),
-              measurements_url(params.merge(:unit => ((unit == :all) ? nil : unit)))
+              measurements_url(params.merge(unit: ((unit == :all) ? nil : unit)))
     end
   end
 end

@@ -1,14 +1,14 @@
 class MeasurementImport < ActiveRecord::Base
-  validates :source, :presence => true, :on => :create
-  validates :md5sum, :uniqueness => true
+  validates :source, presence: true, on: :create
+  validates :md5sum, uniqueness: true
 
   has_many :measurement_import_logs  
   belongs_to :map
 
-  format_dates :timestamps, :format => "%Y/%m/%d %H:%M %z"
+  format_dates :timestamps, format: "%Y/%m/%d %H:%M %z"
   mount_uploader :source, FileUploader
 
-  before_validation :set_md5sum, :on => :create
+  before_validation :set_md5sum, on: :create
   after_initialize :set_default_values
 
   AVAILABLE_SUBTYPES = %w(None Drive Surface Cosmic).freeze

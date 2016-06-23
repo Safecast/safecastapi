@@ -1,8 +1,8 @@
 class BgeigieImportsController < ApplicationController # rubocop:disable Metrics/ClassLength
   respond_to :html, :json
 
-  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy]
-  before_filter :require_moderator, :only => [:approve, :fixdrive]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :require_moderator, only: [:approve, :fixdrive]
 
   has_scope :by_status
   has_scope :by_user_id
@@ -15,9 +15,9 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
   end
   has_scope :approved do |_controller, scope, value|
     if value == 'yes'
-      scope.where(:approved => true)
+      scope.where(approved: true)
     elsif value == 'no'
-      scope.where(:approved => false)
+      scope.where(approved: false)
     else
       scope
     end
@@ -86,7 +86,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
 
   def show
     @bgeigie_import = BgeigieImport.find(params[:id])
-    render(:partial => params[:partial]) && return if params[:partial].present?
+    render(partial: params[:partial]) && return if params[:partial].present?
     respond_with @bgeigie_import
   end
 

@@ -4,13 +4,13 @@ feature "/bgeigie_imports API endpoint", type: :feature do
   before(:each) do
     User.destroy_all
     @user ||= Fabricate(:user,
-                        :email => 'paul@rslw.com',
-                        :name => 'Paul Campbell')
+                        email: 'paul@rslw.com',
+                        name: 'Paul Campbell')
     
     @result ||= api_post('/bgeigie_imports',{
-      :api_key        => @user.authentication_token,
-      :bgeigie_import => {
-        :source => fixture_file_upload('/bgeigie.log')
+      api_key: @user.authentication_token,
+      bgeigie_import: {
+        source: fixture_file_upload('/bgeigie.log')
       }
     }, 'HTTP_ACCEPT' => 'application/json')
   end

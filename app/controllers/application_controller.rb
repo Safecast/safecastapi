@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   before_filter :new_relic_custom_attributes
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
+    redirect_to root_url, alert: exception.message
   end
   
 
@@ -25,14 +25,14 @@ class ApplicationController < ActionController::Base
 
   def options
     cors_set_access_control_headers
-    render :text => '', :content_type => 'application/json'
+    render text: '', content_type: 'application/json'
   end
     
   protected
   
   def rescue_action(_env)
     respond_to do |wants|
-      wants.json { render :json => "Error", :status => 500 }
+      wants.json { render json: "Error", status: 500 }
     end
   end
 
@@ -68,7 +68,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options(_options={})
-    { :locale => I18n.locale }
+    { locale: I18n.locale }
   end
 
   def new_relic_custom_attributes

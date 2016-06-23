@@ -14,7 +14,7 @@ class DevicesController < ApplicationController
   has_scope :sensor do |_controller, scope, value|
     scope.where("sensor LIKE ?", "%#{value}%")
   end
-  before_filter :authenticate_user!, :only => :create
+  before_filter :authenticate_user!, only: :create
 
   def new
     @device = Device.new
@@ -32,7 +32,7 @@ class DevicesController < ApplicationController
 
   def create
     @device = Device.get_or_create(device_params)
-    respond_with @device, :location => :devices
+    respond_with @device, location: :devices
   end
   
   private
