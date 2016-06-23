@@ -40,6 +40,6 @@ end
     "#{manufacturer} - #{model} (#{sensor})"
   end
 
-  alias :name :identifier
+  alias_method :name, :identifier
 
 end

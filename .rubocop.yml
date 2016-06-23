@@ -35,3 +35,8 @@ Metrics/MethodLength:
 
 Style/AccessModifierIndentation:
   EnforcedStyle: indent
+
+# `alias` is lexically scoped, and `alias_method` is dynamically scoped;
+# depends on `self` at runtime.
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
