@@ -9,11 +9,15 @@ class DriveImport < MeasurementImport
     end
   end
 
-  def self.update_locations
+  def self.update_locations # rubocop:disable Metrics/MethodLength
     find_each do |drive_import|
       puts "\nDrive ID: #{drive_import.id}"
       drive_import.drive_logs.find_each do |drive_log|
-        drive_log.update_location rescue nil
+        begin
+          drive_log.update_location
+        rescue
+          nil
+        end
         print '.'
       end
     end

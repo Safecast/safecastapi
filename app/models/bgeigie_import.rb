@@ -145,7 +145,11 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
         next if line.first == '#'
         next if line.strip.blank?
         next unless is_sane? line
-        file.write "#{line.strip},#{Digest::MD5.hexdigest(line.strip)}\n" rescue nil
+        begin
+          file.write "#{line.strip},#{Digest::MD5.hexdigest(line.strip)}\n"
+        rescue
+          nil
+        end
         lines_count += 1
       end
     end
@@ -169,13 +173,29 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     return false unless line_items[12].eql?('A') || line_items[12].eql?('V')
 
     # check for date
-    date = DateTime.parse line_items[2] rescue nil
+    begin
+      date = DateTime.parse line_items[2]
+    rescue
+      nil
+    end
     return false unless date
 
     # check for properly formatted floats
-    lat = Float(line_items[7]) rescue nil
-    lon = Float(line_items[9]) rescue nil
-    alt = Float(line_items[11]) rescue nil
+    lat = begin
+            Float(line_items[7])
+          rescue
+            nil
+          end
+    lon = begin
+            Float(line_items[9])
+          rescue
+            nil
+          end
+    alt = begin
+            Float(line_items[11])
+          rescue
+            nil
+          end
     return false unless lat && lon && alt
 
     # check for proper N/S and E/W
