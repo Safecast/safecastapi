@@ -1,12 +1,5 @@
 # Offense count: 2
 # Cop supports --auto-correct.
-Style/NegatedIf:
-  Exclude:
-    - 'app/controllers/application_controller.rb'
-    - 'app/controllers/dashboards_controller.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
 Style/NilComparison:
   Exclude:
     - 'spec/acceptance/user_submits_reading_spec.rb'
