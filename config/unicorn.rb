@@ -12,8 +12,7 @@ stderr_path "#{ENV['RAILS_STACK_PATH']}/log/unicorn.stderr.log"
 stdout_path "#{ENV['RAILS_STACK_PATH']}/log/unicorn.stdout.log"
 
 preload_app true
-GC.respond_to?(:copy_on_write_friendly=) and
-  GC.copy_on_write_friendly = true
+GC.copy_on_write_friendly = true if GC.respond_to?(:copy_on_write_friendly=)
 
 check_client_connection false
 
@@ -27,11 +26,11 @@ before_fork do |server, _worker|
     end
   end
 
-  defined?(ActiveRecord::Base) and
+  defined?(ActiveRecord::Base) &&
     ActiveRecord::Base.connection.disconnect!
 end
 
 after_fork do |_server, _worker|
-  defined?(ActiveRecord::Base) and
+  defined?(ActiveRecord::Base) &&
     ActiveRecord::Base.establish_connection
 end

@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
   end
  
   def require_moderator
-    unless user_signed_in? and current_user.moderator?
+    unless user_signed_in? && current_user.moderator?
       set_flash_message(:alert, 'access_denied')
       redirect_to root_path 
     end

@@ -159,14 +159,14 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
     #check header
     # rubocop:disable Metrics/LineLength
-    return false unless line_items[0].eql? '$BMRDD' or line_items[0].eql? '$BGRDD' or line_items[0].eql? '$BNRDD' or line_items[0].eql? '$BNXRDD' or line_items[0].eql? '$PNTDD'
+    return false unless line_items[0].eql?('$BMRDD') || line_items[0].eql?('$BGRDD') || line_items[0].eql?('$BNRDD') || line_items[0].eql?('$BNXRDD') || line_items[0].eql?('$PNTDD')
     # rubocop:enable Metrics/LineLength
 
     #check for Valid CPM
-    return false unless line_items[6].eql? 'A' or line_items[6].eql? 'V'
+    return false unless line_items[6].eql?('A') || line_items[6].eql?('V')
 
     #check for GPS lock
-    return false unless line_items[12].eql? 'A' or line_items[12].eql? 'V'
+    return false unless line_items[12].eql?('A') || line_items[12].eql?('V')
 
     #check for date
     date = DateTime.parse line_items[2] rescue nil
@@ -176,11 +176,11 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     lat = Float(line_items[7]) rescue nil
     lon = Float(line_items[9]) rescue nil
     alt = Float(line_items[11]) rescue nil
-    return false unless lat and lon and alt
+    return false unless lat && lon && alt
 
     #check for proper N/S and E/W
-    return false unless line_items[8].eql? 'N' or line_items[8].eql? 'S'
-    return false unless line_items[10].eql? 'E' or line_items[10].eql? 'W'
+    return false unless line_items[8].eql?('N') || line_items[8].eql?('S')
+    return false unless line_items[10].eql?('E') || line_items[10].eql?('W')
 
     true
   end

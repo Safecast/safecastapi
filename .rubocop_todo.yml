@@ -1,15 +1,3 @@
-# Offense count: 16
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: always, conditionals
-Style/AndOr:
-  Exclude:
-    - 'app/controllers/application_controller.rb'
-    - 'app/controllers/bgeigie_imports_controller.rb'
-    - 'app/models/bgeigie_import.rb'
-    - 'config/initializers/carrierwave.rb'
-    - 'config/unicorn.rb'
-
 # Offense count: 1
 Style/AsciiComments:
   Exclude:
