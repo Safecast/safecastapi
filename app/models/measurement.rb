@@ -25,8 +25,8 @@ class Measurement < ActiveRecord::Base
 
   def self.nearby_to(lat, lng, distance)
     return scoped unless lat.present? && lng.present? && distance.present?
-    where("ST_DWithin(location, ST_GeogFromText('POINT (#{lng.to_f} #{lat.to_f})'), ?)", distance.to_i).
-    order("ST_Distance(location, ST_GeogFromText('POINT (#{lng.to_f} #{lat.to_f})')) ASC")
+    where("ST_DWithin(location, ST_GeogFromText('POINT (#{lng.to_f} #{lat.to_f})'), ?)", distance.to_i)
+    .order("ST_Distance(location, ST_GeogFromText('POINT (#{lng.to_f} #{lat.to_f})')) ASC")
 
   end
 
@@ -61,8 +61,8 @@ class Measurement < ActiveRecord::Base
   end
 
   def self.grouped_by_hour
-    select("date_trunc('hour', captured_at) as date").
-      group("date_trunc('hour', captured_at)")
+    select("date_trunc('hour', captured_at) as date")
+      .group("date_trunc('hour', captured_at)")
   end
 
   def self.since(time)
