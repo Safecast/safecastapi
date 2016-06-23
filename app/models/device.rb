@@ -41,5 +41,4 @@ end
   end
 
   alias_method :name, :identifier
-
 end

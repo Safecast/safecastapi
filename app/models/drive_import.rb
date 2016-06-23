@@ -71,5 +71,4 @@ class DriveImport < MeasurementImport
                                 select #{@map.id}, id from measurements
                                 where measurement_import_id = #{self.id}])
   end
-
 end

@@ -1,5 +1,4 @@
 class BgeigieImportsController < ApplicationController # rubocop:disable Metrics/ClassLength
-
   respond_to :html, :json
 
   before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy]

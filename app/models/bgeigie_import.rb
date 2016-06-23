@@ -304,5 +304,4 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
       :longitude => (lng_degrees + lng_decimal) * lng_sign
     }
   end
-
 end

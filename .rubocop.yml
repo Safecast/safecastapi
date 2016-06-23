@@ -49,3 +49,8 @@ Style/Documentation:
 Style/EmptyLines:
   Exclude:
     - 'db/migrate/20111123174941_devise_create_users.rb'
+
+Style/EmptyLinesAroundClassBody:
+  Exclude:
+    - 'db/migrate/20111123174941_devise_create_users.rb'
+    - 'db/migrate/20130114094100_change_height_on_measurement_import_from_integer_to_decimal.rb'
