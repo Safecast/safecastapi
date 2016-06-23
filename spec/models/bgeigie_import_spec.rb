@@ -33,7 +33,7 @@ RSpec.describe BgeigieImport, type: :model do
     end
 
     it 'should set the id' do
-      expect(BgeigieLog.all.collect { |bl| bl.bgeigie_import_id }.uniq).to eq([bgeigie_import.id])
+      expect(BgeigieLog.all.collect(&:bgeigie_import_id).uniq).to eq([bgeigie_import.id])
     end
 
     it 'should create measurements' do

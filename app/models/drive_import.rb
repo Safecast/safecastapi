@@ -4,9 +4,7 @@ class DriveImport < MeasurementImport
   def self.process
     update_locations
     update_md5sums
-    find_each do |drive_import|
-      drive_import.process
-    end
+    find_each(&:process)
   end
 
   def self.update_locations # rubocop:disable Metrics/MethodLength
@@ -26,9 +24,7 @@ class DriveImport < MeasurementImport
   def self.update_md5sums
     find_each do |drive_import|
       transaction do
-        drive_import.drive_logs.find_each do |drive_log|
-          drive_log.update_md5sum
-        end
+        drive_import.drive_logs.find_each(&:update_md5sum)
       end
     end
   end
