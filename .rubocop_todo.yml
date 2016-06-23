@@ -1,11 +1,3 @@
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/UnneededInterpolation:
-  Exclude:
-    - 'app/helpers/measurements_helper.rb'
-    - 'app/models/drive_import.rb'
-    - 'config/unicorn.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 Style/UnneededPercentQ:

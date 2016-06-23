@@ -1,6 +1,6 @@
 worker_processes 4
 
-working_directory "#{ENV['RAILS_STACK_PATH']}"
+working_directory ENV['RAILS_STACK_PATH'].to_s
 
 listen '/tmp/web_server.sock', backlog: 64
 

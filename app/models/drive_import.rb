@@ -42,8 +42,8 @@ class DriveImport < MeasurementImport
   end
 
   def create_map
-    @map = map || user.maps.create!(name: "#{name}",
-                                    description: "#{description}")
+    @map = map || user.maps.create!(name: name.to_s,
+                                    description: description.to_s)
     update_attribute(:map, @map)
   end
 
