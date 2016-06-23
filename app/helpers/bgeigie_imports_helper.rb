@@ -13,7 +13,7 @@ module BgeigieImportsHelper
   def bgeigie_nav_li(status) # rubocop:disable Metrics/AbcSize
     active = if params[:by_status].blank?
       status == :all
-    else
+             else
       params[:by_status] == status.to_s
              end
     content_tag(:li, :class => ('active' if active)) do
