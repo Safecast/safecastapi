@@ -78,8 +78,8 @@ feature '/devices with existing devices', type: :feature do
   scenario 'lookup all devices' do
     result = api_get('/devices', {}, 'HTTP_ACCEPT' => 'application/json')
     expect(result.length).to eq(3)
-    expect(result.map { |obj| obj['manufacturer'] }).to eq(['Safecast', 'Medcom', 'Safecast'])
-    expect(result.map { |obj| obj['model'] }).to eq(['bGeigie', 'Inspector', 'iGeigie'])
+    expect(result.map { |obj| obj['manufacturer'] }).to eq(%w(Safecast Medcom Safecast))
+    expect(result.map { |obj| obj['model'] }).to eq(%w(bGeigie Inspector iGeigie))
     expect(result.map { |obj| obj['sensor'] }).to eq(['LND-7317', 'LND-712', 'LND-712'])
   end
 
@@ -90,8 +90,8 @@ feature '/devices with existing devices', type: :feature do
                      },
                      'HTTP_ACCEPT' => 'application/json')
     expect(result.length).to eq(2)
-    expect(result.map { |obj| obj['manufacturer'] }).to eq(['Safecast', 'Safecast'])
-    expect(result.map { |obj| obj['model'] }).to eq(['bGeigie', 'iGeigie'])
+    expect(result.map { |obj| obj['manufacturer'] }).to eq(%w(Safecast Safecast))
+    expect(result.map { |obj| obj['model'] }).to eq(%w(bGeigie iGeigie))
     expect(result.map { |obj| obj['sensor'] }).to eq(['LND-7317', 'LND-712'])
   end
 
