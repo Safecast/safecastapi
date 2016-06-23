@@ -1,7 +1,3 @@
-# Offense count: 100
-Style/Documentation:
-  Enabled: false
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.

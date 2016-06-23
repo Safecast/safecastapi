@@ -40,3 +40,8 @@ Style/AccessModifierIndentation:
 # depends on `self` at runtime.
 Style/Alias:
   EnforcedStyle: prefer_alias_method
+
+# It would be nice to have class/module documenttation, but not
+# necessary.
+Style/Documentation:
+  Enabled: false
