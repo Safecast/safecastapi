@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.1.10'
 
 gem 'devise'
 gem 'devise-i18n'
