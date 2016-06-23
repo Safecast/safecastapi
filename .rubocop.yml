@@ -91,3 +91,6 @@ Style/HashSyntax:
 
 Style/IndentArray:
   EnforcedStyle: consistent
+
+Style/IndentHash:
+  EnforcedStyle: consistent

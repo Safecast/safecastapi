@@ -10,11 +10,11 @@ feature "/measurements API endpoint", type: :feature do
   scenario "post a new measurement" do
     result = api_post('/measurements.json', api_key: user.authentication_token,
                                             measurement: {
-        value: 123,
-        unit: 'cpm',
-        latitude: 1.1,
-        longitude: 2.2
-      })
+                                              value: 123,
+                                              unit: 'cpm',
+                                              latitude: 1.1,
+                                              longitude: 2.2
+                                            })
     expect(result['value']).to eq(123)
     expect(result['user_id']).to eq(user.id)
   end
@@ -56,8 +56,8 @@ feature "/measurements", type: :feature do
   scenario "updating is non-destructive" do
     put("/measurements/#{second_measurement.id}.json", api_key: user.authentication_token,
                                                        measurement: {
-        value: 15
-      })
+                                                         value: 15
+                                                       })
     
     result = ActiveSupport::JSON.decode(response.body)
     
@@ -84,11 +84,11 @@ feature "/measurements", type: :feature do
 
     api_post('/measurements.json', api_key: user.authentication_token,
                                    measurement: {
-        value: 4342,
-        unit: 'cpm',
-        latitude: 76.667,
-        longitude: 33.321
-      })
+                                     value: 4342,
+                                     unit: 'cpm',
+                                     latitude: 76.667,
+                                     longitude: 33.321
+                                   })
     result = api_get('/measurements.json', since: cutoff_time)
 
     expect(result.length).to eq(1)

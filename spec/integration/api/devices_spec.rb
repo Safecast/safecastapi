@@ -91,7 +91,7 @@ feature "/devices with existing devices", type: :feature do
   scenario "lookup all Safecast devices" do
     result = api_get('/devices', 
                      {
-                      manufacturer: "Safecast"
+                       manufacturer: "Safecast"
                      },
                      'HTTP_ACCEPT' => 'application/json'
                     )
