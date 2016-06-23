@@ -45,3 +45,7 @@ Style/Alias:
 # necessary.
 Style/Documentation:
   Enabled: false
+
+Style/EmptyLines:
+  Exclude:
+    - 'db/migrate/20111123174941_devise_create_users.rb'
