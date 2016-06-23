@@ -24,7 +24,10 @@ feature "/bgeigie_imports API endpoint", type: :feature do
   end
   
   context "after processing" do
-    before(:each) { Delayed::Worker.new.work_off; BgeigieImport.find_each(&:finalize!) }
+    before(:each) do
+      Delayed::Worker.new.work_off
+      BgeigieImport.find_each(&:finalize!)
+    end
     let!(:updated_result) do
       api_get(
         "/bgeigie_imports/#{@result['id']}",

@@ -1,12 +1,5 @@
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'spec/integration/api/bgeigie_imports_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: only_raise, only_fail, semantic
 Style/SignalException:
