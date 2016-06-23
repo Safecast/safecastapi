@@ -20,11 +20,11 @@ class Device < ActiveRecord::Base
   end
   
   def self.get_or_create(dev_params) # rubocop:disable Metrics/MethodLength
-    device = self.new(dev_params)
+    device = new(dev_params)
     if device.valid?
       device.save
     else
-      d = self.where(
+      d = where(
         manufacturer: device.manufacturer,
         model: device.model,
         sensor: device.sensor

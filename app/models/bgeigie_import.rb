@@ -71,15 +71,15 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def confirm_status(item)
-    self.status_details[item] = true
-    self.save!(validate: false)
+    status_details[item] = true
+    save!(validate: false)
   end
 
   def process
     create_tmp_file
     import_to_bgeigie_logs
     confirm_status(:compute_latlng)
-    self.update_column(:status, 'processed')
+    update_column(:status, 'processed')
     delete_tmp_file
   end
 
@@ -88,21 +88,21 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def approve!
-    self.update_column(:approved, true)
+    update_column(:approved, true)
     Delayed::Job.enqueue FinalizeBgeigieImportJob.new(id)
     Notifications.import_approved(self).deliver
   end
 
   def reject!(userinfo)
-    self.update_column(:rejected, true)
-    self.update_column(:rejected_by, userinfo)
-    self.update_column(:status, 'processed')
+    update_column(:rejected, true)
+    update_column(:rejected_by, userinfo)
+    update_column(:status, 'processed')
     Notifications.import_rejected(self).deliver
   end
 
   def unreject!
-    self.update_column(:rejected, false)
-    self.update_column(:rejected_by, nil)
+    update_column(:rejected, false)
+    update_column(:rejected_by, nil)
   end
 
   def send_email(email_body, sender)
@@ -117,14 +117,14 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     import_measurements
     update_counter_caches
     confirm_status(:measurements_added)
-    self.update_column(:status, 'done')
+    update_column(:status, 'done')
   end
 
   def fixdrive!
     import_measurements_fix
     update_counter_caches
     confirm_status(:measurements_added)
-    self.update_column(:status, 'done')
+    update_column(:status, 'done')
   end
 
   def import_measurements_fix
@@ -132,10 +132,10 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
      insert into measurements
      (user_id, value, unit, created_at, updated_at, captured_at,
      measurement_import_id, location)
-     select #{self.user_id},cpm,'cpm', now(), now(), captured_at,
-     #{self.id}, computed_location
+     select #{user_id},cpm,'cpm', now(), now(), captured_at,
+     #{id}, computed_location
      from bgeigie_logs WHERE
-     bgeigie_import_id = #{self.id}])
+     bgeigie_import_id = #{id}])
   end
 
   def create_tmp_file # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -205,7 +205,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def set_bgeigie_import_id
-    ActiveRecord::Base.connection.execute(%(UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}))
+    ActiveRecord::Base.connection.execute(%(UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{id}))
   end
 
   def populate_bgeigie_logs_table
@@ -225,7 +225,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     compute_latlng_from_nmea
     populate_bgeigie_logs_table
     drop_tmp_table
-    self.update_column(:measurements_count, self.bgeigie_logs.count)
+    update_column(:measurements_count, bgeigie_logs.count)
     confirm_status(:import_bgeigie_logs)
   end
 
@@ -261,10 +261,10 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
       insert into measurements
       (user_id, value, unit, created_at, updated_at, captured_at,
       measurement_import_id, md5sum, location)
-      select #{self.user_id},cpm,'cpm', now(), now(), captured_at,
-      #{self.id}, md5sum, computed_location
+      select #{user_id},cpm,'cpm', now(), now(), captured_at,
+      #{id}, md5sum, computed_location
       from bgeigie_logs WHERE
-      bgeigie_import_id = #{self.id}])
+      bgeigie_import_id = #{id}])
   end
 
   def update_counter_caches

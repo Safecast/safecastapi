@@ -97,8 +97,8 @@ class Measurement < ActiveRecord::Base
   
   
   def revise(new_params)
-    new_measurement = self.dup
-    new_measurement.original_id = self.id unless new_measurement.original_id
+    new_measurement = dup
+    new_measurement.original_id = id unless new_measurement.original_id
     
     new_measurement.update_attributes(new_params)
 
@@ -106,7 +106,7 @@ class Measurement < ActiveRecord::Base
       new_measurement.save
       self.expired_at = new_measurement.created_at
       self.replaced_by = new_measurement.id
-      self.save
+      save
     end
     
     new_measurement

@@ -1,15 +1,3 @@
-# Offense count: 45
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'app/models/bgeigie_import.rb'
-    - 'app/models/device.rb'
-    - 'app/models/drive_import.rb'
-    - 'app/models/drive_log.rb'
-    - 'app/models/measurement.rb'
-    - 'app/uploaders/file_uploader.rb'
-    - 'lib/extras/simple_form_extensions.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 Style/RescueModifier:

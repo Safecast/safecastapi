@@ -20,7 +20,7 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def filename
-    File.basename(self.to_s)
+    File.basename(to_s)
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
