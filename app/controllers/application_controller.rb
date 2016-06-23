@@ -60,11 +60,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    if user_signed_in? && current_user.default_locale.present?
-      I18n.locale = current_user.default_locale
-    else
-      I18n.locale = params[:locale] || I18n.default_locale
-    end
+    I18n.locale = current_user.try(:default_locale).presence ||
+                  params[:locale].presence ||
+                  I18n.default_locale
   end
 
   def configure_permitted_parameters

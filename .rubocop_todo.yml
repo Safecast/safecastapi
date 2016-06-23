@@ -1,11 +1,3 @@
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, SingleLineConditionsOnly.
-# SupportedStyles: assign_to_condition, assign_inside_condition
-Style/ConditionalAssignment:
-  Exclude:
-    - 'app/controllers/application_controller.rb'
-
 # Offense count: 100
 Style/Documentation:
   Enabled: false
