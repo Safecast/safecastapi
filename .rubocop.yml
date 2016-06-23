@@ -119,3 +119,6 @@ Style/SpaceInsideBrackets:
 Style/SpaceInsideParens:
   Exclude:
     - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
+
+Style/SpecialGlobalVars:
+  EnforcedStyle: use_english_names

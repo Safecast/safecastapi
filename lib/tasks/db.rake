@@ -14,7 +14,7 @@ namespace :db do
     task dump: [:environment] do |_t|
       setup_psql_env
       system('pg_dump', '-s', '-x', '-O', '-f', schema_file.to_s)
-      raise 'Error dumping database' unless $?.success?
+      raise 'Error dumping database' unless $CHILD_STATUS.success?
       schema_file.open(::File::RDWR | ::File::APPEND) do |f|
         f.puts(::ActiveRecord::Base.connection.dump_schema_information)
         f.puts
