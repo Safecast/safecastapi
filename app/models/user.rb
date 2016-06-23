@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
 
   def to_builder
     Jbuilder.new do |user|
-      user.(self, :id, :name, :number_of_measurements)
+      user.call(self, :id, :name, :number_of_measurements)
     end
   end
 

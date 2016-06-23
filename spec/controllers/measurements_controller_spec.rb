@@ -98,8 +98,8 @@ RSpec.describe MeasurementsController, type: :controller do
       it 'should use last measurement' do
         extract_attributes =
           ->(m) { m.attributes.slice(*%i(value location location_name)) }
-        expect(extract_attributes.(assigns(:measurement)))
-          .to eq(extract_attributes.(last_measurement))
+        expect(extract_attributes.call(assigns(:measurement)))
+          .to eq(extract_attributes.call(last_measurement))
       end
     end
   end
