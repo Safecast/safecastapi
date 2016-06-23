@@ -1,12 +1,3 @@
-# Offense count: 3
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: nested, compact
-Style/ClassAndModuleChildren:
-  Exclude:
-    - 'app/helpers/users/sessions_helper.rb'
-    - 'app/models/bgeigie_import/state_concerns.rb'
-    - 'lib/haml/filters/code.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 Style/ClosingParenthesisIndentation:

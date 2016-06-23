@@ -1,4 +1,4 @@
-module BgeigieImport::StateConcerns
+module BgeigieImportState
   def metadata_added?
     credits.present? && cities.present?
   end
