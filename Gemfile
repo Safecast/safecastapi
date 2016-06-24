@@ -37,10 +37,6 @@ gem 'rails_admin'
 gem 'newrelic_rpm'
 gem 'skylight'
 
-#for docs
-gem 'pygments.rb'
-gem 'redcarpet'
-
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
