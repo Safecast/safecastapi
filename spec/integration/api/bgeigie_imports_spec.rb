@@ -46,6 +46,9 @@ feature "/bgeigie_imports API endpoint", type: :feature do
     end
   end
 
+  # iOS SDCSafecastAPIRouter
+
+  # GET .ImportLogs [:]
   context 'GET /en-US/bgeigie_imports.json' do
     let!(:bgeigie_import) { Fabricate(:bgeigie_import, user: @user, cities: 'Tokyo', credits: 'John Doe') }
     before do
@@ -76,6 +79,40 @@ feature "/bgeigie_imports API endpoint", type: :feature do
     # format that Drivecast iOS app accepts.
     def parse_iso8601(date_str)
       Time.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
+    end
+  end
+
+  # PUT .EditImportLogMetadata(let id, _, _, _, _, _)
+  #   ["api_key": key, "bgeigie_import[credits]": credits,
+  #   "bgeigie_import[cities]": cities, "bgeigie_import[name]": name,
+  #   "bgeigie_import[description]": description]
+  context 'PUT /bgeigie_imports/:id.json' do
+    let!(:bgeigie_import) { Fabricate(:bgeigie_import, user: @user, cities: 'Tokyo', credits: 'John Doe') }
+    before do
+      login_as(@user, scope: :user)
+
+      put "/en-US/bgeigie_imports/#{bgeigie_import.id}.json", post_params
+
+    end
+
+    it { expect(response.status).to eq(204) } # No Content
+
+    subject { bgeigie_import.reload }
+
+    it { expect(subject.credits).to eq('Jane Doe') }
+    it { expect(subject.cities).to eq('Osaka') }
+    it { expect(subject.name).to eq('My Import') }
+    it { expect(subject.description).to eq('Doh!') }
+
+    def post_params
+      {
+        # XXX: iOS app sends this, but not necesarry.
+        'api_key' => @user.authentication_token,
+        'bgeigie_import[credits]' => 'Jane Doe',
+        'bgeigie_import[cities]' => 'Osaka',
+        'bgeigie_import[name]' => 'My Import',
+        'bgeigie_import[description]' => 'Doh!'
+      }
     end
   end
 end
