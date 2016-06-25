@@ -45,4 +45,37 @@ feature "/bgeigie_imports API endpoint", type: :feature do
       expect(updated_result['measurements_count']).to eq(23)
     end
   end
+
+  context 'GET /en-US/bgeigie_imports.json' do
+    let!(:bgeigie_import) { Fabricate(:bgeigie_import, user: @user, cities: 'Tokyo', credits: 'John Doe') }
+    before do
+      login_as(@user, scope: :user)
+
+      get '/en-US/bgeigie_imports.json'
+    end
+
+    subject { JSON.parse(response.body) }
+
+    it { is_expected.to be_a(Array) }
+    it 'should have ISO-8601 format datetime on created_at and updated_at in each item' do
+      subject.each do |item|
+        expect { parse_iso8601(item['created_at']) }.to_not raise_error
+        expect { parse_iso8601(item['updated_at']) }.to_not raise_error
+      end
+    end
+    it 'should have several attributes' do
+      subject.each do |item|
+        expect(item).to be_key('id')
+        expect(item).to be_key('source')
+        expect(item['source']).to be_key('url')
+        expect(item).to be_key('status_details')
+      end
+    end
+
+    # Time.xmlschema accepts more formats. We would like to only parse
+    # format that Drivecast iOS app accepts.
+    def parse_iso8601(date_str)
+      Time.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
+    end
+  end
 end
