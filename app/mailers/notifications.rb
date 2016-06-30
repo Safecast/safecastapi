@@ -45,5 +45,4 @@ class Notifications < ActionMailer::Base
       :subject => "Email from Safecast User regarding Safecast Import - #{import.filename}",
       :body => body)
   end
-
 end
