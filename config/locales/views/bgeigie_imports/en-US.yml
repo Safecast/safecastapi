@@ -71,6 +71,7 @@ en-US:
       map_not_generated: The Map for this import hasn't generated yet. It will appear here once the file is processed.
       submit_for_approval: Submit for Approval
       title: Title
+    delete:
       delete_this_import: Delete this Import
       confirm_delete: Confirm Delete
       about_to_delete: You are about to delete this log. This action cannot be undone.
