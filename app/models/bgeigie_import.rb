@@ -5,21 +5,21 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   # - submitted
   # - approved
   # - done
-  include BgeigieImport::StateConcerns
+  include BgeigieImportState
 
-  validates :user, :presence => true, :on => :create
-  validates :cities, :presence => true, :on => :update
-  validates :credits, :presence => true, :on => :update
+  validates :user, presence: true, on: :create
+  validates :cities, presence: true, on: :update
+  validates :credits, presence: true, on: :update
 
   belongs_to :user
-  has_many :bgeigie_logs, :dependent => :delete_all
+  has_many :bgeigie_logs, dependent: :delete_all
 
-  scope :newest, -> { order("created_at DESC") }
-  scope :oldest, -> { order("created_at") }
-  scope :done, -> { where(:status => "done") }
-  scope :unapproved, -> { where(:approved => false) }
+  scope :newest, -> { order('created_at DESC') }
+  scope :oldest, -> { order('created_at') }
+  scope :done, -> { where(status: 'done') }
+  scope :unapproved, -> { where(approved: false) }
 
-  store :status_details, :accessors => [
+  store :status_details, accessors: [
     :process_file,
     :import_bgeigie_logs,
     :compute_latlng,
@@ -31,27 +31,27 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
            OR lower(source) LIKE :query
            OR lower(description) LIKE :query
            OR lower(cities) LIKE :query
-           OR lower(credits) LIKE :query", :query => "%#{query.downcase}%")
+           OR lower(credits) LIKE :query", query: "%#{query.downcase}%")
   end
 
   def self.by_status(status)
-    where(:status => status)
+    where(status: status)
   end
 
   def self.by_user_id(user_id)
-    where(:user_id => user_id)
+    where(user_id: user_id)
   end
 
   def self.by_rejected(rejected)
-    where(:rejected => rejected)
+    where(rejected: rejected)
   end
 
   def self.uploaded_before(time)
-    where("created_at < ?", time)
+    where('created_at < ?', time)
   end
 
   def self.uploaded_after(time)
-    where("created_at > ?", time)
+    where('created_at > ?', time)
   end
 
   def self.by_subtype(type_or_types)
@@ -71,15 +71,15 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def confirm_status(item)
-    self.status_details[item] = true
-    self.save!(:validate => false)
+    status_details[item] = true
+    save!(validate: false)
   end
 
   def process
     create_tmp_file
     import_to_bgeigie_logs
     confirm_status(:compute_latlng)
-    self.update_column(:status, 'processed')
+    update_column(:status, 'processed')
     delete_tmp_file
   end
 
@@ -88,21 +88,21 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def approve!
-    self.update_column(:approved, true)
+    update_column(:approved, true)
     Delayed::Job.enqueue FinalizeBgeigieImportJob.new(id)
     Notifications.import_approved(self).deliver
   end
 
   def reject!(userinfo)
-    self.update_column(:rejected, true)
-    self.update_column(:rejected_by, userinfo)
-    self.update_column(:status, 'processed')
+    update_column(:rejected, true)
+    update_column(:rejected_by, userinfo)
+    update_column(:status, 'processed')
     Notifications.import_rejected(self).deliver
   end
 
   def unreject!
-    self.update_column(:rejected, false)
-    self.update_column(:rejected_by, nil)
+    update_column(:rejected, false)
+    update_column(:rejected_by, nil)
   end
 
   def send_email(email_body, sender)
@@ -117,25 +117,25 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     import_measurements
     update_counter_caches
     confirm_status(:measurements_added)
-    self.update_column(:status, 'done')
+    update_column(:status, 'done')
   end
 
   def fixdrive!
     import_measurements_fix
     update_counter_caches
     confirm_status(:measurements_added)
-    self.update_column(:status, 'done')
+    update_column(:status, 'done')
   end
 
   def import_measurements_fix
-    ActiveRecord::Base.connection.execute(%Q[
+    ActiveRecord::Base.connection.execute(%[
      insert into measurements
      (user_id, value, unit, created_at, updated_at, captured_at,
      measurement_import_id, location)
-     select #{self.user_id},cpm,'cpm', now(), now(), captured_at,
-     #{self.id}, computed_location
+     select #{user_id},cpm,'cpm', now(), now(), captured_at,
+     #{id}, computed_location
      from bgeigie_logs WHERE
-     bgeigie_import_id = #{self.id}])
+     bgeigie_import_id = #{id}])
   end
 
   def create_tmp_file # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -145,7 +145,11 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
         next if line.first == '#'
         next if line.strip.blank?
         next unless is_sane? line
-        file.write "#{line.strip},#{Digest::MD5.hexdigest(line.strip)}\n" rescue nil
+        begin
+          file.write "#{line.strip},#{Digest::MD5.hexdigest(line.strip)}\n"
+        rescue
+          nil
+        end
         lines_count += 1
       end
     end
@@ -153,34 +157,50 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     confirm_status(:process_file)
   end
 
-  def is_sane?(line) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
+  def is_sane?(line) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity, Style/PredicateName
     line_items = line.strip.split(',')
     return false unless line_items.length >= 13
 
-    #check header
+    # check header
     # rubocop:disable Metrics/LineLength
-    return false unless line_items[0].eql? '$BMRDD' or line_items[0].eql? '$BGRDD' or line_items[0].eql? '$BNRDD' or line_items[0].eql? '$BNXRDD' or line_items[0].eql? '$PNTDD'
+    return false unless line_items[0].eql?('$BMRDD') || line_items[0].eql?('$BGRDD') || line_items[0].eql?('$BNRDD') || line_items[0].eql?('$BNXRDD') || line_items[0].eql?('$PNTDD')
     # rubocop:enable Metrics/LineLength
 
-    #check for Valid CPM
-    return false unless line_items[6].eql? 'A' or line_items[6].eql? 'V'
+    # check for Valid CPM
+    return false unless line_items[6].eql?('A') || line_items[6].eql?('V')
 
-    #check for GPS lock
-    return false unless line_items[12].eql? 'A' or line_items[12].eql? 'V'
+    # check for GPS lock
+    return false unless line_items[12].eql?('A') || line_items[12].eql?('V')
 
-    #check for date
-    date = DateTime.parse line_items[2] rescue nil
+    # check for date
+    begin
+      date = DateTime.parse line_items[2]
+    rescue
+      nil
+    end
     return false unless date
 
-    #check for properly formatted floats
-    lat = Float(line_items[7]) rescue nil
-    lon = Float(line_items[9]) rescue nil
-    alt = Float(line_items[11]) rescue nil
-    return false unless lat and lon and alt
+    # check for properly formatted floats
+    lat = begin
+            Float(line_items[7])
+          rescue
+            nil
+          end
+    lon = begin
+            Float(line_items[9])
+          rescue
+            nil
+          end
+    alt = begin
+            Float(line_items[11])
+          rescue
+            nil
+          end
+    return false unless lat && lon && alt
 
-    #check for proper N/S and E/W
-    return false unless line_items[8].eql? 'N' or line_items[8].eql? 'S'
-    return false unless line_items[10].eql? 'E' or line_items[10].eql? 'W'
+    # check for proper N/S and E/W
+    return false unless line_items[8].eql?('N') || line_items[8].eql?('S')
+    return false unless line_items[10].eql?('E') || line_items[10].eql?('W')
 
     true
   end
@@ -191,7 +211,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
   def psql_command
     # rubocop:disable Metrics/LineLength
-    %Q[psql -U #{db_config['username']} -h #{db_config['host'] || 'localhost'} #{db_config['database']} -c "\\copy bgeigie_logs_tmp (device_tag, device_serial_id, captured_at, cpm, counts_per_five_seconds, total_counts,  cpm_validity, latitude_nmea, north_south_indicator, longitude_nmea,  east_west_indicator, altitude, gps_fix_indicator,horizontal_dilution_of_precision,  gps_fix_quality_indicator,md5sum) FROM '#{tmp_file}' CSV"]
+    %[psql -U #{db_config['username']} -h #{db_config['host'] || 'localhost'} #{db_config['database']} -c "\\copy bgeigie_logs_tmp (device_tag, device_serial_id, captured_at, cpm, counts_per_five_seconds, total_counts,  cpm_validity, latitude_nmea, north_south_indicator, longitude_nmea,  east_west_indicator, altitude, gps_fix_indicator,horizontal_dilution_of_precision,  gps_fix_quality_indicator,md5sum) FROM '#{tmp_file}' CSV"]
     # rubocop:enable Metrics/LineLength
   end
 
@@ -200,22 +220,22 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def drop_and_create_tmp_table
-    ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS bgeigie_logs_tmp")
-    ActiveRecord::Base.connection.execute "create table bgeigie_logs_tmp (like bgeigie_logs including defaults)"
+    ActiveRecord::Base.connection.execute('DROP TABLE IF EXISTS bgeigie_logs_tmp')
+    ActiveRecord::Base.connection.execute 'create table bgeigie_logs_tmp (like bgeigie_logs including defaults)'
   end
 
   def set_bgeigie_import_id
-    ActiveRecord::Base.connection.execute(%Q[UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{self.id}])
+    ActiveRecord::Base.connection.execute(%(UPDATE bgeigie_logs_tmp SET bgeigie_import_id = #{id}))
   end
 
   def populate_bgeigie_logs_table
     # rubocop:disable Metrics/LineLength
-    ActiveRecord::Base.connection.execute(%Q[insert into bgeigie_logs (device_tag, device_serial_id, captured_at, cpm, counts_per_five_seconds, total_counts, cpm_validity, latitude_nmea, north_south_indicator, longitude_nmea, east_west_indicator, altitude, gps_fix_indicator, horizontal_dilution_of_precision, gps_fix_quality_indicator, created_at, updated_at, bgeigie_import_id, computed_location, md5sum) select distinct bt.device_tag, bt.device_serial_id, bt.captured_at, bt.cpm, bt.counts_per_five_seconds, bt.total_counts, bt.cpm_validity, bt.latitude_nmea, bt.north_south_indicator, bt.longitude_nmea, bt.east_west_indicator, bt.altitude, bt.gps_fix_indicator, bt.horizontal_dilution_of_precision, bt.gps_fix_quality_indicator, bt.created_at, bt.updated_at, bt.bgeigie_import_id, bt.computed_location, bt.md5sum from bgeigie_logs_tmp bt left join bgeigie_logs bl on bl.md5sum = bt.md5sum where bl.md5sum is null])
+    ActiveRecord::Base.connection.execute(%[insert into bgeigie_logs (device_tag, device_serial_id, captured_at, cpm, counts_per_five_seconds, total_counts, cpm_validity, latitude_nmea, north_south_indicator, longitude_nmea, east_west_indicator, altitude, gps_fix_indicator, horizontal_dilution_of_precision, gps_fix_quality_indicator, created_at, updated_at, bgeigie_import_id, computed_location, md5sum) select distinct bt.device_tag, bt.device_serial_id, bt.captured_at, bt.cpm, bt.counts_per_five_seconds, bt.total_counts, bt.cpm_validity, bt.latitude_nmea, bt.north_south_indicator, bt.longitude_nmea, bt.east_west_indicator, bt.altitude, bt.gps_fix_indicator, bt.horizontal_dilution_of_precision, bt.gps_fix_quality_indicator, bt.created_at, bt.updated_at, bt.bgeigie_import_id, bt.computed_location, bt.md5sum from bgeigie_logs_tmp bt left join bgeigie_logs bl on bl.md5sum = bt.md5sum where bl.md5sum is null])
     # rubocop:enable Metrics/LineLength
   end
 
   def drop_tmp_table
-    ActiveRecord::Base.connection.execute("DROP TABLE bgeigie_logs_tmp")
+    ActiveRecord::Base.connection.execute('DROP TABLE bgeigie_logs_tmp')
   end
 
   def import_to_bgeigie_logs
@@ -225,14 +245,14 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     compute_latlng_from_nmea
     populate_bgeigie_logs_table
     drop_tmp_table
-    self.update_column(:measurements_count, self.bgeigie_logs.count)
+    update_column(:measurements_count, bgeigie_logs.count)
     confirm_status(:import_bgeigie_logs)
   end
 
   def compute_latlng_from_nmea # rubocop:disable Metrics/MethodLength
-    #a\lgorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
+    # a\lgorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
     # (converted to SQL)
-    ActiveRecord::Base.connection.execute(%Q[
+    ActiveRecord::Base.connection.execute(%[
       update bgeigie_logs_tmp set computed_location =
         ST_GeogFromText(
           concat(
@@ -257,14 +277,14 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def import_measurements
-    ActiveRecord::Base.connection.execute(%Q[
+    ActiveRecord::Base.connection.execute(%[
       insert into measurements
       (user_id, value, unit, created_at, updated_at, captured_at,
       measurement_import_id, md5sum, location)
-      select #{self.user_id},cpm,'cpm', now(), now(), captured_at,
-      #{self.id}, md5sum, computed_location
+      select #{user_id},cpm,'cpm', now(), now(), captured_at,
+      #{id}, md5sum, computed_location
       from bgeigie_logs WHERE
-      bgeigie_import_id = #{self.id}])
+      bgeigie_import_id = #{id}])
   end
 
   def update_counter_caches
@@ -277,21 +297,17 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def nmea_to_lat_lng(latitude_nmea, _north_south_indicator, longitude_nmea, _east_west_indicator) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    #algorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
+    # algorithm described at http://notinthemanual.blogspot.com/2008/07/convert-nmea-latitude-longitude-to.html
 
-    #protect against buggy nmea values that have negative values
+    # protect against buggy nmea values that have negative values
     latitude_nmea = b.latitude_nmea.abs
     longitude_nmea = b.longitude_nmea.abs
 
     lat_sign = 1
-    if b.north_south_indicator == 'S'
-      lat_sign = -1
-    end
+    lat_sign = -1 if b.north_south_indicator == 'S'
 
     lng_sign = 1
-    if b.east_west_indicator == 'W'
-      lng_sign = -1
-    end
+    lng_sign = -1 if b.east_west_indicator == 'W'
 
     lat_degrees = (latitude_nmea / 100).to_i
     lng_degrees = (longitude_nmea / 100).to_i
@@ -300,9 +316,8 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     lng_decimal = (longitude_nmea % 100) / 60
 
     {
-      :latitude => (lat_degrees + lat_decimal) * lat_sign,
-      :longitude => (lng_degrees + lng_decimal) * lng_sign
+      latitude: (lat_degrees + lat_decimal) * lat_sign,
+      longitude: (lng_degrees + lng_decimal) * lng_sign
     }
   end
-
 end

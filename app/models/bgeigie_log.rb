@@ -1,6 +1,6 @@
 class BgeigieLog < ActiveRecord::Base
   set_rgeo_factory_for_column(:computed_location,
-    RGeo::Geographic.spherical_factory(:srid => 4326))
+                              RGeo::Geographic.spherical_factory(srid: 4326))
   include MeasurementConcerns
   #
   # Note
@@ -9,11 +9,11 @@ class BgeigieLog < ActiveRecord::Base
   # Thus no callbacks are called during the deletion of a BgeigieImport
   #
   belongs_to :bgeigie_import
-  
+
   def location
     computed_location
   end
-  
+
   def location=(value)
     self.computed_location = value
   end

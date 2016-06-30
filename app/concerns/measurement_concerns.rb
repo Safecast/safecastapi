@@ -1,5 +1,4 @@
 module MeasurementConcerns
-
   def latitude=(value)
     self.location = "POINT(#{longitude || 0} #{value})"
   end

@@ -4,7 +4,6 @@ RSpec.describe MeasurementsHelper, type: :helper do
       allow(helper).to receive(:[]).with(:unit).and_return('all')
     end
 
-
     it 'should have li tag with "active" class attribute' do
       doc = Nokogiri.HTML(helper.measurement_nav_li(:all))
 

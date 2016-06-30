@@ -1,9 +1,9 @@
-require "spec_helper"
+require 'spec_helper'
 
 RSpec.describe Notifications, type: :mailer do
   # describe "import_approved" do
   #   let(:mail) { Notifications.import_approved }
-  
+
   # describe "import_rejected" do
   #   let(:mail) { Notifications.import_rejected }
 
@@ -31,5 +31,4 @@ RSpec.describe Notifications, type: :mailer do
   #     mail.body.encoded.should match("Hi")
   #   end
   # end
-
 end

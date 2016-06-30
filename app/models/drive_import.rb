@@ -4,27 +4,27 @@ class DriveImport < MeasurementImport
   def self.process
     update_locations
     update_md5sums
-    self.find_each do |drive_import|
-      drive_import.process
-    end
+    find_each(&:process)
   end
 
-  def self.update_locations
-    self.find_each do |drive_import|
+  def self.update_locations # rubocop:disable Metrics/MethodLength
+    find_each do |drive_import|
       puts "\nDrive ID: #{drive_import.id}"
       drive_import.drive_logs.find_each do |drive_log|
-        drive_log.update_location rescue nil
+        begin
+          drive_log.update_location
+        rescue
+          nil
+        end
         print '.'
       end
     end
   end
 
   def self.update_md5sums
-    self.find_each do |drive_import|
+    find_each do |drive_import|
       transaction do
-        drive_import.drive_logs.find_each do |drive_log|
-          drive_log.update_md5sum
-        end
+        drive_import.drive_logs.find_each(&:update_md5sum)
       end
     end
   end
@@ -42,11 +42,9 @@ class DriveImport < MeasurementImport
   end
 
   def create_map
-    @map = self.map || user.maps.create!({
-      :name => "#{name}",
-      :description => "#{description}"
-    })
-    self.update_attribute(:map, @map)
+    @map = map || user.maps.create!(name: name.to_s,
+                                    description: description.to_s)
+    update_attribute(:map, @map)
   end
 
   def user
@@ -58,20 +56,19 @@ class DriveImport < MeasurementImport
   end
 
   def import_measurements
-    ActiveRecord::Base.connection.execute("delete from measurements where measurement_import_id = #{self.id}")
+    ActiveRecord::Base.connection.execute("delete from measurements where measurement_import_id = #{id}")
     ActiveRecord::Base.connection.execute("insert into measurements
                              (user_id, value, unit, created_at, updated_at, captured_at,
                              measurement_import_id, md5sum, location)
-                             select #{self.user_id},alt_reading_value,'cpm', created_at, updated_at, reading_date,
-                             #{self.id}, md5sum, location
+                             select #{user_id},alt_reading_value,'cpm', created_at, updated_at, reading_date,
+                             #{id}, md5sum, location
                              from drive_logs WHERE
-                             drive_import_id = #{self.id}")
-  end
-  
-  def add_measurements_to_map
-    ActiveRecord::Base.connection.execute(%Q[insert into maps_measurements (map_id, measurement_id)
-                                select #{@map.id}, id from measurements
-                                where measurement_import_id = #{self.id}])
+                             drive_import_id = #{id}")
   end
 
+  def add_measurements_to_map
+    ActiveRecord::Base.connection.execute(%[insert into maps_measurements (map_id, measurement_id)
+                                select #{@map.id}, id from measurements
+                                where measurement_import_id = #{id}])
+  end
 end

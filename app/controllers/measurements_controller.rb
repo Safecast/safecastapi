@@ -12,7 +12,7 @@ class MeasurementsController < ApplicationController
   # config/initializers/wrap_parameters.rb
   wrap_parameters include: attribute_names_to_be_wrapped, format: %i(json)
 
-  before_filter :authenticate_user!, :only => [:new, :create, :update, :destroy]
+  before_filter :authenticate_user!, only: [:new, :create, :update, :destroy]
 
   has_scope :captured_after
   has_scope :unit do |_controller, scope, value|
@@ -24,18 +24,18 @@ class MeasurementsController < ApplicationController
   end
   has_scope :order
   has_scope :original_id do |_controller, scope, value|
-    scope.where("original_id = :value OR id = :value", :value => value)
+    scope.where('original_id = :value OR id = :value', value: value)
   end
   has_scope :until
 
   has_scope :device_id do |_controller, scope, value|
-    scope.where(:device_id => value)
+    scope.where(device_id: value)
   end
   has_scope :user_id do |_controller, scope, value|
-    scope.where(:user_id => value)
+    scope.where(user_id: value)
   end
   has_scope :measurement_import_id do |_controller, scope, value|
-    scope.where(:measurement_import_id => value)
+    scope.where(measurement_import_id: value)
   end
   has_scope :since
   has_scope :limit
@@ -45,7 +45,7 @@ class MeasurementsController < ApplicationController
   def index
     # Don't delete these @filename and @streaming. They are for
     # csvbuilder.
-    @filename = "measurements.csv"
+    @filename = 'measurements.csv'
     @streaming = true
 
     @measurements = apply_scopes(Measurement).includes(:measurement_import, :user)
@@ -57,12 +57,12 @@ class MeasurementsController < ApplicationController
 
     respond_with @measurements
   end
-  
+
   def show
     @measurement = Measurement.find(params[:id])
     respond_with @measurement
   end
-  
+
   def new
     @measurement = current_user.measurements.last.try(:dup) || Measurement.default
     @measurement.captured_at = Time.current.strftime('%d %B %Y, %H:%M:%S')
@@ -86,7 +86,7 @@ class MeasurementsController < ApplicationController
     # respond_with typically doesn't pass the resource for PUT, but since we're being non-destructive, our PUT actually returns a new resource
     # see: https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/5199-respond_with-returns-on-put-and-delete-verb#ticket-5199-14
     respond_with(@new_measurement) do |format|
-      format.json { render :json => @new_measurement.to_json, :status => :accepted }
+      format.json { render json: @new_measurement.to_json, status: :accepted }
     end
   end
 
@@ -103,7 +103,7 @@ class MeasurementsController < ApplicationController
     respond_with @count
   end
 
-private
+  private
 
   def measurement_params
     params.fetch(:measurement, {})

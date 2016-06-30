@@ -1,4 +1,157 @@
-inherit_from: .rubocop_todo.yml
-
 AllCops:
   DisplayCopNames: true
+
+Lint/BlockAlignment:
+  Exclude:
+    - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
+
+Lint/DefEndAlignment:
+  Enabled: true
+  Exclude:
+    - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
+    - 'db/migrate/20150919060031_add_extra_fields_to_measurements_table.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'db/migrate/20111214162214_create_bgeigie_logs.rb'
+    - 'db/migrate/20120323105044_create_drive_logs.rb'
+
+Metrics/LineLength:
+  Max: 160
+  AllowHeredoc: true
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
+
+Metrics/MethodLength:
+  Exclude:
+    - 'db/migrate/20111214154833_create_delayed_jobs.rb'
+    - 'db/migrate/20111214162214_create_bgeigie_logs.rb'
+    - 'db/migrate/20120323105044_create_drive_logs.rb'
+    - 'db/migrate/20120418231658_devise_create_admins.rb'
+
+Style/AccessModifierIndentation:
+  EnforcedStyle: indent
+
+# `alias` is lexically scoped, and `alias_method` is dynamically scoped;
+# depends on `self` at runtime.
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+
+# It would be nice to have class/module documenttation, but not
+# necessary.
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyLines:
+  Exclude:
+    - 'db/migrate/20111123174941_devise_create_users.rb'
+
+Style/EmptyLinesAroundClassBody:
+  Exclude:
+    - 'db/migrate/20111123174941_devise_create_users.rb'
+    - 'db/migrate/20130114094100_change_height_on_measurement_import_from_integer_to_decimal.rb'
+
+Style/EmptyLinesAroundMethodBody:
+  Exclude:
+    - 'db/migrate/20120306150302_add_fields_to_measurements.rb'
+    - 'db/migrate/20120306202021_add_time_zone_to_user.rb'
+    - 'db/migrate/20120307130255_add_status_details_to_measurement_import.rb'
+    - 'db/migrate/20120307130803_add_approved_to_measurement_import.rb'
+    - 'db/migrate/20120315211955_add_name_and_description_to_measurement_import.rb'
+    - 'db/migrate/20120315220809_add_lines_count_to_measurement_import.rb'
+    - 'db/migrate/20120417190549_add_details_to_measurement_import.rb'
+    - 'db/migrate/20130606042505_add_devise_confirmable_to_user.rb'
+    - 'db/migrate/20150919060031_add_extra_fields_to_measurements_table.rb'
+
+Style/HashSyntax:
+  Exclude:
+    - 'db/migrate/20111123174941_devise_create_users.rb'
+    - 'db/migrate/20111130103929_add_location_to_measurement.rb'
+    - 'db/migrate/20111213000431_create_maps_measurements.rb'
+    - 'db/migrate/20111214154833_create_delayed_jobs.rb'
+    - 'db/migrate/20120103213502_add_default_to_bgeigie_log.rb'
+    - 'db/migrate/20120110185237_add_computed_location_to_bgeigie_logs.rb'
+    - 'db/migrate/20120116134744_add_checksum_to_bgeigie_log_and_measurement.rb'
+    - 'db/migrate/20120307130803_add_approved_to_measurement_import.rb'
+    - 'db/migrate/20120307150105_add_moderator_to_user.rb'
+    - 'db/migrate/20120323105044_create_drive_logs.rb'
+    - 'db/migrate/20120323115733_add_location_to_drive_log.rb'
+    - 'db/migrate/20120324094455_add_unique_md5sum_index_to_drive_log.rb'
+    - 'db/migrate/20120418231658_devise_create_admins.rb'
+    - 'db/migrate/20120521225350_add_spatial_index_on_measurements.rb'
+    - 'db/migrate/20120625212801_change_drive_log_float_limit_to_24.rb'
+    - 'db/migrate/20130114094100_change_height_on_measurement_import_from_integer_to_decimal.rb'
+    - 'db/migrate/20130427160522_change_latitude_nmea_on_bgeigie_log_to_decimal.rb'
+    - 'db/migrate/20130606042505_add_devise_confirmable_to_user.rb'
+    - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
+
+Style/IndentArray:
+  EnforcedStyle: consistent
+
+Style/IndentHash:
+  EnforcedStyle: consistent
+
+Style/IndentationConsistency:
+  Exclude:
+    - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
+
+Style/IndentationWidth:
+  Exclude:
+    - 'db/migrate/20120307175658_add_timestamps_to_measurement_imports.rb'
+    - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
+    - 'db/migrate/20150919060031_add_extra_fields_to_measurements_table.rb'
+
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Style/SpaceAroundOperators:
+  Exclude:
+    - 'db/migrate/20120521225350_add_spatial_index_on_measurements.rb'
+
+Style/SpaceInsideBrackets:
+  Exclude:
+    - 'db/migrate/20160208190731_add_subtype_to_measurement_imports.rb'
+
+Style/SpaceInsideParens:
+  Exclude:
+    - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
+
+Style/SpecialGlobalVars:
+  EnforcedStyle: use_english_names
+
+Style/StringLiterals:
+  Exclude:
+    - 'db/migrate/20120418231658_devise_create_admins.rb'
+    - 'db/migrate/20120521225350_add_spatial_index_on_measurements.rb'
+
+Style/SymbolProc:
+  Exclude:
+    - 'db/migrate/20120307175658_add_timestamps_to_measurement_imports.rb'
+
+Style/Tab:
+  Exclude:
+    - 'db/migrate/20111214154833_create_delayed_jobs.rb'
+
+Style/TrailingBlankLines:
+  Exclude:
+    - 'db/migrate/20111214154833_create_delayed_jobs.rb'
+    - 'db/migrate/20120103213502_add_default_to_bgeigie_log.rb'
+    - 'db/migrate/20120307232457_create_configurables.rb'
+
+Style/TrailingWhitespace:
+  Exclude:
+    - 'db/migrate/20111124211843_create_measurements.rb'
+    - 'db/migrate/20111128163114_add_lat_and_lng.rb'
+    - 'db/migrate/20111210235206_add_user_to_maps.rb'
+    - 'db/migrate/20111210235226_add_device_to_maps.rb'
+    - 'db/migrate/20111210235259_add_device_to_measurements.rb'
+    - 'db/migrate/20111214154833_create_delayed_jobs.rb'
+    - 'db/migrate/20111214224611_add_history_to_measurements.rb'
+    - 'db/migrate/20120103213502_add_default_to_bgeigie_log.rb'
+    - 'db/migrate/20120103213502_add_default_to_bgeigie_log.rb'
+    - 'db/migrate/20120307232457_create_configurables.rb'
+
+Style/VariableName:
+  Enabled: true

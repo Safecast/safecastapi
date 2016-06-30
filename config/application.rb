@@ -32,7 +32,7 @@ module Safecast
     config.i18n.fallbacks = { 'en-US' => 'en' }
 
     # Configure the default encoding used in templates for Ruby 1.9.
-    config.encoding = "utf-8"
+    config.encoding = 'utf-8'
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
@@ -49,8 +49,8 @@ module Safecast
 
     config.generators do |g|
       g.test_framework :rspec,
-                       :fixture => false,
-                       :views => false
+                       fixture: false,
+                       views: false
       g.assets false
       g.javascripts false
       g.stylesheets false

@@ -1,23 +1,23 @@
 require 'spec_helper'
 
 RSpec.describe Measurement, type: :model do
-  context "setting location" do
-    let(:measurement) { Fabricate(:measurement, {
-      :location => 'POINT(12.001 14.002)'
-    })}
+  context 'setting location' do
+    let(:measurement) do
+      Fabricate(:measurement, location: 'POINT(12.001 14.002)')
+    end
     subject { measurement }
-    
+
     its(:longitude) { should == 12.001 }
     its(:latitude) { should == 14.002 }
   end
 
-  context "setting lat and lng" do
-    let(:measurement) { Fabricate(:measurement, {
-      :longitude => 12.001,
-      :latitude =>  14.002
-    })}
+  context 'setting lat and lng' do
+    let(:measurement) do
+      Fabricate(:measurement, longitude: 12.001,
+                              latitude: 14.002)
+    end
     subject { measurement }
-    
+
     its(:longitude) { should == 12.001 }
     its(:latitude) { should == 14.002 }
   end

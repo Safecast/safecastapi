@@ -1,6 +1,6 @@
 class DashboardsController < ApplicationController
   def show
-    if !user_signed_in?
+    unless user_signed_in?
       render 'home/show'
       return
     end

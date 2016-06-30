@@ -9,7 +9,7 @@ module Actions
         context.send_data(kml, send_opts(filename))
       end
 
-    private
+      private
 
       TEMPLATE_FILE =
         'app/views/bgeigie_imports/bgeigie_logs.kml.erb'.freeze

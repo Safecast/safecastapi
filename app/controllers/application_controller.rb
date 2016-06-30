@@ -10,76 +10,67 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :cors_set_access_control_headers
   skip_before_filter :verify_authenticity_token
-  skip_after_filter :intercom_rails_auto_include if !Rails.env.production?
+  skip_after_filter :intercom_rails_auto_include unless Rails.env.production?
   before_filter :new_relic_custom_attributes
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
+    redirect_to root_url, alert: exception.message
   end
-  
 
   def index
     cors_set_access_control_headers
-    respond_with @result = @doc 
+    respond_with @result = @doc
   end
 
   def options
     cors_set_access_control_headers
-    render :text => '', :content_type => 'application/json'
+    render text: '', content_type: 'application/json'
   end
-    
-protected
-  
+
+  protected
+
   def rescue_action(_env)
     respond_to do |wants|
-      wants.json { render :json => "Error", :status => 500 }
+      wants.json { render json: 'Error', status: 500 }
     end
   end
 
   def cors_set_access_control_headers # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     return unless request.env['HTTP_ACCEPT'].eql? 'application/json'
-    if current_user 
+    if current_user
       host = request.env['HTTP_ORIGIN']
-    else 
+    else
       host = request.env['HTTP_ORIGIN']
-      unless /safecast.org$/ =~ host
-        host = 'safecast.org'
-      end
+      host = 'safecast.org' unless /safecast.org$/ =~ host
     end
     headers['Access-Control-Allow-Origin'] = host
     headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
     headers['Access-Control-Allow-Headers'] = '*, X-Requested-With'
     headers['Access-Control-Max-Age'] = '100000'
   end
- 
+
   def require_moderator
-    unless user_signed_in? and current_user.moderator?
-      set_flash_message(:alert, 'access_denied')
-      redirect_to root_path 
-    end
+    return if current_user && current_user.moderator?
+    redirect_to root_path, alert: 'access_denied'
   end
 
   def set_locale
-    if user_signed_in? && current_user.default_locale.present?
-      I18n.locale = current_user.default_locale
-    else
-      I18n.locale = params[:locale] || I18n.default_locale
-    end
+    I18n.locale = current_user.try(:default_locale).presence ||
+                  params[:locale].presence ||
+                  I18n.default_locale
   end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :name
   end
 
-  def default_url_options(_options={})
-    { :locale => I18n.locale }
+  def default_url_options(_options = {})
+    { locale: I18n.locale }
   end
 
   def new_relic_custom_attributes
-    if current_user
-      custom_attrs = { user_id: current_user.id }
-      ::NewRelic::Agent.add_custom_attributes(custom_attrs)
-    end
+    return unless current_user
+    ::NewRelic::Agent.add_custom_attributes(user_id: current_user.id)
   end
 
   # API-Gateway needs to send in HTTP
@@ -88,6 +79,6 @@ protected
   end
 
   def strict_transport_security
-    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains" if request.ssl?
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains' if request.ssl?
   end
 end
