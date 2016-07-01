@@ -17,6 +17,7 @@ Safecast::Application.routes.draw do
       resources :bgeigie_logs, only: :index
       member do
         patch :submit
+        put :submit
         patch :reject
         patch :unreject
         patch :approve
