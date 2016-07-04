@@ -14,7 +14,7 @@
   <li>
     <%= t '.import_bgeigie_logs' -%>
     <%- if @bgeigie_import.bgeigie_logs.any? -%>
-      (<%= t('.count_found', :count => @bgeigie_import.bgeigie_logs.count) %>)
+      (<%= t('.count_found', :count => @bgeigie_import.bgeigie_logs.size) %>)
     <%- else -%>
       (<%= t '.none_found' -%>)
     <%- end -%>

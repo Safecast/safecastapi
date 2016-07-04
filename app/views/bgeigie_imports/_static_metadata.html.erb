@@ -22,8 +22,7 @@
       <%= t('.number_of_measurements') %>
     </dt>
     <dd>
-      <%= '-' unless @bgeigie_import.processed? %>
-      <%= @bgeigie_import.bgeigie_logs.count if @bgeigie_import.processed? %>
+      <%= @bgeigie_import.processed? ? @bgeigie_import.bgeigie_logs.size : '-' %>
     </dd>
   </dl>
 </div>
