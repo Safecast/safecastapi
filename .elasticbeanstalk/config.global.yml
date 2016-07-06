@@ -1,0 +1,5 @@
+global:
+  application_name: api
+  default_region: us-west-2
+  profile: safecast
+  sc: git
