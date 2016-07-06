@@ -1,6 +1,4 @@
-require 'spec_helper'
-
-feature '/measurements API endpoint', type: :feature do
+feature '/measurements API endpoint', type: :request do
   let!(:user) do
     User.first || Fabricate(:user,
                             email: 'paul@rslw.com',
@@ -25,7 +23,7 @@ feature '/measurements API endpoint', type: :feature do
   end
 end
 
-feature '/measurements', type: :feature do
+feature '/measurements', type: :request do
   before(:all) { Measurement.destroy_all }
 
   let!(:user) { User.first || Fabricate(:user) }
