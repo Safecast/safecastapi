@@ -1,6 +1,4 @@
-require 'spec_helper'
-
-feature '/devices API endpoint', type: :feature do
+feature '/devices API endpoint', type: :request do
   before do
     @user = Fabricate(:user, email: 'paul@rslw.com', name: 'Paul Campbell')
   end
@@ -40,7 +38,7 @@ feature '/devices API endpoint', type: :feature do
   end
 end
 
-feature '/devices with existing devices', type: :feature do
+feature '/devices with existing devices', type: :request do
   before do
     @user = Fabricate(:user, email: 'paul@rslw.com', name: 'Paul Campbell')
     @first_device = Fabricate(:device, manufacturer: 'Safecast',
