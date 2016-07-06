@@ -1,0 +1,19 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    links:
+      - postgis
+    environment:
+      DATABASE_URL: postgis://safecast:safecast@postgis:5432/safecast?pool=1
+
+  postgis:
+    image: mdillon/postgis
+    environment:
+      POSTGRES_USER: safecast
+      POSTGRES_PASSWORD: safecast
+      POSTGRES_DB: safecast
