@@ -105,7 +105,7 @@ GEM
     eventmachine (1.0.9.1)
     excon (0.20.1)
     execjs (2.7.0)
-    fabrication (2.2.2)
+    fabrication (2.15.2)
     fog (1.8.0)
       builder
       excon (~> 0.14)
@@ -314,7 +314,7 @@ DEPENDENCIES
   dotenv-rails
   draper
   email_spec
-  fabrication (= 2.2.2)
+  fabrication
   fog (~> 1.8.0)
   formatted-dates
   has_scope (~> 0.5.1)
