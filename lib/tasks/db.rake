@@ -40,7 +40,7 @@ namespace :db do
         .reject { |_, v| v.nil? } # TODO: use `#compact` in Rails 4
         .each do |key, val|
           key = 'user' if key == 'username'
-          ::ENV["PG#{key.upcase}"] = val
+          ::ENV["PG#{key.upcase}"] = val.to_s
         end
     end
 
