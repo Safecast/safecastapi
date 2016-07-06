@@ -172,4 +172,24 @@ RSpec.describe BgeigieImportsController, type: :controller do
         .to match(/#{bgeigie_import.source.filename}\.kml/)
     end
   end
+
+  # iOS will use PUT method to update bgeigie import
+  describe 'PUT #submit' do
+    let!(:moderator) { Fabricate(:admin_user) }
+    let(:bgeigie_import) { Fabricate(:bgeigie_import, user: user, cities: 'Tokyo', credits: 'John Doe') }
+
+    before do
+      ActionMailer::Base.deliveries.clear
+
+      put :submit, id: bgeigie_import.id, api_key: user.authentication_token, file: fixture_file_upload('/bgeigie.log')
+
+      bgeigie_import.reload
+    end
+
+    it { expect(response).to redirect_to(bgeigie_import) }
+    it { expect(ActionMailer::Base.deliveries).to be_present }
+    it { expect(bgeigie_import.status).to eq('submitted') }
+    it { expect(bgeigie_import.rejected).to be_falsey }
+    it { expect(bgeigie_import.rejected_by).to be_nil }
+  end
 end
