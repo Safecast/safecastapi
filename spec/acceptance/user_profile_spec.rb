@@ -16,6 +16,7 @@ feature 'User Profile', type: :feature do
     select 'ja', from: 'Default Locale'
     click_button 'Update User'
 
+    expect(page).to have_current_path(dashboard_path(locale: 'ja'))
     expect(page).to have_content('Safecast API センターにようこそ！')
   end
 end
