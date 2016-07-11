@@ -1,13 +1,11 @@
-require 'spec_helper'
-
+# TODO: move to controller spec
 feature 'Publicly viewable measurement count', type: :feature do
-  let(:user) { Fabricate(:user) }
-  let!(:m1) { Fabricate(:measurement, value: 66, user_id: user.id) }
-  let!(:m2) { Fabricate(:measurement, value: 60, user_id: user.id) }
-  let!(:m3) { Fabricate(:measurement, value: 11, user_id: user.id) }
-  let!(:m4) { Fabricate(:measurement, value: 64, user_id: user.id) }
-  let!(:m5) { Fabricate(:measurement, value: 96, user_id: user.id) }
-  let!(:m6) { Fabricate(:measurement, value: 68, user_id: user.id) }
+  before do
+    user = Fabricate(:user)
+    Fabricate.times(6, :measurement, user: user) do
+      value { sequence(:value, 10) }
+    end
+  end
 
   scenario 'view http://maps.safecast.org/count' do
     visit('/count')

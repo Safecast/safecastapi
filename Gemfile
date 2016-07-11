@@ -51,14 +51,14 @@ group :development do
 end
 
 group :test do
-  gem 'codeclimate-test-reporter', require: nil
   gem 'capybara'
+  gem 'codeclimate-test-reporter', require: nil
   gem 'database_cleaner'
-  gem 'fabrication', '2.2.2'
+  gem 'email_spec'
+  gem 'fabrication'
   gem 'launchy'
   gem 'pry'
   gem 'rspec-its'
   gem 'rspec-rails'
-  gem 'email_spec'
   gem 'rubocop', group: :development
 end
