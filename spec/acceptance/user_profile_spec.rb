@@ -19,4 +19,17 @@ feature 'User Profile', type: :feature do
     expect(page).to have_current_path(dashboard_path(locale: 'ja'))
     expect(page).to have_content('Safecast API センターにようこそ！')
   end
+
+  scenario 'change password' do
+    click_link user.email
+    click_link 'Profile'
+    click_link 'Change Password'
+    fill_in 'Password', with: '123456'
+    fill_in 'Password confirmation', with: '123456'
+    within('#change-password') do
+      click_button 'Update User'
+    end
+
+    expect(page).to have_content('Sign in')
+  end
 end
