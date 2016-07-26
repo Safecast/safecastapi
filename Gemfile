@@ -46,6 +46,7 @@ gem 'thin'
 
 group :development do
   gem 'dotenv-rails', group: :test
+  gem 'pry-byebug', group: :test
   gem 'pry-rails'
   gem 'quiet_assets'
 end
@@ -57,7 +58,6 @@ group :test do
   gem 'email_spec'
   gem 'fabrication'
   gem 'launchy'
-  gem 'pry'
   gem 'rspec-its'
   gem 'rspec-rails'
   gem 'rubocop', group: :development
