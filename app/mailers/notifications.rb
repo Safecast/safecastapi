@@ -19,7 +19,7 @@ class Notifications < ActionMailer::Base
   end
 
   def import_awaiting_approval(import)
-    moderators = User.moderator.collect(&:email)
+    moderators = "approvers@safecast.org"
     return if moderators.empty?
     @import = import
     mail(
