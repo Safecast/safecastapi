@@ -2,6 +2,8 @@ class Notifications < ActionMailer::Base
   default from: 'mailer@safecast.org'
   default_url_options[:locale] = 'en-US'
 
+  APPROVERS_LIST = 'approvers@safecast.org'
+
   def import_approved(import)
     @import = import
     mail(
@@ -19,7 +21,7 @@ class Notifications < ActionMailer::Base
   end
 
   def import_awaiting_approval(import)
-    moderators = "approvers@safecast.org"
+    moderators = APPROVERS_LIST
     return if moderators.empty?
     @import = import
     mail(
