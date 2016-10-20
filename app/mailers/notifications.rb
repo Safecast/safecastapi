@@ -2,6 +2,8 @@ class Notifications < ActionMailer::Base
   default from: 'mailer@safecast.org'
   default_url_options[:locale] = 'en-US'
 
+  APPROVERS_LIST = 'approvers@safecast.org'.freeze
+
   def import_approved(import)
     @import = import
     mail(
@@ -19,7 +21,7 @@ class Notifications < ActionMailer::Base
   end
 
   def import_awaiting_approval(import)
-    moderators = User.moderator.collect(&:email)
+    moderators = APPROVERS_LIST
     return if moderators.empty?
     @import = import
     mail(
@@ -35,8 +37,7 @@ class Notifications < ActionMailer::Base
     mail(
       from: sender,
       to: import.user.email,
-      subject: "Email from Safecast Moderator regarding your Safecast Import - #{import.filename}",
-      body: body
+      subject: "Email from Safecast Moderator regarding your Safecast Import - #{import.filename}"
     )
   end
 
@@ -47,8 +48,7 @@ class Notifications < ActionMailer::Base
     mail(
       from: sender,
       to: import.rejected_by,
-      subject: "Email from Safecast User regarding Safecast Import - #{import.filename}",
-      body: body
+      subject: "Email from Safecast User regarding Safecast Import - #{import.filename}"
     )
   end
 end

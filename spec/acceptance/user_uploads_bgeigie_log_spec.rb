@@ -20,7 +20,7 @@ feature 'User uploads bgeigie log', type: :feature do
       expect(page).to have_content('Processed')
       click_button 'Submit for Approval'
       expect(page).to have_content('Submitted')
-      expect(find_email(moderator.email,
+      expect(find_email(Notifications::APPROVERS_LIST,
                         with_subject: 'A Safecast import is awaiting approval')).to be_present
     end
   end
