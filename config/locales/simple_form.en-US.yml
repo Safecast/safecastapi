@@ -48,6 +48,11 @@ en-US:
         credits: '(comma-separated. eg. "Sean Bonner, Pieter Franken")'
         cities: '(comma-separated. eg. "Dublin, Tokyo")'
         height: (in metres)
+        subtype: "<ul>
+<li>Drive - car, bike, walk, boat, terrestrial</li>
+<li>Surface - near immediate surface, alpha/beta activity</li>
+<li>Cosmic - aircraft, balloons, rockets</li>
+</ul>"
     #   defaults:
     #     username: 'User name to sign in.'
     #     password: 'No special characters, please.'
