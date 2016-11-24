@@ -30,23 +30,19 @@ class Notifications < ActionMailer::Base
     )
   end
 
-  def send_email(import, body, sender)
+  def send_email(import, body)
     @import = import
     @body = body
-    @sender = sender
     mail(
-      from: sender,
       to: import.user.email,
       subject: "Email from Safecast Moderator regarding your Safecast Import - #{import.filename}"
     )
   end
 
-  def contact_moderator(import, body, sender)
+  def contact_moderator(import, body)
     @import = import
     @body = body
-    @sender = sender
     mail(
-      from: sender,
       to: import.rejected_by,
       subject: "Email from Safecast User regarding Safecast Import - #{import.filename}"
     )

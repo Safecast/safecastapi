@@ -105,12 +105,12 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     update_column(:rejected_by, nil)
   end
 
-  def send_email(email_body, sender)
-    Notifications.send_email(self, email_body, sender).deliver
+  def send_email(email_body)
+    Notifications.send_email(self, email_body).deliver
   end
 
-  def contact_moderator(email_body, sender)
-    Notifications.contact_moderator(self, email_body, sender).deliver
+  def contact_moderator(email_body)
+    Notifications.contact_moderator(self, email_body).deliver
   end
 
   def finalize!
