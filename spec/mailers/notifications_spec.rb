@@ -9,7 +9,7 @@ RSpec.describe Notifications, type: :mailer do
       end
     end
 
-    subject { described_class.send_email(import, 'e-mail body', 'sender@example.org') }
+    subject { described_class.send_email(import, 'e-mail body') }
 
     it { is_expected.to be_present }
   end
@@ -22,7 +22,7 @@ RSpec.describe Notifications, type: :mailer do
       end
     end
 
-    subject { described_class.contact_moderator(import, 'e-mail body', 'sender@example.org') }
+    subject { described_class.contact_moderator(import, 'e-mail body') }
 
     it { is_expected.to be_present }
   end
