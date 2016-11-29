@@ -15,7 +15,8 @@
 development:
   adapter: postgis
   schema_search_path: "public,postgis"
-  script_dir: /usr/local/share/postgis
+  # script_dir: /usr/local/share/postgis
+  script_dir: /usr/share/postgresql/9.5/contrib/postgis-2.2/
   encoding: unicode
   database: safecast_development
   pool: 5
@@ -45,7 +46,8 @@ development:
 test:
   adapter: postgis
   schema_search_path: "public,postgis"
-  script_dir: /usr/local/share/postgis
+  # script_dir: /usr/local/share/postgis
+  script_dir: /usr/share/postgresql/9.5/contrib/postgis-2.2/
   encoding: unicode
   database: safecast_test
   pool: 5
