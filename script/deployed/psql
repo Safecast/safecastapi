@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+exec psql -h $POSTGRESQL_ADDRESS_EXT -U $POSTGRESQL_USERNAME "$@" $POSTGRESQL_DATABASE
