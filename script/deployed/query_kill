@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ -z "$1" ]]; then
+  echo "Usage: $0 pid"
+  exit 1
+fi
+
+while [[ -n "$1" ]]; do
+  $(dirname $0)/psql -P pager=off -c "select pg_cancel_backend($1);"
+  shift
+done

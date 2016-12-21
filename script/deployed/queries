@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+$(dirname $0)/psql -P pager=off -c "select pid,application_name,client_addr,client_port,query_start,query from pg_stat_activity where state = 'active' and query ilike '%measurements%' order by query_start;"
