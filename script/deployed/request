@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+curl -H 'X-Forwarded-Proto: https' -w "
+            time_namelookup:  %{time_namelookup}
+               time_connect:  %{time_connect}
+            time_appconnect:  %{time_appconnect}
+           time_pretransfer:  %{time_pretransfer}
+              time_redirect:  %{time_redirect}
+         time_starttransfer:  %{time_starttransfer}
+                            ----------
+                 time_total:  %{time_total}
+" \
+localhost/"$@"

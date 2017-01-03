@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+exec /var/deploy/api.safecast.org/web_head/current/script/rails "$@"
