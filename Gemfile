@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.1.10'
+ruby File.read('.ruby-version').chomp
 
 gem 'devise'
 gem 'devise-i18n'
