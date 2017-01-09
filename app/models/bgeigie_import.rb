@@ -16,7 +16,10 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
   scope :newest, -> { order('created_at DESC') }
   scope :oldest, -> { order('created_at') }
-  scope :done, -> { where(status: 'done') }
+
+  %i(submitted processed done).each do |status|
+    scope status, -> { where(status: status) }
+  end
   scope :unapproved, -> { where(approved: false) }
 
   store :status_details, accessors: [
