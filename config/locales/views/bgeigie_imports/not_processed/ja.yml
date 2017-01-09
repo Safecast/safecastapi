@@ -1,0 +1,10 @@
+en-US:
+  bgeigie_imports:
+    not_processed:
+      index:
+        bgeigie_imports: bGeigie Imports
+        not_processed: 未処理一覧
+        process_file: ファイルの処理
+        import_bgeigie_logs: ログのインポート
+        compute_latlng: 緯度・経度の計算
+        measurements_added: 測定値の追加

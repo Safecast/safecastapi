@@ -13,6 +13,10 @@ Safecast::Application.routes.draw do
     resource :dashboard
     resource :profile
 
+    namespace :bgeigie_imports do
+      resources :not_processed, only: :index
+    end
+
     resources :bgeigie_imports do
       resources :bgeigie_logs, only: :index
       member do

@@ -21,4 +21,10 @@ module BgeigieImportsHelper
       link_to t("bgeigie_imports.states.#{status}"), bgeigie_imports_url(p)
     end
   end
+
+  def status_details(bgeigie_import)
+    bgeigie_import.status_details.each_with_object([]) do |(k, v), a|
+      a << t(".#{k}") if v
+    end
+  end
 end
