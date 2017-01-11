@@ -170,10 +170,6 @@ en-US:
       create: Create %{model}
       submit: Save %{model}
       update: Update %{model}
-      # bgeigie_import:
-      #   create: Create Bgeigie import
-      # device:
-      #   create: Create Device
   if_you_have_a_bgeigie: If you have a bGeigie
   imports_awaiting_approval: imports awaiting approval
   it_may_take_a_few_minutes_to_process: It may take a few minutes to process.
