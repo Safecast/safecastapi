@@ -1,0 +1,10 @@
+en-US:
+  bgeigie_imports:
+    not_processed:
+      index:
+        bgeigie_imports: bGeigie Imports
+        not_processed: Not Processed
+        process_file: Processed File
+        import_bgeigie_logs: Imported bGeigie Logs
+        compute_latlng: Computed Latudes and Logtitudes
+        measurements_added: Added Measurements

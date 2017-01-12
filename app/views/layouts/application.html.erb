@@ -50,6 +50,7 @@
                 <%= link_to t('.devices'), :devices %>
               </li>
             </ul>
+            <%= render 'stuck_drives' if current_user.try!(:moderator?) %>
           </div>
         </div>
 

@@ -16,7 +16,10 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
   scope :newest, -> { order('created_at DESC') }
   scope :oldest, -> { order('created_at') }
-  scope :done, -> { where(status: 'done') }
+
+  %i(submitted processed done).each do |status|
+    scope status, -> { where(status: status) }
+  end
   scope :unapproved, -> { where(approved: false) }
 
   store :status_details, accessors: [
@@ -211,7 +214,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
   def psql_command
     # rubocop:disable Metrics/LineLength
-    %[psql -U #{db_config['username']} -h #{db_config['host'] || 'localhost'} #{db_config['database']} -c "\\copy bgeigie_logs_tmp (device_tag, device_serial_id, captured_at, cpm, counts_per_five_seconds, total_counts,  cpm_validity, latitude_nmea, north_south_indicator, longitude_nmea,  east_west_indicator, altitude, gps_fix_indicator,horizontal_dilution_of_precision,  gps_fix_quality_indicator,md5sum) FROM '#{tmp_file}' CSV"]
+    %[psql -U #{db_config['username']} -h #{db_config['host'] || 'localhost'} #{db_config['database']} -p #{db_config['port'] || '5432'} -c "\\copy bgeigie_logs_tmp (device_tag, device_serial_id, captured_at, cpm, counts_per_five_seconds, total_counts,  cpm_validity, latitude_nmea, north_south_indicator, longitude_nmea,  east_west_indicator, altitude, gps_fix_indicator,horizontal_dilution_of_precision,  gps_fix_quality_indicator,md5sum) FROM '#{tmp_file}' CSV"]
     # rubocop:enable Metrics/LineLength
   end
 
@@ -319,5 +322,9 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
       latitude: (lat_degrees + lat_decimal) * lat_sign,
       longitude: (lng_degrees + lng_decimal) * lng_sign
     }
+  end
+
+  def maximum_cpm
+    bgeigie_logs.maximum(:cpm)
   end
 end
