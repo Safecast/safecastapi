@@ -14,9 +14,9 @@ en-US:
   cancel: Cancel
   devices:
     new:
-      add_new: 
+      add_new:
     index:
-      sensor: 
+      sensor:
   email: Email
   height: Height
   radiation_type: Radiation Type
@@ -35,7 +35,7 @@ en-US:
     - Fri
     - Sat
     abbr_month_names:
-    - 
+    -
     - Jan
     - Feb
     - Mar
@@ -61,7 +61,7 @@ en-US:
       long: ! '%B %d, %Y'
       short: ! '%b %d'
     month_names:
-    - 
+    -
     - January
     - February
     - March
@@ -170,10 +170,6 @@ en-US:
       create: Create %{model}
       submit: Save %{model}
       update: Update %{model}
-      bgeigie_import:
-        create: Create Bgeigie import
-      device:
-        create: Create Device
   if_you_have_a_bgeigie: If you have a bGeigie
   imports_awaiting_approval: imports awaiting approval
   it_may_take_a_few_minutes_to_process: It may take a few minutes to process.
@@ -286,15 +282,15 @@ en-US:
       reasons: {}
       inactive_signed_up: ''
   user:
-    email: 
-    password: 
-    remember_me: 
+    email:
+    password:
+    remember_me:
     name: ''
     password_confirmation: ''
     new:
-      email: 
-      password: 
-      remember_me: 
+      email:
+      password:
+      remember_me:
   activerecord:
     attributes:
       device:
@@ -332,19 +328,19 @@ en-US:
       mark: ! '*'
       text: required
   bgeigie_import: Bgeigie import
-  edit_details_status: 
+  edit_details_status:
   layouts:
     submit_nav:
-      submit_a_single_measurement: 
-  no_devices: 
+      submit_a_single_measurement:
+  no_devices:
   shared:
     dashboard_navigation:
-      devices: 
-      imports: 
-      measurements: 
+      devices:
+      imports:
+      measurements:
   dashboards:
     show:
-      bgeigie_imports: 
-      imports_awaiting_approval: 
-      submissions: 
-  captured_at: 
+      bgeigie_imports:
+      imports_awaiting_approval:
+      submissions:
+  captured_at:
