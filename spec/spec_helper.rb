@@ -25,6 +25,7 @@ RSpec.configure do |config|
   config.include EmailSpec::Matchers
   config.include ActionDispatch::TestProcess
   config.include Devise::TestHelpers, type: :controller
+  config.include Warden::Test::Helpers
 
   # == Mock Framework
   #
@@ -61,6 +62,8 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean_with(:truncation)
+
+    Warden.test_mode!
   end
 
   config.before(:each) do
@@ -68,6 +71,8 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
+    Warden.test_reset!
+
     DatabaseCleaner.clean
   end
 end
