@@ -1,59 +1,9 @@
-<div id="map-loading" class="hide">
-  <div class="progress progress-striped active">
-    <div class="bar" style="width: 0%;">
-      <%= t('.loading_html') %>
-    </div>
-  </div>
-</div>
+<% content_for :additional_javascripts do %>
+  <%= javascript_include_tag 'bgeigie_viewer' %>
+<% end %>
 
-<div id="show-map" class="row hide">
-  <%- if @bgeigie_import.bgeigie_logs.any? -%>
-    <section class="span2">
-      <ul class="unstyled nav">
-        <li class="nav-header"><%= t("measurement") %></li>
-        <li>
-          <%= t ".captured_at" -%>
-          <span class="captured_at pull-right"></span>
-        </li>
-        <li>
-          <%= t ".latitude" -%>
-          <span class="lat pull-right"></span>
-        </li>
-        <li>
-          <%= t ".longitude" -%>
-          <span class="lng pull-right"></span>
-        </li>
-        <li>
-          <%= t ".cpm" -%>
-          <span class="cpm pull-right"></span>
-        </li>
-        <li>
-          <%= t ".μSv" -%>
-          <span class="usv pull-right"></span>
-        </li>
-      </ul>
-    </section>
-    <%- if @bgeigie_import.status_details[:compute_latlng].present? -%>
-      <section class="span6">
-        <%- if @bgeigie_import.bgeigie_logs.any? -%>
-          <input type="hidden" id="zoomlevel" value="12">
-          <input id="latitude"
-                 type="hidden"
-                 value="<%= @bgeigie_import.bgeigie_logs.first.latitude %>"></input>
-          <input id="longitude"
-                 type="hidden"
-                 value="<%= @bgeigie_import.bgeigie_logs.first.longitude %>"></input>
-          <div id="map_canvas" class="high well"></div>
-        <%- else -%>
-          <p class="well">
-            <%= t('map_displayed_once_file_processed') -%>
-          </p>
-        <%- end -%>
-      </section>
-    <%- end -%>
-  <%- else -%>
-    <p class="span9">
-      <%= t('.map_not_generated') %>
-    </p>
-  <%- end -%>
+<div id="map_canvas"
+     data-bv-worker-min="<%= javascript_path('bgeigie_viewer_worker') %>"
+     data-url="<%= @bgeigie_import.source.url %>"
+     data-id="<%= @bgeigie_import.id %>">
 </div>
