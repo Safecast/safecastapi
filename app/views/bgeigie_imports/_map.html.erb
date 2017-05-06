@@ -1,14 +1,15 @@
 <% content_for :additional_javascripts do %>
-  
   <%= javascript_include_tag "#{request.protocol}maps.googleapis.com/maps/api/js?key=AIzaSyA15g0-2g2c7LbKWwCJmJpQWbdntzXZshE&sensor=true" %>
   <%= javascript_include_tag 'bgeigie_viewer' %>
   <%= javascript_tag do %>
-    $(function() { BgeigieImports.renderMap($('#map_canvas')); });
+    $(function() { BgeigieImports.renderMap($('#map-canvas'), $('#map-legend')); });
   <% end %>
 <% end %>
 
-<div id="map_canvas"
+<div id="map-canvas"
      data-bv-worker-min="<%= javascript_path('bgeigie_viewer_worker') %>"
      data-url="<%= @bgeigie_import.source.url %>"
      data-id="<%= @bgeigie_import.id %>">
 </div>
+
+<div id="map-legend"></div>

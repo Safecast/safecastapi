@@ -1,5 +1,5 @@
 BgeigieImports = {
-    renderMap: function ($map) {
+    renderMap: function ($map, $legend) {
         var map = new google.maps.Map(
             $map[0],
             {
@@ -25,6 +25,8 @@ BgeigieImports = {
                 }
             ], {name: "Map (Gray)"}
         ));
+
+        map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push($legend[0]);
 
         var binds = {urls: {bv_worker_min: $map.data('bv-worker-min')}};
         var bvm = new BVM(map, binds);
