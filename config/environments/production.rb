@@ -43,7 +43,6 @@ Safecast::Application.configure do
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w(
-    dobro.css worldmap.js prettify.css prettify/prettify.js api_docs.js
     bgeigie_viewer.js bgeigie_viewer_worker.js
     html5shiv.js
   )

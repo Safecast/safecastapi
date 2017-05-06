@@ -5,7 +5,6 @@
 // the compiled file.
 //
 //= require json2
-//= require prettify/prettify
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
