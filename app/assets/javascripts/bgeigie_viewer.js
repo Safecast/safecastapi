@@ -296,11 +296,13 @@ var BVM = (function()
         var cb_rdpr = function(logId) { this.xfm.ReportDoneParsingForLogId(logId); }.bind(this);
         var cb_uimg = function(image) { this.xfm.UpdateGlobalImage(image); }.bind(this);
         var cb_rdaz = function(logId) { this.xfm.ReportDoneAssignZForLogId(logId); }.bind(this);
-        var cb_gdpv = function(mxs, mys, minzs, cpms, alts, degs, times, logId, userData) { this.mks.GetDataAndDispatchPrefilterVec(mxs, mys, minzs, cpms, alts, degs, times, logId, userData); }.bind(this);
-        var cb_adat = function(lats, lons, minzs, cpms, alts, degs, logids, times, lutidxs, mxs, mys) { this.mks.AddData(lats, lons, minzs, cpms, alts, degs, logids, times, lutidxs, mxs, mys); }.bind(this);
+        var cb_gdpv = function(mxs, mys, minzs, cpms, alts, degs, times, litcpms, litcp5s, valids, logId, userData) { this.mks.GetDataAndDispatchPrefilterVec(mxs, mys, minzs, cpms, alts, degs, times, litcpms, litcp5s, valids, logId, userData); }.bind(this);
+        //var cb_adat = function(lats, lons, minzs, cpms, alts, degs, logids, times, lutidxs, mxs, mys) { this.mks.AddData(lats, lons, minzs, cpms, alts, degs, logids, times, lutidxs, mxs, mys); }.bind(this);
+        var cb_adat = function(minzs, cpms, alts, degs, logids, times, mxs, mys, litcpms, litcp5s, valids) { this.mks.AddData(minzs, cpms, alts, degs, logids, times, mxs, mys, litcpms, litcp5s, valids); }.bind(this);
         var cb_upex = function(x0, y0, x1, y1) { this.mks.UpdateMarkerExtent(x0, y0, x1, y1); }.bind(this);
-    
-        this.wwm = new WWM(this.isMobile, 0, cb_rsuc, cb_rspr, cb_rdpr, cb_uimg, cb_rdaz, cb_gdpv, cb_adat, cb_upex, this.dataBinds.urls.bv_worker_min);
+        var cb_ismf = function() { return this.mks.logids == null; }.bind(this);
+
+        this.wwm = new WWM(this.isMobile, 0, cb_rsuc, cb_rspr, cb_rdpr, cb_uimg, cb_rdaz, cb_gdpv, cb_adat, cb_upex, cb_ismf, this.dataBinds.urls.bv_worker_min);
     };
 
 
@@ -613,7 +615,7 @@ var BVM = (function()
 //      Manages one or more web workers with coded handling for specific messages.
 var WWM = (function()
 {
-    function WWM(isMobile, parallelism, fxReportResultsSuccessForLogId, fxReportStartParsingForLogId, fxReportDoneParsingForLogId, fxUpdateGlobalImage, fxReportDoneAssignZForLogId, fxGetDataAndDispatchPrefilter, fxAddData, fxUpdateMarkerExtent, workerSrcUrl)
+    function WWM(isMobile, parallelism, fxReportResultsSuccessForLogId, fxReportStartParsingForLogId, fxReportDoneParsingForLogId, fxUpdateGlobalImage, fxReportDoneAssignZForLogId, fxGetDataAndDispatchPrefilter, fxAddData, fxUpdateMarkerExtent, fxGetIsMoreFields, workerSrcUrl)
     {
         this.n       = parallelism > 0 ? parallelism : navigator.hardwareConcurrency != null ? navigator.hardwareConcurrency : isMobile ? 2 : 4;
         this.workers = new Array(this.n);
@@ -629,6 +631,7 @@ var WWM = (function()
         this.fxGetDataAndDispatchPrefilter  = fxGetDataAndDispatchPrefilter;    // mks
         this.fxAddData                      = fxAddData;                        // mks
         this.fxUpdateMarkerExtent           = fxUpdateMarkerExtent;             // mks
+        this.fxGetIsMoreFields              = fxGetIsMoreFields;
         
         this.workerSrcUrl                   = workerSrcUrl;
         
@@ -660,7 +663,7 @@ var WWM = (function()
     {
         var worker = this.GetWorkerForDispatch();
         var bufs   = null;
-        var args   = { op:"PARSE_LOG_TO_VEC", log:log, logId:logId, userData:userData, deci:0, worker_id:worker[1] };
+        var args   = { op:"PARSE_LOG_TO_VEC", log:log, logId:logId, userData:userData, is_more_fields:this.fxGetIsMoreFields(), deci:0, worker_id:worker[1] };
        
         if (typeof log != "string") // Preferably, the log is downloaded as an arraybuffer.  Arraybuffers are the only things
         {                           // that can be sent to a web worker without a slow-ass copy.  But this is only done for
@@ -763,6 +766,9 @@ var WWM = (function()
                 var times   = new Uint32Array(e.data.times);
                 var mxs     = new Uint32Array(e.data.mxs);
                 var mys     = new Uint32Array(e.data.mys);
+                var litcpms = new Float32Array(e.data.litcpms);
+                var litcp5s = new Float32Array(e.data.litcp5s);
+                var valids  = new Uint8Array(e.data.valids);
                 var logId   = e.data.userData[0];
                 var ex      = e.data.ex;
                 
@@ -772,7 +778,7 @@ var WWM = (function()
                 
                 this.ReportWorkerIsDone(e.data.worker_id);
                 
-                this.fxGetDataAndDispatchPrefilter(mxs, mys, minzs, cpms, alts, degs, times, logId, e.data.userData);
+                this.fxGetDataAndDispatchPrefilter(mxs, mys, minzs, cpms, alts, degs, times, litcpms, litcp5s, valids, logId, e.data.userData);
             }//else if
             else if (e.data.op == "MSG_START_PARSING")
             {
@@ -814,8 +820,32 @@ var WWM = (function()
                 var times   = new Uint32Array(e.data.times);
                 var mxs     = new Uint32Array(e.data.mxs);
                 var mys     = new Uint32Array(e.data.mys);
+                var litcpms = new Float32Array(e.data.litcpms);
+                var litcp5s = new Float32Array(e.data.litcp5s);
+                var valids  = new Uint8Array(e.data.valids);
+
+                var is_single_log = true;
+                var last_id = logids.length > 0 ? logids[0] : -1;
+
+                for (var i=0; i<logids.length; i++)
+                {
+                    if (logids[i] != last_id)
+                    {
+                        is_single_log = false;
+                        break;
+                    }//if
+
+                    last_id = logids[i];
+                }//for
+
+                if (!is_single_log)
+                {
+                    litcpms = null;
+                    litcp5s = null;
+                    valids  = null;
+                }//if
                 
-                this.fxAddData(minzs, cpms, alts, degs, logids, times, mxs, mys);
+                this.fxAddData(minzs, cpms, alts, degs, logids, times, mxs, mys, litcpms, litcp5s, valids);
                 
                 this.ReportWorkerIsDone(e.data.worker_id);
                 
@@ -1816,6 +1846,9 @@ var MKS = (function()
         this.onmaps  = null;    // 1=is a marker currently on map.  0=not on map.
         this.mxs     = null;    // X coordinate.  EPSG:3857 pixel X/Y @ zoom level 21.
         this.mys     = null;    // Y coordinate.  EPSG:3857 pixel X/Y @ zoom level 21.
+        this.litcpms = null;    // Literal CPM values from the logfile; note that "cpms" is rather autoselected cpm/cp5s. (OPTIONAL)
+        this.litcp5s = null;    // Literal CP5S values from the logfile; note that "cpms" is rather autoselected cpm/cp5s. (OPTIONAL)
+        this.valids  = null;    // Bitmask of radiation, GPS, and checksum validity. (OPTIONAL)
         
         this.isMobile = isMobile; // Disables some caching and renders less markers per pass.
         
@@ -1975,6 +2008,9 @@ var MKS = (function()
         this.onmaps  = null;
         this.mxs     = null;
         this.mys     = null;
+        this.litcpms = null;
+        this.litcp5s = null;
+        this.valids  = null;
         this.rmpool  = new Array();
         this.mk_ex   = new Float64Array([9000.0, 9000.0, -9000.0, -9000.0]);
         this.fxClearAllLogIds();
@@ -2042,6 +2078,7 @@ var MKS = (function()
         google.maps.event.clearInstanceListeners(marker);
         marker.setMap(null);
     
+        // 2017-05-17 ND: desktop max 10k increase, uses ~45MB RAM per 10k
         if (this.rmpool.length < (this.isMobile ? 1000 : 10000))
         {
             marker.setIcon(null);
@@ -2172,7 +2209,7 @@ var MKS = (function()
         {
             var d0 = new Date();
             arCs   = this.GetCandidatesForAddMarkers(x0, y0, x1, y1, ex0, ex1, z, last_ex, limit);
-            var ms = (new Date()).getTime() - d0.getTime();
+            var ms = Date.now() - d0.getTime();
             
             if (ms >= 200) console.log("GetCandidates: %d ms for n=%d", ms, arCs[1]);
             
@@ -2199,7 +2236,7 @@ var MKS = (function()
             requestAnimationFrame(function() {
                 var d0 = new Date();
                 idx = this.AddMarkersToMapForExtentLimited(x0, y0, x1, y1, ex0, ex1, z, idx, limit, old_mn, arCs, csr);
-                var ms = (new Date()).getTime() - d0.getTime();
+                var ms = Date.now() - d0.getTime();
                 if (ms >= 200) console.log("AddCandidates: %d ms. (idx=%d/%d)%s", ms, idx, arCs != null && arCs[1] != null ? arCs[1] : 0, idx == -1 ? "[End]" : "");
                 if (idx != -1) this.AddMarkersToMapForExtentTimer(x0, y0, x1, y1, ex0, ex1, z, last_ex, idx, limit, old_mn, arCs, csr);
             }.bind(this));
@@ -2238,10 +2275,11 @@ var MKS = (function()
     
         for (i=0; i<this.cpms.length; i++)
         {
-            x = (this.mxs[i])|0;
-            y = (this.mys[i])|0;
-            v = (this.onmaps[i])|0;
-            m = (this.minzs[i])|0;
+            // 2017-05-17 ND: remove ()|0 asm.js-style int32_t hack (mixing int32_t / uint32_t anyway...)
+            x = this.mxs[i];
+            y = this.mys[i];
+            v = this.onmaps[i];
+            m = this.minzs[i];
 
             if (    v == 0  &&  m <= z 
                 &&  y >= y0 &&  y <= y1
@@ -2343,8 +2381,11 @@ var MKS = (function()
         var ty = -1;
         var last_tx = -1;
         var last_ty = -1;
-        var next_tile_idx = -1;
 
+        // 2017-05-17 ND: remove check for -1 by pushing init value beyond upper bounds
+        var next_tile_idx_initval = cs_n + 1;
+        var next_tile_idx = next_tile_idx_initval;
+        
         var cs   = arCs[0];
         var cs_n = arCs[1];
         var mmx  = arCs[2];
@@ -2354,6 +2395,7 @@ var MKS = (function()
         var ccy  = arCs[6];
         var ccc  = arCs[7];
         var adds = arCs[8];
+
         
         for (i=idx; i<cs_n; i++)
         {
@@ -2365,9 +2407,10 @@ var MKS = (function()
                 tx = (ccx[i] << z_diff) >>> (29 - z);
                 ty = (ccy[i] << z_diff) >>> (29 - z);
             
-                if ((tx != last_tx || ty != last_ty) && last_tx != -1 && c > 0) break;
+                // 2017-05-10 ND: no need for last_tx != -1 conditional, since it would be set if c > 0
+                if (c > 0 && (tx != last_tx || ty != last_ty)) break;
                     
-                if (next_tile_idx == -1)
+                if (next_tile_idx == next_tile_idx_initval)
                 {
                     for (j=i+1; j<cs_n; j++)
                     {
@@ -2407,7 +2450,8 @@ var MKS = (function()
                         break;
                     }//if
                     
-                    if (j >= next_tile_idx && next_tile_idx != -1) break;
+                    // 2017-05-17 ND: remove check for -1 by pushing init value beyond upper bounds
+                    if (j >= next_tile_idx) break;
                 }//for
             
                 if (!exists)
@@ -2439,6 +2483,7 @@ var MKS = (function()
             }//if
         }//for
         
+
         this.AddMarkersToMapForIdxAddList(adds, c);
 
         if (i > idx + 1) i--; // decrement for next tile
@@ -2470,7 +2515,9 @@ var MKS = (function()
         var ty = -1;
         var last_tx = -1;
         var last_ty = -1;
-        var next_tile_idx = -1;
+        // 2017-05-17 ND: remove check for -1 by pushing init value beyond upper bounds
+        var next_tile_idx_initval = cs_n + 1;
+        var next_tile_idx = next_tile_idx_initval;
         
         var z_diff = (21 - z) >>> 0;
         if (z > 0) z_diff = (z_diff + 1) >>> 0;
@@ -2486,9 +2533,10 @@ var MKS = (function()
                 tx = this.mxs[csi] >>> (21 - z + 8);
                 ty = this.mys[csi] >>> (21 - z + 8);
             
-                if ((tx != last_tx || ty != last_ty) && last_tx != -1 && c > 0) break;
+                // 2017-05-10 ND: no need for last_tx != -1 conditional, since it would be set if c > 0
+                if (c > 0 && (tx != last_tx || ty != last_ty)) break;
 
-                if (next_tile_idx == -1)
+                if (next_tile_idx == next_tile_idx_initval)
                 {
                     for (j=i+1; j<cs_n; j++)
                     {
@@ -2528,7 +2576,8 @@ var MKS = (function()
                         break;
                     }//if
                     
-                    if (j >= next_tile_idx && next_tile_idx != -1) break;
+                    // 2017-05-17 ND: remove check for -1 by pushing init value beyond upper bounds
+                    if (j >= next_tile_idx) break;
                 }//for
             
                 if (!exists)
@@ -2585,6 +2634,23 @@ var MKS = (function()
         var marker_n = this.markers.length;
         var m_idx    = marker_n;
         var rsn      = this.isMobile ? 2 : 2;
+        var newmks   = new Array(n); // 2017-05-17 ND: add to map in 2nd step
+
+        // 2017-05-17 ND: Add presort.
+        // 2017-05-17 ND: The main performance limiting step for many markers is Gmaps' rendering.
+        //                Ideally, this waits for an unknown period of time before firing a second
+        //                timer in a batch operation to add the markers, and sorts them by z-index.
+        //                Actually, the mechanics of this are unknown.  So an initial sort by
+        //                what will become the z-index value is performed.
+        //                In the worst case, adding a marker with a z-index below the marker tiles'
+        //                max z-index could theoretically cause Gmaps to redraw the entire thing.
+        //                And this could theoretically occur many times for a single tile.
+
+        newmks.sort(function(a, b) {
+            return this.cpms[a[0]] > this.cpms[b[0]] ?  1
+                 : this.cpms[a[0]] < this.cpms[b[0]] ? -1
+                 :                                      0;
+        });
         
         for (i=0; i<n; i++)
         {
@@ -2595,7 +2661,8 @@ var MKS = (function()
             lon    = _XtoLon_z21(this.mxs[csi]);
             lutidx = this.lut.GetIdxForValue(this.cpms[csi], rsn);
                     
-            this.AddMarker(csi, lat, lon, this.degs[csi], lutidx);
+            //this.AddMarker(csi, lat, lon, this.degs[csi], lutidx);
+            newmks[i] = this.GetNewMarker(csi, lat, lon, this.degs[csi], lutidx);
                     
             if (m_idx >= this.m_n) { this.ReallocMarkerIndexBuffersIfNeeded(marker_n + m_idx + 16384); }
             this.m_ids[m_idx]  = csi; // this wil be replaced by a unique autoincrement ID
@@ -2603,10 +2670,41 @@ var MKS = (function()
             
             m_idx++;
         }//for
+
+        for (i=0; i<n; i++)
+        {
+            newmks[i].setMap(this.mapref);
+        }//for
     };
-    
-    
-    
+
+    MKS.prototype.GetNewMarker = function(marker_id, lat, lon, deg, lutidx)
+    {   
+        var icon_url = this.GetIconCached(deg, lutidx);
+        var w_add    = (this.shd_r - (this.width  >> 1)) * 2;
+        var h_add    = (this.shd_r - (this.height >> 1)) * 2;
+        var w_pt     = this.width  + Math.max(0, w_add);
+        var h_pt     = this.height + Math.max(0, h_add);
+
+        var size = new google.maps.Size(w_pt, h_pt);
+        var anch = new google.maps.Point(w_pt >> 1, h_pt >> 1);
+        var icon = { url:icon_url, size:size, anchor:anch };
+                   
+        if (this.isRetina) { icon.scaledSize = new google.maps.Size(w_pt, h_pt); }
+        
+        var yx     = new google.maps.LatLng(lat, lon);
+        var marker = this.rmpool.length > 0 ? this.rmpool.pop() : new google.maps.Marker();
+        
+        marker.setPosition(yx);
+        marker.setIcon(icon);
+        marker.setZIndex(lutidx);
+        marker.ext_id = marker_id;
+
+        this.AttachInfoWindow(marker);
+        this.markers.push(marker);
+
+        return marker;
+    };
+
     MKS.prototype.AddMarker = function(marker_id, lat, lon, deg, lutidx)
     {   
         var icon_url = this.GetIconCached(deg, lutidx);
@@ -2693,7 +2791,20 @@ var MKS = (function()
         var sdeg  = this.degs[i] > 0 ? "" + parseInt(_UnpackDegreeValue(this.degs[i])) : "N/A";
         var sdre  = (this.cpms[i] * 0.0029940119760479).toFixed(2);
                  
-        return _GetInfoWindowHtmlForParams(sdre, this.cpms[i], this.alts[i], sdeg, sdate, stime, this.logids[i], this.fontCssClass);
+        var litcpm  = this.litcpms != null ? this.litcpms[i] : null;
+        var litcp5s = this.litcp5s != null ? this.litcp5s[i] : null;
+        var is_valid_rad = null;
+        var is_valid_gps = null;
+        var is_valid_chk = null;
+
+        if (this.valids != null)
+        {
+            is_valid_rad = _UnpackValids_RadValue(this.valids[i]);
+            is_valid_gps = _UnpackValids_GpsValue(this.valids[i]);
+            is_valid_chk = _UnpackValids_ChkValue(this.valids[i]);
+        }//if
+
+        return _GetInfoWindowHtmlForParams(sdre, this.cpms[i], this.alts[i], sdeg, sdate, stime, this.logids[i], litcpm, litcp5s, is_valid_rad, is_valid_gps, is_valid_chk, this.fontCssClass);
     };
     
     MKS.prototype.AttachInfoWindow = function(marker)
@@ -2730,7 +2841,7 @@ var MKS = (function()
         this.inforef.open(this.mapref, marker);
     };
     
-    MKS.prototype.GetDataAndDispatchPrefilterVec = function(mxs, mys, minzs, cpms, alts, degs, times, logId, userData)
+    MKS.prototype.GetDataAndDispatchPrefilterVec = function(mxs, mys, minzs, cpms, alts, degs, times, litcpms, litcp5s, valids, logId, userData)
     {
         if (this.cpms != null && this.cpms.length > 300 * 300)
         {
@@ -2738,13 +2849,13 @@ var MKS = (function()
         }//if
         
         // if no data yet or the problem set size is too large, just add the data directly.
-        if (this.cpms == null || this.cpms.length == 0 || this.isSPARTAAAAAAA)
+        if (this.cpms == null || this.cpms.length == 0 || this.isSPARTAAAAAAA || this.litcpms != null)
         {
             if (mxs != null && mxs.length > 0)
             {
                 var logids = new Int32Array(mxs.length);
                 _vfill(logId, logids, 0, logids.length);
-                this.AddData(minzs, cpms, alts, degs, logids, times, mxs, mys);
+                this.AddData(minzs, cpms, alts, degs, logids, times, mxs, mys, litcpms, litcp5s, valids);
             }//if
             
             this.fxReportResultsSuccessForLogId(logId);
@@ -2762,10 +2873,12 @@ var MKS = (function()
         
         var worker = this.fxGetWorkerForDispatch();
         
+        var noproc = this.litcpms != null;
+
         var params = { op:"PREFILTER_VECS", 
                        mxs:mxs.buffer, mys:mys.buffer, minzs:minzs.buffer, cpms:cpms.buffer, times:times.buffer, alts:alts.buffer, degs:degs.buffer,
                        oldmxs:ox.buffer, oldmys:oy.buffer, oldzs:oz.buffer, olddres:oc.buffer, 
-                       logId:logId, userData:userData, isMobile:true, worker_id:worker[1] };
+                       logId:logId, userData:userData, isMobile:true, noproc:noproc, worker_id:worker[1] };
 
         var bufs   = [mxs.buffer, mys.buffer, minzs.buffer, cpms.buffer, times.buffer, alts.buffer, degs.buffer, ox.buffer, oy.buffer, oz.buffer, oc.buffer ];
         
@@ -2789,9 +2902,28 @@ var MKS = (function()
     };
 
     
-    MKS.prototype.AddData = function(newminzs, newcpms, newalts, newdegs, newlogids, newtimes, newmxs, newmys)
+    MKS.prototype.AddData = function(newminzs, newcpms, newalts, newdegs, newlogids, newtimes, newmxs, newmys, newlitcpms, newlitcp5s, newvalids)
     {
         if (newcpms == null || newcpms.length < 2) return;
+
+        // 2017-05-29 ND: Only add extended columns for a single log file (API use case).
+        //                In the multiple log file use case, release them to free memory.
+        if (this.logids == null && newlitcpms != null && this.litcpms == null)
+        {
+            this.litcpms = _vcombine_f32(this.litcpms, newlitcpms);
+            this.litcp5s = _vcombine_f32(this.litcp5s, newlitcp5s);
+            this.valids  = _vcombine_u08(this.valids,  newvalids);
+
+            console.log("MKS.AddData: Adding extra fields.");
+        }//if
+        else if (this.litcpms != null)
+        {
+            this.litcpms = null;
+            this.litcp5s = null;
+            this.valids  = null;
+
+            console.log("MKS.AddData: Purging extra fields.");
+        }//else if
 
         this.minzs   = _vcombine_s08(this.minzs,  newminzs);
         this.cpms    = _vcombine_f32(this.cpms,   newcpms);
@@ -2805,14 +2937,17 @@ var MKS = (function()
         
         console.log("MKS.AddData: Added %d items, new total = %d.", newcpms.length, this.cpms.length);
         
-        newminzs  = null;
-        newcpms   = null;
-        newalts   = null;
-        newdegs   = null;
-        newlogids = null;
-        newtimes  = null;
-        newmxs    = null;
-        newmys    = null;
+        newminzs   = null;
+        newcpms    = null;
+        newalts    = null;
+        newdegs    = null;
+        newlogids  = null;
+        newtimes   = null;
+        newmxs     = null;
+        newmys     = null;
+        newlitcpms = null;
+        newlitcp5s = null;
+        newvalids  = null;
     };
     
     
@@ -2878,12 +3013,21 @@ var MKS = (function()
     MKS.prototype.SortByQuadKey = function()
     {
         var worker = this.fxGetWorkerForDispatch();
-        
-        var params = { op:"ORDER_BY_QUADKEY_ASC", 
-                       mxs:this.mxs.buffer, mys:this.mys.buffer, minzs:this.minzs.buffer, cpms:this.cpms.buffer, times:this.times.buffer, alts:this.alts.buffer, degs:this.degs.buffer, logids:this.logids.buffer, 
-                       userData:null, isMobile:this.isMobile, worker_id:worker[1] };
 
-        var bufs   = [this.mxs.buffer, this.mys.buffer, this.minzs.buffer, this.cpms.buffer, this.times.buffer, this.alts.buffer, this.degs.buffer, this.logids.buffer ];
+        var noproc = this.litcpms != null;
+
+        if (!noproc)
+        {
+            this.litcpms = new Float32Array(1);
+            this.litcp5s = new Float32Array(1);
+            this.valids  = new Uint8Array(1);
+        }//if
+        
+        var params = { op:"ORDER_BY_QUADKEY_ASC",  
+                       userData:null, isMobile:this.isMobile, worker_id:worker[1], noproc:noproc,
+                       mxs:this.mxs.buffer, mys:this.mys.buffer, minzs:this.minzs.buffer, cpms:this.cpms.buffer, times:this.times.buffer, alts:this.alts.buffer, degs:this.degs.buffer, logids:this.logids.buffer, litcpms:this.litcpms.buffer, litcp5s:this.litcp5s.buffer, valids:this.valids.buffer };
+
+        var bufs   = [this.mxs.buffer, this.mys.buffer, this.minzs.buffer, this.cpms.buffer, this.times.buffer, this.alts.buffer, this.degs.buffer, this.logids.buffer, this.litcpms.buffer, this.litcp5s.buffer, this.valids.buffer ];
         
         worker[0].postMessage(params, bufs);
         
@@ -2896,20 +3040,56 @@ var MKS = (function()
         this.degs = null;
         this.logids = null;
         this.onmaps = null;
+        this.litcpms = null;
+        this.litcp5s = null;
+        this.valids = null;
     };
     
-    var _GetInfoWindowHtmlForParams = function(dre, cpm, alt, deg, date, time, logId, fontCssClass)
+    var _GetInfoWindowHtmlForParams = function(dre, cpm, alt, deg, date, time, logId, litcpm, litcp5s, is_valid_rad, is_valid_gps, is_valid_chk, fontCssClass)
     {
-        return "<table style='border:0;border-collapse:collapse;' class='" + fontCssClass + "'>"
-               + "<tr><td align=right>" + dre + "</td><td>"        + "\u00B5" + "Sv/h"     + "</td></tr>"
-               + "<tr><td align=right>" + cpm.toFixed(0) + "</td><td>"        + "CPM"                 + "</td></tr>"
-               + "<tr><td align=right>" + alt + "</td><td nowrap>" + "m alt"               + "</td></tr>"
-               + "<tr><td align=right>" + deg + "</td><td nowrap>" + "\u00B0" + " heading" + "</td></tr>"
-               + "<tr><td align=right nowrap>" + date + "<br/>" + time + "</td><td>UTC"    + "</td></tr>"
-               + "</table>"
-               + "<div class='"+fontCssClass+"' style='position:absolute;top:0;left:0;font-size:70%;color:#999999;'>" 
-               + Math.abs(logId)
-               + "</div>";
+        var d = "<table style='border:0;border-collapse:collapse;' class='" + fontCssClass  + "'>";
+
+        if (litcpm == null)
+        {
+              d += "<tr><td align=right>" + dre            + "</td><td>" + (litcpm == null ? "" : "Auto ") + "\u00B5" + "Sv/h" + "</td></tr>";
+              d += "<tr><td align=right>" + cpm.toFixed(0) + "</td><td>" + (litcpm == null ? "" : "Auto ") + "CPM"             + "</td></tr>";
+        }//if
+
+        if (litcpm != null)
+        {
+            d += "<tr><td align=right>" + litcpm.toFixed(0)  + "</td><td>"        + "CPM"     + "</td></tr>";
+        }//if
+
+        if (litcp5s != null)
+        {
+            d += "<tr><td align=right>" + litcp5s.toFixed(0) + "</td><td>"        + "CP5s"     + "</td></tr>";
+        }//if
+
+        d    += "<tr><td align=right>" + alt + "</td><td nowrap>" + "m alt"               + "</td></tr>"
+              + "<tr><td align=right>" + deg + "</td><td nowrap>" + "\u00B0" + " heading" + "</td></tr>"
+              + "<tr><td align=right nowrap>" + date + "<br/>" + time + "</td><td>UTC"    + "</td></tr>";
+
+        if (is_valid_rad != null && !is_valid_rad)
+        {
+            d += "<tr><td align=right>" + (is_valid_rad ? "Valid" : "Invalid") + "</td><td nowrap>" + "Radiation" + "</td></tr>"
+        }//if
+
+        if (is_valid_gps != null && !is_valid_gps)
+        {
+            d += "<tr><td align=right>" + (is_valid_gps ? "Valid" : "Invalid") + "</td><td nowrap>" + "GPS" + "</td></tr>"
+        }//if
+
+        if (is_valid_chk != null && !is_valid_chk)
+        {
+            d += "<tr><td align=right>" + (is_valid_chk ? "Valid" : "Invalid") + "</td><td nowrap>" + "Checksum" + "</td></tr>"
+        }//if
+
+        d    += "</table>"
+              + "<div class='"+fontCssClass+"' style='position:absolute;top:0;left:0;font-size:70%;color:#999999;'>" 
+              + Math.abs(logId)
+              + "</div>";
+
+        return d;
     };
     
     // based on the client's screen size and extent, find the center and zoom level
@@ -3020,6 +3200,20 @@ var MKS = (function()
         return deg_s08 == -1 ? -1.0 : parseFloat(deg_s08) * 2.8346456692913385826771653543307;
     };
 
+    var _UnpackValids_RadValue = function(valids_u08)
+    {
+        return (valids_u08 & 0x4) >>> 2;
+    };
+
+    var _UnpackValids_GpsValue = function(valids_u08)
+    {
+        return (valids_u08 & 0x2) >>> 1;
+    };    
+
+    var _UnpackValids_ChkValue = function(valids_u08)
+    {
+        return (valids_u08 & 0x1) >>> 0;
+    };
     
     //MKS.vcombine_f64 = function(a,b) { if(a==null)return b;if(b==null)return a;var d=new Float64Array(a.length+b.length);d.set(a);d.set(b,a.length);return d; }
     var _vcombine_f32 = function(a,b) { if(a==null)return b;if(b==null)return a;var d=new Float32Array(a.length+b.length);d.set(a);d.set(b,a.length);return d; }
@@ -3036,7 +3230,7 @@ var MKS = (function()
     var _vcopy_s32 = function(d,od,s,os,n) { d.subarray(od,od+n).set(s.subarray(os,os+n)); };
     //MKS.vcopy_u16 = function(d,od,s,os,n) { d.subarray(od,od+n).set(s.subarray(os,os+n)); };
     //MKS.vcopy_s16 = function(d,od,s,os,n) { d.subarray(od,od+n).set(s.subarray(os,os+n)); };
-    //MKS.vcopy_u08 = function(d,od,s,os,n) { d.subarray(od,od+n).set(s.subarray(os,os+n)); };
+    var _vcopy_u08 = function(d,od,s,os,n) { d.subarray(od,od+n).set(s.subarray(os,os+n)); };
     var _vcopy_s08 = function(d,od,s,os,n) { d.subarray(od,od+n).set(s.subarray(os,os+n)); };
     
     //MKS.vcopy_convert = function(d,od,s,os,n) { for(var i=od;i<od+n;i++)d[i]=s[os++]; };
