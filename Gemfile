@@ -8,6 +8,7 @@ gem 'devise-token_authenticatable'
 gem 'cancan'
 
 gem 'rails', '4.0.13'
+gem 'puma'
 gem 'unicorn'
 gem 'pg'
 gem 'activerecord-postgis-adapter'
@@ -42,7 +43,6 @@ gem 'coffee-rails'
 gem 'uglifier'
 
 gem 'jquery-rails'
-gem 'thin'
 
 group :development do
   gem 'dotenv-rails', group: :test

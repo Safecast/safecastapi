@@ -1,0 +1,35 @@
+FROM ubuntu:16.04
+
+RUN apt-get update -y -qq
+RUN apt-get install -y -qq \
+  build-essential \
+  curl \
+  libssl-dev \
+  libreadline-dev \
+  zlib1g-dev \
+  libxml2-dev \
+  libxslt-dev \
+  libpq-dev \
+  nodejs \
+  postgresql-client
+
+ENV RUBY_VERSION 2.1.10
+
+RUN curl -O https://cache.ruby-lang.org/pub/ruby/2.1/ruby-${RUBY_VERSION}.tar.bz2 &&\
+    tar -jxf ruby-${RUBY_VERSION}.tar.bz2 &&\
+    cd ruby-${RUBY_VERSION} &&\
+    ./configure &&\
+    make &&\
+    make install &&\
+    cd .. &&\
+    rm -rf ruby-${RUBY_VERSION}*
+
+RUN gem install bundler
+
+ADD Gemfile* /app/
+
+ENV BUNDLE_GEMFILE /app/Gemfile
+ENV BUNDLE_JOBS 2
+ENV BUNDLE_PATH /bundle
+
+RUN bundle install
