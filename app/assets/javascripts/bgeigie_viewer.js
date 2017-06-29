@@ -301,8 +301,9 @@ var BVM = (function()
         var cb_adat = function(minzs, cpms, alts, degs, logids, times, mxs, mys, litcpms, litcp5s, valids) { this.mks.AddData(minzs, cpms, alts, degs, logids, times, mxs, mys, litcpms, litcp5s, valids); }.bind(this);
         var cb_upex = function(x0, y0, x1, y1) { this.mks.UpdateMarkerExtent(x0, y0, x1, y1); }.bind(this);
         var cb_ismf = function() { return this.mks.logids == null; }.bind(this);
+        var cb_cpss = function(s) { this.mks.CopySummaryStats(s); }.bind(this);
 
-        this.wwm = new WWM(this.isMobile, 0, cb_rsuc, cb_rspr, cb_rdpr, cb_uimg, cb_rdaz, cb_gdpv, cb_adat, cb_upex, cb_ismf, this.dataBinds.urls.bv_worker_min);
+        this.wwm = new WWM(this.isMobile, 0, cb_rsuc, cb_rspr, cb_rdpr, cb_uimg, cb_rdaz, cb_gdpv, cb_adat, cb_upex, cb_ismf, cb_cpss, this.dataBinds.urls.bv_worker_min);
     };
 
 
@@ -615,7 +616,7 @@ var BVM = (function()
 //      Manages one or more web workers with coded handling for specific messages.
 var WWM = (function()
 {
-    function WWM(isMobile, parallelism, fxReportResultsSuccessForLogId, fxReportStartParsingForLogId, fxReportDoneParsingForLogId, fxUpdateGlobalImage, fxReportDoneAssignZForLogId, fxGetDataAndDispatchPrefilter, fxAddData, fxUpdateMarkerExtent, fxGetIsMoreFields, workerSrcUrl)
+    function WWM(isMobile, parallelism, fxReportResultsSuccessForLogId, fxReportStartParsingForLogId, fxReportDoneParsingForLogId, fxUpdateGlobalImage, fxReportDoneAssignZForLogId, fxGetDataAndDispatchPrefilter, fxAddData, fxUpdateMarkerExtent, fxGetIsMoreFields, fxCopySummaryStats, workerSrcUrl)
     {
         this.n       = parallelism > 0 ? parallelism : navigator.hardwareConcurrency != null ? navigator.hardwareConcurrency : isMobile ? 2 : 4;
         this.workers = new Array(this.n);
@@ -632,6 +633,7 @@ var WWM = (function()
         this.fxAddData                      = fxAddData;                        // mks
         this.fxUpdateMarkerExtent           = fxUpdateMarkerExtent;             // mks
         this.fxGetIsMoreFields              = fxGetIsMoreFields;
+        this.fxCopySummaryStats             = fxCopySummaryStats;
         
         this.workerSrcUrl                   = workerSrcUrl;
         
@@ -854,6 +856,7 @@ var WWM = (function()
             else if (e.data.op == "SUMMARY_STATS")
             {
                 this.summary_stats.push(e.data.summary_stats);
+                this.fxCopySummaryStats(e.data.summary_stats);
                 
                 // 2015-03-31 ND: summary stats should be maintained somewhere else, this is temporary
                 
@@ -886,7 +889,7 @@ var WWM = (function()
                             this.summary_stats.length,
                             ss.n,
                             (ss.dist_meters / 1000.0).toFixed(2),
-                            (ss.time_ss / 360.0).toFixed(2),
+                            (ss.time_ss / 3600.0).toFixed(2),
                             ss.mean_usvh.toFixed(2),
                             ss.de_usv.toFixed(2),
                             ss.min_usvh.toFixed(2),
@@ -1900,6 +1903,8 @@ var MKS = (function()
         this.mk_ex   = new Float64Array([9000.0, 9000.0, -9000.0, -9000.0]); // x0, y0, x1, y1 - EPSG:4326 only.
 
         this.hover_iw = false;
+
+        this.summary_stats = new Array();
         
         // callbacks to other stuff outside scope
         this.fxGetWorkerForDispatch = fxGetWorkerForDispatch;
@@ -1908,6 +1913,27 @@ var MKS = (function()
 
         this.ApplyMarkerType(); // must fire on init
     }//MKS
+
+    MKS.prototype.CopySummaryStats = function(s)
+    {
+        this.summary_stats.push(s);
+    };
+
+    MKS.prototype.GetSummaryStatsForLogId = function(log_id)
+    {
+        var d = null;
+
+        for (var i=0; i<this.summary_stats.length; i++)
+        {
+            if (this.summary_stats[i].logId == log_id)
+            {
+                d = this.summary_stats[i];
+                break;
+            }//if
+        }//for
+
+        return d;
+    };
     
     MKS.prototype.SetNewCustomMarkerOptions = function(width, height, alpha_fill, alpha_stroke, shadow_radius, hasBearingTick)
     {
@@ -2804,7 +2830,9 @@ var MKS = (function()
             is_valid_chk = _UnpackValids_ChkValue(this.valids[i]);
         }//if
 
-        return _GetInfoWindowHtmlForParams(sdre, this.cpms[i], this.alts[i], sdeg, sdate, stime, this.logids[i], litcpm, litcp5s, is_valid_rad, is_valid_gps, is_valid_chk, this.fontCssClass);
+        var ss = this.GetSummaryStatsForLogId(this.logids[i]);
+
+        return _GetInfoWindowHtmlForParams(sdre, this.cpms[i], this.alts[i], sdeg, sdate, stime, this.logids[i], litcpm, litcp5s, is_valid_rad, is_valid_gps, is_valid_chk, ss, this.fontCssClass);
     };
     
     MKS.prototype.AttachInfoWindow = function(marker)
@@ -3045,24 +3073,21 @@ var MKS = (function()
         this.valids = null;
     };
     
-    var _GetInfoWindowHtmlForParams = function(dre, cpm, alt, deg, date, time, logId, litcpm, litcp5s, is_valid_rad, is_valid_gps, is_valid_chk, fontCssClass)
+    var _GetInfoWindowHtmlForParams = function(dre, cpm, alt, deg, date, time, logId, litcpm, litcp5s, is_valid_rad, is_valid_gps, is_valid_chk, summary_stats, fontCssClass)
     {
-        var d = "<table style='border:0;border-collapse:collapse;' class='" + fontCssClass  + "'>";
+        var d = "<table id='bv_iw_tbl_pt' style='border:0;border-collapse:collapse;' class='" + fontCssClass  + "'>";
 
-        if (litcpm == null)
-        {
-              d += "<tr><td align=right>" + dre            + "</td><td>" + (litcpm == null ? "" : "Auto ") + "\u00B5" + "Sv/h" + "</td></tr>";
-              d += "<tr><td align=right>" + cpm.toFixed(0) + "</td><td>" + (litcpm == null ? "" : "Auto ") + "CPM"             + "</td></tr>";
-        }//if
+        d += "<tr><td align=right>" + dre            + "</td><td>" + (litcpm == null ? "" : "") + "\u00B5" + "Sv/h" + "</td></tr>";
+        d += "<tr><td align=right>" + cpm.toFixed(0) + "</td><td>" + (litcpm == null ? "" : "") + "CPM"             + "</td></tr>";
 
         if (litcpm != null)
         {
-            d += "<tr><td align=right>" + litcpm.toFixed(0)  + "</td><td>"        + "CPM"     + "</td></tr>";
+            d += "<tr><td align=right>" + litcpm.toFixed(0)  + "</td><td>"        + "Log CPM"     + "</td></tr>";
         }//if
 
         if (litcp5s != null)
         {
-            d += "<tr><td align=right>" + litcp5s.toFixed(0) + "</td><td>"        + "CP5s"     + "</td></tr>";
+            d += "<tr><td align=right>" + litcp5s.toFixed(0) + "</td><td>"        + "Log CP5s"     + "</td></tr>";
         }//if
 
         d    += "<tr><td align=right>" + alt + "</td><td nowrap>" + "m alt"               + "</td></tr>"
@@ -3084,8 +3109,39 @@ var MKS = (function()
             d += "<tr><td align=right>" + (is_valid_chk ? "Valid" : "Invalid") + "</td><td nowrap>" + "Checksum" + "</td></tr>"
         }//if
 
-        d    += "</table>"
-              + "<div class='"+fontCssClass+"' style='position:absolute;top:0;left:0;font-size:70%;color:#999999;'>" 
+        var oc = "var bids = document.getElementById('bv_iw_div_ss');"
+               + "var bitp = document.getElementById('bv_iw_tbl_pt');"
+               + "if (bids != null && bitp != null)"
+               + "{" 
+               + "bids.style.display = bids.style.display == 'none' ? 'block' : 'none';"
+               + "bitp.style.display = bitp.style.display == 'none' ? 'block' : 'none';"
+               + "}";
+
+        d    += "</table>";
+
+        if (summary_stats != null)
+        {
+            var de_str = summary_stats.de_usv > 0.01 ? summary_stats.de_usv.toFixed(2) : summary_stats.de_usv.toFixed(4);
+
+            d += "<div id='bv_iw_div_ss' style='display:none;'>";
+            d += "<table style='border:0;border-collapse:collapse;' class='" + fontCssClass  + "'>";
+            d += "<tr><td align=center colspan=2>" + "Log File Stats" + "</td></tr>";
+            d += "<tr><td align=right>" + summary_stats.max_usvh.toFixed(2)             + "</td><td>" + "max "            + "\u00B5" + "Sv/h" + "</td></tr>";
+            d += "<tr><td align=right>" + summary_stats.mean_usvh.toFixed(2)            + "</td><td>" + "mean "           + "\u00B5" + "Sv/h" + "</td></tr>";
+            d += "<tr><td align=right>" + summary_stats.min_usvh.toFixed(2)             + "</td><td>" + "min "            + "\u00B5" + "Sv/h" + "</td></tr>";
+            d += "<tr><td align=right>" + de_str                                        + "</td><td>" + "total dose "     + "\u00B5" + "Sv"   + "</td></tr>";
+            d += "<tr><td align=right>" + (summary_stats.dist_meters/1000.0).toFixed(1) + "</td><td>" + "total km"                            + "</td></tr>";
+            d += "<tr><td align=right>" + summary_stats.max_kph.toFixed(0)              + "</td><td>" + "max kph"                             + "</td></tr>";
+            d += "<tr><td align=right>" + summary_stats.min_kph.toFixed(0)              + "</td><td>" + "min kph"                             + "</td></tr>";
+            d += "<tr><td align=right>" + summary_stats.max_alt_meters.toFixed(0)       + "</td><td>" + "max alt. meters"                     + "</td></tr>";
+            d += "<tr><td align=right>" + summary_stats.min_alt_meters.toFixed(0)       + "</td><td>" + "min alt. meters"                     + "</td></tr>";
+            d += "<tr><td align=right>" + (summary_stats.time_ss/3600.0).toFixed(1)     + "</td><td>" + "hours"                               + "</td></tr>";
+            d += "<tr><td align=right>" + summary_stats.n                               + "</td><td>" + "lines"                               + "</td></tr>";
+            d += "</table>";
+            d += "</div>";
+        }//if
+
+        d    += "<div class=\""+fontCssClass+"\" style=\"cursor:pointer;position:absolute;top:0;left:0;font-size:70%;color:#9999FF;\" onclick=\"" + oc + "\">" 
               + Math.abs(logId)
               + "</div>";
 
