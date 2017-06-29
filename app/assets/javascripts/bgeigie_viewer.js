@@ -3121,22 +3121,31 @@ var MKS = (function()
 
         if (summary_stats != null)
         {
-            var de_str = summary_stats.de_usv > 0.01 ? summary_stats.de_usv.toFixed(2) : summary_stats.de_usv.toFixed(4);
+            var ss     = summary_stats;
+            var de_str = ss.de_usv > 0.01 ? ss.de_usv.toFixed(2) : ss.de_usv.toFixed(4);
+            var r0s = "<tr><td align=right>";
+            var r1s = "<tr><td align=right style='padding-top:5px;'>";
+            var c0s = "</td><td>";
+            var c1s = "</td><td style='padding-top:5px;'>";
+            var r0e = "</td></tr>";
 
-            d += "<div id='bv_iw_div_ss' style='display:none;'>";
+            d += "<div id='bv_iw_div_ss' style='display:none; padding-top:10px;'>";
             d += "<table style='border:0;border-collapse:collapse;' class='" + fontCssClass  + "'>";
-            d += "<tr><td align=center colspan=2>" + "Log File Stats" + "</td></tr>";
-            d += "<tr><td align=right>" + summary_stats.max_usvh.toFixed(2)             + "</td><td>" + "max "            + "\u00B5" + "Sv/h" + "</td></tr>";
-            d += "<tr><td align=right>" + summary_stats.mean_usvh.toFixed(2)            + "</td><td>" + "mean "           + "\u00B5" + "Sv/h" + "</td></tr>";
-            d += "<tr><td align=right>" + summary_stats.min_usvh.toFixed(2)             + "</td><td>" + "min "            + "\u00B5" + "Sv/h" + "</td></tr>";
-            d += "<tr><td align=right>" + de_str                                        + "</td><td>" + "total dose "     + "\u00B5" + "Sv"   + "</td></tr>";
-            d += "<tr><td align=right>" + (summary_stats.dist_meters/1000.0).toFixed(1) + "</td><td>" + "total km"                            + "</td></tr>";
-            d += "<tr><td align=right>" + summary_stats.max_kph.toFixed(0)              + "</td><td>" + "max kph"                             + "</td></tr>";
-            d += "<tr><td align=right>" + summary_stats.min_kph.toFixed(0)              + "</td><td>" + "min kph"                             + "</td></tr>";
-            d += "<tr><td align=right>" + summary_stats.max_alt_meters.toFixed(0)       + "</td><td>" + "max alt. meters"                     + "</td></tr>";
-            d += "<tr><td align=right>" + summary_stats.min_alt_meters.toFixed(0)       + "</td><td>" + "min alt. meters"                     + "</td></tr>";
-            d += "<tr><td align=right>" + (summary_stats.time_ss/3600.0).toFixed(1)     + "</td><td>" + "hours"                               + "</td></tr>";
-            d += "<tr><td align=right>" + summary_stats.n                               + "</td><td>" + "lines"                               + "</td></tr>";
+            d += "<tr><td align=center colspan=2 style='font-size:16px;'>" + "Log File Stats" + r0e;
+            d += r1s + (ss.max_usvh*334.0).toFixed(0)     + c1s + "CPM, max"                  + r0e;
+            d += r0s + (ss.mean_usvh*334.0).toFixed(0)    + c0s + "CPM, mean"                 + r0e;
+            d += r0s + (ss.min_usvh*334.0).toFixed(0)     + c0s + "CPM, min"                  + r0e;
+            d += r1s + ss.max_usvh.toFixed(2)             + c1s + "\u00B5" + "Sv/h, max"      + r0e;
+            d += r0s + ss.mean_usvh.toFixed(2)            + c0s + "\u00B5" + "Sv/h, mean"     + r0e;
+            d += r0s + ss.min_usvh.toFixed(2)             + c0s + "\u00B5" + "Sv/h, min"      + r0e;
+            d += r1s + de_str                             + c1s + "\u00B5" + "Sv, total dose" + r0e;
+            d += r1s + (ss.dist_meters/1000.0).toFixed(1) + c1s + "km, total"                 + r0e;
+            d += r0s + ss.max_kph.toFixed(0)              + c0s + "kph, max"                  + r0e;
+            d += r0s + ss.min_kph.toFixed(0)              + c0s + "kph, min"                  + r0e;
+            d += r1s + ss.max_alt_meters.toFixed(0)       + c1s + "m, max alt."               + r0e;
+            d += r0s + ss.min_alt_meters.toFixed(0)       + c0s + "m, min alt."               + r0e;
+            d += r1s + (ss.time_ss/3600.0).toFixed(1)     + c1s + "hours"                     + r0e;
+            d += r0s + ss.n                               + c0s + "lines"                     + r0e;
             d += "</table>";
             d += "</div>";
         }//if
