@@ -5,6 +5,10 @@
 // This code is released into the public domain.
 // ==============================================
 
+// 2017-07-05 ND: - Add log review alert messages and check for log file status.
+// 2017-06-29 ND: - Add additional log stats per Sean, reformat log stats table.
+// 2017-06-28 ND: - Add log stats table to infowindow.
+// 2017-06-05 ND: - Add additional columns for single log review on api.safecast.org only.
 // 2017-04-25 ND: - Fix for autozoom when running in smaller area on page.
 //                - Smarter handling of partial databind params.
 //                - Manually allow enabling infowindow on hover.
@@ -2004,6 +2008,21 @@ var MKS = (function()
         var r = _GetRegionForExtentAndClientView_EPSG4326(this.mk_ex[0], this.mk_ex[1], this.mk_ex[2], this.mk_ex[3], this.mapref);
         this.mapref.panTo(r[0]);
         this.mapref.setZoom(r[1]);
+
+        if (this.logids.length > 0 && this.litcpms != null)
+        {
+            // only show this prompt for api.safecast.org if the logfile hasn't been approved yet
+            // theoretically this should also check the user for moderator status
+            // it would be better if the status was checked from the same API call to get the log file URL
+
+            var div_done = document.getElementById("done");
+
+            if (div_done != null && div_done.className.indexOf("bar-warning") >= 0)
+            {
+                var ss = this.GetSummaryStatsForLogId(this.logids[0]);
+                _ShowAnomalyAlertIfNeeded(ss);
+            }//if
+        }//if
     };
     
     MKS.prototype.ReallocMarkerIndexBuffersIfNeeded = function(new_n)
@@ -3071,6 +3090,41 @@ var MKS = (function()
         this.litcpms = null;
         this.litcp5s = null;
         this.valids = null;
+    };
+
+    var _ShowAnomalyAlertIfNeeded = function(summary_stats)
+    {
+        if (summary_stats == null)
+        {
+            return;
+        }//if
+
+        var d = "";
+
+        if (summary_stats.max_usvh > 0.5)
+        {
+            d += "This log file contains a possible radiological anomaly. Max µSv/h: " + summary_stats.max_usvh.toFixed(2);
+        }//if
+
+        if (summary_stats.min_usvh <= 0.0)
+        {
+            d += (d.length > 0 ? "  " : "") + "This log file contains one or more measurements of 0.00 CPM/µSv/h.";
+        }//if
+        
+        if (summary_stats.dist_meters <= 0.0)
+        {
+            d += (d.length > 0 ? "  " : "") + "This log file does not appear to contain movement.";
+        }//if
+
+        if (summary_stats.n <= 10)
+        {
+            d += (d.length > 0 ? "  " : "") + "This log file only contains " + summary_stats.n + " parseable lines.";
+        }//if
+
+        if (d.length > 0)
+        {
+            alert("Attention: " + d);
+        }//if
     };
     
     var _GetInfoWindowHtmlForParams = function(dre, cpm, alt, deg, date, time, logId, litcpm, litcp5s, is_valid_rad, is_valid_gps, is_valid_chk, summary_stats, fontCssClass)
