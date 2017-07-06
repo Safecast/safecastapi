@@ -5,6 +5,7 @@
 // This code is released into the public domain.
 // ==============================================
 
+// 2017-07-06 ND: - Add more log review alert conditions per JAM.
 // 2017-07-05 ND: - Add log review alert messages and check for log file status.
 // 2017-06-29 ND: - Add additional log stats per Sean, reformat log stats table.
 // 2017-06-28 ND: - Add log stats table to infowindow.
@@ -2020,7 +2021,7 @@ var MKS = (function()
             if (div_done != null && div_done.className.indexOf("bar-warning") >= 0)
             {
                 var ss = this.GetSummaryStatsForLogId(this.logids[0]);
-                _ShowAnomalyAlertIfNeeded(ss);
+                _ShowAnomalyAlertIfNeeded(ss, this.times, this.valids);
             }//if
         }//if
     };
@@ -3092,9 +3093,9 @@ var MKS = (function()
         this.valids = null;
     };
 
-    var _ShowAnomalyAlertIfNeeded = function(summary_stats)
+    var _ShowAnomalyAlertIfNeeded = function(summary_stats, times, valids)
     {
-        if (summary_stats == null)
+        if (summary_stats == null || times == null || valids == null)
         {
             return;
         }//if
@@ -3103,27 +3104,54 @@ var MKS = (function()
 
         if (summary_stats.max_usvh > 0.5)
         {
-            d += "This log file contains a possible radiological anomaly. Max µSv/h: " + summary_stats.max_usvh.toFixed(2);
+            d += " A possible radiological anomaly. Max µSv/h: " + summary_stats.max_usvh.toFixed(2) + ".";
         }//if
 
         if (summary_stats.min_usvh <= 0.0)
         {
-            d += (d.length > 0 ? "  " : "") + "This log file contains one or more measurements of 0.00 CPM/µSv/h.";
+            d += " One or more measurements of 0.00 CPM/µSv/h.";
         }//if
         
         if (summary_stats.dist_meters <= 0.0)
         {
-            d += (d.length > 0 ? "  " : "") + "This log file does not appear to contain movement.";
+            d += " No appearent movement.";
         }//if
 
         if (summary_stats.n <= 10)
         {
-            d += (d.length > 0 ? "  " : "") + "This log file only contains " + summary_stats.n + " parseable lines.";
+            d += " Very few line(s): " + summary_stats.n + " parseable.";
         }//if
+
+        var invalid_ts = 0;
+
+        for (var i=0; i<times.length; i++)
+        {
+            if (times[i] == 0)
+            {
+                invalid_ts++;
+            }//if
+        }//for
+
+        if (invalid_ts > 0) d += " Invalid timestamp(s): " + invalid_ts.toFixed(0) + " of 1970-01-01, which may also signify spatial error.";
+
+        var invalid_rad = 0;
+        var invalid_gps = 0;
+        var invalid_chk = 0;
+
+        for (var i=0; i<valids.length; i++)
+        {
+            if (!_UnpackValids_RadValue(valids[i])) invalid_rad++;
+            if (!_UnpackValids_GpsValue(valids[i])) invalid_gps++;
+            if (!_UnpackValids_ChkValue(valids[i])) invalid_chk++;
+        }//for
+
+        if (invalid_rad > 0) d += " Invalid measurement(s): "  + invalid_rad.toFixed(0) + " flagged by device.";
+        if (invalid_gps > 0) d += " Invalid GPS location(s): " + invalid_gps.toFixed(0) + " flagged by device.";
+        if (invalid_chk > 0) d += " Invalid checksum(s): "     + invalid_chk.toFixed(0) + " line(s).";
 
         if (d.length > 0)
         {
-            alert("Attention: " + d);
+            alert("Attention!  This log file contains:" + d);
         }//if
     };
     
