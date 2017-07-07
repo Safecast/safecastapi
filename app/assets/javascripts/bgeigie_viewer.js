@@ -5,6 +5,7 @@
 // This code is released into the public domain.
 // ==============================================
 
+// 2017-07-07 ND: - Add date range sanity checks per Pieter.
 // 2017-07-06 ND: - Add more log review alert conditions per JAM.
 //                - Add first X line filter for alerts to remove power-on GPS/rad invalid alerts.
 // 2017-07-05 ND: - Add log review alert messages and check for log file status.
@@ -3123,17 +3124,25 @@ var MKS = (function()
             d += " Very few line(s): " + summary_stats.n + " parseable.";
         }//if
 
+        var line_thr   = 15;
+        var extra_thr  = 3;
+
+        var thr_ts_low  = (Date.parse("2011-03-11T00:00:00Z") / 1000.0) >>> 0;
+        var thr_ts_high = (Date.now() / 1000.0 + 86400.0) >>> 0;
+        var invalid_ts_filtered = 0;
         var invalid_ts = 0;
 
         for (var i=0; i<times.length; i++)
         {
-            if (times[i] == 0)
+            if (times[i] < thr_ts_low || times[i] > thr_ts_high)
             {
                 invalid_ts++;
+
+                if (i > line_thr) invalid_ts_filtered++;
             }//if
         }//for
 
-        if (invalid_ts > 0) d += " Invalid timestamp(s): " + invalid_ts.toFixed(0) + " of 1970-01-01, which may also signify spatial error.";
+        if (invalid_ts_filtered > 0 && invalid_ts > invalid_ts_filtered + extra_thr) d += " Invalid timestamp(s): " + invalid_ts.toFixed(0) + " were out-of-range or could not be parsed, which may also signify spatial error.";
 
         var invalid_rad_filtered = 0;
         var invalid_gps_filtered = 0;
@@ -3141,8 +3150,6 @@ var MKS = (function()
         var invalid_rad = 0;
         var invalid_gps = 0;
         var invalid_chk = 0;
-        var line_thr    = 15;
-        var extra_thr   = 3;
 
         for (var i=0; i<valids.length; i++)
         {
