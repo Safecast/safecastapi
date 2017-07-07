@@ -6,6 +6,7 @@
 // ==============================================
 
 // 2017-07-06 ND: - Add more log review alert conditions per JAM.
+//                - Add first X line filter for alerts to remove power-on GPS/rad invalid alerts.
 // 2017-07-05 ND: - Add log review alert messages and check for log file status.
 // 2017-06-29 ND: - Add additional log stats per Sean, reformat log stats table.
 // 2017-06-28 ND: - Add log stats table to infowindow.
@@ -3134,20 +3135,39 @@ var MKS = (function()
 
         if (invalid_ts > 0) d += " Invalid timestamp(s): " + invalid_ts.toFixed(0) + " of 1970-01-01, which may also signify spatial error.";
 
+        var invalid_rad_filtered = 0;
+        var invalid_gps_filtered = 0;
+        var invalid_chk_filtered = 0;
         var invalid_rad = 0;
         var invalid_gps = 0;
         var invalid_chk = 0;
+        var line_thr    = 15;
+        var extra_thr   = 3;
 
         for (var i=0; i<valids.length; i++)
         {
-            if (!_UnpackValids_RadValue(valids[i])) invalid_rad++;
-            if (!_UnpackValids_GpsValue(valids[i])) invalid_gps++;
-            if (!_UnpackValids_ChkValue(valids[i])) invalid_chk++;
+            if (!_UnpackValids_RadValue(valids[i]))
+            { 
+                invalid_rad++;
+                if (i > line_thr) invalid_rad_filtered++;
+            }//if
+
+            if (!_UnpackValids_GpsValue(valids[i]))
+            {
+                invalid_gps++;
+                if (i > line_thr) invalid_gps_filtered++;
+            }//if
+
+            if (!_UnpackValids_ChkValue(valids[i]))
+            {
+                invalid_chk++;
+                if (i > line_thr) invalid_chk_filtered++;
+            }//if
         }//for
 
-        if (invalid_rad > 0) d += " Invalid measurement(s): "  + invalid_rad.toFixed(0) + " flagged by device.";
-        if (invalid_gps > 0) d += " Invalid GPS location(s): " + invalid_gps.toFixed(0) + " flagged by device.";
-        if (invalid_chk > 0) d += " Invalid checksum(s): "     + invalid_chk.toFixed(0) + " line(s).";
+        if (invalid_rad_filtered > 0 && invalid_rad > invalid_rad_filtered + extra_thr) d += " Invalid measurement(s): "  + invalid_rad.toFixed(0) + " flagged by device.";
+        if (invalid_gps_filtered > 0 && invalid_gps > invalid_gps_filtered + extra_thr) d += " Invalid GPS location(s): " + invalid_gps.toFixed(0) + " flagged by device.";
+        if (invalid_chk_filtered > 0 && invalid_chk > invalid_chk_filtered + extra_thr) d += " Invalid checksum(s): "     + invalid_chk.toFixed(0) + " line(s).";
 
         if (d.length > 0)
         {
