@@ -6,6 +6,7 @@
 // ==============================================
 
 // 2017-07-07 ND: - Add date range sanity checks per Pieter.
+//                - Refactor alert and pop-up generation, formatting changes.
 // 2017-07-06 ND: - Add more log review alert conditions per JAM.
 //                - Add first X line filter for alerts to remove power-on GPS/rad invalid alerts.
 // 2017-07-05 ND: - Add log review alert messages and check for log file status.
@@ -3063,7 +3064,6 @@ var MKS = (function()
     MKS.prototype.SortByQuadKey = function()
     {
         var worker = this.fxGetWorkerForDispatch();
-
         var noproc = this.litcpms != null;
 
         if (!noproc)
@@ -3081,191 +3081,247 @@ var MKS = (function()
         
         worker[0].postMessage(params, bufs);
         
-        this.mxs = null;
-        this.mys = null;
-        this.minzs = null;
-        this.cpms = null;
-        this.times = null;
-        this.alts = null;
-        this.degs = null;
-        this.logids = null;
-        this.onmaps = null;
+        this.mxs     = null;
+        this.mys     = null;
+        this.minzs   = null;
+        this.cpms    = null;
+        this.times   = null;
+        this.alts    = null;
+        this.degs    = null;
+        this.logids  = null;
+        this.onmaps  = null;
         this.litcpms = null;
         this.litcp5s = null;
-        this.valids = null;
+        this.valids  = null;
     };
+
+
+
+    // todo: move to external resource, make multilingual
+    var _GetLocalStrings = function()
+    {
+        var d =
+        {
+               BV_ALERT_ATTENTION_TITLE:"Attention",
+            BV_ALERT_ATTENTION_SUBTITLE:"This log file contains",
+                  BV_ALERT_RAD_MAX_TEXT:"A possible radiological anomaly. Max µSv/h: {x}.",
+                 BV_ALERT_RAD_ZERO_TEXT:"One or more measurements of 0.00 CPM/µSv/h.",
+               BV_ALERT_GPS_NOMOVE_TEXT:"No appearent movement.",
+                 BV_ALERT_LOG_TINY_TEXT:"Very few line(s): {x} parseable.",
+              BV_ALERT_INVALID_CLK_TEXT:"Invalid timestamp(s): {x}, which may signify spatial error.",
+              BV_ALERT_INVALID_RAD_TEXT:"Invalid measurement(s): {x} flagged by device.",
+              BV_ALERT_INVALID_GPS_TEXT:"Invalid GPS location(s): {x} flagged by device.",
+              BV_ALERT_INVALID_CHK_TEXT:"Invalid checksum(s): {x} lines.",
+                          BV_USVH_LABEL:"µSv/h", 
+                           BV_CPM_LABEL:"CPM", 
+                       BV_LOG_CPM_LABEL:"Log CPM",
+                      BV_LOG_CP5S_LABEL:"Log CP5s",
+                             BV_M_LABEL:"m", 
+                           BV_ALT_LABEL:"alt",
+                           BV_DEG_LABEL:"°",
+                       BV_HEADING_LABEL:"heading", 
+                           BV_UTC_LABEL:"UTC", 
+                         BV_VALID_LABEL:"Valid", 
+                       BV_INVALID_LABEL:"Invalid",
+                     BV_RADIATION_LABEL:"Radiation",
+                           BV_GPS_LABEL:"GPS",
+                      BV_CHECKSUM_LABEL:"Checksum",
+                BV_LOG_FILE_STATS_TITLE:"Log File Stats",
+                       BV_CPM_MAX_LABEL:"CPM, max",
+                       BV_CPM_AVG_LABEL:"CPM, mean",
+                       BV_CPM_MIN_LABEL:"CPM, min",
+                      BV_USVH_MAX_LABEL:"µSv/h, max",
+                      BV_USVH_AVG_LABEL:"µSv/h, mean",
+                      BV_USVH_MIN_LABEL:"µSv/h, min",
+                      BV_USV_DOSE_LABEL:"µSv, total dose",
+                      BV_KM_TOTAL_LABEL:"km, total",
+                       BV_KPH_MAX_LABEL:"kph, max",
+                       BV_KPH_MIN_LABEL:"kph, min",
+                     BV_M_ALT_MAX_LABEL:"m, max alt.",
+                     BV_M_ALT_MIN_LABEL:"m, min alt.",
+                      BV_HH_TOTAL_LABEL:"hours",
+                   BV_LINES_TOTAL_LABEL:"lines"
+        };
+
+        return d;
+    };
+
+
 
     var _ShowAnomalyAlertIfNeeded = function(summary_stats, times, valids)
     {
-        if (summary_stats == null || times == null || valids == null)
-        {
-            return;
-        }//if
+        if (summary_stats == null || times == null || valids == null) { return; }
 
-        var d = "";
+        var _GetStrCopyFmt = function(s,p) { return ("" + s).replace(/{x}/g, p); };
 
-        if (summary_stats.max_usvh > 0.5)
-        {
-            d += " A possible radiological anomaly. Max µSv/h: " + summary_stats.max_usvh.toFixed(2) + ".";
-        }//if
+        var s  = _GetLocalStrings();
+        var ss = summary_stats;
+        var ds = new Array();
 
-        if (summary_stats.min_usvh <= 0.0)
-        {
-            d += " One or more measurements of 0.00 CPM/µSv/h.";
-        }//if
-        
-        if (summary_stats.dist_meters <= 0.0)
-        {
-            d += " No appearent movement.";
-        }//if
+        if (ss.max_usvh    >   0.5) { ds.push(_GetStrCopyFmt(s.BV_ALERT_RAD_MAX_TEXT, ss.max_usvh.toFixed(2))); }
+        if (ss.min_usvh    <=  0.0) { ds.push(s.BV_ALERT_RAD_ZERO_TEXT); }
+        if (ss.dist_meters <=  0.0) { ds.push(s.BV_ALERT_GPS_NOMOVE_TEXT); }
+        if (ss.n           <= 10)   { ds.push(_GetStrCopyFmt(s.BV_ALERT_LOG_TINY_TEXT, summary_stats.n.toFixed(0))); }
 
-        if (summary_stats.n <= 10)
-        {
-            d += " Very few line(s): " + summary_stats.n + " parseable.";
-        }//if
+        var line_thr  = 15; // number of first lines of the log file to ignore, as these commonly contain invalid GPS/rad data
+        var exthr     = 3;  // extra threshold beyond the first X lines to produce an alert.  note that preprocessing may sometimes reorder the lines.
 
-        var line_thr   = 15;
-        var extra_thr  = 3;
-
-        var thr_ts_low  = (Date.parse("2011-03-11T00:00:00Z") / 1000.0) >>> 0;
-        var thr_ts_high = (Date.now() / 1000.0 + 86400.0) >>> 0;
-        var invalid_ts_filtered = 0;
-        var invalid_ts = 0;
+        var thr_ts_lo = (Date.parse("2011-03-11T00:00:00Z") / 1000.0) >>> 0;  // min date threshold to be valid -- 2011-03-11
+        var thr_ts_hi = (Date.now() / 1000.0 + 86400.0) >>> 0;  // max date threshold to be valid -- now + 24 hours
+        var inv_ts_f  = 0; // (first X filtered) invalid date lines
+        var inv_ts    = 0; // (total) invalid date lines
 
         for (var i=0; i<times.length; i++)
         {
-            if (times[i] < thr_ts_low || times[i] > thr_ts_high)
+            if (times[i] < thr_ts_lo || times[i] > thr_ts_hi)
             {
-                invalid_ts++;
-
-                if (i > line_thr) invalid_ts_filtered++;
+                inv_ts++;
+                if (i > line_thr) { inv_ts_f++; }
             }//if
         }//for
 
-        if (invalid_ts_filtered > 0 && invalid_ts > invalid_ts_filtered + extra_thr) d += " Invalid timestamp(s): " + invalid_ts.toFixed(0) + " were out-of-range or could not be parsed, which may also signify spatial error.";
+        if (inv_ts_f > 0 && inv_ts > inv_ts_f + exthr) { ds.push(_GetStrCopyFmt(s.BV_ALERT_INVALID_CLK_TEXT, inv_ts.toFixed(0))); }
 
-        var invalid_rad_filtered = 0;
-        var invalid_gps_filtered = 0;
-        var invalid_chk_filtered = 0;
-        var invalid_rad = 0;
-        var invalid_gps = 0;
-        var invalid_chk = 0;
+        var inv_rad_f = 0; // (first X filtered) invalid radiation lines
+        var inv_gps_f = 0; // (first X filtered) invalid GPS lines
+        var inv_chk_f = 0; // (first X filtered) invalid checksum lines
+        var inv_rad   = 0; // (total) invalid radiation lines
+        var inv_gps   = 0; // (total) invalid GPS lines
+        var inv_chk   = 0; // (total) invalid checksum lines
 
         for (var i=0; i<valids.length; i++)
         {
             if (!_UnpackValids_RadValue(valids[i]))
             { 
-                invalid_rad++;
-                if (i > line_thr) invalid_rad_filtered++;
+                inv_rad++;
+                if (i > line_thr) { inv_rad_f++; }
             }//if
 
             if (!_UnpackValids_GpsValue(valids[i]))
             {
-                invalid_gps++;
-                if (i > line_thr) invalid_gps_filtered++;
+                inv_gps++;
+                if (i > line_thr) { inv_gps_f++; }
             }//if
 
             if (!_UnpackValids_ChkValue(valids[i]))
             {
-                invalid_chk++;
-                if (i > line_thr) invalid_chk_filtered++;
+                inv_chk++;
+                if (i > line_thr) { inv_chk_f++; }
             }//if
         }//for
 
-        if (invalid_rad_filtered > 0 && invalid_rad > invalid_rad_filtered + extra_thr) d += " Invalid measurement(s): "  + invalid_rad.toFixed(0) + " flagged by device.";
-        if (invalid_gps_filtered > 0 && invalid_gps > invalid_gps_filtered + extra_thr) d += " Invalid GPS location(s): " + invalid_gps.toFixed(0) + " flagged by device.";
-        if (invalid_chk_filtered > 0 && invalid_chk > invalid_chk_filtered + extra_thr) d += " Invalid checksum(s): "     + invalid_chk.toFixed(0) + " line(s).";
+        if (inv_rad_f > 0 && inv_rad > inv_rad_f + exthr) { ds.push(_GetStrCopyFmt(s.BV_ALERT_INVALID_RAD_TEXT, inv_rad.toFixed(0))); }
+        if (inv_gps_f > 0 && inv_gps > inv_gps_f + exthr) { ds.push(_GetStrCopyFmt(s.BV_ALERT_INVALID_GPS_TEXT, inv_gps.toFixed(0))); }
+        if (inv_chk_f > 0 && inv_chk > inv_chk_f + exthr) { ds.push(_GetStrCopyFmt(s.BV_ALERT_INVALID_CHK_TEXT, inv_chk.toFixed(0))); }
 
-        if (d.length > 0)
+        if (ds.length > 0)
         {
-            alert("Attention!  This log file contains:" + d);
+            var is_html = false; // JS alerts can only accept plain text, but perhaps better-formatted pop-up div in future.
+            var d       = "";
+
+            var h0 = is_html ? "<h3>"  : "";
+            var h1 = is_html ? "</h3>" : "!";
+            var s0 = is_html ? "<h4>"  : " ";
+            var s1 = is_html ? "</h4>" : ":";
+            var g0 = is_html ? "<ul>"  : "";
+            var g1 = is_html ? "</ul>" : "";
+            var i0 = is_html ? "<li>"  : " 「";
+            var i1 = is_html ? "</li>" : "」";
+
+            d += h0 + s.BV_ALERT_ATTENTION_TITLE    + h1;
+            d += s0 + s.BV_ALERT_ATTENTION_SUBTITLE + s1;
+            d += g0;
+
+            for (var i=0; i<ds.length; i++)
+            {
+                d += i0 + ds[i] + i1;
+            }//for
+
+            d += g1;
+
+            alert(d);
         }//if
     };
-    
+
+
     var _GetInfoWindowHtmlForParams = function(dre, cpm, alt, deg, date, time, logId, litcpm, litcp5s, is_valid_rad, is_valid_gps, is_valid_chk, summary_stats, fontCssClass)
     {
-        var d = "<table id='bv_iw_tbl_pt' style='border:0;border-collapse:collapse;' class='" + fontCssClass  + "'>";
+        var font_attr = fontCssClass != null ? " class=\"" + fontCssClass  + "\"" : "";
+        var s    = _GetLocalStrings();
+        var d    = "";
+        var tr0  = "<tr><td align=right>";
+        var tr0w = "<tr><td align=right nowrap>";
+        var td1  = "</td><td>";
+        var td1w = "</td><td nowrap>";
+        var tr1  = "</td></tr>";
 
-        d += "<tr><td align=right>" + dre            + "</td><td>" + (litcpm == null ? "" : "") + "\u00B5" + "Sv/h" + "</td></tr>";
-        d += "<tr><td align=right>" + cpm.toFixed(0) + "</td><td>" + (litcpm == null ? "" : "") + "CPM"             + "</td></tr>";
+        d += "<div id=\"bv_iw_div_pt\">";
+        d += "<table" + font_attr + " style=\"border:0; border-collapse:collapse;\">";
 
-        if (litcpm != null)
-        {
-            d += "<tr><td align=right>" + litcpm.toFixed(0)  + "</td><td>"        + "Log CPM"     + "</td></tr>";
-        }//if
+        d += tr0 + dre            + td1 + s.BV_USVH_LABEL + tr1;
+        d += tr0 + cpm.toFixed(0) + td1 + s.BV_CPM_LABEL  + tr1;
 
-        if (litcp5s != null)
-        {
-            d += "<tr><td align=right>" + litcp5s.toFixed(0) + "</td><td>"        + "Log CP5s"     + "</td></tr>";
-        }//if
+        if (litcpm  != null) { d += tr0 + litcpm.toFixed(0)  + td1 + s.BV_LOG_CPM_LABEL  + tr1; }
+        if (litcp5s != null) { d += tr0 + litcp5s.toFixed(0) + td1 + s.BV_LOG_CP5S_LABEL + tr1; }
 
-        d    += "<tr><td align=right>" + alt + "</td><td nowrap>" + "m alt"               + "</td></tr>"
-              + "<tr><td align=right>" + deg + "</td><td nowrap>" + "\u00B0" + " heading" + "</td></tr>"
-              + "<tr><td align=right nowrap>" + date + "<br/>" + time + "</td><td>UTC"    + "</td></tr>";
+        d += tr0  + alt                   + td1w + s.BV_M_LABEL   + " " + s.BV_ALT_LABEL     + tr1;
+        d += tr0  + deg                   + td1w + s.BV_DEG_LABEL + " " + s.BV_HEADING_LABEL + tr1;
+        d += tr0w + date + "<br/>" + time + td1  + s.BV_UTC_LABEL                            + tr1;
 
-        if (is_valid_rad != null && !is_valid_rad)
-        {
-            d += "<tr><td align=right>" + (is_valid_rad ? "Valid" : "Invalid") + "</td><td nowrap>" + "Radiation" + "</td></tr>"
-        }//if
+        if (is_valid_rad != null && !is_valid_rad) { d += tr0 + (is_valid_rad ? s.BV_VALID_LABEL : s.BV_INVALID_LABEL) + td1w + s.BV_RADIATION_LABEL + tr1; }
+        if (is_valid_gps != null && !is_valid_gps) { d += tr0 + (is_valid_gps ? s.BV_VALID_LABEL : s.BV_INVALID_LABEL) + td1w + s.BV_GPS_LABEL       + tr1; }
+        if (is_valid_chk != null && !is_valid_chk) { d += tr0 + (is_valid_chk ? s.BV_VALID_LABEL : s.BV_INVALID_LABEL) + td1w + s.BV_CHECKSUM_LABEL  + tr1; }
 
-        if (is_valid_gps != null && !is_valid_gps)
-        {
-            d += "<tr><td align=right>" + (is_valid_gps ? "Valid" : "Invalid") + "</td><td nowrap>" + "GPS" + "</td></tr>"
-        }//if
-
-        if (is_valid_chk != null && !is_valid_chk)
-        {
-            d += "<tr><td align=right>" + (is_valid_chk ? "Valid" : "Invalid") + "</td><td nowrap>" + "Checksum" + "</td></tr>"
-        }//if
-
-        var oc = "var bids = document.getElementById('bv_iw_div_ss');"
-               + "var bitp = document.getElementById('bv_iw_tbl_pt');"
-               + "if (bids != null && bitp != null)"
-               + "{" 
-               + "bids.style.display = bids.style.display == 'none' ? 'block' : 'none';"
-               + "bitp.style.display = bitp.style.display == 'none' ? 'block' : 'none';"
-               + "}";
-
-        d    += "</table>";
+        d += "</table>";
+        d += "</div>";
 
         if (summary_stats != null)
         {
             var ss     = summary_stats;
             var de_str = ss.de_usv > 0.01 ? ss.de_usv.toFixed(2) : ss.de_usv.toFixed(4);
-            var r0s = "<tr><td align=right>";
-            var r1s = "<tr><td align=right style='padding-top:5px;'>";
-            var c0s = "</td><td>";
-            var c1s = "</td><td style='padding-top:5px;'>";
-            var r0e = "</td></tr>";
+            var tr0p   = "<tr><td align=right  style=\"padding-top:5px;\">";
+            var tr0t   = "<tr><td align=center style=\"font-size:16px;\" colspan=2>";
+            var td1p   = "</td><td style=\"padding-top:5px;\">";
 
-            d += "<div id='bv_iw_div_ss' style='display:none; padding-top:10px;'>";
-            d += "<table style='border:0;border-collapse:collapse;' class='" + fontCssClass  + "'>";
-            d += "<tr><td align=center colspan=2 style='font-size:16px;'>" + "Log File Stats" + r0e;
-            d += r1s + (ss.max_usvh*334.0).toFixed(0)     + c1s + "CPM, max"                  + r0e;
-            d += r0s + (ss.mean_usvh*334.0).toFixed(0)    + c0s + "CPM, mean"                 + r0e;
-            d += r0s + (ss.min_usvh*334.0).toFixed(0)     + c0s + "CPM, min"                  + r0e;
-            d += r1s + ss.max_usvh.toFixed(2)             + c1s + "\u00B5" + "Sv/h, max"      + r0e;
-            d += r0s + ss.mean_usvh.toFixed(2)            + c0s + "\u00B5" + "Sv/h, mean"     + r0e;
-            d += r0s + ss.min_usvh.toFixed(2)             + c0s + "\u00B5" + "Sv/h, min"      + r0e;
-            d += r1s + de_str                             + c1s + "\u00B5" + "Sv, total dose" + r0e;
-            d += r1s + (ss.dist_meters/1000.0).toFixed(1) + c1s + "km, total"                 + r0e;
-            d += r0s + ss.max_kph.toFixed(0)              + c0s + "kph, max"                  + r0e;
-            d += r0s + ss.min_kph.toFixed(0)              + c0s + "kph, min"                  + r0e;
-            d += r1s + ss.max_alt_meters.toFixed(0)       + c1s + "m, max alt."               + r0e;
-            d += r0s + ss.min_alt_meters.toFixed(0)       + c0s + "m, min alt."               + r0e;
-            d += r1s + (ss.time_ss/3600.0).toFixed(1)     + c1s + "hours"                     + r0e;
-            d += r0s + ss.n                               + c0s + "lines"                     + r0e;
+            d += "<div id=\"bv_iw_div_ss\" style=\"display:none; padding-top:10px;\">";
+            d += "<table" + font_attr + " style=\"border:0; border-collapse:collapse;\">";
+            d += tr0t + s.BV_LOG_FILE_STATS_TITLE                                          + tr1;
+            d += tr0p + (ss.max_usvh  * 334.0).toFixed(0)  + td1p + s.BV_CPM_MAX_LABEL     + tr1;
+            d += tr0  + (ss.mean_usvh * 334.0).toFixed(0)  + td1  + s.BV_CPM_AVG_LABEL     + tr1;
+            d += tr0  + (ss.min_usvh * 334.0).toFixed(0)   + td1  + s.BV_CPM_MIN_LABEL     + tr1;
+            d += tr0p + ss.max_usvh.toFixed(2)             + td1p + s.BV_USVH_MAX_LABEL    + tr1;
+            d += tr0  + ss.mean_usvh.toFixed(2)            + td1  + s.BV_USVH_AVG_LABEL    + tr1;
+            d += tr0  + ss.min_usvh.toFixed(2)             + td1  + s.BV_USVH_MIN_LABEL    + tr1;
+            d += tr0p + de_str                             + td1p + s.BV_USV_DOSE_LABEL    + tr1;
+            d += tr0p + (ss.dist_meters/1000.0).toFixed(1) + td1p + s.BV_KM_TOTAL_LABEL    + tr1;
+            d += tr0  + ss.max_kph.toFixed(0)              + td1  + s.BV_KPH_MAX_LABEL     + tr1;
+            d += tr0  + ss.min_kph.toFixed(0)              + td1  + s.BV_KPH_MIN_LABEL     + tr1;
+            d += tr0p + ss.max_alt_meters.toFixed(0)       + td1p + s.BV_M_ALT_MAX_LABEL   + tr1;
+            d += tr0  + ss.min_alt_meters.toFixed(0)       + td1  + s.BV_M_ALT_MIN_LABEL   + tr1;
+            d += tr0p + (ss.time_ss/3600.0).toFixed(1)     + td1p + s.BV_HH_TOTAL_LABEL    + tr1;
+            d += tr0  + ss.n                               + td1  + s.BV_LINES_TOTAL_LABEL + tr1;
             d += "</table>";
             d += "</div>";
         }//if
 
-        d    += "<div class=\""+fontCssClass+"\" style=\"cursor:pointer;position:absolute;top:0;left:0;font-size:70%;color:#9999FF;\" onclick=\"" + oc + "\">" 
-              + Math.abs(logId)
-              + "</div>";
+        var oc_div_js  = "var bids = document.getElementById('bv_iw_div_ss');"
+                       + "var bidp = document.getElementById('bv_iw_div_pt');"
+                       + "if (bids != null && bidp != null)"
+                       + "{" 
+                       + "bids.style.display = bids.style.display == 'none' ? 'block' : 'none';"
+                       + "bidp.style.display = bidp.style.display == 'none' ? 'block' : 'none';"
+                       + "}";
+
+        d += "<div" + font_attr + " style=\"cursor:pointer; position:absolute; top:0; left:0; font-size:9px; color:#9999FF;\"" 
+          +  " onclick=\"" + oc_div_js + "\">";
+        d += Math.abs(logId);
+        d += "</div>";
 
         return d;
     };
-    
+
+
+
     // based on the client's screen size and extent, find the center and zoom level
     // to pass to Google Maps to pan the view.
     var _GetRegionForExtentAndClientView_EPSG4326 = function(x0, y0, x1, y1, mapref)
