@@ -1,7 +1,7 @@
 sudo: false
 language: ruby
 rvm:
-  - 2.1.10
+  - 2.2.7
 addons:
     postgresql: "9.3"
     code_climate:
