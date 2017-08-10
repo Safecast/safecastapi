@@ -219,7 +219,12 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def run_psql_command
-    logger.info `#{psql_command}`
+    logger.info { psql_command }
+    out = nil
+    IO.popen(psql_command, err: [:child, :out]) do |io|
+      out = io.read
+    end
+    [$CHILD_STATUS, out]
   end
 
   def drop_and_create_tmp_table
@@ -243,13 +248,28 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
   def import_to_bgeigie_logs
     drop_and_create_tmp_table
-    run_psql_command
+    status, out = run_psql_command
+    if status.success?
+      process_successful_import_to_tmp_table
+    else
+      process_unsuccessful_import_to_tmp_table(status, out)
+    end
+  ensure
+    drop_tmp_table
+  end
+
+  def process_successful_import_to_tmp_table
     set_bgeigie_import_id
     compute_latlng_from_nmea
     populate_bgeigie_logs_table
-    drop_tmp_table
     update_column(:measurements_count, bgeigie_logs.count)
     confirm_status(:import_bgeigie_logs)
+  end
+
+  def process_unsuccessful_import_to_tmp_table(status, out)
+    # TODO: spool logs to another table with error
+    logger.error { "Error while importing to tmp table with exit code: #{status.to_i}\n  Output = #{out}" }
+    update_columns(rejected: true, rejected_by: out, status: 'processed')
   end
 
   def compute_latlng_from_nmea # rubocop:disable Metrics/MethodLength
