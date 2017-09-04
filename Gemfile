@@ -10,7 +10,7 @@ gem 'cancan'
 gem 'rails', '4.1.16'
 gem 'unicorn'
 gem 'pg'
-gem 'activerecord-postgis-adapter', '~> 1.0.0'
+gem 'activerecord-postgis-adapter', '~> 2.2.2'
 gem 'json', '1.8.1'
 
 gem 'aws-ses',                  '0.4.4', require: 'aws/ses'
