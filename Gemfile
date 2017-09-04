@@ -14,7 +14,7 @@ gem 'activerecord-postgis-adapter', '~> 1.0.0'
 gem 'json', '1.8.1'
 
 gem 'aws-ses',                  '0.4.4', require: 'aws/ses'
-gem 'bootstrap-sass',           '~> 2.2.2.0'
+gem 'bootstrap-sass',           '~> 3.3.7'
 gem 'carrierwave',              '~> 0.6.2'
 gem 'configurable_engine'
 gem 'csv_builder',              '~> 2.1.1'
