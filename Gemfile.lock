@@ -46,7 +46,7 @@ GEM
       sass (~> 3.2)
     builder (3.2.3)
     byebug (9.0.5)
-    cancan (1.6.8)
+    cancan (1.6.10)
     capybara (2.7.1)
       addressable
       mime-types (>= 1.16)
