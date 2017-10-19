@@ -12,6 +12,7 @@ gem 'unicorn'
 gem 'pg'
 gem 'activerecord-postgis-adapter', '~> 1.0.0'
 gem 'json', '1.8.1'
+gem 'dotenv-rails'
 
 gem 'aws-ses',                  '0.4.4', require: 'aws/ses'
 gem 'bootstrap-sass',           '~> 2.2.2.0'
@@ -45,7 +46,6 @@ gem 'jquery-rails'
 gem 'thin'
 
 group :development do
-  gem 'dotenv-rails', group: :test
   gem 'pry-byebug', group: :test
   gem 'pry-rails'
   gem 'quiet_assets'
