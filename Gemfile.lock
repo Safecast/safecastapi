@@ -68,8 +68,6 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.5)
-    configurable_engine (0.4.8)
-      rails (> 3.1.0)
     csv_builder (2.1.1)
       actionpack (>= 3.0.0)
     daemons (1.1.9)
@@ -313,7 +311,6 @@ DEPENDENCIES
   carrierwave (~> 0.6.2)
   codeclimate-test-reporter
   coffee-rails
-  configurable_engine
   csv_builder (~> 2.1.1)
   database_cleaner
   decent_exposure
