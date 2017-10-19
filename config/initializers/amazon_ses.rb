@@ -1,3 +1,3 @@
 ActionMailer::Base.add_delivery_method :ses, AWS::SES::Base,
-                                       access_key_id: Configurable.aws_access_key_id,
-                                       secret_access_key: Configurable.aws_secret_access_key
+                                       access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+                                       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
