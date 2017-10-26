@@ -12,11 +12,11 @@ gem 'unicorn'
 gem 'pg'
 gem 'activerecord-postgis-adapter', '~> 1.0.0'
 gem 'json', '1.8.1'
+gem 'dotenv-rails'
 
 gem 'aws-ses',                  '0.4.4', require: 'aws/ses'
 gem 'bootstrap-sass',           '~> 2.2.2.0'
 gem 'carrierwave',              '~> 0.6.2'
-gem 'configurable_engine'
 gem 'csv_builder',              '~> 2.1.1'
 gem 'delayed_job',              '~> 4.0.2'
 gem 'delayed_job_active_record'
@@ -45,7 +45,6 @@ gem 'jquery-rails'
 gem 'thin'
 
 group :development do
-  gem 'dotenv-rails', group: :test
   gem 'pry-byebug', group: :test
   gem 'pry-rails'
   gem 'quiet_assets'
