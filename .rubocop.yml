@@ -33,7 +33,7 @@ Metrics/MethodLength:
     - 'db/migrate/20120323105044_create_drive_logs.rb'
     - 'db/migrate/20120418231658_devise_create_admins.rb'
 
-Style/AccessModifierIndentation:
+Layout/AccessModifierIndentation:
   EnforcedStyle: indent
 
 # `alias` is lexically scoped, and `alias_method` is dynamically scoped;
@@ -46,16 +46,16 @@ Style/Alias:
 Style/Documentation:
   Enabled: false
 
-Style/EmptyLines:
+Layout/EmptyLines:
   Exclude:
     - 'db/migrate/20111123174941_devise_create_users.rb'
 
-Style/EmptyLinesAroundClassBody:
+Layout/EmptyLinesAroundClassBody:
   Exclude:
     - 'db/migrate/20111123174941_devise_create_users.rb'
     - 'db/migrate/20130114094100_change_height_on_measurement_import_from_integer_to_decimal.rb'
 
-Style/EmptyLinesAroundMethodBody:
+Layout/EmptyLinesAroundMethodBody:
   Exclude:
     - 'db/migrate/20120306150302_add_fields_to_measurements.rb'
     - 'db/migrate/20120306202021_add_time_zone_to_user.rb'
@@ -89,34 +89,34 @@ Style/HashSyntax:
     - 'db/migrate/20130606042505_add_devise_confirmable_to_user.rb'
     - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
 
-Style/IndentArray:
+Layout/IndentArray:
   EnforcedStyle: consistent
 
-Style/IndentHash:
+Layout/IndentHash:
   EnforcedStyle: consistent
 
-Style/IndentationConsistency:
+Layout/IndentationConsistency:
   Exclude:
     - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
 
-Style/IndentationWidth:
+Layout/IndentationWidth:
   Exclude:
     - 'db/migrate/20120307175658_add_timestamps_to_measurement_imports.rb'
     - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
     - 'db/migrate/20150919060031_add_extra_fields_to_measurements_table.rb'
 
-Style/MultilineMethodCallIndentation:
+Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
-Style/SpaceAroundOperators:
+Layout/SpaceAroundOperators:
   Exclude:
     - 'db/migrate/20120521225350_add_spatial_index_on_measurements.rb'
 
-Style/SpaceInsideBrackets:
+Layout/SpaceInsideBrackets:
   Exclude:
     - 'db/migrate/20160208190731_add_subtype_to_measurement_imports.rb'
 
-Style/SpaceInsideParens:
+Layout/SpaceInsideParens:
   Exclude:
     - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
 
@@ -132,17 +132,17 @@ Style/SymbolProc:
   Exclude:
     - 'db/migrate/20120307175658_add_timestamps_to_measurement_imports.rb'
 
-Style/Tab:
+Layout/Tab:
   Exclude:
     - 'db/migrate/20111214154833_create_delayed_jobs.rb'
 
-Style/TrailingBlankLines:
+Layout/TrailingBlankLines:
   Exclude:
     - 'db/migrate/20111214154833_create_delayed_jobs.rb'
     - 'db/migrate/20120103213502_add_default_to_bgeigie_log.rb'
     - 'db/migrate/20120307232457_create_configurables.rb'
 
-Style/TrailingWhitespace:
+Layout/TrailingWhitespace:
   Exclude:
     - 'db/migrate/20111124211843_create_measurements.rb'
     - 'db/migrate/20111128163114_add_lat_and_lng.rb'
@@ -155,5 +155,5 @@ Style/TrailingWhitespace:
     - 'db/migrate/20120103213502_add_default_to_bgeigie_log.rb'
     - 'db/migrate/20120307232457_create_configurables.rb'
 
-Style/VariableName:
+Naming/VariableName:
   Enabled: true
