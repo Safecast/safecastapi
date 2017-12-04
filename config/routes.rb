@@ -10,7 +10,7 @@ Safecast::Application.routes.draw do
     end
 
     resource :home, controller: :home, only: :show
-    resource :dashboard
+    resource :dashboard, only: %i(show)
     resource :profile
 
     namespace :bgeigie_imports do
