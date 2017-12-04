@@ -20,7 +20,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   %i(submitted processed done).each do |status|
     scope status, -> { where(status: status) }
   end
-  scope :unapproved, -> { where(approved: false) }
+  scope :unapproved, -> { where(approved: false).where(rejected: false) }
 
   store :status_details, accessors: [
     :process_file,
