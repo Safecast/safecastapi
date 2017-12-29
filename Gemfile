@@ -11,7 +11,7 @@ gem 'rails', '4.1.16'
 gem 'unicorn'
 gem 'pg'
 gem 'activerecord-postgis-adapter', '~> 1.0.0'
-gem 'json', '1.8.1'
+gem 'json', '1.8.6'
 gem 'dotenv-rails'
 
 gem 'aws-ses',                  '= 0.6.0', require: 'aws/ses'
