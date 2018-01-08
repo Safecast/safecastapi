@@ -5,7 +5,7 @@ cd /var/deploy/api.safecast.org/web_head/shared/system && tar -czf measurements-
 mv measurements-out.tar.gz measurements.tar.gz && mv measurements-out.csv measurements.csv
 
 # rsync to the other server (this only runs on kangaroo)
-rsync -Havq --bwlimit 10000 /var/deploy/api.safecast.org/web_head/shared/system/measurements.* horse.api.safecast.org.c66.me:/var/deploy/api.safecast.org/web_head/shared/system/
+rsync -Havq --bwlimit 10000 /var/deploy/api.safecast.org/web_head/shared/system/measurements.* reindeer.api.safecast.org.c66.me:/var/deploy/api.safecast.org/web_head/shared/system/
 
 #
 # Now this is available as https://api.safecast.org/system/measurements.tar.gz
