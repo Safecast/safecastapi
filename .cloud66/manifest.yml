@@ -23,6 +23,7 @@ staging:
       postgis: true
   rails:
     configuration:
+      ruby_version: 2.2.7
       nginx:
         cors:
           origin: '*'
