@@ -10,7 +10,7 @@ production:
       postgis: true
   rails:
     configuration:
-      ruby_version: 2.1.10
+      ruby_version: 2.2.7
       nginx:
         cors:
           origin: '*'
