@@ -62,4 +62,4 @@ cp /tmp/ios13_32_*.sqlite /var/deploy/api.safecast.org/web_head/shared/system/
 
 rm -f /tmp/ios13_32_*
 
-rsync -Havq --bwlimit 10000 /var/deploy/api.safecast.org/web_head/shared/system/ios13_32_* horse.api.safecast.org.c66.me:/var/deploy/api.safecast.org/web_head/shared/system/
+rsync -Havq --bwlimit 10000 /var/deploy/api.safecast.org/web_head/shared/system/ios13_32_* reindeer.api.safecast.org.c66.me:/var/deploy/api.safecast.org/web_head/shared/system/
