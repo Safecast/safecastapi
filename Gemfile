@@ -7,10 +7,10 @@ gem 'devise-i18n'
 gem 'devise-token_authenticatable'
 gem 'cancan'
 
-gem 'rails', '4.1.16'
+gem 'rails', '4.2.10'
 gem 'unicorn'
 gem 'pg'
-gem 'activerecord-postgis-adapter', '~> 1.0.0'
+gem 'activerecord-postgis-adapter', '~> 3.1.5'
 gem 'json', '1.8.6'
 gem 'dotenv-rails'
 
