@@ -5,7 +5,6 @@
 // This code is released into the public domain.
 // ==============================================
 
-// 2017-09-17 ND: - Add navigate away pop-up to hopefully reduce submissions not making it into the system.
 // 2017-07-07 ND: - Add date range sanity checks per Pieter.
 //                - Refactor alert and pop-up generation, formatting changes.
 // 2017-07-06 ND: - Add more log review alert conditions per JAM.
@@ -141,7 +140,6 @@ var BVM = (function()
         this.Init_XFM();
         this.Init_MKS();
         this.Init_WWM();
-        this.ApiListenerBeforeUnload_AddRemove(true);
     };
     
     BVM.prototype.Init_DataBindDefaults = function()
@@ -609,270 +607,16 @@ var BVM = (function()
     
         return dest;
     };
-
-    // ************************************************
-    // ******* Navigate-Away Status Warnings **********
-    // ************************************************
-    //
-    //          For api.safecast.org only!
-
-    BVM.ApiStatus =
-    {
-                 Null: 0,
-             Uploaded: 1,
-          Unprocessed: 2,
-            Processed: 3,
-        MetadataAdded: 4,
-            Submitted: 5,
-             Approved: 6,
-                 Done: 7
-    };
-
-    BVM.prototype._ApiStatusGet = function()
-    {
-        var  ul = document.getElementsByTagName("ul");
-        var  ds = null;
-
-        for (var i=0; i<ul.length; i++)
-        {
-            if (ul[i].getAttribute("id") == "progress")
-            {
-                ds = ul[i].getAttribute("data-status");
-                break;
-            }//if
-        }//for
-
-        return ds;
-    };
-
-    BVM.prototype._ApiStatusGetIsEq = function(s)
-    {
-        var ds = this._ApiStatusGet();
-        return s != null && ds != null && ds.toLowerCase() == s.toLowerCase();
-    };
-
-
-    BVM.prototype._ApiStatusCheck = function(ApiStatusType)
-    {
-        _DebugToStorage("_ApiStatusCheck: START!");
-
-        var d   = false;
-        var txt = null;
-
-        switch (ApiStatusType)
-        {
-            case BVM.ApiStatus.Uploaded:
-                txt = "uploaded";
-                break;
-            case BVM.ApiStatus.Unprocessed:
-                txt = "unprocessed";
-                break;
-            case BVM.ApiStatus.Processed:
-                txt = "processed";
-                break;
-            case BVM.ApiStatus.MetadataAdded:
-                txt = "metadata_added";
-                break;
-            case BVM.ApiStatus.Submitted:
-                txt = "submitted";
-                break;
-            case BVM.ApiStatus.Approved:
-                txt = "approved";
-                break;
-            case BVM.ApiStatus.Done:
-                txt = "done";
-                break;
-        }//switch
-
-        if (txt != null)
-        {
-            d = this._ApiStatusGetIsEq(txt);
-        }//if
-
-        _DebugToStorage("_ApiStatusCheck: Input=" + ApiStatusType + ", txt=[" + (txt == null ? "<NULL>" : txt) + "]");
-
-        return d;
-    };
-
-    BVM.prototype._ApiMetadataFieldCheck = function(s)
-    {
-        return s != null && s.length > 0 && s.toLowerCase() != "none" && s.toLowerCase() != "not set";
-    };
-
-    BVM.prototype._ApiMetadataCheck = function()
-    {
-        var d = false;
-        var o = this._ApiMetadataGet();
-        if (//   this._ApiMetadataFieldCheck(o.uploader)
-            //&& this._ApiMetadataFieldCheck(o.filename)
-            //&& this._ApiMetadataFieldCheck(o.lines)
-            //&& this._ApiMetadataFieldCheck(o.n)
-            //&& this._ApiMetadataFieldCheck(o.title)
-            //&& this._ApiMetadataFieldCheck(o.desc)
-            this._ApiMetadataFieldCheck(o.credits)
-            //&& this._ApiMetadataFieldCheck(o.height)
-            //&& this._ApiMetadataFieldCheck(o.orientation)
-            //&& this._ApiMetadataFieldCheck(o.subtype)
-            && this._ApiMetadataFieldCheck(o.cities)
-            //&& this._ApiMetadataFieldCheck(o.comments)
-           )
-        {
-            d = true;
-        }//if
-
-        return d;
-    };
-
-    BVM.prototype._ApiMetadataGet = function()
-    {
-        var o = {     uploader:null,
-                      filename:null,
-                         lines:null,
-                             n:null,
-                         title:null,
-                          desc:null,
-                       credits:null,
-                        height:null,
-                   orientation:null,
-                       subtype:null,
-                        cities:null,
-                       comment:null };
-
-        var md    = document.getElementById("metadata");
-
-        if (md != null)
-        {
-            var row   = md.firstElementChild;
-            var span2 = row.firstElementChild;
-            var dds   = span2.getElementsByTagName("dd");
-
-            o.uploader = dds[0].innerHTML.trim();
-            o.filename = dds[1].innerHTML.trim();
-            o.lines    = dds[2].innerHTML.trim();
-            o.n        = dds[3].innerHTML.trim();
-            
-            var span7 = span2.nextElementSibling;
-            dds       = span7.getElementsByTagName("dd");
-
-            o.title       = dds[0].innerHTML.trim();
-            o.desc        = dds[1].firstElementChild.innerHTML.trim();
-            o.credits     = dds[2].innerHTML.trim();
-            o.height      = dds[3].innerHTML.trim();
-            o.orientation = dds[4].innerHTML.trim();
-            o.subtype     = dds[5].innerHTML.trim();
-            o.cities      = dds[6].innerHTML.trim();
-            o.comment     = dds[7].firstElementChild.innerHTML.trim();
-        }//if
-
-        return o;
-    };
-
-    BVM.prototype._ApiShouldShowOnBeforeUnload = function()
-    {
-        var d   = false;
-        var txt = "";
-
-        if (   this._ApiStatusCheck(BVM.ApiStatus.Uploaded) 
-            || this._ApiStatusCheck(BVM.ApiStatus.Unprocessed))
-        {
-            txt = "You've submitted the log file, but you must wait for it to be processed, have metadata entered, and manually submit the file to the system.";
-            d = true;
-        }//if
-        else if (this._ApiStatusCheck(BVM.ApiStatus.Processed))
-        {
-            if (this._ApiMetadataCheck())
-            {
-                txt = "You must click the [SUBMIT FOR APPROVAL] button manually or this log will never make it into the system.";
-            }//if
-            else
-            {
-                txt = "You must enter metadata, then click [SUBMIT FOR APPROVAL] manually or this will never make it into the system.";
-            }//else
-            d = true;
-        }//else if
-        else if (this._ApiStatusCheck(BVM.ApiStatus.MetadataAdded))
-        {
-            txt = "You must enter metadata, then click [SUBMIT FOR APPROVAL] manually or this will never make it into the system.";
-            d = true;
-        }//else if
-        else
-        {
-            txt = "[DEBUG] _ApiShouldShowOnBeforeUnload - all checks passed!";
-        }//else
-
-        _DebugToStorage(txt);
-
-        return d;
-    };
-
-    BVM.prototype._ApiListenerBeforeUnload_Callback = function(e)
-    {
-        if (this._ApiShouldShowOnBeforeUnload())
-        {
-            _DebugToStorage("_ApiListenerBeforeUnload_Callback: _ApiShouldShowOnBeforeUnload was TRUE!");
-
-            e.returnValue = "Discard changes?";
-            return "Discard changes?";
-        }//if
-        else
-        {
-            _DebugToStorage("_ApiListenerBeforeUnload_Callback: _ApiShouldShowOnBeforeUnload was FALSE!");
-        }//else
-    };
-
-    BVM.prototype._IsPlatformEmbeddedSafecastApi = function()
-    {
-        var d = false;
-
-        var div_done = document.getElementById("done");
-        
-        if (div_done != null && (   div_done.className.indexOf("bar-warning") >= 0
-                                 || div_done.className.indexOf("bar-success") >= 0))
-        {
-            d = true;
-        }//if
-
-        return d;
-    };
-
-    BVM.prototype.ApiListenerBeforeUnload_AddRemove = function(is_enable)
-    {
-        if (!this._IsPlatformEmbeddedSafecastApi())
-        {
-            return;
-        }//if
-
-        var fx = function(e) 
-        {
-            _DebugToStorage("FX - beforeunload event wrapper fired!");
-            this._ApiListenerBeforeUnload_Callback(e);
-        }.bind(this);
-
-        if (is_enable)
-        {
-            _DebugToStorage("ApiListenerBeforeUnload_AddRemove: Enabling beforeunload handler!");
-            window.addEventListener("beforeunload", fx, false);
-        }//if
-        else
-        {
-            window.removeEventListener("beforeunload", fx);
-        }//else
-    };
-
-    _DebugToStorage = function(txt)
-    {
-        /*
-        console.log(txt);
-
-        var dat = localStorage.getItem("BVM_DEBUG");
-        if (dat == null) dat = "";
-
-        localStorage.setItem("BVM_DEBUG", dat + " [" + txt + "]\n");
-        */
-    };
+    
 
     return BVM;
 })();
+
+
+
+
+
+
 
 
 
