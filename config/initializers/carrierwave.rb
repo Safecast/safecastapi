@@ -19,7 +19,6 @@ CarrierWave.configure do |config|
       config.storage = :file
     end
   when 'production', 'staging'
-    config.storage = :fog
     config.fog_provider = 'fog/aws'
     config.fog_credentials = {
       provider: 'AWS',
@@ -30,6 +29,7 @@ CarrierWave.configure do |config|
     config.fog_directory = ENV['S3_BUCKET']
     config.fog_public = true
     config.fog_attributes = { 'Cache-Control' => 'max-age=315576000' }
+    config.storage = :fog
   else
     raise "Unrecognized Rails environment #{Rails.env}"
   end
