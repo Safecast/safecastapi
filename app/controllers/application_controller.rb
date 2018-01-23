@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
 
   # API-Gateway needs to send in HTTP
   def ssl_enabled?
-    Rails.env.production? && request.format.symbol != :json
+    Rails.env.production? && request.format.symbol != :json && request.method != "HEAD"
   end
 
   def strict_transport_security
