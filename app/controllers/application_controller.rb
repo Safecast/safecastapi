@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   respond_to :html, :json, :safecast_api_v1_json
 
-  force_ssl if: :ssl_enabled?
+  # force_ssl if: :ssl_enabled?
 
   before_filter :strict_transport_security
   before_filter :set_locale
