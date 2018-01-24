@@ -77,6 +77,6 @@ RSpec.describe RailsAdmin::MainController, 'login as user', type: :controller do
       get :dashboard
     end
 
-    it { expect(response).to redirect_to('/en-US') }
+    it { expect(response).to redirect_to('/') }
   end
 end
