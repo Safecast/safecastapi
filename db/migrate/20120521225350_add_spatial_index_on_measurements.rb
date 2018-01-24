@@ -1,11 +1,11 @@
 class AddSpatialIndexOnMeasurements < ActiveRecord::Migration
   def up
-    remove_index "measurements", "location"
-    add_index "measurements", "location", :spatial=>true
+    remove_index :measurements, column: :location
+    add_index :measurements, :location, using: :gist
   end
 
   def down
-    remove_index "measurements", "location", :spatial=>true
-    add_index "measurements", "location"
+    remove_index :measurements, column: :location
+    add_index :measurements, :location, using: :gist
   end
 end
