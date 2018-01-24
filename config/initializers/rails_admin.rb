@@ -19,3 +19,9 @@ RailsAdmin.config do |config|
     end
   end
 end
+
+# rubocop:disable Style/ClassAndModuleChildren
+class RailsAdmin::Config::Fields::Types::Geography < RailsAdmin::Config::Fields::Base
+  RailsAdmin::Config::Fields::Types.register(self)
+end
+# rubocop:enable Style/ClassAndModuleChildren
