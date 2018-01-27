@@ -1,12 +1,36 @@
-#!/bin/sh
-psql -U safecast --host $POSTGRESQL_ADDRESS safecast -c "\copy (select captured_at, ST_Y(location::geometry), ST_X(location::geometry), value, unit, location_name, device_id, md5sum, height, surface, radiation, created_at, measurement_import_id from measurements order by created_at desc) to '/tmp/measurements.csv' csv;"
-echo "Captured Time,Latitude,Longitude,Value,Unit,Location Name,Device ID,MD5Sum,Height,Surface,Radiation,Uploaded Time,Loader ID" | cat - /tmp/measurements.csv > /var/deploy/api.safecast.org/web_head/shared/system/measurements-out.csv
-cd /var/deploy/api.safecast.org/web_head/shared/system && tar -czf measurements-out.tar.gz measurements-out.csv
-mv measurements-out.tar.gz measurements.tar.gz && mv measurements-out.csv measurements.csv
+#!/bin/bash
 
-# rsync to the other server (this only runs on kangaroo)
-rsync -Havq --bwlimit 10000 /var/deploy/api.safecast.org/web_head/shared/system/measurements.* reindeer.api.safecast.org.c66.me:/var/deploy/api.safecast.org/web_head/shared/system/
+# 0: configuration -------------------------------------------------
+THIS_SERVER="kangaroo"	# confirm!
+OTHER_SERVERS="reindeer.api.safecast.org.c66.me"	# space separated list
+FINAL_DIR="/var/deploy/api.safecast.org/web_head/shared/system"
+FILENAME_STEM="measurements"
 
-#
-# Now this is available as https://api.safecast.org/system/measurements.tar.gz
-#
+DB_HOST="${POSTGRESQL_ADDRESS}"	# confirm, where is it set up in env?
+DB_USER="safecast"
+DB_DATABASE="safecast"
+DB_OUTFILE="/tmp/${FILENAME_STEM}.csv"
+# -----------------------------------------------------------------
+
+# 1: dump the data in csv format, no header
+psql --host "${DB_HOST}" --username "${DB_USER}" --dbname="${DB_DATABASE}" -c "\\copy (select captured_at, ST_Y(location::geometry), ST_X(location::geometry), value, unit, location_name, device_id, md5sum, height, surface, radiation, created_at, measurement_import_id from measurements order by created_at desc) to '${DB_OUTFILE}' csv;"
+
+# 2: add header and remove ${DB_OUTFILE}
+echo "Captured Time,Latitude,Longitude,Value,Unit,Location Name,Device ID,MD5Sum,Height,Surface,Radiation,Uploaded Time,Loader ID" | cat - ${DB_OUTFILE} > ${FINAL_DIR}/measurements-out.csv
+rm -f "${DB_OUTFILE}"
+
+# 3: compress
+cd ${FINAL_DIR} && tar -czf ${FILENAME_STEM}-out.tar.gz ${FILENAME_STEM}-out.csv
+
+# 4: replace the output from the previous run
+mv ${FILENAME_STEM}-out.tar.gz ${FILENAME_STEM}.tar.gz
+mv ${FILENAME_STEM}-out.csv ${FILENAME_STEM}.csv
+
+# 5: rsync to the ${OTHER_SERVERS} (this only runs on ${THIS_SERVER})
+for S in ${OTHER_SERVERS}
+do
+	rsync -Havq --bwlimit 10000 ${FINAL_DIR}/${FILENAME_STEM}.{csv,tar.gz} ${S}:${FINAL_DIR}/
+done
+
+# 6: all done, this is available as https://api.safecast.org/system/${FILENAME_STEM}.tar.gz
+exit 0
