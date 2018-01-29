@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # 0: configuration -------------------------------------------------
-THIS_SERVER="kangaroo"	# confirm!
+THIS_SERVER="meerkat.api.safecast.org.c66.me"
 OTHER_SERVERS="reindeer.api.safecast.org.c66.me"	# space separated list
 FINAL_DIR="/var/deploy/api.safecast.org/web_head/shared/system"
 FILENAME_STEM="measurements"
 
-DB_HOST="${POSTGRESQL_ADDRESS}"	# confirm, where is it set up in env?
+DB_HOST="${POSTGRESQL_ADDRESS}"	# this comes from C66 config
 DB_USER="safecast"
 DB_DATABASE="safecast"
 DB_OUTFILE="/tmp/${FILENAME_STEM}.csv"
