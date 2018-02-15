@@ -3,6 +3,8 @@ BgeigieImports = {
         var map = new google.maps.Map(
             $map[0],
             {
+                center: new google.maps.LatLng(37.316113, 140.515516),
+                zoom: 9,
                 mapTypeControlOptions: {
                     style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
                     mapTypeIds: [google.maps.MapTypeId.ROADMAP,
@@ -29,7 +31,7 @@ BgeigieImports = {
         map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push($legend[0]);
 
         // 2018-02-15 ND: Fix for race condition during map load
-        
+
         var a, f = function() 
         {
             var binds = {urls: {bv_worker_min: $map.data('bv-worker-min')}};
