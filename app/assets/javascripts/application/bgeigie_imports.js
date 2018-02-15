@@ -28,11 +28,20 @@ BgeigieImports = {
 
         map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push($legend[0]);
 
-        var binds = {urls: {bv_worker_min: $map.data('bv-worker-min')}};
-        var bvm = new BVM(map, binds);
+        // 2018-02-15 ND: Fix for race condition during map load
+        
+        var a, f = function() 
+        {
+            var binds = {urls: {bv_worker_min: $map.data('bv-worker-min')}};
+            var bvm = new BVM(map, binds);
+    
+            bvm.SetNewCustomMarkerOptions(12, 12, 1, 1, 0, true);
+            bvm.SetOpenInfowindowOnHover(true);
+            bvm.GetLogFileDirectFromUrlAsync($map.data('url'), $map.data('id'));
 
-        bvm.SetNewCustomMarkerOptions(12, 12, 1, 1, 0, true);
-        bvm.SetOpenInfowindowOnHover(true);
-        bvm.GetLogFileDirectFromUrlAsync($map.data('url'), $map.data('id'));
+            google.maps.event.removeListener(a);
+        };
+
+        a = google.maps.event.addListener(map, "tilesloaded", f);
     }
 };
