@@ -33,10 +33,6 @@ class User < ActiveRecord::Base
     )
   end
 
-  def measurements_count
-    measurements.count
-  end
-
   def to_builder
     Jbuilder.new do |user|
       user.call(self, :id, :name, :number_of_measurements)
