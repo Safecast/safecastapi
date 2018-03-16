@@ -1,3 +1,4 @@
 exclude_patterns:
 - app/assets/javascripts/bgeigie_viewer.js
 - app/assets/javascripts/bgeigie_viewer_worker.js
+- vendor/
