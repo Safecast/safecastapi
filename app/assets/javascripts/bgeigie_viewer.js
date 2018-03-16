@@ -5,6 +5,7 @@
 // This code is released into the public domain.
 // ==============================================
 
+// 2018-03-15 ND: - Disable navigate away pop-up due to activation upon saving.
 // 2017-09-17 ND: - Add navigate away pop-up to hopefully reduce submissions not making it into the system.
 // 2017-07-07 ND: - Add date range sanity checks per Pieter.
 //                - Refactor alert and pop-up generation, formatting changes.
@@ -141,7 +142,7 @@ var BVM = (function()
         this.Init_XFM();
         this.Init_MKS();
         this.Init_WWM();
-        this.ApiListenerBeforeUnload_AddRemove(true);
+        //this.ApiListenerBeforeUnload_AddRemove(true);  // 2018-03-15 ND: Disabling due to activation when saving
     };
     
     BVM.prototype.Init_DataBindDefaults = function()
