@@ -1,4 +1,14 @@
 exclude_patterns:
+- config/
+- db/
+- dist/
+- features/
+- **/node_modules/
+- script/
+- **/spec/
+- **/test/
+- **/tests/
+- **/vendor/
+- **/*.d.ts
 - app/assets/javascripts/bgeigie_viewer.js
 - app/assets/javascripts/bgeigie_viewer_worker.js
-- vendor/
