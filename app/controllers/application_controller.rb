@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :cors_set_access_control_headers
   skip_before_filter :verify_authenticity_token
-  skip_after_filter :intercom_rails_auto_include unless Rails.env.production?
   before_filter :new_relic_custom_attributes
 
   rescue_from CanCan::AccessDenied do |exception|
