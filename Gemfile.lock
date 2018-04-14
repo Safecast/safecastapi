@@ -285,6 +285,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    swagger-blocks (2.0.2)
     thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -354,6 +355,7 @@ DEPENDENCIES
   sass-rails
   simple_form
   skylight
+  swagger-blocks
   thin
   uglifier
   unicorn
