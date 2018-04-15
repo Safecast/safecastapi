@@ -91,7 +91,7 @@ class Measurement < ActiveRecord::Base
       :id, :value, :height, :user_id,
       :unit, :device_id, :location_name, :original_id,
       :captured_at, :devicetype_id, :sensor_id, :channel_id,
-      :station_id
+      :station_id, :measurement_import_id
     ], methods: [:latitude, :longitude]))
   end
 
