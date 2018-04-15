@@ -33,6 +33,7 @@ gem 'swagger-blocks'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 # gem 'will_paginate',            '~> 3.0.3'
+gem 'responders'
 
 gem 'rails_admin'
 
