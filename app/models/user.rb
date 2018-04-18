@@ -1,5 +1,21 @@
 class User < ActiveRecord::Base
   include UserConcerns
+  include Swagger::Blocks
+
+  swagger_schema :User do
+    key :required, [:id, :email, :name]
+    property :id do
+      key :type, :integer
+      key :format, :int64
+    end
+    property :name do
+      key :type, :string
+    end
+    property :measurements_count do
+      key :type, :integer
+      key :format, :int64
+    end
+  end
 
   has_many :bgeigie_imports
   has_many :measurements

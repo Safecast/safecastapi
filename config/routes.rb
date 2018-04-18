@@ -57,4 +57,6 @@ Safecast::Application.routes.draw do
   # legacy fixes (maps.safecast.org now redirects to api.safecast.org, so people might be using the old maps.safecast.org/drive/add URI)
   match '/drive/add', to: redirect('/'), via: %i(get)
   match '/count', to: 'measurements#count', via: %i(get)
+
+  resources :api_docs, only: [:index]
 end

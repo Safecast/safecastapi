@@ -1,7 +1,25 @@
 class UsersController < ApplicationController
+  include Swagger::Blocks
+
   has_scope :order
   has_scope :name do |_controller, scope, value|
     scope.by_name(value)
+  end
+
+  swagger_path '/users' do
+    operation :get do
+      key :summary, 'All Users'
+      key :description, 'Returns all users'
+      response 200 do
+        key :description, 'user response'
+        schema do
+          key :type, :array
+          items do
+            key :'$ref', :User
+          end
+        end
+      end
+    end
   end
 
   def index
