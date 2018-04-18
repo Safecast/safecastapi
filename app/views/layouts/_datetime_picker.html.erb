@@ -2,7 +2,7 @@
   <%= text_field_tag attr_name, params[attr_name],
         :class => 'span2',
         :data => {
-          :format => 'dd/MM/yyyy hh:mm:ss'
+          :format => 'yyyy/MM/dd hh:mm:ss'
         },
         :placeholder => human_label(model_name, attr_name) %>
   <span class="add-on activate-tooltip"
