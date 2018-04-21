@@ -16,6 +16,6 @@ class ApiDocsController < ActionController::Base
   end
 
   def index
-    render json: Swagger::Blocks.build_root_json([UsersController, User, self.class])
+    render json: Swagger::Blocks.build_root_json([Measurement, MeasurementsController, User, UsersController, self.class])
   end
 end

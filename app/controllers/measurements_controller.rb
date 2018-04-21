@@ -1,4 +1,6 @@
 class MeasurementsController < ApplicationController
+  include SwaggerBlocks::Controllers::Measurements
+
   class << self
     def attribute_names_to_be_wrapped
       names = Measurement.attribute_names
