@@ -3,6 +3,7 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- =============================================================================================
 -- UPDATE HISTORY: (SINCE 2014-10-25)
 -- =============================================================================================
+-- 2018-04-28 ND: Remove bad drive id 28231 per Sean.
 -- 2017-02-11 ND: Remove 4x GPS error in ocean
 -- 2017-02-08 ND: Misc bad data filters
 -- 2016-10-10 ND: Remove manually submitted bad point, id=72588855
@@ -280,6 +281,7 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND id NOT IN (43199883,43199875,75302533,43200647,66567253,66569229,66567254,66569231,66080351,72588855,77757657,77757750,68466104,68466223,68466103,68466103)
     AND id NOT BETWEEN 47531878 AND 47532148
     AND id NOT BETWEEN 17682519 AND 17682905
+    AND id NOT BETWEEN 110904809 AND 110905092 -- removed .ir drive data bgeigie_import_id=28231
     AND user_id NOT IN (345,902,1032,1225,106)--347
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
     AND captured_at < localtimestamp + interval '48 hours'
