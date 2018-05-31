@@ -3,6 +3,7 @@ class Measurement < ActiveRecord::Base
                               RGeo::Geographic.spherical_factory(srid: 4326))
 
   include MeasurementConcerns
+  include SwaggerBlocks::Models::Measurement
 
   validates :location,  presence: true
   validates :value,     presence: true
