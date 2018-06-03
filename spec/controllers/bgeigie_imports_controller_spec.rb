@@ -1,5 +1,6 @@
 RSpec.describe BgeigieImportsController, type: :controller do
   let(:user) { Fabricate(:user) }
+  let(:administrator) { Fabricate(:admin_user) }
 
   describe 'GET #index', format: :json do
     before do
@@ -191,5 +192,52 @@ RSpec.describe BgeigieImportsController, type: :controller do
     it { expect(bgeigie_import.status).to eq('submitted') }
     it { expect(bgeigie_import.rejected).to be_falsey }
     it { expect(bgeigie_import.rejected_by).to be_nil }
+  end
+
+  describe 'PATCH #send_email' do
+    let(:bgeigie_import) { Fabricate(:bgeigie_import, status: :unprocessed) }
+
+    before do
+      notification = double('notification')
+      expect(notification).to receive(:deliver)
+      expect(Notifications).to receive(:send_email).and_return(notification)
+
+      sign_in administrator
+
+      patch :send_email, id: bgeigie_import.id, email_body: 'Hello'
+
+      bgeigie_import.reload
+    end
+
+    it 'should create contact history', :aggregate_failures do
+      # should redirect to bgeigie_imports#show
+      expect(response).to redirect_to(assigns(:bgeigie_import))
+      # should change import's status to "waiting for"
+      expect(bgeigie_import).to have_attributes(status: 'waiting_for')
+      # should create contact history with administrator and previous status
+      expect(bgeigie_import.uploader_contact_histories).to be_exists
+      history = bgeigie_import.uploader_contact_histories.first
+      expect(history).to have_attributes(administrator: administrator, previous_status: 'unprocessed')
+    end
+  end
+
+  describe 'PATCH #resolve' do
+    let(:bgeigie_import) { Fabricate(:bgeigie_import, status: :waiting_for) }
+
+    before do
+      sign_in administrator
+      bgeigie_import.uploader_contact_histories.create(administrator: administrator, previous_status: 'processed')
+
+      patch :resolve, id: bgeigie_import.id
+
+      bgeigie_import.reload
+    end
+
+    it 'should resolve import that has been waited for clarification', :aggregate_failures do
+      # should redirect to bgeigie_imports#show
+      expect(response).to redirect_to(assigns(:bgeigie_import))
+      # should put import's status to previous status
+      expect(bgeigie_import).to have_attributes(status: 'processed')
+    end
   end
 end

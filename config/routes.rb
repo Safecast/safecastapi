@@ -31,6 +31,7 @@ Safecast::Application.routes.draw do
         patch :send_email
         patch :contact_moderator
         get :kml
+        patch :resolve
       end
     end
     resources :devices do

@@ -23,7 +23,7 @@
       <li>
         <a href="#process-log" data-toggle="tab"><%= t('.process_log') %></a>
       </li>
-      <%- if user_signed_in? && current_user.moderator? -%>
+      <%- if user_signed_in? && current_user.moderator? && @bgeigie_import.status != 'waiting_for' -%>
         <li>
           <a href="#send-email" data-toggle="tab">
             <%= t('.send_email') %>
