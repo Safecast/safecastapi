@@ -540,6 +540,40 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: uploader_contact_histories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE uploader_contact_histories (
+    id integer NOT NULL,
+    bgeigie_import_id integer,
+    administrator_id integer NOT NULL,
+    previous_status character varying(255) NOT NULL,
+    content text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: uploader_contact_histories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE uploader_contact_histories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: uploader_contact_histories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE uploader_contact_histories_id_seq OWNED BY uploader_contact_histories.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -670,6 +704,13 @@ ALTER TABLE ONLY rails_admin_histories ALTER COLUMN id SET DEFAULT nextval('rail
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY uploader_contact_histories ALTER COLUMN id SET DEFAULT nextval('uploader_contact_histories_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
@@ -759,6 +800,14 @@ ALTER TABLE ONLY measurements
 
 ALTER TABLE ONLY rails_admin_histories
     ADD CONSTRAINT rails_admin_histories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: uploader_contact_histories uploader_contact_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY uploader_contact_histories
+    ADD CONSTRAINT uploader_contact_histories_pkey PRIMARY KEY (id);
 
 
 --
@@ -931,14 +980,14 @@ CREATE INDEX index_measurements_on_user_id ON measurements USING btree (user_id)
 
 
 --
--- Name: index_measurements_on_user_id_and_captured_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_measurements_on_user_id_and_captured_at; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_measurements_on_user_id_and_captured_at ON measurements USING btree (user_id, captured_at);
 
 
 --
--- Name: index_measurements_on_value_and_unit; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_measurements_on_value_and_unit; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_measurements_on_value_and_unit ON measurements USING btree (value, unit);
@@ -1122,4 +1171,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160607005457');
 INSERT INTO schema_migrations (version) VALUES ('20160614042818');
 
 INSERT INTO schema_migrations (version) VALUES ('20160615215212');
+
+INSERT INTO schema_migrations (version) VALUES ('20180603015430');
 
