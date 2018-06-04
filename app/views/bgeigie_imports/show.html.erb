@@ -23,28 +23,33 @@
       <li>
         <a href="#process-log" data-toggle="tab"><%= t('.process_log') %></a>
       </li>
-      <%- if user_signed_in? && current_user.moderator? && @bgeigie_import.status != 'waiting_for' -%>
-        <li>
-          <a href="#send-email" data-toggle="tab">
-            <%= t('.send_email') %>
-          </a>
-        </li>
+      <%- if user_signed_in? -%>
+        <%- if current_user.moderator? -%>
+          <%- if @bgeigie_import.status == 'waiting_for' -%>
+            <li><%= link_to 'Contact Detail', '#contact-detail', data: { toggle: 'tab' } %></li>
+          <%- else -%>
+            <li>
+              <a href="#send-email" data-toggle="tab">
+                <%= t('.send_email') %>
+              </a>
+            </li>
+          <%- end -%>
         <%- end -%>
-      <%- if user_signed_in? && @bgeigie_import.rejected? && (@bgeigie_import.rejected_by != current_user.email)-%>
-      <li>
-        <a href="#contact-moderator" data-toggle="tab">
-          <%= t('.contact_moderator') %>
-        </a>
-      </li>
+        <%- if @bgeigie_import.rejected? && (@bgeigie_import.rejected_by != current_user.email) -%>
+          <li>
+            <a href="#contact-moderator" data-toggle="tab">
+              <%= t('.contact_moderator') %>
+            </a>
+          </li>
+        <%- end -%>
+        <%- if @bgeigie_import.user == current_user || current_user.moderator? -%>
+          <li class="pull-right <%= 'active' if ['edit', 'update'].include?(action_name) %>">
+            <a href="#edit-details" data-toggle="tab">
+              <%= t('.edit_details') %>
+            </a>
+          </li>
+        <%- end -%>
       <%- end -%>
-      <%- if user_signed_in? && (@bgeigie_import.user == current_user || current_user.moderator?)-%>
-        <li class="pull-right <%= 'active' if ['edit', 'update'].include?(action_name) %>">
-          <a href="#edit-details" data-toggle="tab">
-            <%= t('.edit_details') %>
-          </a>
-        </li>
-      <%- end -%>
-
     </ul>
   </div>
 </div>
@@ -61,6 +66,15 @@
   <div class="tab-pane" id="send-email">
     <%= render 'send_email' -%>
   </div>
+  <%- if @bgeigie_import.status == 'waiting_for' -%>
+    <div class="tab-pane" id="contact-detail">
+      <%- history = @bgeigie_import.uploader_contact_histories.last %>
+      Contacted by: <%= history.administrator.name %><br>
+      Contacted on: <%= history.created_at %><br>
+      <br>
+      <%= history.content %>
+    </div>
+  <%- end -%>
   <div class="tab-pane" id="contact-moderator">
     <%= render 'contact_moderator' -%>
   </div>
