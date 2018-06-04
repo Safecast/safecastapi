@@ -16,6 +16,7 @@ Safecast::Application.routes.draw do
     namespace :bgeigie_imports do
       resources :not_approved, only: :index
       resources :not_processed, only: :index
+      resources :waiting_for, only: :index
     end
 
     resources :bgeigie_imports do
