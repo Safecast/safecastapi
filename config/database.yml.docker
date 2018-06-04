@@ -1,0 +1,15 @@
+development:
+  adapter: postgis
+  schema_search_path: "public,postgis"
+  encoding: unicode
+  database: safecast_development
+  username: safecast
+  port: 5432
+
+test:
+  adapter: postgis
+  schema_search_path: "public,postgis"
+  encoding: unicode
+  database: safecast_test
+  username: safecast
+  port: 5432
