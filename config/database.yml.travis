@@ -1,5 +1,10 @@
 test:
-  username: postgres
   adapter: postgis
   schema_search_path: public, postgis
+  encoding: unicode
   database: travis_ci_test
+  pool: 5
+  username: postgres
+  password:
+  su_username: postgres
+  password:

@@ -1,23 +1,23 @@
-dist: trusty
+dist: xenial
 sudo: false
 language: ruby
 rvm:
   - 2.2.7
+cache: bundler
 addons:
-  postgresql: "9.3"
+  postgresql: 9.5
   apt:
     packages:
-      - postgresql-9.3-postgis-2.3
-
+      - postgresql-9.5-postgis-2.3
   code_climate:
     repo_token: 5c8cf31b2e26162799d5873961125d7884136a0f62e22eb7b97f2f944d63e65c
 before_script:
+  - psql -U postgres -c "create extension postgis"
   - cp config/database.yml.travis config/database.yml
-  - psql -U postgres -c 'create database travis_ci_test'
-  - "sed -i 's/SET lock_timeout = 0;//g' db/structure.sql"
+  - RAILS_ENV=test bundle exec rake db:create
+  - RAILS_ENV=test bundle exec rake db:structure:load
 script:
   - bundle exec rubocop
-  - bundle exec rake db:structure:load
-  - bundle exec rspec spec
+  - RAILS_ENV=test bundle exec rspec spec
 notifications:
   slack: safecast:ANen3IrnH5Kp64Huskw6T9Ji
