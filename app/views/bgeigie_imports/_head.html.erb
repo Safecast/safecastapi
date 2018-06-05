@@ -46,7 +46,7 @@
                     <%= f.submit t('.process_button'), class: 'btn btn-primary' %>
                   <%- end -%>
                 </li>
-              <%- when 'waiting_for' -%>
+              <%- when 'awaiting_response' -%>
                 <%# when import has not been processed, moderator could process manually %>
                 <li>
                   <%= form_for @bgeigie_import, url: { action: 'resolve' } do |f| %>

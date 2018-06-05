@@ -213,7 +213,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
       # should redirect to bgeigie_imports#show
       expect(response).to redirect_to(assigns(:bgeigie_import))
       # should change import's status to "waiting for"
-      expect(bgeigie_import).to have_attributes(status: 'waiting_for')
+      expect(bgeigie_import).to have_attributes(status: 'awaiting_response')
       # should create contact history with administrator and previous status
       expect(bgeigie_import.uploader_contact_histories).to be_exists
       history = bgeigie_import.uploader_contact_histories.first
@@ -222,7 +222,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
   end
 
   describe 'PATCH #resolve' do
-    let(:bgeigie_import) { Fabricate(:bgeigie_import, status: :waiting_for) }
+    let(:bgeigie_import) { Fabricate(:bgeigie_import, status: :awaiting_response) }
 
     before do
       sign_in administrator

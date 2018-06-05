@@ -25,7 +25,7 @@
       </li>
       <%- if user_signed_in? -%>
         <%- if current_user.moderator? -%>
-          <%- if @bgeigie_import.status == 'waiting_for' -%>
+          <%- if @bgeigie_import.status == 'awaiting_response' -%>
             <li><%= link_to 'Contact Detail', '#contact-detail', data: { toggle: 'tab' } %></li>
           <%- else -%>
             <li>
@@ -66,7 +66,7 @@
   <div class="tab-pane" id="send-email">
     <%= render 'send_email' -%>
   </div>
-  <%- if @bgeigie_import.status == 'waiting_for' -%>
+  <%- if @bgeigie_import.status == 'awaiting_response' -%>
     <div class="tab-pane" id="contact-detail">
       <%- history = @bgeigie_import.uploader_contact_histories.last %>
       Contacted by: <%= history.administrator.name %><br>

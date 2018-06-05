@@ -1,4 +1,4 @@
-RSpec.describe BgeigieImports::WaitingForController, type: :controller do
+RSpec.describe BgeigieImports::AwaitingResponseController, type: :controller do
   before do
     sign_in Fabricate(:admin_user)
   end

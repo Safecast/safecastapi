@@ -49,7 +49,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
       administrator: current_user, previous_status: @bgeigie_import.status
     )
     # use update_columns to avoid validations of presence of cities and credits
-    @bgeigie_import.update_columns(status: :waiting_for)
+    @bgeigie_import.update_columns(status: :awaiting_response)
     redirect_to @bgeigie_import
   end
 
