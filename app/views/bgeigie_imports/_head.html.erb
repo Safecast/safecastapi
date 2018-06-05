@@ -13,58 +13,30 @@
             <%# buttons are shown only if import has not been rejected %>
             <%- if @bgeigie_import.approved? -%>
               <%# if import has been approved, show "Fix Drive" button %>
-              <li>
-                <%= form_for [:fixdrive, @bgeigie_import] do |f| %>
-                  <%= f.submit t('.fixdrive'), class: 'btn btn-primary' %>
-                <%- end -%>
-              </li>
+              <li><%= operation_button(@bgeigie_import, 'fixdrive') %></li>
             <%- else %>
               <%- case @bgeigie_import.status -%>
               <%- when 'processed' -%>
                 <%# when import has been processed, moderator could reject %>
-                <li>
-                  <%= form_for @bgeigie_import, url: { action: 'reject' } do |f| %>
-                    <%= f.submit t('.reject'), class: 'btn btn-primary' %>
-                  <%- end -%>
-                </li>
+                <li><%= operation_button(@bgeigie_import, 'reject') %></li>
               <%- when 'submitted' -%>
                 <%# when import has been submitted, moderator could approve or reject %>
-                <li>
-                  <%= form_for @bgeigie_import, url: { action: 'reject' } do |f| %>
-                    <%= f.submit t('.reject'), class: 'btn btn-primary' %>
-                  <%- end -%>
-                </li>
-                <li>
-                  <%= form_for @bgeigie_import, url: { action: 'approve' } do |f| %>
-                    <%= f.submit t('.approve'), class: 'btn btn-primary' %>
-                  <%- end -%>
-                </li>
+                <li><%= operation_button(@bgeigie_import, 'reject') %></li>
+                <li><%= operation_button(@bgeigie_import, 'approve') %></li>
               <%- when 'unprocessed' -%>
                 <%# when import has not been processed, moderator could process manually %>
-                <li>
-                  <%= form_for @bgeigie_import, url: { action: 'process_button' } do |f| %>
-                    <%= f.submit t('.process_button'), class: 'btn btn-primary' %>
-                  <%- end -%>
-                </li>
+                <li><%= operation_button(@bgeigie_import, 'process_button') %></li>
               <%- when 'awaiting_response' -%>
                 <%# when import has not been processed, moderator could process manually %>
-                <li>
-                  <%= form_for @bgeigie_import, url: { action: 'resolve' } do |f| %>
-                    <%= f.submit 'Resolve', class: 'btn btn-primary' %>
-                  <%- end -%>
-                </li>
-              <%- end -%>
+                <li><%= operation_button(@bgeigie_import, 'resolve', 'Resolve') %></li>
+              <%- end -%>Å
             <%- end -%>
           <%- end -%>
         <%- elsif @bgeigie_import.user == current_user %>
           <%- unless @bgeigie_import.rejected? -%>
             <%- unless @bgeigie_import.approved? -%>
               <%# user can reject import if it has not been approved nor rejected %>
-              <li>
-                <%= form_for @bgeigie_import, url: { action: 'reject' } do |f| %>
-                  <%= f.submit t('.reject'), class: 'btn btn-primary' %>
-                <%- end -%>
-              </li>
+              <li><%= operation_button(@bgeigie_import, 'reject') %></li>
             <%- end -%>
           <%- end -%>
         <%- end -%>
