@@ -194,6 +194,31 @@ RSpec.describe BgeigieImportsController, type: :controller do
     it { expect(bgeigie_import.rejected_by).to be_nil }
   end
 
+  describe 'PATCH #reject' do
+    context 'sign in as administrator' do
+      context 'processed import without metadata' do
+        let(:bgeigie_import) { Fabricate(:bgeigie_import, status: :processed) }
+
+        before do
+          sign_in administrator
+
+          # just make sure import has no required metadata
+          expect(bgeigie_import).not_to be_metadata_added
+
+          patch :reject, id: bgeigie_import.id
+
+          bgeigie_import.reload
+        end
+
+        it 'should reject import' do
+          expect(response).to redirect_to(assigns(:bgeigie_import))
+          expect(bgeigie_import).to be_rejected
+          expect(bgeigie_import.rejected_by).to eq(administrator.email)
+        end
+      end
+    end
+  end
+
   describe 'PATCH #send_email' do
     let(:bgeigie_import) { Fabricate(:bgeigie_import, status: :unprocessed) }
 
