@@ -67,6 +67,7 @@ en-US:
       filename: Filename
       number_of_measurements: Number of Measurements
       number_of_lines: Number of Lines
+      hightest_measurement: Highest Measurement
       edit_details: Edit Details
       map_not_generated: The Map for this import hasn't generated yet. It will appear here once the file is processed.
       submit_for_approval: Submit for Approval

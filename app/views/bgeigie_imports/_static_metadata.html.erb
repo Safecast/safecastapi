@@ -1,28 +1,14 @@
 <div class="span2">
   <dl>
-    <dt>
-      <%= t('.uploaded_by') %>
-    </dt>
-    <dd>
-      <%= @bgeigie_import.user.name_or_email %>
-    </dd>
-    <dt>
-      <%= t('.filename') %>
-    </dt>
-    <dd>
-      <%= @bgeigie_import.source.filename %>
-    </dd>
-    <dt>
-      <%= t('.number_of_lines') %>
-    </dt>
-    <dd>
-      <%= @bgeigie_import.lines_count %>
-    </dd>
-    <dt>
-      <%= t('.number_of_measurements') %>
-    </dt>
-    <dd>
-      <%= @bgeigie_import.processed? ? @bgeigie_import.bgeigie_logs.size : '-' %>
-    </dd>
+    <dt><%= t('.uploaded_by') %></dt>
+    <dd><%= @bgeigie_import.user.name_or_email %></dd>
+    <dt><%= t('.filename') %></dt>
+    <dd><%= @bgeigie_import.source.filename %></dd>
+    <dt><%= t('.number_of_lines') %></dt>
+    <dd><%= @bgeigie_import.lines_count %></dd>
+    <dt><%= t('.number_of_measurements') %></dt>
+    <dd><%= @bgeigie_import.processed? ? @bgeigie_import.bgeigie_logs.size : '-' %></dd>
+    <dt><%= t('.highest_measurement') %></dt>
+    <dd><%= @bgeigie_import.maximum_cpm || '-' %></dd>
   </dl>
 </div>
