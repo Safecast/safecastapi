@@ -12,7 +12,10 @@ class ApiDocsController < ActionController::Base
       end
     end
     key :host, 'api.safecast.org'
-    key :basePath, '/api_docs'
+    key :basePath, '/'
+    key :schemes, ['https']
+    key :consumes, ['application/json']
+    key :produces, ['application/json']
   end
 
   def index
