@@ -2,11 +2,12 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.2
--- Dumped by pg_dump version 9.5.2
+-- Dumped from database version 9.5.10
+-- Dumped by pg_dump version 10.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -72,18 +73,18 @@ SET default_with_oids = false;
 
 CREATE TABLE admins (
     id integer NOT NULL,
-    email character varying(255) DEFAULT ''::character varying NOT NULL,
-    encrypted_password character varying(255) DEFAULT ''::character varying NOT NULL,
-    reset_password_token character varying(255),
+    email character varying DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
     reset_password_sent_at timestamp without time zone,
     remember_created_at timestamp without time zone,
     sign_in_count integer DEFAULT 0,
     current_sign_in_at timestamp without time zone,
     last_sign_in_at timestamp without time zone,
-    current_sign_in_ip character varying(255),
-    last_sign_in_ip character varying(255),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    current_sign_in_ip character varying,
+    last_sign_in_ip character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -112,26 +113,26 @@ ALTER SEQUENCE admins_id_seq OWNED BY admins.id;
 
 CREATE TABLE bgeigie_logs (
     id integer NOT NULL,
-    device_tag character varying(255),
-    device_serial_id character varying(255),
+    device_tag character varying,
+    device_serial_id character varying,
     captured_at timestamp without time zone,
     cpm integer,
     counts_per_five_seconds integer,
     total_counts integer,
-    cpm_validity character varying(255),
+    cpm_validity character varying,
     latitude_nmea numeric,
-    north_south_indicator character varying(255),
+    north_south_indicator character varying,
     longitude_nmea numeric,
-    east_west_indicator character varying(255),
+    east_west_indicator character varying,
     altitude double precision,
-    gps_fix_indicator character varying(255),
+    gps_fix_indicator character varying,
     horizontal_dilution_of_precision double precision,
-    gps_fix_quality_indicator character varying(255),
-    created_at timestamp without time zone DEFAULT '1970-01-01 00:00:00'::timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone DEFAULT '1970-01-01 00:00:00'::timestamp without time zone NOT NULL,
+    gps_fix_quality_indicator character varying,
+    created_at timestamp without time zone DEFAULT '1970-01-01 00:00:00'::timestamp without time zone,
+    updated_at timestamp without time zone DEFAULT '1970-01-01 00:00:00'::timestamp without time zone,
     bgeigie_import_id integer,
     computed_location postgis.geography(Point,4326),
-    md5sum character varying(255)
+    md5sum character varying
 );
 
 
@@ -160,10 +161,10 @@ ALTER SEQUENCE bgeigie_logs_id_seq OWNED BY bgeigie_logs.id;
 
 CREATE TABLE configurables (
     id integer NOT NULL,
-    name character varying(255),
-    value character varying(255),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    name character varying,
+    value character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -199,10 +200,10 @@ CREATE TABLE delayed_jobs (
     run_at timestamp without time zone,
     locked_at timestamp without time zone,
     failed_at timestamp without time zone,
-    locked_by character varying(255),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    queue character varying(255)
+    locked_by character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    queue character varying
 );
 
 
@@ -231,11 +232,11 @@ ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
 
 CREATE TABLE devices (
     id integer NOT NULL,
-    manufacturer character varying(255),
-    model character varying(255),
-    sensor character varying(255),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    manufacturer character varying,
+    model character varying,
+    sensor character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     measurements_count integer
 );
 
@@ -279,13 +280,13 @@ CREATE TABLE drive_logs (
     satellite_num integer,
     gps_precision double precision,
     gps_altitude double precision,
-    gps_device_name character varying(255),
-    measurement_type character varying(255),
-    zoom_7_grid character varying(255),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    gps_device_name character varying,
+    measurement_type character varying,
+    zoom_7_grid character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     location postgis.geography(Point,4326),
-    md5sum character varying(255)
+    md5sum character varying
 );
 
 
@@ -309,27 +310,17 @@ ALTER SEQUENCE drive_logs_id_seq OWNED BY drive_logs.id;
 
 
 --
--- Name: ioslastexport; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE ioslastexport (
-    lastmaxid integer,
-    exportdate timestamp without time zone
-);
-
-
---
 -- Name: maps; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE maps (
     id integer NOT NULL,
     description text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     user_id integer,
     device_id integer,
-    name character varying(255)
+    name character varying
 );
 
 
@@ -370,8 +361,8 @@ CREATE TABLE measurement_import_logs (
     id integer NOT NULL,
     measurement_import_id integer,
     description text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -401,27 +392,27 @@ ALTER SEQUENCE measurement_import_logs_id_seq OWNED BY measurement_import_logs.i
 CREATE TABLE measurement_imports (
     id integer NOT NULL,
     user_id integer,
-    source character varying(255),
-    md5sum character varying(255),
-    type character varying(255),
-    status character varying(255),
+    source character varying,
+    md5sum character varying,
+    type character varying,
+    status character varying,
     measurements_count integer,
     map_id integer,
     status_details text,
     approved boolean DEFAULT false,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    name character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    name character varying,
     description text,
     lines_count integer,
     credits text,
     height numeric(8,2),
-    orientation character varying(255),
+    orientation character varying,
     cities text,
-    comment character varying(255),
     subtype measurement_imports_subtype DEFAULT 'None'::measurement_imports_subtype NOT NULL,
+    comment character varying,
     rejected boolean DEFAULT false,
-    rejected_by character varying(255)
+    rejected_by character varying
 );
 
 
@@ -452,26 +443,26 @@ CREATE TABLE measurements (
     id integer NOT NULL,
     user_id integer,
     value double precision,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    unit character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    unit character varying,
     location postgis.geography(Point,4326),
-    location_name character varying(255),
+    location_name character varying,
     device_id integer,
     original_id integer,
     expired_at timestamp without time zone,
     replaced_by integer,
     updated_by integer,
     measurement_import_id integer,
-    md5sum character varying(255),
+    md5sum character varying,
     captured_at timestamp without time zone,
     height integer,
-    surface character varying(255),
-    radiation character varying(255),
-    devicetype_id character varying(255),
+    surface character varying,
+    radiation character varying,
     sensor_id integer,
+    channel_id integer,
     station_id integer,
-    channel_id integer
+    devicetype_id character varying
 );
 
 
@@ -501,13 +492,13 @@ ALTER SEQUENCE measurements_id_seq OWNED BY measurements.id;
 CREATE TABLE rails_admin_histories (
     id integer NOT NULL,
     message text,
-    username character varying(255),
+    username character varying,
     item integer,
-    "table" character varying(255),
+    "table" character varying,
     month smallint,
     year bigint,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -535,7 +526,7 @@ ALTER SEQUENCE rails_admin_histories_id_seq OWNED BY rails_admin_histories.id;
 --
 
 CREATE TABLE schema_migrations (
-    version character varying(255) NOT NULL
+    version character varying NOT NULL
 );
 
 
@@ -545,25 +536,25 @@ CREATE TABLE schema_migrations (
 
 CREATE TABLE users (
     id integer NOT NULL,
-    email character varying(255) DEFAULT ''::character varying NOT NULL,
-    encrypted_password character varying(128) DEFAULT ''::character varying NOT NULL,
-    reset_password_token character varying(255),
+    email character varying DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
     reset_password_sent_at timestamp without time zone,
     remember_created_at timestamp without time zone,
-    sign_in_count integer DEFAULT 0,
+    sign_in_count integer DEFAULT 0 NOT NULL,
     current_sign_in_at timestamp without time zone,
     last_sign_in_at timestamp without time zone,
-    current_sign_in_ip character varying(255),
-    last_sign_in_ip character varying(255),
-    authentication_token character varying(255),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    name character varying(255),
-    time_zone character varying(255),
+    current_sign_in_ip inet,
+    last_sign_in_ip inet,
+    authentication_token text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    name character varying,
+    time_zone character varying,
     moderator boolean DEFAULT false,
     measurements_count integer,
-    default_locale character varying(255),
-    confirmation_token character varying(255),
+    default_locale character varying,
+    confirmation_token character varying,
     confirmed_at timestamp without time zone,
     confirmation_sent_at timestamp without time zone,
     authentication_token_created_at timestamp without time zone
@@ -590,91 +581,91 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: admins id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admins ALTER COLUMN id SET DEFAULT nextval('admins_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: bgeigie_logs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY bgeigie_logs ALTER COLUMN id SET DEFAULT nextval('bgeigie_logs_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: configurables id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY configurables ALTER COLUMN id SET DEFAULT nextval('configurables_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: delayed_jobs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: devices id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY devices ALTER COLUMN id SET DEFAULT nextval('devices_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: drive_logs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY drive_logs ALTER COLUMN id SET DEFAULT nextval('drive_logs_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: maps id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY maps ALTER COLUMN id SET DEFAULT nextval('maps_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: measurement_import_logs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY measurement_import_logs ALTER COLUMN id SET DEFAULT nextval('measurement_import_logs_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: measurement_imports id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY measurement_imports ALTER COLUMN id SET DEFAULT nextval('measurement_imports_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: measurements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY measurements ALTER COLUMN id SET DEFAULT nextval('measurements_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: rails_admin_histories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY rails_admin_histories ALTER COLUMN id SET DEFAULT nextval('rails_admin_histories_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admins admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admins
@@ -682,7 +673,7 @@ ALTER TABLE ONLY admins
 
 
 --
--- Name: bgeigie_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: bgeigie_logs bgeigie_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY bgeigie_logs
@@ -690,7 +681,7 @@ ALTER TABLE ONLY bgeigie_logs
 
 
 --
--- Name: configurables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: configurables configurables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY configurables
@@ -698,7 +689,7 @@ ALTER TABLE ONLY configurables
 
 
 --
--- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: delayed_jobs delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY delayed_jobs
@@ -706,7 +697,7 @@ ALTER TABLE ONLY delayed_jobs
 
 
 --
--- Name: devices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: devices devices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY devices
@@ -714,7 +705,7 @@ ALTER TABLE ONLY devices
 
 
 --
--- Name: drive_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: drive_logs drive_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY drive_logs
@@ -722,7 +713,7 @@ ALTER TABLE ONLY drive_logs
 
 
 --
--- Name: maps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: maps maps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY maps
@@ -730,7 +721,7 @@ ALTER TABLE ONLY maps
 
 
 --
--- Name: measurement_import_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: measurement_import_logs measurement_import_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY measurement_import_logs
@@ -738,7 +729,7 @@ ALTER TABLE ONLY measurement_import_logs
 
 
 --
--- Name: measurement_imports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: measurement_imports measurement_imports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY measurement_imports
@@ -746,7 +737,7 @@ ALTER TABLE ONLY measurement_imports
 
 
 --
--- Name: measurements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: measurements measurements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY measurements
@@ -754,7 +745,7 @@ ALTER TABLE ONLY measurements
 
 
 --
--- Name: rails_admin_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rails_admin_histories rails_admin_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY rails_admin_histories
@@ -762,7 +753,7 @@ ALTER TABLE ONLY rails_admin_histories
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -774,34 +765,6 @@ ALTER TABLE ONLY users
 --
 
 CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at);
-
-
---
--- Name: idx_bgeigie_logs_bgeigie_import_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX idx_bgeigie_logs_bgeigie_import_id_index ON bgeigie_logs USING btree (bgeigie_import_id);
-
-
---
--- Name: idx_bgeigie_logs_device_serial_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX idx_bgeigie_logs_device_serial_id_index ON bgeigie_logs USING btree (device_serial_id);
-
-
---
--- Name: idx_measurements_captured_at_unit_device_id_device_id_not_null; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX idx_measurements_captured_at_unit_device_id_device_id_not_null ON measurements USING btree (captured_at, unit, device_id) WHERE (device_id IS NOT NULL);
-
-
---
--- Name: idx_measurements_value_device_id_device_id_not_null; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX idx_measurements_value_device_id_device_id_not_null ON measurements USING btree (value, device_id) WHERE (device_id IS NOT NULL);
 
 
 --
@@ -819,6 +782,20 @@ CREATE UNIQUE INDEX index_admins_on_reset_password_token ON admins USING btree (
 
 
 --
+-- Name: index_bgeigie_logs_on_bgeigie_import_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_bgeigie_logs_on_bgeigie_import_id ON bgeigie_logs USING btree (bgeigie_import_id);
+
+
+--
+-- Name: index_bgeigie_logs_on_device_serial_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_bgeigie_logs_on_device_serial_id ON bgeigie_logs USING btree (device_serial_id);
+
+
+--
 -- Name: index_bgeigie_logs_on_md5sum; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -833,17 +810,17 @@ CREATE INDEX index_configurables_on_name ON configurables USING btree (name);
 
 
 --
+-- Name: index_drive_logs_on_drive_import_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_drive_logs_on_drive_import_id ON drive_logs USING btree (drive_import_id);
+
+
+--
 -- Name: index_drive_logs_on_md5sum; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_drive_logs_on_md5sum ON drive_logs USING btree (md5sum);
-
-
---
--- Name: index_drive_logs_on_measurement_import_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_drive_logs_on_measurement_import_id ON drive_logs USING btree (drive_import_id);
 
 
 --
@@ -879,6 +856,13 @@ CREATE INDEX index_measurement_imports_on_subtype ON measurement_imports USING b
 --
 
 CREATE INDEX index_measurements_on_captured_at ON measurements USING btree (captured_at);
+
+
+--
+-- Name: index_measurements_on_captured_at_and_unit_and_device_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_measurements_on_captured_at_and_unit_and_device_id ON measurements USING btree (captured_at, unit, device_id) WHERE (device_id IS NOT NULL);
 
 
 --
@@ -931,14 +915,21 @@ CREATE INDEX index_measurements_on_user_id ON measurements USING btree (user_id)
 
 
 --
--- Name: index_measurements_on_user_id_and_captured_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_measurements_on_user_id_and_captured_at; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_measurements_on_user_id_and_captured_at ON measurements USING btree (user_id, captured_at);
 
 
 --
--- Name: index_measurements_on_value_and_unit; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_measurements_on_value_and_device_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_measurements_on_value_and_device_id ON measurements USING btree (value, device_id) WHERE (device_id IS NOT NULL);
+
+
+--
+-- Name: index_measurements_on_value_and_unit; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_measurements_on_value_and_unit ON measurements USING btree (value, unit);
@@ -949,6 +940,13 @@ CREATE INDEX index_measurements_on_value_and_unit ON measurements USING btree (v
 --
 
 CREATE INDEX index_rails_admin_histories ON rails_admin_histories USING btree (item, "table", month, year);
+
+
+--
+-- Name: index_users_on_authentication_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_on_authentication_token ON users USING btree (authentication_token);
 
 
 --
@@ -1122,4 +1120,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160607005457');
 INSERT INTO schema_migrations (version) VALUES ('20160614042818');
 
 INSERT INTO schema_migrations (version) VALUES ('20160615215212');
+
+INSERT INTO schema_migrations (version) VALUES ('20180126162800');
 

@@ -8,10 +8,10 @@ module MeasurementConcerns
   end
 
   def latitude
-    location.try(:latitude)
+    location.try(:y)
   end
 
   def longitude
-    location.try(:longitude)
+    location.try(:x)
   end
 end
