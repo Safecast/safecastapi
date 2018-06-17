@@ -1,7 +1,6 @@
 development:
   adapter: postgis
-  schema_search_path: "public,postgis"
-  script_dir: /usr/local/share/postgis
+  schema_search_path: public,postgis
   encoding: unicode
   database: safecast_development
   pool: 5
@@ -12,7 +11,6 @@ development:
 test:
   adapter: postgis
   schema_search_path: "public,postgis"
-  script_dir: /usr/local/share/postgis
   encoding: unicode
   database: safecast_test
   pool: 5
@@ -20,6 +18,8 @@ test:
   su_username: safecast
   password:
   min_messages: warning
+  host: localhost
+  port: 5432
 
 production:
   adapter: postgis
