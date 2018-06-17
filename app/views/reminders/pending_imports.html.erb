@@ -1,0 +1,7 @@
+<p>Please provide meta data and submit following bGeigie imports.</p>
+
+<ul>
+  <%- @imports.each do |import| %>
+    <li><%= link_to(import.filename, bgeigie_import_url(import)) %></li>
+  <% end %>
+</ul>
