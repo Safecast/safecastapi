@@ -2,7 +2,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
   respond_to :html, :json
 
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_filter :require_moderator, only: [:approve, :fixdrive]
+  before_filter :require_moderator, only: [:approve, :fixdrive, :send_email, :resolve]
 
   has_scope :by_status
   has_scope :by_user_id
@@ -45,6 +45,11 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
   def send_email
     @bgeigie_import = BgeigieImport.find(params[:id])
     @bgeigie_import.send_email(params[:email_body])
+    @bgeigie_import.uploader_contact_histories.create!(
+      administrator: current_user, previous_status: @bgeigie_import.status
+    )
+    # use update_columns to avoid validations of presence of cities and credits
+    @bgeigie_import.update_columns(status: :awaiting_response)
     redirect_to @bgeigie_import
   end
 
@@ -120,6 +125,13 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
     ).execute(self, bgeigie_import.source.filename + '.kml')
   rescue ActiveRecord::RecordNotFound
     render text: '404 Not Found', status: :not_found
+  end
+
+  def resolve
+    @bgeigie_import = scope.find(params[:id])
+    history = @bgeigie_import.uploader_contact_histories.last
+    @bgeigie_import.update_columns(status: history.previous_status) if history
+    redirect_to @bgeigie_import
   end
 
   private

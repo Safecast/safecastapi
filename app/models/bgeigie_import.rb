@@ -13,6 +13,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
   belongs_to :user
   has_many :bgeigie_logs, dependent: :delete_all
+  has_many :uploader_contact_histories, dependent: :delete_all
 
   scope :newest, -> { order('created_at DESC') }
   scope :oldest, -> { order('created_at') }

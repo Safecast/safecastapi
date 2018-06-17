@@ -16,6 +16,7 @@ Safecast::Application.routes.draw do
     namespace :bgeigie_imports do
       resources :not_approved, only: :index
       resources :not_processed, only: :index
+      resources :awaiting_response, only: :index
     end
 
     resources :bgeigie_imports do
@@ -31,6 +32,7 @@ Safecast::Application.routes.draw do
         patch :send_email
         patch :contact_moderator
         get :kml
+        patch :resolve
       end
     end
     resources :devices do
