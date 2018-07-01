@@ -29,7 +29,7 @@
               <%- when 'awaiting_response' -%>
                 <%# when import has not been processed, moderator could process manually %>
                 <li><%= operation_button(@bgeigie_import, 'resolve', 'Resolve') %></li>
-              <%- end -%>Å
+              <%- end -%>
             <%- end -%>
           <%- end -%>
         <%- elsif @bgeigie_import.user == current_user %>
