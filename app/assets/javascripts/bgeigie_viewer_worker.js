@@ -357,10 +357,13 @@ self.ParseLogFileToVectors = function(log, logbuffer, userData, isMoreFields, lo
 
                 if (blat > -85.05112878 && blat < 85.05112878 && blon >= -180.0 && blon <= 180.0)
                 {
-                    if (blat > y_max) y_max = blat;
-                    if (blat < y_min) y_min = blat;
-                    if (blon > x_max) x_max = blon;
-                    if (blon < x_min) x_min = blon;
+                    if (blat != 0.0 && blon != 0.0)
+                    {
+                        if (blat > y_max) y_max = blat;
+                        if (blat < y_min) y_min = blat;
+                        if (blon > x_max) x_max = blon;
+                        if (blon < x_min) x_min = blon;
+                    }//if
 
                     var unixMS     = s_time == null ? 0.0 : Date.parse(s_time);
                     desttimes[idx] = unixMS == null ? 0.0 : parseInt(unixMS * 0.001);                    
