@@ -4,6 +4,6 @@ class Reminders < ActionMailer::Base
 
   def pending_imports(user)
     @imports = user.bgeigie_imports.pending
-    mail(to: user.email, subject: 'Pending bGeigie Imports Reminder')
+    mail(to: user.email, subject: 'Reminder: Your Safecast bGeigie logs')
   end
 end
