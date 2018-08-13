@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
 # ruby '2.2.7'
-
+#My Change
+#Akua Biaa Adu
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-token_authenticatable'
