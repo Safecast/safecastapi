@@ -1,20 +1,20 @@
 source 'http://rubygems.org'
 
 # ruby '2.2.7'
-#My Change
-#Akua Biaa Adu
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-token_authenticatable'
 gem 'cancan'
 
 gem 'rails', '4.1.16'
+
 gem 'unicorn'
 gem 'pg'
 gem 'activerecord-postgis-adapter', '~> 1.0.0'
 gem 'json', '1.8.6'
 gem 'dotenv-rails'
-
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+gem 'coffee-script-source', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'aws-ses',                  '= 0.6.0', require: 'aws/ses'
 gem 'bootstrap-sass',           '~> 2.2.2.0'
 gem 'carrierwave', '~> 1.2.2'
