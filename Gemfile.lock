@@ -39,6 +39,7 @@ GEM
       mime-types
       xml-simple
     bcrypt (3.1.11)
+    bcrypt (3.1.11-x86-mingw32)
     bootstrap-kaminari-views (0.0.5)
       kaminari (>= 0.13)
       rails (>= 3.1)
@@ -165,11 +166,14 @@ GEM
     newrelic_rpm (3.12.1.298)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
+    nokogiri (1.8.1-x86-mingw32)
+      mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
     parallel (1.12.0)
     parser (2.4.0.2)
       ast (~> 2.3)
     pg (0.21.0)
+    pg (0.21.0-x86-mingw32)
     powerpack (0.1.1)
     pry (0.10.3)
       coderay (~> 1.1.0)
@@ -293,6 +297,8 @@ GEM
     tilt (2.0.5)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2018.5)
+      tzinfo (>= 1.0.0)
     uglifier (2.0.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
@@ -308,6 +314,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
   activerecord-postgis-adapter (~> 1.0.0)
@@ -319,6 +326,7 @@ DEPENDENCIES
   carrierwave (~> 1.2.2)
   codeclimate-test-reporter
   coffee-rails
+  coffee-script-source
   csv_builder (~> 2.1.1)
   database_cleaner
   decent_exposure
@@ -354,8 +362,9 @@ DEPENDENCIES
   skylight
   swagger-blocks
   thin
+  tzinfo-data
   uglifier
   unicorn
 
 BUNDLED WITH
-   1.16.1
+   1.16.3

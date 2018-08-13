@@ -8,7 +8,9 @@ gem 'devise-token_authenticatable'
 gem 'cancan'
 
 gem 'rails', '4.1.16'
-gem 'unicorn'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+gem 'coffee-script-source', platforms: [:mingw, :mswin, :x64_mingw]
+gem 'unicorn', platforms: [:ruby]
 gem 'pg'
 gem 'activerecord-postgis-adapter', '~> 1.0.0'
 gem 'json', '1.8.6'
