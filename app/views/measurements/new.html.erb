@@ -120,7 +120,7 @@
         </legend>
 
         <div class="control-group">
-          <%= f.label :height, t("height") + " (m)", :class => 'control-label' %>
+          <%= f.label :height, t("height") + " " + t("height_unit"), :class => 'control-label' %>
           <div class="controls">
             <%= f.number_field :height, :placeholder => 0, :step => 0.1 %>
           </div>

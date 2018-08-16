@@ -19,6 +19,7 @@ en-US:
       sensor:
   email: Email
   height: Height
+  height_unit: (in meters)
   radiation_type: Radiation Type
   surface_type: Surface Type
   or: or
