@@ -208,6 +208,7 @@ ja:
   email: メール
   explore_maps_of_your_submissions: あたたが提出した測定データから作成マップを見る
   height: 地面からの高さ
+  height_unit: （メートル）
   if_you_have_a_bgeigie: bGeigieを持っている場合
   imports: インポートされたデータ
   lat: 緯度
