@@ -33,6 +33,11 @@ See one of the wiki pages for instructions on setting up for local development:
 * [Dev: Setup on Linux (Ubuntu 16.04)](https://github.com/Safecast/safecastapi/wiki/Dev:-Setup-on-Linux-(Ubuntu-16.04))
 * [Dev: Using Docker](https://github.com/Safecast/safecastapi/wiki/Dev:-Using-Docker)
 
+### Random testing
+(of prose.io)
+![Screen Shot 2018-09-03 at 16.00.55.png]({{site.baseurl}}/Screen Shot 2018-09-03 at 16.00.55.png)
+
+
 ### Licensing
 Licensing can be confusing. We’ll try to make it a little less so.
 
