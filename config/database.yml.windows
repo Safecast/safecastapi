@@ -1,0 +1,14 @@
+default: &default
+  adapter: postgis
+  schema_search_path: "public,postgis"
+  encoding: unicode
+  username: safecast
+  password: safecast
+
+development:
+  <<: *default
+  database: safecast_development
+
+test:
+  <<: *default
+  database: safecast_test
