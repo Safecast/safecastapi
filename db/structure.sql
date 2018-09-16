@@ -2,13 +2,14 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.2
--- Dumped by pg_dump version 9.5.2
+-- Dumped from database version 9.5.14
+-- Dumped by pg_dump version 9.5.14
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
@@ -54,7 +55,7 @@ SET search_path = public, pg_catalog;
 -- Name: measurement_imports_subtype; Type: TYPE; Schema: public; Owner: -
 --
 
-CREATE TYPE measurement_imports_subtype AS ENUM (
+CREATE TYPE public.measurement_imports_subtype AS ENUM (
     'None',
     'Drive',
     'Surface',
@@ -70,7 +71,7 @@ SET default_with_oids = false;
 -- Name: admins; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE admins (
+CREATE TABLE public.admins (
     id integer NOT NULL,
     email character varying(255) DEFAULT ''::character varying NOT NULL,
     encrypted_password character varying(255) DEFAULT ''::character varying NOT NULL,
@@ -91,7 +92,7 @@ CREATE TABLE admins (
 -- Name: admins_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE admins_id_seq
+CREATE SEQUENCE public.admins_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -103,14 +104,14 @@ CREATE SEQUENCE admins_id_seq
 -- Name: admins_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE admins_id_seq OWNED BY admins.id;
+ALTER SEQUENCE public.admins_id_seq OWNED BY public.admins.id;
 
 
 --
 -- Name: bgeigie_logs; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE bgeigie_logs (
+CREATE TABLE public.bgeigie_logs (
     id integer NOT NULL,
     device_tag character varying(255),
     device_serial_id character varying(255),
@@ -131,7 +132,7 @@ CREATE TABLE bgeigie_logs (
     updated_at timestamp without time zone DEFAULT '1970-01-01 00:00:00'::timestamp without time zone NOT NULL,
     bgeigie_import_id integer,
     computed_location postgis.geography(Point,4326),
-    md5sum character varying(255)
+    md5sum character varying
 );
 
 
@@ -139,7 +140,7 @@ CREATE TABLE bgeigie_logs (
 -- Name: bgeigie_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE bgeigie_logs_id_seq
+CREATE SEQUENCE public.bgeigie_logs_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -151,14 +152,14 @@ CREATE SEQUENCE bgeigie_logs_id_seq
 -- Name: bgeigie_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE bgeigie_logs_id_seq OWNED BY bgeigie_logs.id;
+ALTER SEQUENCE public.bgeigie_logs_id_seq OWNED BY public.bgeigie_logs.id;
 
 
 --
 -- Name: configurables; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE configurables (
+CREATE TABLE public.configurables (
     id integer NOT NULL,
     name character varying(255),
     value character varying(255),
@@ -171,7 +172,7 @@ CREATE TABLE configurables (
 -- Name: configurables_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE configurables_id_seq
+CREATE SEQUENCE public.configurables_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -183,14 +184,14 @@ CREATE SEQUENCE configurables_id_seq
 -- Name: configurables_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE configurables_id_seq OWNED BY configurables.id;
+ALTER SEQUENCE public.configurables_id_seq OWNED BY public.configurables.id;
 
 
 --
 -- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE delayed_jobs (
+CREATE TABLE public.delayed_jobs (
     id integer NOT NULL,
     priority integer DEFAULT 0,
     attempts integer DEFAULT 0,
@@ -210,7 +211,7 @@ CREATE TABLE delayed_jobs (
 -- Name: delayed_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE delayed_jobs_id_seq
+CREATE SEQUENCE public.delayed_jobs_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -222,14 +223,14 @@ CREATE SEQUENCE delayed_jobs_id_seq
 -- Name: delayed_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
+ALTER SEQUENCE public.delayed_jobs_id_seq OWNED BY public.delayed_jobs.id;
 
 
 --
 -- Name: devices; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE devices (
+CREATE TABLE public.devices (
     id integer NOT NULL,
     manufacturer character varying(255),
     model character varying(255),
@@ -244,7 +245,7 @@ CREATE TABLE devices (
 -- Name: devices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE devices_id_seq
+CREATE SEQUENCE public.devices_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -256,14 +257,14 @@ CREATE SEQUENCE devices_id_seq
 -- Name: devices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE devices_id_seq OWNED BY devices.id;
+ALTER SEQUENCE public.devices_id_seq OWNED BY public.devices.id;
 
 
 --
 -- Name: drive_logs; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE drive_logs (
+CREATE TABLE public.drive_logs (
     id integer NOT NULL,
     drive_import_id integer,
     reading_date timestamp without time zone,
@@ -279,13 +280,13 @@ CREATE TABLE drive_logs (
     satellite_num integer,
     gps_precision double precision,
     gps_altitude double precision,
-    gps_device_name character varying(255),
-    measurement_type character varying(255),
-    zoom_7_grid character varying(255),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    gps_device_name character varying,
+    measurement_type character varying,
+    zoom_7_grid character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     location postgis.geography(Point,4326),
-    md5sum character varying(255)
+    md5sum character varying
 );
 
 
@@ -293,7 +294,7 @@ CREATE TABLE drive_logs (
 -- Name: drive_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE drive_logs_id_seq
+CREATE SEQUENCE public.drive_logs_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -305,7 +306,7 @@ CREATE SEQUENCE drive_logs_id_seq
 -- Name: drive_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE drive_logs_id_seq OWNED BY drive_logs.id;
+ALTER SEQUENCE public.drive_logs_id_seq OWNED BY public.drive_logs.id;
 
 
 --
@@ -322,7 +323,7 @@ CREATE TABLE ioslastexport (
 -- Name: maps; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE maps (
+CREATE TABLE public.maps (
     id integer NOT NULL,
     description text,
     created_at timestamp without time zone NOT NULL,
@@ -337,7 +338,7 @@ CREATE TABLE maps (
 -- Name: maps_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE maps_id_seq
+CREATE SEQUENCE public.maps_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -349,14 +350,14 @@ CREATE SEQUENCE maps_id_seq
 -- Name: maps_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE maps_id_seq OWNED BY maps.id;
+ALTER SEQUENCE public.maps_id_seq OWNED BY public.maps.id;
 
 
 --
 -- Name: maps_measurements; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE maps_measurements (
+CREATE TABLE public.maps_measurements (
     map_id integer,
     measurement_id integer
 );
@@ -366,7 +367,7 @@ CREATE TABLE maps_measurements (
 -- Name: measurement_import_logs; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE measurement_import_logs (
+CREATE TABLE public.measurement_import_logs (
     id integer NOT NULL,
     measurement_import_id integer,
     description text,
@@ -379,7 +380,7 @@ CREATE TABLE measurement_import_logs (
 -- Name: measurement_import_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE measurement_import_logs_id_seq
+CREATE SEQUENCE public.measurement_import_logs_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -391,14 +392,14 @@ CREATE SEQUENCE measurement_import_logs_id_seq
 -- Name: measurement_import_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE measurement_import_logs_id_seq OWNED BY measurement_import_logs.id;
+ALTER SEQUENCE public.measurement_import_logs_id_seq OWNED BY public.measurement_import_logs.id;
 
 
 --
 -- Name: measurement_imports; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE measurement_imports (
+CREATE TABLE public.measurement_imports (
     id integer NOT NULL,
     user_id integer,
     source character varying(255),
@@ -418,8 +419,8 @@ CREATE TABLE measurement_imports (
     height numeric(8,2),
     orientation character varying(255),
     cities text,
-    comment character varying(255),
-    subtype measurement_imports_subtype DEFAULT 'None'::measurement_imports_subtype NOT NULL,
+    subtype public.measurement_imports_subtype DEFAULT 'None'::public.measurement_imports_subtype NOT NULL,
+    comment character varying,
     rejected boolean DEFAULT false,
     rejected_by character varying(255)
 );
@@ -429,7 +430,7 @@ CREATE TABLE measurement_imports (
 -- Name: measurement_imports_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE measurement_imports_id_seq
+CREATE SEQUENCE public.measurement_imports_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -441,22 +442,22 @@ CREATE SEQUENCE measurement_imports_id_seq
 -- Name: measurement_imports_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE measurement_imports_id_seq OWNED BY measurement_imports.id;
+ALTER SEQUENCE public.measurement_imports_id_seq OWNED BY public.measurement_imports.id;
 
 
 --
 -- Name: measurements; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE measurements (
+CREATE TABLE public.measurements (
     id integer NOT NULL,
     user_id integer,
     value double precision,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    unit character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    unit character varying,
     location postgis.geography(Point,4326),
-    location_name character varying(255),
+    location_name character varying,
     device_id integer,
     original_id integer,
     expired_at timestamp without time zone,
@@ -479,7 +480,7 @@ CREATE TABLE measurements (
 -- Name: measurements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE measurements_id_seq
+CREATE SEQUENCE public.measurements_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -491,14 +492,14 @@ CREATE SEQUENCE measurements_id_seq
 -- Name: measurements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE measurements_id_seq OWNED BY measurements.id;
+ALTER SEQUENCE public.measurements_id_seq OWNED BY public.measurements.id;
 
 
 --
 -- Name: rails_admin_histories; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE rails_admin_histories (
+CREATE TABLE public.rails_admin_histories (
     id integer NOT NULL,
     message text,
     username character varying(255),
@@ -515,7 +516,7 @@ CREATE TABLE rails_admin_histories (
 -- Name: rails_admin_histories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE rails_admin_histories_id_seq
+CREATE SEQUENCE public.rails_admin_histories_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -527,15 +528,15 @@ CREATE SEQUENCE rails_admin_histories_id_seq
 -- Name: rails_admin_histories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE rails_admin_histories_id_seq OWNED BY rails_admin_histories.id;
+ALTER SEQUENCE public.rails_admin_histories_id_seq OWNED BY public.rails_admin_histories.id;
 
 
 --
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE schema_migrations (
-    version character varying(255) NOT NULL
+CREATE TABLE public.schema_migrations (
+    version character varying NOT NULL
 );
 
 
@@ -543,7 +544,7 @@ CREATE TABLE schema_migrations (
 -- Name: uploader_contact_histories; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE uploader_contact_histories (
+CREATE TABLE public.uploader_contact_histories (
     id integer NOT NULL,
     bgeigie_import_id integer,
     administrator_id integer NOT NULL,
@@ -558,7 +559,7 @@ CREATE TABLE uploader_contact_histories (
 -- Name: uploader_contact_histories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE uploader_contact_histories_id_seq
+CREATE SEQUENCE public.uploader_contact_histories_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -570,14 +571,14 @@ CREATE SEQUENCE uploader_contact_histories_id_seq
 -- Name: uploader_contact_histories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE uploader_contact_histories_id_seq OWNED BY uploader_contact_histories.id;
+ALTER SEQUENCE public.uploader_contact_histories_id_seq OWNED BY public.uploader_contact_histories.id;
 
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE users (
+CREATE TABLE public.users (
     id integer NOT NULL,
     email character varying(255) DEFAULT ''::character varying NOT NULL,
     encrypted_password character varying(128) DEFAULT ''::character varying NOT NULL,
@@ -608,7 +609,7 @@ CREATE TABLE users (
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE users_id_seq
+CREATE SEQUENCE public.users_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -620,105 +621,105 @@ CREATE SEQUENCE users_id_seq
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE users_id_seq OWNED BY users.id;
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY admins ALTER COLUMN id SET DEFAULT nextval('admins_id_seq'::regclass);
+ALTER TABLE ONLY public.admins ALTER COLUMN id SET DEFAULT nextval('public.admins_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY bgeigie_logs ALTER COLUMN id SET DEFAULT nextval('bgeigie_logs_id_seq'::regclass);
+ALTER TABLE ONLY public.bgeigie_logs ALTER COLUMN id SET DEFAULT nextval('public.bgeigie_logs_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY configurables ALTER COLUMN id SET DEFAULT nextval('configurables_id_seq'::regclass);
+ALTER TABLE ONLY public.configurables ALTER COLUMN id SET DEFAULT nextval('public.configurables_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_id_seq'::regclass);
+ALTER TABLE ONLY public.delayed_jobs ALTER COLUMN id SET DEFAULT nextval('public.delayed_jobs_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY devices ALTER COLUMN id SET DEFAULT nextval('devices_id_seq'::regclass);
+ALTER TABLE ONLY public.devices ALTER COLUMN id SET DEFAULT nextval('public.devices_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY drive_logs ALTER COLUMN id SET DEFAULT nextval('drive_logs_id_seq'::regclass);
+ALTER TABLE ONLY public.drive_logs ALTER COLUMN id SET DEFAULT nextval('public.drive_logs_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY maps ALTER COLUMN id SET DEFAULT nextval('maps_id_seq'::regclass);
+ALTER TABLE ONLY public.maps ALTER COLUMN id SET DEFAULT nextval('public.maps_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY measurement_import_logs ALTER COLUMN id SET DEFAULT nextval('measurement_import_logs_id_seq'::regclass);
+ALTER TABLE ONLY public.measurement_import_logs ALTER COLUMN id SET DEFAULT nextval('public.measurement_import_logs_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY measurement_imports ALTER COLUMN id SET DEFAULT nextval('measurement_imports_id_seq'::regclass);
+ALTER TABLE ONLY public.measurement_imports ALTER COLUMN id SET DEFAULT nextval('public.measurement_imports_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY measurements ALTER COLUMN id SET DEFAULT nextval('measurements_id_seq'::regclass);
+ALTER TABLE ONLY public.measurements ALTER COLUMN id SET DEFAULT nextval('public.measurements_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rails_admin_histories ALTER COLUMN id SET DEFAULT nextval('rails_admin_histories_id_seq'::regclass);
+ALTER TABLE ONLY public.rails_admin_histories ALTER COLUMN id SET DEFAULT nextval('public.rails_admin_histories_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY uploader_contact_histories ALTER COLUMN id SET DEFAULT nextval('uploader_contact_histories_id_seq'::regclass);
+ALTER TABLE ONLY public.uploader_contact_histories ALTER COLUMN id SET DEFAULT nextval('public.uploader_contact_histories_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
 -- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY admins
+ALTER TABLE ONLY public.admins
     ADD CONSTRAINT admins_pkey PRIMARY KEY (id);
 
 
@@ -726,7 +727,7 @@ ALTER TABLE ONLY admins
 -- Name: bgeigie_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY bgeigie_logs
+ALTER TABLE ONLY public.bgeigie_logs
     ADD CONSTRAINT bgeigie_logs_pkey PRIMARY KEY (id);
 
 
@@ -734,7 +735,7 @@ ALTER TABLE ONLY bgeigie_logs
 -- Name: configurables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY configurables
+ALTER TABLE ONLY public.configurables
     ADD CONSTRAINT configurables_pkey PRIMARY KEY (id);
 
 
@@ -742,7 +743,7 @@ ALTER TABLE ONLY configurables
 -- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY delayed_jobs
+ALTER TABLE ONLY public.delayed_jobs
     ADD CONSTRAINT delayed_jobs_pkey PRIMARY KEY (id);
 
 
@@ -750,7 +751,7 @@ ALTER TABLE ONLY delayed_jobs
 -- Name: devices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY devices
+ALTER TABLE ONLY public.devices
     ADD CONSTRAINT devices_pkey PRIMARY KEY (id);
 
 
@@ -758,7 +759,7 @@ ALTER TABLE ONLY devices
 -- Name: drive_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY drive_logs
+ALTER TABLE ONLY public.drive_logs
     ADD CONSTRAINT drive_logs_pkey PRIMARY KEY (id);
 
 
@@ -766,7 +767,7 @@ ALTER TABLE ONLY drive_logs
 -- Name: maps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY maps
+ALTER TABLE ONLY public.maps
     ADD CONSTRAINT maps_pkey PRIMARY KEY (id);
 
 
@@ -774,7 +775,7 @@ ALTER TABLE ONLY maps
 -- Name: measurement_import_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY measurement_import_logs
+ALTER TABLE ONLY public.measurement_import_logs
     ADD CONSTRAINT measurement_import_logs_pkey PRIMARY KEY (id);
 
 
@@ -782,7 +783,7 @@ ALTER TABLE ONLY measurement_import_logs
 -- Name: measurement_imports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY measurement_imports
+ALTER TABLE ONLY public.measurement_imports
     ADD CONSTRAINT measurement_imports_pkey PRIMARY KEY (id);
 
 
@@ -790,7 +791,7 @@ ALTER TABLE ONLY measurement_imports
 -- Name: measurements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY measurements
+ALTER TABLE ONLY public.measurements
     ADD CONSTRAINT measurements_pkey PRIMARY KEY (id);
 
 
@@ -798,7 +799,7 @@ ALTER TABLE ONLY measurements
 -- Name: rails_admin_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rails_admin_histories
+ALTER TABLE ONLY public.rails_admin_histories
     ADD CONSTRAINT rails_admin_histories_pkey PRIMARY KEY (id);
 
 
@@ -806,7 +807,7 @@ ALTER TABLE ONLY rails_admin_histories
 -- Name: uploader_contact_histories uploader_contact_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY uploader_contact_histories
+ALTER TABLE ONLY public.uploader_contact_histories
     ADD CONSTRAINT uploader_contact_histories_pkey PRIMARY KEY (id);
 
 
@@ -814,7 +815,7 @@ ALTER TABLE ONLY uploader_contact_histories
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users
+ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
@@ -822,7 +823,7 @@ ALTER TABLE ONLY users
 -- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at);
+CREATE INDEX delayed_jobs_priority ON public.delayed_jobs USING btree (priority, run_at);
 
 
 --
@@ -857,42 +858,42 @@ CREATE INDEX idx_measurements_value_device_id_device_id_not_null ON measurements
 -- Name: index_admins_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_admins_on_email ON admins USING btree (email);
+CREATE UNIQUE INDEX index_admins_on_email ON public.admins USING btree (email);
 
 
 --
 -- Name: index_admins_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_admins_on_reset_password_token ON admins USING btree (reset_password_token);
+CREATE UNIQUE INDEX index_admins_on_reset_password_token ON public.admins USING btree (reset_password_token);
 
 
 --
 -- Name: index_bgeigie_logs_on_bgeigie_import_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bgeigie_logs_on_bgeigie_import_id ON bgeigie_logs USING btree (bgeigie_import_id);
+CREATE INDEX index_bgeigie_logs_on_bgeigie_import_id ON public.bgeigie_logs USING btree (bgeigie_import_id);
 
 
 --
 -- Name: index_bgeigie_logs_on_device_serial_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bgeigie_logs_on_device_serial_id ON bgeigie_logs USING btree (device_serial_id);
+CREATE INDEX index_bgeigie_logs_on_device_serial_id ON public.bgeigie_logs USING btree (device_serial_id);
 
 
 --
 -- Name: index_bgeigie_logs_on_md5sum; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_bgeigie_logs_on_md5sum ON bgeigie_logs USING btree (md5sum);
+CREATE UNIQUE INDEX index_bgeigie_logs_on_md5sum ON public.bgeigie_logs USING btree (md5sum);
 
 
 --
 -- Name: index_configurables_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_configurables_on_name ON configurables USING btree (name);
+CREATE INDEX index_configurables_on_name ON public.configurables USING btree (name);
 
 
 --
@@ -913,292 +914,299 @@ CREATE INDEX index_drive_logs_on_measurement_import_id ON drive_logs USING btree
 -- Name: index_maps_on_device_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_maps_on_device_id ON maps USING btree (device_id);
+CREATE INDEX index_maps_on_device_id ON public.maps USING btree (device_id);
 
 
 --
 -- Name: index_maps_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_maps_on_user_id ON maps USING btree (user_id);
+CREATE INDEX index_maps_on_user_id ON public.maps USING btree (user_id);
 
 
 --
 -- Name: index_measurement_imports_on_id_and_subtype; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_measurement_imports_on_id_and_subtype ON measurement_imports USING btree (id, subtype);
+CREATE INDEX index_measurement_imports_on_id_and_subtype ON public.measurement_imports USING btree (id, subtype);
 
 
 --
 -- Name: index_measurement_imports_on_subtype; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_measurement_imports_on_subtype ON measurement_imports USING btree (subtype);
+CREATE INDEX index_measurement_imports_on_subtype ON public.measurement_imports USING btree (subtype);
 
 
 --
 -- Name: index_measurements_on_captured_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_measurements_on_captured_at ON measurements USING btree (captured_at);
+CREATE INDEX index_measurements_on_captured_at ON public.measurements USING btree (captured_at);
 
 
 --
 -- Name: index_measurements_on_captured_at_and_unit_and_device_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_measurements_on_captured_at_and_unit_and_device_id ON measurements USING btree (captured_at, unit, device_id) WHERE (device_id IS NOT NULL);
+CREATE INDEX index_measurements_on_captured_at_and_unit_and_device_id ON public.measurements USING btree (captured_at, unit, device_id) WHERE (device_id IS NOT NULL);
 
 
 --
 -- Name: index_measurements_on_device_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_measurements_on_device_id ON measurements USING btree (device_id);
+CREATE INDEX index_measurements_on_device_id ON public.measurements USING btree (device_id);
 
 
 --
 -- Name: index_measurements_on_location; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_measurements_on_location ON measurements USING gist (location);
+CREATE INDEX index_measurements_on_location ON public.measurements USING gist (location);
 
 
 --
 -- Name: index_measurements_on_md5sum; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_measurements_on_md5sum ON measurements USING btree (md5sum);
+CREATE UNIQUE INDEX index_measurements_on_md5sum ON public.measurements USING btree (md5sum);
 
 
 --
 -- Name: index_measurements_on_measurement_import_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_measurements_on_measurement_import_id ON measurements USING btree (measurement_import_id);
+CREATE INDEX index_measurements_on_measurement_import_id ON public.measurements USING btree (measurement_import_id);
 
 
 --
 -- Name: index_measurements_on_original_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_measurements_on_original_id ON measurements USING btree (original_id);
+CREATE INDEX index_measurements_on_original_id ON public.measurements USING btree (original_id);
 
 
 --
 -- Name: index_measurements_on_unit; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_measurements_on_unit ON measurements USING btree (unit);
+CREATE INDEX index_measurements_on_unit ON public.measurements USING btree (unit);
 
 
 --
 -- Name: index_measurements_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_measurements_on_user_id ON measurements USING btree (user_id);
+CREATE INDEX index_measurements_on_user_id ON public.measurements USING btree (user_id);
 
 
 --
 -- Name: index_measurements_on_user_id_and_captured_at; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
-CREATE INDEX index_measurements_on_user_id_and_captured_at ON measurements USING btree (user_id, captured_at);
+CREATE INDEX index_measurements_on_user_id_and_captured_at ON public.measurements USING btree (user_id, captured_at);
 
 
 --
 -- Name: index_measurements_on_value_and_device_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_measurements_on_value_and_device_id ON measurements USING btree (value, device_id) WHERE (device_id IS NOT NULL);
+CREATE INDEX index_measurements_on_value_and_device_id ON public.measurements USING btree (value, device_id) WHERE (device_id IS NOT NULL);
 
 
 --
 -- Name: index_measurements_on_value_and_unit; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_measurements_on_value_and_unit ON measurements USING btree (value, unit);
+CREATE INDEX index_measurements_on_value_and_unit ON public.measurements USING btree (value, unit);
 
 
 --
 -- Name: index_rails_admin_histories; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_rails_admin_histories ON rails_admin_histories USING btree (item, "table", month, year);
+CREATE INDEX index_rails_admin_histories ON public.rails_admin_histories USING btree (item, "table", month, year);
+
+
+--
+-- Name: index_users_on_authentication_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_on_authentication_token ON public.users USING btree (authentication_token);
 
 
 --
 -- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_confirmation_token ON users USING btree (confirmation_token);
+CREATE INDEX index_users_on_confirmation_token ON public.users USING btree (confirmation_token);
 
 
 --
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
+CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 
 
 --
 -- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
 
 
 --
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
 
 
 --
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO schema_migrations (version) VALUES ('20111123174941');
+INSERT INTO public.schema_migrations (version) VALUES ('20111123174941');
 
-INSERT INTO schema_migrations (version) VALUES ('20111123190839');
+INSERT INTO public.schema_migrations (version) VALUES ('20111123190839');
 
-INSERT INTO schema_migrations (version) VALUES ('20111124211843');
+INSERT INTO public.schema_migrations (version) VALUES ('20111124211843');
 
-INSERT INTO schema_migrations (version) VALUES ('20111128163114');
+INSERT INTO public.schema_migrations (version) VALUES ('20111128163114');
 
-INSERT INTO schema_migrations (version) VALUES ('20111128163317');
+INSERT INTO public.schema_migrations (version) VALUES ('20111128163317');
 
-INSERT INTO schema_migrations (version) VALUES ('20111128171949');
+INSERT INTO public.schema_migrations (version) VALUES ('20111128171949');
 
-INSERT INTO schema_migrations (version) VALUES ('20111130103929');
+INSERT INTO public.schema_migrations (version) VALUES ('20111130103929');
 
-INSERT INTO schema_migrations (version) VALUES ('20111130104648');
+INSERT INTO public.schema_migrations (version) VALUES ('20111130104648');
 
-INSERT INTO schema_migrations (version) VALUES ('20111130132854');
+INSERT INTO public.schema_migrations (version) VALUES ('20111130132854');
 
-INSERT INTO schema_migrations (version) VALUES ('20111210075847');
+INSERT INTO public.schema_migrations (version) VALUES ('20111210075847');
 
-INSERT INTO schema_migrations (version) VALUES ('20111210234133');
+INSERT INTO public.schema_migrations (version) VALUES ('20111210234133');
 
-INSERT INTO schema_migrations (version) VALUES ('20111210235123');
+INSERT INTO public.schema_migrations (version) VALUES ('20111210235123');
 
-INSERT INTO schema_migrations (version) VALUES ('20111210235206');
+INSERT INTO public.schema_migrations (version) VALUES ('20111210235206');
 
-INSERT INTO schema_migrations (version) VALUES ('20111210235226');
+INSERT INTO public.schema_migrations (version) VALUES ('20111210235226');
 
-INSERT INTO schema_migrations (version) VALUES ('20111210235259');
+INSERT INTO public.schema_migrations (version) VALUES ('20111210235259');
 
-INSERT INTO schema_migrations (version) VALUES ('20111213000431');
+INSERT INTO public.schema_migrations (version) VALUES ('20111213000431');
 
-INSERT INTO schema_migrations (version) VALUES ('20111214134716');
+INSERT INTO public.schema_migrations (version) VALUES ('20111214134716');
 
-INSERT INTO schema_migrations (version) VALUES ('20111214154833');
+INSERT INTO public.schema_migrations (version) VALUES ('20111214154833');
 
-INSERT INTO schema_migrations (version) VALUES ('20111214161111');
+INSERT INTO public.schema_migrations (version) VALUES ('20111214161111');
 
-INSERT INTO schema_migrations (version) VALUES ('20111214162214');
+INSERT INTO public.schema_migrations (version) VALUES ('20111214162214');
 
-INSERT INTO schema_migrations (version) VALUES ('20111214224431');
+INSERT INTO public.schema_migrations (version) VALUES ('20111214224431');
 
-INSERT INTO schema_migrations (version) VALUES ('20111214224611');
+INSERT INTO public.schema_migrations (version) VALUES ('20111214224611');
 
-INSERT INTO schema_migrations (version) VALUES ('20120103182931');
+INSERT INTO public.schema_migrations (version) VALUES ('20120103182931');
 
-INSERT INTO schema_migrations (version) VALUES ('20120103213502');
+INSERT INTO public.schema_migrations (version) VALUES ('20120103213502');
 
-INSERT INTO schema_migrations (version) VALUES ('20120110185237');
+INSERT INTO public.schema_migrations (version) VALUES ('20120110185237');
 
-INSERT INTO schema_migrations (version) VALUES ('20120116133915');
+INSERT INTO public.schema_migrations (version) VALUES ('20120116133915');
 
-INSERT INTO schema_migrations (version) VALUES ('20120116134744');
+INSERT INTO public.schema_migrations (version) VALUES ('20120116134744');
 
-INSERT INTO schema_migrations (version) VALUES ('20120116144757');
+INSERT INTO public.schema_migrations (version) VALUES ('20120116144757');
 
-INSERT INTO schema_migrations (version) VALUES ('20120116150229');
+INSERT INTO public.schema_migrations (version) VALUES ('20120116150229');
 
-INSERT INTO schema_migrations (version) VALUES ('20120306150302');
+INSERT INTO public.schema_migrations (version) VALUES ('20120306150302');
 
-INSERT INTO schema_migrations (version) VALUES ('20120306202021');
+INSERT INTO public.schema_migrations (version) VALUES ('20120306202021');
 
-INSERT INTO schema_migrations (version) VALUES ('20120307130255');
+INSERT INTO public.schema_migrations (version) VALUES ('20120307130255');
 
-INSERT INTO schema_migrations (version) VALUES ('20120307130803');
+INSERT INTO public.schema_migrations (version) VALUES ('20120307130803');
 
-INSERT INTO schema_migrations (version) VALUES ('20120307150105');
+INSERT INTO public.schema_migrations (version) VALUES ('20120307150105');
 
-INSERT INTO schema_migrations (version) VALUES ('20120307175658');
+INSERT INTO public.schema_migrations (version) VALUES ('20120307175658');
 
-INSERT INTO schema_migrations (version) VALUES ('20120307232457');
+INSERT INTO public.schema_migrations (version) VALUES ('20120307232457');
 
-INSERT INTO schema_migrations (version) VALUES ('20120315211955');
+INSERT INTO public.schema_migrations (version) VALUES ('20120315211955');
 
-INSERT INTO schema_migrations (version) VALUES ('20120315220809');
+INSERT INTO public.schema_migrations (version) VALUES ('20120315220809');
 
-INSERT INTO schema_migrations (version) VALUES ('20120323105044');
+INSERT INTO public.schema_migrations (version) VALUES ('20120323105044');
 
-INSERT INTO schema_migrations (version) VALUES ('20120323115733');
+INSERT INTO public.schema_migrations (version) VALUES ('20120323115733');
 
-INSERT INTO schema_migrations (version) VALUES ('20120323181147');
+INSERT INTO public.schema_migrations (version) VALUES ('20120323181147');
 
-INSERT INTO schema_migrations (version) VALUES ('20120324025600');
+INSERT INTO public.schema_migrations (version) VALUES ('20120324025600');
 
-INSERT INTO schema_migrations (version) VALUES ('20120324094455');
+INSERT INTO public.schema_migrations (version) VALUES ('20120324094455');
 
-INSERT INTO schema_migrations (version) VALUES ('20120324100545');
+INSERT INTO public.schema_migrations (version) VALUES ('20120324100545');
 
-INSERT INTO schema_migrations (version) VALUES ('20120417190549');
+INSERT INTO public.schema_migrations (version) VALUES ('20120417190549');
 
-INSERT INTO schema_migrations (version) VALUES ('20120418231658');
+INSERT INTO public.schema_migrations (version) VALUES ('20120418231658');
 
-INSERT INTO schema_migrations (version) VALUES ('20120521225350');
+INSERT INTO public.schema_migrations (version) VALUES ('20120521225350');
 
-INSERT INTO schema_migrations (version) VALUES ('20120526101510');
+INSERT INTO public.schema_migrations (version) VALUES ('20120526101510');
 
-INSERT INTO schema_migrations (version) VALUES ('20120614160337');
+INSERT INTO public.schema_migrations (version) VALUES ('20120614160337');
 
-INSERT INTO schema_migrations (version) VALUES ('20120625212801');
+INSERT INTO public.schema_migrations (version) VALUES ('20120625212801');
 
-INSERT INTO schema_migrations (version) VALUES ('20130114094100');
+INSERT INTO public.schema_migrations (version) VALUES ('20130114094100');
 
-INSERT INTO schema_migrations (version) VALUES ('20130115032717');
+INSERT INTO public.schema_migrations (version) VALUES ('20130115032717');
 
-INSERT INTO schema_migrations (version) VALUES ('20130115042245');
+INSERT INTO public.schema_migrations (version) VALUES ('20130115042245');
 
-INSERT INTO schema_migrations (version) VALUES ('20130117110750');
+INSERT INTO public.schema_migrations (version) VALUES ('20130117110750');
 
-INSERT INTO schema_migrations (version) VALUES ('20130117110817');
+INSERT INTO public.schema_migrations (version) VALUES ('20130117110817');
 
-INSERT INTO schema_migrations (version) VALUES ('20130117111202');
+INSERT INTO public.schema_migrations (version) VALUES ('20130117111202');
 
-INSERT INTO schema_migrations (version) VALUES ('20130118064024');
+INSERT INTO public.schema_migrations (version) VALUES ('20130118064024');
 
-INSERT INTO schema_migrations (version) VALUES ('20130427160522');
+INSERT INTO public.schema_migrations (version) VALUES ('20130427160522');
 
-INSERT INTO schema_migrations (version) VALUES ('20130429205209');
+INSERT INTO public.schema_migrations (version) VALUES ('20130429205209');
 
-INSERT INTO schema_migrations (version) VALUES ('20130429205707');
+INSERT INTO public.schema_migrations (version) VALUES ('20130429205707');
 
-INSERT INTO schema_migrations (version) VALUES ('20130606042505');
+INSERT INTO public.schema_migrations (version) VALUES ('20130606042505');
 
-INSERT INTO schema_migrations (version) VALUES ('20130705092519');
+INSERT INTO public.schema_migrations (version) VALUES ('20130705092519');
 
-INSERT INTO schema_migrations (version) VALUES ('20140718095222');
+INSERT INTO public.schema_migrations (version) VALUES ('20140718095222');
 
-INSERT INTO schema_migrations (version) VALUES ('20150919060031');
+INSERT INTO public.schema_migrations (version) VALUES ('20150919060031');
 
-INSERT INTO schema_migrations (version) VALUES ('20160208190731');
+INSERT INTO public.schema_migrations (version) VALUES ('20160208190731');
 
-INSERT INTO schema_migrations (version) VALUES ('20160403092926');
+INSERT INTO public.schema_migrations (version) VALUES ('20160403092926');
 
-INSERT INTO schema_migrations (version) VALUES ('20160531111906');
+INSERT INTO public.schema_migrations (version) VALUES ('20160531111906');
 
-INSERT INTO schema_migrations (version) VALUES ('20160607005457');
+INSERT INTO public.schema_migrations (version) VALUES ('20160607005457');
 
-INSERT INTO schema_migrations (version) VALUES ('20160614042818');
+INSERT INTO public.schema_migrations (version) VALUES ('20160614042818');
 
-INSERT INTO schema_migrations (version) VALUES ('20160615215212');
+INSERT INTO public.schema_migrations (version) VALUES ('20160615215212');
 
-INSERT INTO schema_migrations (version) VALUES ('20180603015430');
+INSERT INTO public.schema_migrations (version) VALUES ('20180603015430');
 
