@@ -94,14 +94,14 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   def approve!
     update_column(:approved, true)
     Delayed::Job.enqueue FinalizeBgeigieImportJob.new(id)
-    Notifications.import_approved(self).deliver
+    Notifications.import_approved(self).deliver_later
   end
 
   def reject!(userinfo)
     update_column(:rejected, true)
     update_column(:rejected_by, userinfo)
     update_column(:status, 'processed')
-    Notifications.import_rejected(self).deliver
+    Notifications.import_rejected(self).deliver_later
   end
 
   def unreject!
