@@ -44,7 +44,7 @@
                 <%= link_to t('.measurements'), :measurements %>
               </li>
               <li <%= raw('class="active"') if controller_name == 'bgeigie_imports' %>>
-                <%= link_to t('.bgeigie_imports'), bgeigie_imports_path(order: 'created_at asc') %>
+                <%= link_to t('.bgeigie_imports'), bgeigie_imports_path %>
               </li>
               <li <%= raw('class="active"') if controller_name == 'devices' %>>
                 <%= link_to t('.devices'), :devices %>
