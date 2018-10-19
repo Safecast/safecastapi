@@ -7,12 +7,12 @@ gem 'devise-i18n'
 gem 'devise-token_authenticatable'
 gem 'cancan'
 
-gem 'rails', '4.1.16'
+gem 'rails', '4.2.10'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'coffee-script-source', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'unicorn', platforms: [:ruby]
 gem 'pg'
-gem 'activerecord-postgis-adapter', '~> 1.0.0'
+gem 'activerecord-postgis-adapter', '~> 3.1.5'
 gem 'json', '1.8.6'
 gem 'dotenv-rails'
 
@@ -33,6 +33,7 @@ gem 'swagger-blocks'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 # gem 'will_paginate',            '~> 3.0.3'
+gem 'responders'
 
 gem 'rails_admin'
 

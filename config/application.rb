@@ -46,6 +46,8 @@ module Safecast
     config.skylight.environments += ['staging']
 
     config.active_record.schema_format = :sql
+    # TODO: remove following line in Rails 5
+    config.active_record.raise_in_transactional_callbacks = true
 
     config.generators do |g|
       g.test_framework :rspec,

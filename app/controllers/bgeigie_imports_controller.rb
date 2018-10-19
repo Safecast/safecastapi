@@ -76,7 +76,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
     @bgeigie_import.update_column(:status, 'submitted')
     @bgeigie_import.update_column(:rejected, 'false')
     @bgeigie_import.update_column(:rejected_by, nil)
-    Notifications.import_awaiting_approval(@bgeigie_import).deliver
+    Notifications.import_awaiting_approval(@bgeigie_import).deliver_later
     redirect_to @bgeigie_import
   end
 
