@@ -33,4 +33,19 @@ module BgeigieImportsHelper
       f.submit text, class: 'btn btn-primary'
     end
   end
+
+  def get_bgeigie_id_list(bgeigie_imports)
+    bgeigie_id_list =[]
+    bgeigie_imports.each do |bgeigie_import|
+
+        bgeigie_id_list << bgeigie_import.id unless bgeigie_import.approved?
+    end
+    return bgeigie_id_list
+  end
+
+  def is_moderator?(current_user)
+    current_user.try!(:moderator?)
+  end
+
+
 end

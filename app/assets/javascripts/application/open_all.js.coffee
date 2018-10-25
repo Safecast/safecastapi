@@ -1,7 +1,8 @@
+
 jQuery ->
 
 $("#open_all").click ->
 
-  imports = $(this).data('bgeigie');
-  for dataset in imports
-    window.open("bgeigie_imports/"+dataset.id) unless dataset.approved
+  bgeigie_imports = $(this).data('bgeigie');
+  for id in bgeigie_imports
+   window.open("bgeigie_imports/"+id)
