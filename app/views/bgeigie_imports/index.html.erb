@@ -53,8 +53,8 @@
 <%- else -%>
 
   <ul class="inline pull-right">
-    <%- if is_moderator?(current_user) -%>
-      <li id="open_all" data-bgeigie="<%=get_bgeigie_id_list(@bgeigie_imports)%>">
+    <%- if is_moderator? -%>
+      <li id="open_all" data-bgeigie="<%=get_bgeigie_id_list%>">
         <%=link_to t(".Open all unapproved"),'#', :class => 'btn' %>
       </li>
     <%-end-%>
