@@ -34,15 +34,13 @@ module BgeigieImportsHelper
     end
   end
 
-  def unmoderated_id_list
-    unmoderated_id_list = []
-    @bgeigie_imports.each do |bgeigie_import|
-      unmoderated_id_list << bgeigie_import.id unless bgeigie_import.approved?
+  def unmoderated_id_list(bgeigie_imports)
+      bgeigie_imports.each_with_object([]) do |import, import_url_list|
+        import_url_list << bgeigie_import_path(import) unless import.approved?
     end
-    unmoderated_id_list
   end
 
-  def moderator?
-    @current_user.try!(:moderator?)
+  def moderator?(user)
+    user.try!(:moderator?)
   end
 end
