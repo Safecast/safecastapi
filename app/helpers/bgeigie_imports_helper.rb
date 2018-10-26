@@ -35,8 +35,8 @@ module BgeigieImportsHelper
   end
 
   def unmoderated_id_list(bgeigie_imports)
-      bgeigie_imports.each_with_object([]) do |import, import_url_list|
-        import_url_list << bgeigie_import_path(import) unless import.approved?
+    bgeigie_imports.each_with_object([]) do |import, import_url_list|
+      import_url_list << bgeigie_import_path(import) unless import.approved?
     end
   end
 
