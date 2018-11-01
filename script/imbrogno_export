@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# imbrogno_export and the SQL-Query imbrogno_export.sql:
+# Exports all datasets into a csv file, where the location is within a radius of 3000 meter from
+# the citycenter of: Uppsala, Hong Kong, Seoul, Taipei, Amsterdam, Perth, Sydney, Honolulu and Munich
+# to prevent a timeout of the API
+#
+#psql -U safecast --host $POSTGRESQL_ADDRESS safecast -f /var/deploy/api.safecast.org/web_head/current/script/imbrogno_export.sql
+echo "ID,User ID,Captured Time,Latitude,Longitude,Value,Unit,Device ID" | cat - /tmp/imbrogno_export.csv > /var/deploy/api.safecast.org/web_head/shared/system/imbro_out.csv
+cd /var/deploy/api.safecast.org/web_head/shared/system/ && tar -czf imbro_out.tar.gz imbro_out.csv
+mv imbro_out.tar.gz imbrogno_export.tar.gz && mv imbro_out.csv imbrogno_export.csv
