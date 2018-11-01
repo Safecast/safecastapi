@@ -1,11 +1,37 @@
+#
+# To run app in development mode, first create database
+#
+#   $ DATABASE_URL=postgis://safecast:@postgresql/safecast_development?schema_search_path=public,postgis docker-compose run --rm app bundle exec rake db:drop db:create db:structure:load
+#
+# Then, run server
+#
+#   $ DATABASE_URL=postgis://safecast:@postgresql/safecast_development?schema_search_path=public,postgis docker-compose up app
+#
+# If you want to run just PostgreSQL
+#
+#   $ docker-compose up postgresql
+#
 version: "3"
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL:
+      RAILS_ENV:
+    volumes:
+      - .:/src
+    links:
+      - postgresql
   postgresql:
     build:
       context: .
       dockerfile: Dockerfile.postgres
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
 

@@ -18,9 +18,9 @@ module MeasurementsHelper
              else
                params[:unit] == unit.to_s
              end
+    url_params = params.except(:action, :controller).merge(unit: ((unit == :all) ? nil : unit))
     content_tag(:li, class: ('active' if active)) do
-      link_to t(unit.to_s),
-              measurements_url(params.merge(unit: ((unit == :all) ? nil : unit)))
+      link_to t(unit.to_s), measurements_url(url_params)
     end
   end
 end

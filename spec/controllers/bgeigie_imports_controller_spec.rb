@@ -5,8 +5,8 @@ RSpec.describe BgeigieImportsController, type: :controller do
   describe 'GET #index', format: :json do
     before do
       args = { cities: 'Tokyo', credits: 'John Doe' }
-      %w(None Drive Surface Cosmic).each do |type|
-        Fabricate(:bgeigie_import, args.merge(subtype: type))
+      %w(None Drive Surface Cosmic).each_with_index do |type, idx|
+        Fabricate(:bgeigie_import, args.merge(subtype: type, created_at: (5 - idx).days.ago))
       end
     end
 
@@ -19,6 +19,10 @@ RSpec.describe BgeigieImportsController, type: :controller do
 
       it 'should get all imports' do
         expect(bgeigie_imports.size).to eq(4)
+
+        # should ordered by newly created import first
+        created_at = bgeigie_imports.map(&:created_at)
+        expect(created_at).to eq(created_at.sort { |a, b| b <=> a })
       end
     end
 

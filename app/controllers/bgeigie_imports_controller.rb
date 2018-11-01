@@ -7,7 +7,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
   has_scope :by_status
   has_scope :by_user_id
   has_scope :by_rejected
-  has_scope :order
+  has_scope :newest, default: true, allow_blank: true
   has_scope :uploaded_after
   has_scope :uploaded_before
   has_scope :q do |_controller, scope, value|
@@ -76,7 +76,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
     @bgeigie_import.update_column(:status, 'submitted')
     @bgeigie_import.update_column(:rejected, 'false')
     @bgeigie_import.update_column(:rejected_by, nil)
-    Notifications.import_awaiting_approval(@bgeigie_import).deliver
+    Notifications.import_awaiting_approval(@bgeigie_import).deliver_later
     redirect_to @bgeigie_import
   end
 
