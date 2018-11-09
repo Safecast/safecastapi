@@ -15,7 +15,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   has_many :bgeigie_logs, dependent: :delete_all
   has_many :uploader_contact_histories, dependent: :delete_all
 
-  scope :newest, ->(*) { order(created_at: :desc) }
+  scope :newest, -> { order('created_at DESC') }
   scope :oldest, -> { order('created_at') }
 
   %i(submitted processed done).each do |status|
