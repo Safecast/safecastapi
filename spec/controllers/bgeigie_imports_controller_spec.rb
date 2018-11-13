@@ -58,16 +58,6 @@ RSpec.describe BgeigieImportsController, type: :controller do
       post :create, { format: :json }.merge(post_params)
     end
 
-    context 'file exists already' do
-      let(:post_params) { { bgeigie_import: bgeigie_import_params } }
-      it 'change of the error message with custom validator' do
-        bgeigie_import = Fabricate(:bgeigie_import)
-        expect(bgeigie_import.errors[:md5sum]).to eq([])
-        bgeigie_import.valid?
-        expect(bgeigie_import.errors[:md5sum]).to eq(["is the same as of Bgeigie Import with the ID: #{bgeigie_import.id}"])
-      end
-    end
-
     context 'without subtype' do
       let(:post_params) { { bgeigie_import: bgeigie_import_params } }
 
