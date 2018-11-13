@@ -26,6 +26,6 @@ class MeasurementImport < ActiveRecord::Base
 
   def uniqueness_of_md5sum
     bgeigie_import = self.class.unscoped.find_by(md5sum: md5sum)
-    errors.add(:md5sum, "is the same as of Bgeigie Import with the ID: #{bgeigie_import.id}") if bgeigie_import
+    errors.add(:md5sum, "is the same as of Bgeigie Import with the ID: #{bgeigie_import.id}") if bgeigie_import.present? && bgeigie_import != self
   end
 end
