@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd $STACK_PATH
+bundle exec thor pending_imports_reminder:process
