@@ -37,9 +37,9 @@ module BgeigieImportsHelper
   def unmoderated_id_list(bgeigie_imports)
     import_url_list = []
     bgeigie_imports.each_with_object([]) do |import|
-      import_url_list << bgeigie_import_path(import) unless import.approved? or import.rejected?
+      import_url_list << bgeigie_import_path(import) unless import.approved? || import.rejected?
     end
-    (import_url_list if !import_url_list.empty?) || -1
+    (import_url_list unless import_url_list.empty?) || -1
   end
 
   def moderator?(user)
