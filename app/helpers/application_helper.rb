@@ -28,6 +28,18 @@ module ApplicationHelper
     }
   end
 
+  def bgeigie_import_filter
+    render partial: 'layouts/bgeigie_import_filter'
+  end
+
+  def dropdown_field(model_name, attr_name, values)
+    render partial: 'layouts/select_field', locals: {
+      model_name: model_name,
+      attr_name: attr_name,
+      values: values
+    }
+  end
+
   def filter_field(model_name, attr_name, options = {})
     render partial: 'layouts/filter_field', locals: {
       model_name: model_name,

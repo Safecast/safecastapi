@@ -1,0 +1,9 @@
+<div id="<%=attr_name %>" class="input-append">
+  <%=select_tag attr_name,options_for_select(values),
+                                :class => 'span2'%>
+  <span class="add-on activate-tooltip"
+        data-original-title="<%= human_label(model_name, attr_name) %>"
+        data-placement="left">
+    <%=attr_name %>
+  </span>
+</div>

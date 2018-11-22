@@ -38,6 +38,15 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
            OR lower(credits) LIKE :query", query: "%#{query.downcase}%")
   end
 
+  def self.by_user_name(name)
+    users = User.by_name(name)
+    where(user_id: users.map(&:id))
+  end
+
+  def self.rejected_by(name)
+    where(rejected_by: name)
+  end
+
   def self.by_status(status)
     where(status: status)
   end

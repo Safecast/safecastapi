@@ -7,17 +7,23 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
   has_scope :by_status
   has_scope :by_user_id
   has_scope :by_rejected
+  has_scope :by_user_name
   has_scope :order
   has_scope :uploaded_after
   has_scope :uploaded_before
+  has_scope :rejected_by
   has_scope :q do |_controller, scope, value|
     scope.filter(value)
   end
-  has_scope :approved do |_controller, scope, value|
-    if value == 'yes'
+  has_scope :status do |_controller, scope, value|
+    if value.to_sym == :approved
       scope.where(approved: true)
-    elsif value == 'no'
+    elsif value.to_sym == :rejected
+      scope.where(rejected: true)
+    elsif value.to_sym == :not_approved
       scope.where(approved: false)
+    elsif value.to_sym == :not_rejected
+      scope.where(rejected: false)
     else
       scope
     end
