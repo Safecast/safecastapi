@@ -51,6 +51,15 @@
 <%- if @bgeigie_imports.empty? -%>
   <%= t("none_found") -%>
 <%- else -%>
+
+  <ul class="inline pull-right">
+    <%- if moderator?(@current_user) -%>
+      <li id="open_all" data-bgeigie="<%=unmoderated_id_list(@bgeigie_imports).to_json%>">
+        <%=link_to t(".Open all unmoderated"),'#', :class => 'btn' %>
+      </li>
+    <%-end-%>
+  </ul>
+
   <table class="table table-striped table-hover" data-provides="rowlink">
     <thead>
       <%= table_sort_header(:bgeigie_import, :id) %>

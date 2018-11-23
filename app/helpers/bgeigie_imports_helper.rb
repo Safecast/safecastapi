@@ -33,4 +33,14 @@ module BgeigieImportsHelper
       f.submit text, class: 'btn btn-primary'
     end
   end
+
+  def unmoderated_id_list(bgeigie_imports)
+    bgeigie_imports.each_with_object([]) do |import, import_url_list|
+      import_url_list << bgeigie_import_path(import) unless import.approved? || import.rejected?
+    end
+  end
+
+  def moderator?(user)
+    user.try!(:moderator?)
+  end
 end
