@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 # This command loops through the contents of STDIN and appends an md5sum
 # to the end of the line
 require 'digest/md5'

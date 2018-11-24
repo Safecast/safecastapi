@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Fabricator(:bgeigie_log) do
   device_tag '$BGRDD'
   device_serial_id '002'

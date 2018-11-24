@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # RailsAdmin config file. Generated on July 05, 2013 17:25
 # See github.com/sferik/rails_admin for more informations
 

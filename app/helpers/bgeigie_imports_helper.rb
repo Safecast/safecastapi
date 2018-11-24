@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BgeigieImportsHelper
   def collect_bgeigie_logs(bgeigie_logs)
     bgeigie_logs.collect do |b|

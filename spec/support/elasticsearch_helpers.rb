@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ElasticsearchHelpers
   def put_template_for_ingest_measurements(client) # rubocop:disable Metrics/MethodLength
     client.indices.put_template(

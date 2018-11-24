@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 feature 'User resets password', type: :feature do
   let(:user) { Fabricate(:user, default_locale: 'en-US') }
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ##
 # The Device service facilitates creation and retrieval of measurement devices.
 # @url /api/devices

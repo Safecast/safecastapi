@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class IngestMeasurement
   extend ActiveModel::Naming
   include Elasticsearch::Model

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Actions::BgeigieImports::Kml do
   describe '#call' do
     it 'should send file' do

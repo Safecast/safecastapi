@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'digest/md5'
 class DriveLog < ActiveRecord::Base
   def update_md5sum # rubocop:disable Metrics/AbcSize

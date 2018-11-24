@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 feature 'Creating new mesurement', type: :feature do
   let(:user) { Fabricate(:user) }
   let!(:device) { Fabricate(:device) }

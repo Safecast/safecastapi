@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BgeigieImports
   class NotApprovedController < ApplicationController
     before_filter :authenticate_user!

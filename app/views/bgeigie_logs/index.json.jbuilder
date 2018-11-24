@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.array!(@bgeigie_import.bgeigie_logs) do |bgeigie_log|
   json.lat bgeigie_log.latitude
   json.lng bgeigie_log.longitude

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 worker_processes 4
 
 working_directory ENV['RAILS_STACK_PATH'].to_s

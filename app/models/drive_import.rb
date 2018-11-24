@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DriveImport < MeasurementImport
   has_many :drive_logs
 

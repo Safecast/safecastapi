@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 feature 'Password reset', type: :feature do
   scenario 'user visits "Forgot your password?" page' do
     visit('/en-US/users/sign_in')

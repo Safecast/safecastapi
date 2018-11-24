@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 feature '/bgeigie_imports API endpoint', type: :request do
   before(:each) do
     User.destroy_all

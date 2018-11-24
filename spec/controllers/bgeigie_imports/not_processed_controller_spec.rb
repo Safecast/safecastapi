@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe BgeigieImports::NotProcessedController, type: :controller do
   before do
     sign_in Fabricate(:admin_user)

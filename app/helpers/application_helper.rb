@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def link_to_switch_locale
     if params[:locale] == 'en-US'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe DriveImport, type: :model do
   let!(:user) { User.where(id: 1).first || Fabricate(:user, id: 1) }
 

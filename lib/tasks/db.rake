@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # XXX: remove tasks defined by activerecord-postgis-adapter and define
 #      our own because
 #        was too clever and does not work well with a single

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Actions
   module BgeigieImports
     class Kml
@@ -12,7 +14,7 @@ module Actions
       private
 
       TEMPLATE_FILE =
-        'app/views/bgeigie_imports/bgeigie_logs.kml.erb'.freeze
+        'app/views/bgeigie_imports/bgeigie_logs.kml.erb'
 
       def send_opts(filename)
         opts = { type: Mime::KML.to_s }

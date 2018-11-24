@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe ApplicationController, type: :controller do
   controller do
     def index

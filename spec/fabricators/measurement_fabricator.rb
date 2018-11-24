@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Fabricator(:measurement) do
   value '380'
   unit 'cpm'

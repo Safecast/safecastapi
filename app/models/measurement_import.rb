@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MeasurementImport < ActiveRecord::Base
   validates :source, presence: true, on: :create
   validate :uniqueness_of_md5sum

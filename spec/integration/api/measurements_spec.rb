@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 feature '/measurements API endpoint', type: :request do
   let!(:user) do
     User.first || Fabricate(:user,

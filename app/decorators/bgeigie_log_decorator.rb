@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BgeigieLogDecorator < Draper::Decorator
   CPM_KML_ICON_COLOR = {
     0...35 => 'white',
@@ -11,7 +13,7 @@ class BgeigieLogDecorator < Draper::Decorator
     680...1050 => 'darkRed'
   }.freeze
 
-  DEFAULT_ICON_COLOR = 'grey'.freeze
+  DEFAULT_ICON_COLOR = 'grey'
 
   def usv
     format('%.3f uSv/h', object.usv)

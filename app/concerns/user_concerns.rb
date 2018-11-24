@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module UserConcerns
   def first_name
     name.split(' ', 2).first if name

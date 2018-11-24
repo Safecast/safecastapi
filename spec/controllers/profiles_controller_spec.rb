@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe ProfilesController, type: :controller do
   let(:user) { Fabricate(:user, email: 'john_d@example.com') }
 
