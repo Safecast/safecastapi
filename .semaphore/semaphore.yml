@@ -1,0 +1,28 @@
+version: v1.0
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: "Build"
+    task:
+      env_vars:
+        - name: RAILS_ENV
+          value: test
+      prologue:
+        commands:
+          - checkout
+          - docker-compose up -d postgresql
+          - rbenv install -s $(cat .ruby-version)
+          - gem install bundler
+          - bundle install -j 2 --deployment --path vendor/bundle
+          - rm -f config/database.yml
+          - cp config/database.yml.docker config/database.yml
+          - bundle exec rake db:create db:structure:load
+      jobs:
+        - name: 'Rubocop'
+          commands:
+            - bundle exec rubocop -P
+        - name: 'RSpec'
+          commands:
+            - bundle exec rake spec
