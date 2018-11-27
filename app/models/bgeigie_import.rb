@@ -39,12 +39,11 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def self.by_user_name(name)
-    users = User.by_name(name)
-    where(user_id: users.map(&:id))
+    where(user: User.by_name(name))
   end
 
   def self.rejected_by(name)
-    where(rejected_by: name)
+    where('lower(rejected_by) LIKE ?', "%#{name.downcase}%")
   end
 
   def self.by_status(status)
