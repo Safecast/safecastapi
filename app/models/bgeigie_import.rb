@@ -145,7 +145,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
   def create_tmp_file # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     lines_count = 0
-    File.open('./tmp/bgeigie-0.878614036562972', 'at:UTF-8') do |file|
+    File.open(tmp_file, 'at:UTF-8') do |file|
       source.read.each_line do |line|
         next if line.first == '#'
         next if line.strip.blank?
