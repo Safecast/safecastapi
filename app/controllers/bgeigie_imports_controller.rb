@@ -20,10 +20,8 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
       scope.where(approved: true)
     elsif value.to_sym == :rejected
       scope.where(rejected: true)
-    elsif value.to_sym == :not_approved
-      scope.where(approved: false)
-    elsif value.to_sym == :not_rejected
-      scope.where(rejected: false)
+    elsif value.to_sym == :not_moderated
+      scope.where(approved: false, rejected: false)
     else
       scope
     end
