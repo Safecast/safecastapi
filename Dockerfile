@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       libyaml-dev \
       make \
       nodejs \
+      patch \
       postgresql \
       procps \
       tzdata \
