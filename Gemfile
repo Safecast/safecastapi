@@ -52,11 +52,12 @@ gem 'thin'
 gem 'elasticsearch'
 gem 'elasticsearch-dsl'
 
+gem 'rubocop', groups: [:development, :test]
+
 group :development do
   gem 'pry-byebug', group: :test
   gem 'pry-rails'
   gem 'quiet_assets'
-  gem 'rubocop'
 end
 
 group :test do
@@ -68,5 +69,4 @@ group :test do
   gem 'launchy'
   gem 'rspec-its'
   gem 'rspec-rails'
-  gem 'rubocop'
 end
