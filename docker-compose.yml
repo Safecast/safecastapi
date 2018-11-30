@@ -26,6 +26,17 @@ services:
       - .:/src
     links:
       - postgresql
+      - elasticsearch
+  elasticsearch:
+    build:
+      context: .
+      dockerfile: Dockerfile.elasticsearch
+    environment:
+      discovery.type: single-node
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
   postgresql:
     build:
       context: .
@@ -36,5 +47,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
 volumes:
+  elasticsearch-data:
+    driver: local
   postgres-data:
     driver: local
