@@ -111,6 +111,15 @@ GEM
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       request_store (~> 1.0)
+    elasticsearch (6.1.0)
+      elasticsearch-api (= 6.1.0)
+      elasticsearch-transport (= 6.1.0)
+    elasticsearch-api (6.1.0)
+      multi_json
+    elasticsearch-dsl (0.1.6)
+    elasticsearch-transport (6.1.0)
+      faraday
+      multi_json
     email_spec (2.1.0)
       htmlentities (~> 4.3.3)
       launchy (~> 2.1)
@@ -120,6 +129,8 @@ GEM
     excon (0.60.0)
     execjs (2.7.0)
     fabrication (2.15.2)
+    faraday (0.15.4)
+      multipart-post (>= 1.2, < 3)
     fog-aws (2.0.0)
       fog-core (~> 1.38)
       fog-json (~> 1.0)
@@ -177,6 +188,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.0)
+    multipart-post (2.0.0)
     nested_form (0.3.2)
     newrelic_rpm (3.12.1.298)
     nokogiri (1.8.5)
@@ -366,6 +378,8 @@ DEPENDENCIES
   devise-token_authenticatable
   dotenv-rails
   draper
+  elasticsearch
+  elasticsearch-dsl
   email_spec
   fabrication
   fog-aws (~> 2.0.0)
