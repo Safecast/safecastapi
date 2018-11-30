@@ -8,7 +8,9 @@ gem 'devise-token_authenticatable'
 gem 'cancan'
 
 gem 'rails', '4.2.10'
+# noinspection RailsParamDefResolve
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+# noinspection RailsParamDefResolve
 gem 'coffee-script-source', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'unicorn', platforms: [:ruby]
 gem 'pg'
@@ -47,10 +49,14 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'thin'
 
+gem 'elasticsearch'
+gem 'elasticsearch-dsl'
+
 group :development do
   gem 'pry-byebug', group: :test
   gem 'pry-rails'
   gem 'quiet_assets'
+  gem 'rubocop'
 end
 
 group :test do
@@ -62,5 +68,5 @@ group :test do
   gem 'launchy'
   gem 'rspec-its'
   gem 'rspec-rails'
-  gem 'rubocop', group: :development
+  gem 'rubocop'
 end
