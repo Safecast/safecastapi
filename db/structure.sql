@@ -422,7 +422,8 @@ CREATE TABLE public.measurement_imports (
     subtype public.measurement_imports_subtype DEFAULT 'None'::public.measurement_imports_subtype NOT NULL,
     comment character varying,
     rejected boolean DEFAULT false,
-    rejected_by character varying(255)
+    rejected_by character varying(255),
+    approved_by character varying(255)
 );
 
 
@@ -1210,3 +1211,4 @@ INSERT INTO public.schema_migrations (version) VALUES ('20160615215212');
 
 INSERT INTO public.schema_migrations (version) VALUES ('20180603015430');
 
+INSERT INTO public.schema_migrations (version) VALUES ('20181130044638');
