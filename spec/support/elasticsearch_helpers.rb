@@ -60,7 +60,6 @@ module ElasticsearchHelpers
       type: 'measurement',
       body: body.merge('@timestamp': '2018-12-01T12:34:56Z')
     )
-    # Need to have some period to get result
-    sleep 1
+    client.indices.flush
   end
 end
