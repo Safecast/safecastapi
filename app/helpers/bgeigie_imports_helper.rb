@@ -43,4 +43,8 @@ module BgeigieImportsHelper
   def moderator?(user)
     user.try!(:moderator?)
   end
+
+  def tilemap_link(bgeigie_import)
+    link_to 'Map View', "https://safecast.org/tilemap/?logids=#{bgeigie_import.id}", target: '_blank', class: 'btn btn-primary', style: 'color: #fff'
+  end
 end
