@@ -49,10 +49,7 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'thin'
 
-gem 'elasticsearch'
-gem 'elasticsearch-dsl'
-
-gem 'rubocop', groups: [:development, :test]
+gem 'elasticsearch-model'
 
 group :development do
   gem 'pry-byebug', group: :test
@@ -69,4 +66,5 @@ group :test do
   gem 'launchy'
   gem 'rspec-its'
   gem 'rspec-rails'
+  gem 'rubocop', groups: :development
 end
