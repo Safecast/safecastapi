@@ -1,21 +1,13 @@
-require 'elasticsearch'
-require 'elasticsearch/dsl'
-
 class IngestMeasurement
+  extend ActiveModel::Naming
+  include Elasticsearch::Model
+
+  index_name 'ingest-measurements-*'
+  document_type ''
+
   class << self
-    include Elasticsearch::DSL
-  end
-
-  def self.client
-    @client ||= Elasticsearch::Client.new
-  end
-
-  def self.data_for_device(device)
-    definition = search do
-      query do
-        term device: device
-      end
+    def data_for(term)
+      search(query: { term: term }).results.map(&:_source)
     end
-    client.search body: definition
   end
 end
