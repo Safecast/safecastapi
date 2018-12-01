@@ -12,7 +12,7 @@ blocks:
       prologue:
         commands:
           - checkout
-          - docker-compose up -d postgresql
+          - docker-compose up -d elasticsearch postgresql
           - rbenv install -s $(cat .ruby-version)
           - gem install bundler
           - bundle install -j 2 --deployment --path vendor/bundle
