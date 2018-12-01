@@ -29,7 +29,7 @@ module ApplicationHelper
   end
 
   def dropdown_field(model_name, attr_name, values)
-    render partial: 'layouts/drop_down_field', locals: {
+    render partial: 'application/drop_down_field', locals: {
       model_name: model_name,
       attr_name: attr_name,
       values: values
