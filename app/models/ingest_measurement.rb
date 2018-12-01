@@ -7,7 +7,7 @@ class IngestMeasurement
 
   class << self
     def data_for(term)
-      search(query: { term: term }).results.map(&:_source)
+      search(query: { terms: term }).results.map(&:_source)
     end
   end
 end
