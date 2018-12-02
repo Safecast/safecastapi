@@ -94,49 +94,64 @@ RSpec.describe BgeigieImportsController, type: :controller do
   end
 
   describe 'DELETE #destroy', format: :html do
-    let(:bgeigie_import) { Fabricate(:bgeigie_import, user: user, cities: 'Tokyo', credits: 'John Doe') }
-
     before do
       sign_in login_user if login_user
 
       delete :destroy, id: bgeigie_import.id
     end
 
-    context 'when login user is owner of bgeigie import' do
-      let(:login_user) { user }
+    context 'when bGeigie import is not approved' do
+      let(:bgeigie_import) { Fabricate(:bgeigie_import, user: user, cities: 'Tokyo', credits: 'John Doe') }
 
-      it { expect(response).to redirect_to(bgeigie_imports_path) }
-      it 'should delete bgeigie import' do
-        expect { BgeigieImport.find(bgeigie_import.id) }
-          .to raise_exception(ActiveRecord::RecordNotFound)
+      context 'when login user is owner of bgeigie import' do
+        let(:login_user) { user }
+
+        it { expect(response).to redirect_to(bgeigie_imports_path) }
+        it 'should delete bgeigie import' do
+          expect { BgeigieImport.find(bgeigie_import.id) }
+            .to raise_exception(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      context 'when login user is not owner of bgeigie import' do
+        let(:login_user) { Fabricate(:user) }
+
+        it { expect(response).to be_not_found }
+        it 'should not delete bgeigie import' do
+          expect { BgeigieImport.find(bgeigie_import.id) }.to_not raise_error
+        end
+      end
+
+      context 'when login user is not owner of bgeigie import, but moderator' do
+        let(:login_user) { Fabricate(:user, moderator: true) }
+
+        it { expect(response).to redirect_to(bgeigie_imports_path) }
+        it 'should delete bgeigie import' do
+          expect { BgeigieImport.find(bgeigie_import.id) }
+            .to raise_exception(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      context 'when non-login user' do
+        let(:login_user) { nil }
+
+        it { expect(response).to redirect_to(new_user_session_path(locale: request.params[:locale])) }
+        it 'should not delete bgeigie import' do
+          expect { BgeigieImport.find(bgeigie_import.id) }.to_not raise_error
+        end
       end
     end
 
-    context 'when login user is not owner of bgeigie import' do
-      let(:login_user) { Fabricate(:user) }
+    context 'when bGeigie import is approved' do
+      let(:bgeigie_import) { Fabricate(:bgeigie_import, user: user, cities: 'Tokyo', credits: 'John Doe', approved: true) }
 
-      it { expect(response).to be_not_found }
-      it 'should not delete bgeigie import' do
-        expect { BgeigieImport.find(bgeigie_import.id) }.to_not raise_error
-      end
-    end
+      context 'when login user is owner of bgeigie import' do
+        let(:login_user) { user }
 
-    context 'when login user is not owner of bgeigie import, but moderator' do
-      let(:login_user) { Fabricate(:user, moderator: true) }
-
-      it { expect(response).to redirect_to(bgeigie_imports_path) }
-      it 'should delete bgeigie import' do
-        expect { BgeigieImport.find(bgeigie_import.id) }
-          .to raise_exception(ActiveRecord::RecordNotFound)
-      end
-    end
-
-    context 'when non-login user' do
-      let(:login_user) { nil }
-
-      it { expect(response) .to redirect_to(new_user_session_path(locale: request.params[:locale])) }
-      it 'should not delete bgeigie import' do
-        expect { BgeigieImport.find(bgeigie_import.id) }.to_not raise_error
+        it { expect(response).to redirect_to(bgeigie_imports_path) }
+        it 'should delete not bgeigie import' do
+          expect { BgeigieImport.find(bgeigie_import.id) }.not_to raise_error
+        end
       end
     end
   end

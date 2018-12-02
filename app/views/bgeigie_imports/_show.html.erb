@@ -71,4 +71,4 @@
   </div>
 </div>
 
-<%= render "delete" if current_user == @bgeigie_import.user || current_user.try(:moderator?) %>
+<%= render "delete" if !@bgeigie_import.approved? && (current_user == @bgeigie_import.user || current_user.try(:moderator?)) %>

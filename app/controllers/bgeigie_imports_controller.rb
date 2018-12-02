@@ -109,11 +109,12 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
 
   def destroy
     bgeigie_import = scope.where(id: params[:id]).first
-    if bgeigie_import && bgeigie_import.destroy
-      redirect_to :bgeigie_imports
-    else
-      render text: '404 Not Found', status: :not_found
-    end
+
+    return render text: '404 Not Found', status: :not_found unless bgeigie_import
+    return redirect_to :bgeigie_imports, alert: 'Cannot delete approved bGeigie import' if bgeigie_import.approved?
+
+    bgeigie_import.destroy
+    redirect_to :bgeigie_imports
   end
 
   def kml
