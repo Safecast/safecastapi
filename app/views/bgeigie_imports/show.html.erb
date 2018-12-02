@@ -57,6 +57,11 @@
 <div class="tab-content">
   <div class="tab-pane <%= 'active' unless ['edit', 'update'].include?(action_name) %>" id="metadata">
     <%= render 'show' %>
+    <div class="row">
+      <div class="span3">
+        <%= tilemap_link(@bgeigie_import) %>
+      </div>
+    </div>
     <div class="spacer"></div>
     <%= render 'map' %>
   </div>
