@@ -3,6 +3,7 @@ Safecast::Application.routes.draw do
 
   scope '(:locale)', constraints: { locale: /(en-US|ja)/ } do
     get '/radiation_index' => 'radiation_index#radiation_index'
+    get '/ingest' => 'ingest#index'
     root to: 'dashboards#show'
     devise_for :users
     devise_for :admins
@@ -62,4 +63,6 @@ Safecast::Application.routes.draw do
   match '/count', to: 'measurements#count', via: %i(get)
 
   resources :api_docs, only: [:index]
-end
+
+  match '/ingest.csv' => 'ingest#index', via: :get, defaults: { format: :csv }
+  end
