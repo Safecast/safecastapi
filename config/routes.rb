@@ -65,4 +65,4 @@ Safecast::Application.routes.draw do
   resources :api_docs, only: [:index]
 
   match '/ingest.csv' => 'ingest#index', via: :get, defaults: { format: :csv }
-  end
+end
