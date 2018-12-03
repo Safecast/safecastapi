@@ -56,9 +56,9 @@
 </form>
 
 <h2>
-  <lable>Data for: <%=@uploaded_after %> - <%=@uploaded_before %> </lable></br>
-  <lable>Field: </lable> <%= fields[@field] ||= '-' %></br>
-  <lable>Location: </lable>  <%= locations[@area] ||= '-'%></h2></br>
+  <lable>Data for: <%= params[:uploaded_after] %> - <%= params[:uploaded_before] %> </lable></br>
+  <lable>Field: </lable> <%= fields[params[:field]] ||= '-' %></br>
+  <lable>Location: </lable>  <%= locations[params[:area]] ||= '-'%></h2></br>
 </h2>
 
 <ul class="inline pull-right">
