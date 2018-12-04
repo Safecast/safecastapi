@@ -9,10 +9,14 @@
       'san_jose' => 'San Jose'
   }
   fields = {
-      'pm_2.5' => 'PM 2.5'
+      'opc_pm01_0' => 'OPC PM 1.0',
+      'opc_pm02_5' => 'OPC PM 2.5',
+      'opc_pm10_0' => 'OPC PM 1.0',
+      'pms_pm01_0' => 'PM 1.0',
+      'pms_pm02_5' => 'PM 2.5',
+      'pms_pm10_0' => 'PM 10'
   }
 -%>
-
 <form method="get">
   <table>
     <tr>
@@ -48,7 +52,7 @@
         <lable>Uploaded before: </lable>
       </td>
       <td>
-        <input type="datetime-local" name="uploaded_before" value="2018-01-01T00:00">
+        <input type="datetime-local" name="uploaded_before" value="2018-12-31T00:00">
       </td>
     </tr>
   </table>
@@ -61,37 +65,41 @@
   <lable>Location: </lable>  <%= locations[params[:area]] ||= '-'%></h2></br>
 </h2>
 
-<ul class="inline pull-right">
-  <%=link_to( 'CSV Export', params.merge(:format => 'csv'), :class => 'btn') %>
-</ul>
+<%- if @data.empty? -%>
+  No data
+<%- else -%>
+  <ul class="inline pull-right">
+    <%=link_to( 'CSV Export', params.merge(:format => 'csv'), :class => 'btn') %>
+  </ul>
 
-<table  class="table">
-   <thead>
-     <tr>
-       <th>
-         <%= t('.created_at') %>
-       </th>
-       <th>
-         <%= t('.value') %>
-       </th>
-       <th>
-         <%= t('.device_id') %>
-       </th>
-     </tr>
-   </thead>
+  <table  class="table">
+    <thead>
+      <tr>
+        <th>
+          <%= t('.created_at') %>
+        </th>
+        <th>
+          <%= t('.value_(μg/m^3)') %>
+        </th>
+        <th>
+          <%= t('.device_id') %>
+        </th>
+      </tr>
+    </thead>
     <tbody>
       <%- @data.each do |hash|-%>
         <tr>
           <td>
-            <%= hash['when_captured'] %>
+            <%= hash[:when_captured] %>
           </td>
           <td>
-            <%= hash['pms_pm02_5'] %>
+            <%= hash[:value] %>
           </td>
           <td>
-            <%= hash['device'] %>
+            <%= hash[:device] %>
           </td>
         </tr>
       <%- end -%>
     </tbody>
-</table>
+  </table>
+<%- end -%>

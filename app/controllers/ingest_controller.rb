@@ -1,15 +1,10 @@
 class IngestController < ApplicationController
-  has_scope :area
-  has_scope :field
-  has_scope :uploaded_after
-  has_scope :uploaded_before
-
   def index
+    @field = params[:field]
+    @uploaded_after = params[:uploaded_after]
+    @uploaded_before = params[:uploaded_before]
     @area = params[:area]
-    @data = []
-    IngestMeasurement.data_for(device_urn: device_ids).each do |data|
-      @data << { 'when_captured' => data[:when_captured], 'pms_pm02_5' => data[:pms_pm02_5], 'device' => data[:device] } if data['pms_pm02_5']
-    end
+    ingest_data
     respond_to do |format|
       format.html
       format.csv { generate_csv }
@@ -17,6 +12,16 @@ class IngestController < ApplicationController
   end
 
   private
+
+  def ingest_data
+    @data = []
+    IngestMeasurement.data_for(device_urn: device_ids).select do |data|
+      data[@field] && data[:when_captured] >= @uploaded_after && data[:when_captured] <= @uploaded_before
+    end.map do |data|
+      @data << { when_captured: data[:when_captured], value: data[@field], device: data[:device] }
+      # @data = data.select([:when_captured, :device])
+    end
+  end
 
   def device_ids
     {
