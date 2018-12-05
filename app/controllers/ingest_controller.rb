@@ -15,12 +15,10 @@ class IngestController < ApplicationController
 
   def ingest_data
     @data = []
-    IngestMeasurement.data_for(device_urn: device_ids).select do |data|
+    dates = IngestMeasurement.data_for(device_urn: device_ids).select do |data|
       data[@field] && data[:when_captured] >= @uploaded_after && data[:when_captured] <= @uploaded_before
-    end.map do |data|
-      @data << { when_captured: data[:when_captured], value: data[@field], device: data[:device] }
-      # @data = data.select([:when_captured, :device])
     end
+    dates.map { |data| @data << { when_captured: data[:when_captured], value: data[@field], device: data[:device] } }
   end
 
   def device_ids
@@ -38,6 +36,7 @@ class IngestController < ApplicationController
 
   def generate_csv
     @csv_string = CSV.generate do |csv|
+      csv << @data.first.keys
       @data.each do |h|
         csv << h.values
       end
