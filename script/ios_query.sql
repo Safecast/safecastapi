@@ -3,6 +3,7 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- =============================================================================================
 -- UPDATE HISTORY: (SINCE 2014-10-25)
 -- =============================================================================================
+-- 2018-12-06 ND: Change user_id 106 filter to allow newer >2016 submissions.
 -- 2018-04-28 ND: Remove bad drive id 28231 per Sean.
 -- 2017-02-11 ND: Remove 4x GPS error in ocean
 -- 2017-02-08 ND: Misc bad data filters
@@ -282,7 +283,7 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
     AND id NOT BETWEEN 47531878 AND 47532148
     AND id NOT BETWEEN 17682519 AND 17682905
     AND id NOT BETWEEN 110904809 AND 110905092 -- removed .ir drive data bgeigie_import_id=28231
-    AND user_id NOT IN (345,902,1032,1225,106)--347
+    AND user_id NOT IN (345,902,1032,1225)--347
     AND captured_at > TIMESTAMP '2011-03-01 00:00:00'
     AND captured_at < localtimestamp + interval '48 hours'
     AND captured_at IS NOT NULL
@@ -298,6 +299,8 @@ WHERE (SELECT MAX(id) FROM measurements) > COALESCE((SELECT MAX(LastMaxID) FROM 
          OR ST_Y(location::geometry) < -1.0)
     AND ST_Y(location::geometry) BETWEEN  -85.05 AND  85.05
     AND ST_X(location::geometry) BETWEEN -180.00 AND 180.00
+    AND (   user_id != 106
+         OR captured_at > TIMESTAMP '2016-04-01 00:00:00')              -- filter old direct API submissions
     AND (   user_id NOT IN (9,442)                                      -- filter, specific to area and measurement value
          OR value        < 35.0                                         -- 0.10 uSv/h
          OR ST_Y(location::geometry) NOT BETWEEN  35.4489 AND  35.7278  -- not in tokyo extent
