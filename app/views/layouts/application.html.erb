@@ -51,6 +51,9 @@
               </li>
               <li <%= raw('class="active"') if controller_name == 'RadiationIndexController' %>>
                 <%= link_to t('.radiation_index'), :radiation_index %>
+              <li <%= raw('class="active"') if controller_name == 'ingest' %>>
+                <%= link_to t('.ingest_export'), :ingest %>
+              </li>
             </ul>
             <%= render 'stuck_drives' if current_user.try!(:moderator?) %>
           </div>

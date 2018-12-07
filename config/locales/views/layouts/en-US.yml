@@ -13,6 +13,7 @@ en-US:
       edit_profile: Edit Profile
       dashboard: Dashboard
       api_home: API Home
+      ingest_export: Ingest Export
       change_password: Change Password
     summarize_results:
       results: results

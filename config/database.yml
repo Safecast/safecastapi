@@ -21,7 +21,7 @@ development:
   pool: 5
   username: safecast
   su_username: safecast
-  password: 
+  password: safecast
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -50,7 +50,7 @@ test:
   pool: 5
   username: safecast
   su_username: safecast
-  password: 
+  password: safecast
   min_messages: warning
 
 production: &production
@@ -61,7 +61,7 @@ production: &production
   database: safecast
   pool: 5
   username: safecast
-  password:
+  password: safecast
   su_username: safecast
   su_password: <%= ENV['POSTGRESQL_PASSWORD'] %>
 
