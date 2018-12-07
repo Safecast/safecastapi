@@ -65,7 +65,7 @@
   <lable>Location: </lable>  <%= locations[params[:area]] ||= '-'%></h2></br>
 </h2>
 
-<%- if @data.empty? -%>
+<%- if @data.nil? || @data.empty? -%>
   No data
 <%- else -%>
   <ul class="inline pull-right">

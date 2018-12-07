@@ -4,7 +4,7 @@ class IngestController < ApplicationController
     @uploaded_after = params[:uploaded_after]
     @uploaded_before = params[:uploaded_before]
     @area = params[:area]
-    ingest_data
+    ingest_data if @area
     respond_to do |format|
       format.html
       format.csv { generate_csv }
