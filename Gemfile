@@ -7,7 +7,7 @@ gem 'devise-i18n'
 gem 'devise-token_authenticatable'
 gem 'cancan'
 
-gem 'rails', '4.2.10'
+gem 'rails', '4.2.11'
 # noinspection RailsParamDefResolve
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # noinspection RailsParamDefResolve
