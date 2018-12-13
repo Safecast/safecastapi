@@ -69,6 +69,7 @@
       <%= table_sort_header(:bgeigie_import, :measurements_count) %>
       <%= table_sort_header(:bgeigie_import, :status) %>
       <%= table_sort_header(:bgeigie_import, :rejected_by) %>
+      <%= table_sort_header(:bgeigie_import, :approved_by) %>
     </thead>
     <tbody>
       <%- @bgeigie_imports.each do |bgeigie_import| -%>
@@ -115,6 +116,9 @@
           </td>
           <td>
             <%= bgeigie_import.rejected_by %>
+          </td>
+          <td>
+            <%=bgeigie_import.approved_by %>
           </td>
         </tr>
       <%- end -%>

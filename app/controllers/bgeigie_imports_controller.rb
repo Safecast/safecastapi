@@ -32,7 +32,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
 
   def approve
     @bgeigie_import = BgeigieImport.find(params[:id])
-    @bgeigie_import.approve!
+    @bgeigie_import.approve!(current_user.name)
     redirect_to @bgeigie_import
   end
 
