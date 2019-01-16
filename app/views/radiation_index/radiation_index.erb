@@ -1,0 +1,24 @@
+<h2>Radiation Index</h2>
+<p>The Radiation Index displays the average radiation at the capital of the G20 states.
+  Due to a lack of data in some countries, the data from a different city is used instead of the capital.</p>
+<table class="table">
+  <thead>
+  <th>Rank</th>
+  <th>City</th>
+  <th>Index (CPM)</th>
+  </thead>
+  <tbody>
+  <% @sort_data.each_with_index do |(key,value),index| %>
+    <tr>
+      <td><%= index + 1%></td>
+      <td><%= key %></td>
+      <% unless value == 0 %>
+        <td><%= value %></td>
+      <% else %>
+        <td>Not enough Data!</td>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<p style="float:right">Last Updated: <%= File.mtime('c:/test/g20.csv').strftime("%F %T") %></p>

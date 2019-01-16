@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+def calculate_median(array)
+  sorted_array = array.sort
+  len = sorted_array.length
+  (sorted_array[(len - 1) / 2].to_i + sorted_array[len / 2].to_i) / 2.0
+end
+
+def city_names_array
+  ['Beijing', 'Berlin', 'Brussels', 'Buenos Aires', 'Canberra', 'Cape Town',
+   'Istanbul', 'Jakarta', 'London', 'Mexico City', 'Moskau', 'New Delhi',
+   'Ottawa', 'Paris', 'Riyadh', 'Rome', 'Sao Paulo', 'Seoul', 'Tokyo', 'Washington']
+end
+
+def create_g20_csv(median_arr)
+  CSV.open('/mnt/c/test/g20.csv', 'w',
+           write_headers: true,
+           headers: city_names_array) do |csv|
+    csv << median_arr
+  end
+end
+
+def read_all_csv
+  data_arr = []
+  median_arr = []
+  city_names_array.each do |name|
+    path = "/mnt/c/test/#{name.downcase.tr(' ', '_')}_export.csv"
+    data_arr << CSV.read(path).flatten
+  end
+  data_arr.each do |data|
+    median_arr << calculate_median(data)
+  end
+  create_g20_csv(median_arr)
+end
+
+require 'csv'
+read_all_csv
