@@ -26,7 +26,7 @@
 \copy (Select value from measurements WHERE ST_DWithin(location, ST_Point(-99.145556, 19.419444)::geography, 8000)) to '/tmp/mexico_city_export.csv' csv
 --Moskau
 \copy (Select value from measurements WHERE ST_DWithin(location, ST_Point(37.616667, 55.75)::geography, 8000)) to '/tmp/moskau_export.csv' csv
---Kapstadt
+--Capetown
 \copy (Select value from measurements WHERE ST_DWithin(location, ST_Point(18.416689, -33.922667)::geography, 8000)) to '/tmp/cape_town_export.csv' csv
 --Riyadh
 \copy (Select value from measurements WHERE ST_DWithin(location, ST_Point(46.71, 24.65)::geography, 5000)) to '/tmp/riyadh_export.csv' csv
