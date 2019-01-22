@@ -1,10 +1,9 @@
 #!/bin/sh
-# Maybe will not be used
-# echo "Berlin,Paris,London,Rome,Tokyo,Ottawa,Washington D.C.,Buenos Aires,Canberra,Sao Paulo,Beijing,New Delhi,Jakarta,Mexico City,Moskau,Cape Town,Riyadh,Seoul,Istanbul,Brussels" | cat - /mnt/c/test/merged.csv*  > /mnt/c/test/g20.csv
-# paste -d "," /mnt/c/test/berlin_export.csv /mnt/c/test/paris_export.csv /mnt/c/test/london_export.csv /mnt/c/test/rome_export.csv /mnt/c/test/tokyo_export.csv /mnt/c/test/ottawa_export.csv /mnt/c/test/washington_export.csv /mnt/c/test/buenos_aires_export.csv /mnt/c/test/canberra_export.csv /mnt/c/test/sao_paulo_export.csv /mnt/c/test/beijing_export.csv /mnt/c/test/new_delhi_export.csv /mnt/c/test/jakarta_export.csv /mnt/c/test/mexico_city_export.csv /mnt/c/test/moskau_export.csv /mnt/c/test/cape_town_export.csv /mnt/c/test/riyadh_export.csv /mnt/c/test/seoul_export.csv /mnt/c/test/istanbul_export.csv /mnt/c/test/brussels_export.csv > /mnt/c/test/merged.csv
+# Add a new City:
+# 1. Add the city name to the city_names_array at line 13 of the calculate_radiation_index file
+# 2. Add a query with the coordinates to the radiation_index_export.sql file. The file must be named [cityname]_export.csv
 
-# psql -U safecast --host $POSTGRESQL_ADDRESS safecast -f /var/deploy/api.safecast.org/web_head/current/script/radiation_index_export.sql
-
-ruby /mnt/c/safecast/script/calculate_radiation_index
-# mv /tmp/g20.csv /var/deploy/api.safecast.org/web_head/shared/system
-# rsync -Havq --bwlimit 10000 /var/deploy/api.safecast.org/web_head/shared/system/g20.* reindeer.api.safecast.org.c66.me:/var/deploy/api.safecast.org/web_head/shared/system/
+psql -U safecast --host $POSTGRESQL_ADDRESS safecast -f /var/deploy/api.safecast.org/web_head/current/script/radiation_index_export.sql
+ruby /var/deploy/api.safecast.org/web_head/current/script/calculate_radiation_index
+sudo mv /tmp/g20.csv /var/deploy/api.safecast.org/web_head/shared/system
+rsync -Havq --bwlimit 10000 /var/deploy/api.safecast.org/web_head/shared/system/g20.* reindeer.api.safecast.org.c66.me:/var/deploy/api.safecast.org/web_head/shared/system/

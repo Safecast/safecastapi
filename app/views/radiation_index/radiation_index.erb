@@ -1,6 +1,16 @@
 <h2>Radiation Index</h2>
-<p>The Radiation Index displays the average radiation at the capital of the G20 states.
-  Due to a lack of data in some countries, the data from a different city is used instead of the capital.</p>
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <ul class="nav">
+      <%= rindex_nav_li(:average) %>
+      <%= rindex_nav_li(:minimum) %>
+      <%= rindex_nav_li(:maximum) %>
+    </ul>
+  </div>
+</div>
+<p style="float:right">Last Updated: <%= File.mtime('/var/deploy/api.safecast.org/web_head/shared/system/g20.csv').strftime("%F %T") %></p>
+
 <table class="table">
   <thead>
   <th>Rank</th>
@@ -12,7 +22,7 @@
     <tr>
       <td><%= index + 1%></td>
       <td><%= key %></td>
-      <% unless value == 0 %>
+      <% unless value == -1 %>
         <td><%= value %></td>
       <% else %>
         <td>Not enough Data!</td>
@@ -21,4 +31,3 @@
   <% end %>
   </tbody>
 </table>
-<p style="float:right">Last Updated: <%= File.mtime('c:/test/g20.csv').strftime("%F %T") %></p>

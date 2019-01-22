@@ -1,35 +1,46 @@
 #!/usr/bin/env ruby
+
+MEDIAN = 0
+MINIMUM = 1
+MAXIMUM = 2
+
 def calculate_median(array)
   sorted_array = array.sort
   len = sorted_array.length
-  (sorted_array[(len - 1) / 2].to_i + sorted_array[len / 2].to_i) / 2.0
+  (sorted_array[(len - 1) / 2].to_f + sorted_array[len / 2].to_f) / 2.0 unless len.zero?
 end
 
 def city_names_array
-  ['Beijing', 'Berlin', 'Brussels', 'Buenos Aires', 'Canberra', 'Cape Town',
-   'Istanbul', 'Jakarta', 'London', 'Mexico City', 'Moskau', 'New Delhi',
-   'Ottawa', 'Paris', 'Riyadh', 'Rome', 'Sao Paulo', 'Seoul', 'Tokyo', 'Washington']
+  ['Beijing', 'Berlin', 'Brussels', 'Canberra', 'Cape Town',
+   'Jakarta', 'London', 'Mexico City', 'Moskau', 'New Delhi',
+   'Ottawa', 'Paris', 'Riyadh', 'Rome', 'Buenos Aires', 'Seoul', 'Tokyo', 'Washington',
+   'Ankara', 'Brasilia']
 end
 
-def create_g20_csv(median_arr)
-  CSV.open('/mnt/c/test/g20.csv', 'w',
+def create_g20_csv(data)
+  CSV.open('/tmp/g20.csv', 'w',
            write_headers: true,
            headers: city_names_array) do |csv|
-    csv << median_arr
+    csv << data[MEDIAN]
+    csv << data[MINIMUM]
+    csv << data[MAXIMUM]
   end
+end
+
+def calculate_data(city_values, data)
+  data[MEDIAN] << calculate_median(city_values)
+  data[MINIMUM] << city_values.min_by(&:to_i)
+  data[MAXIMUM] << city_values.max_by(&:to_i)
 end
 
 def read_all_csv
-  data_arr = []
-  median_arr = []
+  data = Array.new(3) { [] }
   city_names_array.each do |name|
-    path = "/mnt/c/test/#{name.downcase.tr(' ', '_')}_export.csv"
-    data_arr << CSV.read(path).flatten
+    path = "/tmp/#{name.downcase.tr(' ', '_')}_export.csv"
+    city_values = CSV.read(path).flatten
+    calculate_data(city_values, data)
   end
-  data_arr.each do |data|
-    median_arr << calculate_median(data)
-  end
-  create_g20_csv(median_arr)
+  create_g20_csv(data)
 end
 
 require 'csv'
