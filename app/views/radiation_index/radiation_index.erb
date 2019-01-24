@@ -1,0 +1,33 @@
+<h2>Radiation Index</h2>
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <ul class="nav">
+      <%= rindex_nav_li(:average) %>
+      <%= rindex_nav_li(:minimum) %>
+      <%= rindex_nav_li(:maximum) %>
+    </ul>
+  </div>
+</div>
+<p style="float:right">Last Updated: <%= File.mtime('/var/deploy/api.safecast.org/web_head/shared/system/g20.csv').strftime("%F %T") %></p>
+
+<table class="table">
+  <thead>
+  <th>Rank</th>
+  <th>City</th>
+  <th>Index (CPM)</th>
+  </thead>
+  <tbody>
+  <% @sort_data.each_with_index do |(key,value),index| %>
+    <tr>
+      <td><%= index + 1%></td>
+      <td><%= key %></td>
+      <% unless value == -1 %>
+        <td><%= value %></td>
+      <% else %>
+        <td>Not enough Data!</td>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

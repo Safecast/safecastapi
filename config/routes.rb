@@ -2,6 +2,7 @@ Safecast::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   scope '(:locale)', constraints: { locale: /(en-US|ja)/ } do
+    get '/radiation_index' => 'radiation_index#radiation_index'
     root to: 'dashboards#show'
     devise_for :users
     devise_for :admins
