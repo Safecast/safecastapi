@@ -9,3 +9,5 @@ psql -U safecast --host $POSTGRESQL_ADDRESS safecast -f /var/deploy/api.safecast
 echo "ID,User ID,Captured Time,Latitude,Longitude,Value,Unit,Device ID" | cat - /tmp/imbrogno_export.csv > /var/deploy/api.safecast.org/web_head/shared/system/imbro_out.csv
 cd /var/deploy/api.safecast.org/web_head/shared/system/ && tar -czf imbro_out.tar.gz imbro_out.csv
 mv imbro_out.tar.gz imbrogno_export.tar.gz && mv imbro_out.csv imbrogno_export.csv
+
+rsync -Havq --bwlimit 10000 /var/deploy/api.safecast.org/web_head/shared/system/imbrogno_export.* reindeer.api.safecast.org.c66.me:/var/deploy/api.safecast.org/web_head/shared/system/
