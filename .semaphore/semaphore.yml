@@ -14,7 +14,7 @@ blocks:
           - checkout
           - docker-compose up -d elasticsearch postgresql
           - rbenv install -s $(cat .ruby-version)
-          - gem install bundler
+          - gem install bundler -v 1.17.3
           - bundle install -j 2 --deployment --path vendor/bundle
           - rm -f config/database.yml
           - cp config/database.yml.docker config/database.yml
