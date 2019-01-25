@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RadiationIndexHelper
   def rindex_nav_li(index) # rubocop:disable Metrics/AbcSize
     active = if params[:index].blank?

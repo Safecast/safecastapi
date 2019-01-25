@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RadiationIndexController < ApplicationController
   def radiation_index
     index = 0
