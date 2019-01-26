@@ -15,16 +15,16 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
   has_scope :q do |_controller, scope, value|
     scope.filter(value)
   end
+
+  STATUS_CONDITIONS = {
+    'approved' => { approved: true },
+    'rejected' => { rejected: true },
+    'not_moderated' => { approved: false, rejected: false }
+  }.freeze
+
   has_scope :status do |_controller, scope, value|
-    if value.to_sym == :approved
-      scope.where(approved: true)
-    elsif value.to_sym == :rejected
-      scope.where(rejected: true)
-    elsif value.to_sym == :not_moderated
-      scope.where(approved: false, rejected: false)
-    else
-      scope
-    end
+    condition = STATUS_CONDITIONS[value]
+    condition.present? ? scope.where(condition) : scope
   end
   has_scope :subtype do |_controller, scope, value|
     scope.by_subtype(value.split(',').map(&:strip).reject(&:blank?))
