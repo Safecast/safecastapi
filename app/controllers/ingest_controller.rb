@@ -15,7 +15,7 @@ class IngestController < ApplicationController
 
   def ingest_data
     @data = []
-    dates = IngestMeasurement.data_for(device_urn: device_ids).select do |data|
+    dates = IngestMeasurement.data_for(terms: { device_urn: device_ids }).select do |data|
       data[@field] && data[:when_captured] >= @uploaded_after && data[:when_captured] <= @uploaded_before
     end
     dates.map { |data| @data << { when_captured: data[:when_captured], value: data[@field], device: data[:device] } }
