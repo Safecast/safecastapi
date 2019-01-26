@@ -4,7 +4,7 @@ class IngestController < ApplicationController
     @uploaded_after = params[:uploaded_after]
     @uploaded_before = params[:uploaded_before]
     @area = params[:area]
-    ingest_data if @area
+    @data = @area.present? ? ingest_data(@field, @uploaded_before, @uploaded_after) : []
     respond_to do |format|
       format.html
       format.csv { generate_csv }
@@ -13,12 +13,10 @@ class IngestController < ApplicationController
 
   private
 
-  def ingest_data
-    @data = []
-    dates = IngestMeasurement.data_for(terms: { device_urn: device_ids }).select do |data|
-      data[@field] && data[:when_captured] >= @uploaded_after && data[:when_captured] <= @uploaded_before
-    end
-    dates.map { |data| @data << { when_captured: data[:when_captured], value: data[@field], device: data[:device] } }
+  def ingest_data(field, before, after)
+    IngestMeasurement.data_for(terms: { device_urn: device_ids }).select do |data|
+      data[field] && data[:when_captured] >= after && data[:when_captured] <= before
+    end.map { |data| { when_captured: data[:when_captured], value: data[field], device: data[:device] } }
   end
 
   def device_ids
