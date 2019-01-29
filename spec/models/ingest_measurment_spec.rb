@@ -17,8 +17,29 @@ RSpec.describe IngestMeasurement, type: :model do
     after { delete_ingest_measurements_indicies(described_class.__elasticsearch__.client) }
 
     it 'should fetch data' do
-      data = described_class.data_for(device_urn: ['safecast:374304606', 'safecast:474304605'])
-      expect(data).to contain_exactly(have_attributes(device: '374304606'), have_attributes(device: '474304605'))
+      query = {
+        terms: {
+          device_urn: ['safecast:374304606', 'safecast:474304605']
+        }
+      }
+      data = described_class.data_for(query)
+      expect(data)
+        .to contain_exactly(
+          have_attributes(device: '374304606'),
+          have_attributes(device: '474304605')
+        )
+
+      query = {
+        bool: {
+          must: [
+            terms: { device_urn: ['safecast:374304606', 'safecast:474304605'] }
+          ],
+          filter: { match: { device_urn: 'safecast:474304605' } }
+        }
+      }
+      data = described_class.data_for(query)
+      expect(data)
+        .to contain_exactly(have_attributes(device: '474304605'))
     end
   end
 end

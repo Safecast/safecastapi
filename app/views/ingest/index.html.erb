@@ -1,0 +1,107 @@
+<%= content_for(:title) { 'Ingest Export' } %>
+<%-
+  locations = {
+      'central_japan' => 'Central Japan',
+      'fukushima' => 'Fukushima',
+      'washington' => 'Washington',
+      'southern_california' => 'Southern California',
+      'boston' => 'Boston',
+      'san_jose' => 'San Jose'
+  }
+  fields = {
+      'opc_pm01_0' => 'OPC PM 1.0',
+      'opc_pm02_5' => 'OPC PM 2.5',
+      'opc_pm10_0' => 'OPC PM 10.0',
+      'pms_pm01_0' => 'PM 1.0',
+      'pms_pm02_5' => 'PM 2.5',
+      'pms_pm10_0' => 'PM 10.0'
+  }
+-%>
+<h2><%= t('.ingest_export') %></h2>
+
+<form method="get" class="well">
+  <table>
+    <tr>
+      <td>
+        <lable>Field: </lable>
+      </td>
+      <td>
+        <select name="field">
+          <%- fields.each do |value, lable| -%>
+            <option value = "<%= value %>"><%= lable %></option>
+          <%- end -%>
+        </select>
+      </td>
+      <td>
+        Area:
+      </td>
+      <td>
+        <select name ="area">
+        <%- locations.each do |value, lable| -%>
+          <option value = "<%= value %>"><%= lable %></option>
+        <%- end -%>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <lable>Uploaded after: </lable>
+      </td>
+      <td>
+        <input type="datetime-local" name="uploaded_after" value="2018-01-01T00:00">
+      </td>
+      <td>
+        <lable>Uploaded before: </lable>
+      </td>
+      <td>
+        <input type="datetime-local" name="uploaded_before" value="2018-12-31T00:00">
+      </td>
+    </tr>
+  </table>
+  <input type="submit" value="Search" class = "btn">
+</form>
+
+<h2>
+  <lable>Data for: <%= params[:uploaded_after] %> - <%= params[:uploaded_before] %> </lable></br>
+  <lable>Field: </lable> <%= fields[params[:field]] ||= '-' %></br>
+  <lable>Location: </lable>  <%= locations[params[:area]] ||= '-'%></h2></br>
+</h2>
+
+<%- if @data.nil? || @data.empty? -%>
+  No data
+<%- else -%>
+  <ul class="inline pull-right">
+    <%=link_to( 'CSV Export', params.merge(:format => 'csv'), :class => 'btn') %>
+  </ul>
+
+  <table  class="table">
+    <thead>
+      <tr>
+        <th>
+          <%= t('.created_at') %>
+        </th>
+        <th>
+          <%= t('.value_(μg/m^3)') %>
+        </th>
+        <th>
+          <%= t('.device_id') %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <%- @data.each do |hash|-%>
+        <tr>
+          <td>
+            <%= hash[:when_captured] %>
+          </td>
+          <td>
+            <%= hash[:value] %>
+          </td>
+          <td>
+            <%= hash[:device] %>
+          </td>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
+<%- end -%>
