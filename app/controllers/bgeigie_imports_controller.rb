@@ -7,20 +7,24 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
   has_scope :by_status
   has_scope :by_user_id
   has_scope :by_rejected
+  has_scope :by_user_name
   has_scope :order
   has_scope :uploaded_after
   has_scope :uploaded_before
+  has_scope :rejected_by
   has_scope :q do |_controller, scope, value|
     scope.filter(value)
   end
-  has_scope :approved do |_controller, scope, value|
-    if value == 'yes'
-      scope.where(approved: true)
-    elsif value == 'no'
-      scope.where(approved: false)
-    else
-      scope
-    end
+
+  STATUS_CONDITIONS = {
+    'approved' => { approved: true },
+    'rejected' => { rejected: true },
+    'not_moderated' => { approved: false, rejected: false }
+  }.freeze
+
+  has_scope :status do |_controller, scope, value|
+    condition = STATUS_CONDITIONS[value]
+    condition.present? ? scope.where(condition) : scope
   end
   has_scope :subtype do |_controller, scope, value|
     scope.by_subtype(value.split(',').map(&:strip).reject(&:blank?))

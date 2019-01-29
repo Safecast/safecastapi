@@ -28,6 +28,14 @@ module ApplicationHelper
     }
   end
 
+  def dropdown_field(model_name, attr_name, values)
+    render partial: 'application/drop_down_field', locals: {
+      model_name: model_name,
+      attr_name: attr_name,
+      values: values
+    }
+  end
+
   def filter_field(model_name, attr_name, options = {})
     render partial: 'layouts/filter_field', locals: {
       model_name: model_name,

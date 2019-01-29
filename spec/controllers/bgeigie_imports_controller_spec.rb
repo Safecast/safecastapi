@@ -3,8 +3,9 @@ RSpec.describe BgeigieImportsController, type: :controller do
   let(:administrator) { Fabricate(:admin_user) }
 
   describe 'GET #index', format: :json do
+    let(:args) { { cities: 'Tokyo', credits: 'John Doe' } }
+
     before do
-      args = { cities: 'Tokyo', credits: 'John Doe' }
       %w(None Drive Surface Cosmic).each do |type|
         Fabricate(:bgeigie_import, args.merge(subtype: type))
       end
@@ -39,6 +40,52 @@ RSpec.describe BgeigieImportsController, type: :controller do
 
       it 'should filter by subtype' do
         expect(bgeigie_imports.size).to eq(2)
+      end
+    end
+
+    context 'status scope' do
+      before do
+        [
+          { approved: true, approved_by: 'approver' },
+          { rejected: true, rejected_by: 'rejector' }
+        ].each do |opts|
+          Fabricate(:bgeigie_import, args.merge(opts))
+        end
+
+        get :index, status: status
+      end
+
+      context 'approved' do
+        let(:status) { 'approved' }
+
+        it 'should list only approved imports' do
+          expect(subject).to be_all(&:approved)
+        end
+      end
+
+      context 'rejected' do
+        let(:status) { 'rejected' }
+
+        it 'should list only rejected imports' do
+          expect(subject).to be_all(&:rejected)
+        end
+      end
+
+      context 'not_moderated' do
+        let(:status) { 'not_moderated' }
+
+        it 'should list only imports that have not been moderated' do
+          expect(subject).to be_none(&:approved)
+            .and be_none(&:rejected)
+        end
+      end
+
+      context 'invalid' do
+        let(:status) { 'invalid' }
+
+        it 'should list all imports' do
+          expect(subject.size).to eq(6)
+        end
       end
     end
   end
