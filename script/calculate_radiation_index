@@ -4,10 +4,23 @@ MEDIAN = 0
 MINIMUM = 1
 MAXIMUM = 2
 
-def calculate_median(array)
-  sorted_array = array.sort
-  len = sorted_array.length
+def calculate_median(sorted_array, len)
   (sorted_array[(len - 1) / 2].to_f + sorted_array[len / 2].to_f) / 2.0 unless len.zero?
+end
+
+def calculate_first_quartile(sorted_array, len)
+  (sorted_array[(len - 1) / 4].to_f + sorted_array[len / 4].to_f) / 2.0
+end
+
+def calculate_third_quartile(sorted_array, len)
+  (sorted_array[len - ((len - 1) / 4)].to_f + sorted_array[len - (len / 4)].to_f) / 2.0
+end
+
+def whiskers(array)
+  third = calculate_third_quartile(array, array.length)
+  first = calculate_first_quartile(array, array.length)
+  iqr = (third - first) * 1.5
+  array.reject! { |item| item.to_f > (third + iqr) || item.to_f < (first - iqr) }
 end
 
 def city_names_array
@@ -28,7 +41,8 @@ def create_g20_csv(data)
 end
 
 def calculate_data(city_values, data)
-  data[MEDIAN] << calculate_median(city_values)
+  data[MEDIAN] << calculate_median(city_values, city_values.length)
+  whiskers(city_values)
   data[MINIMUM] << city_values.min_by(&:to_i)
   data[MAXIMUM] << city_values.max_by(&:to_i)
 end
@@ -37,7 +51,7 @@ def read_all_csv
   data = Array.new(3) { [] }
   city_names_array.each do |name|
     path = "/tmp/#{name.downcase.tr(' ', '_')}_export.csv"
-    city_values = CSV.read(path).flatten
+    city_values = CSV.read(path).flatten.sort
     calculate_data(city_values, data)
   end
   create_g20_csv(data)
