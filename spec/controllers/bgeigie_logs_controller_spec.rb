@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe BgeigieLogsController, type: :controller do
   let!(:bgeigie_import) { Fabricate(:bgeigie_import) }
 

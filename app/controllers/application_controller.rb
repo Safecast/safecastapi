@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
@@ -49,7 +51,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_moderator
-    return if current_user && current_user.moderator?
+    return if current_user&.moderator?
     redirect_to root_path, alert: 'access_denied'
   end
 

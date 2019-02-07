@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Helpers
   def sign_up(email = 'paul@rslw.com', name = 'Paul Campbell', password = 'mynewpassword')
     visit('/users/sign_up')

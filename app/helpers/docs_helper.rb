@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DocsHelper
   def api_example_urls(url_method, *args)
     json_args = args.collect { |h| (h.is_a?(Hash) ? h.merge(format: :json, locale: nil) : h) }

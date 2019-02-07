@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FinalizeBgeigieImportJob = Struct.new(:bgeigie_import_id) do
   def perform
     BgeigieImport.find(bgeigie_import_id).finalize!

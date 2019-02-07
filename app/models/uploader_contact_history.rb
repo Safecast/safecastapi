@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UploaderContactHistory < ActiveRecord::Base
   belongs_to :administrator, class_name: 'User'
   belongs_to :bgeigie_import

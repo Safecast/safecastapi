@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BgeigieImportsController < ApplicationController # rubocop:disable Metrics/ClassLength
   respond_to :html, :json
 

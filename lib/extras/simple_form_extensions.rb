@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WrappedButton
   def wrapped_button(*args, &block) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     template.content_tag :div, class: 'form-actions' do

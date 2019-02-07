@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module UserConcerns
   def first_name
-    name.split(' ', 2).first if name
+    name&.split(' ', 2)&.first
   end
 
   def last_name
-    name.split(' ', 2).last if name
+    name&.split(' ', 2)&.last
   end
 end

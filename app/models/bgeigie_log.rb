@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BgeigieLog < ActiveRecord::Base
   include MeasurementConcerns
   #

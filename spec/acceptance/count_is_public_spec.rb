@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # TODO: move to controller spec
 feature 'Publicly viewable measurement count', type: :feature do
   before do

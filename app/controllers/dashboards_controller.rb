@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DashboardsController < ApplicationController
   def show
     return render 'home/show' unless user_signed_in?

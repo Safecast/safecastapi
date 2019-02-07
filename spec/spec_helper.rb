@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Send test-coverage to code climate
 if ENV['CODECLIMATE_REPO_TOKEN']
   require 'codeclimate-test-reporter'

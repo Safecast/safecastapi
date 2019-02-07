@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 feature '/devices API endpoint', type: :request do
   before do
     @user = Fabricate(:user, email: 'paul@rslw.com', name: 'Paul Campbell')

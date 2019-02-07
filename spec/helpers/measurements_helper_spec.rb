@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe MeasurementsHelper, type: :helper do
   describe '#measurement_nav_li' do
     before do

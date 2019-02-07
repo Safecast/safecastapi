@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 feature '/api/users API endpoint', type: :request do
   before(:all) { User.destroy_all }
   before do

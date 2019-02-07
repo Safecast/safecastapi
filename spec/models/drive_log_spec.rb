@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe DriveLog, type: :model do
   let(:drive_log) { described_class.create }
 

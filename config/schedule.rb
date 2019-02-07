@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 env :PATH, ENV['PATH']
 
 every 45.minutes, roles: [:app] do

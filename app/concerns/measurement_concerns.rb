@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MeasurementConcerns
   def latitude=(value)
     self.location = "POINT(#{longitude || 0} #{value})"

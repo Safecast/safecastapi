@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Notifications < ActionMailer::Base
   default from: 'mailer@safecast.org'
   default_url_options[:locale] = 'en-US'
 
-  APPROVERS_LIST = 'approvers@safecast.org'.freeze
+  APPROVERS_LIST = 'approvers@safecast.org'
 
   def import_approved(import)
     @import = import

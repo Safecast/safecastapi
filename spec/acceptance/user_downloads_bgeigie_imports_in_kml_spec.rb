@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 feature 'Downloading bGeigie imports in KML format', type: :feature do
   let(:bgeigie_import) do
     Fabricate(:bgeigie_import, status: 'done')

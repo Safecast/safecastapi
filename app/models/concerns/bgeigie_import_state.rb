@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BgeigieImportState
   def metadata_added?
     credits.present? && cities.present?

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MeasurementsHelper
   def default_cities_as_string
     current_user.bgeigie_imports.last.try(:cities_as_string)

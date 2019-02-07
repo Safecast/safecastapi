@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe BgeigieImport, type: :model do
   let(:user) { Fabricate(:user) }
 
