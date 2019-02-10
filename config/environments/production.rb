@@ -65,7 +65,7 @@ Safecast::Application.configure do
   config.action_mailer.delivery_method = :ses
 
   config.action_mailer.default_url_options = {
-    host: 'api.safecast.org',
+    host: ENV['DEFAULT_HOSTNAME'] || 'api.safecast.org',
     protocol: 'https'
   }
 
