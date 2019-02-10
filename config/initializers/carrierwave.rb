@@ -1,50 +1,34 @@
 # frozen_string_literal: true
 
 CarrierWave.configure do |config|
-  case Rails.env
-  when 'test'
-    config.storage = :file
-    config.enable_processing = false
-  when 'development'
-    if ENV['S3_BUCKET']
-      config.fog_provider = 'fog/aws'
-      config.fog_credentials = {
-        provider: 'AWS',
-        aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-        aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-        region: 'ap-northeast-1'
-      }
-      config.fog_directory = ENV['S3_BUCKET']
-      config.fog_public = true
-      config.storage = :fog
-    else
-      config.storage = :file
-    end
-  when 'staging'
+  # noinspection RubyResolve
+  if ENV.key? 'S3_BUCKET'
     config.fog_provider = 'fog/aws'
-    config.fog_credentials = {
-      provider: 'AWS',
-      aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-      aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-      region: 'us-east-1'
-    }
     config.fog_directory = ENV['S3_BUCKET']
     config.fog_public = true
-    config.fog_attributes = { 'Cache-Control' => 'max-age=315576000' }
-    config.storage = :fog
-  when 'production'
-    config.fog_provider = 'fog/aws'
-    config.fog_credentials = {
-      provider: 'AWS',
-      aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-      aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-      region: 'us-west-2'
-    }
-    config.fog_directory = ENV['S3_BUCKET']
-    config.fog_public = true
-    config.fog_attributes = { 'Cache-Control' => 'max-age=315576000' }
+
+    bucket_region = ENV['S3_BUCKET_REGION'] || case Rails.env
+                                               when 'development'
+                                                 'ap-northeast-1'
+                                               when 'staging'
+                                                 'us-east-1'
+                                               else
+                                                 'us-west-2'
+                                               end
+
+    config.fog_credentials = if ENV.key? 'AWS_ACCESS_KEY_ID'
+                               { provider: 'AWS',
+                                 aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+                                 aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+                                 region: bucket_region }
+                             else
+                               { provider: 'AWS',
+                                 use_iam_profile: true,
+                                 region: bucket_region }
+                             end
     config.storage = :fog
   else
-    raise "Unrecognized Rails environment #{Rails.env}"
+    config.storage = :file
+    config.enable_processing = false
   end
 end
