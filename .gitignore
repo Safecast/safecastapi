@@ -16,3 +16,5 @@ zeus.json
 custom_plan.rb
 .localeapp.localeapp
 .env
+
+.elasticbeanstalk/config.yml
