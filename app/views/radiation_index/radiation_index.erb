@@ -9,7 +9,7 @@
     </ul>
   </div>
 </div>
-<p style="float:right">Last Updated: <%= File.mtime('/var/deploy/api.safecast.org/web_head/shared/system/g20.csv').strftime("%F %T") %></p>
+<p style="float:right">Last Updated: <%= File.mtime(@data_path).strftime("%F %T") %></p>
 
 <table class="table">
   <thead>
