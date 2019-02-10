@@ -20,6 +20,7 @@ RSpec.describe ApplicationController, type: :controller do
 
     context 'http access' do
       before do
+        request.host = 'api-specs.safecast.org'
         get :index, format: format, locale: 'en-US'
       end
 
