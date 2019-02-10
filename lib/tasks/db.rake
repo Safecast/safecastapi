@@ -11,6 +11,19 @@ Rake.application.instance_eval do
   end
 end
 
+namespace :rds do
+  namespace :structure do
+    desc 'Pre-processes structure.sql for RDS and loads it in via a straight psql call'
+    task load: [:environment] do
+      rds_schema_file = schema_file.sub_ext('.rds.sql')
+      cp schema_file, rds_schema_file
+      sh "patch #{rds_schema_file} < #{rds_schema_file}.patch"
+      sh "psql -P pager=off -f #{rds_schema_file}"
+      rm rds_schema_file
+    end
+  end
+end
+
 namespace :db do
   namespace :structure do
     task dump: [:environment] do |_t|
