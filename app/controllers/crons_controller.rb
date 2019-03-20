@@ -9,16 +9,20 @@ class CronsController < ApplicationController
   end
 
   def runnable?
-    request.local? && configured_job_names.include?(script_name)
+    request.local? && configured_job_names.include?(taskname)
   end
 
-  def script_name
+  def taskname
     request.headers['X-Aws-Sqsd-Taskname']
   end
 
   def create
     return head(:forbidden) unless runnable?
-    system('./' + script_name, chdir: SCRIPT_PATH)
-    render(plain: "Unable to run #{script_name}", status: 500) unless $CHILD_STATUS.success?
+    system('./' + taskname, chdir: SCRIPT_PATH)
+    if $CHILD_STATUS.success?
+      render json: { status: :ok, taskname: taskname}
+    else
+      render(plain: "Unable to run #{taskname}", status: 500)
+    end
   end
 end
