@@ -14,7 +14,7 @@ export PGPASSWORD="${DATABASE_PASSWORD}"
 cd "$(dirname "$0")"
 SCRIPT_DIR="$(pwd)"
 
-cd "${SHARED_SYSTEM_PATH}"
+cd ../public/system
 
 psql -f "${SCRIPT_DIR}/radiation_index_export.sql"
 ruby "${SCRIPT_DIR}/calculate_radiation_index"
