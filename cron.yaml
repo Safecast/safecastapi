@@ -3,3 +3,6 @@ cron:
   - name: radiation_index_export
     url: /cron
     schedule: "00 01 * * 7"
+  - name: dump_clean
+    url: /cron
+    schedule: "00 02 * * *"
