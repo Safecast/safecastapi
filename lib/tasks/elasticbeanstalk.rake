@@ -1,60 +1,47 @@
 # frozen_string_literal: true
 
+require 'elasticbeanstalk_helper'
+
+elasticbeanstalk_app = 'api'
+elasticbeanstalk_prefix = 'safecastapi'
+
 namespace :elasticbeanstalk do
   desc 'Gets the arn for the platform ARN with the current ruby version'
   task :platform_arn do
-    require 'aws-sdk-elasticbeanstalk'
-    elasticbeanstalk = Aws::ElasticBeanstalk::Client.new
-
-    minor_version = RUBY_VERSION.split('.')[0..1].join('.')
-    platform_arn = elasticbeanstalk.list_platform_versions(filters: [
-      {
-        type: 'PlatformName',
-        operator: 'begins_with',
-        values: ["Puma with Ruby #{minor_version}"]
-      },
-      {
-        type: 'PlatformVersion',
-        operator: '=',
-        values: ['latest']
-      }
-    ]).platform_summary_list.first.platform_arn
-    puts platform_arn
+    puts ElasticBeanstalkHelper.platform_arn
   end
 
   desc 'Creates a new web & worker environment pair for testing'
   task :create do
-    require 'aws-sdk-elasticbeanstalk'
-    elasticbeanstalk = Aws::ElasticBeanstalk::Client.new
+    helper = ElasticBeanstalkHelper.new(elasticbeanstalk_app, elasticbeanstalk_prefix)
 
-    environment_config = ENV['AWS_EB_CFG'] || 'dev'
-    environment_prefix = 'safecastapi-' + environment_config
+    p(*helper.create_command('wrk'))
+    p(*helper.create_command)
+  end
+end
 
-    # Determine next environment serial number
-    environments = elasticbeanstalk.describe_environments(application_name: 'api').environments
-    environment_names = environments.map(&:environment_name)
-    selected_environments = environment_names.select { |n| n =~ /^#{environment_prefix}-/ }
-    previous_environment_number = if selected_environments.empty?
-                                    0
-                                  else
-                                    selected_environments.sort.last.split('-').last.to_i
-                                  end
-    environment_number = format('%03d', previous_environment_number + 0)
+%i(dev prd).each do |environment_config|
+  desc "SSH to #{environment_config}"
+  task "ssh_#{environment_config}" do
+    helper = ElasticBeanstalkHelper.new(elasticbeanstalk_app, elasticbeanstalk_prefix, environment_config)
+    exec(*helper.ssh_command)
+  end
 
-    base_command = %w(eb create)
+  desc "SSH to #{environment_config}-wrk"
+  task "ssh_#{environment_config}_wrk" do
+    helper = ElasticBeanstalkHelper.new(elasticbeanstalk_app, elasticbeanstalk_prefix, environment_config)
+    exec(*helper.ssh_command('wrk'))
+  end
 
-    worker_command = base_command + [
-      '--tier', 'worker',
-      '--cfg', environment_config + '-wrk',
-      [environment_prefix, 'wrk', environment_number].join('-')
-    ]
+  desc "Deploy to #{environment_config}"
+  task "deploy_#{environment_config}" do
+    helper = ElasticBeanstalkHelper.new(elasticbeanstalk_app, elasticbeanstalk_prefix, environment_config)
+    exec(*helper.deploy_command)
+  end
 
-    web_command = base_command + [
-      '--cfg', environment_config,
-      [environment_prefix, environment_number].join('-')
-    ]
-
-    sh(*worker_command)
-    sh(*web_command)
+  desc "Deploy to #{environment_config}-wrk"
+  task "deploy_#{environment_config}_wrk" do
+    helper = ElasticBeanstalkHelper.new(elasticbeanstalk_app, elasticbeanstalk_prefix, environment_config)
+    exec(*helper.deploy_command('wrk'))
   end
 end
