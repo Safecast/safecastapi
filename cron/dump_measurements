@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -euxo pipefail
+
+source cron_env.sh
+
+cd ../public/system
+
+psql -f "${CRON_DIR}/dump_measurements.sql"
+
+tar -czf measurements.tar.gz measurements-out.csv
+mv measurements-out.csv measurements.csv
+
+#
+# Now this is available as https://api.safecast.org/system/measurements.tar.gz
+#
