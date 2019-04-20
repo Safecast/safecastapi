@@ -24,7 +24,7 @@ create temp view dump_clean as
     user_id as "User ID",
     captured_at as "Captured Time",
     ST_Y(location::geometry) as "Latitude",
-    ST_X(location::geometry) "Longitude",
+    ST_X(location::geometry) as "Longitude",
     value as "Value",
     unit as "Unit",
     device_id as "Device ID"
