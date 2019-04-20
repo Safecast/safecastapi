@@ -6,3 +6,5 @@
 *.iml
 public/uploads/
 public/system/
+tmp/
+log/
