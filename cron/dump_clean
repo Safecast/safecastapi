@@ -12,7 +12,7 @@
 # The ORDER BY clause was removed for performance.
 #
 
-set -euxo pipefail
+set -euo pipefail
 
 source cron_env.sh
 
