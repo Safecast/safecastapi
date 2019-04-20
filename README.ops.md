@@ -28,8 +28,6 @@ The environment name will be numeric based on existing environments of the same 
 
 If you're working against an empty DB, you can run `rds:structure:load` to load a patched version of our `structure.sql` that's RDS-compatible.
 
-Please be sure you _don't_ do this against a production database as it will **DELETE** existing data.  
-
 If you need to run any rails commands to debug anything you can do this:
 
 ```
