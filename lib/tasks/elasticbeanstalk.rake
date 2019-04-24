@@ -11,8 +11,8 @@ namespace :elasticbeanstalk do
 
   desc 'Creates a new web & worker environment pair for testing'
   task :create do
-    exec(*elasticbeanstalk_helper.create_command('wrk'))
-    exec(*elasticbeanstalk_helper.create_command)
+    sh(*elasticbeanstalk_helper.create_command('wrk'))
+    sh(*elasticbeanstalk_helper.create_command)
   end
 end
 
@@ -29,11 +29,11 @@ end
 
   desc "Deploy to #{environment_config}"
   task "deploy_#{environment_config}" do
-    exec(*elasticbeanstalk_helper.deploy_command)
+    sh(*elasticbeanstalk_helper.deploy_command)
   end
 
   desc "Deploy to #{environment_config}-wrk"
   task "deploy_#{environment_config}_wrk" do
-    exec(*elasticbeanstalk_helper.deploy_command('wrk'))
+    sh(*elasticbeanstalk_helper.deploy_command('wrk'))
   end
 end
