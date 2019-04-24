@@ -3,9 +3,18 @@
 require 'aws-sdk-elasticbeanstalk'
 
 class ElasticBeanstalkHelper
-  def self.platform_arn
+  attr_reader :elasticbeanstalk
+  attr_reader :application_name, :environment_prefix, :environment_config
+
+  def initialize(application_name, environment_prefix, environment_config = ENV['AWS_EB_CFG'] || 'dev')
+    @application_name = application_name
+    @environment_prefix = environment_prefix
+    @environment_config = environment_config
+    @elasticbeanstalk = Aws::ElasticBeanstalk::Client.new
+  end
+
+  def platform_arn
     minor_ruby_version = RUBY_VERSION.split('.')[0..1].join('.')
-    elasticbeanstalk = Aws::ElasticBeanstalk::Client.new
     elasticbeanstalk.list_platform_versions(filters: [
         {
             type: 'PlatformName',
@@ -18,16 +27,6 @@ class ElasticBeanstalkHelper
             values: ['latest']
         }
     ]).platform_summary_list.first.platform_arn
-  end
-
-  attr_reader :elasticbeanstalk
-  attr_reader :application_name, :environment_prefix, :environment_config
-
-  def initialize(application_name, environment_prefix, environment_config = ENV['AWS_EB_CFG'] || 'dev')
-    @application_name = application_name
-    @environment_prefix = environment_prefix
-    @environment_config = environment_config
-    @elasticbeanstalk = Aws::ElasticBeanstalk::Client.new
   end
 
   def selected_environments
@@ -45,7 +44,7 @@ class ElasticBeanstalkHelper
   end
 
   def next_environment_number
-    format('%03d', current_environment_number + 1)
+    current_environment_number + 1
   end
 
   def environment_name(number, tier = nil)
