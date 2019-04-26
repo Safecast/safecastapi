@@ -19,21 +19,25 @@ end
 %i(dev prd).each do |environment_config|
   desc "SSH to #{environment_config}"
   task "ssh_#{environment_config}" do
+    elasticbeanstalk_helper = ElasticBeanstalkHelper.new('api', 'safecastapi', environment_config)
     exec(*elasticbeanstalk_helper.ssh_command)
   end
 
   desc "SSH to #{environment_config}-wrk"
   task "ssh_#{environment_config}_wrk" do
+    elasticbeanstalk_helper = ElasticBeanstalkHelper.new('api', 'safecastapi', environment_config)
     exec(*elasticbeanstalk_helper.ssh_command('wrk'))
   end
 
   desc "Deploy to #{environment_config}"
   task "deploy_#{environment_config}" do
+    elasticbeanstalk_helper = ElasticBeanstalkHelper.new('api', 'safecastapi', environment_config)
     sh(*elasticbeanstalk_helper.deploy_command)
   end
 
   desc "Deploy to #{environment_config}-wrk"
   task "deploy_#{environment_config}_wrk" do
+    elasticbeanstalk_helper = ElasticBeanstalkHelper.new('api', 'safecastapi', environment_config)
     sh(*elasticbeanstalk_helper.deploy_command('wrk'))
   end
 end
