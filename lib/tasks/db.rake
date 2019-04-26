@@ -11,9 +11,17 @@ Rake.application.instance_eval do
   end
 end
 
+schema_file = ::Rails.root.join('db/structure.sql')
+
 namespace :db do
+  namespace :schema do
+    desc 'Alias for db:structure:load'
+    task load: ['db:structure:load']
+  end
+
   namespace :structure do
-    task dump: [:environment] do |_t|
+    desc 'Dump db schema structure.sql'
+    task dump: [:environment] do
       setup_psql_env
       system('pg_dump', '-s', '-x', '-O', '-f', schema_file.to_s)
       raise 'Error dumping database' unless $CHILD_STATUS.success?
@@ -23,7 +31,11 @@ namespace :db do
       end
     end
 
-    task load: [:environment] do |_t|
+    desc 'Load db schema from structure.sql'
+    task load: [:environment] do
+      if ActiveRecord::SchemaMigration.table_exists?
+        raise "#{ActiveRecord::SchemaMigration.table_name} already exists, please run rake db:drop to wipe DB before load"
+      end
       setup_psql_env
       [
         ['-c', 'drop extension if exists postgis'],
@@ -39,15 +51,11 @@ namespace :db do
     def setup_psql_env
       ::ActiveRecord::Base.configurations[Rails.env]
         .extract!(*%w(database host port password username))
-        .reject { |_, v| v.nil? } # TODO: use `#compact` in Rails 4
+        .compact
         .each do |key, val|
           key = 'user' if key == 'username'
           ::ENV["PG#{key.upcase}"] = val.to_s
         end
-    end
-
-    def schema_file
-      @schema_file ||= ::Rails.root.join('db/structure.sql')
     end
   end
 end

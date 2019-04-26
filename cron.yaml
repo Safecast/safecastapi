@@ -1,0 +1,17 @@
+version: 1
+cron:
+  - name: dump_clean
+    url: /cron
+    schedule: "00 02 * * *"
+  - name: dump_measurements
+    url: /cron
+    schedule: "00 01 * * *"
+  - name: dump_measurements_ios
+    url: /cron
+    schedule: "33 */4 * * *"
+  - name: imbrogno_export
+    url: /cron
+    schedule: "00 02 * * 7"
+  - name: radiation_index_export
+    url: /cron
+    schedule: "00 01 * * 7"

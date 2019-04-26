@@ -12,14 +12,15 @@ gem 'rails', '4.2.11'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # noinspection RailsParamDefResolve
 gem 'coffee-script-source', platforms: [:mingw, :mswin, :x64_mingw]
-gem 'unicorn', platforms: [:ruby]
 gem 'pg'
 gem 'activerecord-postgis-adapter', '~> 3.1.5'
 gem 'json', '1.8.6'
 gem 'dotenv-rails'
 
-gem 'aws-ses',                  '= 0.6.0', require: 'aws/ses'
-gem 'bootstrap-sass',           '~> 2.2.2.0'
+gem 'aws-sdk-elasticbeanstalk'
+gem 'aws-sdk-rails'
+
+gem 'bootstrap-sass', '~> 2.2.2.0'
 gem 'carrierwave', '~> 1.2.2'
 gem 'csv_builder',              '~> 2.1.1'
 gem 'delayed_job',              '~> 4.1.3'
@@ -47,12 +48,11 @@ gem 'coffee-rails'
 gem 'uglifier'
 
 gem 'jquery-rails'
-gem 'thin'
+gem 'puma'
 
 gem 'elasticsearch-model'
 
 group :development do
-  gem 'pry-byebug', group: :test
   gem 'pry-rails'
   gem 'quiet_assets'
 end
@@ -66,5 +66,9 @@ group :test do
   gem 'launchy'
   gem 'rspec-its'
   gem 'rspec-rails'
-  gem 'rubocop', groups: :development
+end
+
+group :test, :development do
+  gem 'pry-byebug'
+  gem 'rubocop'
 end

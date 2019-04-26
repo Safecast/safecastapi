@@ -17,6 +17,8 @@ Safecast::Application.routes.draw do
     resource :dashboard, only: %i(show)
     resource :profile
 
+    resource :cron, only: :create
+
     namespace :bgeigie_imports do
       resources :not_approved, only: :index
       resources :not_processed, only: :index

@@ -11,7 +11,7 @@ Safecast::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.serve_static_files = false
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -32,7 +32,7 @@ Safecast::Application.configure do
   # force_ssl is handled by controller for selective enforcement
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :info
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
@@ -62,10 +62,10 @@ Safecast::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.delivery_method = :ses
+  config.action_mailer.delivery_method = :aws_sdk
 
   config.action_mailer.default_url_options = {
-    host: 'api.safecast.org',
+    host: ENV['DEFAULT_HOSTNAME'] || 'api.safecast.org',
     protocol: 'https'
   }
 

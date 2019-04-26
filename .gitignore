@@ -8,6 +8,7 @@ tmp/
 *.swp
 *.swo
 public/uploads/*
+public/system/*
 bgeigie_logs/*
 log/localeapp.yml
 .idea
@@ -16,3 +17,8 @@ zeus.json
 custom_plan.rb
 .localeapp.localeapp
 .env
+
+.ebextensions/stunnel.config
+
+.elasticbeanstalk/*
+!.elasticbeanstalk/config.global.yml

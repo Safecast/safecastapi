@@ -33,6 +33,10 @@ See one of the wiki pages for instructions on setting up for local development:
 * [Dev: Setup on Linux (Ubuntu 16.04)](https://github.com/Safecast/safecastapi/wiki/Dev:-Setup-on-Linux-(Ubuntu-16.04))
 * [Dev: Using Docker](https://github.com/Safecast/safecastapi/wiki/Dev:-Using-Docker)
 
+### Deployment
+
+See [Ops Readme](README.ops.md).
+
 ### Licensing
 Licensing can be confusing. We’ll try to make it a little less so.
 

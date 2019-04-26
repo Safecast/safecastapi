@@ -1,0 +1,10 @@
+.git/
+.gitignore
+.env
+.envrc
+.idea/
+*.iml
+public/uploads/
+public/system/
+tmp/
+log/

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Exports all datasets within a 3000m radius of selected cities
+
+set -euo pipefail
+
+source cron_env.sh
+
+cd ../public/system
+
+psql -f "${CRON_DIR}/imbrogno_export.sql"
+
+tar -czf imbrogno_export.tar.gz imbrogno_export.csv

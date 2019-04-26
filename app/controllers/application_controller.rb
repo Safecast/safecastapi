@@ -74,9 +74,18 @@ class ApplicationController < ActionController::Base
     ::NewRelic::Agent.add_custom_attributes(user_id: current_user.id)
   end
 
-  # API-Gateway needs to send in HTTP
   def ssl_enabled?
-    Rails.env.production? && request.format.symbol != :json && request.method != 'HEAD'
+    # Override for deployed dev environments
+    return false if ENV['SSL_CONFIGURED'] == 'false'
+
+    # Don't redirect API-Gateway requests
+    return false if request.format.symbol == :json || request.method == 'HEAD'
+
+    # Don't redirect domains we don't have certs for
+    return false unless %w(safecast.org safecast.cc).include? request.domain
+
+    # Only redirect in production mode
+    Rails.env.production?
   end
 
   def strict_transport_security
