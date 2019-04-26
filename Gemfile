@@ -20,7 +20,7 @@ gem 'dotenv-rails'
 gem 'aws-sdk-elasticbeanstalk'
 gem 'aws-sdk-rails'
 
-gem 'bootstrap-sass',           '~> 2.2.2.0'
+gem 'bootstrap-sass', '~> 2.2.2.0'
 gem 'carrierwave', '~> 1.2.2'
 gem 'csv_builder',              '~> 2.1.1'
 gem 'delayed_job',              '~> 4.1.3'

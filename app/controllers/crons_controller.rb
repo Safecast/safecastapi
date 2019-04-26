@@ -20,7 +20,7 @@ class CronsController < ApplicationController
     return head(:forbidden) unless runnable?
     system('./' + taskname, chdir: SCRIPT_PATH)
     if $CHILD_STATUS.success?
-      render json: { status: :ok, taskname: taskname}
+      render json: { status: :ok, taskname: taskname }
     else
       render(plain: "Unable to run #{taskname}", status: 500)
     end

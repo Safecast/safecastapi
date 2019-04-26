@@ -20,7 +20,7 @@ namespace :db do
   end
 
   namespace :structure do
-    desc "Dump db schema structure.sql"
+    desc 'Dump db schema structure.sql'
     task dump: [:environment] do
       setup_psql_env
       system('pg_dump', '-s', '-x', '-O', '-f', schema_file.to_s)
@@ -31,7 +31,7 @@ namespace :db do
       end
     end
 
-    desc "Load db schema from structure.sql"
+    desc 'Load db schema from structure.sql'
     task load: [:environment] do
       if ActiveRecord::SchemaMigration.table_exists?
         raise "#{ActiveRecord::SchemaMigration.table_name} already exists, please run rake db:drop to wipe DB before load"
