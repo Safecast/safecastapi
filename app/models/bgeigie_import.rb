@@ -233,6 +233,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   def run_psql_command
     logger.info { psql_command }
     out = nil
+    ENV['PGPASSWORD'] = db_config['password']
     IO.popen(psql_command, err: [:child, :out]) do |io|
       out = io.read
     end
