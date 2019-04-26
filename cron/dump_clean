@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
-#
-# =========================
-# ABSTRACT
-# =========================
-# dump_clean and its SQL query, dump_clean.sql, perform a filtered dump of the measurements table per user request.
+
+# Performs a filtered dump of the measurements table.
 #
 # The filtering is the same as that used by the iOS app.
 #
 # This differs from dump_measurements, which does not filter data at all.
 # The schema returned is also different; redundant/unused columns have been eliminated, and id/user_id finally included.
 # The ORDER BY clause was removed for performance.
-#
 
 set -euo pipefail
 
@@ -23,6 +19,4 @@ psql -f "${CRON_DIR}/dump_clean.sql"
 tar -czf mclean.tar.gz mclean-out.csv
 mv mclean-out.csv mclean.csv
 
-#
 # Now this is available as https://api.safecast.org/system/mclean.tar.gz
-#

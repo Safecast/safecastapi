@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# Performs a full, unfiltered dump of the measurements table.
 
 set -euo pipefail
 
@@ -11,6 +13,4 @@ psql -f "${CRON_DIR}/dump_measurements.sql"
 tar -czf measurements.tar.gz measurements-out.csv
 mv measurements-out.csv measurements.csv
 
-#
 # Now this is available as https://api.safecast.org/system/measurements.tar.gz
-#
