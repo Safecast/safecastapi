@@ -17,6 +17,7 @@ gem 'activerecord-postgis-adapter', '~> 3.1.5'
 gem 'json', '1.8.6'
 gem 'dotenv-rails'
 
+gem 'aws-sdk-elasticbeanstalk'
 gem 'aws-ses',                  '= 0.6.0', require: 'aws/ses'
 gem 'bootstrap-sass',           '~> 2.2.2.0'
 gem 'carrierwave', '~> 1.2.2'
@@ -53,7 +54,6 @@ gem 'elasticsearch-model'
 group :development do
   gem 'pry-rails'
   gem 'quiet_assets'
-  gem 'aws-sdk-elasticbeanstalk'
 end
 
 group :test do
