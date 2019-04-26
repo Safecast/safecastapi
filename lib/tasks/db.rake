@@ -13,19 +13,6 @@ end
 
 schema_file = ::Rails.root.join('db/structure.sql')
 
-namespace :rds do
-  namespace :structure do
-    desc 'Load patched structure.sql for RDS'
-    task load: [:environment] do
-      rds_schema_file = schema_file.sub_ext('.rds.sql')
-      cp schema_file, rds_schema_file
-      sh "patch #{rds_schema_file} < #{rds_schema_file}.patch"
-      sh "psql -P pager=off -f #{rds_schema_file}"
-      rm rds_schema_file
-    end
-  end
-end
-
 namespace :db do
   namespace :schema do
     desc 'Alias for db:structure:load'

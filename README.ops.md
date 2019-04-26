@@ -26,12 +26,14 @@ rake elasticbeanstalk:create
 
 The environment name will be numeric based on existing environments of the same config name.
 
-If you're working against an empty DB, you can run `rds:structure:load` to load a patched version of our `structure.sql` that's RDS-compatible.
+If you're working against an empty DB, you can run `db:structure:load` to load `structure.sql` to the new DB.
+
+You will see a few errors regarding extensions and grants, but those can be ignored.
 
 If you need to run any rails commands to debug anything you can do this:
 
 ```
-eb ssh (environment name)
+rake ssh_dev          # or prd
 cd /var/app/current   # or /var/app/ondeck for any failed deployment assets
 bundle exec rails c   # or whatever command you need
 ```
