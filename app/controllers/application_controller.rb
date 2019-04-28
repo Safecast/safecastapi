@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   before_filter :strict_transport_security
   before_filter :set_locale
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  before_filter :cors_set_access_control_headers
+  before_filter :set_cors_headers
   skip_before_filter :verify_authenticity_token
   before_filter :new_relic_custom_attributes
 
@@ -19,12 +19,12 @@ class ApplicationController < ActionController::Base
   end
 
   def index
-    cors_set_access_control_headers
+    set_cors_headers
     respond_with @result = @doc
   end
 
   def options
-    cors_set_access_control_headers
+    set_cors_headers
     render text: '', content_type: 'application/json'
   end
 
@@ -36,12 +36,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def cors_set_access_control_headers # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    return unless request.env['HTTP_ACCEPT'].eql? 'application/json'
-    if current_user
-      host = request.env['HTTP_ORIGIN']
-    else
-      host = request.env['HTTP_ORIGIN']
+  def set_cors_headers
+    return unless request.format.json?
+    host = request.env['HTTP_ORIGIN']
+    unless current_user
       host = 'safecast.org' unless /safecast.org$/ =~ host
     end
     headers['Access-Control-Allow-Origin'] = host
