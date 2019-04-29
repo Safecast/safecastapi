@@ -3,8 +3,41 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.3.8
+      - image: circleci/postgres:9.5-alpine
+          environment:
+            POSTGRES_USER: safecast
+            POSTGRES_DB: safecast
+            POSTGRES_PASSWORD: ""
+      - image: docker.elastic.co/elasticsearch/elasticsearch:6.5.1
     steps:
       - checkout
-      - run: bundle exec rake db:structure:load
-      - run: bundle exec rubocop
-      - run: bundle exec rspec spec
+      - restore_cache:
+          keys:
+            - safecastapi-{{ checksum "Gemfile.lock" }}
+            - safecastapi-
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+      - run:
+          name: Wait for postgres
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Wait for elasticsearch
+          command: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run:
+          name: Database setup
+          command: bin/rails db:schema:load --trace
+      - run:
+          name: Run rubocop
+          command: |
+            bundle exec rubocop
+      - run:
+          name: Run rspec
+          command: |
+            bundle exec rspec --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      - store_test_results:
+          path: test_results
