@@ -5,7 +5,7 @@ jobs:
       - image: circleci/ruby:2.3.8-node-browsers
         environment:
           RAILS_ENV: test
-      - image: circleci/postgres:9.5-alpine
+      - image: mdillon/postgis:9.5
         environment:
           POSTGRES_USER: safecast
           POSTGRES_DB: safecast
@@ -33,6 +33,9 @@ jobs:
       - run:
           name: Configure database
           command: cp config/database.yml.ci config/database.yml
+      - run:
+          name: Install psql client
+          command: sudo apt-get install -y postgresql-client
       - run:
           name: Load schema
           command: bundle exec rake db:schema:load --trace
