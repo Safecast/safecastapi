@@ -61,4 +61,5 @@ group :test do
   gem 'launchy'
   gem 'rspec-its'
   gem 'rspec-rails'
+  gem 'rspec_junit_formatter'
 end
