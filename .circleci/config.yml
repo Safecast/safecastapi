@@ -17,7 +17,11 @@ jobs:
             - safecastapi-
       - run:
           name: Bundle Install
-          command: bundle check || bundle install
+          command: bundle install --path vendor/bundle
+      - save_cache:
+          key: safecastapi-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
       - run:
           name: Wait for postgres
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
