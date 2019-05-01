@@ -25,7 +25,10 @@ jobs:
           name: Wait for elasticsearch
           command: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run:
-          name: Database setup
+          name: Configure database
+          command: cp config/database.yml.ci config/database.yml
+      - run:
+          name: Load schema
           command: bundle exec rake db:schema:load --trace
       - run:
           name: Run rubocop
