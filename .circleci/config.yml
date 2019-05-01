@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.3.8
+      - image: circleci/ruby:2.3.8-node-browsers
       - image: circleci/postgres:9.5-alpine
         environment:
           POSTGRES_USER: safecast
