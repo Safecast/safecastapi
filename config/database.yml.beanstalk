@@ -3,7 +3,7 @@ production:
   schema_search_path: "public,postgis"
   script_dir: /usr/local/share/postgis
   encoding: unicode
-  pool: 5
+  pool: 32
   host: <%= ENV['DATABASE_HOST'] %>
   database: <%= ENV['DATABASE_NAME'] || 'safecast' %>
   username: <%= ENV['DATABASE_USERNAME'] || 'safecast' %>
