@@ -35,7 +35,9 @@ jobs:
           command: cp config/database.yml.ci config/database.yml
       - run:
           name: Install psql client
-          command: sudo apt-get install -y postgresql-client
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y postgresql-client
       - run:
           name: Load schema
           command: bundle exec rake db:schema:load --trace
