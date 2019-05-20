@@ -1,6 +1,6 @@
-version: 2
+version: 2.1
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/ruby:2.3.8-node-browsers
         environment:
@@ -57,3 +57,37 @@ jobs:
                               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       - store_test_results:
           path: test_results
+
+  deploy_dev:
+    steps:
+      - checkout
+      - run:
+          name: fake deploy dev
+          command: true
+
+  deploy_prd:
+    steps:
+      - checkout
+      - run:
+          name: fake deploy prd
+          command: true
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - hold_dev:
+          type: approval
+          requires:
+            - build
+      - deploy_dev:
+          requires:
+            - hold_dev
+      - hold_prd:
+          type: approval
+          requires:
+            - deploy_dev
+      - deploy_prd:
+          requires:
+            - hold_prd
