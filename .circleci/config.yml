@@ -65,7 +65,7 @@ jobs:
       - checkout
       - run:
           name: fake deploy dev
-          command: true
+          command: "true"
 
   deploy_prd:
     docker:
@@ -74,7 +74,7 @@ jobs:
       - checkout
       - run:
           name: fake deploy prd
-          command: true
+          command: "true"
 
 workflows:
   version: 2
