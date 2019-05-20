@@ -40,7 +40,9 @@ jobs:
             sudo apt-get install -y postgresql-client
       - run:
           name: Load schema
-          command: bundle exec rake db:schema:load --trace
+          command: |
+            psql -h localhost -p 5432 -U safecast safecast -c 'DROP EXTENSION postgis CASCADE'
+            bundle exec rake db:schema:load --trace
       - run:
           name: Run rubocop
           command: |
