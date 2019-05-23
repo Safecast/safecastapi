@@ -41,7 +41,6 @@ gem 'responders'
 gem 'rails_admin'
 
 gem 'newrelic_rpm'
-gem 'skylight'
 
 gem 'sass-rails'
 gem 'coffee-rails'

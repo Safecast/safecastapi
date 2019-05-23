@@ -45,8 +45,6 @@ module Safecast
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.skylight.environments += ['staging']
-
     config.active_record.schema_format = :sql
     # TODO: remove following line in Rails 5
     config.active_record.raise_in_transactional_callbacks = true
