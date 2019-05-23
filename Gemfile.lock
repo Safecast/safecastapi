@@ -331,10 +331,6 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
-    skylight (3.1.1)
-      skylight-core (= 3.1.1)
-    skylight-core (3.1.1)
-      activesupport (>= 4.2.0)
     slop (3.6.0)
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
@@ -412,7 +408,6 @@ DEPENDENCIES
   rubocop
   sass-rails
   simple_form
-  skylight
   swagger-blocks
   tzinfo-data
   uglifier
