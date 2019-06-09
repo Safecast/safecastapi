@@ -40,14 +40,14 @@
       <li>
         <%= link_to [:measurements] do %>
           <em>
-            <%= number_with_delimiter current_user.measurements.count %>
+            <%= number_to_human current_user.measurements.approximate_count %>
           </em>
           <%= t('.submissions') %>
         <%- end -%>
       </li>
       <li>
         <%= link_to [:bgeigie_imports] do %>
-          <em><%= current_user.bgeigie_imports.count  %></em>
+          <em><%= number_to_human current_user.bgeigie_imports.approximate_count  %></em>
           <%= t('.bgeigie_imports') -%>
         <%- end -%>
       </li>
