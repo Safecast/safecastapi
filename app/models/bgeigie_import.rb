@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
+  include ApproximateCount
   # States:
   # - unprocessed
   # - processed

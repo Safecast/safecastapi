@@ -36,4 +36,10 @@ RSpec.describe Measurement, type: :model do
       end
     end
   end
+
+  describe '#approximate_count' do
+    it 'shoulde return approximate count' do
+      expect(described_class.approximate_count).to be_a(Numeric)
+    end
+  end
 end
