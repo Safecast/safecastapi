@@ -42,5 +42,3 @@ Style/RescueStandardError:
   Enabled: false
 Style/TernaryParentheses:
   Enabled: false
-Style/SymbolArray:
-  Enabled: false
