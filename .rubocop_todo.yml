@@ -44,5 +44,3 @@ Style/TernaryParentheses:
   Enabled: false
 Style/SymbolArray:
   Enabled: false
-Style/UnneededSort:
-  Enabled: false
