@@ -10,8 +10,6 @@ Security/YAMLLoad:
   Enabled: false
 Style/DateTime:
   Enabled: false
-Style/Encoding:
-  Enabled: false
 Style/ExpandPathArguments:
   Enabled: false
 Style/FormatStringToken:
