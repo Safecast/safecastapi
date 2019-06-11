@@ -1,5 +1,3 @@
-Layout/EmptyLineAfterGuardClause:
-  Enabled: false
 Layout/SpaceInsideArrayLiteralBrackets:
   Enabled: false
 Lint/BigDecimalNew:
