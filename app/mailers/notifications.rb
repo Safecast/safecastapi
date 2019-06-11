@@ -25,6 +25,7 @@ class Notifications < ActionMailer::Base
   def import_awaiting_approval(import)
     moderators = APPROVERS_LIST
     return if moderators.empty?
+
     @import = import
     mail(
       to: moderators,

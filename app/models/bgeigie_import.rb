@@ -160,6 +160,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
         next if line.first == '#'
         next if line.strip.blank?
         next unless is_sane? line
+
         begin
           file.write "#{line.strip},#{Digest::MD5.hexdigest(line.strip)}\n"
         rescue
@@ -325,6 +326,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
   def update_counter_caches
     return unless user.present?
+
     User.reset_counters(user.id, :measurements)
   end
 
