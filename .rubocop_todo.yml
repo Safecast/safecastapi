@@ -1,5 +1,3 @@
-Bundler/OrderedGems:
-  Enabled: false
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Layout/SpaceInsideArrayLiteralBrackets:
