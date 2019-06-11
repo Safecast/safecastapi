@@ -40,5 +40,3 @@ Style/PercentLiteralDelimiters:
   Enabled: false
 Style/RescueStandardError:
   Enabled: false
-Style/TernaryParentheses:
-  Enabled: false
