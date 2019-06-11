@@ -9,9 +9,9 @@ gem 'cancan'
 
 gem 'rails', '4.2.11'
 # noinspection RailsParamDefResolve
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw]
 # noinspection RailsParamDefResolve
-gem 'coffee-script-source', platforms: [:mingw, :mswin, :x64_mingw]
+gem 'coffee-script-source', platforms: %i[mingw mswin x64_mingw]
 gem 'pg'
 gem 'activerecord-postgis-adapter', '~> 3.1.5'
 gem 'json', '1.8.6'
