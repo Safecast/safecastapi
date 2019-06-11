@@ -1,5 +1,3 @@
-Layout/SpaceInsideArrayLiteralBrackets:
-  Enabled: false
 Lint/BigDecimalNew:
   Enabled: false
 Lint/ScriptPermission:

@@ -112,6 +112,10 @@ Layout/SpaceAroundOperators:
   Exclude:
     - 'db/migrate/20120521225350_add_spatial_index_on_measurements.rb'
 
+Layout/SpaceInsideArrayLiteralBrackets:
+  Exclude:
+    - 'db/migrate/20160208190731_add_subtype_to_measurement_imports.rb'
+
 Layout/SpaceInsideParens:
   Exclude:
     - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
