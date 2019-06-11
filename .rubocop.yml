@@ -120,6 +120,12 @@ Layout/SpaceInsideParens:
   Exclude:
     - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
 
+Style/EmptyMethod:
+  Exclude:
+    - 'db/migrate/20111128163114_add_lat_and_lng.rb'
+    - 'db/migrate/20130115042245_save_cities_and_credits_as_strings.rb'
+    - 'db/migrate/20130117111202_reset_counters.rb'
+
 Style/FrozenStringLiteralComment:
   Exclude:
     - 'Gemfile'
