@@ -19,8 +19,8 @@ jobs:
           name: Install build tools
           command: |
             sudo apt-get update
-            sudo apt-get install -y postgresql-client awscli python-pip
-            sudo pip install awsebcli
+            sudo apt-get install -y postgresql-client python-pip
+            sudo pip install awsebcli awscli
       - restore_cache:
           keys:
             - safecastapi-{{ checksum "Gemfile.lock" }}
