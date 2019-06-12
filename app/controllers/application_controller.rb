@@ -38,6 +38,7 @@ class ApplicationController < ActionController::Base
 
   def set_cors_headers
     return unless request.format.json?
+
     host = request.env['HTTP_ORIGIN']
     unless current_user
       host = 'safecast.org' unless /safecast.org$/ =~ host
@@ -50,6 +51,7 @@ class ApplicationController < ActionController::Base
 
   def require_moderator
     return if current_user&.moderator?
+
     redirect_to root_path, alert: 'access_denied'
   end
 
@@ -69,6 +71,7 @@ class ApplicationController < ActionController::Base
 
   def new_relic_custom_attributes
     return unless current_user
+
     ::NewRelic::Agent.add_custom_attributes(user_id: current_user.id)
   end
 

@@ -19,6 +19,6 @@ class BgeigieLog < ActiveRecord::Base
   end
 
   def usv
-    BigDecimal.new(cpm.to_s) / 330
+    BigDecimal(cpm.to_s) / 330
   end
 end

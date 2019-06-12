@@ -25,6 +25,7 @@ namespace :db do
       setup_psql_env
       system('pg_dump', '-s', '-x', '-O', '-f', schema_file.to_s)
       raise 'Error dumping database' unless $CHILD_STATUS.success?
+
       schema_file.open(::File::RDWR | ::File::APPEND) do |f|
         f.puts(::ActiveRecord::Base.connection.dump_schema_information)
         f.puts
@@ -36,6 +37,7 @@ namespace :db do
       if ActiveRecord::SchemaMigration.table_exists?
         raise "#{ActiveRecord::SchemaMigration.table_name} already exists, please run rake db:drop to wipe DB before load"
       end
+
       setup_psql_env
       [
         ['-c', 'drop extension if exists postgis'],

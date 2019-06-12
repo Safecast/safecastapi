@@ -25,6 +25,7 @@ class Measurement < ActiveRecord::Base
 
   def self.nearby_to(lat, lng, distance)
     return scoped unless lat.present? && lng.present? && distance.present?
+
     where("ST_DWithin(location, ST_GeogFromText('POINT (#{lng.to_f} #{lat.to_f})'), ?)", distance.to_i)
       .order("ST_Distance(location, ST_GeogFromText('POINT (#{lng.to_f} #{lat.to_f})')) ASC")
   end
@@ -87,12 +88,12 @@ class Measurement < ActiveRecord::Base
 
   def serializable_hash(options = {})
     options ||= {}
-    super(options.merge(only: [
-      :id, :value, :height, :user_id,
-      :unit, :device_id, :location_name, :original_id,
-      :captured_at, :devicetype_id, :sensor_id, :channel_id,
-      :station_id, :measurement_import_id
-    ], methods: [:latitude, :longitude]))
+    super(options.merge(only: %i[
+      id value height user_id
+      unit device_id location_name original_id
+      captured_at devicetype_id sensor_id channel_id
+      station_id measurement_import_id
+    ], methods: %i[latitude longitude]))
   end
 
   def revise(new_params)

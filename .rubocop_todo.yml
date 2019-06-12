@@ -1,32 +1,26 @@
-Bundler/OrderedGems:
-  Enabled: false
-Lint/RescueWithoutErrorClass:
-  Enabled: false
-Lint/ScriptPermission:
-  Enabled: false
-Lint/UnusedMethodArgument:
+Lint/ShadowedArgument:
   Enabled: false
 Lint/UnneededSplatExpansion:
   Enabled: false
 Metrics/BlockLength:
   Enabled: false
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
 Security/YAMLLoad:
   Enabled: false
 Style/DateTime:
   Enabled: false
-Style/EmptyMethod:
-  Enabled: false
-Style/Encoding:
+Style/ExpandPathArguments:
   Enabled: false
 Style/FormatStringToken:
   Enabled: false
 Style/IdenticalConditionalBranches:
   Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
 Style/MultilineIfModifier:
   Enabled: false
 Style/PercentLiteralDelimiters:
   Enabled: false
-Style/TernaryParentheses:
-  Enabled: false
-Style/SymbolArray:
+Style/RescueStandardError:
   Enabled: false

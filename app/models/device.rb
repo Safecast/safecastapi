@@ -16,8 +16,8 @@ class Device < ActiveRecord::Base
 
   def serializable_hash(options)
     options ||= {}
-    super(options.merge(only: [
-      :id, :manufacturer, :model, :sensor
+    super(options.merge(only: %i[
+      id manufacturer model sensor
     ]))
   end
 

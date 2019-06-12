@@ -35,7 +35,7 @@ class ElasticBeanstalkHelper
     if selected_environments.empty?
       0
     else
-      selected_environments.sort.last.split('-').last.to_i
+      selected_environments.max.split('-').last.to_i
     end
   end
 

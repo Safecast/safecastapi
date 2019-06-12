@@ -69,7 +69,7 @@ Safecast::Application.configure do
     protocol: 'https'
   }
 
-  config.log_tags = [:uuid, :remote_ip]
+  config.log_tags = %i[uuid remote_ip]
 
   config.eager_load = true
 end

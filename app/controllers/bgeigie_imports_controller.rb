@@ -3,8 +3,8 @@
 class BgeigieImportsController < ApplicationController # rubocop:disable Metrics/ClassLength
   respond_to :html, :json
 
-  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_filter :require_moderator, only: [:approve, :fixdrive, :send_email, :resolve]
+  before_filter :authenticate_user!, only: %i[new create edit update destroy]
+  before_filter :require_moderator, only: %i[approve fixdrive send_email resolve]
 
   has_scope :by_status
   has_scope :by_user_id

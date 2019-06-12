@@ -9,7 +9,7 @@ namespace :db do
   end
 
   desc 'Create dummy user'
-  task bootstrap: [:protect, :environment] do
+  task bootstrap: %i[protect environment] do
     u = User.create!(
       email: 'admin@safecast.org',
       name: 'Fake Admin',
