@@ -16,8 +16,7 @@ class MeasurementImport < ActiveRecord::Base
 
   def set_default_values
     self.status ||= 'unprocessed'
-    self.subtype =
-      AVAILABLE_SUBTYPES[0] unless AVAILABLE_SUBTYPES.include?(subtype)
+    self.subtype = AVAILABLE_SUBTYPES[0] unless AVAILABLE_SUBTYPES.include?(subtype)
   end
 
   def set_md5sum
