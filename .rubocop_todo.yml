@@ -20,5 +20,3 @@ Style/IfUnlessModifier:
   Enabled: false
 Style/MultilineIfModifier:
   Enabled: false
-Style/PercentLiteralDelimiters:
-  Enabled: false

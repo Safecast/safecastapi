@@ -207,6 +207,12 @@ Style/FrozenStringLiteralComment:
     - 'db/migrate/20180603015430_create_uploader_contact_histories.rb'
     - 'deploy/after_restart.rb'
 
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%i': '()'
+    '%w': '()'
+    '%W': '()'
+
 Style/SpecialGlobalVars:
   EnforcedStyle: use_english_names
 
