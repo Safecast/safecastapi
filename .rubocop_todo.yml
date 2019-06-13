@@ -6,7 +6,5 @@ Security/YAMLLoad:
   Enabled: false
 Style/DateTime:
   Enabled: false
-Style/FormatStringToken:
-  Enabled: false
 Style/IfUnlessModifier:
   Enabled: false
