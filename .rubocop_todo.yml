@@ -18,5 +18,3 @@ Style/IdenticalConditionalBranches:
   Enabled: false
 Style/IfUnlessModifier:
   Enabled: false
-Style/MultilineIfModifier:
-  Enabled: false
