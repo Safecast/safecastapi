@@ -9,7 +9,7 @@ module SwaggerBlocks
         include Swagger::Blocks
 
         swagger_schema :Measurement do
-          key :required, %i[location unit value]
+          key :required, %i(location unit value)
           property :id do
             key :type, :integer
             key :format, :int64

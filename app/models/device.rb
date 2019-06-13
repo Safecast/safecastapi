@@ -16,9 +16,9 @@ class Device < ActiveRecord::Base
 
   def serializable_hash(options)
     options ||= {}
-    super(options.merge(only: %i[
+    super(options.merge(only: %i(
       id manufacturer model sensor
-    ]))
+    )))
   end
 
   def self.get_or_create(dev_params) # rubocop:disable Metrics/MethodLength
