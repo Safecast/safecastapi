@@ -1,7 +1,5 @@
 Lint/ShadowedArgument:
   Enabled: false
-Lint/UnneededSplatExpansion:
-  Enabled: false
 Metrics/BlockLength:
   Enabled: false
 Naming/UncommunicativeMethodParamName:
