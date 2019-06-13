@@ -30,7 +30,7 @@ module BgeigieImportsHelper
     end
   end
 
-  def operation_button(bgeigie_import, action, text = t(format('.%s', action)))
+  def operation_button(bgeigie_import, action, text = t(format('.%<action>s', action: action)))
     form_for bgeigie_import, url: { action: action } do |f|
       f.submit text, class: 'btn btn-primary'
     end
