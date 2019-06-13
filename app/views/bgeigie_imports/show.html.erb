@@ -74,10 +74,12 @@
   <%- if @bgeigie_import.status == 'awaiting_response' -%>
     <div class="tab-pane" id="contact-detail">
       <%- history = @bgeigie_import.uploader_contact_histories.last %>
-      Contacted by: <%= history.administrator.name %><br>
-      Contacted on: <%= history.created_at %><br>
-      <br>
-      <%= history.content %>
+      <%- if history -%>
+        Contacted by: <%= history.administrator.name %><br>
+        Contacted on: <%= history.created_at %><br>
+        <br>
+        <%= history.content %>
+      <%- end -%>
     </div>
   <%- end -%>
   <div class="tab-pane" id="contact-moderator">
