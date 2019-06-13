@@ -20,5 +20,6 @@ custom_plan.rb
 
 .ebextensions/stunnel.config
 
-.elasticbeanstalk/*
-!.elasticbeanstalk/config.global.yml
+.elasticbeanstalk/config.yml
+.elasticbeanstalk/app_versions/
+.elasticbeanstalk/saved_configs/
