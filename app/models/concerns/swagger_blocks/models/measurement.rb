@@ -5,10 +5,10 @@ module SwaggerBlocks
     module Measurement
       extend ActiveSupport::Concern
 
-      included do
+      included do # rubocop:disable Metrics/BlockLength
         include Swagger::Blocks
 
-        swagger_schema :Measurement do
+        swagger_schema :Measurement do # rubocop:disable Metrics/BlockLength
           key :required, %i(location unit value)
           property :id do
             key :type, :integer

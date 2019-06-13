@@ -18,6 +18,11 @@ Metrics/AbcSize:
     - 'db/migrate/20111214162214_create_bgeigie_logs.rb'
     - 'db/migrate/20120323105044_create_drive_logs.rb'
 
+# ignore spec files because examples are in block and tend to be long
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
 Metrics/LineLength:
   Max: 160
   AllowHeredoc: true

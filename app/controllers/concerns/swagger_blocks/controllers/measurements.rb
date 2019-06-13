@@ -5,7 +5,7 @@ module SwaggerBlocks
     module Measurements
       extend ActiveSupport::Concern
 
-      included do
+      included do # rubocop:disable Metrics/BlockLength
         include Swagger::Blocks
 
         swagger_path '/measurements' do

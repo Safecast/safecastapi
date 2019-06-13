@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-CarrierWave.configure do |config|
+CarrierWave.configure do |config| # rubocop:disable Metrics/BlockLength
   # noinspection RubyResolve
   if ENV.key? 'S3_BUCKET'
     config.fog_provider = 'fog/aws'

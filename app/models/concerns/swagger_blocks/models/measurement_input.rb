@@ -5,8 +5,8 @@ module SwaggerBlocks
     module MeasurementInput
       extend ActiveSupport::Concern
 
-      included do
-        swagger_schema :MeasurementInput do
+      included do # rubocop:disable Metrics/BlockLength
+        swagger_schema :MeasurementInput do # rubocop:disable Metrics/BlockLength
           property :captured_at do
             key :type, :string
             key :format, :'date-time'
