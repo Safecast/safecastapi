@@ -52,7 +52,7 @@ namespace :db do
 
     def setup_psql_env
       ::ActiveRecord::Base.configurations[Rails.env]
-        .extract!(*%w(database host port password username))
+        .extract!('database', 'host', 'port', 'password', 'username')
         .compact
         .each do |key, val|
           key = 'user' if key == 'username'

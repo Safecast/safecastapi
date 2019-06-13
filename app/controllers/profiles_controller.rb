@@ -14,6 +14,6 @@ class ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.require(:user).permit(*%i(default_locale email name password time_zone))
+    params.require(:user).permit(:default_locale, :email, :name, :password, :time_zone)
   end
 end
