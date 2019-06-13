@@ -1,7 +1,5 @@
 Lint/ShadowedArgument:
   Enabled: false
-Metrics/BlockLength:
-  Enabled: false
 Naming/UncommunicativeMethodParamName:
   Enabled: false
 Security/YAMLLoad:
