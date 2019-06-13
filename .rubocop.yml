@@ -126,6 +126,13 @@ Style/EmptyMethod:
     - 'db/migrate/20130115042245_save_cities_and_credits_as_strings.rb'
     - 'db/migrate/20130117111202_reset_counters.rb'
 
+# ignore files that created by rails or bundled gems
+Style/ExpandPathArguments:
+  Exclude:
+    - 'bin/bundle'
+    - 'bin/rails'
+    - 'script/rails'
+
 Style/FrozenStringLiteralComment:
   Exclude:
     - 'Gemfile'
