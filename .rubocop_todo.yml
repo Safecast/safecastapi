@@ -4,7 +4,5 @@ Naming/UncommunicativeMethodParamName:
   Enabled: false
 Security/YAMLLoad:
   Enabled: false
-Style/DateTime:
-  Enabled: false
 Style/IfUnlessModifier:
   Enabled: false
