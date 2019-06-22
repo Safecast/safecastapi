@@ -3001,10 +3001,10 @@ var MKS = (function()
         var icon = { url:icon_url, size:size, anchor:anch };
                    
         if (this.isRetina) { icon.scaledSize = new google.maps.Size(w_pt, h_pt); }
-        
+
         var yx     = new google.maps.LatLng(lat, lon);
         var marker = this.rmpool.length > 0 ? this.rmpool.pop() : new google.maps.Marker();
-        
+
         marker.setPosition(yx);
         marker.setIcon(icon);
         marker.setZIndex(lutidx);
@@ -3027,18 +3027,18 @@ var MKS = (function()
         var size = new google.maps.Size(w_pt, h_pt);
         var anch = new google.maps.Point(w_pt >> 1, h_pt >> 1);
         var icon = { url:icon_url, size:size, anchor:anch };
-                   
+
         if (this.isRetina) { icon.scaledSize = new google.maps.Size(w_pt, h_pt); }
-        
+
         var yx     = new google.maps.LatLng(lat, lon);
         var marker = this.rmpool.length > 0 ? this.rmpool.pop() : new google.maps.Marker();
-        
+
         marker.setPosition(yx);
         marker.setIcon(icon);
         marker.setZIndex(lutidx);
         marker.ext_id = marker_id;
         marker.setMap(this.mapref);
-        
+
         this.AttachInfoWindow(marker);
         this.markers.push(marker);
     };
@@ -3051,7 +3051,7 @@ var MKS = (function()
         var s_px = this.isRetina ? this.shd_r  << 1 : this.shd_r;
         deg      = parseInt(Math.round(parseFloat(_UnpackDegreeValue(deg))*0.03333333333333333)*30.0); // round to nearest 30 degree "tick"
         deg      = deg == 0 ? 360 : deg; // degrees=0 causes problems with rendering
-        
+
         for (var i=0; i<this.icons.length; i++)
         {
             if (    this.icons[i].lutidx == lutidx 
@@ -3067,7 +3067,7 @@ var MKS = (function()
                 break;
             }//if
         }//for
-        
+
         if (url == null)
         {
             var r = this.lut.r[lutidx];
@@ -3078,7 +3078,7 @@ var MKS = (function()
             this.icons.push(ico);
             url = ico.url;
         }//if
-        
+
         return url;
     };
     
@@ -3116,10 +3116,11 @@ var MKS = (function()
         }//if
 
         var ss = this.GetSummaryStatsForLogId(this.logids[i]);
+        var ia = window.location.href.indexOf("api.safecast.org") > -1;
 
-        return _GetInfoWindowHtmlForParams(sdre, this.cpms[i], this.alts[i], sdeg, sdate, stime, this.logids[i], litcpm, litcp5s, is_valid_rad, is_valid_gps, is_valid_chk, ss, this.fontCssClass);
+        return _GetInfoWindowHtmlForParams(sdre, this.cpms[i], this.alts[i], sdeg, sdate, stime, this.logids[i], litcpm, litcp5s, is_valid_rad, is_valid_gps, is_valid_chk, ss, ia, this.fontCssClass);
     };
-    
+
     MKS.prototype.AttachInfoWindow = function(marker)
     {
         if (this.hover_iw && !this.isMobile)
@@ -3145,7 +3146,7 @@ var MKS = (function()
             }.bind(this));
         }//else
     };
-    
+
     MKS.prototype.OpenRetainedInfoWindow = function(marker)
     {
         if (this.inforef == null) this.inforef = new google.maps.InfoWindow({size: new google.maps.Size(60, 40)});
@@ -3153,14 +3154,14 @@ var MKS = (function()
         this.inforef.setContent(this.GetInfoWindowContentForId(marker.ext_id));
         this.inforef.open(this.mapref, marker);
     };
-    
+
     MKS.prototype.GetDataAndDispatchPrefilterVec = function(mxs, mys, minzs, cpms, alts, degs, times, litcpms, litcp5s, valids, logId, userData)
     {
         if (this.cpms != null && this.cpms.length > 300 * 300)
         {
             this.isSPARTAAAAAAA = true;
         }//if
-        
+
         // if no data yet or the problem set size is too large, just add the data directly.
         if (this.cpms == null || this.cpms.length == 0 || this.isSPARTAAAAAAA || this.litcpms != null)
         {
@@ -3170,7 +3171,7 @@ var MKS = (function()
                 _vfill(logId, logids, 0, logids.length);
                 this.AddData(minzs, cpms, alts, degs, logids, times, mxs, mys, litcpms, litcp5s, valids);
             }//if
-            
+
             this.fxReportResultsSuccessForLogId(logId);
             return;
         }//if
@@ -3183,9 +3184,9 @@ var MKS = (function()
         var oy = pack[1];
         var oz = pack[2];
         var oc = pack[3];
-        
+
         var worker = this.fxGetWorkerForDispatch();
-        
+
         var noproc = this.litcpms != null;
 
         var params = { op:"PREFILTER_VECS", 
@@ -3194,10 +3195,10 @@ var MKS = (function()
                        logId:logId, userData:userData, isMobile:true, noproc:noproc, worker_id:worker[1] };
 
         var bufs   = [mxs.buffer, mys.buffer, minzs.buffer, cpms.buffer, times.buffer, alts.buffer, degs.buffer, ox.buffer, oy.buffer, oz.buffer, oc.buffer ];
-        
+
         worker[0].postMessage(params, bufs);
     };
-    
+
     MKS.prototype.GetDataCopyForPrefilter = function()
     {
         var dest_n    = this.cpms.length;
@@ -3214,7 +3215,7 @@ var MKS = (function()
         return [destmxs, destmys, destminzs, destcpms];
     };
 
-    
+
     MKS.prototype.AddData = function(newminzs, newcpms, newalts, newdegs, newlogids, newtimes, newmxs, newmys, newlitcpms, newlitcp5s, newvalids)
     {
         if (newcpms == null || newcpms.length < 2) return;
@@ -3247,9 +3248,9 @@ var MKS = (function()
         this.mxs     = _vcombine_u32(this.mxs,    newmxs);
         this.mys     = _vcombine_u32(this.mys,    newmys);
         this.onmaps  = _vcombine_u08(this.onmaps, new Uint8Array(newcpms.length));
-        
+
         console.log("MKS.AddData: Added %d items, new total = %d.", newcpms.length, this.cpms.length);
-        
+
         newminzs   = null;
         newcpms    = null;
         newalts    = null;
@@ -3262,8 +3263,8 @@ var MKS = (function()
         newlitcp5s = null;
         newvalids  = null;
     };
-    
-    
+
+
     MKS.prototype.SortCandidatesIdxOnlyByQuadKey = function(is, n, z)
     {
         var qks = new Array(n);
@@ -3389,6 +3390,7 @@ var MKS = (function()
                            BV_GPS_LABEL:"GPS",
                       BV_CHECKSUM_LABEL:"Checksum",
                 BV_LOG_FILE_STATS_TITLE:"Log File Stats",
+             BV_LOG_FILE_API_LINK_LABEL:"More Info",
                        BV_CPM_MAX_LABEL:"CPM, max",
                        BV_CPM_AVG_LABEL:"CPM, mean",
                        BV_CPM_MIN_LABEL:"CPM, min",
@@ -3506,7 +3508,7 @@ var MKS = (function()
     };
 
 
-    var _GetInfoWindowHtmlForParams = function(dre, cpm, alt, deg, date, time, logId, litcpm, litcp5s, is_valid_rad, is_valid_gps, is_valid_chk, summary_stats, fontCssClass)
+    var _GetInfoWindowHtmlForParams = function(dre, cpm, alt, deg, date, time, logId, litcpm, litcp5s, is_valid_rad, is_valid_gps, is_valid_chk, summary_stats, is_embedded_api, fontCssClass)
     {
         var font_attr = fontCssClass != null ? " class=\"" + fontCssClass  + "\"" : "";
         var s    = _GetLocalStrings();
@@ -3541,16 +3543,24 @@ var MKS = (function()
         {
             var ss     = summary_stats;
             var de_str = ss.de_usv > 0.01 ? ss.de_usv.toFixed(2) : ss.de_usv.toFixed(4);
+            var apiurl = "https://api.safecast.org/en-US/bgeigie_imports/" + Math.abs(logId);
             var tr0p   = "<tr><td align=right  style=\"padding-top:5px;\">";
             var tr0t   = "<tr><td align=center style=\"font-size:16px;\" colspan=2>";
+            var tr0a   = "<tr><td align=center style=\"padding-top:5px;\" colspan=2>"
+                       + "<a target=\"_blank\" href=\"" + apiurl + "\" style=\"color:#9999FF;\">";
+            var tr1a   = "</a></td></tr>";
             var td1p   = "</td><td style=\"padding-top:5px;\">";
 
             d += "<div id=\"bv_iw_div_ss\" style=\"display:none; padding-top:10px;\">";
             d += "<table" + font_attr + " style=\"border:0; border-collapse:collapse;\">";
             d += tr0t + s.BV_LOG_FILE_STATS_TITLE                                          + tr1;
+            if (!is_embedded_api && logId > 0) // negated log file IDs are local files which don't have an actual API log file id
+            {
+                d += tr0a + s.BV_LOG_FILE_API_LINK_LABEL                                       + tr1a;
+            }//if
             d += tr0p + (ss.max_usvh  * 334.0).toFixed(0)  + td1p + s.BV_CPM_MAX_LABEL     + tr1;
             d += tr0  + (ss.mean_usvh * 334.0).toFixed(0)  + td1  + s.BV_CPM_AVG_LABEL     + tr1;
-            d += tr0  + (ss.min_usvh * 334.0).toFixed(0)   + td1  + s.BV_CPM_MIN_LABEL     + tr1;
+            d += tr0  + (ss.min_usvh  * 334.0).toFixed(0)  + td1  + s.BV_CPM_MIN_LABEL     + tr1;
             d += tr0p + ss.max_usvh.toFixed(2)             + td1p + s.BV_USVH_MAX_LABEL    + tr1;
             d += tr0  + ss.mean_usvh.toFixed(2)            + td1  + s.BV_USVH_AVG_LABEL    + tr1;
             d += tr0  + ss.min_usvh.toFixed(2)             + td1  + s.BV_USVH_MIN_LABEL    + tr1;
@@ -3574,7 +3584,7 @@ var MKS = (function()
                        + "bidp.style.display = bidp.style.display == 'none' ? 'block' : 'none';"
                        + "}";
 
-        d += "<div" + font_attr + " style=\"cursor:pointer; position:absolute; top:0; left:0; font-size:9px; color:#9999FF;\"" 
+        d += "<div" + font_attr + " style=\"cursor:pointer; position:absolute; top:0; left:5px; font-size:9px; color:#9999FF;\"" 
           +  " onclick=\"" + oc_div_js + "\">";
         d += Math.abs(logId);
         d += "</div>";
