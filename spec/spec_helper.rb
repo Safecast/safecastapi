@@ -27,6 +27,7 @@ RSpec.configure do |config|
   config.include EmailSpec::Matchers
   config.include ActionDispatch::TestProcess
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
 
   # == Mock Framework
   #
