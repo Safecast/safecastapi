@@ -1,5 +1,0 @@
-test:
-  username: postgres
-  adapter: postgis
-  schema_search_path: public, postgis
-  database: travis_ci_test

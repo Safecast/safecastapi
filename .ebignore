@@ -2,11 +2,8 @@
 .gitignore
 .env
 .envrc
-.semaphore/
 .circleci/
-.travis.yml
 .codeclimate.yml
-.cloud66/
 .DS_Store
 .idea/
 *.iml

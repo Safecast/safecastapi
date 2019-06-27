@@ -1,5 +1,5 @@
 # Safecast/safecastapi
-[![Build Status](https://travis-ci.org/Safecast/safecastapi.svg?branch=master)](https://travis-ci.org/Safecast/safecastapi) [![Code Climate](https://codeclimate.com/github/Safecast/safecastapi/badges/gpa.svg)](https://codeclimate.com/github/Safecast/safecastapi) [![Test Coverage](https://codeclimate.com/github/Safecast/safecastapi/badges/coverage.svg)](https://codeclimate.com/github/Safecast/safecastapi/coverage) [![ZenHub logo](https://dxssrr2j0sq4w.cloudfront.net/3.2.0/img/external/zenhub-badge.png)](https://app.zenhub.com/workspaces/safecastapi-5c91af1f7a7e856312dbd3b7/board)
+[![CircleCI](https://circleci.com/gh/Safecast/safecastapi.svg?style=svg)](https://circleci.com/gh/Safecast/safecastapi) [![Code Climate](https://codeclimate.com/github/Safecast/safecastapi/badges/gpa.svg)](https://codeclimate.com/github/Safecast/safecastapi) [![Test Coverage](https://codeclimate.com/github/Safecast/safecastapi/badges/coverage.svg)](https://codeclimate.com/github/Safecast/safecastapi/coverage) [![ZenHub logo](https://dxssrr2j0sq4w.cloudfront.net/3.2.0/img/external/zenhub-badge.png)](https://app.zenhub.com/workspaces/safecastapi-5c91af1f7a7e856312dbd3b7/board)
 
 The app that powers [api.safecast.org](https://api.safecast.org/)
 
