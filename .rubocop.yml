@@ -18,6 +18,11 @@ Metrics/AbcSize:
     - 'db/migrate/20111214162214_create_bgeigie_logs.rb'
     - 'db/migrate/20120323105044_create_drive_logs.rb'
 
+# ignore spec files because examples are in block and tend to be long
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
 Metrics/LineLength:
   Max: 160
   AllowHeredoc: true
@@ -126,6 +131,13 @@ Style/EmptyMethod:
     - 'db/migrate/20130115042245_save_cities_and_credits_as_strings.rb'
     - 'db/migrate/20130117111202_reset_counters.rb'
 
+# ignore files that created by rails or bundled gems
+Style/ExpandPathArguments:
+  Exclude:
+    - 'bin/bundle'
+    - 'bin/rails'
+    - 'script/rails'
+
 Style/FrozenStringLiteralComment:
   Exclude:
     - 'Gemfile'
@@ -206,6 +218,12 @@ Style/FrozenStringLiteralComment:
     - 'db/migrate/20160615215212_add_authentication_token_created_at_to_users.rb'
     - 'db/migrate/20180603015430_create_uploader_contact_histories.rb'
     - 'deploy/after_restart.rb'
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%i': '()'
+    '%w': '()'
+    '%W': '()'
 
 Style/SpecialGlobalVars:
   EnforcedStyle: use_english_names

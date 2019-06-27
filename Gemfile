@@ -13,7 +13,7 @@ gem 'cancan'
 gem 'carrierwave', '~> 1.2.2'
 gem 'coffee-rails'
 # noinspection RailsParamDefResolve
-gem 'coffee-script-source', platforms: %i[mingw mswin x64_mingw]
+gem 'coffee-script-source', platforms: %i(mingw mswin x64_mingw)
 gem 'csv_builder', '~> 2.1.1'
 gem 'decent_exposure'
 gem 'delayed_job', '~> 4.1.3'
@@ -40,7 +40,7 @@ gem 'sass-rails'
 gem 'simple_form'
 gem 'swagger-blocks'
 # noinspection RailsParamDefResolve
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw]
+gem 'tzinfo-data', platforms: %i(mingw mswin x64_mingw)
 gem 'uglifier'
 
 group :development do

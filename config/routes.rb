@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-Safecast::Application.routes.draw do
+Safecast::Application.routes.draw do # rubocop:disable Metrics/BlockLength
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  scope '(:locale)', constraints: { locale: /(en-US|ja)/ } do
+  scope '(:locale)', constraints: { locale: /(en-US|ja)/ } do # rubocop:disable Metrics/BlockLength
     get '/radiation_index' => 'radiation_index#radiation_index'
     get '/ingest' => 'ingest#index'
     root to: 'dashboards#show'

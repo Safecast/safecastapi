@@ -16,7 +16,7 @@ class MeasurementsController < ApplicationController
   # config/initializers/wrap_parameters.rb
   wrap_parameters include: attribute_names_to_be_wrapped, format: %i(json)
 
-  before_filter :authenticate_user!, only: %i[new create update destroy]
+  before_filter :authenticate_user!, only: %i(new create update destroy)
 
   has_scope :captured_after
   has_scope :unit do |_controller, scope, value|
@@ -110,9 +110,10 @@ class MeasurementsController < ApplicationController
   private
 
   def measurement_params
-    params.fetch(:measurement, {})
-      .permit(*%i(value unit location location_name device_id height
-                  surface radiation latitude longitude captured_at
-                  devicetype_id sensor_id channel_id station_id))
+    params.fetch(:measurement, {}).permit(
+      :value, :unit, :location, :location_name, :device_id, :height, :surface,
+      :radiation, :latitude, :longitude, :captured_at, :devicetype_id, :sensor_id,
+      :channel_id, :station_id
+    )
   end
 end

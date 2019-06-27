@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   include Swagger::Blocks
 
   swagger_schema :User do
-    key :required, %i[id email name]
+    key :required, %i(id email name)
     property :id do
       key :type, :integer
       key :format, :int64
@@ -46,8 +46,8 @@ class User < ActiveRecord::Base
 
   def serializable_hash(options = {})
     super options.merge(
-      only: %i[id name email authentication_token],
-      methods: %i[first_name last_name]
+      only: %i(id name email authentication_token),
+      methods: %i(first_name last_name)
     )
   end
 

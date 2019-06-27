@@ -13,13 +13,13 @@ end
 
 schema_file = ::Rails.root.join('db/structure.sql')
 
-namespace :db do
+namespace :db do # rubocop:disable Metrics/BlockLength
   namespace :schema do
     desc 'Alias for db:structure:load'
     task load: ['db:structure:load']
   end
 
-  namespace :structure do
+  namespace :structure do # rubocop:disable Metrics/BlockLength
     desc 'Dump db schema structure.sql'
     task dump: [:environment] do
       setup_psql_env
@@ -52,7 +52,7 @@ namespace :db do
 
     def setup_psql_env
       ::ActiveRecord::Base.configurations[Rails.env]
-        .extract!(*%w(database host port password username))
+        .extract!('database', 'host', 'port', 'password', 'username')
         .compact
         .each do |key, val|
           key = 'user' if key == 'username'

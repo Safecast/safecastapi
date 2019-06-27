@@ -25,12 +25,12 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
   scope :unapproved, -> { where(approved: false).where(rejected: false) }
 
-  store :status_details, accessors: %i[
+  store :status_details, accessors: %i(
     process_file
     import_bgeigie_logs
     compute_latlng
     measurements_added
-  ]
+  )
 
   def self.filter(query)
     where("lower(name) LIKE :query
@@ -163,7 +163,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
         begin
           file.write "#{line.strip},#{Digest::MD5.hexdigest(line.strip)}\n"
-        rescue
+        rescue # rubocop:disable Style/RescueStandardError
           nil
         end
         lines_count += 1
@@ -191,7 +191,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     # check for date
     begin
       date = DateTime.parse line_items[2]
-    rescue
+    rescue ArgumentError
       nil
     end
     return false unless date
@@ -199,17 +199,17 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     # check for properly formatted floats
     lat = begin
             Float(line_items[7])
-          rescue
+          rescue ArgumentError
             nil
           end
     lon = begin
             Float(line_items[9])
-          rescue
+          rescue ArgumentError
             nil
           end
     alt = begin
             Float(line_items[11])
-          rescue
+          rescue ArgumentError
             nil
           end
     return false unless lat && lon && alt
@@ -235,7 +235,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     logger.info { psql_command }
     out = nil
     ENV['PGPASSWORD'] = db_config['password']
-    IO.popen(psql_command, err: %i[child out]) do |io|
+    IO.popen(psql_command, err: %i(child out)) do |io|
       out = io.read
     end
     [$CHILD_STATUS, out]

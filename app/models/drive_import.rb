@@ -15,7 +15,7 @@ class DriveImport < MeasurementImport
       drive_import.drive_logs.find_each do |drive_log|
         begin
           drive_log.update_location
-        rescue
+        rescue # rubocop:disable Style/RescueStandardError
           nil
         end
         print '.'
