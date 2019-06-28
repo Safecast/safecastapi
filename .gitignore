@@ -12,13 +12,8 @@ public/system/*
 bgeigie_logs/*
 log/localeapp.yml
 .idea
-.powrc
-zeus.json
-custom_plan.rb
 .localeapp.localeapp
 .env
-
-.ebextensions/stunnel.config
 
 .elasticbeanstalk/config.yml
 .elasticbeanstalk/app_versions/
