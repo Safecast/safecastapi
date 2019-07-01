@@ -27,17 +27,26 @@ Happy translating!
 
 ### Development
 
+There are a few apps for Safecast data processing. See https://github.com/safecast/safecastapi/wiki for a high level view (and link to a deeper doc).
+
+All issues for server-side work live in https://github.com/safecast/safecastapi/issues
+
+See the [help-wanted label](https://github.com/Safecast/safecastapi/issues?q=is%3Aopen+is%3Aissue+label%3Ahelp-wanted+sort%3Aupdated-desc) for some issues that should be approachable for folks just getting started with the app.
+
 See one of the wiki pages for instructions on setting up for local development:
 
 * [Dev: Setup on OS X](https://github.com/Safecast/safecastapi/wiki/Dev:-Setup-on-OS-X)
 * [Dev: Setup on Linux (Ubuntu 16.04)](https://github.com/Safecast/safecastapi/wiki/Dev:-Setup-on-Linux-(Ubuntu-16.04))
+* [Dev: Setup on Windows](https://github.com/Safecast/safecastapi/wiki/Dev:-Setup-on-Windows)
 * [Dev: Using Docker](https://github.com/Safecast/safecastapi/wiki/Dev:-Using-Docker)
+
+And finally we have a Slack channel for real time coordination. Contact [Mat Schaffer](http://github.com/matschaffer) to get an invite. 
 
 ### Deployment
 
 See [Ops Readme](README.ops.md).
 
-### Licensing
+## Licensing
 Licensing can be confusing. We’ll try to make it a little less so.
 
 

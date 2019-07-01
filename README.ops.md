@@ -57,18 +57,18 @@ First SSH into an EC2 instance (e.g.,  `rake ssh_prd_wrk`). Then run the `psql` 
 Then you can use this query to see what's in flight and for how long:
 
 ```
-SELECT pid, age(clock_timestamp(), query_start), usename, client_addr, query, state
-FROM pg_stat_activity
-WHERE state != 'idle' AND query NOT ILIKE '%pg_stat_activity%'
-ORDER BY query_start desc;  
+select pid, age(clock_timestamp(), query_start), query
+from pg_stat_activity
+where state != 'idle' and query not like '%pg_stat_activity%'
+order by query_start desc; 
 ```
 
 If you have many long running queries, you can terminate older queries using something like this to terminate any query that's been running longer than 5 minutes.
 
 ```
-SELECT pg_terminate_backend(pid)
-FROM pg_stat_activity
-WHERE query != '<IDLE>' AND query NOT ILIKE '%pg_stat_activity%' AND query_start < NOW() - interval '5 minutes';
+select pg_terminate_backend(pid)
+from pg_stat_activity
+where state != 'idle' and query_start < now() - interval '5 minutes';
 ```
 
 Cron jobs are handled via elastic beanstalk's aws-sqsd which can also back up if the DB is slow for an extended period of time.
