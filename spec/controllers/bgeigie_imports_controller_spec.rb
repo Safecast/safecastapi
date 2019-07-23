@@ -184,7 +184,8 @@ RSpec.describe BgeigieImportsController, type: :controller do
       context 'when non-login user' do
         let(:login_user) { nil }
 
-        it { expect(response).to redirect_to(new_user_session_path(locale: request.params[:locale])) }
+        # TODO: Switch back to new_user_session_path once we get locale out of the URL
+        it { expect(response).to redirect_to(%r{users/sign_in}) }
         it 'should not delete bgeigie import' do
           expect { BgeigieImport.find(bgeigie_import.id) }.to_not raise_error
         end
