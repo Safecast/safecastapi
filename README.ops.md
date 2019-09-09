@@ -76,3 +76,24 @@ Cron jobs are handled via elastic beanstalk's aws-sqsd which can also back up if
 If this happens, the messages in flight will be high (more than 1 or 2). Clearing the SQS queue via [the AWS console](https://console.aws.amazon.com/sqs/home?region=us-west-2) can be a good idea to ensure we're not re-computing any jobs.
 
 The production queue should be `awseb-e-aaw6am7e2x-stack-AWSEBWorkerQueue-3WZCP00RYHUX` which can be verified by the `Name` tag on the queue.
+
+## Upgrading the Database
+This process is for major version upgrades, e.g. from Postgres 9.5 to 9.6 or from 10 to 11, but not from 11.4 to 11.5. Minor version upgrades, like from 11.4 to 11.5, are automatically scheduled and performed by AWS. It was used to iteratively move ingest from 9.5 to 11.
+
+This process is probably automatable through Terraform. Try to do that first. These instructions are captured here for reference in case using Terraform is not possible.
+
+1. Read about [the PostgreSQL versioning model](https://www.postgresql.org/support/versioning/) and note the change in which digit of the version number denotes a major upgrade between Postgres 9 and Postgres 10.
+1. Read [the AWS guide to upgrading Postgres](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.PostgreSQL.html)
+1. Read [the guide to upgrading PostGIS](https://postgis.net/docs/postgis_installation.html#upgrading) in order to understand the PostGIS concept of "hard" and "soft" upgrades.
+1. Check which extensions are installed; usually at least PostGIS will be: `SELECT extname, extversion FROM pg_extension`
+1. Determine the versions of PostGIS and other extensions to upgrade to. The tables that list which versions of extensions are available in which Postgres version are listed in [in this AWS document](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html).
+1. Go to the RDS control panel, identify the read replica's configuration, and save all of it somewhere, e.g. copy/paste it to your desktop. It helps to click "Modify" and look at what is modifiable there.
+1. Once you are ready to start the process, and have saved the read replica's configuration, delete the read replica of the database. Read replicas cannot survive a major upgrade. Deleting it before starting the upgrade saves the performance and financial cost of replicating the `VACUUM` command's writes to the read replica.
+1. SSH to the `safecastingest-prd` instance (or whatever instance is correct for your application) as `ec2-user`; the current DNS value can be found in the AWS EC2 console.
+1. Execute a `VACUUM`; optionally, time it: `time psql -c 'VACUUM;'` Doing so ahead of time will make the upgrade go faster.
+1. Upgrade to the next major version of Postgres via the AWS RDS console, by clicking "Modify" on the appropriate database. Make sure to schedule the upgrade to happen immediately.
+1. Once the database upgrade is complete, perform either a hard or soft upgrade of PostGIS as necessary. This can also be done with `psql` on the application server instance.
+1. Repeat as necessary. Since PostGIS is installed, according to the AWS documentation, the upgrade must be done by iterating through each major version to the target version; you cannot skip ahead to the end. This is likely a safer course of action regardless, since each major upgrade may change the on-disk data storage format.
+1. Create a new read replica with the exact same name as the old one. This will ensure it has the same DNS name as the old one, and the public DNS alias `ingest-replica1.prd.safecast.cc` will continue to work.
+1. Compare the configuration of the old and new replicas until they match. Ensure that the replica and master are in the same availability zone to minimize any performance or financial costs.
+1. Update [the Terraform configuration](https://github.com/Safecast/infrastructure) to reflect these changes. This repository is private; you may need to ask for access.
