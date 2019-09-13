@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# frozen_string_literal: true
 
 class PendingImportsReminder < Thor
   desc 'process', 'Send e-mails to who has pending imports'
