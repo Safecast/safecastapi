@@ -78,9 +78,33 @@ If this happens, the messages in flight will be high (more than 1 or 2). Clearin
 The production queue should be `awseb-e-aaw6am7e2x-stack-AWSEBWorkerQueue-3WZCP00RYHUX` which can be verified by the `Name` tag on the queue.
 
 ## Upgrading the Database
-This process is for major version upgrades, e.g. from Postgres 9.5 to 9.6 or from 10 to 11, but not from 11.4 to 11.5. Minor version upgrades, like from 11.4 to 11.5, are automatically scheduled and performed by AWS. It was used to iteratively move ingest from 9.5 to 11.
 
-This process is probably automatable through Terraform. Try to do that first. These instructions are captured here for reference in case using Terraform is not possible.
+The instructions below were tested on the ingest database; as of September 2019, they have not been tested on the api database.
+
+This process is for major version upgrades, e.g. from Postgres 9.5 to 9.6 or from 10 to 11, but not from 11.4 to 11.5. Minor version upgrades, like from 11.4 to 11.5, are automatically scheduled and performed by AWS. Read about the [the PostgreSQL versioning model](https://www.postgresql.org/support/versioning/).
+
+### Terraform
+
+Terraform has been configured for ingest in a way that should make it easy to perform major upgrades. If Amazon automatically performs a minor version upgrade, this will not break Terraform. In `infrastructure/terraform/ingest/main.tf`, the `engine_version` variable is set to `11` rather than `11.4` to ensure this; Terraform is aware of automatic upgrades and the Postgres versioning scheme.
+
+To upgrade to the next version, e.g., Postgres 12, find the following lines in the Terraform configuration and change them from `11` to `12`:
+
+* `main.tf`
+  - `resource "aws_db_instance" "prd-master" {`
+    * `engine_version = "11"`
+  - `resource "aws_db_parameter_group" "public-replica" {`
+    * `family = "postgres11"`
+* `dev.tf`
+  - `resource "aws_db_instance" "dev-master" {`
+    * `engine_version = "11"`
+
+Read through the manual instructions as well to understand what Terraform should do when executing this plan.
+
+Upgrading PostGIS is not currently supported in our Terraform configuration. To manually upgrade the PostGIS version after upgrading Postgres, see the manual instructions below.
+
+### Manual
+
+Try to use the Terraform upgrade process first. These instructions are captured here for reference in case using Terraform is not possible.
 
 1. Read about [the PostgreSQL versioning model](https://www.postgresql.org/support/versioning/) and note the change in which digit of the version number denotes a major upgrade between Postgres 9 and Postgres 10.
 1. Read [the AWS guide to upgrading Postgres](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.PostgreSQL.html)
