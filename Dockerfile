@@ -45,7 +45,7 @@ RUN set -ex \
     && apt-get update \
     && apt-get install -y --no-install-recommends $buildDeps \
     && rm -rf /var/lib/apt/lists/* \
-    && wget -O ruby.tar.xz https://cache.ruby-lang.org/pub/ruby/ruby-2.3.8.tar.xz \
+    && wget -O ruby.tar.xz https://cache.ruby-lang.org/pub/ruby/ruby-2.4.9.tar.xz \
     && mkdir -p /usr/src/ruby \
     && tar -xJf ruby.tar.xz -C /usr/src/ruby --strip-components=1 \
     && rm ruby.tar.xz \

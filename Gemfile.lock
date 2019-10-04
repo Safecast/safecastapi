@@ -420,7 +420,7 @@ DEPENDENCIES
   uglifier
 
 RUBY VERSION
-   ruby 2.3.8p459
+   ruby 2.4.9p362
 
 BUNDLED WITH
    1.17.3

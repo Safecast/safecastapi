@@ -1,6 +1,6 @@
 global:
   application_name: api
-  default_platform: arn:aws:elasticbeanstalk:us-west-2::platform/Puma with Ruby 2.3 running on 64bit Amazon Linux/2.9.0
+  default_platform: arn:aws:elasticbeanstalk:us-west-2::platform/Puma with Ruby 2.4 running on 64bit Amazon Linux/2.11.1
   default_ec2_keyname: safecastapi
   default_region: us-west-2
   profile: safecast
