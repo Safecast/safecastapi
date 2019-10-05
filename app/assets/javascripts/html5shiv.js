@@ -2,7 +2,7 @@
  * @preserve HTML5 Shiv 3.7.3 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
  */
 (function(window, document) {
-  /*jshint evil:true */
+  /* jshint evil:true */
   /** version */
   var version = '3.7.3';
 
@@ -12,7 +12,7 @@
   /** Used to skip problem elements */
   var reSkip = /^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i;
 
-  /** Not all elements can be cloned in IE **/
+  /** Not all elements can be cloned in IE * */
   var saveClones = /^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i;
 
   /** Detect whether the browser supports default html5 styles */
@@ -34,7 +34,7 @@
     try {
       var a = document.createElement('a');
       a.innerHTML = '<xyz></xyz>';
-      //if the hidden property is implemented we can assume, that the browser supports basic HTML5 Styles
+      // if the hidden property is implemented we can assume, that the browser supports basic HTML5 Styles
       supportsHtml5Styles = 'hidden' in a;
 
       supportsUnknownElements =
@@ -194,7 +194,7 @@
     }
 
     ownerDocument.createElement = function(nodeName) {
-      //abort shiv
+      // abort shiv
       if (!html5.shivMethods) {
         return data.createElem(nodeName);
       }
@@ -307,13 +307,13 @@
     // shivs the document according to the specified `html5` object options
     shivDocument: shivDocument,
 
-    //creates a shived element
+    // creates a shived element
     createElement: createElement,
 
-    //creates a shived documentFragment
+    // creates a shived documentFragment
     createDocumentFragment: createDocumentFragment,
 
-    //extends list of elements
+    // extends list of elements
     addElements: addElements,
   };
 

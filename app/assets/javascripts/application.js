@@ -13,7 +13,7 @@
 //= require bootstrap-datetimepicker.min
 //= require bootstrap-rowlink.min
 //= require_tree ./application
-//- require_self
+// - require_self
 
 jQuery.ajaxSetup({
   beforeSend: function(xhr) {

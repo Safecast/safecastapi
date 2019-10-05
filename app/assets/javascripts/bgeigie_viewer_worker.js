@@ -15,7 +15,7 @@ self.onmessage = function(e) {
       e.data.logId,
       e.data.worker_id
     );
-  } //if
+  } // if
   else if (e.data.op == 'PREFILTER_VECS') {
     self.PrefilterVecs(
       e.data.mxs,
@@ -55,7 +55,7 @@ self.onmessage = function(e) {
   } else {
     var txt = '[' + e.data.worker_id + '] onmesssage: [ERR] Invalid op: ' + e.data.op + '.';
     self.postMessage({ op: 'DEBUG_MSG', txt: txt, worker_id: e.data.worker_id });
-  } //if
+  } // if
 };
 
 self.SortByQuadKey = function(
@@ -112,10 +112,10 @@ self.SortByQuadKey = function(
         if ((y & mask) != 0) digit += 2;
 
         s += String.fromCharCode(digit);
-      } //for
+      } // for
 
       qks[i] = [s, i];
-    } //for
+    } // for
 
     var d1 = new Date();
 
@@ -174,7 +174,7 @@ self.SortByQuadKey = function(
       vcopy_f32(litcp5s, 0, buf_f32, 0, n);
       vindex_u32(valids, idxs, buf_u08, n);
       vcopy_u08(valids, 0, buf_u08, 0, n);
-    } //if
+    } // if
 
     idxs = null;
     buf_f32 = null;
@@ -192,7 +192,7 @@ self.SortByQuadKey = function(
     var txt =
       '[' + worker_id + '] SortByQuadkey: { idx:' + ms_idx + ' ms, sort:' + ms_sort + ' ms, apply:' + ms_apply + ' }';
     self.postMessage({ op: 'DEBUG_MSG', txt: txt, worker_id: worker_id });
-  } //if
+  } // if
 
   self.postMessage(
     {
@@ -300,7 +300,7 @@ self.ParseLogFileToVectors = function(log, logbuffer, userData, isMoreFields, lo
     destlitcpms = new Float32Array(lines.length);
     destlitcp5s = new Float32Array(lines.length);
     destvalids = new Uint8Array(lines.length);
-  } //if
+  } // if
 
   var last_lat = -9000.0;
   var last_lon = -9000.0;
@@ -334,8 +334,8 @@ self.ParseLogFileToVectors = function(log, logbuffer, userData, isMoreFields, lo
       if (data[0] != null && data[0].length > 0 && data.length == 16 && data[0].substring(0, 1) == '#') {
         for (j = 0; j < 15; j++) {
           data[j] = data[j + 1];
-        } //for
-      } //if
+        } // for
+      } // if
 
       // NB: example of random bad line in logfile, cause unknown
       // $BMRDD,100,20SI-P- T23:47:04Z,65,5,147602,A,0.00,2,220912,N,,V,,**68
@@ -386,12 +386,12 @@ self.ParseLogFileToVectors = function(log, logbuffer, userData, isMoreFields, lo
       //      [ ]     *                            separator between quality and checksum
       //      [o]     checksum                     not including first $ and last *
 
-      //s_header              = data[0];                // non-default
-      //s_id                  = data[1];                // non-default
+      // s_header              = data[0];                // non-default
+      // s_id                  = data[1];                // non-default
       s_time = data[2];
       s_cpm = data[3];
       s_cp5s = data[4];
-      //s_totc                = data[5];                // non-default
+      // s_totc                = data[5];                // non-default
       s_rnStatus = data[6]; // non-default
       s_latitude = data[7];
       s_northsouthindicator = data[8];
@@ -399,12 +399,12 @@ self.ParseLogFileToVectors = function(log, logbuffer, userData, isMoreFields, lo
       s_eastwestindicator = data[10];
       s_altitude = data[11];
       s_gpsStatus = data[12]; // non-default
-      //s_dop                 = data[13];                 // non-default
+      // s_dop                 = data[13];                 // non-default
 
       if (destvalids != null && data[14].indexOf('*') > -1 && data[14].length > 1) {
-        //s_quality         = data[14].split("*")[0];   // non-default
+        // s_quality         = data[14].split("*")[0];   // non-default
         s_checksum = data[14].split('*')[1]; // non-default
-      } //if
+      } // if
 
       if (s_latitude != null && s_latitude.length > 0 && s_longitude != null && s_longitude.length > 0) {
         blat = parseFloat(s_latitude);
@@ -421,11 +421,11 @@ self.ParseLogFileToVectors = function(log, logbuffer, userData, isMoreFields, lo
 
           if (bcpm5s > 0.0 && ((bcpm > high_thr && bcpm5s > bcpm * 0.1 && bcpm5s < bcpm * 10.0) || high_n < 13)) {
             bcpm = bcpm5s / (1.0 - bcpm5s * 0.0000018833); // replace if at a high CPM and seems valid with deadtime correction
-          } //if
-        } //if
+          } // if
+        } // if
         else {
           bcpm5s = -9000.0; // indicate nodata
-        } //else
+        } // else
 
         blat = Math.abs(blat) * 0.01;
         blon = Math.abs(blon) * 0.01;
@@ -441,7 +441,7 @@ self.ParseLogFileToVectors = function(log, logbuffer, userData, isMoreFields, lo
             if (blat < y_min) y_min = blat;
             if (blon > x_max) x_max = blon;
             if (blon < x_min) x_min = blon;
-          } //if
+          } // if
 
           var unixMS = s_time == null ? 0.0 : Date.parse(s_time);
           desttimes[idx] = unixMS == null ? 0.0 : parseInt(unixMS * 0.001);
@@ -462,7 +462,7 @@ self.ParseLogFileToVectors = function(log, logbuffer, userData, isMoreFields, lo
               ((s_rnStatus == 'A' ? 1 : 0) << 2) |
               ((s_gpsStatus == 'A' ? 1 : 0) << 1) |
               (IsValidChecksum(lines[i], s_checksum) ? 1 : 0);
-          } //if
+          } // if
 
           tile_u08[((destmys[idx] >>> 21) << 8) + (destmxs[idx] >>> 21)] = 255;
 
@@ -486,23 +486,23 @@ self.ParseLogFileToVectors = function(log, logbuffer, userData, isMoreFields, lo
             if (bcpm < ss.min_usvh) ss.min_usvh = bcpm;
             if (alt > ss.max_alt_meters) ss.max_alt_meters = alt;
             if (alt < ss.min_alt_meters) ss.min_alt_meters = alt;
-          } //if
+          } // if
 
           if (kph < 1225.0) {
             // speed of sound in air -- sanity limit
             if (kph > ss.max_kph) ss.max_kph = kph;
             if (kph < ss.min_kph) ss.min_kph = kph;
             ss.dist_meters += dist;
-          } //if
+          } // if
 
           last_lat = blat;
           last_lon = blon;
 
           idx++;
-        } //if
-      } //if
-    } //if
-  } //for
+        } // if
+      } // if
+    } // if
+  } // for
 
   data = null;
 
@@ -515,7 +515,7 @@ self.ParseLogFileToVectors = function(log, logbuffer, userData, isMoreFields, lo
     ss.max_usvh *= 0.0029940119760479;
 
     self.postMessage({ op: 'SUMMARY_STATS', summary_stats: ss, worker_id: worker_id });
-  } //if
+  } // if
 
   for (i = 0; i < idx; i++) destminzs[i] = -1;
 
@@ -539,7 +539,7 @@ self.ParseLogFileToVectors = function(log, logbuffer, userData, isMoreFields, lo
     );
 
     unassigned_n = vscount_s08(destminzs, -1, idx);
-  } //if
+  } // if
 
   var ex = [x_min, y_min, x_max, y_max];
 
@@ -556,10 +556,10 @@ self.ParseLogFileToVectors = function(log, logbuffer, userData, isMoreFields, lo
       destlitcpms = vtrunc_f32(destlitcpms, idx);
       destlitcp5s = vtrunc_f32(destlitcp5s, idx);
       destvalids = vtrunc_u08(destvalids, idx);
-    } //if
+    } // if
 
     destminzs = vtrunc_s08(destminzs, idx);
-  } //if
+  } // if
   else if (lines.length != idx && unassigned_n > 0) {
     var nn = idx - unassigned_n;
     destmxs = vcmprs_u32(destmxs, -1, destminzs, nn, idx);
@@ -574,13 +574,13 @@ self.ParseLogFileToVectors = function(log, logbuffer, userData, isMoreFields, lo
       destlitcpms = vcmprs_f32(destlitcpms, -1, destminzs, nn, idx);
       destlitcp5s = vcmprs_f32(destlitcp5s, -1, destminzs, nn, idx);
       destvalids = vcmprs_u08(destvalids, -1, destminzs, nn, idx);
-    } //if
+    } // if
 
     destminzs = vcmprs_s08(destminzs, -1, destminzs, nn, idx);
 
-    //var txt = "Log->Vec: Found "+unassigned_n+" unassigned rows.  Initial rows: "+idx+".  Final rows: "+destmxs.length+".";
-    //self.postMessage( {op:"DEBUG_MSG", txt:txt, worker_id:worker_id } );
-  } //else if
+    // var txt = "Log->Vec: Found "+unassigned_n+" unassigned rows.  Initial rows: "+idx+".  Final rows: "+destmxs.length+".";
+    // self.postMessage( {op:"DEBUG_MSG", txt:txt, worker_id:worker_id } );
+  } // else if
 
   lines = null;
 
@@ -588,7 +588,7 @@ self.ParseLogFileToVectors = function(log, logbuffer, userData, isMoreFields, lo
     destlitcpms = new Float32Array(1);
     destlitcp5s = new Float32Array(1);
     destvalids = new Uint8Array(1);
-  } //if
+  } // if
 
   self.postMessage(
     {
@@ -688,12 +688,12 @@ self.AssignScaleVisibilityToVecs = function(mxs, mys, minzs, cpms, litcpms, litc
                 minzs[i] = z;
                 dest_is[j] = i;
                 did_replace = true;
-              } //if
+              } // if
 
               match = true;
               break;
-            } //if (spatial match)
-          } //for j
+            } // if (spatial match)
+          } // for j
 
           if (!match) {
             dest_xs[zdest_n] = mxs[i];
@@ -712,18 +712,18 @@ self.AssignScaleVisibilityToVecs = function(mxs, mys, minzs, cpms, litcpms, litc
             dest_is[zdest_n] = i;
             zdest_n++;
             minzs[i] = z;
-          } //if
-        } //if (unassigned)
-      } //for i
-    } //for z
+          } // if
+        } // if (unassigned)
+      } // for i
+    } // for z
 
     p++;
-  } //while (did_replace)
+  } // while (did_replace)
 
   if (p > 2) {
     var txt = '[' + worker_id + '] AssignScaleVis: Passes: ' + p + '.';
     self.postMessage({ op: 'DEBUG_MSG', txt: txt, worker_id: worker_id });
-  } //if
+  } // if
 
   dest_ys = null;
   dest_xs = null;
@@ -733,7 +733,7 @@ self.AssignScaleVisibilityToVecs = function(mxs, mys, minzs, cpms, litcpms, litc
     dest_5s = null;
     dest_vs = null;
     */
-}; //AssignScaleVisibilityToVecs
+}; // AssignScaleVisibilityToVecs
 
 self.oldtile = null;
 self.oldtile_last_n = 0;
@@ -814,9 +814,9 @@ self.PrefilterVecs = function(
 
           if (x < old_min_x) old_min_x = x;
           else if (x > old_max_x) old_max_x = x;
-        } //if
-      } //if
-    } //for
+        } // if
+      } // if
+    } // for
 
     for (i = 0; i < mxs.length; i++) {
       x = mxs[i];
@@ -828,14 +828,14 @@ self.PrefilterVecs = function(
 
         if (x < new_min_x) new_min_x = x;
         else if (x > new_max_x) new_max_x = x;
-      } //if
-    } //for
+      } // if
+    } // for
 
     isInExtent = !(new_max_x < old_min_x || new_min_x > old_max_x || new_max_y < old_min_y || new_min_y > old_max_y);
-  } //if
+  } // if
   else {
     isInExtent = false;
-  } //else
+  } // else
 
   if (isInExtent) {
     if (mxs.length * olddres.length > 50000) {
@@ -854,7 +854,7 @@ self.PrefilterVecs = function(
       if (self.oldtile == null) {
         var malloc_size = (w * h) >>> 3;
         self.oldtile = new Uint8Array(malloc_size);
-      } //if
+      } // if
 
       for (i = self.oldtile_last_n; i < olddres.length; i++) {
         if (oldzs[i] < src_z_max) {
@@ -865,7 +865,7 @@ self.PrefilterVecs = function(
 
           self.oldtile[idx] |= (1 << bitidx) | 0; // set bit
         }
-      } //for
+      } // for
 
       self.oldtile_last_n = olddres.length;
 
@@ -878,8 +878,8 @@ self.PrefilterVecs = function(
           idx = y * w + x;
           idx >>>= 3;
           self.oldtile[idx] = 0;
-        } //for
-      } //for
+        } // for
+      } // for
 
       for (i = 0; i < mxs.length; i++) {
         idx = ((mys[i] >>> zsr) << zsl) * w + ((mxs[i] >>> zsr) << zsl);
@@ -889,12 +889,12 @@ self.PrefilterVecs = function(
         if (self.oldtile[idx] & ((1 << bitidx) | 0)) {
           bitmap_fails[i] = 1;
           bitmap_n++;
-        } //if
-      } //for
+        } // if
+      } // for
 
       isInExtent = bitmap_n > 0;
-    } //if
-  } //if
+    } // if
+  } // if
 
   if (isInExtent) {
     var mx, my, z_diff;
@@ -918,16 +918,16 @@ self.PrefilterVecs = function(
         for (i = 0; i < old_n; i++) {
           oldmxs[i] >>>= 2;
           oldmys[i] >>>= 2;
-        } //for
-      } //if
+        } // for
+      } // if
       else if (z_filter > 1) {
         for (i = 0; i < old_n; i++) {
           if (oldzs[i] <= z_filter) {
             oldmxs[i] >>>= 1;
             oldmys[i] >>>= 1;
-          } //if
-        } //for
-      } //else if
+          } // if
+        } // for
+      } // else if
 
       for (i = 0; i < n; i++) {
         if (minzs[i] == z_filter) {
@@ -948,23 +948,23 @@ self.PrefilterVecs = function(
                 if (z_filter == oldzs[j] && mx == oldmxs[j] && my == oldmys[j] && cpm < olddres[j]) {
                   exists = true;
                   break;
-                } //if
-              } //for
-            } //if
-          } //if
+                } // if
+              } // for
+            } // if
+          } // if
 
           if (!exists) {
             shouldAdds[i] = 1;
             shouldAdd_c++;
-          } //if
-        } //if minz = z_filter
-      } //for i
-    } //for z_filter
-  } //if
+          } // if
+        } // if minz = z_filter
+      } // for i
+    } // for z_filter
+  } // if
   else {
     if (bitmap_fails == null) {
       shouldAdd_c = mxs.length;
-    } //if
+    } // if
     else {
       for (i = 0; i < n; i++) {
         var z = isMobile ? 0 : 5;
@@ -972,10 +972,10 @@ self.PrefilterVecs = function(
         if (bitmap_fails[i] == 0 || minzs[i] > z) {
           shouldAdds[i] = 1;
           shouldAdd_c++;
-        } //if
-      } //for
-    } //else
-  } //else
+        } // if
+      } // for
+    } // else
+  } // else
 
   if (bitmap_fails != null) bitmap_fails = null;
 
@@ -997,11 +997,11 @@ self.PrefilterVecs = function(
       degs = vcmprs_s08(degs, 0, shouldAdds, shouldAdd_c, degs.length);
       times = vcmprs_u32(times, 0, shouldAdds, shouldAdd_c, times.length);
       cpms = vcmprs_f32(cpms, 0, shouldAdds, shouldAdd_c, cpms.length);
-    } //if
+    } // if
 
     logids = new Int32Array(shouldAdd_c);
     for (i = 0; i < shouldAdd_c; i++) logids[i] = logId;
-  } //if
+  } // if
   else {
     mxs = new Uint32Array(1);
     mys = new Uint32Array(1);
@@ -1011,7 +1011,7 @@ self.PrefilterVecs = function(
     times = new Uint32Array(1);
     cpms = new Float32Array(1);
     logids = new Int32Array(1);
-  } //else
+  } // else
 
   self.postMessage(
     {
@@ -1042,7 +1042,7 @@ self.GetStringForArrayBuffer = function(src) {
     dest = de.decode(dv);
     de = null;
     dv = null;
-  } //if
+  } // if
   else {
     self.postMessage({
       op: 'DEBUG_MSG',
@@ -1055,10 +1055,10 @@ self.GetStringForArrayBuffer = function(src) {
 
     for (var i = 0; i < src_u08.length; i++) {
       dest += src_u08[i].toString(16);
-    } //for
+    } // for
 
     src_u08 = null;
-  } //else
+  } // else
 
   return dest;
 };
@@ -1213,7 +1213,7 @@ function PointDistanceMeters_EPSG4326(lat0, lon0, lat1, lon1) {
   d = d * 1000.0; // km --> m
 
   return d;
-} //PointDistanceMeters_EPSG4326
+} // PointDistanceMeters_EPSG4326
 
 function GetHeading_EPSG4326(lat0, lon0, lat1, lon1) {
   var dx = (lon1 - lon0) * 0.01745329251994329576923690768489;
@@ -1274,10 +1274,10 @@ function GPS_checksum(s, n) {
 
   for (var i = 1; i < n; i++) {
     chk ^= s.charCodeAt(i);
-  } //for
+  } // for
 
   return chk;
-} //GPS_checksum
+} // GPS_checksum
 
 // The checksum is then always encoded as a string of two ASCII characters giving the hexadecimal value of the checksum.
 
@@ -1288,7 +1288,7 @@ function IsValidChecksum(line, checksum) {
     var ss = line.substring(1, line.length);
     var chk = GPS_checksum(ss, ss.indexOf('*'));
     is_valid = parseInt('0x' + checksum) == chk;
-  } //if
+  } // if
 
   return is_valid;
-} //IsValidChecksum
+} // IsValidChecksum
