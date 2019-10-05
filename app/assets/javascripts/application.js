@@ -16,7 +16,7 @@
 //- require_self
 
 jQuery.ajaxSetup({
-  'beforeSend': function(xhr) {
-    xhr.setRequestHeader("Accept", "text/javascript");
-  }
+  beforeSend: function(xhr) {
+    xhr.setRequestHeader('Accept', 'text/javascript');
+  },
 });
