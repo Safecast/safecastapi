@@ -96,7 +96,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     import_to_bgeigie_logs
     confirm_status(:compute_latlng)
     update_column(:status, 'processed')
-    check_auto_approve
+    check_auto_approve  #check if this drive can be auto approved
     delete_tmp_file
   end
 
@@ -371,10 +371,13 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def minimum_cpm
+    #used to check if the drive contains cpm value lower than or equal to 0
     bgeigie_logs.minimum(:cpm)
   end
 
   def check_auto_approve
+    #run each auto approval rule and
+    #update would_auto_approve column based on if all rules passed
     ap_no_zero_cpm
     if(auto_apprv_no_zero_cpm)
       update_column(:would_auto_approve,true)
@@ -384,6 +387,8 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def ap_no_zero_cpm
+    #update auto_apprv_no_zero_cpm column based on
+    #if minimum_cpm is higher than 0
     if minimum_cpm <= 0
       update_column(:auto_apprv_no_zero_cpm,false)
     else
