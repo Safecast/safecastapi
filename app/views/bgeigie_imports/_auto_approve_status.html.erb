@@ -1,0 +1,24 @@
+<ul class="unstyled nav" id="progress" >
+  <li class="nav-header">
+    <%= "Status" %>
+  </li>
+  <li>
+    <%- if @bgeigie_import.auto_apprv_no_zero_cpm -%>
+      <%= t('.no_cpm_equals_zero') %>
+      <i class="icon-ok pull-right"></i>
+    <%- else -%>
+      <%= t('.no_cpm_equals_zero') %>
+      <i class="icon-remove pull-right"></i>
+    <%- end -%>
+  </li>
+  <li>
+    <%- if @bgeigie_import.would_auto_approve -%>
+      <%= t('would_auto_approve') %>
+      <i class="icon-ok pull-right"></i>
+    <%- else -%>
+      <%= t('would_auto_approve') %>
+      <i class="icon-remove pull-right"></i>
+    <%- end -%>
+  </li>
+
+</ul>

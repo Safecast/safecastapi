@@ -94,6 +94,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     import_to_bgeigie_logs
     confirm_status(:compute_latlng)
     update_column(:status, 'processed')
+    check_auto_approve
     delete_tmp_file
   end
 
@@ -171,6 +172,10 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     end
     update_column(:lines_count, lines_count)
     confirm_status(:process_file)
+  end
+
+  def can_auto_approve?
+    return true
   end
 
   def is_sane?(line) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity, Naming/PredicateName
@@ -361,5 +366,26 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
   def maximum_cpm
     bgeigie_logs.maximum(:cpm)
+  end
+
+  def minimum_cpm
+    bgeigie_logs.minimum(:cpm)
+  end
+
+  def check_auto_approve
+    ap_no_zero_cpm
+    if(auto_apprv_no_zero_cpm)
+      update_column(:would_auto_approve,true)
+    else
+      update_column(:would_auto_approve,false)
+    end
+  end
+
+  def ap_no_zero_cpm
+    if minimum_cpm <= 0
+      update_column(:auto_apprv_no_zero_cpm,false)
+    else
+      update_column(:auto_apprv_no_zero_cpm,true)
+    end
   end
 end

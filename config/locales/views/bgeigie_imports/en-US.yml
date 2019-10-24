@@ -62,6 +62,8 @@ en-US:
       map: Map
       process_log: Process Log
       send_email: Send Email To Uploader
+      auto_approve_false: Not Auto Approved
+      auto_approve_true: Auto Approved
       contact_moderator: Send Email to Moderator
       uploaded_by: Uploaded By
       filename: Filename
@@ -72,6 +74,8 @@ en-US:
       map_not_generated: The Map for this import hasn't generated yet. It will appear here once the file is processed.
       submit_for_approval: Submit for Approval
       title: Title
+    auto_approve_status:
+      no_cpm_equals_zero: Drive contains no measurements where CPM=0
     delete:
       delete_this_import: Delete this Import
       confirm_delete: Confirm Delete
