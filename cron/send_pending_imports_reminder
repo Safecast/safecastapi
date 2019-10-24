@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Sends reminders about imports that still need need to be submitted
+
+set -euo pipefail
+
+source cron_env.sh
+
+bundle exec thor pending_imports_reminder:process

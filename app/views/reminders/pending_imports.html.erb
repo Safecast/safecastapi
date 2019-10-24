@@ -1,0 +1,13 @@
+<p>Your data can't be added to the Safecast map because it's missing metadata (credits, cities, etc).</p>
+
+<p>Please click the links below and click "edit details" to add metadata.</p>
+
+<p>If you do not intend to submit these drives please use the "Delete this import" link to delete them.</p>
+
+<p>Safecastからのお知らせです。アップロードされたbGeigieデータのメタデータがまだ完成されていません。下のリンクをクリックして、確認して下さい。</p>
+
+<ul>
+  <%- @imports.each do |import| %>
+    <li><%= link_to(import.filename, bgeigie_import_url(import)) %></li>
+  <% end %>
+</ul>

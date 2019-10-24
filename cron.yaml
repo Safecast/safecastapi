@@ -15,3 +15,7 @@ cron:
   - name: radiation_index_export
     url: /cron
     schedule: "00 01 * * 7"
+  - name: send_pending_imports_reminder
+    url: /cron
+    schedule: "0 0 1-31/2 * *"
+
