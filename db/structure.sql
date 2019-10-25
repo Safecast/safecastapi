@@ -411,7 +411,11 @@ CREATE TABLE public.measurement_imports (
     rejected_by character varying(255),
     approved_by character varying(255),
     would_auto_approve boolean DEFAULT false,
-    auto_apprv_no_zero_cpm boolean
+    auto_apprv_no_zero_cpm boolean,
+    auto_apprv_no_high_cpm boolean,
+    auto_apprv_gps_validity boolean,
+    auto_apprv_frequent_bgeigie_id boolean,
+    auto_apprv_good_bgeigie_id boolean
 );
 
 
@@ -1206,4 +1210,6 @@ INSERT INTO schema_migrations (version) VALUES ('20191017054450');
 INSERT INTO schema_migrations (version) VALUES ('20191022080113');
 
 INSERT INTO schema_migrations (version) VALUES ('20191023060540');
+
+INSERT INTO schema_migrations (version) VALUES ('20191025034816');
 
