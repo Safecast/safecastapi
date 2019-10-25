@@ -385,7 +385,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   def ap_no_zero_cpm
     # update auto_apprv_no_zero_cpm column based on
     # if minimum_cpm is higher than 0
-    if minimum_cpm <= 0
+    if minimum_cpm == 0
       update_column(:auto_apprv_no_zero_cpm, false)
     else
       update_column(:auto_apprv_no_zero_cpm, true)
