@@ -77,7 +77,7 @@ If this happens, the messages in flight will be high (more than 1 or 2). Clearin
 
 The production queue should be `awseb-e-aaw6am7e2x-stack-AWSEBWorkerQueue-3WZCP00RYHUX` which can be verified by the `Name` tag on the queue.
 
-## Upgrading the Database
+## Upgrading the database
 
 The instructions below were tested on the ingest database; as of September 2019, they have not been tested on the api database.
 
@@ -121,3 +121,45 @@ Try to use the Terraform upgrade process first. These instructions are captured 
 1. Create a new read replica with the exact same name as the old one. This will ensure it has the same DNS name as the old one, and the public DNS alias `ingest-replica1.prd.safecast.cc` will continue to work.
 1. Compare the configuration of the old and new replicas until they match. Ensure that the replica and master are in the same availability zone to minimize any performance or financial costs.
 1. Update [the Terraform configuration](https://github.com/Safecast/infrastructure) to reflect these changes. This repository is private; you may need to ask for access.
+
+## Upgrading ingest Elastic Beanstalk environments
+
+There's two common cases when the Elastic Beanstalk environment for ingest needs to be replaced:
+
+* When upgrading the version of Ruby in use
+* When upgrading the version of Postgres server and client in use.
+
+It's important that the major version of the Postgres client binaries on the application servers matches the version of the Postgres server; otherwise, deployment of the application will fail. Therefore, after upgrading the major version of the Postgres server (e.g. from 11 to 12), upgrade the application servers soon thereafter.
+
+### Upgrading the Ruby version
+
+Upgrade these ingest project files:
+
+* `Gemfile`
+* `.circleci/config.yml`
+* `.ruby-version`
+
+and make sure that all is still working, e.g. by opening a pull request. Then, access the S3 console in AWS and download the following files from the `elasticbeanstalk-us-west-2-985752656544/resources/templates/ingest` folder:
+
+* `dev`
+* `dev-wrk`
+* `prd`
+* `prd-wrk`
+
+In each file, replace the `PlatformArn` line with the new ARN name. Upload the changed files to S3 in the same location.
+
+### Upgrading the Postgres client library version
+
+Open the ingest project file `.ebextensions/db.config` and update the URLs used to obtain the Postgres URLs. You will also need to update the symbolic link that is created below this line.
+
+### Creating the new environment
+
+From the ingest project directory:
+
+```bash
+export AWS_EB_CFG='dev'
+export AWS_REGION='us-west-2'
+rake elasticbeanstalk:create
+```
+
+The config variable can be changed to `prd`.
