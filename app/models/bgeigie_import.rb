@@ -362,13 +362,17 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     }
   end
 
+  MAXIMUM_CPM = 99_999 # temporary maximum cpm when no logs related to import
+
   def maximum_cpm
-    bgeigie_logs.maximum(:cpm)
+    bgeigie_logs.maximum(:cpm) || MAXIMUM_CPM
   end
+
+  MINIMUM_CPM = -99_999 # temporary minimum cpm when no logs related to import
 
   def minimum_cpm
     # used to check if the drive contains cpm value lower than or equal to 0
-    bgeigie_logs.minimum(:cpm)
+    bgeigie_logs.minimum(:cpm) || MINIMUM_CPM
   end
 
   def check_auto_approve
