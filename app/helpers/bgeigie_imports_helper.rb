@@ -49,4 +49,10 @@ module BgeigieImportsHelper
   def tilemap_link(bgeigie_import)
     link_to 'Map View', "https://safecast.org/tilemap/?logids=#{bgeigie_import.id}", target: '_blank', class: 'btn btn-primary', style: 'color: #fff'
   end
+
+  def auto_approve_zero_cpm_status(bgeigie_import)
+    style = 'pull-right'
+    style += bgeigie_import.auto_apprv_no_zero_cpm ? ' icon-ok' : ' icon-remove'
+    content_tag(:i, '', class: style)
+  end
 end

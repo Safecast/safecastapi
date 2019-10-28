@@ -3,13 +3,8 @@
     <%= "Status" %>
   </li>
   <li>
-    <%- if @bgeigie_import.auto_apprv_no_zero_cpm -%>
-      <%= t('.no_cpm_equals_zero') %>
-      <i class="icon-ok pull-right"></i>
-    <%- else -%>
-      <%= t('.no_cpm_equals_zero') %>
-      <i class="icon-remove pull-right"></i>
-    <%- end -%>
+    <%= t('.no_cpm_equals_zero') %>
+    <%= auto_approve_zero_cpm_status(@bgeigie_import) %>
   </li>
   <li>
     <%- if @bgeigie_import.would_auto_approve -%>
