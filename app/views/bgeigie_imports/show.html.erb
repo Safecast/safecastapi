@@ -34,6 +34,15 @@
               </a>
             </li>
           <%- end -%>
+          <li>
+            <a href="#auto-approve-status" data-toggle="tab">
+              <%- if @bgeigie_import.would_auto_approve == true -%>
+                <%= t('.auto_approve_true') %>
+              <%- else -%>
+                <%= t('.auto_approve_false') %>
+              <%- end -%>
+            </a>
+          </li>
         <%- end -%>
         <%- if @bgeigie_import.rejected? && (@bgeigie_import.rejected_by != current_user.email) -%>
           <li>
@@ -70,6 +79,9 @@
   </div>
   <div class="tab-pane" id="send-email">
     <%= render 'send_email' -%>
+  </div>
+  <div class="tab-pane" id="auto-approve-status">
+    <%= render 'auto_approve_status' -%>
   </div>
   <%- if @bgeigie_import.status == 'awaiting_response' -%>
     <div class="tab-pane" id="contact-detail">

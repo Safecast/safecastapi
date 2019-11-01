@@ -7,7 +7,9 @@ tmp/
 .sass-cache/
 *.swp
 *.swo
+*.save
 public/uploads/*
+public/Chang/*
 public/system/*
 bgeigie_logs/*
 log/localeapp.yml
