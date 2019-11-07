@@ -55,4 +55,14 @@ module BgeigieImportsHelper
     style += bgeigie_import.auto_apprv_no_zero_cpm ? ' icon-ok' : ' icon-remove'
     content_tag(:i, '', class: style)
   end
+  def auto_approve_high_cpm_status(bgeigie_import)
+    style = 'pull-right'
+    style += bgeigie_import.auto_apprv_no_high_cpm ? ' icon-ok' : ' icon-remove'
+    content_tag(:i, '', class: style)
+  end
+  def auto_approve_valid_gps_stats(bgeigie_import)
+    style = 'pull-right'
+    style += bgeigie_import.auto_apprv_gps_validity ? ' icon-ok' : ' icon-remove'
+    content_tag(:i, '', class: style)
+  end
 end
