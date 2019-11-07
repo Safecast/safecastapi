@@ -375,12 +375,33 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     bgeigie_logs.minimum(:cpm) || MINIMUM_CPM
   end
 
+  def invalid_count
+      bgeigie_logs.count(WHERE :gps_fix_indicator == 'A')*1.0
+  end
+
+  def invalid_valid_ratio
+    invalid_count/lines_count
+  end
+
+  def ap_is_gps_valid?
+    if invalid_count/lines_count > 0.1
+      return false
+    else
+      return true
+    end
+  end
+
   def check_auto_approve
     # run each auto approval rule and
     # update would_auto_approve column based on if all rules passed
-    update_attributes(
-      auto_apprv_no_zero_cpm: minimum_cpm.positive?,
-      would_auto_approve: auto_apprv_no_zero_cpm
+    #contains cpm value=0?
+    update_attribute(:auto_apprv_no_zero_cpm, minimum_cpm.positive?)
+    #contains high cpm?
+    update_attribute(:auto_apprv_no_high_cpm, maximum_cpm<90)
+    #is gps valid?
+    update_attribute(:auto_apprv_gps_validity, ap_is_gps_valid?)
+    update_attribute(:would_auto_approve,
+      auto_apprv_no_zero_cpm
     )
   end
 end

@@ -7,6 +7,26 @@
     <%= auto_approve_zero_cpm_status(@bgeigie_import) %>
   </li>
   <li>
+    <%- if @bgeigie_import.auto_apprv_no_high_cpm -%>
+      <%= t('.no_high_cpm') %>
+      <i class="icon-ok pull-right"></i>
+    <%- else -%>
+      <%= t('.no_high_cpm') %>
+      <i class="icon-remove pull-right"></i>
+    <%- end -%>
+  </li>
+  <li>
+    <%- if @bgeigie_import.auto_apprv_gps_validity -%>
+      <%= t('.valid_gps') %>
+      <i class="icon-ok pull-right"></i>
+      <%=@bgeigie_import.invalid_valid_ratio %>
+    <%- else -%>
+      <%= t('.valid_gps') %>
+      <i class="icon-remove pull-right"></i>
+    <%- end -%>
+    <%=@bgeigie_import.invalid_count %>
+  </li>
+  <li>
     <%- if @bgeigie_import.would_auto_approve -%>
       <%= t('would_auto_approve') %>
       <i class="icon-ok pull-right"></i>
