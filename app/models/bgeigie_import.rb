@@ -380,7 +380,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def ap_is_gps_valid?
-    if invalid_count/lines_count > 0.1
+    if invalid_valid_ratio > 0.1
       return false
     else
       return true
