@@ -409,11 +409,11 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     #contains cpm value=0?
     update_attribute(:auto_apprv_no_zero_cpm, minimum_cpm.positive?)
     #contains high cpm?
-    update_attribute(:auto_apprv_no_high_cpm, maximum_cpm<90)
+    update_attribute(:auto_apprv_no_high_cpm, maximum_cpm<=90)
     #is gps valid?
     update_attribute(:auto_apprv_gps_validity, ap_is_gps_valid?)
     update_attribute(:would_auto_approve,
-      auto_apprv_no_zero_cpm
+      auto_apprv_no_zero_cpm & auto_apprv_no_high_cpm & auto_apprv_gps_validity
     )
   end
 end
