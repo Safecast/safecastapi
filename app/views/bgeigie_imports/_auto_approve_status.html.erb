@@ -19,12 +19,10 @@
     <%- if @bgeigie_import.auto_apprv_gps_validity -%>
       <%= t('.valid_gps') %>
       <i class="icon-ok pull-right"></i>
-      <%=@bgeigie_import.invalid_valid_ratio %>
     <%- else -%>
       <%= t('.valid_gps') %>
       <i class="icon-remove pull-right"></i>
     <%- end -%>
-    <%=@bgeigie_import.invalid_count %>
   </li>
   <li>
     <%- if @bgeigie_import.would_auto_approve -%>
