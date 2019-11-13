@@ -410,12 +410,11 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
       WHERE device_serial_id = #{id}
       AND measurement_imports.approved = 't']
     )
-    return approve_count_table.rows().first().first().to_i()
+    return approve_count_table.rows.first.first.to_i
   end
 
   def ap_frequent_bgeigie_id?
     this_id = '\''+bgeigie_logs.first.device_serial_id+'\''
-    count_past_approve(this_id)
     return count_past_approve(this_id) >= 10
   end
 

@@ -12,16 +12,11 @@
   </li>
   <li>
     <%= t('.valid_gps') %>
-    <%= auto_approve_valid_gps_stats(@bgeigie_import) %>
+    <%= auto_approve_valid_gps_status(@bgeigie_import) %>
   </li>
   <li>
-    <%- if @bgeigie_import.auto_apprv_frequent_bgeigie_id -%>
-      <%= t('would_auto_approve') %>
-      <i class="icon-ok pull-right"></i>
-    <%- else -%>
-      <%= t('would_auto_approve') %>
-      <i class="icon-remove pull-right"></i>
-    <%- end -%>
+    <%= t('.frequent_bgeigie_id') %>
+    <%= auto_approve_frequent_bgeigie_id_status(@bgeigie_import) %>
   </li>
   <li>
     <%- if @bgeigie_import.would_auto_approve -%>
