@@ -96,8 +96,8 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     import_to_bgeigie_logs
     confirm_status(:compute_latlng)
     update_column(:status, 'processed')
-    check_auto_approve # check if this drive can be auto approved
     delete_tmp_file
+    check_auto_approve # check if this drive can be auto approved
   end
 
   def process_in_background
@@ -403,6 +403,22 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     end
   end
 
+  def count_past_approve(id)
+    approve_count_table = ActiveRecord::Base.connection.exec_query(%[
+      SELECT count(distinct measurement_imports.id)
+      FROM bgeigie_logs,measurement_imports
+      WHERE device_serial_id = #{id}
+      AND measurement_imports.approved = 't']
+    )
+    return approve_count_table.rows().first().first().to_i()
+  end
+
+  def ap_frequent_bgeigie_id?
+    this_id = '\''+bgeigie_logs.first.device_serial_id+'\''
+    count_past_approve(this_id)
+    return count_past_approve(this_id) >= 10
+  end
+
   def check_auto_approve
     # run each auto approval rule and
     # update would_auto_approve column based on if all rules passed
@@ -412,8 +428,11 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     update_attribute(:auto_apprv_no_high_cpm, maximum_cpm<=90)
     #is gps valid?
     update_attribute(:auto_apprv_gps_validity, ap_is_gps_valid?)
+    #is frequent bgeigie_import_id
+    update_attribute(:auto_apprv_frequent_bgeigie_id, ap_frequent_bgeigie_id?)
     update_attribute(:would_auto_approve,
-      auto_apprv_no_zero_cpm & auto_apprv_no_high_cpm & auto_apprv_gps_validity
+      auto_apprv_no_zero_cpm & auto_apprv_no_high_cpm & auto_apprv_gps_validity &
+      auto_apprv_frequent_bgeigie_id
     )
   end
 end
