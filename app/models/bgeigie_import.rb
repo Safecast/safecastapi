@@ -421,11 +421,13 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   def past_reject_record(this_id)
     reject_record = ActiveRecord::Base.connection.exec_query(%[
         SELECT distinct measurement_imports.id
-        FROM measurement_imports,bgeigie_logs
-        WHERE device_serial_id = '202'
+        FROM measurement_imports
+        INNER JOIN bgeigie_logs
+        ON measurement_imports.id = bgeigie_logs.bgeigie_import_id
+        WHERE device_serial_id = #{this_id}
         AND measurement_imports.rejected = 't'
         AND measurement_imports.created_at > localtimestamp - interval '1 year';
-      ]).rows
+      ])
     return reject_record
   end
 
