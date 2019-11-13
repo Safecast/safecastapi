@@ -70,4 +70,9 @@ module BgeigieImportsHelper
     style += bgeigie_import.auto_apprv_frequent_bgeigie_id ? ' icon-ok' : ' icon-remove'
     content_tag(:i, '', class: style)
   end
+  def auto_approve_good_bgeigie_id_status(bgeigie_import)
+    style = 'pull-right'
+    style += bgeigie_import.auto_apprv_good_bgeigie_id ? ' icon-ok' : ' icon-remove'
+    content_tag(:i, '', class: style)
+  end
 end

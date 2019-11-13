@@ -418,6 +418,22 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     return count_past_approve(this_id) >= 10
   end
 
+  def past_reject_record(this_id)
+    reject_record = ActiveRecord::Base.connection.exec_query(%[
+        SELECT distinct measurement_imports.id
+        FROM measurement_imports,bgeigie_logs
+        WHERE device_serial_id = '202'
+        AND measurement_imports.rejected = 't'
+        AND measurement_imports.created_at > localtimestamp - interval '1 year';
+      ]).rows
+    return reject_record
+  end
+
+  def ap_good_bgeigie_id?
+    this_id = '\''+bgeigie_logs.first.device_serial_id+'\''
+    return past_reject_record(this_id).rows.empty?
+  end
+
   def check_auto_approve
     # run each auto approval rule and
     # update would_auto_approve column based on if all rules passed
@@ -429,9 +445,11 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     update_attribute(:auto_apprv_gps_validity, ap_is_gps_valid?)
     #is frequent bgeigie_import_id
     update_attribute(:auto_apprv_frequent_bgeigie_id, ap_frequent_bgeigie_id?)
+    #has reject drive in past year?
+    update_attribute(:auto_apprv_good_bgeigie_id, ap_good_bgeigie_id?)
     update_attribute(:would_auto_approve,
       auto_apprv_no_zero_cpm & auto_apprv_no_high_cpm & auto_apprv_gps_validity &
-      auto_apprv_frequent_bgeigie_id
+      auto_apprv_frequent_bgeigie_id & auto_apprv_good_bgeigie_id
     )
   end
 end
