@@ -193,4 +193,6 @@ rake elasticbeanstalk:create
 
 This will create new worker and Web environments. Change `AWS_EB_CFG` to `prd` to rebuild the production environment.
 
+Since this will package and deploy whatever code you have in your local copy of the project, be sure to deploy a version built on CircleCI after the environments have been created, as described above in "Releasing a new version."
+
 After this, in the AWS Elastic Beanstalk console, find the "Swap URLs" button and use this to change DNS to point to the new environment. Delete the old environments.
