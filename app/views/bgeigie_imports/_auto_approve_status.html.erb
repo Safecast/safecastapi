@@ -23,12 +23,7 @@
     <%= auto_approve_good_bgeigie_id_status(@bgeigie_import) %>
   </li>
   <li>
-    <%- if @bgeigie_import.would_auto_approve -%>
-      <%= t('would_auto_approve') %>
-      <i class="icon-ok pull-right"></i>
-    <%- else -%>
-      <%= t('would_auto_approve') %>
-      <i class="icon-remove pull-right"></i>
-    <%- end -%>
+    <%= t('.would_auto_approve') %>
+    <%= auto_approve_would_auto_approve_status(@bgeigie_import) %>
   </li>
 </ul>

@@ -372,19 +372,15 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def invalid_count
-      bgeigie_logs.where(gps_fix_indicator: 'V').count*1.0
+    bgeigie_logs.where(gps_fix_indicator: 'V').count * 1.0
   end
 
   def invalid_valid_ratio
-    invalid_count/lines_count
+    invalid_count / lines_count
   end
 
   def ap_is_gps_valid?
-    if invalid_valid_ratio > 0.1
-      return false
-    else
-      return true
-    end
+    return true if invalid_valid_ratio <= 0.1
   end
 
   def invalid_count
@@ -403,55 +399,69 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def count_past_approve(id)
-    approve_count_table = ActiveRecord::Base.connection.exec_query(%[
-      SELECT count(distinct measurement_imports.id)
-      FROM bgeigie_logs,measurement_imports
-      WHERE device_serial_id = #{id}
-      AND measurement_imports.approved = 't']
-    )
-    return approve_count_table.rows.first.first.to_i
+  def count_past_approve(this_id)
+    stmt = 'SELECT count(distinct measurement_imports.id) '\
+      'FROM measurement_imports '\
+      'INNER JOIN bgeigie_logs '\
+      'ON measurement_imports.id = bgeigie_logs.bgeigie_import_id '\
+      'WHERE device_serial_id = $1 '\
+      "AND measurement_imports.approved = 't'"
+    values = [{ value: this_id }]
+    pg_run_query(stmt, values).values[0][0]
   end
 
   def ap_frequent_bgeigie_id?
-    this_id = '\''+bgeigie_logs.first.device_serial_id+'\''
-    return count_past_approve(this_id) >= 10
+    this_id = bgeigie_logs.first.device_serial_id.to_s
+    count_past_approve(this_id).to_i >= 10
   end
 
   def past_reject_record(this_id)
-    reject_record = ActiveRecord::Base.connection.exec_query(%[
-        SELECT distinct measurement_imports.id
-        FROM measurement_imports
-        INNER JOIN bgeigie_logs
-        ON measurement_imports.id = bgeigie_logs.bgeigie_import_id
-        WHERE device_serial_id = #{this_id}
-        AND measurement_imports.rejected = 't'
-        AND measurement_imports.created_at > localtimestamp - interval '1 year';
-      ])
-    return reject_record
+    stmt = 'SELECT count(*) '\
+      'FROM measurement_imports '\
+      'INNER JOIN bgeigie_logs '\
+      'ON measurement_imports.id = bgeigie_logs.bgeigie_import_id '\
+      'WHERE device_serial_id = $1 '\
+      "AND measurement_imports.rejected = 't' "\
+      "AND measurement_imports.created_at > localtimestamp - interval '1 year' "\
+      'limit 1;'
+    values = [{ value: this_id }]
+    pg_run_query(stmt, values)
+  end
+
+  def pg_run_query(stmt, values)
+    con = PG::Connection.new(dbname: 'safecast_development')
+    con.prepare('insert', stmt)
+    past_record = con.exec_prepared('insert', values)
+    con.close
+    past_record
   end
 
   def ap_good_bgeigie_id?
-    this_id = '\''+bgeigie_logs.first.device_serial_id+'\''
-    return past_reject_record(this_id).rows.empty?
+    this_id = bgeigie_logs.first.device_serial_id.to_s
+    past_reject_record(this_id).values[0][0].to_i.zero?
+  end
+
+  def auto_appove_rules_check
+    # contains cpm value=0?
+    update_attribute(:auto_apprv_no_zero_cpm, minimum_cpm.positive?)
+    # contains high cpm?
+    update_attribute(:auto_apprv_no_high_cpm, maximum_cpm <= 90)
+    # is gps valid?
+    update_attribute(:auto_apprv_gps_validity, ap_is_gps_valid?)
+    # is frequent bgeigie_import_id
+    update_attribute(:auto_apprv_frequent_bgeigie_id, ap_frequent_bgeigie_id?)
+    # has reject drive in past year?
+    update_attribute(:auto_apprv_good_bgeigie_id, ap_good_bgeigie_id?)
   end
 
   def check_auto_approve
     # run each auto approval rule and
     # update would_auto_approve column based on if all rules passed
-    #contains cpm value=0?
-    update_attribute(:auto_apprv_no_zero_cpm, minimum_cpm.positive?)
-    #contains high cpm?
-    update_attribute(:auto_apprv_no_high_cpm, maximum_cpm<=90)
-    #is gps valid?
-    update_attribute(:auto_apprv_gps_validity, ap_is_gps_valid?)
-    #is frequent bgeigie_import_id
-    update_attribute(:auto_apprv_frequent_bgeigie_id, ap_frequent_bgeigie_id?)
-    #has reject drive in past year?
-    update_attribute(:auto_apprv_good_bgeigie_id, ap_good_bgeigie_id?)
-    update_attribute(:would_auto_approve,
-      auto_apprv_no_zero_cpm & auto_apprv_no_high_cpm & auto_apprv_gps_validity &
-      auto_apprv_frequent_bgeigie_id & auto_apprv_good_bgeigie_id
-    )
+    auto_appove_rules_check
+    update_attribute(:would_auto_approve, auto_apprv_no_zero_cpm &
+      auto_apprv_no_high_cpm &
+      auto_apprv_gps_validity &
+      auto_apprv_frequent_bgeigie_id &
+      auto_apprv_good_bgeigie_id)
   end
 end
