@@ -457,7 +457,9 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   def check_auto_approve
     # run each auto approval rule and
     # update would_auto_approve column based on if all rules passed
-    auto_appove_rules_check
+    if !bgeigie_logs.empty?
+      auto_appove_rules_check
+    end
     update_attribute(:would_auto_approve, auto_apprv_no_zero_cpm &
       auto_apprv_no_high_cpm &
       auto_apprv_gps_validity &
