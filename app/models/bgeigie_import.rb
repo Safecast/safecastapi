@@ -429,11 +429,12 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def pg_run_query(stmt, values)
-    con = PG::Connection.new(dbname: 'safecast_development')
-    con.prepare('insert', stmt)
-    past_record = con.exec_prepared('insert', values)
-    con.close
-    past_record
+    ActiveRecord::Base.connection_pool.with_connection do |conn|
+      con = conn.raw_connection
+      con.exec("DEALLOCATE insert")
+      con.prepare('insert', stmt)
+      past_record = con.exec_prepared('insert', values)
+    end
   end
 
   def ap_good_bgeigie_id?
