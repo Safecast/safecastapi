@@ -431,9 +431,9 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   def pg_run_query(stmt, values)
     ActiveRecord::Base.connection_pool.with_connection do |conn|
       con = conn.raw_connection
-      con.exec("DEALLOCATE insert")
+      con.exec('DEALLOCATE insert')
       con.prepare('insert', stmt)
-      past_record = con.exec_prepared('insert', values)
+      con.exec_prepared('insert', values)
     end
   end
 
