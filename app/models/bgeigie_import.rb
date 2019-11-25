@@ -431,8 +431,10 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   def pg_run_query(stmt, values)
     ActiveRecord::Base.connection_pool.with_connection do |conn|
       con = conn.raw_connection
-      con.exec('DEALLOCATE insert')
-      con.prepare('insert', stmt)
+      begin
+        con.prepare('insert', stmt)
+      rescue PG::DuplicatePstatement => e
+      end
       con.exec_prepared('insert', values)
     end
   end
@@ -444,15 +446,15 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
   def auto_appove_rules_check
     # contains cpm value=0?
-    update_attribute(:auto_apprv_no_zero_cpm, minimum_cpm.positive?)
+    update_column(:auto_apprv_no_zero_cpm, minimum_cpm.positive?)
     # contains high cpm?
-    update_attribute(:auto_apprv_no_high_cpm, maximum_cpm <= 90)
+    update_column(:auto_apprv_no_high_cpm, maximum_cpm <= 90)
     # is gps valid?
-    update_attribute(:auto_apprv_gps_validity, ap_is_gps_valid?)
+    update_column(:auto_apprv_gps_validity, ap_is_gps_valid?)
     # is frequent bgeigie_import_id
-    update_attribute(:auto_apprv_frequent_bgeigie_id, ap_frequent_bgeigie_id?)
+    update_column(:auto_apprv_frequent_bgeigie_id, ap_frequent_bgeigie_id?)
     # has reject drive in past year?
-    update_attribute(:auto_apprv_good_bgeigie_id, ap_good_bgeigie_id?)
+    update_column(:auto_apprv_good_bgeigie_id, ap_good_bgeigie_id?)
   end
 
   def check_auto_approve
@@ -461,7 +463,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     unless bgeigie_logs.empty?
       auto_appove_rules_check
     end
-    update_attribute(:would_auto_approve, auto_apprv_no_zero_cpm &
+    update_column(:would_auto_approve, auto_apprv_no_zero_cpm &
       auto_apprv_no_high_cpm &
       auto_apprv_gps_validity &
       auto_apprv_frequent_bgeigie_id &
