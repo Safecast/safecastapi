@@ -433,7 +433,9 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
       con = conn.raw_connection
       begin
         con.prepare('insert', stmt)
-      rescue PG::DuplicatePstatement => e
+      rescue PG::DuplicatePstatement
+        con.exec('DEALLOCATE insert')
+        con.prepare('insert', stmt)
       end
       con.exec_prepared('insert', values)
     end
