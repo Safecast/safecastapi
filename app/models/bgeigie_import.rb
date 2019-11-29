@@ -400,32 +400,21 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def count_past_approve(this_id)
-    stmt = 'SELECT count(distinct measurement_imports.id) '\
-      'FROM measurement_imports '\
-      'INNER JOIN bgeigie_logs '\
-      'ON measurement_imports.id = bgeigie_logs.bgeigie_import_id '\
-      'WHERE device_serial_id = $1 '\
-      "AND measurement_imports.approved = 't'"
-    values = [{ value: this_id }]
-    pg_run_query(stmt, values).values[0][0]
+    BgeigieImport.joins(:bgeigie_logs)
+      .where(approved: true)
+      .where(BgeigieLog.arel_table[:device_serial_id].eq(this_id)).distinct.count
   end
 
   def ap_frequent_bgeigie_id?
     this_id = bgeigie_logs.first.device_serial_id.to_s
-    count_past_approve(this_id).to_i >= 10
+    count_past_approve(this_id) >= 10
   end
 
-  def past_reject_record(this_id)
-    stmt = 'SELECT count(*) '\
-      'FROM measurement_imports '\
-      'INNER JOIN bgeigie_logs '\
-      'ON measurement_imports.id = bgeigie_logs.bgeigie_import_id '\
-      'WHERE device_serial_id = $1 '\
-      "AND measurement_imports.rejected = 't' "\
-      "AND measurement_imports.created_at > localtimestamp - interval '1 year' "\
-      'limit 1;'
-    values = [{ value: this_id }]
-    pg_run_query(stmt, values)
+  def past_reject_record?(this_id)
+    BgeigieImport.joins(:bgeigie_logs)
+      .where(rejected: true)
+      .where(BgeigieLog.arel_table[:device_serial_id].eq(this_id))
+      .where(BgeigieImport.arel_table[:created_at].gt(1.year.ago)).exists?
   end
 
   def pg_run_query(stmt, values)
@@ -443,7 +432,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
   def ap_good_bgeigie_id?
     this_id = bgeigie_logs.first.device_serial_id.to_s
-    past_reject_record(this_id).values[0][0].to_i.zero?
+    !past_reject_record?(this_id)
   end
 
   def auto_appove_rules_check
