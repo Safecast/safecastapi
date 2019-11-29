@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       ca-certificates \
       g++ \
       gcc \
+      language-pack-en \
       libffi-dev \
       libgdbm3 \
       libgeos-dev \
@@ -19,6 +20,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       patch \
       postgresql \
       procps \
+      python3 \
+      python3-pip \
+      python3-setuptools \
       tzdata \
       zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
@@ -79,8 +83,9 @@ RUN adduser safecast --gecos "safecast,,,," \
     && chown safecast:safecast /src
 
 WORKDIR /src
-ADD Gemfile Gemfile.lock .ruby-version /src/
+ADD Gemfile Gemfile.lock .ruby-version requirements.txt /src/
 RUN bundle install
+RUN LC_ALL=en_US.UTF-8 pip3 install -r requirements.txt
 
 USER safecast
 CMD [ "bundle", "exec", "rails", "server", "-b", "0.0.0.0" ]
