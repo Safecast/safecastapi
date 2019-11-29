@@ -383,22 +383,6 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     return true if invalid_valid_ratio <= 0.1
   end
 
-  def invalid_count
-      bgeigie_logs.count(WHERE :gps_fix_indicator == 'A')*1.0
-  end
-
-  def invalid_valid_ratio
-    invalid_count/lines_count
-  end
-
-  def ap_is_gps_valid?
-    if invalid_count/lines_count > 0.1
-      return false
-    else
-      return true
-    end
-  end
-
   def count_past_approve(this_id)
     BgeigieImport.joins(:bgeigie_logs)
       .where(approved: true)
