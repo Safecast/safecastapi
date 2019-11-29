@@ -34,7 +34,7 @@
               </a>
             </li>
           <%- end -%>
-          <%- if @bgeigie_import.approved? && !@bgeigie_import.would_auto_approve.nil? -%>
+          <%- if @bgeigie_import.processed? && !@bgeigie_import.would_auto_approve.nil? -%>
             <li>
               <a href="#auto-approve-status" data-toggle="tab">
                 <%- if @bgeigie_import.would_auto_approve == true -%>
