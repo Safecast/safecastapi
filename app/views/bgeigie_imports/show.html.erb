@@ -34,15 +34,17 @@
               </a>
             </li>
           <%- end -%>
-          <li>
-            <a href="#auto-approve-status" data-toggle="tab">
-              <%- if @bgeigie_import.would_auto_approve == true -%>
-                <%= t('.auto_approve_true') %>
-              <%- else -%>
-                <%= t('.auto_approve_false') %>
-              <%- end -%>
-            </a>
-          </li>
+          <%- if @bgeigie_import.processed? && !@bgeigie_import.would_auto_approve.nil? -%>
+            <li>
+              <a href="#auto-approve-status" data-toggle="tab">
+                <%- if @bgeigie_import.would_auto_approve == true -%>
+                  <%= t('.auto_approve_true') %>
+                <%- else -%>
+                  <%= t('.auto_approve_false') %>
+                <%- end -%>
+              </a>
+            </li>
+          <%- end -%>
         <%- end -%>
         <%- if @bgeigie_import.rejected? && (@bgeigie_import.rejected_by != current_user.email) -%>
           <li>
