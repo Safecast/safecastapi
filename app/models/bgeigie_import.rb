@@ -96,8 +96,8 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     import_to_bgeigie_logs
     confirm_status(:compute_latlng)
     update_column(:status, 'processed')
-    check_auto_approve # check if this drive can be auto approved
     delete_tmp_file
+    check_auto_approve # check if this drive can be auto approved
   end
 
   def process_in_background
@@ -362,25 +362,86 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     }
   end
 
-  MAXIMUM_CPM = 99_999 # temporary maximum cpm when no logs related to import
-
   def maximum_cpm
-    bgeigie_logs.maximum(:cpm) || MAXIMUM_CPM
+    bgeigie_logs.maximum(:cpm)
   end
-
-  MINIMUM_CPM = -99_999 # temporary minimum cpm when no logs related to import
 
   def minimum_cpm
     # used to check if the drive contains cpm value lower than or equal to 0
-    bgeigie_logs.minimum(:cpm) || MINIMUM_CPM
+    bgeigie_logs.minimum(:cpm)
+  end
+
+  def invalid_count
+    bgeigie_logs.where(gps_fix_indicator: 'V').count * 1.0
+  end
+
+  def invalid_valid_ratio
+    invalid_count / lines_count
+  end
+
+  def ap_is_gps_valid?
+    return true if invalid_valid_ratio <= 0.1
+  end
+
+  def count_past_approve(this_id)
+    BgeigieImport.joins(:bgeigie_logs)
+      .where(approved: true)
+      .where(BgeigieLog.arel_table[:device_serial_id].eq(this_id)).distinct.count
+  end
+
+  def ap_frequent_bgeigie_id?
+    this_id = bgeigie_logs.first.device_serial_id.to_s
+    count_past_approve(this_id) >= 10
+  end
+
+  def past_reject_record?(this_id)
+    BgeigieImport.joins(:bgeigie_logs)
+      .where(rejected: true)
+      .where(BgeigieLog.arel_table[:device_serial_id].eq(this_id))
+      .where(BgeigieImport.arel_table[:created_at].gt(1.year.ago)).exists?
+  end
+
+  def pg_run_query(stmt, values)
+    ActiveRecord::Base.connection_pool.with_connection do |conn|
+      con = conn.raw_connection
+      begin
+        con.prepare('insert', stmt)
+      rescue PG::DuplicatePstatement
+        con.exec('DEALLOCATE insert')
+        con.prepare('insert', stmt)
+      end
+      con.exec_prepared('insert', values)
+    end
+  end
+
+  def ap_good_bgeigie_id?
+    this_id = bgeigie_logs.first.device_serial_id.to_s
+    !past_reject_record?(this_id)
+  end
+
+  def auto_appove_rules_check
+    # contains cpm value=0?
+    update_column(:auto_apprv_no_zero_cpm, minimum_cpm.positive?)
+    # contains high cpm?
+    update_column(:auto_apprv_no_high_cpm, maximum_cpm <= 90)
+    # is gps valid?
+    update_column(:auto_apprv_gps_validity, ap_is_gps_valid?)
+    # is frequent bgeigie_import_id
+    update_column(:auto_apprv_frequent_bgeigie_id, ap_frequent_bgeigie_id?)
+    # has reject drive in past year?
+    update_column(:auto_apprv_good_bgeigie_id, ap_good_bgeigie_id?)
   end
 
   def check_auto_approve
     # run each auto approval rule and
     # update would_auto_approve column based on if all rules passed
-    update_attributes(
-      auto_apprv_no_zero_cpm: minimum_cpm.positive?,
-      would_auto_approve: auto_apprv_no_zero_cpm
-    )
+    unless bgeigie_logs.empty?
+      auto_appove_rules_check
+    end
+    update_column(:would_auto_approve, auto_apprv_no_zero_cpm &
+      auto_apprv_no_high_cpm &
+      auto_apprv_gps_validity &
+      auto_apprv_frequent_bgeigie_id &
+      auto_apprv_good_bgeigie_id)
   end
 end

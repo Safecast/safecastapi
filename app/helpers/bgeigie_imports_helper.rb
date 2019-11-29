@@ -50,9 +50,9 @@ module BgeigieImportsHelper
     link_to 'Map View', "https://safecast.org/tilemap/?logids=#{bgeigie_import.id}", target: '_blank', class: 'btn btn-primary', style: 'color: #fff'
   end
 
-  def auto_approve_zero_cpm_status(bgeigie_import)
+  def ok_remove_tag
     style = 'pull-right'
-    style += bgeigie_import.auto_apprv_no_zero_cpm ? ' icon-ok' : ' icon-remove'
+    style += block_given? && yield ? ' icon-ok' : ' icon-remove'
     content_tag(:i, '', class: style)
   end
 end
