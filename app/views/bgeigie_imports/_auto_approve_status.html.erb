@@ -4,26 +4,26 @@
   </li>
   <li>
     <%= t('.no_cpm_equals_zero') %>
-    <%= auto_approve_zero_cpm_status(@bgeigie_import) %>
+    <%= ok_remove_tag { @bgeigie_import.auto_apprv_no_zero_cpm } %>
   </li>
   <li>
     <%= t('.no_high_cpm') %>
-    <%= auto_approve_high_cpm_status(@bgeigie_import) %>
+    <%= ok_remove_tag { @bgeigie_import.auto_apprv_no_high_cpm } %>
   </li>
   <li>
     <%= t('.valid_gps') %>
-    <%= auto_approve_valid_gps_status(@bgeigie_import) %>
+    <%= ok_remove_tag { @bgeigie_import.auto_apprv_gps_validity } %>
   </li>
   <li>
     <%= t('.frequent_bgeigie_id') %>
-    <%= auto_approve_frequent_bgeigie_id_status(@bgeigie_import) %>
+    <%= ok_remove_tag { @bgeigie_import.auto_apprv_frequent_bgeigie_id } %>
   </li>
   <li>
     <%= t('.good_bgeigie_id') %>
-    <%= auto_approve_good_bgeigie_id_status(@bgeigie_import) %>
+    <%= ok_remove_tag { @bgeigie_import.auto_apprv_good_bgeigie_id } %>
   </li>
   <li>
     <%= t('.would_auto_approve') %>
-    <%= auto_approve_would_auto_approve_status(@bgeigie_import) %>
+    <%= ok_remove_tag { @bgeigie_import.would_auto_approve } %>
   </li>
 </ul>
