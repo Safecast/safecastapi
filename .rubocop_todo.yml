@@ -1,8 +1,20 @@
+Lint/SendWithMixinArgument:
+  Exclude:
+    - lib/extras/simple_form_extensions.rb
 Lint/ShadowedArgument:
   Enabled: false
 Naming/MethodParameterName:
   Enabled: false
 Security/YAMLLoad:
   Enabled: false
+Style/FormatStringToken:
+  Exclude:
+    - app/decorators/bgeigie_log_decorator.rb
+    - config/routes.rb
+    - lib/elasticbeanstalk_helper.rb
+    - spec/integration/api/devices_spec.rb
 Style/IfUnlessModifier:
   Enabled: false
+Style/WordArray:
+  Exclude:
+    - spec/integration/api/devices_spec.rb
