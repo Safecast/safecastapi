@@ -454,6 +454,5 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
       auto_appove_rules_check
     end
     update_would_approve
-    BgeigieImport.by_status('submitted').where(would_auto_approve: true).count
   end
 end
