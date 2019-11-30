@@ -94,10 +94,10 @@ Style/HashSyntax:
     - 'db/migrate/20130606042505_add_devise_confirmable_to_user.rb'
     - 'db/migrate/20130705092519_create_rails_admin_histories_table.rb'
 
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 
-Layout/IndentFirstHashElement:
+Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 
 Layout/IndentationConsistency:
@@ -250,7 +250,7 @@ Layout/Tab:
   Exclude:
     - 'db/migrate/20111214154833_create_delayed_jobs.rb'
 
-Layout/TrailingBlankLines:
+Layout/TrailingEmptyLines:
   Exclude:
     - 'db/migrate/20111214154833_create_delayed_jobs.rb'
     - 'db/migrate/20120103213502_add_default_to_bgeigie_log.rb'

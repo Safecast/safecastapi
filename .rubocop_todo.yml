@@ -1,6 +1,6 @@
 Lint/ShadowedArgument:
   Enabled: false
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: false
 Security/YAMLLoad:
   Enabled: false
