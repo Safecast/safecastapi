@@ -380,7 +380,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def ap_is_gps_valid?
-    invalid_valid_ratio <= 0.1 
+    invalid_valid_ratio <= 0.5
   end
 
   def count_past_approve(this_id)
@@ -423,7 +423,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     # contains cpm value=0?
     update_column(:auto_apprv_no_zero_cpm, minimum_cpm.positive?)
     # contains high cpm?
-    update_column(:auto_apprv_no_high_cpm, maximum_cpm <= 90)
+    update_column(:auto_apprv_no_high_cpm, maximum_cpm <= 120)
     # is gps valid?
     update_column(:auto_apprv_gps_validity, ap_is_gps_valid?)
     # is frequent bgeigie_import_id
