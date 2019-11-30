@@ -13,6 +13,8 @@ jobs:
           POSTGRES_DB: safecast
           POSTGRES_PASSWORD: ""
       - image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
+        environment:
+          discovery.type: single-node
     steps:
       - checkout
       - run:
