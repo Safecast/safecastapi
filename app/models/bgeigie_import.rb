@@ -380,7 +380,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def ap_is_gps_valid?
-    return true if invalid_valid_ratio <= 0.1
+    invalid_valid_ratio <= 0.1 
   end
 
   def count_past_approve(this_id)
@@ -432,16 +432,19 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     update_column(:auto_apprv_good_bgeigie_id, ap_good_bgeigie_id?)
   end
 
+  def ap_final_auto_approve_check
+    auto_apprv_no_high_cpm && auto_apprv_no_high_cpm &&
+      auto_apprv_gps_validity && auto_apprv_frequent_bgeigie_id &&
+      auto_apprv_good_bgeigie_id
+  end
+
   def check_auto_approve
     # run each auto approval rule and
     # update would_auto_approve column based on if all rules passed
     unless bgeigie_logs.empty?
       auto_appove_rules_check
     end
-    update_column(:would_auto_approve, auto_apprv_no_zero_cpm &
-      auto_apprv_no_high_cpm &
-      auto_apprv_gps_validity &
-      auto_apprv_frequent_bgeigie_id &
-      auto_apprv_good_bgeigie_id)
+    update_column(:would_auto_approve, ap_final_auto_approve_check)
+    BgeigieImport.by_status('submitted').where(would_auto_approve: true).count
   end
 end
