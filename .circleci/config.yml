@@ -7,7 +7,7 @@ jobs:
           RAILS_ENV: test
           AWS_DEFAULT_REGION: us-west-2
           EB_APP_NAME: api
-      - image: mdillon/postgis:11.5
+      - image: mdillon/postgis:11
         environment:
           POSTGRES_USER: safecast
           POSTGRES_DB: safecast
