@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.3.8-node-browsers
+      - image: circleci/ruby:2.4.9-node-browsers
         environment:
           RAILS_ENV: test
           AWS_DEFAULT_REGION: us-west-2
