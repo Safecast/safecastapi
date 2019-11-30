@@ -13,5 +13,6 @@ Fabricator(:admin_user, from: :user) do
   email 'admin@safecast.org'
   password '111111'
   confirmed_at Time.current
+  default_locale 'en-US'
   moderator true
 end
