@@ -13,6 +13,18 @@ RailsAdmin.config do |config|
 
   config.yell_for_non_accessible_fields = false
 
+  config.model 'BgeigieLog' do
+    list do
+      limited_pagination
+    end
+  end
+
+  config.model 'Measurement' do
+    list do
+      limited_pagination
+    end
+  end
+
   config.model 'User' do
     field :email
     field :moderator
