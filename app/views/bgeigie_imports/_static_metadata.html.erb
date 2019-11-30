@@ -10,5 +10,7 @@
     <dd><%= @bgeigie_import.processed? ? @bgeigie_import.bgeigie_logs.size : '-' %></dd>
     <dt><%= t('.highest_measurement') %></dt>
     <dd><%= @bgeigie_import.maximum_cpm || '-' %></dd>
+    <dt><%= t('.version_number') %></dt>
+    <dd><%= @bgeigie_import.version || '-' %></dd>
   </dl>
 </div>
