@@ -423,7 +423,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     # contains cpm value=0?
     update_column(:auto_apprv_no_zero_cpm, minimum_cpm.positive?)
     # contains high cpm?
-    update_column(:auto_apprv_no_high_cpm, maximum_cpm <= 120)
+    update_column(:auto_apprv_no_high_cpm, maximum_cpm <= 120 || subtype_cosmic?)
     # is gps valid?
     update_column(:auto_apprv_gps_validity, ap_is_gps_valid?)
     # is frequent bgeigie_import_id
@@ -432,10 +432,18 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     update_column(:auto_apprv_good_bgeigie_id, ap_good_bgeigie_id?)
   end
 
+  def subtype_cosmic?
+    subtype == 'Cosmic'
+  end
+
   def ap_final_auto_approve_check
     auto_apprv_no_high_cpm && auto_apprv_no_high_cpm &&
       auto_apprv_gps_validity && auto_apprv_frequent_bgeigie_id &&
       auto_apprv_good_bgeigie_id
+  end
+
+  def update_would_approve
+    update_column(:would_auto_approve, ap_final_auto_approve_check)
   end
 
   def check_auto_approve
@@ -444,7 +452,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     unless bgeigie_logs.empty?
       auto_appove_rules_check
     end
-    update_column(:would_auto_approve, ap_final_auto_approve_check)
+    update_would_approve
     BgeigieImport.by_status('submitted').where(would_auto_approve: true).count
   end
 end
