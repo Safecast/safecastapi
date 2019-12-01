@@ -79,10 +79,14 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
 
   def submit
     @bgeigie_import = scope.find(params[:id])
-    @bgeigie_import.update_column(:status, 'submitted')
-    @bgeigie_import.update_column(:rejected, 'false')
-    @bgeigie_import.update_column(:rejected_by, nil)
-    Notifications.import_awaiting_approval(@bgeigie_import).deliver_later
+    if @bgeigie_import.would_auto_approve
+      @bgeigie_import.approve!('ZBot')
+    else
+      @bgeigie_import.update_column(:status, 'submitted')
+      @bgeigie_import.update_column(:rejected, 'false')
+      @bgeigie_import.update_column(:rejected_by, nil)
+      Notifications.import_awaiting_approval(@bgeigie_import).deliver_later
+    end
     redirect_to @bgeigie_import
   end
 

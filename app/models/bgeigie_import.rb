@@ -101,7 +101,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     check_auto_approve # check if this drive can be auto approved
   end
 
-  def process_in_background
+  def process_in_backgroundx
     Delayed::Job.enqueue ProcessBgeigieImportJob.new(id)
   end
 
@@ -445,6 +445,10 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
   def update_would_approve
     update_column(:would_auto_approve, ap_final_auto_approve_check)
+  end
+
+  def auto_approve?
+    would_auto_approve
   end
 
   def check_auto_approve
