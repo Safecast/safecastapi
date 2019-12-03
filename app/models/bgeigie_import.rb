@@ -438,7 +438,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def ap_final_auto_approve_check
-    auto_apprv_no_high_cpm && auto_apprv_no_high_cpm &&
+    auto_apprv_no_zero_cpm && auto_apprv_no_high_cpm &&
       auto_apprv_gps_validity && auto_apprv_frequent_bgeigie_id &&
       auto_apprv_good_bgeigie_id
   end
