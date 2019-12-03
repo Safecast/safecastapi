@@ -97,6 +97,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     confirm_status(:compute_latlng)
     update_column(:status, 'processed')
     delete_tmp_file
+    update_column(:version, $LAST_MATCH_INFO[1].to_s) if /^# format=(\d+\.\d+\.\d+)$/m =~ source.file.read
     check_auto_approve # check if this drive can be auto approved
   end
 
@@ -380,7 +381,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def ap_is_gps_valid?
-    return true if invalid_valid_ratio <= 0.1
+    invalid_valid_ratio <= 0.5
   end
 
   def count_past_approve(this_id)
@@ -423,7 +424,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     # contains cpm value=0?
     update_column(:auto_apprv_no_zero_cpm, minimum_cpm.positive?)
     # contains high cpm?
-    update_column(:auto_apprv_no_high_cpm, maximum_cpm <= 90)
+    update_column(:auto_apprv_no_high_cpm, maximum_cpm <= 120 || subtype_cosmic?)
     # is gps valid?
     update_column(:auto_apprv_gps_validity, ap_is_gps_valid?)
     # is frequent bgeigie_import_id
@@ -432,16 +433,26 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     update_column(:auto_apprv_good_bgeigie_id, ap_good_bgeigie_id?)
   end
 
+  def subtype_cosmic?
+    subtype == 'Cosmic'
+  end
+
+  def ap_final_auto_approve_check
+    auto_apprv_no_zero_cpm && auto_apprv_no_high_cpm &&
+      auto_apprv_gps_validity && auto_apprv_frequent_bgeigie_id &&
+      auto_apprv_good_bgeigie_id
+  end
+
+  def update_would_approve
+    update_column(:would_auto_approve, ap_final_auto_approve_check)
+  end
+
   def check_auto_approve
     # run each auto approval rule and
     # update would_auto_approve column based on if all rules passed
     unless bgeigie_logs.empty?
       auto_appove_rules_check
     end
-    update_column(:would_auto_approve, auto_apprv_no_zero_cpm &
-      auto_apprv_no_high_cpm &
-      auto_apprv_gps_validity &
-      auto_apprv_frequent_bgeigie_id &
-      auto_apprv_good_bgeigie_id)
+    update_would_approve
   end
 end

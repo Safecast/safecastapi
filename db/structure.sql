@@ -2,31 +2,19 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.14
--- Dumped by pg_dump version 9.5.14
+-- Dumped from database version 11.6
+-- Dumped by pg_dump version 11.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
 
 --
 -- Name: postgis; Type: SCHEMA; Schema: -; Owner: -
@@ -422,12 +410,13 @@ CREATE TABLE public.measurement_imports (
     rejected boolean DEFAULT false,
     rejected_by character varying(255),
     approved_by character varying(255),
-    would_auto_approve boolean DEFAULT false,
+    would_auto_approve boolean,
     auto_apprv_no_zero_cpm boolean,
     auto_apprv_no_high_cpm boolean,
     auto_apprv_gps_validity boolean,
     auto_apprv_frequent_bgeigie_id boolean,
-    auto_apprv_good_bgeigie_id boolean
+    auto_apprv_good_bgeigie_id boolean,
+    version character varying
 );
 
 
@@ -1225,3 +1214,6 @@ INSERT INTO public.schema_migrations (version) VALUES ('20191023060540');
 
 INSERT INTO public.schema_migrations (version) VALUES ('20191025034816');
 
+INSERT INTO public.schema_migrations (version) VALUES ('20191129022447');
+
+INSERT INTO public.schema_migrations (version) VALUES ('20191130062502');

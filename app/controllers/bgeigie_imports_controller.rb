@@ -79,10 +79,14 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
 
   def submit
     @bgeigie_import = scope.find(params[:id])
-    @bgeigie_import.update_column(:status, 'submitted')
-    @bgeigie_import.update_column(:rejected, 'false')
-    @bgeigie_import.update_column(:rejected_by, nil)
-    Notifications.import_awaiting_approval(@bgeigie_import).deliver_later
+    if @bgeigie_import.would_auto_approve
+      @bgeigie_import.approve!('ZBot Auto Approving System')
+    else
+      @bgeigie_import.update_column(:status, 'submitted')
+      @bgeigie_import.update_column(:rejected, 'false')
+      @bgeigie_import.update_column(:rejected_by, nil)
+      Notifications.import_awaiting_approval(@bgeigie_import).deliver_later
+    end
     redirect_to @bgeigie_import
   end
 
@@ -109,7 +113,11 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
 
   def update
     @bgeigie_import = scope.find(params[:id])
+    if bgeigie_import_params[:subtype] == 'Cosmic'
+      @bgeigie_import.update_column(:auto_apprv_no_high_cpm, true)
+    end
     @bgeigie_import.update_attributes(bgeigie_import_params)
+    @bgeigie_import.update_would_approve
     respond_with @bgeigie_import
   end
 
