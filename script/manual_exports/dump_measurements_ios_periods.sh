@@ -38,7 +38,7 @@ rm -f /tmp/ios13_32_*
 #psql -U safecast --host $POSTGRESQL_ADDRESS safecast -f /var/deploy/api.safecast.org/web_head/current/script/manual_exports/2018-09-10_2019-03-10.sql
 #/bin/sleep 60s
 
-psql -U safecast --host $POSTGRESQL_ADDRESS safecast -f /var/deploy/api.safecast.org/web_head/current/script/manual_exports/2019-03-10_2019-09-10.sql
+PGOPTIONS=--search_path=public,postgis psql -f /var/app/current/script/manual_exports/2019-03-10_2019-09-10.sql
 /bin/sleep 60s
 
 
