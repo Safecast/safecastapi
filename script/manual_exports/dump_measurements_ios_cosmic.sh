@@ -2,7 +2,8 @@
 
 rm -f /tmp/ios13_32_cosmic*
 
-psql -U safecast --host $POSTGRESQL_ADDRESS safecast -f /var/deploy/api.safecast.org/web_head/current/script/manual_exports/cosmic.sql
+#psql -U safecast --host $POSTGRESQL_ADDRESS safecast -f /var/deploy/api.safecast.org/web_head/current/script/manual_exports/cosmic.sql
+PGOPTIONS=--search_path=public,postgis psql -f /var/app/current/script/manual_exports/cosmic.sql
 /bin/sleep 60s
 
 
