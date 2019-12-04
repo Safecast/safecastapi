@@ -402,19 +402,6 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
       .where(BgeigieImport.arel_table[:created_at].gt(1.year.ago)).exists?
   end
 
-  def pg_run_query(stmt, values)
-    ActiveRecord::Base.connection_pool.with_connection do |conn|
-      con = conn.raw_connection
-      begin
-        con.prepare('insert', stmt)
-      rescue PG::DuplicatePstatement
-        con.exec('DEALLOCATE insert')
-        con.prepare('insert', stmt)
-      end
-      con.exec_prepared('insert', values)
-    end
-  end
-
   def ap_good_bgeigie_id?
     this_id = bgeigie_logs.first.device_serial_id.to_s
     !past_reject_record?(this_id)
