@@ -75,4 +75,9 @@ class ElasticBeanstalkHelper
   def deploy_command(tier = nil)
     %w(eb deploy) + [environment_name(current_environment_number, tier)]
   end
+
+  def swap_command(tier = nil)
+    current = current_environment_number
+    %W(eb swap #{environment_name(current, tier)} -n #{environment_name(current - 1, tier)})
+  end
 end

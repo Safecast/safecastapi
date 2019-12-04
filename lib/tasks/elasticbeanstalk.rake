@@ -40,3 +40,8 @@ end
     exec(*elasticbeanstalk_helper(environment_config).ssh_command('wrk'))
   end
 end
+
+desc 'Swap dev URL to new environment'
+task 'swap_dev' do
+  sh(*elasticbeanstalk_helper(:dev).swap_command)
+end
