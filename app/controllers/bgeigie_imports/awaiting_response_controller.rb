@@ -6,7 +6,7 @@ module BgeigieImports
     before_filter :require_moderator
 
     def index
-      @bgeigie_imports = BgeigieImport.where(status: :awaiting_for).page(params[:page])
+      @bgeigie_imports = BgeigieImport.where(status: :awaiting_response).page(params[:page])
       respond_with @bgeigie_imports
     end
   end
