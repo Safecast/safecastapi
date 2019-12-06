@@ -1,12 +1,10 @@
-require 'rails_helper'
+# frozen_string_literal: true
 
 RSpec.describe BgeigieImports::NotSubmittedController, type: :controller do
-
-  describe "GET #index" do
-    it "returns http success" do
+  describe 'GET #index' do
+    it 'returns http success' do
       get :index
       expect(response).to have_http_status(:success)
     end
   end
-
 end

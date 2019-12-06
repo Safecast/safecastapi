@@ -24,9 +24,6 @@
           - contact = bgeigie_import.uploader_contact_histories.order(:created_at).first
           %td= contact.administrator.name
           %td= contact.created_at
-          %td
-            %ul
-              - status_details(bgeigie_import).each do |s|
-                %li= s
+
 
   = paginate @bgeigie_imports, theme: 'twitter-bootstrap-2'
