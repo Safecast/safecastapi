@@ -1,10 +1,18 @@
 # frozen_string_literal: true
 
 RSpec.describe BgeigieImports::RejectedImportController, type: :controller do
+  before do
+    sign_in Fabricate(:admin_user)
+  end
+
   describe 'GET #index' do
-    it 'returns http success' do
+    before do
       get :index
-      expect(response).to have_http_status(:success)
     end
+
+    it { expect(response).to be_ok }
+    # Cannot use .to be_present because AR::Relation that is empty
+    # returns true to #blank?
+    it { expect(assigns(:bgeigie_imports)).to_not be_nil }
   end
 end
