@@ -2,7 +2,8 @@
 
 rm -f /tmp/ios13_32_cosmic*
 
-psql -U safecast --host $POSTGRESQL_ADDRESS safecast -f /var/deploy/api.safecast.org/web_head/current/script/manual_exports/cosmic.sql
+#psql -U safecast --host $POSTGRESQL_ADDRESS safecast -f /var/deploy/api.safecast.org/web_head/current/script/manual_exports/cosmic.sql
+PGOPTIONS=--search_path=public,postgis psql -f /var/app/current/script/manual_exports/cosmic.sql
 /bin/sleep 60s
 
 
@@ -16,4 +17,3 @@ cp /tmp/ios13_32_cosmic*.sqlite /var/deploy/api.safecast.org/web_head/shared/sys
 
 rm -f /tmp/ios13_32_cosmic*
 
-rsync -Havq --bwlimit 10000 /var/deploy/api.safecast.org/web_head/shared/system/ios13_32_cosmic* reindeer.api.safecast.org.c66.me:/var/deploy/api.safecast.org/web_head/shared/system/
