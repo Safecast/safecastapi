@@ -82,7 +82,7 @@ cd /tmp
 /bin/echo -e "PRAGMA journal_mode=OFF;PRAGMA page_size=16384;CREATE TABLE ImpTemp(X VARCHAR(32), Y VARCHAR(32), Z VARCHAR(32));CREATE TABLE Grid1(ID INTEGER PRIMARY KEY, X INT, Y INT, Z INT);\n.separator ','\n.import /tmp/ios13_32_2019-03-10_2019-09-10.csv ImpTemp\nINSERT INTO Grid1(X,Y,Z) SELECT CAST(X AS INT), CAST(Y AS INT), CAST(CAST(Z AS INT)-32768 AS INT) FROM ImpTemp;DROP TABLE ImpTemp;VACUUM;" | sqlite3 /tmp/ios13_32_2019-03-10_2019-09-10.sqlite
 /bin/sleep 60s
 
-cp /tmp/ios13_32_*.sqlite /var/app/current/public/system
+cp /tmp/ios13_32_*.sqlite /var/app/current/public/system/
 
 rm -f /tmp/ios13_32_*
 
