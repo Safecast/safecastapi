@@ -7,6 +7,7 @@ jobs:
           RAILS_ENV: test
           AWS_DEFAULT_REGION: us-west-2
           EB_APP_NAME: api
+          LANG: en_US.UTF-8
       - image: mdillon/postgis:9.5
         environment:
           POSTGRES_USER: safecast
@@ -15,6 +16,10 @@ jobs:
       - image: docker.elastic.co/elasticsearch/elasticsearch:6.5.1
     steps:
       - checkout
+      - run:
+          name: Setup en_US.UTF-8
+          command: |
+            sudo localedef -i en_US -f UTF-8 en_US.UTF-8
       - run:
           name: Install build tools
           command: |

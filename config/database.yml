@@ -1,4 +1,5 @@
 development:
+
   adapter: postgis
   schema_search_path: "public,postgis"
   script_dir: /usr/local/share/postgis
@@ -8,6 +9,8 @@ development:
   username: safecast
   su_username: safecast
   password:
+  host: postgresql
+  port: 5432
 
 test:
   adapter: postgis
@@ -20,6 +23,8 @@ test:
   su_username: safecast
   password:
   min_messages: warning
+  host: postgresql
+  port: 5432
 
 production:
   adapter: postgis

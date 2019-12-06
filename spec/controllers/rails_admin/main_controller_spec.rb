@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'spec_helper'
+
 # XXX: Currently, this spec is for checking rails_admin gem installation.
 RSpec.describe RailsAdmin::MainController, 'login as admin', type: :controller do
   routes { RailsAdmin::Engine.routes }
