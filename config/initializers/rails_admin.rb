@@ -15,13 +15,13 @@ RailsAdmin.config do |config|
 
   config.model 'BgeigieLog' do
     list do
-      limited_pagination
+      limited_pagination true
     end
   end
 
   config.model 'Measurement' do
     list do
-      limited_pagination
+      limited_pagination true
     end
   end
 
