@@ -2,13 +2,13 @@ version: 1
 cron:
   - name: dump_clean
     url: /cron
-    schedule: "00 02 * * *"
+    schedule: "00 03 * * *"
   - name: dump_measurements
     url: /cron
-    schedule: "00 01 * * *"
+    schedule: "00 02 * * *"
   - name: dump_measurements_ios
     url: /cron
-    schedule: "33 */4 * * *"
+    schedule: "33 */8 * * *"
   - name: imbrogno_export
     url: /cron
     schedule: "00 02 * * 7"
