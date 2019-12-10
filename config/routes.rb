@@ -23,6 +23,9 @@ Safecast::Application.routes.draw do # rubocop:disable Metrics/BlockLength
       resources :not_approved, only: :index
       resources :not_processed, only: :index
       resources :awaiting_response, only: :index
+      resources :auto_approved, only: :index
+      resources :not_submitted, only: :index
+      resources :rejected_import, only: :index
     end
 
     resources :bgeigie_imports do

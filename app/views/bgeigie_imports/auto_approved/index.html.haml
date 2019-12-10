@@ -1,6 +1,6 @@
 = content_for(:title) { t('.bgeigie_imports') }
 
-%h2= t('.awaiting_response')
+%h2= t('.auto_approved_imports')
 
 - if @bgeigie_imports.empty?
   = t('none_found')
@@ -11,8 +11,7 @@
       %th Created At
       %th User ID
       %th Source
-      %th Contacted By
-      %th Contacted On
+      %th Status
 
     %tbody
       - @bgeigie_imports.each do |bgeigie_import|
@@ -21,9 +20,8 @@
           %td= bgeigie_import.created_at_formatted
           %td= link_to bgeigie_import.user.name, bgeigie_import.user
           %td= link_to File.basename(bgeigie_import.source.filename), bgeigie_import
-          - contact = bgeigie_import.uploader_contact_histories.order(:created_at).first
-          %td= contact.administrator.name
-          %td= contact.created_at
+          %td= bgeigie_import.status
+
 
 
   = paginate @bgeigie_imports, theme: 'twitter-bootstrap-2'

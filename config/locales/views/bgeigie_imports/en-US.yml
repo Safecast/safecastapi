@@ -75,9 +75,9 @@ en-US:
       submit_for_approval: Submit for Approval
       title: Title
     auto_approve_status:
-      no_cpm_equals_zero: Drive contains no measurements where CPM=0
-      no_high_cpm: Drive contains no measurements where CPM>90 (around 0.3uSv)
-      valid_gps: No excessive invalid GPS(e.g. less than 10% of drive total)
+      no_cpm_equals_zero: Import contains no measurements where CPM=0
+      no_high_cpm: Non-Cosmic import contains no measurements where CPM>120 (around 0.4uSv)
+      valid_gps: No excessive invalid GPS(e.g. less than 50% of drive total)
       frequent_bgeigie_id: Submission is from bGeigie ID for which we have approved 10 drives in the past
       good_bgeigie_id: No rejected drives for that bGeigie ID in the past year
       would_auto_approve: Would auto approve
