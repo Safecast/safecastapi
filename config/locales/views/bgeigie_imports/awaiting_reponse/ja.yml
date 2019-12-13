@@ -1,0 +1,10 @@
+ja:
+  bgeigie_imports:
+    awaiting_response:
+      index:
+        bgeigie_imports: bGeigie Imports
+        awaiting_response: 返信待ち
+        process_file: ファイルの処理
+        import_bgeigie_logs: ログのインポート
+        compute_latlng: 緯度・経度の計算
+        measurements_added: 測定値の追加
