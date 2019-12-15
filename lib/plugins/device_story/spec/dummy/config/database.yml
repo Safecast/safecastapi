@@ -15,6 +15,7 @@ development:
 test:
   <<: *default
   database: device_story_test
+  min_messages: WARNING
 
 production:
   <<: *default
