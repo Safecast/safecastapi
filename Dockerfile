@@ -84,7 +84,11 @@ RUN adduser safecast --gecos "safecast,,,," \
 
 WORKDIR /src
 ADD Gemfile Gemfile.lock .ruby-version requirements.txt /src/
+RUN mkdir -p /src/lib/plugins/device_story/lib/device_story
+ADD lib/plugins/device_story/Gemfile lib/plugins/device_story/Gemfile.lock lib/plugins/device_story/device_story.gemspec /src/lib/plugins/device_story/
+ADD lib/plugins/device_story/lib/device_story/version.rb /src/lib/plugins/device_story/lib/device_story/
 RUN bundle install
+RUN LC_ALL=en_US.UTF-8 pip3 install wheel
 RUN LC_ALL=en_US.UTF-8 pip3 install -r requirements.txt
 
 USER safecast

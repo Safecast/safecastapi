@@ -63,3 +63,5 @@ group :test do
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
 end
+
+gem 'device_story',  path: 'lib/plugins/device_story'
