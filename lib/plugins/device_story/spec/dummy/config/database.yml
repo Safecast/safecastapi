@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  username: safecast
+  password:
+  host: 127.0.0.1
+  port: 5432
+
+development:
+  <<: *default
+  database: device_story_development
+
+test:
+  <<: *default
+  database: device_story_test
+
+production:
+  <<: *default
+  database: device_story_production
