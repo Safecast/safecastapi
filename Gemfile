@@ -32,7 +32,7 @@ gem 'jquery-rails'
 gem 'json', '1.8.6'
 gem 'kaminari'
 gem 'newrelic_rpm'
-gem 'pg', '<1'
+gem 'pg', '0.20' # Unpin after upgrade to rails 5.x (per https://github.com/rails/rails/issues/29521#issuecomment-312088377)
 gem 'puma'
 gem 'rails_admin'
 gem 'responders'
