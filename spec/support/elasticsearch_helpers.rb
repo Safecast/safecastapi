@@ -55,9 +55,9 @@ module ElasticsearchHelpers
   def add_index_to_ingest_measurements(client, body)
     client.index(
       index: 'ingest-measurements-2018-12-01',
-      type: 'measurement',
+      type: '_doc',
       body: body.merge('@timestamp': '2018-12-01T12:34:56Z')
     )
-    client.indices.flush
+    client.indices.refresh
   end
 end
