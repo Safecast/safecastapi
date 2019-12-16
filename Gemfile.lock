@@ -139,7 +139,7 @@ GEM
       launchy (~> 2.1)
       mail (~> 2.7)
     erubis (2.7.0)
-    excon (0.60.0)
+    excon (0.71.0)
     execjs (2.7.0)
     fabrication (2.21.0)
     faraday (0.15.4)
