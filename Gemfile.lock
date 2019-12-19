@@ -246,7 +246,7 @@ GEM
     puma (3.12.2)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
-    rack (1.6.11)
+    rack (1.6.12)
     rack-pjax (1.1.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
