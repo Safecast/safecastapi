@@ -13,6 +13,25 @@ RailsAdmin.config do |config|
 
   config.yell_for_non_accessible_fields = false
 
+  # From https://github.com/sferik/rails_admin/wiki/Dashboard-action#disabling-record-count-bars
+  config.actions do
+    dashboard do
+      statistics false
+    end
+    # collection actions
+    index                         # mandatory
+    new
+    export
+    history_index
+    bulk_delete
+    # member actions
+    show
+    edit
+    delete
+    history_show
+    show_in_app
+  end
+
   config.model 'BgeigieLog' do
     list do
       limited_pagination true
