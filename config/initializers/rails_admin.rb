@@ -3,7 +3,7 @@
 # RailsAdmin config file. Generated on July 05, 2013 17:25
 # See github.com/sferik/rails_admin for more informations
 
-RailsAdmin.config do |config|
+RailsAdmin.config do |config| # rubocop:disable Metrics/BlockLength
   config.main_app_name = %w(Safecast Admin)
 
   config.current_user_method { current_user }
@@ -19,7 +19,7 @@ RailsAdmin.config do |config|
       statistics false
     end
     # collection actions
-    index                         # mandatory
+    index # mandatory
     new
     export
     history_index
