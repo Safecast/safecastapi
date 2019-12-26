@@ -6,5 +6,5 @@ en-US:
         awaiting_response: Awaiting Response
         process_file: Processed File
         import_bgeigie_logs: Imported bGeigie Logs
-        compute_latlng: Computed Latudes and Logtitudes
+        compute_latlng: Computed Latitudes and Longitudes
         measurements_added: Added Measurements
