@@ -84,7 +84,7 @@ RUN adduser safecast --gecos "safecast,,,," \
 
 WORKDIR /src
 ADD Gemfile Gemfile.lock .ruby-version requirements.txt /src/
-RUN bundle install
+RUN gem install bundler -v 1.17.3 --no-document && bundle install --jobs 2 --retry 3
 RUN LC_ALL=en_US.UTF-8 pip3 install -r requirements.txt
 
 USER safecast
