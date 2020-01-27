@@ -6,7 +6,11 @@ class ElasticBeanstalkHelper
   attr_reader :elasticbeanstalk
   attr_reader :application_name, :environment_prefix, :environment_config
 
-  def initialize(application_name, environment_prefix, environment_config = ENV['AWS_EB_CFG'] || 'dev')
+  def initialize(application_name, environment_prefix, environment_config = nil)
+    if environment_config.nil?
+      environment_config = (ENV['AWS_EB_CFG'] || 'dev')
+    end
+
     @application_name = application_name
     @environment_prefix = environment_prefix
     @environment_config = environment_config
