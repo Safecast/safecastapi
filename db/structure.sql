@@ -236,7 +236,10 @@ CREATE TABLE public.device_story_devices (
     metadata jsonb,
     comment text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    device_id integer,
+    last_location postgis.geography(Point,4326),
+    last_values character varying
 );
 
 
@@ -1288,4 +1291,6 @@ INSERT INTO public.schema_migrations (version) VALUES ('20191129022447');
 INSERT INTO public.schema_migrations (version) VALUES ('20191130062502');
 
 INSERT INTO public.schema_migrations (version) VALUES ('20191215115843');
+
+INSERT INTO public.schema_migrations (version) VALUES ('20200131100913');
 
