@@ -1,0 +1,10 @@
+ja:
+  bgeigie_imports:
+    auto_approved:
+      index:
+        bgeigie_imports: bGeigie Imports
+        auto_approved: 自動承認された
+        process_file: ファイルの処理
+        import_bgeigie_logs: ログのインポート
+        compute_latlng: 緯度・経度の計算
+        measurements_added: 測定値の追加
