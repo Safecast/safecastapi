@@ -292,6 +292,7 @@ en-US:
       email:
       password:
       remember_me:
+    unconfirmed_name: Unconfirmed user
   activerecord:
     attributes:
       device:
