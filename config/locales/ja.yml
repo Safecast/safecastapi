@@ -247,7 +247,8 @@ ja:
     new:
       email: 
       password: 
-      remember_me: 
+      remember_me:
+    unconfirmed_name: 未確認
   activerecord:
     attributes:
       measurement:
