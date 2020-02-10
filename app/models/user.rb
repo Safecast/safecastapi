@@ -60,12 +60,4 @@ class User < ActiveRecord::Base
   def name_or_email
     name.presence || email
   end
-
-  def confirmed_name
-    if confirmed_at
-      name
-    else
-      t('user.unconfirmed_name')
-    end
-  end
 end
