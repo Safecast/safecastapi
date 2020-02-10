@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 ruby '2.4.9'
 
-gem 'rails', '4.2.11'
+gem 'rails', '4.2.11.1'
 
 gem 'activerecord-postgis-adapter', '~> 3.1.5'
 gem 'aws-sdk-elasticbeanstalk'
