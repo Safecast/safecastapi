@@ -1,4 +1,4 @@
-<%= content_for(:title) { "#{@user.name} \\\\ #{t('users.index.users')}" } %>
+<%= content_for(:title) { "#{confirmed_name(@user)} \\\\ #{t('users.index.users')}" } %>
 
 <h2><%= t(".user") -%></h2>
 
