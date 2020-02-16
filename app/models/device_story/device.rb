@@ -14,7 +14,9 @@ module DeviceStory
     def update_from_metadata
       self.device_id = metadata['device']
       points = metadata.values_at('last_lon', 'last_lat')
-      self.last_location = "POINT(#{points.join(' ')})" if points.all?(&:present?)
+      raise ActiveRecord::RecordInvalid, 'Missing longitude or latitude' if points.any?(&:blank?)
+
+      self.last_location = "POINT(#{points.join(' ')})"
       self.last_values = metadata['last_values']
     end
   end
