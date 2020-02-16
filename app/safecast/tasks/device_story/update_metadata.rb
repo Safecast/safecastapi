@@ -43,19 +43,13 @@ module Tasks
 
       def parse(json)
         JSON.parse(json)
-      rescue Psych::SyntaxError
-        warn 'Could not parse device metadata.'
-        []
       end
 
       def fetch(uri)
         res = Net::HTTP.get_response(uri)
-        if res.is_a?(Net::HTTPOK)
-          res.body
-        else
-          warn 'Could not fetch device metadata from ttserve.'
-          '{}'
-        end
+        raise "Could not fetch device metadata from ttserve. #{res}" unless res.is_a?(Net::HTTPOK)
+
+        res.body
       end
 
       def devices_uri
