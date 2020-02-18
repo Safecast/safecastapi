@@ -18,4 +18,6 @@ cron:
   - name: send_pending_imports_reminder
     url: /cron
     schedule: "0 0 1-31/2 * *"
-
+  - name: device_story_update_metadata
+    url: /cron
+    schedule: "*/5 * * * *"
