@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Update device metadata from ttserve
+
+set -euo pipefail
+
+source cron_env.sh
+
+bundle exec rake device_story:update_metadata

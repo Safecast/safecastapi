@@ -237,7 +237,7 @@ CREATE TABLE public.device_story_devices (
     comment text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    device_id integer,
+    device_id bigint,
     last_location postgis.geography(Point,4326),
     last_values character varying
 );
