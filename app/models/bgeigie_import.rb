@@ -97,7 +97,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     confirm_status(:compute_latlng)
     update_column(:status, 'processed')
     delete_tmp_file
-    update_column(:version, $LAST_MATCH_INFO[1].to_s) if /^# format=(\d+\.\d+\.\d+)$/m =~ source.file.read
+    update_column(:version, $LAST_MATCH_INFO[1].to_s) if /^# format=(\d+\.\d+\.\d+\w+)$/m =~ source.file.read
     check_auto_approve # check if this drive can be auto approved
   end
 
