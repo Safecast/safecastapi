@@ -20,8 +20,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL:
-      RAILS_ENV:
+      ELASTICSEARCH_URL: 'http://elasticsearch:9200'
+      RAILS_ENV: 'development'
     volumes:
       - .:/src
     links:
@@ -41,8 +41,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.postgres
-    ports:
-      - "127.0.0.1:5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
