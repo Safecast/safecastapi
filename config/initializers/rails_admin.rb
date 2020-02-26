@@ -3,7 +3,7 @@
 # RailsAdmin config file. Generated on July 05, 2013 17:25
 # See github.com/sferik/rails_admin for more informations
 
-RailsAdmin.config do |config|
+RailsAdmin.config do |config| # rubocop:disable Metrics/BlockLength
   config.main_app_name = %w(Safecast Admin)
 
   config.current_user_method { current_user }
@@ -12,6 +12,25 @@ RailsAdmin.config do |config|
   end
 
   config.yell_for_non_accessible_fields = false
+
+  # From https://github.com/sferik/rails_admin/wiki/Dashboard-action#disabling-record-count-bars
+  config.actions do
+    dashboard do
+      statistics false
+    end
+    # collection actions
+    index # mandatory
+    new
+    export
+    history_index
+    bulk_delete
+    # member actions
+    show
+    edit
+    delete
+    history_show
+    show_in_app
+  end
 
   config.model 'BgeigieLog' do
     list do

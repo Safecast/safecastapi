@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = apply_scopes(User).page(params[:page])
+    @users = apply_scopes(User).where.not(confirmed_at: nil).page(params[:page])
     respond_with @users
   end
 

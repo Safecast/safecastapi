@@ -16,6 +16,8 @@ log/localeapp.yml
 .idea
 .localeapp.localeapp
 .env
+.envrc
+.direnv
 
 .elasticbeanstalk/config.yml
 .elasticbeanstalk/app_versions/

@@ -2,12 +2,11 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 11.6
--- Dumped by pg_dump version 11.5
+-- Dumped from database version 9.5.19
+-- Dumped by pg_dump version 9.5.19
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -21,6 +20,20 @@ SET row_security = off;
 --
 
 CREATE SCHEMA postgis;
+
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
 --
@@ -210,6 +223,43 @@ CREATE SEQUENCE public.delayed_jobs_id_seq
 --
 
 ALTER SEQUENCE public.delayed_jobs_id_seq OWNED BY public.delayed_jobs.id;
+
+
+--
+-- Name: device_story_devices; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.device_story_devices (
+    id integer NOT NULL,
+    user_id integer,
+    device_urn character varying NOT NULL,
+    metadata jsonb,
+    comment text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    device_id bigint,
+    last_location postgis.geography(Point,4326),
+    last_values character varying
+);
+
+
+--
+-- Name: device_story_devices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.device_story_devices_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: device_story_devices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.device_story_devices_id_seq OWNED BY public.device_story_devices.id;
 
 
 --
@@ -619,98 +669,105 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: admins id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.admins ALTER COLUMN id SET DEFAULT nextval('public.admins_id_seq'::regclass);
 
 
 --
--- Name: bgeigie_logs id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.bgeigie_logs ALTER COLUMN id SET DEFAULT nextval('public.bgeigie_logs_id_seq'::regclass);
 
 
 --
--- Name: configurables id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.configurables ALTER COLUMN id SET DEFAULT nextval('public.configurables_id_seq'::regclass);
 
 
 --
--- Name: delayed_jobs id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.delayed_jobs ALTER COLUMN id SET DEFAULT nextval('public.delayed_jobs_id_seq'::regclass);
 
 
 --
--- Name: devices id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.device_story_devices ALTER COLUMN id SET DEFAULT nextval('public.device_story_devices_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.devices ALTER COLUMN id SET DEFAULT nextval('public.devices_id_seq'::regclass);
 
 
 --
--- Name: drive_logs id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.drive_logs ALTER COLUMN id SET DEFAULT nextval('public.drive_logs_id_seq'::regclass);
 
 
 --
--- Name: maps id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.maps ALTER COLUMN id SET DEFAULT nextval('public.maps_id_seq'::regclass);
 
 
 --
--- Name: measurement_import_logs id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.measurement_import_logs ALTER COLUMN id SET DEFAULT nextval('public.measurement_import_logs_id_seq'::regclass);
 
 
 --
--- Name: measurement_imports id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.measurement_imports ALTER COLUMN id SET DEFAULT nextval('public.measurement_imports_id_seq'::regclass);
 
 
 --
--- Name: measurements id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.measurements ALTER COLUMN id SET DEFAULT nextval('public.measurements_id_seq'::regclass);
 
 
 --
--- Name: rails_admin_histories id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.rails_admin_histories ALTER COLUMN id SET DEFAULT nextval('public.rails_admin_histories_id_seq'::regclass);
 
 
 --
--- Name: uploader_contact_histories id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.uploader_contact_histories ALTER COLUMN id SET DEFAULT nextval('public.uploader_contact_histories_id_seq'::regclass);
 
 
 --
--- Name: users id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
--- Name: admins admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.admins
@@ -718,7 +775,7 @@ ALTER TABLE ONLY public.admins
 
 
 --
--- Name: bgeigie_logs bgeigie_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: bgeigie_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.bgeigie_logs
@@ -726,7 +783,7 @@ ALTER TABLE ONLY public.bgeigie_logs
 
 
 --
--- Name: configurables configurables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: configurables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.configurables
@@ -734,7 +791,7 @@ ALTER TABLE ONLY public.configurables
 
 
 --
--- Name: delayed_jobs delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.delayed_jobs
@@ -742,7 +799,15 @@ ALTER TABLE ONLY public.delayed_jobs
 
 
 --
--- Name: devices devices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: device_story_devices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.device_story_devices
+    ADD CONSTRAINT device_story_devices_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: devices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.devices
@@ -750,7 +815,7 @@ ALTER TABLE ONLY public.devices
 
 
 --
--- Name: drive_logs drive_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: drive_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.drive_logs
@@ -758,7 +823,7 @@ ALTER TABLE ONLY public.drive_logs
 
 
 --
--- Name: maps maps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: maps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.maps
@@ -766,7 +831,7 @@ ALTER TABLE ONLY public.maps
 
 
 --
--- Name: measurement_import_logs measurement_import_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: measurement_import_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.measurement_import_logs
@@ -774,7 +839,7 @@ ALTER TABLE ONLY public.measurement_import_logs
 
 
 --
--- Name: measurement_imports measurement_imports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: measurement_imports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.measurement_imports
@@ -782,7 +847,7 @@ ALTER TABLE ONLY public.measurement_imports
 
 
 --
--- Name: measurements measurements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: measurements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.measurements
@@ -790,7 +855,7 @@ ALTER TABLE ONLY public.measurements
 
 
 --
--- Name: rails_admin_histories rails_admin_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rails_admin_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.rails_admin_histories
@@ -798,7 +863,7 @@ ALTER TABLE ONLY public.rails_admin_histories
 
 
 --
--- Name: uploader_contact_histories uploader_contact_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: uploader_contact_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.uploader_contact_histories
@@ -806,7 +871,7 @@ ALTER TABLE ONLY public.uploader_contact_histories
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -888,6 +953,13 @@ CREATE UNIQUE INDEX index_bgeigie_logs_on_md5sum ON public.bgeigie_logs USING bt
 --
 
 CREATE INDEX index_configurables_on_name ON public.configurables USING btree (name);
+
+
+--
+-- Name: index_device_story_devices_on_device_urn; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_device_story_devices_on_device_urn ON public.device_story_devices USING btree (device_urn);
 
 
 --
@@ -1217,3 +1289,8 @@ INSERT INTO public.schema_migrations (version) VALUES ('20191025034816');
 INSERT INTO public.schema_migrations (version) VALUES ('20191129022447');
 
 INSERT INTO public.schema_migrations (version) VALUES ('20191130062502');
+
+INSERT INTO public.schema_migrations (version) VALUES ('20191215115843');
+
+INSERT INTO public.schema_migrations (version) VALUES ('20200131100913');
+

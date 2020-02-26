@@ -1,0 +1,10 @@
+en-US:
+  bgeigie_imports:
+    auto_approved:
+      index:
+        bgeigie_imports: bGeigie Imports
+        auto_approved: Auto Approved
+        process_file: Processed File
+        import_bgeigie_logs: Imported bGeigie Logs
+        compute_latlng: Computed Latitudes and Longitudes
+        measurements_added: Added Measurements

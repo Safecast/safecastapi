@@ -1,2 +1,2 @@
-awscli
 awsebcli
+awscli
