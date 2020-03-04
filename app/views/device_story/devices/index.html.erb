@@ -1,0 +1,53 @@
+<script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.0.0/dist/fetch.umd.min.js"></script>
+<div class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Device Story: Devices</h1>
+    </div>
+  </div>
+</div>
+<div id="app" class="container">
+  <div class="columns">
+    <div class="column">
+      <nav class="pagination is-small is-centered" role="navigation" aria-label="pagination">
+        <a class="pagination-previous" v-if="hasPrev" @click.prevent="prevPage">Prev</a>
+        <a class="pagination-previous" v-else="hasPrev" disabled>Prev</a>
+        <a class="pagination-next" v-if="hasNext" @click.prevent="nextPage">Next</a>
+        <a class="pagination-next" v-else disabled>Next</a>
+        <ul class="pagination-list">
+          <span>{{ page_info.current_page }} / {{ page_info.total_pages }}</span>
+        </ul>
+      </nav>
+      <table class="table is-bordered is-fullwidth is-striped">
+        <thead>
+        <tr>
+          <th class="has-text-centered">Device URN</th>
+          <th class="has-text-centered">Last values</th>
+          <th class="has-text-centered">Location</th>
+          <th class="has-text-centered">
+            Last seen <span class="icon" @click="toggleLastSeenSort"><i class="fas fa-sort-down"></i></span>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="device in devices" :key="device.device_urn">
+          <td><a :href="device.metadata.dashboard" target="_blank">{{ device.device_urn }}</a></td>
+          <td>{{ device.last_values }}</td>
+          <td>{{ device.metadata.location }}</td>
+          <td>{{ device.metadata.last_seen }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <nav class="pagination is-small is-centered" role="navigation" aria-label="pagination">
+        <a class="pagination-previous" v-if="hasPrev" @click.prevent="prevPage">Prev</a>
+        <a class="pagination-previous" v-else="hasPrev" disabled>Prev</a>
+        <a class="pagination-next" v-if="hasNext" @click.prevent="nextPage">Next</a>
+        <a class="pagination-next" v-else disabled>Next</a>
+        <ul class="pagination-list">
+          <span>{{ page_info.current_page }} / {{ page_info.total_pages }}</span>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+<script src="<%= javascript_path "device_story/devices/index.js" %>"></script>

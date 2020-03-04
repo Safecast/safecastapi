@@ -13,4 +13,9 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-Rails.application.config.assets.precompile += %w(bgeigie_viewer.js bgeigie_viewer_worker.js html5shiv.js)
+Rails.application.config.assets.precompile += %w(
+  bgeigie_viewer.js
+  bgeigie_viewer_worker.js
+  device_story/devices/index.js
+  html5shiv.js
+)
