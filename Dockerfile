@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libgeos-dev \
   libproj-dev \
   nodejs \
-  postgresql-client-9.5 \
+  postgresql-client-11 \
   python3 \
   python3-pip \
   python3-setuptools \

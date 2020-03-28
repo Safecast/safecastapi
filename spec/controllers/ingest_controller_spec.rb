@@ -44,11 +44,11 @@ RSpec.describe IngestController, type: :controller do
       ].each do |body|
         client.index(
           index: 'ingest-measurements-2019-01-25',
-          type: 'measurement',
+          type: '_doc',
           body: body
         )
       end
-      client.indices.flush
+      client.indices.refresh
     end
 
     after do

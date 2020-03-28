@@ -1,16 +1,4 @@
-#
-# To run app in development mode, first create database
-#
-#   $ DATABASE_URL=postgis://safecast:@postgresql/safecast_development?schema_search_path=public,postgis docker-compose run --rm app bundle exec rake db:drop db:create db:structure:load
-#
-# Then, run server
-#
-#   $ DATABASE_URL=postgis://safecast:@postgresql/safecast_development?schema_search_path=public,postgis docker-compose up app
-#
-# If you want to run just PostgreSQL
-#
-#   $ docker-compose up postgresql
-#
+# For usage, see https://github.com/Safecast/safecastapi/wiki/Dev:-Setup-on-Linux
 version: "3"
 services:
   app:
@@ -20,6 +8,7 @@ services:
     ports:
       - "3000:3000"
     environment:
+      DATABASE_HOST: 'postgresql'
       ELASTICSEARCH_URL: 'http://elasticsearch:9200'
       RAILS_ENV: 'development'
     volumes:
@@ -41,6 +30,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.postgres
+    ports:
+      - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
