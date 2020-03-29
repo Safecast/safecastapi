@@ -89,6 +89,8 @@ Terraform has been configured for ingest in a way that should make it easy to pe
 
 However, Terraform cannot upgrade PostGIS, and AWS recommends that PostGIS be upgraded before a major upgrade. See the manual instructions below for more information on how to upgrade it.
 
+Likewise, Terraform cannot upgrade more than one major version at a time, so if moving from, e.g. 10 to 12, you will need to perform two manual upgrades, one for each major version.
+
 To upgrade to the next version, e.g., Postgres 12, find the following lines in the Terraform configuration and change them from `11` to `12`:
 
 * `main.tf`
