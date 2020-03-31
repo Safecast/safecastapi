@@ -94,10 +94,11 @@
             <%= link_to [bgeigie_import.becomes(MeasurementImport), :measurements] do %>
               <%= number_with_delimiter bgeigie_import.measurements_count %>
             <%- end -%>
-            <span class="faded">
-              <br>maximum
-              <br><%= bgeigie_import.maximum_cpm %> cpm
-            </span>
+            <%- if bgeigie_import.maximum_cpm.present? %>  
+              <span class="faded">
+                <br>maximum cpm: <%= bgeigie_import.maximum_cpm %>
+              </span>
+            <%- end -%>
           </td>
           <td>
             <%= t("bgeigie_imports.states.#{bgeigie_import.status}") %>
