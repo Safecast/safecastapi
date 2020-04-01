@@ -59,6 +59,7 @@
       <%= table_sort_header(:bgeigie_import, :status) %>
       <%= table_sort_header(:bgeigie_import, :rejected_by) %>
       <%= table_sort_header(:bgeigie_import, :approved_by) %>
+      <%= table_sort_header(:bgeigie_import, :comments) %>
     </thead>
     <tbody>
       <%- @bgeigie_imports.each do |bgeigie_import| -%>
@@ -93,6 +94,11 @@
             <%= link_to [bgeigie_import.becomes(MeasurementImport), :measurements] do %>
               <%= number_with_delimiter bgeigie_import.measurements_count %>
             <%- end -%>
+            <%- if bgeigie_import.maximum_cpm.present? %>  
+              <span class="faded">
+                <br>maximum cpm: <%= bgeigie_import.maximum_cpm %>
+              </span>
+            <%- end -%>
           </td>
           <td>
             <%= t("bgeigie_imports.states.#{bgeigie_import.status}") %>
@@ -108,6 +114,9 @@
           </td>
           <td>
             <%=bgeigie_import.approved_by %>
+          </td>
+          <td>
+            <%=bgeigie_import.comment %>
           </td>
         </tr>
       <%- end -%>

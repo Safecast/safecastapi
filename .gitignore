@@ -10,6 +10,7 @@ tmp/
 *.save
 public/uploads/*
 public/Chang/*
+public/root
 public/system/*
 bgeigie_logs/*
 log/localeapp.yml
