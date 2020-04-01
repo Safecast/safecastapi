@@ -6,7 +6,7 @@ default: &default
   encoding: unicode
   username: safecast
   password:
-  host: localhost
+  host: <%= ENV.fetch('DATABASE_HOST', 'localhost' ) %>
   port: 5432
 
 development:
@@ -27,5 +27,4 @@ test:
 production:
   <<: *default
   database: safecast
-  host: <%= ENV['DATABASE_HOST'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>

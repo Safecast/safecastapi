@@ -5,7 +5,7 @@ class IngestMeasurement
   include Elasticsearch::Model
 
   index_name 'ingest-measurements-*'
-  document_type ''
+  document_type '_doc'
 
   class << self
     def data_for(query)
