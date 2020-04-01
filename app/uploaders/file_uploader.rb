@@ -14,7 +14,7 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def store_prefix
-    Etc.getpwuid().name + '/' if Rails.env.development?
+    Etc.getpwuid.name + '/' if Rails.env.development?
   end
 
   def filename
