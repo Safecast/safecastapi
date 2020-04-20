@@ -15,6 +15,10 @@ There is also a development host located at [dev.safecast.org](https://dev.safec
 
 ## Contributing
 
+### Onboarding
+
+Start here [https://github.com/Safecast/safecastapi/wiki/Onboarding]
+
 ### Translation
 
 Translation is managed by [Locale](http://www.localeapp.com/) and open to all.
