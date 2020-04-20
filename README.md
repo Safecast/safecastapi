@@ -17,7 +17,7 @@ There is also a development host located at [dev.safecast.org](https://dev.safec
 
 ### Onboarding
 
-Start here [https://github.com/Safecast/safecastapi/wiki/Onboarding]
+Start here: [Onboarding](https://github.com/Safecast/safecastapi/wiki/Onboarding)
 
 ### Translation
 
