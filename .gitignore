@@ -19,6 +19,7 @@ log/localeapp.yml
 .env
 .envrc
 .direnv
+.byebug_history
 
 .elasticbeanstalk/config.yml
 .elasticbeanstalk/app_versions/
