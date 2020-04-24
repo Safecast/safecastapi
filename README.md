@@ -19,6 +19,8 @@ There is also a development host located at [dev.safecast.org](https://dev.safec
 
 Start here: [Onboarding](https://github.com/Safecast/safecastapi/wiki/Onboarding)
 
+Available [Data Sets](https://github.com/Safecast/safecastapi/wiki/Data-Sets#air-and-radiation-data-via-ingestsafecastorg)
+
 ### Translation
 
 Translation is managed by [Locale](http://www.localeapp.com/) and open to all.
