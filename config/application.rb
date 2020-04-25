@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.expand_path('boot', __dir__)
+require_relative 'boot'
 
 require 'rails/all'
 
@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module Safecast
   class Application < Rails::Application
+    config.load_defaults 5.0
+    config.active_record.belongs_to_required_by_default = false
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -46,8 +49,6 @@ module Safecast
     config.assets.version = '1.0'
 
     config.active_record.schema_format = :sql
-    # TODO: remove following line in Rails 5
-    config.active_record.raise_in_transactional_callbacks = true
 
     config.generators do |g|
       g.test_framework :rspec,
