@@ -21,12 +21,12 @@
     <ul class="nav pull-right">
       <%- if user_signed_in? -%>
         <li class="pull-right <%= 'active' if params[:by_user_id].blank? %>">
-          <%= link_to t(".everyone"), params.permit!.except(:by_user_id) %>
+          <%= link_to t(".everyone"), params.to_unsafe_h.except(:by_user_id) %>
         </li>
       <%- end -%>
       <%- if user_signed_in? -%>
         <li class="pull-right <%= 'active' if params[:by_user_id] == current_user.id.to_s %>">
-          <%= link_to t(".yours"), params.merge(:by_user_id => current_user.id) %>
+          <%= link_to t(".yours"), params.to_unsafe_h.merge(:by_user_id => current_user.id) %>
         </li>
       <%- end -%>
     </ul>
