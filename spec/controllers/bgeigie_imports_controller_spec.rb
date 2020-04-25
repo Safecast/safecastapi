@@ -231,7 +231,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
     end
 
     it { expect(response).to be_ok }
-    it { expect(response.content_type).to eq(Mime::Type.lookup("kml").to_s) }
+    it { expect(response.content_type).to eq(Mime::Type.lookup('kml').to_s) }
     it 'should use original filename' do
       disposition = response.headers['Content-Disposition']
       expect(disposition)

@@ -102,6 +102,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
   def show
     @bgeigie_import = BgeigieImport.find(params[:id])
     render(partial: params[:partial]) && return if params[:partial].present?
+
     respond_with @bgeigie_import
   end
 
