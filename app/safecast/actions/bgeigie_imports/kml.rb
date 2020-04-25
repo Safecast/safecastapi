@@ -17,7 +17,7 @@ module Actions
         'app/views/bgeigie_imports/bgeigie_logs.kml.erb'
 
       def send_opts(filename)
-        opts = { type: Mime::KML.to_s }
+        opts = { type: Mime::Type.lookup("kml").to_s }
         opts = opts.merge(filename: filename) if filename
         opts
       end
