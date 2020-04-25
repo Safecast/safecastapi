@@ -16,7 +16,7 @@ class MeasurementsController < ApplicationController
   # config/initializers/wrap_parameters.rb
   wrap_parameters include: attribute_names_to_be_wrapped, format: %i(json)
 
-  before_filter :authenticate_user!, only: %i(new create update destroy)
+  before_action :authenticate_user!, only: %i(new create update destroy)
 
   has_scope :captured_after
   has_scope :unit do |_controller, scope, value|

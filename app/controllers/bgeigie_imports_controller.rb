@@ -3,8 +3,8 @@
 class BgeigieImportsController < ApplicationController # rubocop:disable Metrics/ClassLength
   respond_to :html, :json
 
-  before_filter :authenticate_user!, only: %i(new create edit update destroy)
-  before_filter :require_moderator, only: %i(approve fixdrive send_email resolve)
+  before_action :authenticate_user!, only: %i(new create edit update destroy)
+  before_action :require_moderator, only: %i(approve fixdrive send_email resolve)
 
   has_scope :by_status
   has_scope :by_user_id
@@ -124,7 +124,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
   def destroy
     bgeigie_import = scope.where(id: params[:id]).first
 
-    return render text: '404 Not Found', status: :not_found unless bgeigie_import
+    return render plain: '404 Not Found', status: :not_found unless bgeigie_import
     return redirect_to :bgeigie_imports, alert: 'Cannot delete approved bGeigie import' if bgeigie_import.approved?
 
     bgeigie_import.destroy
@@ -139,7 +139,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
       bgeigie_import.bgeigie_logs.map(&:decorate)
     ).execute(self, bgeigie_import.source.filename + '.kml')
   rescue ActiveRecord::RecordNotFound
-    render text: '404 Not Found', status: :not_found
+    render plain: '404 Not Found', status: :not_found
   end
 
   def resolve
