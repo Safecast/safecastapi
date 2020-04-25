@@ -8,7 +8,7 @@ module RadiationIndexHelper
                params[:index] == index.to_s
              end
     content_tag(:li, class: ('active' if active)) do
-      p = params.except(:action, :controller).merge(index: (index unless index == :average))
+      p = params.permit!.except(:action, :controller).merge(index: (index unless index == :average))
       p[:page] = nil unless active
       link_to t(index.to_s), p
     end
