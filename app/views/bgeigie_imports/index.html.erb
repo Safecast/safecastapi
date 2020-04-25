@@ -21,7 +21,7 @@
     <ul class="nav pull-right">
       <%- if user_signed_in? -%>
         <li class="pull-right <%= 'active' if params[:by_user_id].blank? %>">
-          <%= link_to t(".everyone"), params.except(:by_user_id) %>
+          <%= link_to t(".everyone"), params.permit!.except(:by_user_id) %>
         </li>
       <%- end -%>
       <%- if user_signed_in? -%>
@@ -94,7 +94,7 @@
             <%= link_to [bgeigie_import.becomes(MeasurementImport), :measurements] do %>
               <%= number_with_delimiter bgeigie_import.measurements_count %>
             <%- end -%>
-            <%- if bgeigie_import.maximum_cpm.present? %>  
+            <%- if bgeigie_import.maximum_cpm.present? %>
               <span class="faded">
                 <br>maximum cpm: <%= bgeigie_import.maximum_cpm %>
               </span>

@@ -1,5 +1,5 @@
 <div class="row">
   <div class="span9">
-    <%= api_example url, params.except(:action, :commit, :controller, :locale, :utf8).keep_if { |k, v| v.present? } %>
+    <%= api_example url, params.permit!.except(:action, :commit, :controller, :locale, :utf8).keep_if { |k, v| v.present? } %>
   </div>
 </div>

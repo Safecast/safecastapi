@@ -1,5 +1,5 @@
 <div id="filter-modal" class="modal hide fade" tabindex="-1">
-  <%= form_tag params.except(:commit).except(:utf8),
+  <%= form_tag params.permit!.except(:commit).except(:utf8),
                  :method => :get,
                  :class => 'form-inline' do |f| %>
     <div class="modal-header">

@@ -12,7 +12,7 @@
     <ul class="nav pull-right">
       <%- if user_signed_in? -%>
         <li class="pull-right <%= 'active' if params[:user_id].blank? %>">
-          <%= link_to t(".everyone"), params.except(:user_id) %>
+          <%= link_to t(".everyone"), params.permit!.except(:user_id) %>
         </li>
       <%- end -%>
       <%- if user_signed_in? -%>
@@ -82,7 +82,7 @@
 <%- end -%>
 
 <div id="filter-modal" class="modal hide fade" tabindex="-1">
-  <%= form_tag params.except(:commit).except(:utf8),
+  <%= form_tag params.permit!.except(:commit).except(:utf8),
                  :method => :get do |f| %>
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
