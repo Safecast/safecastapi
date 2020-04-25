@@ -71,7 +71,7 @@ RSpec.describe IngestController, type: :controller do
         }
       end
 
-      before { get :index, params }
+      before { get :index, params: params }
 
       it 'should list 3 data' do
         expect(response).to be_ok
@@ -90,7 +90,7 @@ RSpec.describe IngestController, type: :controller do
         }
       end
 
-      before { get :index, params }
+      before { get :index, params: params }
 
       it 'should list 2 data' do
         expect(response).to be_ok
@@ -109,7 +109,7 @@ RSpec.describe IngestController, type: :controller do
         }
       end
 
-      before { get :index, params }
+      before { get :index, params: params }
 
       it 'should list 1 datum' do
         expect(response).to be_ok
@@ -128,7 +128,7 @@ RSpec.describe IngestController, type: :controller do
         }
       end
 
-      before { get :index, params }
+      before { get :index, params: params }
 
       it 'should list 1 datum' do
         expect(response).to be_ok

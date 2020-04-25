@@ -17,7 +17,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
 
     context 'no filter' do
       before do
-        get :index, format: :json
+        get :index, params: { format: :json }
       end
 
       it 'should get all imports' do
@@ -27,7 +27,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
 
     context 'subtype=Cosmic' do
       before do
-        get :index, subtype: 'Cosmic', format: :json
+        get :index, params: { subtype: 'Cosmic', format: :json }
       end
 
       it 'should filter by subtype' do
@@ -37,7 +37,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
 
     context 'subtype=Drive,None' do
       before do
-        get :index, subtype: 'Drive,None', format: :json
+        get :index, params: { subtype: 'Drive,None', format: :json }
       end
 
       it 'should filter by subtype' do
@@ -54,7 +54,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
           Fabricate(:bgeigie_import, args.merge(opts))
         end
 
-        get :index, status: status
+        get :index, params: { status: status }
       end
 
       context 'approved' do
@@ -104,7 +104,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
     before do
       sign_in user
 
-      post :create, { format: :json }.merge(post_params)
+      post :create, params: { format: :json }.merge(post_params)
     end
 
     context 'without subtype' do
@@ -146,7 +146,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
     before do
       sign_in login_user if login_user
 
-      delete :destroy, id: bgeigie_import.id
+      delete :destroy, params: { id: bgeigie_import.id }
     end
 
     context 'when bGeigie import is not approved' do
@@ -213,7 +213,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
 
     context 'non-login user' do
       before do
-        patch :approve, id: bgeigie_import.id
+        patch :approve, params: { id: bgeigie_import.id }
       end
 
       it { expect(response).to redirect_to(root_path) }
@@ -227,11 +227,11 @@ RSpec.describe BgeigieImportsController, type: :controller do
     end
 
     before do
-      get :kml, id: bgeigie_import.id
+      get :kml, params: { id: bgeigie_import.id }
     end
 
     it { expect(response).to be_ok }
-    it { expect(response.content_type).to eq(Mime::KML.to_s) }
+    it { expect(response.content_type).to eq(Mime::Type.lookup("kml").to_s) }
     it 'should use original filename' do
       disposition = response.headers['Content-Disposition']
       expect(disposition)
@@ -247,7 +247,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
     before do
       ActionMailer::Base.deliveries.clear
 
-      put :submit, id: bgeigie_import.id, api_key: user.authentication_token, file: fixture_file_upload('/bgeigie.log')
+      put :submit, params: { id: bgeigie_import.id, api_key: user.authentication_token, file: fixture_file_upload('/bgeigie.log') }
 
       bgeigie_import.reload
     end
@@ -270,7 +270,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
           # just make sure import has no required metadata
           expect(bgeigie_import).not_to be_metadata_added
 
-          patch :reject, id: bgeigie_import.id
+          patch :reject, params: { id: bgeigie_import.id }
 
           bgeigie_import.reload
         end
@@ -294,7 +294,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
 
       sign_in administrator
 
-      patch :send_email, id: bgeigie_import.id, email_body: 'Hello'
+      patch :send_email, params: { id: bgeigie_import.id, email_body: 'Hello' }
 
       bgeigie_import.reload
     end
@@ -318,7 +318,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
       sign_in administrator
       bgeigie_import.uploader_contact_histories.create(administrator: administrator, previous_status: 'processed')
 
-      patch :resolve, id: bgeigie_import.id
+      patch :resolve, params: { id: bgeigie_import.id }
 
       bgeigie_import.reload
     end

@@ -10,12 +10,12 @@ RSpec.describe ProfilesController, type: :controller do
 
     context 'edit user profile' do
       before do
-        patch :update, user: {
+        patch :update, params: { user: {
           email: 'john.doe@example.com',
           name: 'John Doe',
           time_zone: 'Tokyo',
           default_locale: 'en-US'
-        }
+        } }
 
         user.reload
       end
@@ -28,10 +28,10 @@ RSpec.describe ProfilesController, type: :controller do
 
     context 'change password' do
       before do
-        patch :update, user: {
+        patch :update, params: { user: {
           password: '123456',
           password_confirmation: '123456'
-        }
+        } }
 
         user.reload
       end
