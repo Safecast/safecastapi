@@ -1,17 +1,19 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 ruby '2.4.9'
 
-gem 'rails', '4.2.11.1'
+gem 'rails', '~> 5.2.4'
 
-gem 'activerecord-postgis-adapter', '~> 3.1.5'
+gem 'activerecord-postgis-adapter', '~> 5.0'
 gem 'aws-sdk-elasticbeanstalk'
 gem 'aws-sdk-rails'
+gem 'bootsnap', require: false
 gem 'bootstrap-kaminari-views'
 gem 'bootstrap-sass', '~> 2.2.2.0'
 gem 'cancan'
 gem 'carrierwave', '~> 1.2.2'
 gem 'coffee-rails'
+gem 'listen'
 # noinspection RailsParamDefResolve
 gem 'coffee-script-source', platforms: %i(mingw mswin x64_mingw)
 gem 'csv_builder', '~> 2.1.1'
@@ -32,11 +34,11 @@ gem 'jquery-rails'
 gem 'json', '1.8.6'
 gem 'kaminari'
 gem 'newrelic_rpm'
-gem 'pg', '0.20' # Unpin after upgrade to rails 5.x (per https://github.com/rails/rails/issues/29521#issuecomment-312088377)
+gem 'pg'
 gem 'puma'
-gem 'rails_admin'
+gem 'rails_admin', '~>1.4.2'
 gem 'responders'
-gem 'sass-rails'
+gem 'sass-rails', '~>5.0'
 gem 'simple_form'
 gem 'swagger-blocks'
 # noinspection RailsParamDefResolve
@@ -46,10 +48,11 @@ gem 'uglifier'
 group :development do
   gem 'pry-byebug', group: :test
   gem 'pry-rails'
-  gem 'quiet_assets'
   gem 'rubocop', group: :test
   gem 'rubocop-performance', group: :test
   gem 'rubocop-rails', group: :test
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :test do
@@ -58,8 +61,9 @@ group :test do
   gem 'database_cleaner'
   gem 'email_spec'
   gem 'fabrication'
-  gem 'launchy'
+  gem 'rails-controller-testing'
   gem 'rspec-its'
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
+  gem 'spring-commands-rspec'
 end
