@@ -53,6 +53,10 @@ jobs:
           command: |
             bundle exec rubocop
       - run:
+          name: Run assets precompile
+          command: |
+            bundle exec rake assets:precompile
+      - run:
           name: Run rspec
           command: |
             bundle exec rspec --profile 10 \
