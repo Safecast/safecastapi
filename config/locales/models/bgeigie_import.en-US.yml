@@ -9,7 +9,7 @@ en-US:
         uploaded_before: Uploaded Before
         created_at: Uploaded At
         source: File Name
-        measurements_count: "# of Measurements"
+        measurements_count: "# of Measurements (maximum_cpm)"
         user_id: User
         by_user_id: User Id
         by_user_name: User Name
