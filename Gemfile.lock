@@ -451,6 +451,7 @@ DEPENDENCIES
   devise-token_authenticatable
   dotenv-rails
   draper
+  elastic-apm
   elasticsearch-model
   email_spec
   fabrication

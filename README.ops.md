@@ -178,7 +178,7 @@ These will need to be changed -- the new version's RPMs can be found by browsing
 You will also need to update the symbolic link that is created below this line:
 
 ```bash
-/bin/ln -s /usr/pgsql-11/bin/pg_config /usr/local/bin/pg_config
+/bin/ln -s /usr/pgsql-11/bin/pg_config /usr/bin/pg_config
 ```
 
 `pgsql-11` must be changed to `pgsql-12` (or whatever new major version is in use).
