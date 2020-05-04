@@ -8,6 +8,7 @@ tmp/
 *.swp
 *.swo
 *.save
+public/assets/*
 public/uploads/*
 public/Chang/*
 public/root

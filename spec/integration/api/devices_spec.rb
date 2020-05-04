@@ -8,7 +8,7 @@ feature '/devices API endpoint', type: :request do
 
   scenario 'create a device' do
     post('/devices',
-         {
+         params: {
            api_key: user.authentication_token,
            device: {
              manufacturer: 'Safecast',
@@ -16,7 +16,7 @@ feature '/devices API endpoint', type: :request do
              sensor: 'LND-7317'
            }
          },
-         'HTTP_ACCEPT' => 'application/json')
+         headers: { 'HTTP_ACCEPT' => 'application/json' })
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['manufacturer']).to eq('Safecast')
     expect(result['model']).to eq('bGeigie')
@@ -28,10 +28,10 @@ feature '/devices API endpoint', type: :request do
 
   scenario 'empty post' do
     post('/devices',
-         {
+         params: {
            api_key: user.authentication_token
          },
-         'HTTP_ACCEPT' => 'application/json')
+         headers: { 'HTTP_ACCEPT' => 'application/json' })
 
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['errors']['manufacturer']).to be_present
@@ -59,24 +59,22 @@ feature '/devices with existing devices', type: :request do
   let(:third_device) { @third_device.reload }
 
   scenario 'no duplicate devices' do
-    post(
-      '/devices',
-      {
-        api_key: user.authentication_token,
-        device: {
-          manufacturer: 'Safecast',
-          model: 'bGeigie',
-          sensor: 'LND-7317'
-        }
-      },
-      'HTTP_ACCEPT' => 'application/json'
-    )
+    post('/devices',
+         params: {
+           api_key: user.authentication_token,
+           device: {
+             manufacturer: 'Safecast',
+             model: 'bGeigie',
+             sensor: 'LND-7317'
+           }
+         },
+         headers: { 'HTTP_ACCEPT' => 'application/json' })
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['id']).to eq(first_device.id)
   end
 
   scenario 'lookup all devices' do
-    result = api_get('/devices', {}, 'HTTP_ACCEPT' => 'application/json')
+    result = api_get('/devices', headers: { 'HTTP_ACCEPT' => 'application/json' })
     expect(result.length).to eq(3)
     expect(result.map { |obj| obj['manufacturer'] }).to eq(%w(Safecast Medcom Safecast))
     expect(result.map { |obj| obj['model'] }).to eq(%w(bGeigie Inspector iGeigie))
@@ -85,10 +83,10 @@ feature '/devices with existing devices', type: :request do
 
   scenario 'lookup all Safecast devices' do
     result = api_get('/devices',
-                     {
+                     params: {
                        manufacturer: 'Safecast'
                      },
-                     'HTTP_ACCEPT' => 'application/json')
+                     headers: { 'HTTP_ACCEPT' => 'application/json' })
     expect(result.length).to eq(2)
     expect(result.map { |obj| obj['manufacturer'] }).to eq(%w(Safecast Safecast))
     expect(result.map { |obj| obj['model'] }).to eq(%w(bGeigie iGeigie))
@@ -97,10 +95,10 @@ feature '/devices with existing devices', type: :request do
 
   scenario 'lookup a particular device' do
     result = api_get('/devices',
-                     {
+                     params: {
                        manufacturer: 'Safecast', model: 'iGeigie'
                      },
-                     'HTTP_ACCEPT' => 'application/json')
+                     headers: { 'HTTP_ACCEPT' => 'application/json' })
     expect(result.length).to eq(1)
     expect(result.first['manufacturer']).to eq('Safecast')
     expect(result.first['model']).to eq('iGeigie')

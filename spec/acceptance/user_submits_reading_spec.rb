@@ -17,7 +17,7 @@ feature 'User submits a reading when a device does not exist', type: :feature do
     click_button('Submit')
     expect(page).to have_content('123')
     expect(page).to have_content('cpm')
-    expect(user.measurements.size).to eq(1)
+    expect(user.measurements.count).to eq(1)
     expect(measurement.value).to eq(123)
     expect(measurement.location_name).to eq('Colwyn Bay, Wales')
   end

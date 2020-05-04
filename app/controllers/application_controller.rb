@@ -7,12 +7,12 @@ class ApplicationController < ActionController::Base
 
   force_ssl if: :ssl_enabled?
 
-  before_filter :strict_transport_security
-  before_filter :set_locale
-  before_filter :configure_permitted_parameters, if: :devise_controller?
-  before_filter :set_cors_headers
-  skip_before_filter :verify_authenticity_token
-  before_filter :new_relic_custom_attributes
+  before_action :strict_transport_security
+  before_action :set_locale
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_cors_headers
+  skip_before_action :verify_authenticity_token
+  before_action :new_relic_custom_attributes
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, alert: exception.message
@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 
   def options
     set_cors_headers
-    render text: '', content_type: 'application/json'
+    render plain: '', content_type: 'application/json'
   end
 
   protected

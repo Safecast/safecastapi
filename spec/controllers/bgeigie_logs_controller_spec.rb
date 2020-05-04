@@ -5,7 +5,7 @@ RSpec.describe BgeigieLogsController, type: :controller do
 
   describe 'GET #index', format: :json do
     before do
-      get :index, bgeigie_import_id: bgeigie_import.id, format: :json
+      get :index, params: { bgeigie_import_id: bgeigie_import.id, format: :json }
     end
 
     it { expect(response).to be_ok }

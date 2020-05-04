@@ -182,9 +182,9 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     return false unless line_items.length >= 13
 
     # check header
-    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Layout/LineLength
     return false unless line_items[0].eql?('$BMRDD') || line_items[0].eql?('$BGRDD') || line_items[0].eql?('$BNRDD') || line_items[0].eql?('$BNXRDD') || line_items[0].eql?('$PNTDD')
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
 
     # check for Valid CPM
     return false unless line_items[6].eql?('A') || line_items[6].eql?('V')
@@ -230,9 +230,9 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def psql_command
-    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Layout/LineLength
     %[psql -U #{db_config['username']} -h #{db_config['host'] || 'localhost'} #{db_config['database']} -p #{db_config['port'] || '5432'} -c "\\copy bgeigie_logs_tmp (device_tag, device_serial_id, captured_at, cpm, counts_per_five_seconds, total_counts,  cpm_validity, latitude_nmea, north_south_indicator, longitude_nmea,  east_west_indicator, altitude, gps_fix_indicator,horizontal_dilution_of_precision,  gps_fix_quality_indicator,md5sum) FROM '#{tmp_file}' CSV"]
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
   end
 
   def run_psql_command
@@ -255,9 +255,9 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   end
 
   def populate_bgeigie_logs_table
-    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Layout/LineLength
     ActiveRecord::Base.connection.execute(%[insert into bgeigie_logs (device_tag, device_serial_id, captured_at, cpm, counts_per_five_seconds, total_counts, cpm_validity, latitude_nmea, north_south_indicator, longitude_nmea, east_west_indicator, altitude, gps_fix_indicator, horizontal_dilution_of_precision, gps_fix_quality_indicator, created_at, updated_at, bgeigie_import_id, computed_location, md5sum) select distinct bt.device_tag, bt.device_serial_id, bt.captured_at, bt.cpm, bt.counts_per_five_seconds, bt.total_counts, bt.cpm_validity, bt.latitude_nmea, bt.north_south_indicator, bt.longitude_nmea, bt.east_west_indicator, bt.altitude, bt.gps_fix_indicator, bt.horizontal_dilution_of_precision, bt.gps_fix_quality_indicator, bt.created_at, bt.updated_at, bt.bgeigie_import_id, bt.computed_location, bt.md5sum from bgeigie_logs_tmp bt left join bgeigie_logs bl on bl.md5sum = bt.md5sum where bl.md5sum is null])
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
   end
 
   def drop_tmp_table

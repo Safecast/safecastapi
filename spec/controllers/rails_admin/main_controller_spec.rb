@@ -23,7 +23,7 @@ RSpec.describe RailsAdmin::MainController, 'login as admin', type: :controller d
 
   describe 'GET #index' do
     before do
-      get :index, model_name: model_name
+      get :index, params: { model_name: model_name }
     end
 
     it { expect(response).to be_ok }
@@ -31,7 +31,7 @@ RSpec.describe RailsAdmin::MainController, 'login as admin', type: :controller d
 
   describe 'POST #index' do
     before do
-      post :index, model_name: model_name
+      post :index, params: { model_name: model_name }
     end
 
     it { expect(response).to be_ok }
@@ -39,7 +39,7 @@ RSpec.describe RailsAdmin::MainController, 'login as admin', type: :controller d
 
   describe 'GET #new' do
     before do
-      get :new, model_name: model_name
+      get :new, params: { model_name: model_name }
     end
 
     it { expect(response).to be_ok }
@@ -47,7 +47,7 @@ RSpec.describe RailsAdmin::MainController, 'login as admin', type: :controller d
 
   describe 'POST #new' do
     before do
-      get :new, model_name: model_name
+      get :new, params: { model_name: model_name }
     end
 
     it { expect(response).to be_ok }
@@ -55,7 +55,7 @@ RSpec.describe RailsAdmin::MainController, 'login as admin', type: :controller d
 
   describe 'GET #show' do
     before do
-      get :show, id: bgeigie_log.id, model_name: model_name
+      get :show, params: { model_name: model_name, id: bgeigie_log.id }
     end
 
     it { expect(response).to be_ok }

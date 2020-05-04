@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Safecast::Application.routes.draw do # rubocop:disable Metrics/BlockLength
+Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   scope '(:locale)', constraints: { locale: /(en-US|ja)/ } do # rubocop:disable Metrics/BlockLength

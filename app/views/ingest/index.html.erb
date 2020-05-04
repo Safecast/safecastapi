@@ -71,7 +71,7 @@
   No data
 <%- else -%>
   <ul class="inline pull-right">
-    <%=link_to( 'CSV Export', params.merge(:format => 'csv'), :class => 'btn') %>
+    <%=link_to( 'CSV Export', params.to_unsafe_h.merge(:format => 'csv'), :class => 'btn') %>
   </ul>
 
   <table  class="table">

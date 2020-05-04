@@ -16,7 +16,7 @@ class DevicesController < ApplicationController
   has_scope :sensor do |_controller, scope, value|
     scope.where('sensor LIKE ?', "%#{value}%")
   end
-  before_filter :authenticate_user!, only: :create
+  before_action :authenticate_user!, only: :create
 
   def new
     @device = Device.new

@@ -1,0 +1,17 @@
+version: "2"
+
+# see https://docker-sync.readthedocs.io/en/latest/getting-started/configuration.html for explanation of fields
+options:
+  verbose: false
+syncs:
+  se-sync:
+    src: './'
+    monit_enable: true
+    sync_excludes:
+      - .env
+      - .git
+      - tmp
+      - log
+      - node_modules
+      - public/assets
+      - .docker-sync

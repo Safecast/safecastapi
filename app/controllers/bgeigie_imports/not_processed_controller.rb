@@ -2,8 +2,8 @@
 
 module BgeigieImports
   class NotProcessedController < ApplicationController
-    before_filter :authenticate_user!
-    before_filter :require_moderator
+    before_action :authenticate_user!
+    before_action :require_moderator
 
     def index
       @bgeigie_imports = BgeigieImport.where(status: :unprocessed).unapproved.page(params[:page])
