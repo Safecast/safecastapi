@@ -15,6 +15,12 @@ There is also a development host located at [dev.safecast.org](https://dev.safec
 
 ## Contributing
 
+### Onboarding
+
+Start here: [Onboarding](https://github.com/Safecast/safecastapi/wiki/Onboarding)
+
+Available [Data Sets](https://github.com/Safecast/safecastapi/wiki/Data-Sets#air-and-radiation-data-via-ingestsafecastorg)
+
 ### Translation
 
 Translation is managed by [Locale](http://www.localeapp.com/) and open to all.
@@ -35,10 +41,8 @@ See the [help-wanted label](https://github.com/Safecast/safecastapi/issues?q=is%
 
 See one of the wiki pages for instructions on setting up for local development:
 
-* [Dev: Setup on OS X](https://github.com/Safecast/safecastapi/wiki/Dev:-Setup-on-OS-X)
-* [Dev: Setup on Linux (Ubuntu 16.04)](https://github.com/Safecast/safecastapi/wiki/Dev:-Setup-on-Linux-(Ubuntu-16.04))
+* [Dev: Setup on Linux and OS X using Docker](https://github.com/Safecast/safecastapi/wiki/Dev:-Setup-on-Linux-and-OS-X-using-Docker)
 * [Dev: Setup on Windows](https://github.com/Safecast/safecastapi/wiki/Dev:-Setup-on-Windows)
-* [Dev: Using Docker](https://github.com/Safecast/safecastapi/wiki/Dev:-Using-Docker)
 
 And finally we have a Slack channel for real time coordination. Contact [Mat Schaffer](http://github.com/matschaffer) to get an invite. 
 

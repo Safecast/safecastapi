@@ -7,10 +7,12 @@ feature '/api/users API endpoint', type: :request do
   end
 
   scenario 'create user' do
-    post('/users.json', user: {
-      email: 'kevin@rkn.la',
-      name: 'Kevin Nelson',
-      password: 'testing123'
+    post('/users.json', params: {
+      user: {
+        email: 'kevin@rkn.la',
+        name: 'Kevin Nelson',
+        password: 'testing123'
+      }
     })
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['email']).to eq('kevin@rkn.la')

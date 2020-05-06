@@ -44,11 +44,11 @@ RSpec.describe IngestController, type: :controller do
       ].each do |body|
         client.index(
           index: 'ingest-measurements-2019-01-25',
-          type: 'measurement',
+          type: '_doc',
           body: body
         )
       end
-      client.indices.flush
+      client.indices.refresh
     end
 
     after do
@@ -71,7 +71,7 @@ RSpec.describe IngestController, type: :controller do
         }
       end
 
-      before { get :index, params }
+      before { get :index, params: params }
 
       it 'should list 3 data' do
         expect(response).to be_ok
@@ -90,7 +90,7 @@ RSpec.describe IngestController, type: :controller do
         }
       end
 
-      before { get :index, params }
+      before { get :index, params: params }
 
       it 'should list 2 data' do
         expect(response).to be_ok
@@ -109,7 +109,7 @@ RSpec.describe IngestController, type: :controller do
         }
       end
 
-      before { get :index, params }
+      before { get :index, params: params }
 
       it 'should list 1 datum' do
         expect(response).to be_ok
@@ -128,7 +128,7 @@ RSpec.describe IngestController, type: :controller do
         }
       end
 
-      before { get :index, params }
+      before { get :index, params: params }
 
       it 'should list 1 datum' do
         expect(response).to be_ok

@@ -2,8 +2,8 @@
 
 module BgeigieImports
   class NotApprovedController < ApplicationController
-    before_filter :authenticate_user!
-    before_filter :require_moderator
+    before_action :authenticate_user!
+    before_action :require_moderator
 
     def index
       @bgeigie_imports = BgeigieImport.submitted.unapproved.page(params[:page])

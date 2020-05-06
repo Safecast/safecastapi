@@ -8,8 +8,10 @@ tmp/
 *.swp
 *.swo
 *.save
+public/assets/*
 public/uploads/*
 public/Chang/*
+public/root
 public/system/*
 bgeigie_logs/*
 log/localeapp.yml
@@ -18,6 +20,7 @@ log/localeapp.yml
 .env
 .envrc
 .direnv
+.byebug_history
 
 .elasticbeanstalk/config.yml
 .elasticbeanstalk/app_versions/

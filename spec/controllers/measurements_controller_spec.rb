@@ -22,7 +22,7 @@ RSpec.describe MeasurementsController, type: :controller do
 
   describe 'POST #create', format: :json do
     before do
-      post :create, { api_key: api_key, format: :json }.merge(post_params)
+      post :create, params: { api_key: api_key, format: :json }.merge(post_params)
     end
 
     context 'valid data' do
@@ -68,7 +68,7 @@ RSpec.describe MeasurementsController, type: :controller do
       before do
         request.headers['Content-Type'] = 'application/json'
 
-        post :create, { api_key: api_key, format: :json }.merge(post_params)
+        post :create, params: { api_key: api_key, format: :json }.merge(post_params)
       end
 
       it { expect(response.status).to eq(201) }
@@ -80,7 +80,7 @@ RSpec.describe MeasurementsController, type: :controller do
     before do
       sign_in user
 
-      get :new, locale: 'en-US'
+      get :new
     end
 
     context 'when user has no measurement' do

@@ -2,8 +2,8 @@
 
 module BgeigieImports
   class AwaitingResponseController < ApplicationController
-    before_filter :authenticate_user!
-    before_filter :require_moderator
+    before_action :authenticate_user!
+    before_action :require_moderator
 
     def index
       @bgeigie_imports = BgeigieImport.where(status: :awaiting_response).page(params[:page])

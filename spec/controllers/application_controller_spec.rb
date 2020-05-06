@@ -4,8 +4,8 @@ RSpec.describe ApplicationController, type: :controller do
   controller do
     def index
       respond_to do |format|
-        format.html { render text: 'html' }
-        format.json { render text: 'json' }
+        format.html { render plain: 'html' }
+        format.json { render plain: 'json' }
       end
     end
   end
@@ -21,7 +21,7 @@ RSpec.describe ApplicationController, type: :controller do
     context 'http access' do
       before do
         request.host = 'api-specs.safecast.org'
-        get :index, format: format, locale: 'en-US'
+        get :index, params: { format: format }
       end
 
       context 'html format' do
@@ -42,7 +42,7 @@ RSpec.describe ApplicationController, type: :controller do
     context 'https access' do
       before do
         request.headers['HTTPS'] = 'on'
-        get :index, format: format, locale: 'en-US'
+        get :index, params: { format: format }
       end
 
       context 'html format' do

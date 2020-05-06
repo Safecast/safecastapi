@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'etc'
+
 class FileUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -12,7 +14,7 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def store_prefix
-    ENV['USER'] + '/' if Rails.env.development?
+    Etc.getpwuid.name + '/' if Rails.env.development?
   end
 
   def filename

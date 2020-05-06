@@ -7,12 +7,14 @@ feature '/bgeigie_imports API endpoint', type: :request do
                         email: 'paul@rslw.com',
                         name: 'Paul Campbell')
 
-    @result ||= api_post('/bgeigie_imports', {
-      api_key: @user.authentication_token,
-      bgeigie_import: {
-        source: fixture_file_upload('/bgeigie.log')
-      }
-    }, 'HTTP_ACCEPT' => 'application/json')
+    @result ||= api_post('/bgeigie_imports',
+                         params: {
+                           api_key: @user.authentication_token,
+                           bgeigie_import: {
+                             source: fixture_file_upload('/bgeigie.log')
+                           }
+                         },
+                         headers: { 'HTTP_ACCEPT' => 'application/json' })
   end
 
   context 'just an upload' do
@@ -31,8 +33,7 @@ feature '/bgeigie_imports API endpoint', type: :request do
     let!(:updated_result) do
       api_get(
         "/bgeigie_imports/#{@result['id']}",
-        {},
-        'HTTP_ACCEPT' => 'application/json'
+        headers: { 'HTTP_ACCEPT' => 'application/json' }
       )
     end
 

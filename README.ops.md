@@ -87,6 +87,10 @@ This process is for major version upgrades, e.g. from Postgres 9.5 to 9.6 or fro
 
 Terraform has been configured for ingest in a way that should make it easy to perform major upgrades. If Amazon automatically performs a minor version upgrade, this will not break Terraform. In `infrastructure/terraform/ingest/main.tf`, the `engine_version` variable is set to `11` rather than `11.4` to ensure this; Terraform is aware of automatic upgrades and the Postgres versioning scheme.
 
+However, Terraform cannot upgrade PostGIS, and AWS recommends that PostGIS be upgraded before a major upgrade. See the manual instructions below for more information on how to upgrade it.
+
+Likewise, Terraform cannot upgrade more than one major version at a time, so if moving from, e.g. 10 to 12, you will need to perform two manual upgrades, one for each major version.
+
 To upgrade to the next version, e.g., Postgres 12, find the following lines in the Terraform configuration and change them from `11` to `12`:
 
 * `main.tf`
@@ -99,8 +103,6 @@ To upgrade to the next version, e.g., Postgres 12, find the following lines in t
     * `engine_version = "11"`
 
 Read through the manual instructions as well to understand what Terraform should do when executing this plan.
-
-Upgrading PostGIS is not currently supported in our Terraform configuration. To manually upgrade the PostGIS version after upgrading Postgres, see the manual instructions below.
 
 ### Manual
 
@@ -176,7 +178,7 @@ These will need to be changed -- the new version's RPMs can be found by browsing
 You will also need to update the symbolic link that is created below this line:
 
 ```bash
-/bin/ln -s /usr/pgsql-11/bin/pg_config /usr/local/bin/pg_config
+/bin/ln -s /usr/pgsql-11/bin/pg_config /usr/bin/pg_config
 ```
 
 `pgsql-11` must be changed to `pgsql-12` (or whatever new major version is in use).

@@ -19,7 +19,7 @@ require 'email_spec'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 
 RSpec.configure do |config|
   config.include Helpers
@@ -52,13 +52,13 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
 
   config.before(:all) do
-    FileUtils.rm_rf Dir[Rails.root.join('tmp', 'cache', 'assets', '**', '*')]
+    FileUtils.rm_rf Dir[Rails.root.join('tmp/cache/assets/**/*')]
   end
 
   config.after(:all) do
-    FileUtils.rm_f Rails.root.join('tmp', 'capybara', '*')
-    FileUtils.rm_rf Dir[Rails.root.join('tmp', 'cache', 'assets', '**', '*')]
-    FileUtils.rm_rf Dir[Rails.root.join('public', 'uploads', '**', '*')]
+    FileUtils.rm_f Rails.root.join('tmp/capybara/*')
+    FileUtils.rm_rf Dir[Rails.root.join('tmp/cache/assets/**/*')]
+    FileUtils.rm_rf Dir[Rails.root.join('public/uploads/**/*')]
   end
 
   config.before(:suite) do
