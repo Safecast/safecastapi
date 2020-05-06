@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.4.9'
+ruby '2.5.8'
 
 gem 'rails', '~> 5.2.4'
 
