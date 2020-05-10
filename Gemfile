@@ -25,7 +25,6 @@ gem 'devise-i18n'
 gem 'devise-token_authenticatable'
 gem 'dotenv-rails'
 gem 'draper'
-gem 'elastic-apm'
 gem 'elasticsearch-model'
 gem 'fog-aws', '~> 2.0.0'
 gem 'formatted-dates'
@@ -45,6 +44,10 @@ gem 'swagger-blocks'
 # noinspection RailsParamDefResolve
 gem 'tzinfo-data', platforms: %i(mingw mswin x64_mingw)
 gem 'uglifier'
+
+group :production do
+  gem 'elastic-apm'
+end
 
 group :development do
   gem 'pry-byebug', group: :test
