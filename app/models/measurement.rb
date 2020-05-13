@@ -23,6 +23,12 @@ class Measurement < ActiveRecord::Base
     100
   end
 
+  def self.total_count
+    Rails.cache.fetch("measurement/#{maximum(:id)}/count") do
+      count
+    end
+  end
+
   def self.nearby_to(lat, lng, distance)
     return scoped unless lat.present? && lng.present? && distance.present?
 

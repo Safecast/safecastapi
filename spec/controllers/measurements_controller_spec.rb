@@ -76,6 +76,17 @@ RSpec.describe MeasurementsController, type: :controller do
     end
   end
 
+  describe 'GET #count' do
+    before do
+      Fabricate(:measurement, user: user, value: '100')
+      Fabricate(:measurement, user: user, value: '200')
+
+      get :count
+    end
+
+    it { expect(assigns(:count)[:count]).to eq(2) }
+  end
+
   describe 'GET #new' do
     before do
       sign_in user

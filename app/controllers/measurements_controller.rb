@@ -102,8 +102,7 @@ class MeasurementsController < ApplicationController
   end
 
   def count
-    @count = {}
-    @count[:count] = Measurement.count
+    @count = { count: Measurement.total_count }
     respond_with @count
   end
 
