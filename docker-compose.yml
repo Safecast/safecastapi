@@ -10,7 +10,6 @@ services:
     environment:
       DATABASE_HOST: 'postgresql'
       ELASTICSEARCH_URL: 'http://elasticsearch:9200'
-      RAILS_ENV: 'development'
     volumes:
       - .:/src
     depends_on:
