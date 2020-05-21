@@ -41,7 +41,7 @@ services:
     ports:
       - "127.0.0.1:8080:80"
     volumes:
-      - nginx-data:/etc/nginx/nginx.conf
+      - nginx-data:/etc/nginx
 
 volumes:
   elasticsearch-data:
