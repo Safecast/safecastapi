@@ -7,7 +7,17 @@ module DeviceStory
     validates :device_urn, presence: true, uniqueness: true
     validates :metadata, presence: true
 
+    format_dates :last_seen, format: '%Y/%m/%d %H:%M:%S %z'
+
     before_save :update_from_metadata
+
+    def location
+      metadata['location']
+    end
+
+    def last_seen
+      DateTime.parse(metadata['last_seen'])
+    end
 
     private
 
