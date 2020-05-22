@@ -11,11 +11,9 @@ module Tasks
 
       def call
         each_metadata(parse(fetch(devices_uri))) do |device_urn, metadata|
-          begin
-            find_or_update_device(device_urn, metadata)
-          rescue ActiveRecord::RecordInvalid
-            warn "Could not update device metadata for #{device_urn}."
-          end
+          find_or_update_device(device_urn, metadata)
+        rescue ActiveRecord::RecordInvalid
+          warn "Could not update device metadata for #{device_urn}."
         end
       end
 
