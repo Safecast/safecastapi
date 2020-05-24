@@ -20,11 +20,11 @@ module Tasks
       private
 
       def find_or_update_device(device_urn, metadata)
-        device = ::DeviceStory::Device.find_by(device_urn: device_urn)
+        device = DeviceStory.find_by(device_urn: device_urn)
         if device
           device.update!(metadata: metadata)
         else
-          ::DeviceStory::Device.create!(device_urn: device_urn, metadata: metadata)
+          DeviceStory.create!(device_urn: device_urn, metadata: metadata)
         end
       end
 
