@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class DeviceStory < ApplicationRecord
-  self.table_name = 'device_story_devices'
-
   validates :device_urn, presence: true, uniqueness: true
   validates :metadata, presence: true
 
