@@ -15,7 +15,7 @@ import time
 
 def verbose_sleep(secs):
     end_time = time.strftime('%Y-%m-%dT%H:%M:%S%z', time.localtime(time.time() + secs))
-    print("Sleeping for " + str(secs) + "seconds until " + end_time, file=sys.stderr)
+    print("Sleeping for " + str(secs) + " seconds until " + end_time, file=sys.stderr)
     time.sleep(secs)
 
 def get_previously_deployed_version(current_envs, env_name):
@@ -58,35 +58,20 @@ def identify_current_envs(current_envs):
             
     return env_metadata
 
-def main():
+def parse_args():
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('app', help="The target application to deploy to. Only 'api' works at this point.")
     arg_parser.add_argument('env', help="The target environment to deploy to. Either 'dev' or 'prd'.")
     arg_parser.add_argument('version', help="The new version to deploy.")
     arg_parser.add_argument('arn', help="The ARN the new deployment should use.")
-    args = arg_parser.parse_args()
-    target_app = args.app
-    target_env = args.env
-    target_version = args.version
-    target_arn = args.arn
+    return arg_parser.parse_args()
 
-    target_web_tier = target_env + '_web'
+def handle_worker(ebclient, current_envs, current_env_metadata, target_env, target_app, target_arn, target_version):
     target_wrk_tier = target_env + '_wrk'
-    target_web_template = target_env
     target_wrk_template = target_env + '-wrk'
 
-    ebclient = boto3.client('elasticbeanstalk')
-
-    current_envs = ebclient.describe_environments(ApplicationName=target_app, IncludeDeleted=False)['Environments']
-    current_env_metadata = identify_current_envs(current_envs)
-
-    # TODO need to be able to loop back to 0
-    new_web_env_name = 'safecastapi-{target_env}-{num:03}' \
-        .format(target_env=target_env, num=current_env_metadata[target_web_tier]['num'] + 1)
     new_wrk_env_name = 'safecastapi-{target_env}-wrk-{num:03}' \
         .format(target_env=target_env, num=current_env_metadata[target_wrk_tier]['num'] + 1)
-
-    # Switch over to new worker environment first
 
     # First, turn off the current worker to avoid any concurrency issues
     print("Setting the worker tier to scale to 0.", file=sys.stderr)
@@ -116,9 +101,40 @@ def main():
     )
     verbose_sleep(360)
     print("Terminating the old worker environment.", file=sys.stderr)
-    ebclient.terminate_environment(ApplicationName=target_app, EnvironmentName=current_env_metadata[target_wrk_tier]['name'])
+    ebclient.terminate_environment(EnvironmentName=current_env_metadata[target_wrk_tier]['name'])
+    return { 'previous_version': get_previously_deployed_version(current_envs, current_env_metadata[target_web_tier]['name']), }
+
+def print_completed_info(current_envs, current_env_metadata, worker_result, target_web_tier):
+    print("Changeover completed.", file=sys.stderr)
+    print("Old build on web was: "
+          + get_previously_deployed_version(current_envs, current_env_metadata[target_web_tier]['name']),
+          file=sys.stderr)
+    print("Old build on wrk was: "
+          + worker_result['previous_version'],
+          file=sys.stderr)
+
+def main():
+    args = parse_args()
+    target_app = args.app
+    target_env = args.env
+    target_version = args.version
+    target_arn = args.arn
+
+    ebclient = boto3.client('elasticbeanstalk')
+
+    current_envs = ebclient.describe_environments(ApplicationName=target_app, IncludeDeleted=False)['Environments']
+    current_env_metadata = identify_current_envs(current_envs)
+
+    # Switch over to new worker environment first
+    worker_result = handle_worker(ebclient, current_envs, current_env_metadata, target_env, target_app, target_arn, target_version)
 
     # Next, the Web tier
+    target_web_tier = target_env + '_web'
+    target_web_template = target_env
+    # TODO need to be able to loop back to 0
+    new_web_env_name = 'safecastapi-{target_env}-{num:03}' \
+        .format(target_env=target_env, num=current_env_metadata[target_web_tier]['num'] + 1)
+
     print("Creating the new Web environment.", file=sys.stderr)
     ebclient.create_environment(
         ApplicationName=target_app,
@@ -127,7 +143,7 @@ def main():
         TemplateName=target_web_template,
         VersionLabel=target_version,
     )
-    verbose_sleep(360)
+    verbose_sleep(480)
     print("Swapping web environment CNAMEs.", file=sys.stderr)
     ebclient.swap_environment_cnames(
         SourceEnvironmentName=current_env_metadata[target_web_tier]['name'],
@@ -135,15 +151,8 @@ def main():
     )
     verbose_sleep(120)
     print("Terminating the old web environment.", file=sys.stderr)
-    ebclient.terminate_environment(ApplicationName=target_app, EnvironmentName=current_env_metadata[target_web_tier]['name'])
-
-    print("Changeover completed.", file=sys.stderr)
-    print("Old build on worker was: "
-          + get_previously_deployed_version(current_envs, current_env_metadata[target_wrk_tier]['name']),
-          file=sys.stderr)
-    print("Old build on web was: "
-          + get_previously_deployed_version(current_envs, current_env_metadata[target_web_tier]['name']),
-          file=sys.stderr)
+    ebclient.terminate_environment(EnvironmentName=current_env_metadata[target_web_tier]['name'])
+    print_completed_info(current_envs, current_env_metadata, worker_result, target_web_tier)
 
     # TODO new configuration template is not saved, this seems to only be possible from eb cli, not boto
 
