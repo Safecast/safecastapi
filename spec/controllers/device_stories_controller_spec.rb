@@ -2,14 +2,14 @@
 
 require 'spec_helper'
 
-RSpec.describe DevicesController, type: :controller do
+RSpec.describe DeviceStoriesController, type: :controller do
   describe 'GET #index' do
-    let!(:devices) { Fabricate.times(4, :device_story) }
+    let!(:device_stories) { Fabricate.times(4, :device_story) }
 
-    it 'assigns @devices' do
+    it 'assigns @device_stories' do
       get :index
 
-      expect(assigns(:devices)).to eq(devices)
+      expect(assigns(:device_stories)).to eq(device_stories)
     end
   end
 end
