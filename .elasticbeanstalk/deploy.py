@@ -90,7 +90,7 @@ def handle_worker(ebclient, current_envs, current_env_metadata, target_env, targ
                                         'Value': '0'
                                     },
                                 ])
-    verbose_sleep(120)
+    verbose_sleep(480)
     print("Creating the new worker environment.", file=sys.stderr)
     ebclient.create_environment(
         ApplicationName=target_app,
@@ -99,10 +99,10 @@ def handle_worker(ebclient, current_envs, current_env_metadata, target_env, targ
         TemplateName=target_wrk_template,
         VersionLabel=target_version,
     )
-    verbose_sleep(360)
+    verbose_sleep(120)
     print("Terminating the old worker environment.", file=sys.stderr)
     ebclient.terminate_environment(EnvironmentName=current_env_metadata[target_wrk_tier]['name'])
-    return { 'previous_version': get_previously_deployed_version(current_envs, current_env_metadata[target_web_tier]['name']), }
+    return { 'previous_version': get_previously_deployed_version(current_envs, current_env_metadata[target_wrk_tier]['name']), }
 
 def print_completed_info(current_envs, current_env_metadata, worker_result, target_web_tier):
     print("Changeover completed.", file=sys.stderr)
