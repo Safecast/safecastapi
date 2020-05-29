@@ -15,7 +15,6 @@ services:
     depends_on:
       - postgresql
       - elasticsearch
-      - nginx
   elasticsearch:
     build:
       context: .
@@ -38,10 +37,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.nginx
+    depends_on:
+      - app
     ports:
       - "127.0.0.1:8080:80"
-    volumes:
-      - ./nginx-data:/usr/local/etc/nginx
 
 volumes:
   elasticsearch-data:
