@@ -81,10 +81,20 @@ RSpec.describe MeasurementsController, type: :controller do
       Fabricate(:measurement, user: user, value: '100')
       Fabricate(:measurement, user: user, value: '200')
 
-      get :count
+      get :count, format: format
     end
 
-    it { expect(assigns(:count)[:count]).to eq(2) }
+    context 'when html' do
+      let(:format) { :html }
+
+      it { expect(assigns(:count)).to eq(2) }
+    end
+
+    context 'when json' do
+      let(:format) { :json }
+
+      it { expect(JSON.parse(response.body)).to eq('count' => 2) }
+    end
   end
 
   describe 'GET #new' do

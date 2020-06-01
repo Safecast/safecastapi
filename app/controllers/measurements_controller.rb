@@ -102,8 +102,11 @@ class MeasurementsController < ApplicationController
   end
 
   def count
-    @count = { count: Measurement.total_count }
-    respond_with @count
+    @count = Rails.cache.fetch("measurement/#{Measurement.maximum(:id)}/count") do
+      Measurement.count
+    end
+
+    respond_with count: @count
   end
 
   private
