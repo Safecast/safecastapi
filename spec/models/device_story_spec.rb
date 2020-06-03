@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe DeviceStory::Device, type: :model do
+RSpec.describe DeviceStory, type: :model do
   describe '.create' do
     it 'should create from metadata' do
       metadata = {

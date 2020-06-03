@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Fabricator(:device_story_device, from: 'DeviceStory::Device') do
+Fabricator(:device_story) do
   device_urn { Random.rand(20..100).to_s }
   metadata do
     { 'last_seen' => Time.current,

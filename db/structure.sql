@@ -226,10 +226,10 @@ ALTER SEQUENCE public.delayed_jobs_id_seq OWNED BY public.delayed_jobs.id;
 
 
 --
--- Name: device_story_devices; Type: TABLE; Schema: public; Owner: -
+-- Name: device_stories; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.device_story_devices (
+CREATE TABLE public.device_stories (
     id integer NOT NULL,
     user_id integer,
     device_urn character varying NOT NULL,
@@ -244,10 +244,10 @@ CREATE TABLE public.device_story_devices (
 
 
 --
--- Name: device_story_devices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: device_stories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.device_story_devices_id_seq
+CREATE SEQUENCE public.device_stories_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -256,10 +256,10 @@ CREATE SEQUENCE public.device_story_devices_id_seq
 
 
 --
--- Name: device_story_devices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: device_stories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.device_story_devices_id_seq OWNED BY public.device_story_devices.id;
+ALTER SEQUENCE public.device_stories_id_seq OWNED BY public.device_stories.id;
 
 
 --
@@ -700,7 +700,7 @@ ALTER TABLE ONLY public.delayed_jobs ALTER COLUMN id SET DEFAULT nextval('public
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.device_story_devices ALTER COLUMN id SET DEFAULT nextval('public.device_story_devices_id_seq'::regclass);
+ALTER TABLE ONLY public.device_stories ALTER COLUMN id SET DEFAULT nextval('public.device_stories_id_seq'::regclass);
 
 
 --
@@ -799,11 +799,11 @@ ALTER TABLE ONLY public.delayed_jobs
 
 
 --
--- Name: device_story_devices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: device_stories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.device_story_devices
-    ADD CONSTRAINT device_story_devices_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.device_stories
+    ADD CONSTRAINT device_stories_pkey PRIMARY KEY (id);
 
 
 --
@@ -956,10 +956,10 @@ CREATE INDEX index_configurables_on_name ON public.configurables USING btree (na
 
 
 --
--- Name: index_device_story_devices_on_device_urn; Type: INDEX; Schema: public; Owner: -
+-- Name: index_device_stories_on_device_urn; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_device_story_devices_on_device_urn ON public.device_story_devices USING btree (device_urn);
+CREATE INDEX index_device_stories_on_device_urn ON public.device_stories USING btree (device_urn);
 
 
 --

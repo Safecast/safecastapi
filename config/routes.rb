@@ -58,9 +58,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     resources :users do
       resources :measurements, only: :index
     end
-    namespace :device_story do
-      resources :devices, only: %i(index show)
-    end
+    resources :device_stories, only: %i(index show)
   end
 
   match '/api/*path' => redirect('/%{path}.%{format}'), :format => true, via: %i(get post put delete)

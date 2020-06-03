@@ -50,6 +50,9 @@
               <li <%= raw('class="active"') if controller_name == 'devices' %>>
                 <%= link_to t('.devices'), :devices %>
               </li>
+              <li <%= raw('class="active"') if controller_name == 'device_stories' %>>
+                <%= link_to t('.device_stories'), :device_stories %>
+              </li>
               <li <%= raw('class="active"') if controller_name == 'RadiationIndexController' %>>
                 <%= link_to t('.radiation_index'), :radiation_index %>
               <li <%= raw('class="active"') if controller_name == 'ingest' %>>
@@ -62,7 +65,7 @@
 
         <div class="span9">
           <%= render 'shared/flash', flash: flash %>
-        
+
           <%= yield %>
         </div>
       </div>
