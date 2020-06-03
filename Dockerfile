@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /src
 ADD Gemfile Gemfile.lock .ruby-version requirements.txt /src/
-RUN bundle install --jobs=4 --retry=3
 RUN LC_ALL=en_US.UTF-8 pip3 install -r requirements.txt
+RUN bundle install --jobs=4 --retry=3
 
 CMD [ "bundle", "exec", "rails", "server", "-b", "0.0.0.0" ]
