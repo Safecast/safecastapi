@@ -1,0 +1,34 @@
+<%= content_for(:title) { "Device Stories" } %>
+
+<h2>Device Stories</h2>
+
+<div class="well">
+  <%= number_with_delimiter @device_stories.total_count %> <%= t('.results') %>.
+</div>
+
+<%- if @device_stories.empty? -%>
+  <p><%= t(".none_found") -%></p>
+<%- else -%>
+  <table class="table table-hover" data-provides="rowlink">
+    <thead>
+      <%= table_sort_header(:device, :device_urn) %>
+      <%= table_sort_header(:device, :last_values) %>
+      <th>Location</th>
+      <th>Last seen</th>
+    </thead>
+    <tbody>
+      <%- @device_stories.each do |device_story| -%>
+        <tr>
+          <td><%= device_story.device_urn %></td>
+          <td><%= device_story.last_values %></td>
+          <td><%= device_story.location %></td>
+          <td><%= device_story.last_seen_formatted %></td>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
+  <%= paginate @device_stories, theme: 'twitter-bootstrap-2' -%>
+<%- end -%>
+
+<div class="spacer"></div>
+<%= current_page_api_example :device_stories_url %>
