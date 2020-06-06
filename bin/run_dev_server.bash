@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker-compose up app
+docker-compose up app nginx
