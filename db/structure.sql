@@ -1294,3 +1294,4 @@ INSERT INTO public.schema_migrations (version) VALUES ('20191215115843');
 
 INSERT INTO public.schema_migrations (version) VALUES ('20200131100913');
 
+INSERT INTO public.schema_migrations (version) VALUES ('20200524170921');
