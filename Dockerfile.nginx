@@ -1,4 +1,4 @@
-#Reference: https://itnext.io/docker-rails-puma-nginx-postgres-999cd8866b18
+#Modified from: https://itnext.io/docker-rails-puma-nginx-postgres-999cd8866b18
 
 # Base image
 FROM nginx
