@@ -41,4 +41,4 @@ aws elasticbeanstalk create-application-version \
     --version-label "${VERSION}" \
     --source-bundle "S3Bucket=${S3_BUCKET_NAME},S3Key=${EB_APP_NAME}/${PACKAGE}" \
     --description "${CLEAN_DESCRIPTION}" \
-    --process
+    --no-process
