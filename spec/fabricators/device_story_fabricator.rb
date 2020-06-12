@@ -2,6 +2,7 @@
 
 Fabricator(:device_story) do
   device_urn { Random.rand(20..100).to_s }
+  custodian_name { "#{Random.rand(20..100)} name" }
   metadata do
     { 'last_seen' => Time.current,
       'last_values' => Random.rand(20..100).to_s,

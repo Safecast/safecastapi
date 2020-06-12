@@ -239,7 +239,10 @@ CREATE TABLE public.device_stories (
     updated_at timestamp without time zone NOT NULL,
     device_id bigint,
     last_location postgis.geography(Point,4326),
-    last_values character varying
+    last_values character varying,
+    last_seen timestamp without time zone,
+    last_location_name character varying,
+    custodian_name character varying
 );
 
 
@@ -1295,3 +1298,5 @@ INSERT INTO public.schema_migrations (version) VALUES ('20191215115843');
 INSERT INTO public.schema_migrations (version) VALUES ('20200131100913');
 
 INSERT INTO public.schema_migrations (version) VALUES ('20200524170921');
+
+INSERT INTO public.schema_migrations (version) VALUES ('20200611191041');

@@ -3,6 +3,6 @@
 namespace :device_story do
   desc 'Update device metadata from ttserve'
   task update_metadata: :environment do
-    Tasks::DeviceStory::UpdateMetadata.call
+    Tasks::DeviceStories::UpdateMetadata.call
   end
 end
