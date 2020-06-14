@@ -67,4 +67,5 @@ group :test do
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
   gem 'spring-commands-rspec'
+  gem 'webmock'
 end

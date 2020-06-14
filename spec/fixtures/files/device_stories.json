@@ -1,0 +1,54 @@
+[
+  {
+    "device": 114699387,
+    "sn": "30023",
+    "normalized_sn": "30023",
+    "custodian_name": "Sean/Jory",
+    "location": "Hollywood LA CA USA",
+    "dashboard": "https://grafana.safecast.cc/d/DFSxrOLWk/safecast-device-details?orgId=1&from=now-7d&to=now&refresh=15m&var-device_urn=safecast:114699387",
+    "last_seen": "2020-06-11T15:47:02Z",
+    "last_lat": 34.134239196777344,
+    "last_lon": -118.3822250366211,
+    "last_values": "3.7v 31|32cpm 0.6|0.9|1.6ug/m3",
+    "device_urn": "safecast:114699387"
+  },
+  {
+    "device": 3709008148,
+    "sn": "30003",
+    "normalized_sn": "30003",
+    "custodian_name": "Ray",
+    "location": "Manchester MA USA",
+    "dashboard": "https://grafana.safecast.cc/d/DFSxrOLWk/safecast-device-details?orgId=1&from=now-7d&to=now&refresh=15m&var-device_urn=safecast:3709008148",
+    "last_seen": "2020-06-11T18:41:31Z",
+    "last_lat": 42.565006256103516,
+    "last_lon": -70.78360748291016,
+    "last_values": "3.9v 27|25cpm 7.3|13.0|57.0ug/m3",
+    "device_urn": "safecast:3709008148"
+  },
+  {
+    "device": 370900814822,
+    "sn": "30003",
+    "normalized_sn": "30003",
+    "custodian_name": "Ray",
+    "location": "Manchester MA USA",
+    "dashboard": "https://grafana.safecast.cc/d/DFSxrOLWk/safecast-device-details?orgId=1&from=now-7d&to=now&refresh=15m&var-device_urn=safecast:3709008148",
+    "last_seen": "2020-06-11T18:41:31Z",
+    "last_lat": null,
+    "last_values": "3.9v 27|25cpm 7.3|13.0|57.0ug/m3",
+    "device_urn": "safecast:370900814822"
+  },
+  {
+    "device": 1162749983,
+    "sn": "33008",
+    "normalized_sn": "33008",
+    "custodian_name": "Rob Oudendijk",
+    "custodian_contact": "mailto:rob@yr-design.biz",
+    "location": "Kittywood Nara Japan",
+    "dashboard": "https://grafana.safecast.cc/d/DFSxrOLWk/safecast-device-details?orgId=1&from=now-7d&to=now&refresh=15m&var-device_urn=safecast:1162749983",
+    "last_seen": "2020-06-11T18:55:14Z",
+    "last_lat": 34.4817008972168,
+    "last_lon": 136.16183471679688,
+    "last_values": "4.2v 46|14cpm",
+    "device_urn": "safecast:1162749983"
+  }
+]
