@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Performs a filtered dump of the measurements table.
+#
+# The filtering is the same as that used by the iOS app.
+#
+# This differs from dump_measurements, which does not filter data at all.
+# The schema returned is also different; redundant/unused columns have been eliminated, and id/user_id finally included.
+# The ORDER BY clause was removed for performance.
+
+set -euo pipefail
+
+source cron_env.sh
+
+cd ../public/system
+
+psql -f "${CRON_DIR}/dump_clean_selective.sql"
+
+tar -czf mclean_selective.tar.gz mclean_selective-out.csv
+mv mclean_selective-out.csv mclean_selective.csv
+
+# Now this is available as https://api.safecast.org/system/mclean_selective.tar.gz
