@@ -53,11 +53,7 @@ class MeasurementsController < ApplicationController
     @streaming = true
 
     @measurements = apply_scopes(Measurement).includes(:measurement_import, :user)
-
-    # In Kaminari page an per_page cannot be overriden
-    if request.format != :csv
-      @measurements = @measurements.page(params[:page]).per(params[:per_page])
-    end
+      .page(params[:page]).per(params[:per_page])
 
     respond_with @measurements
   end
