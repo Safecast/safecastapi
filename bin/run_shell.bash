@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker-compose run --rm --service-ports --entrypoint /bin/bash nginx
+docker-compose run --rm --service-ports --entrypoint /bin/bash app
