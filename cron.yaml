@@ -3,12 +3,9 @@ cron:
   - name: dump_clean
     url: /cron
     schedule: "00 03 * * *"
-  - name: dump_clean_selective
+  - name: dump_clean_daily
     url: /cron
     schedule: "00 04 * * *"
-  - name: dump_clean_selective_daily
-    url: /cron
-    schedule: "00 05 * * *"
   - name: dump_measurements
     url: /cron
     schedule: "00 02 * * *"

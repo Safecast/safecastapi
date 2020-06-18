@@ -14,9 +14,9 @@ source cron_env.sh
 
 cd ../public/system
 
-psql -f "${CRON_DIR}/dump_clean_selective.sql"
+psql -f "${CRON_DIR}/dump_clean_daily.sql"
 
-tar -czf mclean_selective.tar.gz mclean_selective-out.csv
-mv mclean_selective-out.csv mclean_selective.csv
+tar -czf dump_clean_daily.tar.gz dump_clean_daily-out.csv
+mv dump_clean_daily-out.csv dump_clean_daily.csv
 
-# Now this is available as https://api.safecast.org/system/mclean_selective.tar.gz
+# Now this is available as https://api.safecast.org/system/dump_clean_daily.tar.gz
