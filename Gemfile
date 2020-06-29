@@ -45,6 +45,7 @@ gem 'swagger-blocks'
 # noinspection RailsParamDefResolve
 gem 'tzinfo-data', platforms: %i(mingw mswin x64_mingw)
 gem 'uglifier'
+gem 'wdm', platforms: %i(mingw mswin x64_mingw)
 
 group :development do
   gem 'pry-byebug', group: :test
