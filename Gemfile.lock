@@ -444,6 +444,7 @@ GEM
     unicode-display_width (1.7.0)
     warden (1.2.8)
       rack (>= 2.0.6)
+    wdm (0.1.1)
     webmock (3.8.3)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -517,6 +518,7 @@ DEPENDENCIES
   swagger-blocks
   tzinfo-data
   uglifier
+  wdm
   webmock
 
 RUBY VERSION
