@@ -8,6 +8,7 @@ tmp/
 *.swp
 *.swo
 *.save
+/.vscode
 public/assets/*
 public/uploads/*
 public/Chang/*
