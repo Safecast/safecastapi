@@ -13,10 +13,6 @@ class FileUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  def store_prefix
-    Etc.getpwuid.name + '/' if Rails.env.development?
-  end
-
   def filename
     File.basename(to_s)
   end
