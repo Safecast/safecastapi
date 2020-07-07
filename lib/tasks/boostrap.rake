@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
+
 namespace :db do
   desc 'Prevent dangerous things in production'
   task :protect do
@@ -22,31 +24,19 @@ namespace :db do
     puts "Created user #{u.email} with password #{u.password}"
   end
 
-  desc 'Create non-moderator user #1'
+  desc 'Create non-moderator'
   task bootstrap: %i(protect environment) do
-    u = User.create!(
-      email: 'user1@safecast.org',
+    attrs = {
       name: 'Fake User',
       password: '111111',
-      password_confirmation: '111111'
-    )
-    u.moderator = false
-    u.confirmed_at = Time.now
-    u.save
-    puts "Created user #{u.email} with password #{u.password}"
-  end
-
-  desc 'Create non-moderator user #2'
-  task bootstrap: %i(protect environment) do
-    u = User.create!(
-      email: 'user2@safecast.org',
-      name: 'Fake User',
-      password: '111111',
-      password_confirmation: '111111'
-    )
-    u.moderator = false
-    u.confirmed_at = Time.now
-    u.save
-    puts "Created user #{u.email} with password #{u.password}"
+      password_confirmation: '111111',
+      moderator: false,
+      confirmed_at: Time.now
+    }
+    %w(user1@safecast.org user2@safecast.org).each do |email|
+      u = User.create!(attrs.merge(email: email))
+      puts "Created user #{email} with password #{u.password}"
+    end
   end
 end
+# rubocop:enable Metrics/BlockLength
