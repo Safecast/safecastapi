@@ -10,7 +10,7 @@ namespace :db do
     end
   end
 
-  desc 'Create dummy users'
+  desc 'Create dummy user'
   task bootstrap: %i(protect environment) do
     u = User.create!(
       email: 'admin@safecast.org',
