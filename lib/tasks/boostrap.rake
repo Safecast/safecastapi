@@ -10,7 +10,7 @@ namespace :db do
     end
   end
 
-  desc 'Create dummy user'
+  desc 'Create dummy users'
   task bootstrap: %i(protect environment) do
     u = User.create!(
       email: 'admin@safecast.org',
@@ -22,10 +22,6 @@ namespace :db do
     u.confirmed_at = Time.now
     u.save
     puts "Created user #{u.email} with password #{u.password}"
-  end
-
-  desc 'Create non-moderator'
-  task bootstrap: %i(protect environment) do
     attrs = {
       name: 'Fake User',
       password: '111111',
