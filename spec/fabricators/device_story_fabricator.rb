@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Fabricator(:device_story) do
-  device_urn {  sequence(:device_urn) { |i| "fabricated:#{i}" } }
+  device_urn { sequence(:device_urn) { |i| "fabricated:#{i}" } }
   custodian_name { "#{Random.rand(20..100)} name" }
   metadata do
     { 'last_seen' => Time.current,
