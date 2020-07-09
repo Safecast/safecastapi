@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag "application.css" %>
 <%- if @bgeigie_import.status == 'done' -%>
   <span class="label label-success">
     <%= t('.processed') -%>
@@ -16,7 +17,7 @@
     <span class="label label-warning">
       Rejected by: <%= @bgeigie_import.rejected_by %>
     </span>
-    <span style="color: #202020;font-size: 13px;font-family: proxima-nova, sans-serif;">
+    <span>
       <b>comment:</b>
       <%= @bgeigie_import.comment if @bgeigie_import.comment.present? %>
     </span>
@@ -27,6 +28,5 @@
   <%- end -%>
 <%- end -%>
 <%- if !@bgeigie_import.rejected? && @bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? -%>
-<span style="color: #202020;font-size: 13px; font-family: proxima-nova, sans-serif;">
-If rejecting, please enter a comment in Metadata.</span>
+<span>If rejecting, please enter a comment in Metadata.</span>
 <%- end -%>
