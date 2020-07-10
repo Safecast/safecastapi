@@ -46,8 +46,8 @@ module BgeigieImportsHelper
     user.try!(:moderator?)
   end
 
-  def approval_participant?(user, bgeigie_import)
-    user.moderator? || user == bgeigie_import.user
+  def approval_participant?(bgeigie_import)
+    current_user.moderator? || current_user == bgeigie_import.user
   end
 
   def tilemap_link(bgeigie_import)
