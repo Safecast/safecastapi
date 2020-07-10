@@ -57,8 +57,6 @@
       <%= table_sort_header(:bgeigie_import, :source) %>
       <%= table_sort_header(:bgeigie_import, :measurements_count) %>
       <%= table_sort_header(:bgeigie_import, :status) %>
-      <%= table_sort_header(:bgeigie_import, :rejected_by) %>
-      <%= table_sort_header(:bgeigie_import, :approved_by) %>
       <%= table_sort_header(:bgeigie_import, :comments) %>
     </thead>
     <tbody>
@@ -108,12 +106,6 @@
             <%- if bgeigie_import.rejected? -%>
               <span class="notapproved">(<%= t("bgeigie_imports.states.rejected") %>)</span>
             <%- end -%>
-          </td>
-          <td>
-            <%= bgeigie_import.rejected_by %>
-          </td>
-          <td>
-            <%=bgeigie_import.approved_by %>
           </td>
           <td>
             <%=bgeigie_import.comment %>

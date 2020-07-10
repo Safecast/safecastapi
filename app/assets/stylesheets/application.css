@@ -5,3 +5,9 @@
  *= require application/safecast
  *= require bootstrap-datetimepicker.min
 */
+
+.status-text {
+  color: #202020;
+  font-size: 13px;
+  font-family: proxima-nova, sans-serif;
+}

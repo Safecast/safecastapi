@@ -11,15 +11,21 @@
     <%= @bgeigie_import.status.humanize %>
   </span>
 <%- end -%>
-<%- if @bgeigie_import.rejected == true -%>
-  <span class="label label-warning">
-    Rejected by: <%= @bgeigie_import.rejected_by %>
-  </span><span style="color: #202020;font-size: 13px;font-family: proxima-nova, sans-serif;">
-  <b>comment:</b>
-  <%= @bgeigie_import.comment if @bgeigie_import.comment.present? %>
-</span>
+<%- if user_signed_in? && approval_participant?(@bgeigie_import)-%>
+  <%- if @bgeigie_import.rejected? -%>
+    <span class="label label-warning">
+      Rejected by: <%= @bgeigie_import.rejected_by %>
+    </span>
+    <span class="status-text">
+      <b>comment:</b>
+      <%= @bgeigie_import.comment if @bgeigie_import.comment.present? %>
+    </span>
+  <%- elsif @bgeigie_import.approved? -%>
+    <span class="label label-success">
+      Approved by: <%= @bgeigie_import.approved_by %>
+    </span>
+  <%- end -%>
 <%- end -%>
 <%- if !@bgeigie_import.rejected? && @bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? -%>
-<span style="color: #202020;font-size: 13px; font-family: proxima-nova, sans-serif;">
-If rejecting, please enter a comment in Metadata.</span>
+<span class="status-text">If rejecting, please enter a comment in Metadata.</span>
 <%- end -%>
