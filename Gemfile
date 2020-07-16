@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.5.8'
+ruby '2.7.1'
 
 gem 'rails', '~> 5.2.4.3'
 
@@ -32,7 +32,7 @@ gem 'formatted-dates'
 gem 'has_scope', '~> 0.7.1'
 gem 'jbuilder'
 gem 'jquery-rails'
-gem 'json', '1.8.6'
+gem 'json'
 gem 'kaminari'
 gem 'newrelic_rpm'
 gem 'pg'
