@@ -1,4 +1,4 @@
-FROM ruby:2.5.8
+FROM ruby:2.6.6
 
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
 RUN curl -q https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
