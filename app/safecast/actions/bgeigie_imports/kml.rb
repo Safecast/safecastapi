@@ -27,7 +27,7 @@ module Actions
       end
 
       def erb
-        @erb ||= ERB.new(Rails.root.join(TEMPLATE_FILE).read, nil, '-')
+        @erb ||= ERB.new(Rails.root.join(TEMPLATE_FILE).read, trim_mode: '-')
       end
     end
   end
