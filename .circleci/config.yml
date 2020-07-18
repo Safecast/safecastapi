@@ -17,10 +17,6 @@ jobs:
           discovery.type: single-node
     steps:
       - checkout
-      - run:
-          name: Install build tools
-          command: |
-            sudo pip install awsebcli awscli
       - restore_cache:
           keys:
             - safecastapi-{{ checksum "Gemfile.lock" }}
