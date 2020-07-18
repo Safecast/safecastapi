@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :docker do
   desc 'Build api-build docker image for circleci'
   task circleci: :environment do
