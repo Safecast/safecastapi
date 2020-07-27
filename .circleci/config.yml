@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.5.8-node-browsers
+      - image: safecast/api-build:2.6.6
         environment:
           RAILS_ENV: test
           AWS_DEFAULT_REGION: us-west-2
@@ -17,12 +17,6 @@ jobs:
           discovery.type: single-node
     steps:
       - checkout
-      - run:
-          name: Install build tools
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y postgresql-client python-pip
-            sudo pip install awsebcli awscli
       - restore_cache:
           keys:
             - safecastapi-{{ checksum "Gemfile.lock" }}
