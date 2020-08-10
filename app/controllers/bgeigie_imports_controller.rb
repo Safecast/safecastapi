@@ -6,6 +6,10 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
   before_action :authenticate_user!, only: %i(new create edit update destroy)
   before_action :require_moderator, only: %i(approve fixdrive send_email resolve)
 
+  has_scope :q do |_controller, scope, value|
+    scope.filter(value)
+  end
+
   has_scope :by_status
   has_scope :by_user_id
   has_scope :by_rejected
@@ -14,9 +18,6 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
   has_scope :uploaded_after
   has_scope :uploaded_before
   has_scope :rejected_by
-  has_scope :q do |_controller, scope, value|
-    scope.filter(value)
-  end
 
   STATUS_CONDITIONS = {
     'approved' => { approved: true },
