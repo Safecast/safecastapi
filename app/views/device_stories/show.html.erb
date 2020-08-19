@@ -11,10 +11,10 @@
         <div class="span2">
             <table class="table table-hover">
                 <thead>
-                    <%= @device_story.last_seen %>
+                    <%= time_ago_in_words(@device_story.last_seen) %> ago (<%= @device_story.last_seen %>)
                 </thead>
                 <tr>
-                    <td><%= @device_story.last_values %></td>
+                    <td style="font-size: 25px"><%= @device_story.last_values %></td>
                 </tr>
             </table>
             <a href="http://grafana-dev.safecast.cc/d/DFSxrOLWk/safecast-device-details?orgId=1&from=now-90d&to=now&refresh=15m&var-device_urn=<%= @device_story.device_urn %>"
