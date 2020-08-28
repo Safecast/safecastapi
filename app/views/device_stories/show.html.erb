@@ -17,16 +17,12 @@
                     <td style="font-size: 25px"><%= @device_story.last_values %></td>
                 </tr>
             </table>
-            <a href="http://grafana-dev.safecast.cc/d/DFSxrOLWk/safecast-device-details?orgId=1&from=now-90d&to=now&refresh=15m&var-device_urn=<%= @device_story.device_urn %>"
-                target="_blank";
-                style="font-size: 18px">
-                More sensor data
-            </a>
+            <h4><%= link_to 'More sensor data', grafana_more_data(@device_story.device_urn), :_blank %></h4>
         </div>
 
         <div class="span7">
             <iframe 
-                src="https://grafana-dev.safecast.cc/d-solo/DFSxrOLWk/safecast-device-details?orgId=1&from=now-90d&to=now&refresh=15m&var-device_urn=<%= @device_story.device_urn %>&panelId=14" 
+                src="<%= grafana_iframe(@device_story.device_urn, grafana_panel(:cpm)) %>"
                 width="100%" height="250" frameborder="0">
             </iframe>
         </div>
@@ -35,7 +31,7 @@
     
     <div class="row">
         <iframe 
-            src="https://grafana-dev.safecast.cc/d-solo/DFSxrOLWk/safecast-device-details?orgId=1&var-device_urn=<%= @device_story.device_urn %>&panelId=8" 
+            src="<%= grafana_iframe(@device_story.device_urn, grafana_panel(:map)) %>"
             width="100%" height="400" frameborder="0">
         </iframe>
     </div>
