@@ -29,7 +29,7 @@ module DeviceStoriesHelper
       'var-device_urn': device_urn
     }
     url.query = args.to_query
-    url.to_s
+    url.to_s.html_safe
   end
 
   def grafana_iframe(device_urn, panel_id)
@@ -42,6 +42,6 @@ module DeviceStoriesHelper
       panelId: panel_id
     }
     url.query = args.to_query
-    url.to_s
+    url.to_s.html_safe
   end
 end

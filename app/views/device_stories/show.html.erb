@@ -17,7 +17,7 @@
                     <td style="font-size: 25px"><%= @device_story.last_values %></td>
                 </tr>
             </table>
-            <h4><%= link_to 'More sensor data', grafana_more_data(@device_story.device_urn), :_blank %></h4>
+            <h4><%= link_to 'More sensor data', grafana_more_data(@device_story.device_urn), target: :_blank %></h4>
         </div>
 
         <div class="span7">
