@@ -13,7 +13,7 @@ cd /tmp
 /bin/sleep 60s
 
 
-cp /tmp/ios13_32_cosmic*.sqlite /var/deploy/api.safecast.org/web_head/shared/system/
+cp /tmp/ios13_32_cosmic*.sqlite /var/app/current/public/system/
 
 rm -f /tmp/ios13_32_cosmic*
 
