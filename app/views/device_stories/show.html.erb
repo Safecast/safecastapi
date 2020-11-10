@@ -1,60 +1,36 @@
 <%= content_for(:title) do %>
   <%= @device_story.last_location_name %>
 <%- end -%>
-
 <div class="span9">
-  <div class="row" >
+  <div class="row">
     <h2>
       <%= @device_story.last_location_name %> (<%= @device_story.device_urn %>)
       <div style="font-size: 15px"> <%= time_ago_in_words(@device_story.last_seen) %> ago</div>
     </h2>
-
-    <div class="span2" style = "margin: 0; margin-right: 20px">
+    <div class="span2" style="margin: 0; margin-right: 20px">
       <table class="table table-hover" style="min-width: 164px; max-width: 164px; table-layout: fixed; margin-top: 10%; word-wrap: break-word">
         <thead style="font-size: 13px">
         <tr>
           <td colspan="3" style="text-align:center"><%= @device_story.last_seen %></td>
         </tr>
         </thead>
-
-        <!-- ...CPM... -->
-        <%- if @device_story.last_values.index('c') != nil -%>
-          <tr>
-            <td colspan="2" style="font-size: 12px">CPM</td>
-            <%- if @device_story.last_values.index('v') == nil -%>
-              <td style="font-size: 15px; text-align:right"> <%= @device_story.last_values[0..@device_story.last_values.index('c') - 1] %></td>
-            <%- else -%>
-              <td style="font-size: 15px; text-align:right"><%= @device_story.last_values[@device_story.last_values.index('v') + 1..@device_story.last_values.index('c') - 1] %></td>
-            <%- end -%>
-          </tr>
-        <%- end -%>
-
-        <!-- ...Battery voltage... -->
-        <%- if @device_story.last_values.index('v') != nil -%>
-          <tr>
-            <td colspan="2" style="font-size: 12px; white-space: nowrap">Battery Voltage</td>
-            <td style="font-size: 15px; text-align:right"><%= @device_story.last_values[0..@device_story.last_values.index('v') - 1] %>V</td>
-          </tr>
-        <%- end -%>
-
-        <!-- ...Air Quality... -->
-        <%- if @device_story.last_values.index('u') != nil -%>
-          <tr>
-            <td style="font-size: 12px; white-space: nowrap"> Air Quality </td>
-            <%- if @device_story.last_values.index('c') != nil -%>
-              <td colspan="2" style="font-size: 12px; text-align:right"><%= @device_story.last_values[@device_story.last_values.index('c') + 3..@device_story.last_values.index('u') - 1] %> <br> ug/m3</td>
-            <%- elsif @device_story.last_values.index('v') != nil -%>
-              <td colspan="2" style="font-size: 12px; text-align:right"><%= @device_story.last_values[@device_story.last_values.index('v') + 1..@device_story.last_values.index('u') - 1] %> <br> ug/m3</td>
-            <%- else -%>
-              <td style="font-size: 12px; text-align:right"><%= @device_story.last_values[0..@device_story.last_values.index('u') - 1] %> <br> ug/m3</td>
-            <%- end -%>
-          </tr>
-        <%- end %>
-
+        <tr>
+          <td colspan="2" style="font-size: 12px">CPM</td>
+          <td style="font-size: 15px; text-align:right"> <%= last_cpm_values(@device_story.last_values) %></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="font-size: 12px; white-space: nowrap">Battery Voltage</td>
+          <td style="font-size: 15px; text-align:right"><%= last_battery_value(@device_story.last_values) %>V</td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; white-space: nowrap"> Air Quality</td>
+          <td colspan="2" style="font-size: 12px; text-align:right"><%= last_air_quality_values(@device_story.last_values) %>
+            <br> ug/m3
+          </td>
+        </tr>
       </table>
       <button type="button" style="font-size: 15px; width: 160px"><%= link_to 'More sensor data', grafana_more_data(@device_story.device_urn), target: :_blank %></button>
     </div>
-
     <div class="span7">
       <iframe
         src="<%= grafana_iframe(@device_story.device_urn, grafana_panel(:cpm)) %>"
@@ -63,7 +39,6 @@
     </div>
   </div>
   <div class="spacer"></div>
-
   <div class="row">
     <iframe
       src="<%= grafana_iframe(@device_story.device_urn, grafana_panel(:map)) %>"

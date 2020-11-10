@@ -44,4 +44,31 @@ module DeviceStoriesHelper
     url.query = args.to_query
     url.to_s.html_safe
   end
+
+  def last_battery_value(last_values)
+    if last_values.index('v') != nil
+      return last_values[0..last_values.index('v') - 1]
+    end
+  end
+
+  def last_cpm_values(last_values)
+      if last_values.index('v') == nil and last_values.index('c') != nil
+        return last_values[0..last_values.index('c') - 1]
+      elsif last_values.index('c') != nil
+        return last_values[last_values.index('v') + 1..last_values.index('c') - 1]
+      end
+  end
+
+  def last_air_quality_values(last_values)
+    if last_values .index('u') != nil
+      if  last_values.index('c') != nil
+        return last_values[last_values.index('c') + 3..last_values.index('u') - 1]
+      elsif last_values.index('v') != nil
+        return last_values[last_values.index('v') + 1..last_values.index('u') - 1]
+      else
+        return last_values[0..last_values.index('u') - 1]
+      end
+    end
+  end
+
 end
