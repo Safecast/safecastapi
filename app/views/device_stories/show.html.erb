@@ -3,13 +3,13 @@
 <%- end -%>
 
 <div class="span9">
-  <div class="row">
+  <div class="row" >
     <h2>
       <%= @device_story.last_location_name %> (<%= @device_story.device_urn %>)
       <div style="font-size: 15px"> <%= time_ago_in_words(@device_story.last_seen) %> ago</div>
     </h2>
 
-    <div class="span2">
+    <div class="span2" style = "margin: 0; margin-right: 20px">
       <table class="table table-hover" style="min-width: 164px; max-width: 164px; table-layout: fixed; margin-top: 10%; word-wrap: break-word">
         <thead style="font-size: 13px">
         <tr>
@@ -20,55 +20,33 @@
         <!-- ...CPM... -->
         <%- if @device_story.last_values.index('c') != nil -%>
           <tr>
-            <td colspan="2" style="font-size: 12px">LND7318u / cpm</td>
+            <td colspan="2" style="font-size: 12px">CPM</td>
             <%- if @device_story.last_values.index('v') == nil -%>
-              <% @allcpm = @device_story.last_values[0..@device_story.last_values.index('c') - 1] %>
-              <% if @allcpm.index('|') != nil %>
-                <% @LND7318U = @allcpm[0..@allcpm.index('|') - 1] %>
-                <% @otherSensor = @allcpm[@allcpm.index('|') + 1..-1] %>
-              <% else %>
-                <% @LND7318U = @allcpm %>
-                <% @otherSensor = 0 %>
-              <% end %>
-              <td style="font-size: 15px; text-align:right"> <%= @LND7318U %></td>
+              <td style="font-size: 15px; text-align:right"> <%= @device_story.last_values[0..@device_story.last_values.index('c') - 1] %></td>
             <%- else -%>
-              <% @allcpm = @device_story.last_values[@device_story.last_values.index('v') + 1..@device_story.last_values.index('c') - 1] %>
-              <% if @allcpm.index('|') != nil %>
-                <% @LND7318U = @allcpm[0..@allcpm.index('|') - 1] %>
-                <% @otherSensor = @allcpm[@allcpm.index('|') + 1..-1] %>
-              <% else %>
-                <% @LND7318U = @allcpm %>
-                <% @otherSensor = 0 %>
-              <% end %>
-              <td style="font-size: 15px; text-align:right"><%= @LND7318U %></td>
+              <td style="font-size: 15px; text-align:right"><%= @device_story.last_values[@device_story.last_values.index('v') + 1..@device_story.last_values.index('c') - 1] %></td>
             <%- end -%>
           </tr>
-          <% if @otherSensor != 0 %>
-            <tr>
-              <td colspan="2" style="font-size: 12px">other / cpm</td>
-              <td style="font-size: 15px; text-align:right"> <%= @otherSensor %></td>
-            </tr>
-          <% end %>
         <%- end -%>
 
         <!-- ...Battery voltage... -->
         <%- if @device_story.last_values.index('v') != nil -%>
           <tr>
-            <td colspan="2" style="font-size: 12px; white-space: nowrap">Battery Voltage / v</td>
-            <td style="font-size: 15px; text-align:right"><%= @device_story.last_values[0..@device_story.last_values.index('v') - 1] %></td>
+            <td colspan="2" style="font-size: 12px; white-space: nowrap">Battery Voltage</td>
+            <td style="font-size: 15px; text-align:right"><%= @device_story.last_values[0..@device_story.last_values.index('v') - 1] %>V</td>
           </tr>
         <%- end -%>
 
         <!-- ...Air Quality... -->
         <%- if @device_story.last_values.index('u') != nil -%>
           <tr>
-            <td style="font-size: 12px; white-space: nowrap"> Air Quality <br> (ug/m3)</td>
+            <td style="font-size: 12px; white-space: nowrap"> Air Quality </td>
             <%- if @device_story.last_values.index('c') != nil -%>
-              <td colspan="2" style="font-size: 12px; text-align:right"><%= @device_story.last_values[@device_story.last_values.index('c') + 3..@device_story.last_values.index('u') - 1] %></td>
+              <td colspan="2" style="font-size: 12px; text-align:right"><%= @device_story.last_values[@device_story.last_values.index('c') + 3..@device_story.last_values.index('u') - 1] %> <br> ug/m3</td>
             <%- elsif @device_story.last_values.index('v') != nil -%>
-              <td colspan="2" style="font-size: 12px; text-align:right"><%= @device_story.last_values[@device_story.last_values.index('v') + 1..@device_story.last_values.index('u') - 1] %></td>
+              <td colspan="2" style="font-size: 12px; text-align:right"><%= @device_story.last_values[@device_story.last_values.index('v') + 1..@device_story.last_values.index('u') - 1] %> <br> ug/m3</td>
             <%- else -%>
-              <td style="font-size: 12px; text-align:right"><%= @device_story.last_values[0..@device_story.last_values.index('u') - 1] %></td>
+              <td style="font-size: 12px; text-align:right"><%= @device_story.last_values[0..@device_story.last_values.index('u') - 1] %> <br> ug/m3</td>
             <%- end -%>
           </tr>
         <%- end %>
