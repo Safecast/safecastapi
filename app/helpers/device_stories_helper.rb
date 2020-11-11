@@ -46,27 +46,26 @@ module DeviceStoriesHelper
   end
 
   def last_battery_value(last_values)
-      last_values[0..last_values.index('v') - 1] unless last_values.index('v').nil?
+    last_values[0..last_values.index('v') - 1] unless last_values.index('v').nil?
   end
 
   def last_cpm_values(last_values)
-    if last_values.index('v').nil? && !last_values.index('c').nil?
-      last_values[0..last_values.index('c') - 1]
-    elsif !last_values.index('c').nil?
-      last_values[last_values.index('v') + 1..last_values.index('c') - 1]
+    index_v = last_values.index('v')
+    index_c = last_values.index('c')
+    if index_v.nil? && !index_c.nil?
+      last_values[0..index_c - 1]
+    elsif !index_c.nil?
+      last_values[index_v + 1..index_c - 1]
     end
   end
 
   def last_air_quality_values(last_values)
-    if !last_values.index('u').nil?
-      if  !last_values.index('c').nil?
-        last_values[last_values.index('c') + 3..last_values.index('u') - 1]
-      elsif !last_values.index('v').nil?
-        last_values[last_values.index('v') + 1..last_values.index('u') - 1]
-      else
-        last_values[0..last_values.index('u') - 1]
-      end
+    index_c = last_values.index('c')
+    index_u = last_values.index('u')
+    if index_c && index_u
+      last_values[index_c + 3..index_u - 1]
+    elsif index_u
+      last_values[0..index_u - 1]
     end
   end
-
 end
