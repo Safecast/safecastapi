@@ -1,0 +1,51 @@
+<%= content_for(:title) do %>
+  <%= @device_story.last_location_name %>
+<%- end -%>
+<div class="span9">
+  <div class="row">
+    <h2>
+      <%= @device_story.last_location_name %> (<%= @device_story.device_urn %>)
+      <div style="font-size: 15px"> <%= time_ago_in_words(@device_story.last_seen) %> ago</div>
+    </h2>
+    <div class="span2" style="margin: 0; margin-right: 20px">
+      <table class="table table-hover" style="min-width: 164px; max-width: 164px; table-layout: fixed; margin-top: 10%; word-wrap: break-word">
+        <thead style="font-size: 13px">
+        <tr>
+          <td colspan="3" style="text-align:center"><%= @device_story.last_seen %></td>
+        </tr>
+        </thead>
+        <tr>
+          <td colspan="2" style="font-size: 12px">CPM</td>
+          <td style="font-size: 15px; text-align:right"> <%= last_cpm_values(@device_story.last_values) %></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="font-size: 12px; white-space: nowrap">Battery Voltage</td>
+          <td style="font-size: 15px; text-align:right"><%= last_battery_value(@device_story.last_values) %>V</td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; white-space: nowrap"> Air Quality</td>
+          <td colspan="2" style="font-size: 12px; text-align:right"><%= last_air_quality_values(@device_story.last_values) %>
+            <br> ug/m3
+          </td>
+        </tr>
+      </table>
+      <button type="button" style="font-size: 15px; width: 160px"><%= link_to 'More sensor data', grafana_more_data(@device_story.device_urn), target: :_blank %></button>
+    </div>
+    <div class="span7">
+      <iframe
+        src="<%= grafana_iframe(@device_story.device_urn, grafana_panel(:cpm)) %>"
+        width="100%" height="250" frameborder="0">
+      </iframe>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <div class="row">
+    <iframe
+      src="<%= grafana_iframe(@device_story.device_urn, grafana_panel(:map)) %>"
+      width="100%" height="400" frameborder="0">
+    </iframe>
+  </div>
+</div>
+
+<div class="spacer"></div>
+<%= current_page_api_example :device_stories_url %>
