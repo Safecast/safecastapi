@@ -22,8 +22,4 @@ class DeviceStoriesController < ApplicationController
       .or(apply_scopes(DeviceStory).where('lower(last_values) LIKE :search OR lower(last_location_name) LIKE :search', search: "%#{search_term}%"))
       .or(apply_scopes(DeviceStory).where('CAST(last_seen AS text) LIKE ?', "%#{search_term}%")).page(params[:page]).per(params[:per_page])
   end
-
-  def get_elastic_searched_table(search_term)
-    apply_scopes(DeviceStory).search('*' + search_term + '*').records.page(params[:page]).per(params[:per_page])
-  end
 end
