@@ -4,10 +4,10 @@ class DeviceStoriesController < ApplicationController
   has_scope :order
 
   def index
-    @search_term = params[:search].downcase
     @device_stories = if params[:search].blank?
                         apply_scopes(DeviceStory).page(params[:page]).per(params[:per_page])
                       else
+                        @search_term = params[:search].downcase
                         get_searched_table(@search_term)
                       end
   end
