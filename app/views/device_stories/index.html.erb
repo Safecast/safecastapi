@@ -1,11 +1,19 @@
 <%= content_for(:title) { "Device Stories" } %>
 
 <h2>Device Stories</h2>
-
 <div class="well">
-  <%= number_with_delimiter @device_stories.total_count %> <%= t('.results') %>.
-</div>
+  <div style="float: left; display: inline-block"> <%= number_with_delimiter @device_stories.total_count %> <%= t('.results') %>. &#160<br>Searching for: <%= @search_term %></div>
 
+  <!-- SEARCH BAR! -->
+
+  <%= form_tag(device_stories_path, :method => "get",
+               class: 'navbar-form navbar-left') do %>
+    <div class="input-group" style = "float: right">
+      <%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
+    </div>
+  <% end %>
+
+</div>
 <%- if @device_stories.empty? -%>
   <p><%= t(".none_found") -%></p>
 <%- else -%>
