@@ -24,6 +24,6 @@ class DeviceStoriesController < ApplicationController
   end
 
   def get_elastic_searched_table(search_term)
-    apply_scopes(DeviceStory).search("*"+search_term+"*").records.page(params[:page]).per(params[:per_page])
+    apply_scopes(DeviceStory).search('*' + search_term + '*').records.page(params[:page]).per(params[:per_page])
   end
 end
