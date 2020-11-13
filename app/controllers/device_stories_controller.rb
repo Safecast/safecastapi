@@ -8,7 +8,7 @@ class DeviceStoriesController < ApplicationController
                         apply_scopes(DeviceStory).page(params[:page]).per(params[:per_page])
                       else
                         @search_term = params[:search].downcase
-                        get_elastic_searched_table(@search_term)
+                        get_like_searched_table(@search_term)
                       end
   end
 
