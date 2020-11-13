@@ -60,10 +60,13 @@ module DeviceStoriesHelper
   end
 
   def last_air_quality_values(last_values)
+    index_v = last_values.index('v')
     index_c = last_values.index('c')
     index_u = last_values.index('u')
     if index_c && index_u
       last_values[index_c + 3..index_u - 1]
+    elsif index_v && index_u
+      last_values[index_v + 1..index_u - 1]
     elsif index_u
       last_values[0..index_u - 1]
     end
