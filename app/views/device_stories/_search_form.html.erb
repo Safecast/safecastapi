@@ -1,0 +1,6 @@
+<%= form_tag(device_stories_path, remote: true, :method => "get",
+             class: 'navbar-form navbar-left') do %>
+  <div class="input-group" style = "float: right">
+    <%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control", onkeyup: "$(this).submit();" %>
+  </div>
+<% end %>

@@ -1,0 +1,20 @@
+<table class="table table-hover" data-provides="rowlink"">
+  <thead>
+    <%= table_sort_header(:device, :device_urn) %>
+    <%= table_sort_header(:device, :custodian_name) %>
+    <%= table_sort_header(:device, :last_values) %>
+    <%= table_sort_header(:device, :last_location_name) %>
+    <%= table_sort_header(:device, :last_seen) %>
+  </thead>
+  <tbody>
+  <% device_stories.each do |device_story| %>
+    <tr>
+      <td><%= link_to device_story.device_urn, device_story %></td>
+      <td><%= device_story.custodian_name %></td>
+      <td><%= device_story.last_values %></td>
+      <td><%= device_story.last_location_name %></td>
+      <td><%= device_story.last_seen %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

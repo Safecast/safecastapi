@@ -10,6 +10,10 @@ class DeviceStoriesController < ApplicationController
                         @search_term = params[:search].downcase
                         get_like_searched_table(@search_term)
                       end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
