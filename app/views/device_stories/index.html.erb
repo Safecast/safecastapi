@@ -2,7 +2,9 @@
 
 <h2>Device Stories</h2>
 <div class="well">
-  <div style="float: left; display: inline-block"> <%= number_with_delimiter @device_stories.total_count %> <%= t('.results') %>. &#160<br>Searching for: <%= @search_term %></div>
+  <div id="counter" style="float: left; display: inline-block">
+    <%= render 'counts'%>
+  </div>
   <div id="search_form_class">
     <%= render 'search_form'%>
   </div>
@@ -14,8 +16,7 @@
   <div id="results_class">
     <%= render 'results', device_stories: @device_stories %>
   </div>
-  <%= paginate @device_stories, theme: 'twitter-bootstrap-2' -%>
+  <div id="paginate"><%= render 'paginate'%></div>
 <%- end -%>
-
 <div class="spacer"></div>
 <%= current_page_api_example :device_stories_url %>
