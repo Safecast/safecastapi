@@ -20,3 +20,11 @@ jQuery.ajaxSetup({
     xhr.setRequestHeader("Accept", "text/javascript");
   }
 });
+
+function makeDelay(ms) {
+    var timer = 0;
+    return function(callback){
+        clearTimeout (timer);
+        timer = setTimeout(callback, ms);
+    };
+};
