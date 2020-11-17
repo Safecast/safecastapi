@@ -21,10 +21,12 @@ jQuery.ajaxSetup({
   }
 });
 
-function makeDelay(ms) {
-    var timer = 0;
-    return function(callback){
-        clearTimeout (timer);
-        timer = setTimeout(callback, ms);
-    };
+$("#search_form").keyup(delay(function() { $('form').submit()}, 500));
+
+function delay(fn, ms) {
+    let timer = 0
+    return function(...args) {
+        clearTimeout(timer)
+        timer = setTimeout(fn.bind(this, ...args), ms || 0)
+    }
 };
