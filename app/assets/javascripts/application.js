@@ -21,7 +21,7 @@ jQuery.ajaxSetup({
   }
 });
 
-$("#search_form").keyup(delay(function() { $('form').submit()}, 500));
+$("#search_form").keyup(delay(function() { $('form').find('input').submit()}, 500));
 
 function delay(fn, ms) {
     let timer = 0
