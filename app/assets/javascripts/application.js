@@ -21,12 +21,4 @@ jQuery.ajaxSetup({
   }
 });
 
-$("#search_form").keyup(delay(function() { $('form').find('input').submit()}, 500));
-
-function delay(fn, ms) {
-    let timer = 0
-    return function(...args) {
-        clearTimeout(timer)
-        timer = setTimeout(fn.bind(this, ...args), ms || 0)
-    }
-};
+$("#search_form").keyup(_.debounce(function() { $('form').find('input').submit();}, 500));
