@@ -20,3 +20,8 @@ jQuery.ajaxSetup({
     xhr.setRequestHeader("Accept", "text/javascript");
   }
 });
+
+$("#search_form").keyup(_.debounce(function() {
+    $('form').find('input').submit();
+    history.pushState({}, '',"device_stories?search="+$('form').find('input').serializeArray()[1].value);
+    }, 400));
