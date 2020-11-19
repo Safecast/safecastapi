@@ -22,8 +22,8 @@ jQuery.ajaxSetup({
 });
 
 $("#search_form form").keyup(_.debounce(function () {
-  let input = $(this).find('input[type=search]')
-  let query = '?' + input.serialize();
+  var input = $(this).find('input[type=search]')
+  var query = '?' + input.serialize();
   input.submit();
   history.pushState({}, '', query);
 }, 200));
