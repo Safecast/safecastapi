@@ -1,4 +1,4 @@
-<table class="table table-hover" data-provides="rowlink">
+<table class="table table-hover">
   <thead>
     <%= table_sort_header(:device, :device_urn) %>
     <%= table_sort_header(:device, :custodian_name) %>
@@ -8,8 +8,8 @@
   </thead>
   <tbody>
   <% device_stories.each do |device_story| %>
-    <tr>
-      <td><%= link_to device_story.device_urn, device_story %></td>
+    <tr onclick = "javascript: location.href = '<%=device_story_path(device_story) %>'">
+      <td><%= device_story.device_urn %></td>
       <td><%= device_story.custodian_name %></td>
       <td><%= device_story.last_values %></td>
       <td><%= device_story.last_location_name %></td>

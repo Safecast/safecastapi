@@ -21,4 +21,4 @@ jQuery.ajaxSetup({
   }
 });
 
-$("#search_form").on('keyup', function () {_.debounce($('form').find('input').submit(), 500)});
+$("#search_form").keyup(_.debounce(function() { $('form').find('input').submit();}, 400));
