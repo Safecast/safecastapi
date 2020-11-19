@@ -21,7 +21,9 @@ jQuery.ajaxSetup({
   }
 });
 
-$("#search_form").keyup(_.debounce(function() {
-    $('form').find('input').submit();
-    history.pushState({}, '',"device_stories?search="+$('form').find('input').serializeArray()[1].value);
-    }, 400));
+$("#search_form form").keyup(_.debounce(function () {
+  let input = $(this).find('input[type=search]')
+  let query = '?' + input.serialize();
+  input.submit();
+  history.pushState({}, '', query);
+}, 200));
