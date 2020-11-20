@@ -23,5 +23,5 @@ jQuery.ajaxSetup({
 
 $("#search_form").keyup(_.debounce(function() {
     $('form').find('input').submit();
-    history.pushState({}, '',"device_stories?search="+$('form').find('input').serializeArray()[1].value);
+    history.pushState({}, '',"device_stories?search="+$('form').find('input').serializeArray()[2].value);
     }, 400));
