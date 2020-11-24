@@ -3,8 +3,13 @@
 <h2>Device Stories</h2>
 <div class="well" style="padding-bottom: 40px; padding-top: 20px">
   <div id="btn_fullscr" style="float: left; margin-top: 5px; padding-right: 10px">
-    <%= render 'button'%>
-  </div>
+    <%- if params[:fullscr] != "true"  -%>
+      <%= render 'button_set_true'%>
+    <%- else -%>
+      <%= render 'button_set_false'%>
+    <%- end -%>
+
+      </div>
 
   <div id="btn_fullscr" style="float: left; margin-top: 10px;">
     <div id="counter" style="text-align: center;">
@@ -19,14 +24,9 @@
 
   </div>
 </div>
-
-<%- if @device_stories.empty? -%>
-  <p><%= t(".none_found") -%></p>
-<%- else -%>
-  <div id="results_class">
-    <%= render 'results', device_stories: @device_stories %>
-  </div>
-  <div id="paginate"><%= render 'paginate'%></div>
-<%- end -%>
+<div id="results_class">
+  <%= render 'results', device_stories: @device_stories %>
+</div>
+<div id="paginate"><%= render 'paginate'%></div>
 <div class="spacer"></div>
 <%= current_page_api_example :device_stories_url %>

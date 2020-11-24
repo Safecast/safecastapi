@@ -1,5 +1,0 @@
-<%- if params[:fullscr] != "true"  -%>
-  <%= button_to "<", device_stories_path, :method => "get", params: {fullscr: "true", search: @search_term} %>
-<%- else -%>
-  <%= button_to ">", device_stories_path, :method => "get", params: {fullscr: "false", search: @search_term} %>
-<%- end -%>
