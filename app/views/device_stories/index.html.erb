@@ -3,13 +3,8 @@
 <h2>Device Stories</h2>
 <div class="well" style="padding-bottom: 40px; padding-top: 20px">
   <div id="btn_fullscr" style="float: left; margin-top: 5px; padding-right: 10px">
-    <%- if params[:fullscr] != "true"  -%>
-      <%= render 'button_set_true'%>
-    <%- else -%>
-      <%= render 'button_set_false'%>
-    <%- end -%>
-
-      </div>
+    <%= render 'button_toggle_view'%>
+  </div>
 
   <div id="btn_fullscr" style="float: left; margin-top: 10px;">
     <div id="counter" style="text-align: center;">

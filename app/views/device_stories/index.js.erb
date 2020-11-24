@@ -1,8 +1,4 @@
 $('#results_class').html("<%= j render 'results', device_stories: @device_stories %>")
 $('#counter').html("<%= j render 'counts' %>")
 $('#paginate').html("<%= j render 'paginate' %>")
-<%- if params[:fullscr] != "true"  -%>
-  $('#btn_fullscr').html("<%= j render 'button_set_true' %>")
-<%- else -%>
-  $('#btn_fullscr').html("<%= j render 'button_set_false' %>")
-<%- end -%>
+$('#btn_fullscr').html("<%= j render 'button_toggle_view' %>")
