@@ -24,7 +24,6 @@ jQuery.ajaxSetup({
 $("#search_form form").keyup(_.debounce(function (e) {
     if(e.key.length == 1 || e.key == 'Backspace')
     {
-        alert('searching!');
         var input = $(this).find('input[type=search]');
         var query = '?' + input.serialize();
         input.submit();
