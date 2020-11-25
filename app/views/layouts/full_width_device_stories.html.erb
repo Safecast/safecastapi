@@ -23,54 +23,10 @@
     <![endif]-->
 </head>
 <body data-spy="scroll" data-target=".doc-nav" >
-<div class="sidebar-nav" data-spy="affix" style="margin-top: 50px;">
-  <ul class="nav nav-tabs nav-stacked">
-    <%- if user_signed_in? -%>
-      <li <%= raw('class="active"') if controller_name == 'dashboard' %>>
-        <%= link_to t('.dashboard'), :dashboard %>
-      </li>
-    <%- end -%>
-    <li <%= raw('class="active"') if controller_name == 'home' %>>
-      <%= link_to t('.safecast API'), :home %>
-    </li>
-    <li <%= raw('class="active"') if controller_name == 'users' %>>
-      <%= link_to t('.users'), :users %>
-    </li>
-    <li <%= raw('class="active"') if controller_name == 'measurements' %>>
-      <%= link_to t('.measurements'), :measurements %>
-    </li>
-    <li <%= raw('class="active"') if controller_name == 'bgeigie_imports' %>>
-      <%= link_to t('.bgeigie_imports'), bgeigie_imports_path(order: 'created_at asc') %>
-    </li>
-    <li <%= raw('class="active"') if controller_name == 'devices' %>>
-      <%= link_to t('.devices'), :devices %>
-    </li>
-    <li <%= raw('class="active"') if controller_name == 'device_stories' %>>
-      <%= link_to t('.device_stories'), :device_stories %>
-    </li>
-    <li <%= raw('class="active"') if controller_name == 'RadiationIndexController' %>>
-      <%= link_to t('.radiation_index'), :radiation_index %>
-    <li <%= raw('class="active"') if controller_name == 'ingest' %>>
-      <%= link_to t('.ingest_export'), :ingest %>
-    </li>
-  </ul>
-  <%= render 'stuck_drives' if current_user.try!(:moderator?) %>
-</div>
-<div class="container">
-  <%= render :partial => 'shared/dashboard_navigation' %>
 
-  <div class="row">
-    <div class="span3">
-
-    </div>
-
-    <div class="span12">
+<div class="container-fluid">
       <%= render 'shared/flash', flash: flash %>
-
       <%= yield %>
-    </div>
-  </div>
-
   <footer class="row">
     <p class="span12"><%= t 'creative_commons_non_commercial' %></p>
     <p class="span12"><%= link_to_switch_locale %></p>
