@@ -16,14 +16,14 @@
 //- require_self
 
 jQuery.ajaxSetup({
-    'beforeSend': function(xhr) {
-        xhr.setRequestHeader("Accept", "text/javascript");
-    }
+  'beforeSend': function(xhr) {
+    xhr.setRequestHeader("Accept", "text/javascript");
+  }
 });
 
 $("#search_form form").keyup(_.debounce(function () {
-    var input = $(this).find('input[type=search]')
-    var query = '?' + input.serialize();
-    input.submit();
-    history.pushState({}, '', query);
+  var input = $(this).find('input[type=search]')
+  var query = '?' + input.serialize();
+  input.submit();
+  history.pushState({}, '', query);
 }, 200));
