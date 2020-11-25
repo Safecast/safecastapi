@@ -1,22 +1,27 @@
 <%= content_for(:title) { "Device Stories" } %>
 
 <h2>Device Stories</h2>
-<div class="well">
-  <div id="counter" style="float: left; display: inline-block">
-    <%= render 'counts'%>
+<div class="well" style="padding-bottom: 40px; padding-top: 20px">
+  <div id="btn_fullscr" style="float: left; margin-top: 5px; padding-right: 10px">
+    <%= render 'button_toggle_view'%>
   </div>
-  <div id="search_form">
-    <%= render 'search_form'%>
+
+  <div id="btn_fullscr" style="float: left; margin-top: 10px;">
+    <div id="counter" style="text-align: center;">
+      <%= render 'counts'%>
+    </div>
+  </div>
+
+  <div style = "float:right">
+    <div id="search_form" style="padding-top: 0px">
+      <%= render 'search_form'%>
+    </div>
+
   </div>
 </div>
-
-<%- if @device_stories.empty? -%>
-  <p><%= t(".none_found") -%></p>
-<%- else -%>
-  <div id="results_class">
-    <%= render 'results', device_stories: @device_stories %>
-  </div>
-  <div id="paginate"><%= render 'paginate'%></div>
-<%- end -%>
+<div id="results_class">
+  <%= render 'results', device_stories: @device_stories %>
+</div>
+<div id="paginate"><%= render 'paginate'%></div>
 <div class="spacer"></div>
 <%= current_page_api_example :device_stories_url %>

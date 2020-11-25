@@ -2,7 +2,7 @@
 
 class DeviceStoriesController < ApplicationController
   has_scope :order
-
+  layout :current_layout
   def index
     @device_stories = if params[:search].blank?
                         full_table
@@ -25,6 +25,16 @@ class DeviceStoriesController < ApplicationController
     apply_scopes(DeviceStory).where('lower(device_urn) LIKE :search OR lower(custodian_name) LIKE :search', search: "%#{search_term}%")
       .or(apply_scopes(DeviceStory).where('lower(last_values) LIKE :search OR lower(last_location_name) LIKE :search', search: "%#{search_term}%"))
       .or(apply_scopes(DeviceStory).where('CAST(last_seen AS text) LIKE ?', "%#{search_term}%")).page(params[:page]).per(params[:per_page])
+  end
+
+  private
+
+  def current_layout
+    if params[:fullscr] == 'true'
+      'full_width_device_stories'
+    else
+      'application'
+    end
   end
 
   def full_table

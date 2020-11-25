@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <title>
+    <%- if content_for?(:title) -%>
+      <%= content_for(:title) %> \\
+    <%- end -%>
+    Safecast API
+  </title>
+  <%= csrf_meta_tag %>
+  <%= stylesheet_link_tag :application %>
+  <%- if ENV['CONNECTION_STATUS'] != 'offline' -%>
+
+  <%- end -%>
+  <%= javascript_include_tag "#{request.protocol}use.typekit.com/tvi6mbv.js" %>
+  <script type="text/javascript" charset="utf-8">
+      try{Typekit.load();}catch(e){}
+  </script>
+  <!--[if lt IE 9]>
+    <%= javascript_include_tag 'html5shiv' %>
+    <![endif]-->
+</head>
+<body data-spy="scroll" data-target=".doc-nav" >
+<div class="sidebar-nav" data-spy="affix" style="margin-top: 50px;">
+  <ul class="nav nav-tabs nav-stacked">
+    <%- if user_signed_in? -%>
+      <li <%= raw('class="active"') if controller_name == 'dashboard' %>>
+        <%= link_to t('.dashboard'), :dashboard %>
+      </li>
+    <%- end -%>
+    <li <%= raw('class="active"') if controller_name == 'home' %>>
+      <%= link_to t('.safecast API'), :home %>
+    </li>
+    <li <%= raw('class="active"') if controller_name == 'users' %>>
+      <%= link_to t('.users'), :users %>
+    </li>
+    <li <%= raw('class="active"') if controller_name == 'measurements' %>>
+      <%= link_to t('.measurements'), :measurements %>
+    </li>
+    <li <%= raw('class="active"') if controller_name == 'bgeigie_imports' %>>
+      <%= link_to t('.bgeigie_imports'), bgeigie_imports_path(order: 'created_at asc') %>
+    </li>
+    <li <%= raw('class="active"') if controller_name == 'devices' %>>
+      <%= link_to t('.devices'), :devices %>
+    </li>
+    <li <%= raw('class="active"') if controller_name == 'device_stories' %>>
+      <%= link_to t('.device_stories'), :device_stories %>
+    </li>
+    <li <%= raw('class="active"') if controller_name == 'RadiationIndexController' %>>
+      <%= link_to t('.radiation_index'), :radiation_index %>
+    <li <%= raw('class="active"') if controller_name == 'ingest' %>>
+      <%= link_to t('.ingest_export'), :ingest %>
+    </li>
+  </ul>
+  <%= render 'stuck_drives' if current_user.try!(:moderator?) %>
+</div>
+<div class="container">
+  <%= render :partial => 'shared/dashboard_navigation' %>
+
+  <div class="row">
+    <div class="span3">
+
+    </div>
+
+    <div class="span12">
+      <%= render 'shared/flash', flash: flash %>
+
+      <%= yield %>
+    </div>
+  </div>
+
+  <footer class="row">
+    <p class="span12"><%= t 'creative_commons_non_commercial' %></p>
+    <p class="span12"><%= link_to_switch_locale %></p>
+  </footer>
+</div>
+
+<%- if user_signed_in? -%>
+  <div id="profile-modal" class="modal hide fade" tabindex="-1">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3><%= t('.your_profile') %></h3>
+    </div>
+
+    <div class="modal-body" id="api-results">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <%= link_to current_user.email, '#show-user', :data => {
+              :toggle => 'tab'
+          } %>
+        </li>
+
+        <li>
+          <%= link_to t('.edit_profile'), '#edit-user', :data => {
+              :toggle => 'tab'
+          } %>
+        </li>
+
+        <li>
+          <%= link_to t('.change_password'), '#change-password', :data => {
+              :toggle => 'tab'
+          } %>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane active" id="show-user">
+          <div class="row">
+            <section class="span6">
+              <h2>
+                <%= t('profile') %>
+              </h2>
+              <ul>
+                <dt><%= t('name') %></dt>
+                <dd><%= current_user.name %></dd>
+                <dt><%= t('time_zone') %></dt>
+                <dd><%= current_user.time_zone %></dd>
+                <dt><%= t('.default_locale') %></dt>
+                <dd><%= current_user.default_locale %></dd>
+              </ul>
+              <dl class="well">
+                <dt><%= t('your_api_key') %></dt>
+                <dd><%= current_user.authentication_token %></dd>
+              </dl>
+            </section>
+          </div>
+        </div>
+        <div class="tab-pane" id="edit-user">
+          <%= simple_form_for current_user, url: :profile, html: { class: 'form-horizontal' } do |f| %>
+            <%= f.input :email %>
+            <%= f.input :name %>
+            <%= f.input :time_zone %>
+            <%= f.input :default_locale, :collection => ['en-US', 'ja'] %>
+            <%= f.button :wrapped, :cancel => '#', :cancel_options => {
+                :data => {
+                    :dismiss => 'modal'
+                }
+            } %>
+          <%- end -%>
+        </div>
+        <div class="tab-pane" id="change-password">
+          <%= simple_form_for current_user, url: :profile, html: { class: 'form-horizontal' } do |f| %>
+            <%= f.input :password, :as => :password %>
+            <%= f.input :password_confirmation, :as => :password %>
+            <%= f.button :wrapped, :cancel => '#', :cancel_options => {
+                :data => {
+                    :dismiss => 'modal'
+                }
+            } %>
+          <%- end -%>
+        </div>
+      </div>
+      </ul>
+    </div>
+  </div>
+<%- end -%>
+
+<div id="api-modal" class="modal hide fade" tabindex="-1">
+
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3><%= t('.api_request') %></h3>
+    <p>GET <span class="api-url"></span></p>
+  </div>
+
+  <div class="modal-body" id="api-results">
+    <pre id="api-output" class="prettyprint lang-javascript"></pre>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+<%= javascript_include_tag :application %>
+<%= content_for :additional_javascripts %>
+</body>
+</html>
