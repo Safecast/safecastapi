@@ -1,5 +1,5 @@
 <%- if params[:fullscr] != "true"  -%>
-  <%= link_to "◤", device_stories_path(fullscr: "true", search: @search_term, page: params[:page]), class: "btn btn-secondary btn-lg" %>
+  <%= link_to "◤", device_stories_path(fullscr: "true", search: @search_term, page: params[:page]), class: "btn btn-secondary" %>
 <%- else -%>
   <%= link_to "◢", device_stories_path(fullscr: "false", search: @search_term, page: params[:page]), class: "btn btn-secondary" %>
 <%- end -%>
