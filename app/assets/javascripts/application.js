@@ -21,12 +21,15 @@ jQuery.ajaxSetup({
   }
 });
 
-$("#search_form form").keyup(_.debounce(function (e) {
-    if(e.key.length == 1 || e.key == 'Backspace')
-    {
-        var input = $(this).find('input[type=search]');
-        var query = '?' + input.serialize();
-        input.submit();
-        history.pushState({}, '', query);
-    }
+var searchBox = $("#search_form form input[type=search]");
+var searchBoxValue = searchBox.val();
+
+searchBox.keyup(_.debounce(function () {
+  var input = $(this)
+  var newValue = input.val();
+  if (searchBoxValue !== newValue) {
+    input.submit();
+    history.pushState({}, '', '?' + input.serialize());
+  }
+  searchBoxValue = newValue;
 }, 200));
