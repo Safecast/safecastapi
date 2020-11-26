@@ -23,7 +23,7 @@
 <div>
   <%= form_tag controller_name, method: :get, id: 'per_page_form' do %>
     <%= hidden_field_tag :fullscr, params[:fullscr] %>
-    <%= select_tag :per_page, options_for_select([25, 100, 500, 1000], selected: params[:per_page] || 25), onchange: "$('#per_page_form').submit();" %>&nbsp maximum results per page.
+    <%= select_tag :per_page, options_for_select([25, 100, 500, 1000], selected: params[:per_page] || 25), onchange: "$('#per_page_form').submit();", :style => "width: 65px" %>&nbsp maximum results per page.
   <% end %>
 </div>
 <div class="spacer"></div>
