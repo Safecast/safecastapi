@@ -8,7 +8,6 @@
     <div id="counter" style="text-align: center; float: left; margin-top: 10px;">
       <%= render 'counts'%>
     </div>
-
   <div style = "float:right">
     <div id="search_form" style="padding-top: 0px">
       <%= render 'search_form'%>
@@ -21,5 +20,11 @@
   <%= render 'results', device_stories: @device_stories %>
 </div>
 <div id="paginate"><%= render 'paginate'%></div>
+<div>
+  <%= form_tag controller_name, method: :get, id: 'per_page_form' do %>
+    <%= hidden_field_tag :fullscr, params[:fullscr] %>
+    <%= select_tag :per_page, options_for_select([25, 100, 500, 1000], selected: params[:per_page] || 25), onchange: "$('#per_page_form').submit();" %>&nbsp maximum results per page.
+  <% end %>
+</div>
 <div class="spacer"></div>
 <%= current_page_api_example :device_stories_url %>
