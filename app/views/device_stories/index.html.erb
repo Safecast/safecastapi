@@ -20,11 +20,8 @@
   <%= render 'results', device_stories: @device_stories %>
 </div>
 <div id="paginate"><%= render 'paginate'%></div>
-<div>
-  <%= form_tag controller_name, method: :get, id: 'per_page_form' do %>
-    <%= hidden_field_tag :fullscr, params[:fullscr] %>
-    <%= select_tag :per_page, options_for_select([25, 100, 500, 1000], selected: params[:per_page] || 25), onchange: "$('#per_page_form').submit();", :style => "width: 65px" %>&nbsp results per page.
-  <% end %>
+<div id="per_page_select">
+  <%= render 'per_page_select'%>
 </div>
 <div class="spacer"></div>
 <%= current_page_api_example :device_stories_url %>

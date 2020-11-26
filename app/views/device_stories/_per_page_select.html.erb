@@ -1,0 +1,5 @@
+<%= form_tag controller_name, method: :get, id: 'per_page_form' do %>
+  <%= hidden_field_tag :fullscr, params[:fullscr] %>
+  <%= hidden_field_tag :search, params[:search] %>
+  <%= select_tag :per_page, options_for_select([25, 100, 500, 1000], selected: params[:per_page] || 25), onchange: "$('#per_page_form').submit();", :style => "width: 65px" %>&nbsp results per page.
+<% end %>
