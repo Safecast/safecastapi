@@ -1,4 +1,4 @@
-<%= form_tag(device_stories_path, remote: true, :method => "get",
+<%= form_tag(device_stories_path, remote: true, :method => "get", enforce_utf8: false,
              class: 'navbar-form navbar-left') do %>
   <%= hidden_field_tag :fullscr, params[:fullscr] %>
   <%= hidden_field_tag :per_page, params[:per_page] %>
