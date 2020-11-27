@@ -16,7 +16,7 @@
 //- require_self
 
 jQuery.ajaxSetup({
-  'beforeSend': function(xhr) {
+  beforeSend: function(xhr) {
     xhr.setRequestHeader("Accept", "text/javascript");
   }
 });
@@ -24,15 +24,19 @@ jQuery.ajaxSetup({
 var searchBox = $("#search_form form input[type=search]");
 var searchBoxValue = searchBox.val();
 
-searchBox.keyup(_.debounce(function () {
-  var input = $(this)
-  var newValue = input.val();
-  if (searchBoxValue !== newValue) {
-    input.submit();
-  }
-  searchBoxValue = newValue;
-}, 200));
-
-$( "form" ).on( "submit", function() {
-  history.pushState({}, '', '?' + $(this).serialize());
-});
+searchBox.keyup(
+  _.debounce(function() {
+    var input = $(this);
+    var newValue = input.val();
+    if (searchBoxValue !== newValue) {
+      input.submit();
+      var state = $(this.form)
+        .serializeArray()
+        .filter(function(e) {
+          return e.name !== "utf8" && e.value !== "";
+        });
+      history.pushState({}, "", "?" + $.param(state));
+    }
+    searchBoxValue = newValue;
+  }, 200)
+);
