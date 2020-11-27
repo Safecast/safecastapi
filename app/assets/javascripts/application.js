@@ -27,13 +27,12 @@ var searchBoxValue = searchBox.val();
 searchBox.keyup(_.debounce(function () {
   var input = $(this)
   var newValue = input.val();
-  var url_string = window.location.href;
-  var url = new URL(url_string);
-  var fullscr = url.searchParams.get("fullscr");
-  var perPage = url.searchParams.get("per_page");
   if (searchBoxValue !== newValue) {
     input.submit();
-    history.pushState({}, '', '?' + input.serialize() + '&fullscr=' + fullscr + '&per_page=' + perPage);
   }
   searchBoxValue = newValue;
 }, 200));
+
+$( "form" ).on( "submit", function() {
+  history.pushState({}, '', '?' + $(this).serialize());
+});
