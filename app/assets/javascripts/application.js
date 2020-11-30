@@ -16,7 +16,7 @@
 //- require_self
 
 jQuery.ajaxSetup({
-  'beforeSend': function(xhr) {
+  beforeSend: function(xhr) {
     xhr.setRequestHeader("Accept", "text/javascript");
   }
 });
@@ -24,12 +24,15 @@ jQuery.ajaxSetup({
 var searchBox = $("#search_form form input[type=search]");
 var searchBoxValue = searchBox.val();
 
-searchBox.keyup(_.debounce(function () {
-  var input = $(this)
-  var newValue = input.val();
-  if (searchBoxValue !== newValue) {
-    input.submit();
-    history.pushState({}, '', '?' + input.serialize());
-  }
-  searchBoxValue = newValue;
-}, 200));
+searchBox.keyup(
+  _.debounce(function() {
+    var input = $(this);
+    var newValue = input.val();
+    if (searchBoxValue !== newValue) {
+      input.submit();
+      var state = $(this.form).serializeArray();
+      history.pushState({}, "", "?" + $.param(state));
+    }
+    searchBoxValue = newValue;
+  }, 200)
+);
