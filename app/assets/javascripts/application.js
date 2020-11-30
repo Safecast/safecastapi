@@ -30,11 +30,7 @@ searchBox.keyup(
     var newValue = input.val();
     if (searchBoxValue !== newValue) {
       input.submit();
-      var state = $(this.form)
-        .serializeArray()
-        .filter(function(e) {
-          return e.name !== "utf8" && e.value !== "";
-        });
+      var state = $(this.form).serializeArray();
       history.pushState({}, "", "?" + $.param(state));
     }
     searchBoxValue = newValue;
