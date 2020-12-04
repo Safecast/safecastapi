@@ -56,7 +56,7 @@
           <b><%= comment.user.name %></b><br>
           <%= comment.text %>
           <%- if user_signed_in? -%>
-            <%- if comment.user_id == current_user.id %>
+            <%- if (comment.user_id == current_user.id) || moderator?(current_user) %>
               <div style="float:right"> <%= link_to 'Delete', device_story_path(@device_story, comment_id: comment.id), method: :delete %></div>
             <%- end %>
           <%- end %>
