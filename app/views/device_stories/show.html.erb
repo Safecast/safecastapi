@@ -5,7 +5,9 @@
   <div class="row">
     <h2>
       <%= @device_story.last_location_name %> (<%= @device_story.device_urn %>)
-      <div style="font-size: 15px"> <%= time_ago_in_words(@device_story.last_seen) %> ago</div>
+      <%- if  @device_story.last_seen %>
+        <div style="font-size: 15px"> <%= time_ago_in_words(@device_story.last_seen) %> ago</div>
+      <%- end %>
     </h2>
     <div class="span2" style="margin: 0; margin-right: 20px">
       <table class="table table-hover" style="min-width: 164px; max-width: 164px; table-layout: fixed; margin-top: 10%; word-wrap: break-word">
