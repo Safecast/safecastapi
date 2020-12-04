@@ -46,6 +46,33 @@
     </iframe>
   </div>
 </div>
+<div>
+  <h2>Comments: <br></h2>
+  <table class="table table-striped">
+    <tbody>
+    <%- @device_story.device_story_comments.each do |comment| %>
+      <tr>
+        <td>
+          <b><%= comment.user.name %></b><br>
+          <%= comment.text %>
+        </td>
+      </tr>
+    <%- end %>
+    </tbody>
+  </table>
+</div>
+<div style="margin-left: 5px;min-width: 500px">
+  <%- if user_signed_in? -%>
+    <%= form_for @device_story do |f| %>
+      <%= f.fields_for :device_story_comments, DeviceStoryComment.new do |device_story_comment_attributes| %>
+        <%= device_story_comment_attributes.label :text, current_user.name %>
+        <%= device_story_comment_attributes.text_area :text, input_html: {:style => 'width: 500px'} %>
+        <%= device_story_comment_attributes.hidden_field :user_id, :value => current_user.id %>
+      <% end %>
+      <p><%= f.submit "Submit comment" %></p>
+    <%- end %>
+  <%- end %>
+</div>
 
 <div class="spacer"></div>
 <%= current_page_api_example :device_stories_url %>
