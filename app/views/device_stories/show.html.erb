@@ -55,6 +55,11 @@
         <td>
           <b><%= comment.user.name %></b><br>
           <%= comment.text %>
+          <%- if user_signed_in? -%>
+            <%- if comment.user_id == current_user.id %>
+              <div style="float:right"> <%= link_to 'Delete', device_story_path(@device_story, comment_id: comment.id), method: :delete %></div>
+            <%- end %>
+          <%- end %>
         </td>
       </tr>
     <%- end %>
@@ -66,7 +71,7 @@
     <%= form_for @device_story do |f| %>
       <%= f.fields_for :device_story_comments, DeviceStoryComment.new do |device_story_comment_attributes| %>
         <%= device_story_comment_attributes.label :text, current_user.name %>
-        <%= device_story_comment_attributes.text_area :text, input_html: {:style => 'width: 500px'} %>
+        <%= device_story_comment_attributes.text_area :text, :rows => 3, style: 'width:90%;' %>
         <%= device_story_comment_attributes.hidden_field :user_id, :value => current_user.id %>
       <% end %>
       <p><%= f.submit "Submit comment" %></p>

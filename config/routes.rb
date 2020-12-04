@@ -28,6 +28,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
       resources :rejected_import, only: :index
     end
     resources :device_stories
+    resources :device_story_comments
     resources :bgeigie_imports do
       resources :bgeigie_logs, only: :index
       member do

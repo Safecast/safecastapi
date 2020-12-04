@@ -25,11 +25,20 @@ class DeviceStoriesController < ApplicationController
   end
 
   def update
-    puts params[:device_story][:device_story_comments_attributes]['0'][:text]
-    puts 'TEST:'
-    puts params.inspect
-    @comment = DeviceStory.find(params[:id]).device_story_comments.create(user_id: params[:device_story][:device_story_comments_attributes]['0'][:user_id], text: params[:device_story][:device_story_comments_attributes]['0'][:text])
+    @comment = create_comment
     respond_with DeviceStory.find(params[:id])
+  end
+
+  def destroy
+    @comment = DeviceStory.find(params[:id]).device_story_comments.find(params[:comment_id])
+    @comment.destroy
+    respond_with DeviceStory.find(params[:id])
+  end
+
+  def create_comment
+    DeviceStory.find(params[:id]).device_story_comments
+      .create(user_id: params[:device_story][:device_story_comments_attributes]['0'][:user_id],
+              text: params[:device_story][:device_story_comments_attributes]['0'][:text])
   end
 
   def get_like_searched_table(search_term)
