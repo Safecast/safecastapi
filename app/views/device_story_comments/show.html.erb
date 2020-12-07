@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @device_story_comment.content %>
+</p>
+
+<p>
+  <strong>Device story:</strong>
+  <%= @device_story_comment.device_story %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @device_story_comment.user %>
+</p>
+
+<%= link_to 'Edit', edit_device_story_comment_path(@device_story_comment) %> |
+<%= link_to 'Back', device_story_comments_path %>

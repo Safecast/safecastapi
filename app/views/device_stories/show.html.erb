@@ -5,7 +5,9 @@
   <div class="row">
     <h2>
       <%= @device_story.last_location_name %> (<%= @device_story.device_urn %>)
-      <div style="font-size: 15px"> <%= time_ago_in_words(@device_story.last_seen) %> ago</div>
+      <%- if  @device_story.last_seen %>
+        <div style="font-size: 15px"> <%= time_ago_in_words(@device_story.last_seen) %> ago</div>
+      <%- end %>
     </h2>
     <div class="span2" style="margin: 0; margin-right: 20px">
       <table class="table table-hover" style="min-width: 164px; max-width: 164px; table-layout: fixed; margin-top: 10%; word-wrap: break-word">
@@ -46,37 +48,40 @@
     </iframe>
   </div>
 </div>
+
 <div>
   <h2>Comments: <br></h2>
   <table class="table table-striped">
     <tbody>
-    <%- @device_story.device_story_comments.each do |comment| %>
-      <tr>
-        <td>
-          <b><%= comment.user.name %></b><br>
-          <%= comment.text %>
-          <%- if user_signed_in? -%>
-            <%- if (comment.user_id == current_user.id) || moderator?(current_user) %>
-              <div style="float:right"> <%= link_to 'Delete', device_story_path(@device_story, comment_id: comment.id), method: :delete %></div>
+    <%- if @device_story.device_story_comments.empty? %>
+      No Comments yet.
+    <%- else %>
+      <%- @device_story.device_story_comments.each do |comment| %>
+        <tr>
+          <td>
+            <b><%= comment.user.name %></b><br>
+            <%= comment.content %>
+            <%- if user_signed_in? -%>
+              <%- if (comment.user_id == current_user.id) || moderator?(current_user) %>
+                <div style="float:right"> <%= link_to 'Delete', device_story_device_story_comment_path(@device_story, comment), method: :delete %></div>
+              <%- end %>
             <%- end %>
-          <%- end %>
-        </td>
-      </tr>
+          </td>
+        </tr>
+      <%-end %>
     <%- end %>
     </tbody>
   </table>
 </div>
 <div style="margin-left: 5px;min-width: 500px">
-  <%- if user_signed_in? -%>
-    <%= form_for @device_story do |f| %>
-      <%= f.fields_for :device_story_comments, DeviceStoryComment.new do |device_story_comment_attributes| %>
-        <%= device_story_comment_attributes.label :text, current_user.name %>
-        <%= device_story_comment_attributes.text_area :text, :rows => 3, style: 'width:90%;' %>
-        <%= device_story_comment_attributes.hidden_field :user_id, :value => current_user.id %>
-      <% end %>
-      <p><%= f.submit "Submit comment" %></p>
-    <%- end %>
-  <%- end %>
+  <%- if user_signed_in? %>
+    <%= form_with model: DeviceStoryComment, url: device_story_device_story_comments_path(@device_story), method: 'post' do |form| %>
+      <%= form.label :content, current_user.name %>
+      <%= form.text_area :content, :rows => 3, style: 'width:90%;' %>
+      <%= form.hidden_field :user_id, :value => current_user.id %>
+      <p><%= form.submit "Submit comment" %></p>
+    <% end %>
+  <% end %>
 </div>
 
 <div class="spacer"></div>
