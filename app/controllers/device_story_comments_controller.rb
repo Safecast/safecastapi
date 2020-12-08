@@ -14,14 +14,13 @@ class DeviceStoryCommentsController < ApplicationController
 
   def create
     @device_story_comment = @device_story.device_story_comments.build(device_story_comment_params)
-    unless @device_story_comment.spam?
-      respond_to do |format|
-        if @device_story_comment.save
-          format.js { render inline: 'location.reload();' }
-        else
-          format.html { render :new }
-          format.json { render json: @device_story_comment.errors, status: :unprocessable_entity }
-        end
+    return if @device_story_comment.spam?
+
+    respond_to do |format|
+      if @device_story_comment.save
+        format.js { render inline: 'location.reload();' }
+      else
+        format.json { render json: @device_story_comment.errors, status: :unprocessable_entity }
       end
     end
   end
