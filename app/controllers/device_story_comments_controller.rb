@@ -18,7 +18,8 @@ class DeviceStoryCommentsController < ApplicationController
       if @device_story_comment.save && !@device_story_comment.spam?
         format.html { redirect_to device_story_path(@device_story), notice: 'Comment successfully submitted!' }
       else
-        format.html { redirect_to device_story_path(@device_story), notice: 'ERROR! Could not submit your submit. Please, try again!' }
+        flash[:error] = 'Could not submit your comment. Please, try again!'
+        format.html { redirect_to device_story_path(@device_story) }
       end
     end
   end
