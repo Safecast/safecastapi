@@ -14,13 +14,11 @@ class DeviceStoryCommentsController < ApplicationController
 
   def create
     @device_story_comment = @device_story.device_story_comments.build(device_story_comment_params)
-    return if @device_story_comment.spam?
-
     respond_to do |format|
-      if @device_story_comment.save
-        format.js { render inline: 'location.reload();' }
+      if @device_story_comment.save && !@device_story_comment.spam?
+        format.html { redirect_to device_story_path(@device_story), notice: 'Comment successfully submitted!' }
       else
-        format.json { render json: @device_story_comment.errors, status: :unprocessable_entity }
+        format.html { redirect_to device_story_path(@device_story), notice: 'ERROR! Could not submit your submit. Please, try again!' }
       end
     end
   end
@@ -39,7 +37,9 @@ class DeviceStoryCommentsController < ApplicationController
 
   def destroy
     @device_story_comment.destroy
-    redirect_to device_story_path(@device_story)
+    respond_to do |format|
+      format.html { redirect_to device_story_path(@device_story), notice: 'Comment deleted!' }
+    end
   end
 
   private
