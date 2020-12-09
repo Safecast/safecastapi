@@ -59,7 +59,7 @@
       <%- @device_story.device_story_comments.each do |comment| %>
         <tr>
           <td>
-            <b><%= comment.user.name %></b><br>
+            <b><%= link_to comment.user.name , comment.user %></b> <div style="display: inline-block; color: dimgrey; font-size: small">(<%= time_ago_in_words(comment.created_at) %> ago)</div> <br>
             <%= comment.content %>
             <%- if user_signed_in? -%>
               <%- if (comment.user_id == current_user.id) || moderator?(current_user) %>
