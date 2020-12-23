@@ -29,9 +29,9 @@ searchBox.keyup(
     var input = $(this);
     var newValue = input.val();
     if (searchBoxValue !== newValue) {
-      input.submit();
+      this.form.submit();
       var state = $(this.form).serializeArray();
-      history.pushState({}, "", "?" + $.param(state));
+      history.pushState({}, document.title, "?" + $.param(state));
     }
     searchBoxValue = newValue;
   }, 200)
