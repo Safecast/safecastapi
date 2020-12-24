@@ -21,18 +21,17 @@ jQuery.ajaxSetup({
   }
 });
 
-var searchBox = $("#search_form form input[type=search]");
-var searchBoxValue = searchBox.val();
+var searchForm = document.querySelector("#search_form form");
+if (searchForm) {
+  searchForm.addEventListener("ajax:beforeSend", function () {
+    var state = $(searchForm).serializeArray();
+    history.pushState({}, document.title, "?" + $.param(state));
+  });
 
-searchBox.keyup(
-  _.debounce(function() {
-    var input = $(this);
-    var newValue = input.val();
-    if (searchBoxValue !== newValue) {
-      input.submit();
-      var state = $(this.form).serializeArray();
-      history.pushState({}, "", "?" + $.param(state));
-    }
-    searchBoxValue = newValue;
-  }, 200)
-);
+  var searchBox = searchForm.querySelector("input[type=search]");
+  if (searchBox) {
+    searchBox.addEventListener("input", _.debounce(function () {
+      searchForm.submit();
+    }, 200));
+  }
+}
