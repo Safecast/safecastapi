@@ -23,7 +23,7 @@ jobs:
             - safecastapi-
       - run:
           name: Bundle Install
-          command: bundle install --path vendor/bundle
+          command: bundle install --jobs 2 --retry 3 --path vendor/bundle
       - save_cache:
           key: safecastapi-{{ checksum "Gemfile.lock" }}
           paths:
@@ -41,15 +41,15 @@ jobs:
           name: Load schema
           command: |
             psql -h localhost -p 5432 -U safecast safecast -c 'DROP EXTENSION postgis CASCADE'
-            bundle exec rake db:schema:load --trace
+            bundle exec rails db:setup
       - run:
           name: Run rubocop
           command: |
-            bundle exec rubocop
+            bundle exec rubocop -P
       - run:
           name: Run assets precompile
           command: |
-            bundle exec rake assets:precompile
+            bundle exec rails assets:precompile
       - run:
           name: Run rspec
           command: |
