@@ -157,7 +157,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
      bgeigie_import_id = #{id}])
   end
 
-  def create_tmp_file # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def create_tmp_file # rubocop:disable Metrics/MethodLength
     lines_count = 0
     File.open(tmp_file, 'at:UTF-8') do |file|
       source.read.each_line do |line|
