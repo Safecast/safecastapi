@@ -3,8 +3,7 @@
 require 'aws-sdk-elasticbeanstalk'
 
 class ElasticBeanstalkHelper
-  attr_reader :elasticbeanstalk
-  attr_reader :application_name, :environment_prefix, :environment_config
+  attr_reader :elasticbeanstalk, :application_name, :environment_prefix, :environment_config
 
   def initialize(application_name, environment_prefix, environment_config = nil)
     if environment_config.nil?
