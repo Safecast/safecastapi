@@ -9,8 +9,8 @@ RSpec.describe Measurement, type: :model do
     end
     subject { measurement }
 
-    its(:longitude) { should == 12.001 }
-    its(:latitude) { should == 14.002 }
+    its(:longitude) { should be_within(Float::EPSILON).of(12.001) }
+    its(:latitude) { should be_within(Float::EPSILON).of(14.002) }
   end
 
   context 'setting lat and lng' do
@@ -20,8 +20,8 @@ RSpec.describe Measurement, type: :model do
     end
     subject { measurement }
 
-    its(:longitude) { should == 12.001 }
-    its(:latitude) { should == 14.002 }
+    its(:longitude) { should be_within(Float::EPSILON).of(12.001) }
+    its(:latitude) { should be_within(Float::EPSILON).of(14.002) }
   end
 
   context 'validation' do
