@@ -59,7 +59,7 @@ class ElasticBeanstalkHelper
 
   def eb_config(tier = nil)
     if tier == 'wrk'
-      environment_config + '-wrk'
+      "#{environment_config}-wrk"
     else
       environment_config
     end

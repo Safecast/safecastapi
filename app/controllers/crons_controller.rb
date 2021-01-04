@@ -20,7 +20,7 @@ class CronsController < ApplicationController
     return head(:forbidden) unless runnable?
 
     logger.info "Starting cron task: #{taskname}"
-    system('./' + taskname, chdir: SCRIPT_PATH)
+    system("./#{taskname}", chdir: SCRIPT_PATH)
     if $CHILD_STATUS.success?
       render json: { status: :ok, taskname: taskname }
     else
