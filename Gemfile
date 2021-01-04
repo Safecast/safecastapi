@@ -66,8 +66,8 @@ group :test do
   gem 'fabrication'
   gem 'rails-controller-testing'
   gem 'rspec-its'
-  gem 'rspec-rails'
   gem 'rspec_junit_formatter'
+  gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'webmock'
 end
