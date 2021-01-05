@@ -78,7 +78,6 @@
     <%= form_with model: DeviceStoryComment, url: device_story_device_story_comments_path(@device_story), local: true, method: 'post' do |form| %>
       <%= form.label :content, current_user.name %>
       <%= form.text_area :content, :rows => 3, style: 'width:97%;' %>
-      <%= form.hidden_field :user_id, :value => current_user.id %>
       <p><%= form.submit "Submit comment" %></p>
     <% end %>
   <% end %>
