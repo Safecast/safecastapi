@@ -21,6 +21,11 @@ class DeviceStoriesController < ApplicationController
     respond_with @device_story
   end
 
+  def show_mobile
+    @device_story = DeviceStory.where(device_urn: params[:device_urn]).first
+    respond_with @device_story
+  end
+
   def get_like_searched_table(search_term)
     apply_scopes(DeviceStory).where('lower(device_urn) LIKE :search OR lower(custodian_name) LIKE :search', search: "%#{search_term}%")
       .or(apply_scopes(DeviceStory).where('lower(last_values) LIKE :search OR lower(last_location_name) LIKE :search', search: "%#{search_term}%"))
@@ -31,6 +36,8 @@ class DeviceStoriesController < ApplicationController
 
   def current_layout
     if params[:fullscr] == 'true'
+      'full_width_device_stories'
+    elsif !params[:device_urn].blank?
       'full_width_device_stories'
     else
       'application'
