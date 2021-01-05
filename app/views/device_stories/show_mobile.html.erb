@@ -3,7 +3,7 @@ Invalid URN. Help page is work in progress.
 <%- else %>
   <%= content_for(:title) do %>
   <%- end -%>
-  <div style="margin-left: 10px">
+  <div style="margin-left: 10px; text-align: center">
     <h2>
     <%= @device_story.last_location_name %> (<%= @device_story.device_urn %>)
     <%- if  @device_story.last_seen %>
@@ -11,9 +11,10 @@ Invalid URN. Help page is work in progress.
     <%- end %>
     </h2>
   </div>
-  <div class="" style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
-    <div style="max-width: 155px">
-      <table class="table table-hover" style="margin-left: auto; margin-right: auto; min-width: 164px; table-layout: auto; margin-top: 10%; word-wrap: break-word">
+  <hr>
+  <div class="" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+    <div style="max-width: 155px; margin-bottom: 50px">
+      <table class="table table-hover" style="margin-left: auto; margin-right: auto; min-width: 164px; table-layout: fixed; margin-top: 10%; word-wrap: break-word">
         <thead style="font-size: 13px">
         <tr>
           <td colspan="3" style="text-align:center"><%= @device_story.last_seen %></td>
@@ -34,13 +35,14 @@ Invalid URN. Help page is work in progress.
           </td>
         </tr>
       </table>
-      <button type="button" style="  display: flex; justify-content: center; align-items: center; margin-left: auto; margin-right: auto; font-size: 15px; width: 150px"><%= link_to 'More sensor data', grafana_more_data(@device_story.device_urn, true), target: :_blank %></button>
+      <button type="button" style="display: flex; justify-content: center; align-items: center; margin-left: auto; margin-right: auto; font-size: 15px; width: 150px"><%= link_to 'More sensor data', grafana_more_data(@device_story.device_urn, true), target: :_blank %></button>
     </div>
     <iframe
       src="<%= grafana_iframe(@device_story.device_urn, grafana_panel(:air_quality), true) %>"
       style="flex: 0 0 74%; width: 100%; height: 250px;" frameborder="0">
     </iframe>
   </div>
+  <hr>
   <div class="" style="min-height: 250px; height: calc(100vh - 325px); display: flex; flex-direction: column;">
     <iframe
       src="<%= grafana_iframe(@device_story.device_urn, grafana_panel(:air_quality_map), true) %>"
