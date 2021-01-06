@@ -12,11 +12,8 @@ module DeviceStoriesHelper
   end
 
   def grafana_url(variant = nil, is_airnote = false)
-    if is_airnote
-      url = ENV['DEVICE_STORIES_GRAFANA_BASE_URL'] || 'https://grafana.safecast.cc/d/7wsttvxGk/safecast-airnote'
-    else
-      url = ENV['DEVICE_STORIES_GRAFANA_BASE_URL'] || 'https://grafana.safecast.cc/d/DFSxrOLWk/safecast-device-details'
-    end
+    url = if is_airnote then ENV['DEVICE_STORIES_GRAFANA_BASE_URL'] || 'https://grafana.safecast.cc/d/7wsttvxGk/safecast-airnote'
+          else ENV['DEVICE_STORIES_GRAFANA_BASE_URL'] || 'https://grafana.safecast.cc/d/DFSxrOLWk/safecast-device-details' end
     uri = URI.parse(url)
     if variant == :solo
       parts = uri.path.split('/')
@@ -38,7 +35,7 @@ module DeviceStoriesHelper
     url.to_s.html_safe
   end
 
-  def grafana_iframe(device_urn, panel_id, is_airnote = false )
+  def grafana_iframe(device_urn, panel_id, is_airnote = false)
     url = grafana_url(:solo, is_airnote)
     args = {
       from: 'now-90d',
