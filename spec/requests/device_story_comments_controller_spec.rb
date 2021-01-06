@@ -16,16 +16,16 @@ RSpec.describe DeviceStoryCommentsController, type: :request do
     before { stub_request(:post, addressable).to_return(body: 'false') }
     it 'creates valid comment' do
       comment_params = { content: 'This is a test!', user_id: user.id }
-      expect { post device_story_device_story_comments_path(device_story_id: device_story.id),
-                    params: { device_story_comment: comment_params } }.to change { DeviceStoryComment.count }.by(1)
+      expect { post device_story_device_story_comments_path(device_story_id: device_story.id), params: { device_story_comment: comment_params } }
+        .to change { DeviceStoryComment.count }.by(1)
       expect(response.status).to eq 302
       expect(WebMock).to have_requested(:post, addressable)
     end
 
     it 'creates invalid comment' do
       comment_params = { content: 'a' * 1_001, user_id: user.id }
-      expect { post device_story_device_story_comments_path(device_story_id: device_story.id),
-                    params: { device_story_comment: comment_params } }.not_to change { DeviceStoryComment.count }
+      expect { post device_story_device_story_comments_path(device_story_id: device_story.id), params: { device_story_comment: comment_params } }
+        .to change { DeviceStoryComment.count }.by(0)
 
       expect { post '/device_stories/1/device_story_comments', params: { device_story_comment: comment_params } }.to change { DeviceStoryComment.count }.by(0)
       expect(response.status).to eq 302
