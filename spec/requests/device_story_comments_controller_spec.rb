@@ -8,6 +8,7 @@ RSpec.describe DeviceStoryCommentsController, type: :request do
 
   before do
     sign_in user
+    allow(Rakismet).to receive(:key).and_return('12345678')
   end
 
   describe 'POST #create' do
