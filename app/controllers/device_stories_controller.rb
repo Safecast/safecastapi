@@ -2,7 +2,11 @@
 
 class DeviceStoriesController < ApplicationController
   has_scope :order
+
+  before_action :authenticate_user!, only: %i(new create edit update destroy)
+
   layout :current_layout
+
   def index
     @device_stories = if params[:search].blank?
                         full_table
