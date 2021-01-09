@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MeasurementsController < ApplicationController
+class MeasurementsController < ApplicationController # rubocop:disable Metrics/ClassLength
   include SwaggerBlocks::Controllers::Measurements
 
   class << self
@@ -102,14 +102,42 @@ class MeasurementsController < ApplicationController
   end
 
   def count
-    @count = Rails.cache.fetch("measurement/#{Measurement.maximum(:id)}/count") do
-      Measurement.count
+    maximum_id = Measurement.maximum(:id) || -1
+
+    count_key = "measurement/#{maximum_id}/count"
+    lock_with("measurement/#{maximum_id}/count/lock") do
+      @count = Rails.cache.fetch(count_key) { Measurement.count }
     end
 
     respond_with count: @count
   end
 
   private
+
+  ##
+  # Try to do [Test-and-set](https://en.wikipedia.org/wiki/Test-and-set) with `lock_key`.
+  # It will wait for 9 seconds (30 * 0.3) to obtain lock.
+  # If it cannot obtain lock, it will output warning to log.
+  def lock_with(lock_key)
+    res = 30.times do
+      unless check_lock(lock_key)
+        yield
+        Rails.cache.write(lock_key, false)
+        break :yielded
+      end
+      sleep 0.3
+    end
+    Rails.logger.warn { 'Could not get lock' } unless res == :yielded
+  end
+
+  ##
+  # Checks if lock with `lock_key` exists.
+  # It returns `false` or `nil` if no lock exists. Otherwise, it returns `true`.
+  def check_lock(lock_key)
+    locked = Rails.cache.read(lock_key)
+    Rails.cache.write(lock_key, true)
+    locked
+  end
 
   def measurement_params
     params.fetch(:measurement, {}).permit(
