@@ -9,7 +9,7 @@ gem 'aws-sdk-elasticbeanstalk'
 gem 'aws-sdk-rails'
 gem 'bootsnap', require: false
 gem 'bootstrap-kaminari-views'
-gem 'bootstrap-sass', '~> 2.2.2.0'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'cancan'
 gem 'carrierwave', '~> 1.2.2'
 gem 'coffee-rails'

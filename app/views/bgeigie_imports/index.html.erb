@@ -1,16 +1,13 @@
 <%= content_for(:title) { t('.bgeigie_imports') } %>
 
-<ul class="inline pull-right">
-  <li>
-    <%= link_to t('.upload'), [:new, :bgeigie_import], :class => 'btn' %>
-  </li>
-</ul>
+<div class="pull-right">
+    <%= link_to t('.upload'), [:new, :bgeigie_import], :class => 'btn btn-default' %>
+</div>
 
 <h2><%= t(".bgeigie_imports") %></h2>
 
-<div class="navbar">
-  <div class="navbar-inner">
-    <ul class="nav">
+<nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">
       <%= bgeigie_nav_li(:all) %>
       <%= bgeigie_nav_li(:unprocessed) %>
       <%= bgeigie_nav_li(:processed) %>
@@ -30,8 +27,7 @@
         </li>
       <%- end -%>
     </ul>
-  </div>
-</div>
+</nav>
 
 <%= summarize_results(@bgeigie_imports) %>
 

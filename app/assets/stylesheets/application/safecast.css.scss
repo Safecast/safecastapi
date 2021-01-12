@@ -1,4 +1,3 @@
-@import "bootstrap";
 
 // colors
 
@@ -466,7 +465,7 @@ ul.measurement-listed {
 }
 
 .bootstrap-datetimepicker-widget {
-  z-index: 10000;
+  z-index: 10000 !important;
 }
 
 i.muted {

@@ -1,0 +1,9 @@
+
+@import "application/safecast";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+.status-text {
+  color: #202020;
+  font-size: 13px;
+  font-family: proxima-nova, sans-serif;
+}

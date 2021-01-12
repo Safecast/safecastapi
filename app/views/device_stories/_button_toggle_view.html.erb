@@ -1,5 +1,5 @@
 <%- if params[:fullscr] != "true"  -%>
-  <%= link_to "◤", device_stories_path(fullscr: "true", search: @search_term, page: params[:page], per_page: params[:per_page]), class: "btn btn-secondary" %>
+  <%= link_to "◤", device_stories_path(fullscr: "true", search: @search_term, page: params[:page], per_page: params[:per_page]), class: "btn btn-default btn-secondary" %>
 <%- else -%>
-  <%= link_to "◢", device_stories_path(fullscr: "false", search: @search_term, page: params[:page], per_page: params[:per_page]), class: "btn btn-secondary" %>
+  <%= link_to "◢", device_stories_path(fullscr: "false", search: @search_term, page: params[:page], per_page: params[:per_page]), class: "btn btn-default btn-secondary" %>
 <%- end -%>

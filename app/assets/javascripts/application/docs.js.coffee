@@ -15,5 +15,3 @@ jQuery ->
       window.prettyPrint && prettyPrint()
     return false
 
-  $('#api-nav').affix ->
-    offset: $('#api-nav').position()
