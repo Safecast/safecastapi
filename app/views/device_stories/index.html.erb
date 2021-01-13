@@ -4,6 +4,29 @@
 </div>
 
 <h2>Device Stories</h2>
+<div class="container">
+  <div class="row">
+    <div class='col-sm-6'>
+      <div class="form-group">
+        <div class='input-group date' id='datetimepicker1'>
+          <input type='text' class="form-control" />
+          <span class="input-group-addon">
+               <span class="glyphicon glyphicon-calendar"></span>
+               </span>
+        </div>
+      </div>
+    </div>
+    <% content_for :javascript do %>
+
+  <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+        });
+    </script>
+      <% end %>
+  </div>
+</div>
+<hr/>
 <div class="well" style="padding-bottom: 70px; padding-top: 20px">
     <div id="counter" style="text-align: center; float: left; margin-top: 15px;">
       <%= render 'counts'%>

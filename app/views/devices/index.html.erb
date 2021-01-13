@@ -2,12 +2,13 @@
   <%= t('.devices') %>
 <%- end -%>
 
-<div class="pull-right">
+<div class="pull-right" style="margin-top: 20px">
     <%= link_to t('.add_a_device'), [:new, :device], :class => 'btn btn-default' %>
 </div>
 
 <h2><%= t(".devices") %></h2>
 
+<hr/>
 <%= summarize_results(@devices) %>
 
 <%= show_filters :device, [:manufacturer, :model, :sensor] %>

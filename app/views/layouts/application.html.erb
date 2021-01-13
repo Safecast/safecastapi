@@ -134,6 +134,7 @@
                       <%= f.input :name %>
                       <%= f.input :time_zone %>
                       <%= f.input :default_locale, :collection => ['en-US', 'ja'] %>
+                      <hr/>
                       <%= f.button :wrapped, :cancel => '#', :cancel_options => {
                         :data => {
                           :dismiss => 'modal'
@@ -145,6 +146,7 @@
                      <%= simple_form_for current_user, url: :profile, html: { class: 'form-horizontal' } do |f| %>
                       <%= f.input :password, :as => :password %>
                       <%= f.input :password_confirmation, :as => :password %>
+                       <hr/>
                       <%= f.button :wrapped, :cancel => '#', :cancel_options => {
                         :data => {
                           :dismiss => 'modal'

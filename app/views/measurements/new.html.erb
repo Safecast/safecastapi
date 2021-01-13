@@ -9,19 +9,14 @@
         :id => 'submission'
       } do |f| %>
     <div class="row">
-      <div class="span9">
-        <h2><%= t('.contribute_your_measurement') %></h2>
-      </div>
-      <div class="span9">
-        <fieldset>
-          <p class="button">
-            <input type="submit" value="<%= t('submit') %>">
-          </p>
-        </fieldset>
+      <div class="col-md-9">
+        <h2 style="display: inline-block !important;"><%= t('.contribute_your_measurement') %></h2>
+
+        <hr/>
       </div>
     </div>
     <div class="row">
-      <div class="span4">
+      <div class="col-md-4">
         <%- if @measurement.errors.any? -%>  
           <div class="alert">
             <ul>
@@ -74,13 +69,13 @@
         </fieldset>
       </div>
 
-      <div class="span5">
+      <div class="col-md-5">
         <div class="map-container">
           <div class="map-crosshair"></div>
           <div id="map_canvas" class="map"></div>
         </div>
 
-        <div class="control-group span4">
+        <div class="control-group col-md-4">
           <%= label_tag :latitude, t('.latitude'), :class => 'control-label' %>
 
           <div class="controls">
@@ -88,7 +83,7 @@
           </div>
         </div>
 
-        <div class="control-group span4">
+        <div class="control-group col-md-4">
           <%= label_tag :longitude, t('.longitude'), :class => 'control-label' %>
           <div class="controls">
             <%= f.text_field :longitude, :id => 'longitude' %>
@@ -98,7 +93,7 @@
     </div>
     
     <div class="row">
-      <fieldset class="span4">
+      <fieldset class="col-md-4">
         <legend>
           <%= t("device") %>
         </legend>
@@ -114,7 +109,7 @@
         </div>
       </fieldset>
 
-      <fieldset class="span4 offset1">
+      <fieldset class="col-md-4 offset1">
         <legend>
           <%= t('.environment') %>
         </legend>
@@ -144,12 +139,11 @@
       </fieldset>
     </div>
     <div class="row">
-      <div class="span9">
-        <fieldset>
-          <p class="button">
+      <div class="col-md-4">
+        <hr/>
+          <div class="button" style="float:left">
             <input type="submit" value="<%= t('submit') %>">
-          </p>
-        </fieldset>
+          </div>
       </div>
     </div>
   <%- end -%>

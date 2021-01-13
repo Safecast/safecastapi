@@ -2,8 +2,8 @@
 
 <h2><%= t(".users") -%></h2>
 
+<hr/>
 <%= summarize_results(@users) %>
-
 <%= show_filters :user, [:name] %>
 
 <%= filter_modal :users do %>

@@ -1,12 +1,14 @@
 <%= content_for(:title) { t('.bgeigie_imports') } %>
 
-<div class="pull-right">
+<div class="pull-right" style="margin-top: 20px;">
     <%= link_to t('.upload'), [:new, :bgeigie_import], :class => 'btn btn-default' %>
 </div>
 
 <h2><%= t(".bgeigie_imports") %></h2>
 
+<hr/>
 <nav class="navbar navbar-default">
+  <div class="container-fluid">
     <ul class="nav navbar-nav">
       <%= bgeigie_nav_li(:all) %>
       <%= bgeigie_nav_li(:unprocessed) %>
@@ -15,7 +17,7 @@
       <%= bgeigie_nav_li(:done) %>
       <% bgeigie_nav_li(:error) %>
     </ul>
-    <ul class="nav pull-right">
+    <ul class="nav navbar-nav navbar-right">
       <%- if user_signed_in? -%>
         <li class="pull-right <%= 'active' if params[:by_user_id].blank? %>">
           <%= link_to t(".everyone"), params.to_unsafe_h.except(:by_user_id) %>
@@ -27,6 +29,7 @@
         </li>
       <%- end -%>
     </ul>
+  </div>
 </nav>
 
 <%= summarize_results(@bgeigie_imports) %>

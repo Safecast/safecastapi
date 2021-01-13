@@ -2,6 +2,7 @@
 
 <h2><%= t(".measurements") -%></h2>
 
+<hr/>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <ul class="nav navbar-nav">
@@ -99,7 +100,6 @@
           </fieldset>
 
           <fieldset class="col-md-5">
-
             <%= datetime_picker :measurement, :captured_after %>
             <%= datetime_picker :measurement, :captured_before %>
             <%= datetime_picker :measurement, :since %>
