@@ -1,14 +1,11 @@
-<div id="datetime-<%= attr_name %>" class="input-append date datetimepicker" style="z-index: 10000; display: inline-block; margin-bottom: 10px;">
+<div id="datetime-<%= attr_name %>" class="input-group date datetimepicker" style="margin-bottom: 5px;">
   <%= text_field_tag attr_name, params[attr_name],
-        :class => 'col-md-10',
+        :class => 'col-md-10', :style => 'padding-top: 5px; width: 175px',
         :data => {
           :format => 'yyyy/MM/dd hh:mm:ss'
         },
         :placeholder => human_label(model_name, attr_name) %>
-  <span class="add-on activate-tooltip"
-        data-original-title="<%= human_label(model_name, attr_name) %>"
-        data-placement="left">
-    <span class="glyphicon glyphicon-calendar" data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar">
-    </span>
+  <span class="input-group-addon">
+    <span class="glyphicon glyphicon-calendar"></span>
   </span>
 </div>

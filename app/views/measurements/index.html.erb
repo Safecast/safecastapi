@@ -97,6 +97,8 @@
             <%= filter_field :measurement, :latitude,   :prepend => 'º' %>
             <%= filter_field :measurement, :longitude,  :prepend => 'º' %>
             <%= filter_field :measurement, :distance,   :prepend => 'm' %>
+<hr width="250%"/>
+            <%= submit_tag t('filter'), :class => 'btn btn-primary' %>
           </fieldset>
 
           <fieldset class="col-md-5">
@@ -105,7 +107,6 @@
             <%= datetime_picker :measurement, :since %>
             <%= datetime_picker :measurement, :until %>
           </fieldset>
-          <%= submit_tag t('filter'), :class => 'btn' %>
         <%- end -%>
       </div>
     </div>

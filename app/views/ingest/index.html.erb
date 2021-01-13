@@ -21,13 +21,13 @@
 
 <hr/>
 <form method="get" class="well">
-  <table>
+  <table style="border-spacing: 10px; border-collapse: separate; border-spacing: 10px;">
     <tr>
       <td>
         <lable>Field: </lable>
       </td>
       <td>
-        <select name="field">
+        <select class="form-control" name="field">
           <%- fields.each do |value, lable| -%>
             <option value = "<%= value %>"><%= lable %></option>
           <%- end -%>
@@ -37,7 +37,7 @@
         Area:
       </td>
       <td>
-        <select name ="area">
+        <select class="form-control" name ="area">
         <%- locations.each do |value, lable| -%>
           <option value = "<%= value %>"><%= lable %></option>
         <%- end -%>
@@ -59,7 +59,7 @@
       </td>
     </tr>
   </table>
-  <input type="submit" value="Search" class = "btn">
+  <input type="submit" value="Search" class = "btn btn-default">
 </form>
 
 <h2>
