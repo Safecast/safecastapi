@@ -4,14 +4,14 @@
   <%= t('devices.index.devices') %>
 <%- end -%>
 
-<ul class="inline pull-right">
+<ul class="inline pull-right list-unstyled">
   <li>
-    <%= link_to t('.add_a_device'), [:new, :device], :class => 'btn' %>
+    <%= link_to t('.add_a_device'), [:new, :device], :class => 'btn btn-default' %>
   </li>
 </ul>
 
 <h2><%= @device.manufacturer %> <%= @device.model %></h2>
-
+<hr/>
 <dl class="dl-horizontal">
   <dt><%= t('.model') %></dt>
   <dd><%= @device.model %></dd>

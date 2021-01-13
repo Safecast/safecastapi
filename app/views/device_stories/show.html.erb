@@ -1,7 +1,6 @@
 <%= content_for(:title) do %>
   <%= @device_story.last_location_name %>
 <%- end -%>
-<div class="span9">
   <div class="row">
     <h2>
       <%= @device_story.last_location_name %> (<%= @device_story.device_urn %>)
@@ -9,7 +8,8 @@
         <div style="font-size: 15px"> <%= time_ago_in_words(@device_story.last_seen) %> ago</div>
       <%- end %>
     </h2>
-    <div class="span2" style="margin: 0; margin-right: 20px">
+    <hr/>
+    <div class="col-md-2" style="margin: 0; margin-right: 20px">
       <table class="table table-hover" style="min-width: 164px; max-width: 164px; table-layout: fixed; margin-top: 10%; word-wrap: break-word">
         <thead style="font-size: 13px">
         <tr>
@@ -33,7 +33,7 @@
       </table>
       <button type="button" style="font-size: 15px; width: 160px"><%= link_to 'More sensor data', grafana_more_data(@device_story.device_urn), target: :_blank %></button>
     </div>
-    <div class="span7">
+    <div class="col-md-9" style="margin-left: 50px">
       <iframe
         src="<%= grafana_iframe(@device_story.device_urn, grafana_panel(:cpm)) %>"
         width="100%" height="250" frameborder="0">
@@ -41,13 +41,13 @@
     </div>
   </div>
   <div class="spacer"></div>
+
   <div class="row">
     <iframe
       src="<%= grafana_iframe(@device_story.device_urn, grafana_panel(:map)) %>"
       width="100%" height="400" frameborder="0">
     </iframe>
   </div>
-</div>
 
 <div class="spacer"></div>
 <%= current_page_api_example :device_stories_url %>
