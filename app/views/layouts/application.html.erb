@@ -29,7 +29,7 @@
       <div class="row">
         <div class="col-md-3">
           <div class="sidebar-nav" data-spy="affix" data-offset-top="70">
-            <ul class="nav nav-pills nav-stacked">
+            <ul class="nav nav-pills nav-stacked navbar-default" style="border-radius: 10px">
               <%- if user_signed_in? -%>
                 <li <%= raw('class="active"') if controller_name == 'dashboard' %>>
                   <%= link_to t('.dashboard'), :dashboard %>

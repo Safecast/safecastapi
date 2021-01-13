@@ -6,6 +6,7 @@
     <p>
       <%= t('welcome_to_the_api_center') -%>
     </p>
+    <hr width="200%"/>
     <ul class="nav nav-pills nav-stacked well">
       <li class="nav-header">
         <%= t('from_here_you_can') -%>:
@@ -33,9 +34,10 @@
         <%= link_to t('review_your_bgeigie_log_file_submissions'), [:bgeigie_imports] %>
       </li>
     </ul>
+    <hr width="200%"/>
   </section>
 
-  <section class="col-md-4 dashboard">
+  <section class="col-md-5 dashboard">
     <ul class="list-unstyled">
       <li>
         <%= link_to [:measurements] do %>

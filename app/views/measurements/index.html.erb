@@ -3,6 +3,7 @@
 <h2><%= t(".measurements") -%></h2>
 
 <nav class="navbar navbar-default">
+  <div class="container-fluid">
     <ul class="nav navbar-nav">
       <li ><%= measurement_nav_li(:all) %></li>
       <li ><%= measurement_nav_li(:cpm) %></li>
@@ -13,13 +14,12 @@
         <li class="pull-right <%= 'active' if params[:user_id].blank? %>">
           <%= link_to t(".everyone"), params.to_unsafe_h.except(:user_id) %>
         </li>
-      <%- end -%>
-      <%- if user_signed_in? -%>
         <li class="pull-right <%= 'active' if params[:user_id] == current_user.id.to_s %>">
           <%= link_to t(".yours"), params.to_unsafe_h.merge(:user_id => current_user.id) %>
         </li>
       <%- end -%>
     </ul>
+  </div>
 </nav>
 
 <%= summarize_results(@measurements) %>

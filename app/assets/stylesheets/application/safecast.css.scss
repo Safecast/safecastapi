@@ -350,7 +350,6 @@ section.brief {
 section.dashboard {
   padding-top: 58px;
   ul li a {
-    margin-top: 50px;
     display: inline;
     float: left;
     text-align: center;
@@ -360,7 +359,8 @@ section.dashboard {
   ul li em {
     text-align: center;
     display: block;
-    font-size: 40px;
+    font-size: 30px;
+    margin-top: 75px;
     margin-bottom: 20px;
     text-decoration: none;
     font-style: normal;
