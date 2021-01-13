@@ -37,38 +37,40 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Safecast</a>
+            <div class="navbar-brand" href="#"> <%= image_tag image_url('h1.png') %></div>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <%- if user_signed_in? -%>
                 <li <%= raw('class="active"') if controller_name == 'dashboard' %>>
-                  <%= link_to t('.dashboard'), :dashboard %>
+                  <a href="/dashboard"><span class="glyphicon glyphicon-th" aria-hidden="true"> <%=t('.dashboard')%> </span></a>
                 </li>
               <%- end -%>
               <li <%= raw('class="active"') if controller_name == 'home' %>>
-                <%= link_to t('.safecast API'), :home %>
+                <a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"> <%=t('.safecast API')%> </span></a>
               </li>
               <li <%= raw('class="active"') if controller_name == 'users' %>>
-                <%= link_to t('.users'), :users %>
+                <a href="/users"><span class="glyphicon glyphicon-user" aria-hidden="true"> <%=t('.users')%> </span></a>
               </li>
               <li <%= raw('class="active"') if controller_name == 'measurements' %>>
-                <%= link_to t('.measurements'), :measurements %>
+                <a href="/measurements"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"> <%=t('.measurements')%> </span></a>
               </li>
               <li <%= raw('class="active"') if controller_name == 'bgeigie_imports' %>>
-                <%= link_to t('.bgeigie_imports'), bgeigie_imports_path(order: 'created_at asc') %>
+                <a href="/bgeigie_imports?order=created_at+asc"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"> <%=t('.bgeigie_imports')%> </span></a>
               </li>
               <li <%= raw('class="active"') if controller_name == 'devices' %>>
-                <%= link_to t('.devices'), :devices %>
+                <a href="/devices"><span class="glyphicon glyphicon-scale" aria-hidden="true"> <%=t('.devices')%> </span></a>
               </li>
               <li <%= raw('class="active"') if controller_name == 'device_stories' %>>
-                <%= link_to t('.device_stories'), :device_stories %>
+                <a href="/device_stories"><span class="glyphicon glyphicon-book" aria-hidden="true"> <%=t('.device_stories')%> </span></a>
               </li>
               <li <%= raw('class="active"') if controller_name == 'RadiationIndexController' %>>
-                <%= link_to t('.radiation_index'), :radiation_index %>
+                <a href="/radiation_index"><span class="glyphicon glyphicon-italic" aria-hidden="true"> <%=t('.radiation_index')%> </span></a>
               <li <%= raw('class="active"') if controller_name == 'ingest' %>>
-                <%= link_to t('.ingest_export'), :ingest %>
+                <a href="/ingest"><span class="glyphicon glyphicon-open" aria-hidden="true"> <%=t('.ingest_export')%> </span></a>
               </li>
+            </ul>
+            <%= render 'stuck_drives' if current_user.try!(:moderator?) %>
           </div><!--/.nav-collapse -->
         </div>
       </nav>

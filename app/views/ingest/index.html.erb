@@ -59,7 +59,7 @@
       </td>
     </tr>
   </table>
-  <input type="submit" value="Search" class = "btn btn-default">
+  <input type="submit" value="Search" class = "btn btn-primary">
 </form>
 
 <h2>
@@ -72,7 +72,7 @@
   No data
 <%- else -%>
   <ul class="inline pull-right">
-    <%=link_to( 'CSV Export', params.to_unsafe_h.merge(:format => 'csv'), :class => 'btn') %>
+    <%=link_to( 'CSV Export', params.to_unsafe_h.merge(:format => 'csv'), :class => 'btn btn-default') %>
   </ul>
 
   <table  class="table">
