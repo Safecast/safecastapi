@@ -21,7 +21,7 @@ class DeviceStoriesController < ApplicationController
     respond_with @device_story
   end
 
-  def show_mobile
+  def show_airnote
     @device_story = DeviceStory.where(device_urn: params[:device_urn]).first
     respond_with @device_story
   end
@@ -36,8 +36,6 @@ class DeviceStoriesController < ApplicationController
 
   def current_layout
     if params[:fullscr] == 'true'
-      'full_width_device_stories'
-    elsif !params[:device_urn].blank?
       'full_width_device_stories'
     else
       'application'

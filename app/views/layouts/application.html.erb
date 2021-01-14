@@ -28,15 +28,22 @@
 
 
 
-      <nav id="show-me" class="navbar navbar-default navbar-fixed-top">
+      <nav id="mobile-navbar" class="navbar navbar-default navbar-fixed-top">
         <div class="container">
           <div class="navbar-header">
+
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#profile-navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="glyphicon glyphicon-user"></span>
+            </button>
+
             <div class="navbar-brand" href="#"> <%= image_tag image_url('h1.png') %></div>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
@@ -72,13 +79,56 @@
             </ul>
             <%= render 'stuck_drives' if current_user.try!(:moderator?) %>
           </div><!--/.nav-collapse -->
+
+
+          <div id="profile-navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <%- if user_signed_in? -%>
+
+                <li>
+                  <%= link_to t('sign_out'), logout_path %>
+                </li>
+                <li>
+                  <%= link_to '#profile-modal', :title => t("profile"), :data => {
+                      :toggle => 'modal'
+                  } do %>
+                    <%= t('profile') %>
+                  <%- end -%>
+                </li>
+                <% if current_user.moderator -%>
+                  <li><%= link_to 'Admin', rails_admin_path, target: '_blank' -%></li>
+                <% end %>
+
+                <li <%= raw('class="active"') if controller_name == 'measurements' && action_name == 'new' %>>
+                  <%= link_to [:new, :measurement], :title => t('submit_a_reading') do %>
+                    <%= t('submit') %>
+                  <%- end -%>
+                </li>
+                <li <%= raw('class="active"') if controller_name == 'bgeigie_imports' && action_name == 'new' %>>
+                  <%= link_to [:new, :bgeigie_import], :title => t('upload') do %>
+                    <%= t('upload') %>
+                  <%- end -%>
+                </li>
+
+              <%- else -%>
+                <li <%= raw('class="active"') if controller_name == 'sessions' && ['new'].include?(action_name) %>>
+                  <%= link_to t("sign_in"), new_user_session_path %>
+                </li>
+                <li <%= raw('class="active"') if controller_name == 'registrations' && ['new'].include?(action_name) %>>
+                  <%= link_to t("sign_up"), new_user_registration_path %>
+                </li>
+              <%- end -%>
+            </ul>
+          </div><!--/.nav-collapse profile -->
+
+
         </div>
       </nav>
 
       <div class="row">
         <div class="col-md-3">
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <div class="sidebar-nav hide_me" data-spy="affix" data-offset-top="70">
+        <div id="desktop-navbar" class="sidebar-nav" data-spy="affix" data-offset-top="70">
             <ul class="nav nav-pills nav-stacked navbar-default" style="border-radius: 10px">
               <%- if user_signed_in? -%>
                 <li <%= raw('class="active"') if controller_name == 'dashboard' %>>

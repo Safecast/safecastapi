@@ -7,12 +7,25 @@ $subtle: lighten(desaturate($ocean,25%),10%);
 $sans: proxima-nova,sans-serif;
 
 @media only screen and (max-width: 1000px) {
-  .hide_me {
+  #desktop-navbar {
     display: none;
+  }
+
+  #safecast-logo {
+    display: none;
+  }
+
+  #dashboard {
+    margin-top: 50px;
+    display: none;
+  }
+
+  #spacing {
+    margin-top: 50px;
   }
 }
 @media only screen and (min-width: 1000px) {
-  #show-me {
+  #mobile-navbar {
     display: none !important;
   }
 }

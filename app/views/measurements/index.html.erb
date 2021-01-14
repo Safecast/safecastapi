@@ -90,25 +90,22 @@
           Filter Measurements
         </h3>
       </div>
-      <div class="modal-body" style="height: 250px">
         <%= form_tag params.to_unsafe_h.except(:commit).except(:utf8),
                      :method => :get do |f| %>
-          <fieldset class="col-md-5">
-            <%= filter_field :measurement, :latitude,   :prepend => 'º' %>
-            <%= filter_field :measurement, :longitude,  :prepend => 'º' %>
-            <%= filter_field :measurement, :distance,   :prepend => 'm' %>
-<hr width="250%"/>
-            <%= submit_tag t('filter'), :class => 'btn btn-primary' %>
-          </fieldset>
+        <div class="modal-body">
+          <%= filter_field :measurement, :latitude,   :prepend => 'º' %>
+          <%= filter_field :measurement, :longitude,  :prepend => 'º' %>
+          <%= filter_field :measurement, :distance,   :prepend => 'm' %>
 
-          <fieldset class="col-md-5">
-            <%= datetime_picker :measurement, :captured_after %>
-            <%= datetime_picker :measurement, :captured_before %>
-            <%= datetime_picker :measurement, :since %>
-            <%= datetime_picker :measurement, :until %>
-          </fieldset>
+          <%= datetime_picker :measurement, :captured_after %>
+          <%= datetime_picker :measurement, :captured_before %>
+          <%= datetime_picker :measurement, :since %>
+          <%= datetime_picker :measurement, :until %>
+        </div>
+        <div class="modal-footer">
+          <%= submit_tag t('filter'), :class => 'btn btn-primary' %>
+        </div>
         <%- end -%>
-      </div>
     </div>
   </div>
 </div>
