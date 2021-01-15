@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :bgeigie_imports
   has_many :measurements
   has_many :maps
-
+  has_many :device_story_comments
   scope :moderator, -> { where(moderator: true) }
 
   # Include default devise modules. Others available are:
