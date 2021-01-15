@@ -20,9 +20,9 @@
 <h2><%= t('.ingest_export') %></h2>
 
 <hr/>
-<form method="get" class="well">
-  <div style="display: flex; flex-wrap: wrap; margin-bottom: 10px">
-    <div style="margin-right: 100px; min-width: 200px">
+<form method="get" class="well text-center" >
+  <div style="display: flex; flex-wrap: wrap; margin-bottom: 10px; justify-content: space-evenly">
+    <div style=" min-width: 200px">
       <lable>Field: </lable>
       <select class="form-control" name="field">
         <%- fields.each do |value, lable| -%>
@@ -39,8 +39,8 @@
       </select>
     </div>
   </div>
-  <div style="display: flex; flex-wrap: wrap; margin-bottom: 20px">
-    <div style="margin-right: 100px; min-width: 200px">
+  <div style="display: flex; flex-wrap: wrap; margin-bottom: 20px; justify-content: space-evenly">
+    <div style=" min-width: 200px">
       <lable>Uploaded after: </lable>
       <input type="datetime-local" class="form-control" name="uploaded_after" value="2018-01-01T00:00">
     </div>

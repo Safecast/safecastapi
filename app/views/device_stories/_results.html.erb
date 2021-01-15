@@ -1,20 +1,22 @@
-<table class="table table-hover">
-  <thead>
-    <%= table_sort_header(:device, :device_urn) %>
-    <%= table_sort_header(:device, :custodian_name) %>
-    <%= table_sort_header(:device, :last_values) %>
-    <%= table_sort_header(:device, :last_location_name) %>
-    <%= table_sort_header(:device, :last_seen) %>
-  </thead>
-  <tbody>
-  <% device_stories.each do |device_story| %>
-    <tr onclick = "javascript: location.href = '<%=device_story_path(device_story) %>'">
-      <td><%= device_story.device_urn %></td>
-      <td><%= device_story.custodian_name %></td>
-      <td><%= device_story.last_values %></td>
-      <td><%= device_story.last_location_name %></td>
-      <td style="min-width: 100px"><%= device_story.last_seen %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <%= table_sort_header(:device, :device_urn) %>
+      <%= table_sort_header(:device, :custodian_name) %>
+      <%= table_sort_header(:device, :last_values) %>
+      <%= table_sort_header(:device, :last_location_name) %>
+      <%= table_sort_header(:device, :last_seen) %>
+    </thead>
+    <tbody>
+    <% device_stories.each do |device_story| %>
+      <tr onclick = "javascript: location.href = '<%=device_story_path(device_story) %>'">
+        <td><%= device_story.device_urn %></td>
+        <td><%= device_story.custodian_name %></td>
+        <td><%= device_story.last_values %></td>
+        <td><%= device_story.last_location_name %></td>
+        <td style="min-width: 100px"><%= device_story.last_seen %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

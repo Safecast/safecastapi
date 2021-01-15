@@ -1,14 +1,15 @@
+<%- if current_user.name.present? %>
+  <h2><%= t('hello') -%> <%= current_user.first_name %></h2>
+<%- end -%>
+<p>
+  <%= t('welcome_to_the_api_center') -%>
+</p>
+<hr/>
+
 <div class="row">
-  <section class="col-md-5">
-    <%- if current_user.name.present? %>
-      <h2><%= t('hello') -%> <%= current_user.first_name %></h2>
-    <%- end -%>
-    <p>
-      <%= t('welcome_to_the_api_center') -%>
-    </p>
-    <hr width="200%"/>
+  <section class="col-md-6">
     <ul class="nav nav-pills nav-stacked well">
-      <li class="nav-header">
+      <li class="nav-header" style="color: #777777;">
         <%= t('from_here_you_can') -%>:
       </li>
       <li>
@@ -24,7 +25,7 @@
       <li>
         <%= link_to t('view_your_submission_history'), :measurements %>
       </li>
-      <li class="nav-header">
+      <li class="nav-header" style="color: #777777;">
         <%= t('if_you_have_a_bgeigie') %>:
       </li>
       <li>
@@ -34,33 +35,37 @@
         <%= link_to t('review_your_bgeigie_log_file_submissions'), [:bgeigie_imports] %>
       </li>
     </ul>
-    <hr width="200%"/>
+    <hr width="100%"/>
   </section>
 
-  <section class="col-md-5 dashboard">
+  <section class="col-md-6 col-xs-12 text-center dashboard">
     <ul class="list-unstyled">
-      <li>
-        <%= link_to [:measurements] do %>
-          <em>
-            <%= number_with_delimiter current_user.measurements.size %>
-          </em>
-          <%= t('.submissions') %>
-        <%- end -%>
-      </li>
-      <li>
-        <%= link_to [:bgeigie_imports] do %>
-          <em><%= current_user.bgeigie_imports.size  %></em>
-          <%= t('.bgeigie_imports') -%>
-        <%- end -%>
-      </li>
-      <%- if current_user.moderator? && @unapproved_bgeigie_imports.any? -%>
-        <li>
-          <%= link_to bgeigie_imports_path(by_status: 'submitted')  do -%>
-            <em><%= @unapproved_bgeigie_imports.count -%></em>
-            <%= t('.imports_awaiting_approval') -%>
+      <div class="col-xs-6">
+        <li style="margin-bottom: 50px">
+          <%= link_to [:measurements] do %>
+            <em>
+              <%= number_with_delimiter current_user.measurements.size %>
+            </em>
+            <%= t('.submissions') %>
           <%- end -%>
         </li>
-      <%- end -%>
+        <%- if current_user.moderator? && @unapproved_bgeigie_imports.any? -%>
+          <li>
+            <%= link_to bgeigie_imports_path(by_status: 'submitted')  do -%>
+              <em><%= @unapproved_bgeigie_imports.count -%></em>
+              <%= t('.imports_awaiting_approval') -%>
+            <%- end -%>
+          </li>
+        <%- end -%>
+      </div>
+      <div class="col-xs-6">
+        <li>
+          <%= link_to [:bgeigie_imports] do %>
+            <em><%= current_user.bgeigie_imports.size  %></em>
+            <%= t('.bgeigie_imports') -%>
+          <%- end -%>
+        </li>
+      </div>
     </ul>
   </section>
 </div>

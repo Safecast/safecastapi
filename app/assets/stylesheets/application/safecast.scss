@@ -26,8 +26,12 @@ $sans: proxima-nova,sans-serif;
 }
 @media only screen and (min-width: 1000px) {
   #mobile-navbar {
-    display: none !important;
+    display: none;
   }
+}
+#nostack>li {
+  float: left;
+  display: inline-block;
 }
 
 // form
@@ -371,20 +375,15 @@ section.brief {
 
 //dashboard
 section.dashboard {
-  padding-top: 58px;
   ul li a {
     display: inline;
-    float: left;
     text-align: center;
-    width: 150px;
     //height: 150px;
   }
   ul li em {
     text-align: center;
     display: block;
     font-size: 30px;
-    margin-top: 75px;
-    margin-bottom: 20px;
     text-decoration: none;
     font-style: normal;
   }
@@ -488,7 +487,7 @@ ul.measurement-listed {
 }
 
 .bootstrap-datetimepicker-widget {
-  z-index: 10000 !important;
+  z-index: 10000;
 }
 
 i.muted {

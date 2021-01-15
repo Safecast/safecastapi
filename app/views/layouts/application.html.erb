@@ -2,6 +2,7 @@
 
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="shortcut icon" href="/favicon.ico" />
     <title>
       <%- if content_for?(:title) -%>
@@ -25,9 +26,6 @@
   <body data-spy="scroll" data-target=".doc-nav">
     <div class="container">
       <%= render :partial => 'shared/dashboard_navigation' %>
-
-
-
       <nav id="mobile-navbar" class="navbar navbar-default navbar-fixed-top">
         <div class="container">
           <div class="navbar-header">
@@ -47,34 +45,34 @@
             <div class="navbar-brand" href="#"> <%= image_tag image_url('h1.png') %></div>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav" style="border-radius: 10px">
               <%- if user_signed_in? -%>
                 <li <%= raw('class="active"') if controller_name == 'dashboard' %>>
-                  <a href="/dashboard"><span class="glyphicon glyphicon-th" aria-hidden="true"> <%=t('.dashboard')%> </span></a>
+                  <%= link_to t('.dashboard'), :dashboard %>
                 </li>
               <%- end -%>
               <li <%= raw('class="active"') if controller_name == 'home' %>>
-                <a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"> <%=t('.safecast API')%> </span></a>
+                <%= link_to t('.safecast API'), :home %>
               </li>
               <li <%= raw('class="active"') if controller_name == 'users' %>>
-                <a href="/users"><span class="glyphicon glyphicon-user" aria-hidden="true"> <%=t('.users')%> </span></a>
+                <%= link_to t('.users'), :users %>
               </li>
               <li <%= raw('class="active"') if controller_name == 'measurements' %>>
-                <a href="/measurements"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"> <%=t('.measurements')%> </span></a>
+                <%= link_to t('.measurements'), :measurements %>
               </li>
               <li <%= raw('class="active"') if controller_name == 'bgeigie_imports' %>>
-                <a href="/bgeigie_imports?order=created_at+asc"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"> <%=t('.bgeigie_imports')%> </span></a>
+                <%= link_to t('.bgeigie_imports'), bgeigie_imports_path(order: 'created_at asc') %>
               </li>
               <li <%= raw('class="active"') if controller_name == 'devices' %>>
-                <a href="/devices"><span class="glyphicon glyphicon-scale" aria-hidden="true"> <%=t('.devices')%> </span></a>
+                <%= link_to t('.devices'), :devices %>
               </li>
               <li <%= raw('class="active"') if controller_name == 'device_stories' %>>
-                <a href="/device_stories"><span class="glyphicon glyphicon-book" aria-hidden="true"> <%=t('.device_stories')%> </span></a>
+                <%= link_to t('.device_stories'), :device_stories %>
               </li>
               <li <%= raw('class="active"') if controller_name == 'RadiationIndexController' %>>
-                <a href="/radiation_index"><span class="glyphicon glyphicon-italic" aria-hidden="true"> <%=t('.radiation_index')%> </span></a>
+                <%= link_to t('.radiation_index'), :radiation_index %>
               <li <%= raw('class="active"') if controller_name == 'ingest' %>>
-                <a href="/ingest"><span class="glyphicon glyphicon-open" aria-hidden="true"> <%=t('.ingest_export')%> </span></a>
+                <%= link_to t('.ingest_export'), :ingest %>
               </li>
             </ul>
             <%= render 'stuck_drives' if current_user.try!(:moderator?) %>
