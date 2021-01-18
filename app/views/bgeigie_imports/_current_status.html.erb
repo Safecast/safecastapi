@@ -2,7 +2,7 @@
   <%- if !@bgeigie_import.rejected? && @bgeigie_import.queued_for_processing? -%>
     <div class="alert alert-block">
       <%= link_to t('.edit_metadata'), '#edit-details',
-            :class => 'pull-right btn',
+            :class => 'pull-right btn btn-default',
             :data => {:toggle => 'tab'} %>
       <h4><%= t(".this_file_is_queued_for_processing") %></h4>
       <%= t('.you_can_edit_metadata_while_processing') %>
@@ -12,7 +12,7 @@
   <%- if !@bgeigie_import.rejected? &&@bgeigie_import.processed? && !@bgeigie_import.ready_for_submission? -%>
     <div class="alert alert-block">
       <%= link_to t('.edit_metadata'), '#edit-details',
-            :class => 'pull-right btn',
+            :class => 'pull-right btn btn-default',
             :data => {:toggle => 'tab'} %>
       <h4><%= t(".file_is_processed_add_metadata") %></h4>
       <%= t(".explain_adding_metadata") %>

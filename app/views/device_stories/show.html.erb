@@ -76,12 +76,12 @@
     </tbody>
   </table>
 </div>
-<div style="margin-left: 5px;min-width: 500px">
+<div class="col-md-12" style="margin-left: 5px;">
   <%- if user_signed_in? %>
     <%= form_with model: DeviceStoryComment, url: device_story_device_story_comments_path(@device_story), local: true, method: 'post' do |form| %>
       <%= form.label :content, current_user.name %>
-      <%= form.text_area :content, :rows => 3, style: 'width:97%;' %>
-      <p><%= form.submit "Submit comment" %></p>
+      <%= form.text_area :content, :rows => 3, class: "form-control", style: 'width:97%;' %>
+      <p><%= form.submit "Submit comment", class: "form-control btn btn-primary", style: "margin-top: 10px; width: 200px;" %></p>
     <% end %>
   <% end %>
 </div>

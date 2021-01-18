@@ -10,14 +10,14 @@
     <%= measurement_nav_button(:cpm) %>
     <%= measurement_nav_button(:usv) %>
   </div>
-    <%- if user_signed_in? -%>
-      <button style="background-color: #f5f5f5;" class="btn btn-secondary pull-right <%= 'active' if params[:user_id].blank? %>">
-        <%= link_to t(".everyone"), params.to_unsafe_h.except(:user_id), {:style=>'color: grey;'} %>
-      </button>
-      <button style="background-color: #f5f5f5" class="btn btn-secondary pull-right <%= 'active' if params[:user_id] == current_user.id.to_s %>">
-        <%= link_to t(".yours"), params.to_unsafe_h.merge(:user_id => current_user.id), {:style=>'color: grey;'} %>
-      </button>
-    <%- end -%>
+  <%- if user_signed_in? -%>
+    <button style="background-color: #f5f5f5;" class="btn btn-secondary pull-right <%= 'active' if params[:user_id].blank? %>">
+      <%= link_to t(".everyone"), params.to_unsafe_h.except(:user_id), {:style=>'color: grey;'} %>
+    </button>
+    <button style="background-color: #f5f5f5" class="btn btn-secondary pull-right <%= 'active' if params[:user_id] == current_user.id.to_s %>">
+      <%= link_to t(".yours"), params.to_unsafe_h.merge(:user_id => current_user.id), {:style=>'color: grey;'} %>
+    </button>
+  <%- end -%>
 </div>
 
 <nav class="navbar navbar-default hidden-xs hidden-sm">

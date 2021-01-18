@@ -183,78 +183,74 @@
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
               <h3><%= t('.your_profile') %></h3>
             </div>
-
             <div class="modal-body" id="api-results">
-              <ul class="nav nav-tabs">
-                <li class="active">
-                  <%= link_to current_user.email, '#show-user', :data => {
-                    :toggle => 'tab'
-                  } %>
-                </li>
-
-                <li>
-                  <%= link_to t('.edit_profile'), '#edit-user', :data => {
-                    :toggle => 'tab'
-                  } %>
-                </li>
-
-                <li>
-                  <%= link_to t('.change_password'), '#change-password', :data => {
-                    :toggle => 'tab'
-                  } %>
-                </li>
-              </ul>
-
-                <div class="tab-content">
-                  <div class="tab-pane active" id="show-user">
-                    <div class="row">
-                      <section class="col-md-6">
-                        <h2>
-                          <%= t('profile') %>
-                        </h2>
-                        <ul>
-                          <dt><%= t('name') %></dt>
-                          <dd><%= current_user.name %></dd>
-                          <dt><%= t('time_zone') %></dt>
-                          <dd><%= current_user.time_zone %></dd>
-                          <dt><%= t('.default_locale') %></dt>
-                          <dd><%= current_user.default_locale %></dd>
-                        </ul>
-                        <dl class="well">
-                          <dt><%= t('your_api_key') %></dt>
-                          <dd><%= current_user.authentication_token %></dd>
-                        </dl>
-                      </section>
+              <div class="row">
+                <div class="col-xs-6" align="center" style="border-right: 1px solid #eeeeee;">
+                  <ul class="nav" style="max-width: 200px;">
+                    <li class="active btn btn-default" role="tab">
+                      <%= link_to 'Profile', '#show-user', :data => {
+                        :toggle => 'tab'
+                      } %>
+                    </li>
+                    <li class="btn btn-default" role="tab">
+                      <%= link_to t('.edit_profile'), '#edit-user', :data => {
+                        :toggle => 'tab'
+                      } %>
+                    </li>
+                    <li class="btn btn-default" role="tab">
+                      <%= link_to t('.change_password'), '#change-password', :data => {
+                        :toggle => 'tab'
+                      } %>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-xs-6">
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="show-user">
+                      <ul style="padding: 0px;">
+                        <dt><%= t('name') %></dt>
+                        <dd><%= current_user.name %></dd>
+                        <dt>E-mail</dt>
+                        <dd><%= current_user.email %></dd>
+                        <dt><%= t('time_zone') %></dt>
+                        <dd><%= current_user.time_zone %></dd>
+                        <dt><%= t('.default_locale') %></dt>
+                        <dd><%= current_user.default_locale %></dd>
+                      </ul>
+                      <dl class="well">
+                        <dt><%= t('your_api_key') %></dt>
+                        <dd style="word-wrap: break-word"><%= current_user.authentication_token %></dd>
+                      </dl>
+                    </div>
+                    <div class="tab-pane" id="edit-user">
+                      <%= simple_form_for current_user, url: :profile, html: { class: 'form-horizontal' } do |f| %>
+                        <%= f.input :email, input_html: { style: 'max-width: 150px;'} %>
+                        <%= f.input :name, input_html: { style: 'max-width: 150px;'} %>
+                        <%= f.input :time_zone, input_html: { style: 'max-width: 150px;'}%>
+                        <%= f.input :default_locale, :collection => ['en-US', 'ja'] %>
+                        <hr/>
+                        <%= f.button :wrapped, :cancel => '#', :cancel_options => {
+                          :data => {
+                            :dismiss => 'modal'
+                          }
+                        } %>
+                      <%- end -%>
+                    </div>
+                     <div class="tab-pane" id="change-password">
+                       <%= simple_form_for current_user, url: :profile, html: { class: 'form-horizontal' } do |f| %>
+                        <%= f.input :password, :as => :password, input_html: { style: 'max-width: 150px;'} %>
+                        <%= f.input :password_confirmation, :as => :password, input_html: { style: 'max-width: 150px;'} %>
+                         <hr/>
+                        <%= f.button :wrapped, :cancel => '#', :cancel_options => {
+                          :data => {
+                            :dismiss => 'modal'
+                          }
+                        } %>
+                      <%- end -%>
                     </div>
                   </div>
-                  <div class="tab-pane" id="edit-user">
-                    <%= simple_form_for current_user, url: :profile, html: { class: 'form-horizontal' } do |f| %>
-                      <%= f.input :email %>
-                      <%= f.input :name %>
-                      <%= f.input :time_zone %>
-                      <%= f.input :default_locale, :collection => ['en-US', 'ja'] %>
-                      <hr/>
-                      <%= f.button :wrapped, :cancel => '#', :cancel_options => {
-                        :data => {
-                          :dismiss => 'modal'
-                        }
-                      } %>
-                    <%- end -%>
-                  </div>
-                   <div class="tab-pane" id="change-password">
-                     <%= simple_form_for current_user, url: :profile, html: { class: 'form-horizontal' } do |f| %>
-                      <%= f.input :password, :as => :password %>
-                      <%= f.input :password_confirmation, :as => :password %>
-                       <hr/>
-                      <%= f.button :wrapped, :cancel => '#', :cancel_options => {
-                        :data => {
-                          :dismiss => 'modal'
-                        }
-                      } %>
-                    <%- end -%>
-                  </div>
                 </div>
-              </ul>
+              </div>
             </div>
           </div>
         </div>

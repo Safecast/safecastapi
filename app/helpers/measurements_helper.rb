@@ -27,15 +27,14 @@ module MeasurementsHelper
   end
 
   def measurement_nav_button(unit) # rubocop:disable Metrics/AbcSize
-  active = if params[:unit].blank?
-             unit == :all
-           else
-             params[:unit] == unit.to_s
-           end
-  url_params = params.to_unsafe_h.except(:action, :controller).merge(unit: (unit == :all ? nil : unit))
-  content_tag(:button, style: "background-color: #f5f5f5; color: black", class: 'btn btn-secondary ' + (active ? 'active' : ' ')) do
-    link_to t(unit.to_s), measurements_url(url_params), {:style=>'color: grey;'}
+    active = if params[:unit].blank?
+               unit == :all
+             else
+               params[:unit] == unit.to_s
+             end
+    url_params = params.to_unsafe_h.except(:action, :controller).merge(unit: (unit == :all ? nil : unit))
+    content_tag(:button, style: 'background-color: #f5f5f5; color: black', class: 'btn btn-secondary ' + (active ? 'active' : ' ')) do
+      link_to t(unit.to_s), measurements_url(url_params), { style: 'color: grey;' }
+    end
   end
-  end
-
 end

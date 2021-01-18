@@ -7,7 +7,31 @@
   <h2 style="margin-left: 15px"><%= t(".bgeigie_imports") %></h2>
 </div>
 <hr/>
-<nav class="navbar navbar-default">
+
+<div class="visible-xs visible-sm">
+  <div class="col-md-12 well" style="padding: 0px;">
+    <div class="btn-group" role="group" aria-label="">
+        <%= bgeigie_nav_button(:all) %>
+        <%= bgeigie_nav_button(:unprocessed) %>
+        <%= bgeigie_nav_button(:processed) %>
+        <%= bgeigie_nav_button(:submitted) %>
+        <%= bgeigie_nav_button(:done) %>
+        <% bgeigie_nav_button(:error) %>
+    </div>
+  </div>
+  <div class="row col-md-12" style="margin-bottom: 20px;">
+    <%- if user_signed_in? -%>
+      <button style="background-color: #f5f5f5;" class="btn btn-secondary pull-right <%= 'active' if params[:by_user_id].blank? %>">
+        <%= link_to t(".everyone"), params.to_unsafe_h.except(:by_user_id), {:style=>'color: grey;'} %>
+      </button>
+      <button style="background-color: #f5f5f5" class="btn btn-secondary pull-right <%= 'active' if params[:by_user_id] == current_user.id.to_s %>">
+        <%= link_to t(".yours"), params.to_unsafe_h.merge(:by_user_id => current_user.id), {:style=>'color: grey;'} %>
+      </button>
+    <%- end -%>
+  </div>
+</div>
+
+<nav class="navbar navbar-default hidden-xs hidden-sm">
   <div class="container-fluid">
     <ul class="nav navbar-nav">
       <%= bgeigie_nav_li(:all) %>

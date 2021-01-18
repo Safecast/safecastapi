@@ -1,20 +1,14 @@
-<ul class="nav nav-tabs">
-  <li
-    <%- if controller_name == 'measurements' && action_name == 'new' -%>
-      class="active"
-    <%- end -%>
-  >
-    <%= link_to [:new, :measurement] do %>
-      <%= t('.submit_a_single_measurement') -%>
-    <%- end -%>
-  </li>
-  <li
-    <%- if controller_name == 'bgeigie_imports' && action_name == 'new' -%>
-      class="active"
-    <%- end -%>
-  >
-    <%= link_to [:new, :bgeigie_import] do %>
-      <%= t('.upload_a_bgeigie_log_file') -%>
-    <%- end -%>
-  </li>
-</ul>
+<div class="row" align="center" style="padding: 0px">
+    <div class="btn-group" role="group" aria-label="">
+      <button style="background-color: #f5f5f5;" class="btn btn-secondary <%= 'active' if controller_name == 'measurements' && action_name == 'new' %>">
+        <%= link_to [:new, :measurement], {:style=>'color: grey;'} do %>
+          <%= t('.submit_a_measurement') -%>
+        <%- end -%>
+      </button>
+      <button style="background-color: #f5f5f5" class="btn btn-secondary <%= 'active' if controller_name == 'bgeigie_imports' && action_name == 'new' %>">
+        <%= link_to [:new, :bgeigie_import], {:style=>'color: grey;'} do %>
+          <%= t('.upload_a_bgeigie_log_file') -%>
+        <%- end -%>
+      </button>
+    </div>
+</div>

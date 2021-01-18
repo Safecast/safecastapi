@@ -17,8 +17,8 @@
 </div>
 
 <div class="row">
-  <div class="span9">
-    <ul class="nav nav-tabs">
+  <div class="col-md-12">
+    <ul class="nav nav-tabs navbar-default">
       <li <%= raw('class="active"') unless ['edit', 'update'].include?(action_name) %>><a href="#metadata" data-toggle="tab"><%= t('.metadata') %></a></li>
       <li>
         <a href="#process-log" data-toggle="tab"><%= t('.process_log') %></a>
@@ -65,11 +65,11 @@
   </div>
 </div>
 
-<div class="tab-content">
+<div class="tab-content" style="margin-top: 20px;">
   <div class="tab-pane <%= 'active' unless ['edit', 'update'].include?(action_name) %>" id="metadata">
     <%= render 'show' %>
     <div class="row">
-      <div class="span3">
+      <div class="col-md-3">
         <%= tilemap_link(@bgeigie_import) %>
       </div>
     </div>

@@ -1,9 +1,9 @@
 <div class="row">
   <%= render 'static_metadata' %>
-  <div class="span7">
+  <div class="col-md-7">
     <%= simple_form_for @bgeigie_import, html: { class: 'form-horizontal' } do |f| %>
       <%= f.input :name,
-                  :input_html => {:class => 'span4'},
+                  :input_html => {:class => 'col-md-4'},
                   :label_html => {
                     :class => 'activate-tooltip',
                     :data => {
@@ -15,7 +15,7 @@
       <%= f.input :description,
                   :input_html => {
                     :rows => 3,
-                    :class => 'span4'
+                    :class => 'col-md-4'
                   },
                   :label_html => {
                     :class => 'activate-tooltip',
@@ -29,7 +29,7 @@
                   :as => :text,
                   :input_html => {
                     :rows => 3,
-                    :class => 'span4'
+                    :class => 'col-md-4'
                   },
                   :label_html => {
                     :class => 'activate-tooltip',
@@ -43,7 +43,7 @@
                   :as => :text,
                   :input_html => {
                     :rows => 3,
-                    :class => 'span4'
+                    :class => 'col-md-4'
                   },
                   :label_html => {
                     :class => 'activate-tooltip',
@@ -57,7 +57,7 @@
                         :as => :text,
                         :input_html => {
                           :rows => 3,
-                          :class => 'span4'
+                          :class => 'col-md-4'
                         },
                         :label_html => {
                           :class => 'activate-tooltip',
@@ -70,7 +70,7 @@
 
       <%= f.input :height,
                   :input_html => {
-                    :class => 'span2',
+                    :class => 'col-md-2',
                     :step => '0.1'
                   },
                   :label_html => {

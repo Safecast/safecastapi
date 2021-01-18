@@ -1,10 +1,10 @@
 <div class="row">
-  <div class="span9">
+  <div class="col-md-12">
     <%= render 'current_status' %>
     <%- if content_for?(:current_status) -%>
       <div id="current-status"><%= content_for(:current_status) %></div>
     <%- end -%>
-    <ul class="inline nav-stacked pull-right">
+    <ul class="list-inline nav nav-pills pull-right">
       <%- if user_signed_in? -%>
         <%# buttons in this block are logged-in users %>
         <%- if current_user.moderator? -%>
@@ -42,19 +42,18 @@
         <%- end -%>
       <%- end -%>
       <li>
-        <%= link_to t('.download_in_kml'), kml_bgeigie_import_path(@bgeigie_import), class: 'btn' %>
+        <%= link_to t('.download_in_kml'), kml_bgeigie_import_path(@bgeigie_import), class: 'btn btn-default' %>
       </li>
       <li>
         <%= link_to t(".download_original_file"),
               @bgeigie_import.source.url,
-              :class => 'btn' %>
+              :class => 'btn btn-default' %>
       </li>
     </ul>
-
     <h2>
       <%= t '.bgeigie_import' -%> #<%= @bgeigie_import.source.filename -%>
-
       <small>
+        <br>
         <%= render 'bgeigie_imports/status' -%>
       </small>
     </h2>

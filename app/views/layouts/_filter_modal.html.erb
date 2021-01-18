@@ -1,27 +1,25 @@
-<div class="container-fluid" style="display: flex; flex-wrap: wrap">
-  <div id="filter-modal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content" style="flex-wrap: wrap">
-        <%= form_tag params.to_unsafe_h.except(:commit).except(:utf8),
-                   :method => :get,
-                   :class => '' do |f| %>
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <h3>
-              <%= t(".filter_#{name}") %>
-            </h3>
+<div id="filter-modal" class="modal fade" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_tag params.to_unsafe_h.except(:commit).except(:utf8),
+                 :method => :get,
+                 :class => '' do |f| %>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3>
+            <%= t(".filter_#{name}") %>
+          </h3>
 
-          </div>
+        </div>
 
-          <div class="modal-body">
-            <%= form %>
-            <hr/>
-            <%= submit_tag t('filter'), :class => 'btn btn-primary' %>
-          </div>
-        <%- end -%>
-      </div>
+        <div class="modal-body">
+           <%= form %>
+          <hr/>
+          <%= submit_tag t('filter'), :class => 'btn btn-primary' %>
+        </div>
+      <%- end -%>
     </div>
   </div>
 </div>
