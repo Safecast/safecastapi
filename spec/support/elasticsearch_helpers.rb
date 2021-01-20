@@ -6,7 +6,7 @@ module ElasticsearchHelpers
     client.indices.put_template(
       name: index_prefix,
       body: {
-        template: index_prefix + '-*',
+        template: "#{index_prefix}-*",
         order: 0,
         settings: {
           number_of_shards: 1,

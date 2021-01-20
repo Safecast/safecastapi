@@ -1,5 +1,5 @@
 class DeviseCreateUsers < ActiveRecord::Migration
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength
   def change
     create_table(:users) do |t|
       t.string :email, null: false, default: ''
@@ -20,5 +20,5 @@ class DeviseCreateUsers < ActiveRecord::Migration
     add_index :users, :reset_password_token, unique: true
     add_index :users, :authentication_token, unique: true
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength
 end
