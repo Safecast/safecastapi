@@ -12,13 +12,14 @@
 
 <h2><%= @device.manufacturer %> <%= @device.model %></h2>
 <hr/>
-<dl class="dl-horizontal">
-  <dt><%= t('.model') %></dt>
-  <dd><%= @device.model %></dd>
 
-  <dt><%= t('.sensor') %></dt>
-  <dd><%= @device.sensor %></dd>
-
-</dl>
+<div class="well">
+  <dl class="dl-horizontal">
+    <dt><%= t('.model') %></dt>
+    <dd><%= @device.model %></dd>
+    <dt><%= t('.sensor') %></dt>
+    <dd><%= @device.sensor %></dd>
+  </dl>
+</div>
 <div class="spacer"></div>
 <%= current_page_api_example :device_url %>

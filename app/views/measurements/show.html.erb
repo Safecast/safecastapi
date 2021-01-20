@@ -48,9 +48,9 @@
   <% if can? :delete, @measurement %>
   <div class="row">
     <div class="col-md-9">
-      <%= link_to t('.delete_this_measurement'), '#delete-measurement', :data => {
+      <%= link_to t('.delete'), '#delete-measurement', :data => {
         :toggle => 'modal'
-      }, :class => 'pull-right muted' %>
+      }, :class => 'btn btn-danger', style: 'color: white;' %>
     </div>
   </div>
     </div>

@@ -4,19 +4,19 @@
       <div class="progress-bar progress-bar-success" style="width: 16%">
         <%= t('.progress_uploaded') %>
       </div>
-      <div class="progress-bar <%= @bgeigie_import.processed? ? 'bar-success' : 'bar-warning' %>" style="width: 17%">
+      <div class="progress-bar <%= @bgeigie_import.processed? ? 'progress-bar-success' : 'progress-bar-warning' %>" style="width: 17%">
         <%= t('.progress_processed') %>
       </div>
-      <div class="progress-bar <%= @bgeigie_import.metadata_added? ? 'bar-success' : 'bar-warning' %>" style="width: 16%">
+      <div class="progress-bar <%= @bgeigie_import.metadata_added? ? 'progress-bar-success' : 'progress-bar-warning' %>" style="width: 16%">
         <%= t('.progress_metadata') %>
       </div>
-      <div class="progress-bar <%= @bgeigie_import.submitted? ? 'bar-success' : 'bar-warning' %>" style="width: 17%">
+      <div class="progress-bar <%= @bgeigie_import.submitted? ? 'progress-bar-success' : 'progress-bar-warning' %>" style="width: 17%">
         <%= t('.progress_submitted') %>
       </div>
-      <div class="progress-bar <%= @bgeigie_import.approved? ? 'bar-success' : 'bar-warning' %>" style="width: 17%">
+      <div class="progress-bar <%= @bgeigie_import.approved? ? 'progress-bar-success' : 'progress-bar-warning' %>" style="width: 17%">
         <%= t('.progress_approved') %>
       </div>
-      <div id="done" class="progress-bar <%= @bgeigie_import.done? ? 'bar-success' : 'bar-warning' %>" style="width: 17%">
+      <div id="done" class="progress-bar <%= @bgeigie_import.done? ? 'progress-bar-success' : 'progress-bar-warning' %>" style="width: 17%">
         <%= t('.progress_live') %>
       </div>
     </div>

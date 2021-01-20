@@ -45,7 +45,7 @@ module BgeigieImportsHelper
 
   def operation_button(bgeigie_import, action, text = t(format('.%<action>s', action: action)))
     form_for bgeigie_import, url: { action: action } do |f|
-      f.submit text, class: 'btn btn-primary', style: 'width: 100%'
+      f.submit text, class: 'btn btn-primary'
     end
   end
 

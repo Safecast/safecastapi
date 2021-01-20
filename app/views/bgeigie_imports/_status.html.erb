@@ -27,5 +27,5 @@
   <%- end -%>
 <%- end -%>
 <%- if !@bgeigie_import.rejected? && @bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? -%>
-<span class="status-text">If rejecting, please enter a comment in Metadata.</span>
+<mark class="status-text">If rejecting, please enter a comment in Metadata.</mark>
 <%- end -%>

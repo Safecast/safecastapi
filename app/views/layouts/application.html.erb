@@ -185,28 +185,28 @@
             </div>
             <div class="modal-body" id="api-results">
               <div class="row">
-                <div class="col-xs-6" align="center" style="border-right: 1px solid #eeeeee;">
-                  <ul class="nav" style="max-width: 200px;">
-                    <li class="active btn btn-default" role="tab">
+                <div class="col-xs-5" align="center" style="border-right: 1px solid #eeeeee;">
+                  <ul class="nav profile-tab" style="max-width: 200px;">
+                    <li class="active btn btn-default btn-lg" role="tab">
                       <%= link_to 'Profile', '#show-user', :data => {
-                        :toggle => 'tab'
+                          :toggle => 'tab'
                       } %>
                     </li>
-                    <li class="btn btn-default" role="tab">
+                    <li class="btn btn-default btn-lg" role="tab">
                       <%= link_to t('.edit_profile'), '#edit-user', :data => {
-                        :toggle => 'tab'
+                      :toggle => 'tab'
                       } %>
                     </li>
-                    <li class="btn btn-default" role="tab">
+                    <li class="btn btn-default btn-lg" role="tab">
                       <%= link_to t('.change_password'), '#change-password', :data => {
                         :toggle => 'tab'
                       } %>
                     </li>
                   </ul>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-xs-7">
                   <div class="tab-content">
-                    <div class="tab-pane active" id="show-user">
+                    <div class="tab-pane active text-center" id="show-user">
                       <ul style="padding: 0px;">
                         <dt><%= t('name') %></dt>
                         <dd><%= current_user.name %></dd>
@@ -222,12 +222,12 @@
                         <dd style="word-wrap: break-word"><%= current_user.authentication_token %></dd>
                       </dl>
                     </div>
-                    <div class="tab-pane" id="edit-user">
+                    <div class="tab-pane text-center" id="edit-user">
                       <%= simple_form_for current_user, url: :profile, html: { class: 'form-horizontal' } do |f| %>
-                        <%= f.input :email, input_html: { style: 'max-width: 150px;'} %>
-                        <%= f.input :name, input_html: { style: 'max-width: 150px;'} %>
-                        <%= f.input :time_zone, input_html: { style: 'max-width: 150px;'}%>
-                        <%= f.input :default_locale, :collection => ['en-US', 'ja'] %>
+                        <%= f.input :email, input_html: { class: 'form-control' } %>
+                        <%= f.input :name, input_html: { class: 'form-control' } %>
+                        <%= f.input :time_zone, input_html: {  class: 'form-control' } %>
+                        <%= f.input :default_locale, :collection => ['en-US', 'ja'], input_html: {  class: 'form-control' } %>
                         <hr/>
                         <%= f.button :wrapped, :cancel => '#', :cancel_options => {
                           :data => {
@@ -236,10 +236,10 @@
                         } %>
                       <%- end -%>
                     </div>
-                     <div class="tab-pane" id="change-password">
+                    <div class="tab-pane text-center" id="change-password">
                        <%= simple_form_for current_user, url: :profile, html: { class: 'form-horizontal' } do |f| %>
-                        <%= f.input :password, :as => :password, input_html: { style: 'max-width: 150px;'} %>
-                        <%= f.input :password_confirmation, :as => :password, input_html: { style: 'max-width: 150px;'} %>
+                        <%= f.input :password, :as => :password, input_html: { class: 'form-control' } %>
+                        <%= f.input :password_confirmation, :as => :password, input_html: { class: 'form-control', style: 'color: green;' } %>
                          <hr/>
                         <%= f.button :wrapped, :cancel => '#', :cancel_options => {
                           :data => {

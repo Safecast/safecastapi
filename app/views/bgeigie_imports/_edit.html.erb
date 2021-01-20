@@ -1,86 +1,14 @@
 <div class="row">
-  <%= render 'static_metadata' %>
-  <div class="col-md-7">
+  <div class="well col-xs-12"> <%= render 'static_metadata' %> </div>
+  <div class="col-xs-12">
     <%= simple_form_for @bgeigie_import, html: { class: 'form-horizontal' } do |f| %>
-      <%= f.input :name,
-                  :input_html => {:class => 'col-md-4'},
-                  :label_html => {
-                    :class => 'activate-tooltip',
-                    :data => {
-                      'original-title' => t('.title_tooltip'),
-                      :placement => 'right'
-                    }
-                  }
-      %>
-      <%= f.input :description,
-                  :input_html => {
-                    :rows => 3,
-                    :class => 'col-md-4'
-                  },
-                  :label_html => {
-                    :class => 'activate-tooltip',
-                    :data => {
-                      'original-title' => t('.description_tooltip'),
-                      :placement => 'right'
-                    }
-                  }
-      %>
-      <%= f.input :credits,
-                  :as => :text,
-                  :input_html => {
-                    :rows => 3,
-                    :class => 'col-md-4'
-                  },
-                  :label_html => {
-                    :class => 'activate-tooltip',
-                    :data => {
-                      'original-title' => t('.credits_tooltip'),
-                      :placement => 'right'
-                    }
-                  }
-      %>
-      <%= f.input :cities,
-                  :as => :text,
-                  :input_html => {
-                    :rows => 3,
-                    :class => 'col-md-4'
-                  },
-                  :label_html => {
-                    :class => 'activate-tooltip',
-                    :data => {
-                      'original-title' => t('.cities_tooltip'),
-                      :placement => 'right'
-                    }
-                  }
-      %>
-            <%= f.input :comment,
-                        :as => :text,
-                        :input_html => {
-                          :rows => 3,
-                          :class => 'col-md-4'
-                        },
-                        :label_html => {
-                          :class => 'activate-tooltip',
-                          :data => {
-                            'original-title' => t('.comment_tooltip'),
-                            :placement => 'right'
-                          }
-                        }
-            %>
+      <%= f.input :name, input_html: {class: 'form-control'} %>
+      <%= f.input :description, input_html: {class: 'form-control'} %>
+      <%= f.input :credits, input_html: {class: 'form-control'} %>
+      <%= f.input :cities, input_html: {class: 'form-control'} %>
+      <%= f.input :comment, input_html: {class: 'form-control'} %>
 
-      <%= f.input :height,
-                  :input_html => {
-                    :class => 'col-md-2',
-                    :step => '0.1'
-                  },
-                  :label_html => {
-                    :class => 'activate-tooltip',
-                    :data => {
-                      'original-title' => t('.height_tooltip'),
-                      :placement => 'right'
-                    }
-                  }
-      %>
+      <%= f.input :height, input_html: {class: 'form-control'} %>
       <%= f.input :orientation, :collection => [
         'Facing Left',
         'Facing Right',
@@ -88,26 +16,14 @@
         'Facing Front',
         'Facing Back',
         'Facing Up'
-        ],  :label_html => {
-              :class => 'activate-tooltip',
-              :data => {
-                'original-title' => t('.orientation_tooltip'),
-                :placement => 'right'
-              }
-            }
-      %>
+        ], input_html: {class: 'form-control'}%>
       <%= f.input :subtype,
                   :collection => %w(Drive Surface Cosmic None),
                   :selected => "Drive",
                   :include_blank => false,
-                  :label_html => {
-                      :class => 'activate-tooltip',
-                      :data => {
-                          'original-title' => t('.subtype_tooltip'),
-                          :placement => 'right'
-                      }
-                  }
-      %>
+                  input_html: {class: 'form-control'}
+                  %>
+
       <%= f.button :wrapped, :cancel => @bgeigie_import %>
     <%- end -%>
 

@@ -1,7 +1,4 @@
-<ul class="list-unstyled nav navbar-default" id="progress" data-status="<%= @bgeigie_import.status -%>">
-  <li style="color: grey;">
-    <h4><%= t '.progress' %></h4>
-  </li>
+<ul class="list-unstyled well" id="progress" data-status="<%= @bgeigie_import.status -%>">
   <li>
     <%- if @bgeigie_import.status_details[:process_file].present? -%>
       <%= t('process_file') %> (<%= t(".count_lines", :count => @bgeigie_import.lines_count) -%>)

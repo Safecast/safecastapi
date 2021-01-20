@@ -1,4 +1,4 @@
 <%= form_for [:send_email, @bgeigie_import] do |f| %>
-  <%= text_area_tag "email_body", nil, class: 'email-textarea' %><br>
+  <%= text_area_tag "email_body", nil, class: 'form-control', rows: 10 %><br>
   <%= f.submit t('.send_email'), :class => 'btn btn-primary' %>
 <%- end -%>

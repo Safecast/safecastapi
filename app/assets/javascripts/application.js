@@ -34,6 +34,6 @@ if (searchForm) {
   if (searchBox) {
     searchBox.addEventListener("input", _.debounce(function () {
       searchForm.submit();
-    }, 500));
+    }, 200));
   }
 }
