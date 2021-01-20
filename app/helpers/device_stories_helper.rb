@@ -11,8 +11,8 @@ module DeviceStoriesHelper
     panels[name]
   end
 
-  def grafana_url(variant = nil, is_airnote = false)
-    url = if is_airnote then ENV['DEVICE_STORIES_GRAFANA_BASE_URL'] || 'https://grafana.safecast.cc/d/7wsttvxGk/safecast-airnote'
+  def grafana_url(variant = nil, panel_id = nil)
+    url = if panel_id == 15 || panel_id == 21 then ENV['DEVICE_STORIES_GRAFANA_BASE_URL'] || 'https://grafana.safecast.cc/d/7wsttvxGk/safecast-airnote'
           else ENV['DEVICE_STORIES_GRAFANA_BASE_URL'] || 'https://grafana.safecast.cc/d/DFSxrOLWk/safecast-device-details' end
     uri = URI.parse(url)
     if variant == :solo
@@ -23,8 +23,8 @@ module DeviceStoriesHelper
     uri
   end
 
-  def grafana_more_data(device_urn, is_airnote = false)
-    url = grafana_url(nil, is_airnote)
+  def grafana_more_data(device_urn)
+    url = grafana_url()
     args = {
       from: 'now-90d',
       to: 'now',
@@ -35,8 +35,8 @@ module DeviceStoriesHelper
     url.to_s.html_safe
   end
 
-  def grafana_iframe(device_urn, panel_id, is_airnote = false)
-    url = grafana_url(:solo, is_airnote)
+  def grafana_iframe(device_urn, panel_id)
+    url = grafana_url(:solo, panel_id)
     args = {
       from: 'now-90d',
       to: 'now',
