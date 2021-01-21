@@ -3,10 +3,10 @@
 module DeviceStoriesHelper
   def grafana_panel(name)
     panels = {
-      cpm: {id: 14, is_airnote: false},
-      map: {id: 8, is_airnote: false},
-      air_quality: {id: 15, is_airnote: true},
-      air_quality_map: {id: 21, is_airnote: true}
+      cpm: { id: 14, is_airnote: false },
+      map: { id: 8, is_airnote: false },
+      air_quality: { id: 15, is_airnote: true },
+      air_quality_map: { id: 21, is_airnote: true }
     }
     panels[name]
   end
