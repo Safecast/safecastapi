@@ -19,7 +19,6 @@ module BgeigieImportsHelper
              end
     content_tag(:button, style: 'background-color: #f5f5f5; color: black', class: 'btn btn-secondary ' + (active ? 'active' : ' ')) do
       p = get_p_params(status)
-      p[:page] = nil unless active
       link_to t("bgeigie_imports.states.#{status}"), bgeigie_imports_url(p), { style: 'color: grey; font-size: 11px;' }
     end
   end
