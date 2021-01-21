@@ -1,6 +1,15 @@
 <h2>Radiation Index</h2>
 <hr/>
-<div class="navbar navbar-default">
+
+<div class="col-md-12 well visible-xs visible-sm" style="padding: 0px">
+  <div class="btn-group" role="group" aria-label="">
+    <%= rindex_nav_button(:average) %>
+    <%= rindex_nav_button(:minimum) %>
+    <%= rindex_nav_button(:maximum) %>
+  </div>
+</div>
+
+<div class="navbar navbar-default hidden-xs hidden-sm">
   <div class="container-fluid">
     <ul class="nav navbar-nav">
       <%= rindex_nav_li(:average) %>
