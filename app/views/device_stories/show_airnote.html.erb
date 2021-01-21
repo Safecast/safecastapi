@@ -43,14 +43,14 @@
       </table>
     </div>
     <iframe
-      src="<%= grafana_iframe(@device_story.device_urn, grafana_panel(:air_quality)) %>"
+      src="<%= grafana_iframe(@device_story.device_urn, :air_quality) %>"
       style="flex: 2 2 60%; width: 100%; height: 250px;" frameborder="0">
     </iframe>
   </div>
   <hr>
   <div class="" style="min-height: 250px; height: calc(100vh - 325px); display: flex; flex-direction: column;">
     <iframe
-      src="<%= grafana_iframe(@device_story.device_urn, grafana_panel(:air_quality_map)) %>"
+      src="<%= grafana_iframe(@device_story.device_urn, :air_quality_map) %>"
       style="flex-grow: 1; width: 100%; min-height: 250px; height: auto;" frameborder="0">
     </iframe>
   </div>
