@@ -45,10 +45,11 @@
       </div>
 
       <div class="col-xs-10 text-right">
-        <%= link_to t('.download_in_kml'), kml_bgeigie_import_path(@bgeigie_import), class: 'btn btn-default' %>
+        <%= link_to t('.download_in_kml'), kml_bgeigie_import_path(@bgeigie_import), class: 'btn btn-default', style: 'margin-bottom: 5px' %>
         <%= link_to t(".download_original_file"),
                     @bgeigie_import.source.url,
-                    :class => 'btn btn-default' %>
+                    :class => 'btn btn-default',
+                    style: 'margin-bottom: 5px'%>
       </div>
     </div>
     <hr/>

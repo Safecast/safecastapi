@@ -17,6 +17,7 @@
       Rejected by: <%= @bgeigie_import.rejected_by %>
     </span>
     <span class="status-text">
+      <br/>
       <b>comment:</b>
       <%= @bgeigie_import.comment if @bgeigie_import.comment.present? %>
     </span>
@@ -27,5 +28,5 @@
   <%- end -%>
 <%- end -%>
 <%- if !@bgeigie_import.rejected? && @bgeigie_import.awaiting_approval? && user_signed_in? && current_user.moderator? -%>
-<mark class="status-text">If rejecting, please enter a comment in Metadata.</mark>
+<mark class="status-text"><br/>If rejecting, please enter a comment in Metadata.</mark>
 <%- end -%>

@@ -89,7 +89,7 @@
         <legend>
           <%= t("device") %>
         </legend>
-        <div class="form-group">
+        <div class="form-group" style="max-width: 200px;">
           <%= f.label :device_id, t(".device"), :class => 'control-label' %>
           <%= f.select :device_id, [['', nil]] + Device.all.collect { |d| [d.name, d.id]}, :class => 'form-control' %>
           <p class="help-block">
