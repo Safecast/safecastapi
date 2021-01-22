@@ -26,8 +26,11 @@ class DeviceStoriesController < ApplicationController
   end
 
   def show_airnote
-    @device_story = DeviceStory.where(device_urn: params[:device_urn]).first
+    respond_with DeviceStory.find_by!(device_urn: params[:device_urn])
     respond_with @device_story
+  rescue ActiveRecord::RecordNotFound
+    head :not_found
+  end
   end
 
   def get_like_searched_table(search_term)
