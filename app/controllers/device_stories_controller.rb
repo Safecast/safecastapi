@@ -31,7 +31,6 @@ class DeviceStoriesController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     head :not_found
   end
-  end
 
   def get_like_searched_table(search_term)
     apply_scopes(DeviceStory).where('lower(device_urn) LIKE :search OR lower(custodian_name) LIKE :search', search: "%#{search_term}%")
