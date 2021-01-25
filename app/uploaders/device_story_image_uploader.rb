@@ -1,11 +1,12 @@
-class DeviceStoryImageUploader < CarrierWave::Uploader::Base
+# frozen_string_literal: true
 
-  include Cloudinary::CarrierWave
-  process :convert => 'png'
-  process :tags => ['post_picture']
+class DeviceStoryImageUploader < CarrierWave::Uploader::Base
+  include Cloudinary::CarrierWave unless Rails.env.test?
+  process convert: 'png'
+  process tags: ['post_picture']
 
   version :standard do
-    process :resize_to_fill => [100, 150, :north]
+    process resize_to_fill: [100, 150, :north]
   end
 
   version :thumbnail do
@@ -13,6 +14,6 @@ class DeviceStoryImageUploader < CarrierWave::Uploader::Base
   end
 
   def public_id
-    return "device_story_images/" + Cloudinary::Utils.random_public_id;
+    'device_story_images/' + Cloudinary::Utils.random_public_id
   end
 end

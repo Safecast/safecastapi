@@ -14,6 +14,8 @@
 //= require bootstrap-rowlink.min
 //= require_tree ./application
 //- require_self
+//= require cloudinary
+//= require cloudinary/jquery.cloudinary
 
 jQuery.ajaxSetup({
   beforeSend: function(xhr) {

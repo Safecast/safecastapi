@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-CarrierWave.configure do |config| # rubocop:disable Metrics/BlockLength
+CarrierWave.configure do |config|
   # noinspection RubyResolve
   if ENV.key? 'S3_BUCKET'
     config.fog_provider = 'fog/aws'
@@ -27,9 +27,9 @@ CarrierWave.configure do |config| # rubocop:disable Metrics/BlockLength
                                  region: bucket_region }
                              end
     config.storage = :fog
-  else
-    #Another if condition might be needed for DeviceStoryImageUploader
-    #config.storage = :file
-    #config.enable_processing = false
+    # else
+    # Another if condition might be needed for DeviceStoryImageUploader
+    # config.storage = :file
+    # config.enable_processing = false
   end
 end
