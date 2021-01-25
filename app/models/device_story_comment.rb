@@ -6,4 +6,5 @@ class DeviceStoryComment < ApplicationRecord
   validates :user_id, presence: true
   belongs_to :device_story, required: true
   belongs_to :user, required: true
+  mount_uploader :image, DeviceStoryImageUploader
 end

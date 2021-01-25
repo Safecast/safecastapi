@@ -305,7 +305,8 @@ CREATE TABLE public.device_story_comments (
     device_story_id bigint,
     user_id bigint,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    image character varying
 );
 
 
@@ -1385,6 +1386,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201201055207'),
 ('20201204004647'),
 ('20201207021545'),
-('20201207083958');
+('20201207083958'),
+('20210125021333'),
+('20210125051130');
 
 

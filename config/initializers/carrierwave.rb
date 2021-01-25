@@ -28,7 +28,8 @@ CarrierWave.configure do |config| # rubocop:disable Metrics/BlockLength
                              end
     config.storage = :fog
   else
-    config.storage = :file
-    config.enable_processing = false
+    #Another if condition might be needed for DeviceStoryImageUploader
+    #config.storage = :file
+    #config.enable_processing = false
   end
 end

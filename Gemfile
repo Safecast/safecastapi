@@ -11,7 +11,8 @@ gem 'bootsnap', require: false
 gem 'bootstrap-kaminari-views'
 gem 'bootstrap-sass', '~> 2.2.2.0'
 gem 'cancan'
-gem 'carrierwave', '~> 1.2.2'
+gem 'carrierwave', '~> 2.0'
+gem 'cloudinary'
 gem 'coffee-rails'
 gem 'listen'
 # noinspection RailsParamDefResolve

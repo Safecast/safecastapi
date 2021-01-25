@@ -61,6 +61,10 @@
           <td>
             <b><%= link_to comment.user.name , comment.user %></b> <div style="display: inline-block; color: dimgrey; font-size: small">(<%= time_ago_in_words(comment.created_at) %> ago)</div> <br>
             <%= comment.content %>
+            <% if comment.image_url %>
+              <hr style="margin: 5px"/>
+              <%= cl_image_tag(comment.image_url) %>
+            <% end %>
             <%- if user_signed_in? -%>
               <%- if (comment.user_id == current_user.id) || moderator?(current_user) %>
                 <div style="float:right"> <%= link_to 'Delete', device_story_device_story_comment_path(@device_story, comment), method: :delete %></div>
@@ -78,10 +82,12 @@
     <%= form_with model: DeviceStoryComment, url: device_story_device_story_comments_path(@device_story), local: true, method: 'post' do |form| %>
       <%= form.label :content, current_user.name %>
       <%= form.text_area :content, :rows => 3, style: 'width:97%;' %>
-      <p><%= form.submit "Submit comment" %></p>
+      <%= form.hidden_field(:image_cache) %>
+      <p><%= form.submit "Submit comment", class: "btn btn-primary" %></p>
+      <%= form.file_field(:image) %>
     <% end %>
   <% end %>
 </div>
-
+<hr/>
 <div class="spacer"></div>
 <%= current_page_api_example :device_stories_url %>
