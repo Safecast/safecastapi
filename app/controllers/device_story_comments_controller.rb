@@ -54,6 +54,10 @@ class DeviceStoryCommentsController < ApplicationController
   def destroy
     return unless user_signed_in? && ((@device_story_comment.user_id == current_user.id) || moderator?(current_user))
 
+    if @device_story_comment.image
+      @device_story_comment.remove_image!
+      @device_story_comment.save
+    end
     @device_story_comment.destroy
     respond_to do |format|
       format.html { redirect_to device_story_path(@device_story), notice: 'Comment deleted!' }

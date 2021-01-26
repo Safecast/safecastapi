@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DeviceStoryImageUploader < CarrierWave::Uploader::Base
-  include Cloudinary::CarrierWave unless Rails.env.test?
+  include Cloudinary::CarrierWave
   process convert: 'png'
   process tags: ['post_picture']
 

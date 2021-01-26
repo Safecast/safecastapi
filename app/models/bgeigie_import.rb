@@ -157,7 +157,13 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
      bgeigie_import_id = #{id}])
   end
 
-  def create_tmp_file # rubocop:disable Metrics/MethodLength
+  def create_tmp_file
+    lines_count = process_tmp_file
+    update_column(:lines_count, lines_count)
+    confirm_status(:process_file)
+  end
+
+  def process_tmp_file # rubocop:disable Metrics/MethodLength
     lines_count = 0
     File.open(tmp_file, 'at:UTF-8') do |file|
       source.read.each_line do |line|
@@ -173,8 +179,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
         lines_count += 1
       end
     end
-    update_column(:lines_count, lines_count)
-    confirm_status(:process_file)
+    lines_count
   end
 
   def is_sane?(line) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity, Naming/PredicateName
@@ -202,20 +207,20 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
 
     # check for properly formatted floats
     lat = begin
-      Float(line_items[7])
-    rescue ArgumentError
-      nil
-    end
+            Float(line_items[7])
+          rescue ArgumentError
+            nil
+          end
     lon = begin
-      Float(line_items[9])
-    rescue ArgumentError
-      nil
-    end
+            Float(line_items[9])
+          rescue ArgumentError
+            nil
+          end
     alt = begin
-      Float(line_items[11])
-    rescue ArgumentError
-      nil
-    end
+            Float(line_items[11])
+          rescue ArgumentError
+            nil
+          end
     return false unless lat && lon && alt
 
     # check for proper N/S and E/W
