@@ -18,7 +18,6 @@ class DeviceStoryCommentsController < ApplicationController
     @device_story_comment = @device_story.device_story_comments.build(device_story_comment_params)
     @device_story_comment.user_id = current_user.id
 
-    # Cloudinary::Uploader.upload('app/assets/images/gps.png')
     responder_create
   end
 
