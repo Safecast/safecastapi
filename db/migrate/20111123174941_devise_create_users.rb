@@ -1,6 +1,6 @@
 class DeviseCreateUsers < ActiveRecord::Migration
   # rubocop:disable Metrics/MethodLength
-  def change # rubocop:disable Metrics/AbcSize
+  def change
     create_table(:users) do |t|
       t.string :email, null: false, default: ''
       t.string :encrypted_password, null: false, default: ''

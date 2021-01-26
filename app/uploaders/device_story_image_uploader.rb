@@ -14,6 +14,6 @@ class DeviceStoryImageUploader < CarrierWave::Uploader::Base
   end
 
   def public_id
-    'device_story_images/' + Cloudinary::Utils.random_public_id
+    "device_story_images/#{Cloudinary::Utils.random_public_id}"
   end
 end
