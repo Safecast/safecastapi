@@ -33,7 +33,7 @@ module MeasurementsHelper
                params[:unit] == unit.to_s
              end
     url_params = get_url_params(unit)
-    content_tag(:button, style: 'background-color: #f5f5f5; color: black', class: 'btn btn-secondary ' + (active ? 'active' : ' ')) do
+    content_tag(:button, style: 'background-color: #f5f5f5; color: black', class: "btn btn-secondary #{active ? 'active' : ' '}") do
       link_to t(unit.to_s), measurements_url(url_params), { style: 'color: grey;' }
     end
   end

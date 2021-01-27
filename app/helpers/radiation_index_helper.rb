@@ -7,13 +7,13 @@ module RadiationIndexHelper
              else
                params[:index] == index.to_s
              end
-    content_tag(:button, style: 'background-color: #f5f5f5; color: black', class: 'btn btn-secondary ' + (active ? 'active' : ' ')) do
-      p = get_p_params(index)
+    content_tag(:button, style: 'background-color: #f5f5f5; color: black', class: "btn btn-secondary #{active ? 'active' : ' '}") do
+      p = get_pd_params(index)
       link_to t(index.to_s), p, { style: 'color: grey;' }
     end
   end
 
-  def get_p_params(index)
+  def get_pd_params(index)
     params.to_unsafe_h.except(:action, :controller).merge(index: (index unless index == :average))
   end
 
