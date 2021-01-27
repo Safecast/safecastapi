@@ -17,7 +17,7 @@ module BgeigieImportsHelper
              else
                params[:by_status] == status.to_s
              end
-    content_tag(:button, style: 'background-color: #f5f5f5; color: black', class: 'btn btn-secondary ' + (active ? 'active' : ' ')) do
+    content_tag(:button, style: 'background-color: #f5f5f5; color: black', class: "btn btn-secondary #{active ? 'active' : ' '}") do
       p = get_p_params(status)
       link_to t("bgeigie_imports.states.#{status}"), bgeigie_imports_url(p), { style: 'color: grey; font-size: 11px;' }
     end
