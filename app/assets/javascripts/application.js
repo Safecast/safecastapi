@@ -9,9 +9,11 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require underscore
-//= require bootstrap
+//= require bootstrap-sprockets
 //= require bootstrap-datetimepicker.min
 //= require bootstrap-rowlink.min
+//= require moment
+//= require bootstrap-datetimepicker
 //= require_tree ./application
 //- require_self
 

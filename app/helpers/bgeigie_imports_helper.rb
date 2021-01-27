@@ -11,6 +11,22 @@ module BgeigieImportsHelper
     end
   end
 
+  def bgeigie_nav_button(status)
+    active = if params[:by_status].blank?
+               status == :all
+             else
+               params[:by_status] == status.to_s
+             end
+    content_tag(:button, style: 'background-color: #f5f5f5; color: black', class: 'btn btn-secondary ' + (active ? 'active' : ' ')) do
+      p = get_p_params(status)
+      link_to t("bgeigie_imports.states.#{status}"), bgeigie_imports_url(p), { style: 'color: grey; font-size: 11px;' }
+    end
+  end
+
+  def get_p_params(status)
+    params.to_unsafe_h.except(:action, :controller).merge(by_status: (status unless status == :all))
+  end
+
   def bgeigie_nav_li(status) # rubocop:disable Metrics/AbcSize
     active = if params[:by_status].blank?
                status == :all
@@ -32,7 +48,7 @@ module BgeigieImportsHelper
 
   def operation_button(bgeigie_import, action, text = t(format('.%<action>s', action: action)))
     form_for bgeigie_import, url: { action: action } do |f|
-      f.submit text, class: 'btn btn-primary'
+      f.submit text, class: 'btn btn-primary', style: 'margin-bottom: 5px'
     end
   end
 

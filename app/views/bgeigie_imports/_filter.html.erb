@@ -2,53 +2,28 @@
                  [:q, :uploaded_after, :uploaded_before, :status, :rejected_by, :by_user_name,:by_user_id] %>
 
 <%= filter_modal :bgeigie_imports do %>
-  <table>
-    <tbody>
-    <tr>
-      <td>
-        <b><%= t(".by_user") %></b>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= filter_field :bgeigie_import, :by_user_name %>
-      </td>
-      <td>
-        <%= filter_field :bgeigie_import, :by_user_id %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <b><%= t(".by_date") %></b>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= datetime_picker :bgeigie_import, :uploaded_before %>
-      </td>
-      <td>
-        <%= datetime_picker :bgeigie_import, :uploaded_after %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <b><%= t(".other") %></b>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= filter_field :bgeigie_import, :q %>
-      </td>
-      <td>
-        <%= dropdown_field(:bgeigie_import, :status, [:all,:approved,:rejected,:not_moderated]) %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= filter_field :bgeigie_import, :rejected_by %>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <%= hidden_field_tag 'by_status', params[:by_status] %>
+  <div>
+    <b><%= t(".by_user") %></b>
+
+    <%= filter_field :bgeigie_import, :by_user_name %>
+
+    <%= filter_field :bgeigie_import, :by_user_id %>
+
+    <b><%= t(".by_date") %></b>
+    <br>
+    <%= datetime_picker :bgeigie_import, :uploaded_before %>
+
+    <%= datetime_picker :bgeigie_import, :uploaded_after %>
+    <br>
+    <b><%= t(".other") %></b>
+
+    <%= filter_field :bgeigie_import, :q %>
+
+    <%= dropdown_field(:bgeigie_import, :status, [:all,:approved,:rejected,:not_moderated]) %>
+
+    <%= filter_field :bgeigie_import, :rejected_by %>
+
+
+    <%= hidden_field_tag 'by_status', params[:by_status] %>
+  </div>
 <%- end -%>

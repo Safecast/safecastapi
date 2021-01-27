@@ -2,8 +2,9 @@
 
 <%= render 'layouts/submit_nav' %>
 <div class="row">
-  <section class="span9">
+  <section class="col-md-9">
     <h2><%= t('.upload_a_bgeigie_log_file') -%></h2>
+    <hr/>
     <%- if @bgeigie_import.errors[:md5sum].any? -%>
       <div class="alert alert-warning">
         <%= t('.import_exists', file_name: File.basename(@bgeigie_import.source.url)) %>
@@ -16,8 +17,11 @@
           :html =>{
             :class => 'form-horizontal'
           } do |f| %>
+      <div class="well">
       <%= f.input :source, :as => :file %>
-      <%= f.button :wrapped, :cancel => @bgeigie_import %>
-    <%- end -%>
+        <hr/>
+      <div style="text-align: center"><%= f.button :wrapped, :cancel => @bgeigie_import %></div></div>
+
+  <%- end -%>
   </section>
 </div>

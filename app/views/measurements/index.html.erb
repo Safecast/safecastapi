@@ -2,28 +2,43 @@
 
 <h2><%= t(".measurements") -%></h2>
 
-<div class="navbar">
-  <div class="navbar-inner">
-    <ul class="nav">
-      <%= measurement_nav_li(:all) %>
-      <%= measurement_nav_li(:cpm) %>
-      <%= measurement_nav_li(:usv) %>
+<hr/>
+
+<div class="col-md-12 well visible-xs visible-sm" style="padding: 0px">
+  <div class="btn-group" role="group" aria-label="">
+    <%= measurement_nav_button(:all) %>
+    <%= measurement_nav_button(:cpm) %>
+    <%= measurement_nav_button(:usv) %>
+  </div>
+  <%- if user_signed_in? -%>
+    <button style="background-color: #f5f5f5;" class="btn btn-secondary pull-right <%= 'active' if params[:user_id].blank? %>">
+      <%= link_to t(".everyone"), params.to_unsafe_h.except(:user_id), {:style=>'color: grey;'} %>
+    </button>
+    <button style="background-color: #f5f5f5" class="btn btn-secondary pull-right <%= 'active' if params[:user_id] == current_user.id.to_s %>">
+      <%= link_to t(".yours"), params.to_unsafe_h.merge(:user_id => current_user.id), {:style=>'color: grey;'} %>
+    </button>
+  <%- end -%>
+</div>
+
+<nav class="navbar navbar-default hidden-xs hidden-sm">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li ><%= measurement_nav_li(:all) %></li>
+      <li ><%= measurement_nav_li(:cpm) %></li>
+      <li ><%= measurement_nav_li(:usv) %></li>
     </ul>
-    <ul class="nav pull-right">
+    <ul class="nav navbar-nav navbar-right">
       <%- if user_signed_in? -%>
         <li class="pull-right <%= 'active' if params[:user_id].blank? %>">
           <%= link_to t(".everyone"), params.to_unsafe_h.except(:user_id) %>
         </li>
-      <%- end -%>
-      <%- if user_signed_in? -%>
         <li class="pull-right <%= 'active' if params[:user_id] == current_user.id.to_s %>">
           <%= link_to t(".yours"), params.to_unsafe_h.merge(:user_id => current_user.id) %>
         </li>
       <%- end -%>
     </ul>
   </div>
-</div>
-
+</nav>
 <%= summarize_results(@measurements) %>
 
 <%= show_filters :measurement, [:unit, :latitude, :longitude, :distance, :captured_after, :captured_before, :since, :until, :user_id, :measurement_import_id, :device_id] %>
@@ -32,84 +47,85 @@
 <%- if @measurements.empty? -%>
   <p><%= t(".none_found") -%></p>
 <%- else -%>
-  <table class="table table-hover" data-provides="rowlink">
-    <thead>
-      <%= table_sort_header(:measurement, :id) %>
-      <%= table_sort_header(:measurement, :value) %>
-      <th><%= t('activerecord.attributes.measurement.latitude') %></th>
-      <th><%= t('activerecord.attributes.measurement.longitude') %></th>
-      <%= table_sort_header(:measurement, :captured_at) %>
-    </thead>
-    <tbody>
-      <%- @measurements.each do |measurement| -%>
-        <tr>
-          <td><%= measurement.id %></td>
-          <td>
-            <%= link_to "#{measurement.value}#{measurement.unit}",
-                        measurement %>
-            <%- if measurement.user.present? -%>
-              <br/>
-              <small>
-                <span class="faded">
-                <%= t('.submitted_by') %>
-                <%= link_to measurement.user.name, measurement.user %>
-                </span>
-              </small>
-            <%- end -%>
-            <%- if measurement.measurement_import.present? -%>
-              <small>
-                <span class="faded">
-                <%= t('.in') %>
-                <%- begin -%>
-                  <%= link_to measurement.measurement_import.name, measurement.measurement_import %>
-                <%- rescue -%>
-                  <%= measurement.measurement_import.name %>
-                <%- end -%>
-                </span>
-              </small>
-            <%- end -%>
-          </td>
-          <td>
-            <%= number_with_precision measurement.latitude, :precision => 4 %>º
-          </td>
-          <td><%= number_with_precision measurement.longitude, :precision => 4 %>º</td>
-          <td><%= measurement.captured_at_formatted %></td>
-        </tr>
-      <%- end -%>
-    </tbody>
-  </table>
-  <%= paginate @measurements, theme: 'twitter-bootstrap-2' -%>
+  <div class="table-responsive">
+    <table class="table table-hover" data-provides="rowlink">
+      <thead>
+        <%= table_sort_header(:measurement, :id) %>
+        <%= table_sort_header(:measurement, :value) %>
+        <th><%= t('activerecord.attributes.measurement.latitude') %></th>
+        <th><%= t('activerecord.attributes.measurement.longitude') %></th>
+        <%= table_sort_header(:measurement, :captured_at) %>
+      </thead>
+      <tbody>
+        <%- @measurements.each do |measurement| -%>
+          <tr>
+            <td><%= measurement.id %></td>
+            <td>
+              <%= link_to "#{measurement.value}#{measurement.unit}",
+                          measurement %>
+              <%- if measurement.user.present? -%>
+                <br/>
+                <small>
+                  <span class="faded">
+                  <%= t('.submitted_by') %>
+                  <%= link_to measurement.user.name, measurement.user %>
+                  </span>
+                </small>
+              <%- end -%>
+              <%- if measurement.measurement_import.present? -%>
+                <small>
+                  <span class="faded">
+                  <%= t('.in') %>
+                  <%- begin -%>
+                    <%= link_to measurement.measurement_import.name, measurement.measurement_import %>
+                  <%- rescue -%>
+                    <%= measurement.measurement_import.name %>
+                  <%- end -%>
+                  </span>
+                </small>
+              <%- end -%>
+            </td>
+            <td>
+              <%= number_with_precision measurement.latitude, :precision => 4 %>º
+            </td>
+            <td><%= number_with_precision measurement.longitude, :precision => 4 %>º</td>
+            <td><%= measurement.captured_at_formatted %></td>
+          </tr>
+        <%- end -%>
+      </tbody>
+    </table>
+  </div>
+  <%= paginate @measurements, theme: 'twitter-bootstrap-3' -%>
 <%- end -%>
 
-<div id="filter-modal" class="modal hide fade" tabindex="-1">
-  <%= form_tag params.to_unsafe_h.except(:commit).except(:utf8),
-                 :method => :get do |f| %>
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3>
-        Filter Measurements
-      </h3>
-    </div>
+<div id="filter-modal" class="modal fade" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>        <h3>
+          Filter Measurements
+        </h3>
+      </div>
+        <%= form_tag params.to_unsafe_h.except(:commit).except(:utf8),
+                     :method => :get do |f| %>
+        <div class="modal-body">
+          <%= filter_field :measurement, :latitude,   :prepend => 'º' %>
+          <%= filter_field :measurement, :longitude,  :prepend => 'º' %>
+          <%= filter_field :measurement, :distance,   :prepend => 'm' %>
 
-    <div class="modal-body">
-      <fieldset class="span3">
-        <%= filter_field :measurement, :latitude,   :prepend => 'º' %>
-        <%= filter_field :measurement, :longitude,  :prepend => 'º' %>
-        <%= filter_field :measurement, :distance,   :prepend => 'm' %>
-      </fieldset>
-
-      <fieldset class="span3">
-        <%= datetime_picker :measurement, :captured_after %>
-        <%= datetime_picker :measurement, :captured_before %>
-        <%= datetime_picker :measurement, :since %>
-        <%= datetime_picker :measurement, :until %>
-      </fieldset>
+          <%= datetime_picker :measurement, :captured_after %>
+          <%= datetime_picker :measurement, :captured_before %>
+          <%= datetime_picker :measurement, :since %>
+          <%= datetime_picker :measurement, :until %>
+        </div>
+        <div class="modal-footer">
+          <%= submit_tag t('filter'), :class => 'btn btn-primary' %>
+        </div>
+        <%- end -%>
     </div>
-
-    <div class="modal-footer">
-      <%= submit_tag t('filter'), :class => 'btn' %>
-    </div>
-  <%- end -%>
+  </div>
 </div>
 <div class="spacer"></div>
 <%= current_page_api_example :measurements_url %>

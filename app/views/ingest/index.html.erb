@@ -19,46 +19,39 @@
 -%>
 <h2><%= t('.ingest_export') %></h2>
 
-<form method="get" class="well">
-  <table>
-    <tr>
-      <td>
-        <lable>Field: </lable>
-      </td>
-      <td>
-        <select name="field">
-          <%- fields.each do |value, lable| -%>
-            <option value = "<%= value %>"><%= lable %></option>
-          <%- end -%>
-        </select>
-      </td>
-      <td>
-        Area:
-      </td>
-      <td>
-        <select name ="area">
-        <%- locations.each do |value, lable| -%>
+<hr/>
+<form method="get" class="well text-center" >
+  <div style="display: flex; flex-wrap: wrap; margin-bottom: 10px; justify-content: space-evenly">
+    <div style=" min-width: 200px">
+      <lable>Field: </lable>
+      <select class="form-control" name="field">
+        <%- fields.each do |value, lable| -%>
           <option value = "<%= value %>"><%= lable %></option>
         <%- end -%>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <lable>Uploaded after: </lable>
-      </td>
-      <td>
-        <input type="datetime-local" name="uploaded_after" value="2018-01-01T00:00">
-      </td>
-      <td>
-        <lable>Uploaded before: </lable>
-      </td>
-      <td>
-        <input type="datetime-local" name="uploaded_before" value="2018-12-31T00:00">
-      </td>
-    </tr>
-  </table>
-  <input type="submit" value="Search" class = "btn">
+      </select>
+    </div>
+    <div style="min-width: 200px">
+      Area:
+      <select class="form-control" name ="area">
+      <%- locations.each do |value, lable| -%>
+        <option value = "<%= value %>"><%= lable %></option>
+      <%- end -%>
+      </select>
+    </div>
+  </div>
+  <div style="display: flex; flex-wrap: wrap; margin-bottom: 20px; justify-content: space-evenly">
+    <div style=" min-width: 200px">
+      <lable>Uploaded after: </lable>
+      <input type="datetime-local" class="form-control" name="uploaded_after" value="2018-01-01T00:00">
+    </div>
+    <div style="min-width: 200px">
+      <lable>Uploaded before: </lable>
+      <input type="datetime-local" class="form-control" name="uploaded_before" value="2018-12-31T00:00">
+    </div>
+  </div>
+
+  <input type="submit" value="Search" class = "btn btn-primary">
+
 </form>
 
 <h2>
@@ -71,7 +64,7 @@
   No data
 <%- else -%>
   <ul class="inline pull-right">
-    <%=link_to( 'CSV Export', params.to_unsafe_h.merge(:format => 'csv'), :class => 'btn') %>
+    <%=link_to( 'CSV Export', params.to_unsafe_h.merge(:format => 'csv'), :class => 'btn btn-default') %>
   </ul>
 
   <table  class="table">

@@ -25,6 +25,13 @@ class DeviceStoriesController < ApplicationController
     respond_with @device_story
   end
 
+  def show_airnote
+    respond_with DeviceStory.find_by!(device_urn: params[:device_urn])
+    respond_with @device_story
+  rescue ActiveRecord::RecordNotFound
+    head :not_found
+  end
+
   def get_like_searched_table(search_term)
     apply_scopes(DeviceStory).where('lower(device_urn) LIKE :search OR lower(custodian_name) LIKE :search', search: "%#{search_term}%")
       .or(apply_scopes(DeviceStory).where('lower(last_values) LIKE :search OR lower(last_location_name) LIKE :search', search: "%#{search_term}%"))
