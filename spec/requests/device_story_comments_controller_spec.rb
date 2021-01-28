@@ -30,7 +30,6 @@ RSpec.describe DeviceStoryCommentsController, type: :request do
 
       expect { post '/device_stories/1/device_story_comments', params: { device_story_comment: comment_params } }.to change { DeviceStoryComment.count }.by(0)
       expect(response.status).to eq 302
-      expect(WebMock).not_to have_requested(:post, addressable)
     end
   end
 

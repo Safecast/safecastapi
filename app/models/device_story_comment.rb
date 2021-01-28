@@ -10,8 +10,8 @@ class DeviceStoryComment < ApplicationRecord
   validate :image_size_validation
 
   def image_size_validation
-    if image.size > 10.megabytes
-      errors.add(:base, "File size is too large (maximum is 10MB)")
-    end
+    return unless image.size > 10.megabytes
+
+    errors.add(:base, 'File size is too large (maximum is 10MB)')
   end
 end
