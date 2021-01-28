@@ -1,16 +1,18 @@
-<%= content_for(:title) do %>
-  <%= @device_story.last_location_name %>
-<%- end -%>
-<div class="span9">
-  <div class="row">
+<hr/>
+  <%= content_for(:title) do %>
+  <%- end -%>
+  <div style="margin-left: 10px; text-align: center">
     <h2>
       <%= @device_story.last_location_name %> (<%= @device_story.device_urn %>)
       <%- if  @device_story.last_seen %>
         <div style="font-size: 15px"> <%= time_ago_in_words(@device_story.last_seen) %> ago</div>
       <%- end %>
     </h2>
-    <div class="span2" style="margin: 0; margin-right: 20px">
-      <table class="table table-hover" style="min-width: 164px; max-width: 164px; table-layout: fixed; margin-top: 10%; word-wrap: break-word">
+  </div>
+  <hr>
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+    <div style="flex: 1 5 40%; width: 100%; margin-top: 25px">
+      <table class="table table-hover" style="width: 100%">
         <thead style="font-size: 13px">
         <tr>
           <td colspan="3" style="text-align:center"><%= @device_story.last_seen %></td>
@@ -30,24 +32,39 @@
             <br> ug/m3
           </td>
         </tr>
+        <tr>
+          <td colspan="3">
+            <button type="button" style="display: flex; justify-content: center; align-items: center; margin-left: auto; margin-right: auto; font-size: 15px; min-width: 164px; width: 100%"><%= link_to 'More sensor data', grafana_more_data(@device_story.device_urn), target: :_blank %></button>
+          </td>
+        </tr>
       </table>
-      <button type="button" style="font-size: 15px; width: 160px"><%= link_to 'More sensor data', grafana_more_data(@device_story.device_urn), target: :_blank %></button>
     </div>
-    <div class="span7">
+    <%- if @device_story.device_urn.include? 'note:dev' %>
       <iframe
-        src="<%= grafana_iframe(@device_story.device_urn, grafana_panel(:cpm)) %>"
-        width="100%" height="250" frameborder="0">
+        src="<%= grafana_iframe(@device_story.device_urn, :air_quality) %>"
+        style="flex: 2 2 60%; width: 100%; height: 250px;" frameborder="0">
       </iframe>
-    </div>
+    <%- else %>
+      <iframe
+        src="<%= grafana_iframe(@device_story.device_urn, :cpm) %>"
+        style="flex: 2 2 60%; width: 100%; height: 250px;" frameborder="0">
+      </iframe>
+    <%- end %>
   </div>
-  <div class="spacer"></div>
-  <div class="row">
-    <iframe
-      src="<%= grafana_iframe(@device_story.device_urn, grafana_panel(:map)) %>"
-      width="100%" height="400" frameborder="0">
-    </iframe>
+  <hr>
+  <div class="" style="min-height: 250px; height: calc(100vh - 325px); display: flex; flex-direction: column;">
+    <%- if @device_story.device_urn.include? 'note:dev' %>
+      <iframe
+        src="<%= grafana_iframe(@device_story.device_urn, :air_quality_map) %>"
+        style="flex-grow: 1; width: 100%; min-height: 250px; height: auto;" frameborder="0">
+      </iframe>
+    <%- else %>
+      <iframe
+        src="<%= grafana_iframe(@device_story.device_urn, :map) %>"
+        style="flex-grow: 1; width: 100%; min-height: 250px; height: auto;" frameborder="0">
+      </iframe>
+    <%- end %>
   </div>
-</div>
 
 <div>
   <h2>Comments: <br></h2>
@@ -77,18 +94,18 @@
     </tbody>
   </table>
 </div>
-<div style="margin-left: 5px;min-width: 500px">
+<div class="col-md-12" style="margin-left: 5px;">
   <%- if user_signed_in? %>
     <%= form_with model: DeviceStoryComment, url: device_story_device_story_comments_path(@device_story), local: true, method: 'post' do |form| %>
       <%= form.label :content, current_user.name %>
-      <%= form.text_area :content, :rows => 3, style: 'width:97%;' %>
+      <%= form.text_area :content, :rows => 3, class: "form-control", style: 'width:97%;' %>
+      <p><%= form.submit "Submit comment", class: "form-control btn btn-primary", style: "margin-top: 10px; width: 200px;" %></p>
       <%= form.hidden_field(:image_cache) %>
-      <p><%= form.submit "Submit comment", class: "btn btn-primary" %></p>
       <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
       <%= form.file_field(:image) %>
     <% end %>
   <% end %>
 </div>
-<hr/>
+
 <div class="spacer"></div>
 <%= current_page_api_example :device_stories_url %>

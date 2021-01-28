@@ -1,20 +1,19 @@
 <%= content_for(:title) { "#{confirmed_name(@user)} \\\\ #{t('users.index.users')}" } %>
-
 <h2><%= t(".user") -%></h2>
-
-<dl class="dl-horizontal">
-  <dt><%= t('id') %></dt>
-  <dd><%= @user.id %></dd>
-
-  <dt><%= t('activerecord.attributes.user.name') %></dt>
-  <dd><%= confirmed_name(@user) %></dd>
-
-  <dt><%= t('activerecord.attributes.user.measurements_count') %></dt>
-  <dd>
-    <%= link_to [@user, :measurements] do %>
-      <%= number_with_delimiter @user.measurements_count %>
-    <%- end -%>
-  </dd>
-</dl>
+<hr/>
+<div class="well">
+  <dl class="dl-horizontal">
+    <dt><%= t('id') %></dt>
+    <dd><%= @user.id %></dd>
+    <dt><%= t('activerecord.attributes.user.name') %></dt>
+    <dd><%= confirmed_name(@user) %></dd>
+    <dt><%= t('activerecord.attributes.user.measurements_count') %></dt>
+    <dd>
+      <%= link_to [@user, :measurements] do %>
+        <%= number_with_delimiter @user.measurements_count %>
+      <%- end -%>
+    </dd>
+  </dl>
+</div>
 <div class="spacer"></div>
 <%= current_page_api_example :user_url %>

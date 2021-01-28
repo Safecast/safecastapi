@@ -3,6 +3,7 @@
 <html>
   <head>
     <%= cloudinary_js_config %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="shortcut icon" href="/favicon.ico" />
     <title>
       <%- if content_for?(:title) -%>
@@ -26,11 +27,108 @@
   <body data-spy="scroll" data-target=".doc-nav">
     <div class="container">
       <%= render :partial => 'shared/dashboard_navigation' %>
+      <nav id="mobile-navbar" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#profile-navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="glyphicon glyphicon-user"></span>
+            </button>
+            <div class="navbar-brand" href="#"> <%= image_tag image_url('h1.png') %></div>
+          </div>
+
+          <div id="profile-navbar" class="navbar-collapse collapse text-center">
+            <ul class="nav navbar-nav" id="nostack">
+              <%- if user_signed_in? -%>
+
+                <% if current_user.moderator -%>
+                  <li><%= link_to 'Admin', rails_admin_path, target: '_blank' -%></li>
+                <% end %>
+
+                <li <%= raw('class="active"') if controller_name == 'measurements' && action_name == 'new' %>>
+                  <%= link_to [:new, :measurement], :title => t('submit_a_reading') do %>
+                    <%= t('submit') %>
+                  <%- end -%>
+                </li>
+
+                <li <%= raw('class="active"') if controller_name == 'bgeigie_imports' && action_name == 'new' %>>
+                  <%= link_to [:new, :bgeigie_import], :title => t('upload') do %>
+                    <%= t('upload') %>
+                  <%- end -%>
+                </li>
+
+                <li>
+                  <%= link_to '#profile-modal', :title => t("profile"), :data => {
+                      :toggle => 'modal'
+                  } do %>
+                    <%= t('profile') %>
+                  <%- end -%>
+                </li>
+
+                <li>
+                  <%= link_to t('sign_out'), logout_path %>
+                </li>
+              <%- else -%>
+                <li <%= raw('class="active"') if controller_name == 'sessions' && ['new'].include?(action_name) %>>
+                  <%= link_to t("sign_in"), new_user_session_path %>
+                </li>
+                <li <%= raw('class="active"') if controller_name == 'registrations' && ['new'].include?(action_name) %>>
+                  <%= link_to t("sign_up"), new_user_registration_path %>
+                </li>
+              <%- end -%>
+            </ul>
+          </div><!--/.nav-collapse profile -->
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav" style="border-radius: 10px">
+              <%- if user_signed_in? -%>
+                <li <%= raw('class="active"') if controller_name == 'dashboard' %>>
+                  <%= link_to t('.dashboard'), :dashboard %>
+                </li>
+              <%- end -%>
+              <li <%= raw('class="active"') if controller_name == 'home' %>>
+                <%= link_to t('.safecast API'), :home %>
+              </li>
+              <li <%= raw('class="active"') if controller_name == 'users' %>>
+                <%= link_to t('.users'), :users %>
+              </li>
+              <li <%= raw('class="active"') if controller_name == 'measurements' %>>
+                <%= link_to t('.measurements'), :measurements %>
+              </li>
+              <li <%= raw('class="active"') if controller_name == 'bgeigie_imports' %>>
+                <%= link_to t('.bgeigie_imports'), bgeigie_imports_path(order: 'created_at asc') %>
+              </li>
+              <li <%= raw('class="active"') if controller_name == 'devices' %>>
+                <%= link_to t('.devices'), :devices %>
+              </li>
+              <li <%= raw('class="active"') if controller_name == 'device_stories' %>>
+                <%= link_to t('.device_stories'), :device_stories %>
+              </li>
+              <li <%= raw('class="active"') if controller_name == 'RadiationIndexController' %>>
+                <%= link_to t('.radiation_index'), :radiation_index %>
+              <li <%= raw('class="active"') if controller_name == 'ingest' %>>
+                <%= link_to t('.ingest_export'), :ingest %>
+              </li>
+            </ul>
+            <%= render 'stuck_drives' if current_user.try!(:moderator?) %>
+          </div><!--/.nav-collapse -->
+
+        </div>
+      </nav>
 
       <div class="row">
-        <div class="span3">
-          <div class="sidebar-nav" id="api-nav">
-            <ul class="nav nav-tabs nav-stacked">
+        <div class="col-md-3">
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div id="desktop-navbar" class="sidebar-nav" data-spy="affix" data-offset-top="70">
+            <ul class="nav nav-pills nav-stacked navbar-default" style="border-radius: 10px">
               <%- if user_signed_in? -%>
                 <li <%= raw('class="active"') if controller_name == 'dashboard' %>>
                   <%= link_to t('.dashboard'), :dashboard %>
@@ -62,9 +160,10 @@
             </ul>
             <%= render 'stuck_drives' if current_user.try!(:moderator?) %>
           </div>
+          </div>
         </div>
 
-        <div class="span9">
+        <div class="col-md-9">
           <%= render 'shared/flash', flash: flash %>
 
           <%= yield %>
@@ -72,104 +171,109 @@
       </div>
 
       <footer class="row">
-        <p class="span12"><%= t 'creative_commons_non_commercial' %></p>
-        <p class="span12"><%= link_to_switch_locale %></p>
+        <p class="col-md-12"><%= t 'creative_commons_non_commercial' %></p>
+        <p class="col-md-12"><%= link_to_switch_locale %></p>
       </footer>
     </div>
 
     <%- if user_signed_in? -%>
-      <div id="profile-modal" class="modal hide fade" tabindex="-1">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h3><%= t('.your_profile') %></h3>
-        </div>
-
-        <div class="modal-body" id="api-results">
-          <ul class="nav nav-tabs">
-            <li class="active">
-              <%= link_to current_user.email, '#show-user', :data => {
-                :toggle => 'tab'
-              } %>
-            </li>
-
-            <li>
-              <%= link_to t('.edit_profile'), '#edit-user', :data => {
-                :toggle => 'tab'
-              } %>
-            </li>
-
-            <li>
-              <%= link_to t('.change_password'), '#change-password', :data => {
-                :toggle => 'tab'
-              } %>
-            </li>
-          </ul>
-
-            <div class="tab-content">
-              <div class="tab-pane active" id="show-user">
-                <div class="row">
-                  <section class="span6">
-                    <h2>
-                      <%= t('profile') %>
-                    </h2>
-                    <ul>
-                      <dt><%= t('name') %></dt>
-                      <dd><%= current_user.name %></dd>
-                      <dt><%= t('time_zone') %></dt>
-                      <dd><%= current_user.time_zone %></dd>
-                      <dt><%= t('.default_locale') %></dt>
-                      <dd><%= current_user.default_locale %></dd>
-                    </ul>
-                    <dl class="well">
-                      <dt><%= t('your_api_key') %></dt>
-                      <dd><%= current_user.authentication_token %></dd>
-                    </dl>
-                  </section>
+      <div id="profile-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h3><%= t('.your_profile') %></h3>
+            </div>
+            <div class="modal-body" id="api-results">
+              <div class="row">
+                <div class="col-xs-5" align="center" style="border-right: 1px solid #eeeeee;">
+                  <ul class="nav profile-tab" style="max-width: 200px;">
+                    <li class="active btn btn-default btn-lg" role="tab">
+                      <%= link_to 'Profile', '#show-user', :data => {
+                          :toggle => 'tab'
+                      } %>
+                    </li>
+                    <li class="btn btn-default btn-lg" role="tab">
+                      <%= link_to t('.edit_profile'), '#edit-user', :data => {
+                      :toggle => 'tab'
+                      } %>
+                    </li>
+                    <li class="btn btn-default btn-lg" role="tab">
+                      <%= link_to t('.change_password'), '#change-password', :data => {
+                        :toggle => 'tab'
+                      } %>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-xs-7">
+                  <div class="tab-content">
+                    <div class="tab-pane active text-center" id="show-user">
+                      <ul style="padding: 0px;">
+                        <dt><%= t('name') %></dt>
+                        <dd><%= current_user.name %></dd>
+                        <dt>E-mail</dt>
+                        <dd><%= current_user.email %></dd>
+                        <dt><%= t('time_zone') %></dt>
+                        <dd><%= current_user.time_zone %></dd>
+                        <dt><%= t('.default_locale') %></dt>
+                        <dd><%= current_user.default_locale %></dd>
+                      </ul>
+                      <dl class="well">
+                        <dt><%= t('your_api_key') %></dt>
+                        <dd style="word-wrap: break-word"><%= current_user.authentication_token %></dd>
+                      </dl>
+                    </div>
+                    <div class="tab-pane text-center" id="edit-user">
+                      <%= simple_form_for current_user, url: :profile, html: { class: 'form-horizontal' } do |f| %>
+                        <%= f.input :email, input_html: { class: 'form-control' } %>
+                        <%= f.input :name, input_html: { class: 'form-control' } %>
+                        <%= f.input :time_zone, input_html: {  class: 'form-control' } %>
+                        <%= f.input :default_locale, :collection => ['en-US', 'ja'], input_html: {  class: 'form-control' } %>
+                        <hr/>
+                        <%= f.button :wrapped, :cancel => '#', :cancel_options => {
+                          :data => {
+                            :dismiss => 'modal'
+                          }
+                        } %>
+                      <%- end -%>
+                    </div>
+                    <div class="tab-pane text-center" id="change-password">
+                       <%= simple_form_for current_user, url: :profile, html: { class: 'form-horizontal' } do |f| %>
+                        <%= f.input :password, :as => :password, input_html: { class: 'form-control' } %>
+                        <%= f.input :password_confirmation, :as => :password, input_html: { class: 'form-control', style: 'color: green;' } %>
+                         <hr/>
+                        <%= f.button :wrapped, :cancel => '#', :cancel_options => {
+                          :data => {
+                            :dismiss => 'modal'
+                          }
+                        } %>
+                      <%- end -%>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="tab-pane" id="edit-user">
-                <%= simple_form_for current_user, url: :profile, html: { class: 'form-horizontal' } do |f| %>
-                  <%= f.input :email %>
-                  <%= f.input :name %>
-                  <%= f.input :time_zone %>
-                  <%= f.input :default_locale, :collection => ['en-US', 'ja'] %>
-                  <%= f.button :wrapped, :cancel => '#', :cancel_options => {
-                    :data => {
-                      :dismiss => 'modal'
-                    }
-                  } %>
-                <%- end -%>
-              </div>
-               <div class="tab-pane" id="change-password">
-                 <%= simple_form_for current_user, url: :profile, html: { class: 'form-horizontal' } do |f| %>
-                  <%= f.input :password, :as => :password %>
-                  <%= f.input :password_confirmation, :as => :password %>
-                  <%= f.button :wrapped, :cancel => '#', :cancel_options => {
-                    :data => {
-                      :dismiss => 'modal'
-                    }
-                  } %>
-                <%- end -%>
-              </div>
             </div>
-          </ul>
+          </div>
         </div>
       </div>
     <%- end -%>
 
-    <div id="api-modal" class="modal hide fade" tabindex="-1">
+    <div id="api-modal" class="modal fade" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3><%= t('.api_request') %></h3>
+            <p>GET <span class="api-url"></span></p>
+          </div>
 
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3><%= t('.api_request') %></h3>
-        <p>GET <span class="api-url"></span></p>
-      </div>
-
-      <div class="modal-body" id="api-results">
-        <pre id="api-output" class="prettyprint lang-javascript"></pre>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+          <div class="modal-body" id="api-results">
+            <pre id="api-output" class="prettyprint lang-javascript"></pre>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
       </div>
     </div>
     <%= javascript_include_tag :application %>

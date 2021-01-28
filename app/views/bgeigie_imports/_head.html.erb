@@ -1,63 +1,69 @@
 <div class="row">
-  <div class="span9">
+  <div class="col-xs-12">
     <%= render 'current_status' %>
     <%- if content_for?(:current_status) -%>
       <div id="current-status"><%= content_for(:current_status) %></div>
     <%- end -%>
-    <ul class="inline nav-stacked pull-right">
-      <%- if user_signed_in? -%>
-        <%# buttons in this block are logged-in users %>
-        <%- if current_user.moderator? -%>
-          <%# buttons in this block such as "Approve", "Reject" and "Fix Drive" are for only moderator %>
-          <%- unless @bgeigie_import.rejected? -%>
-            <%# buttons are shown only if import has not been rejected %>
-            <%- if @bgeigie_import.approved? -%>
-              <%# if import has been approved, show "Fix Drive" button %>
-              <li><%= operation_button(@bgeigie_import, 'fixdrive') %></li>
-            <%- else %>
-              <%- case @bgeigie_import.status -%>
-              <%- when 'processed' -%>
-                <%# when import has been processed, moderator could reject %>
-                <li><%= operation_button(@bgeigie_import, 'reject') %></li>
-              <%- when 'submitted' -%>
-                <%# when import has been submitted, moderator could approve or reject %>
-                <li><%= operation_button(@bgeigie_import, 'reject') %></li>
-                <li><%= operation_button(@bgeigie_import, 'approve') %></li>
-              <%- when 'unprocessed' -%>
-                <%# when import has not been processed, moderator could process manually %>
-                <li><%= operation_button(@bgeigie_import, 'process_button') %></li>
-              <%- when 'awaiting_response' -%>
-                <%# when import has not been processed, moderator could process manually %>
-                <li><%= operation_button(@bgeigie_import, 'resolve', 'Resolve') %></li>
+    <div class="row">
+      <div class="col-xs-2 text-left">
+        <%- if user_signed_in? -%>
+          <%# buttons in this block are logged-in users %>
+          <%- if current_user.moderator? -%>
+            <%# buttons in this block such as "Approve", "Reject" and "Fix Drive" are for only moderator %>
+            <%- unless @bgeigie_import.rejected? -%>
+              <%# buttons are shown only if import has not been rejected %>
+              <%- if @bgeigie_import.approved? -%>
+                <%# if import has been approved, show "Fix Drive" button %>
+                <%= operation_button(@bgeigie_import, 'fixdrive') %>
+              <%- else %>
+                <%- case @bgeigie_import.status -%>
+                <%- when 'processed' -%>
+                  <%# when import has been processed, moderator could reject %>
+                  <%= operation_button(@bgeigie_import, 'reject') %>
+                <%- when 'submitted' -%>
+                  <%# when import has been submitted, moderator could approve or reject %>
+                  <%= operation_button(@bgeigie_import, 'reject') %>
+                  <%= operation_button(@bgeigie_import, 'approve') %>
+                <%- when 'unprocessed' -%>
+                  <%# when import has not been processed, moderator could process manually %>
+                  <%= operation_button(@bgeigie_import, 'process_button') %>
+                <%- when 'awaiting_response' -%>
+                  <%# when import has not been processed, moderator could process manually %>
+                  <%= operation_button(@bgeigie_import, 'resolve', 'Resolve') %>
+                <%- end -%>
+              <%- end -%>
+            <%- end -%>
+          <%- elsif @bgeigie_import.user == current_user %>
+            <%- unless @bgeigie_import.rejected? -%>
+              <%- unless @bgeigie_import.approved? -%>
+                <%# user can reject import if it has not been approved nor rejected %>
+                <%= operation_button(@bgeigie_import, 'reject') %>
               <%- end -%>
             <%- end -%>
           <%- end -%>
-        <%- elsif @bgeigie_import.user == current_user %>
-          <%- unless @bgeigie_import.rejected? -%>
-            <%- unless @bgeigie_import.approved? -%>
-              <%# user can reject import if it has not been approved nor rejected %>
-              <li><%= operation_button(@bgeigie_import, 'reject') %></li>
-            <%- end -%>
-          <%- end -%>
         <%- end -%>
-      <%- end -%>
-      <li>
-        <%= link_to t('.download_in_kml'), kml_bgeigie_import_path(@bgeigie_import), class: 'btn' %>
-      </li>
-      <li>
+      </div>
+
+      <div class="col-xs-10 text-right">
+        <%= link_to t('.download_in_kml'), kml_bgeigie_import_path(@bgeigie_import), class: 'btn btn-default', style: 'margin-bottom: 5px' %>
         <%= link_to t(".download_original_file"),
-              @bgeigie_import.source.url,
-              :class => 'btn' %>
-      </li>
-    </ul>
-
-    <h2>
-      <%= t '.bgeigie_import' -%> #<%= @bgeigie_import.source.filename -%>
-
-      <small>
-        <%= render 'bgeigie_imports/status' -%>
-      </small>
-    </h2>
+                    @bgeigie_import.source.url,
+                    :class => 'btn btn-default',
+                    style: 'margin-bottom: 5px'%>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-xs-12">
+        <h2 style="margin-top: 0px;">
+          <%= t '.bgeigie_import' -%> #<%= @bgeigie_import.source.filename -%>
+          <small>
+            <%= render 'bgeigie_imports/status' -%>
+          </small>
+        </h2>
+        <hr/>
+      </div>
+    </div>
     <% if @bgeigie_import.processed? %>
       <em><%= t('.reload_to_see_map') -%></em>
     <% end %>

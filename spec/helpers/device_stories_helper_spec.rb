@@ -15,7 +15,7 @@ RSpec.describe DeviceStoriesHelper, type: :helper do
   end
 
   it 'provides solo panel iframe urls' do
-    url = helper.grafana_iframe(device_urn, helper.grafana_panel(:cpm))
+    url = helper.grafana_iframe(device_urn, :cpm)
     expect(url).to match 'd-solo'
     expect(url).to match '12345'
     expect(url).to match '14'
