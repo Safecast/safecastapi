@@ -29,10 +29,10 @@ class DeviceStoryCommentsController < ApplicationController
 
   def responder_create
     respond_to do |format|
-      if !accepted_file_extensions.include? File.extname(@device_story_comment.image_url)
+      if @device_story_comment.image_url && !(accepted_file_extensions.include? File.extname(@device_story_comment.image_url))
         flash[:error] = "Invalid file type. Accepted file types: #{accepted_file_extensions}"
         format.html { redirect_to device_story_path(@device_story) }
-      elsif @device_story_comment.save && !@device_story_comment.spam?
+      elsif !@device_story_comment.spam? && @device_story_comment.save
         flash[:notice] = 'Comment successfully submitted!'
         format.html { redirect_to device_story_path(@device_story) }
       else

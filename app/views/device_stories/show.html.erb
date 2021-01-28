@@ -84,6 +84,7 @@
       <%= form.text_area :content, :rows => 3, style: 'width:97%;' %>
       <%= form.hidden_field(:image_cache) %>
       <p><%= form.submit "Submit comment", class: "btn btn-primary" %></p>
+      <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
       <%= form.file_field(:image) %>
     <% end %>
   <% end %>
