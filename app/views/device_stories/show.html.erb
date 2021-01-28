@@ -80,7 +80,7 @@
             <%= comment.content %>
             <% if comment.image_url %>
               <hr style="margin: 5px"/>
-              <%= cl_image_tag(comment.image_url) %>
+              <%= cl_image_tag(comment.image_url, {class: 'img-responsive'}) %>
             <% end %>
             <%- if user_signed_in? -%>
               <%- if (comment.user_id == current_user.id) || moderator?(current_user) %>
@@ -102,7 +102,8 @@
       <p><%= form.submit "Submit comment", class: "form-control btn btn-primary", style: "margin-top: 10px; width: 200px;" %></p>
       <%= form.hidden_field(:image_cache) %>
       <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
-      <%= form.file_field(:image) %>
+      <%= form.file_field :image, {style: 'display: inline-block; margin-bottom: 50px'} %>
+      <br/>
     <% end %>
   <% end %>
 </div>
