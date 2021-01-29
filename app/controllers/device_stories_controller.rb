@@ -26,7 +26,7 @@ class DeviceStoriesController < ApplicationController
   end
 
   def show_airnote
-    respond_with DeviceStory.find_by!(device_urn: params[:device_urn])
+    @device_story = DeviceStory.find_by!(device_urn: params[:device_urn])
     respond_with @device_story
   rescue ActiveRecord::RecordNotFound
     head :not_found
