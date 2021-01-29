@@ -28,7 +28,6 @@ module DeviceStoriesHelper
     args = {
       from: 'now-90d',
       to: 'now',
-      refresh: '15',
       'var-device_urn': device_urn
     }
     url.query = args.to_query
@@ -40,7 +39,6 @@ module DeviceStoriesHelper
     args = {
       from: 'now-90d',
       to: 'now',
-      refresh: '15',
       'var-device_urn': device_urn,
       panelId: grafana_panel(panel_name)[:id]
     }
