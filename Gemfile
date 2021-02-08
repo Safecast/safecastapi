@@ -12,7 +12,7 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'bootstrap-kaminari-views'
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'cancan'
-gem 'carrierwave', '~> 1.2.2'
+gem 'carrierwave', '~> 1.3.2'
 gem 'coffee-rails'
 gem 'listen'
 # noinspection RailsParamDefResolve
