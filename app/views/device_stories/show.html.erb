@@ -1,4 +1,22 @@
 <hr/>
+<%= javascript_include_tag 'application' %>
+
+<br>
+<br>
+lnd_7318u
+<%= line_chart get_elasticsearch_hash("lnd_7318u", 20) %>
+lnd_712u
+<%= line_chart get_elasticsearch_hash("lnd_712u", 20) %>
+lnd_7128ec
+<%= line_chart get_elasticsearch_hash("lnd_7128ec", 20) %>
+lnd_7318c
+<%= line_chart get_elasticsearch_hash("lnd_7318c", 20) %>
+lnd_78017w
+<%= line_chart get_elasticsearch_hash("lnd_78017w", 20) %>
+
+<%= a = {'06 02 2020' => 50, '07 02 2020' => 50, '01 06 2020' => 250, '01 02 2021' => 100} %>
+<%= line_chart a %>
+
   <%= content_for(:title) do %>
   <%- end -%>
   <div style="margin-left: 10px; text-align: center">

@@ -74,4 +74,119 @@ module DeviceStoriesHelper
       last_values[0..index_u - 1]
     end
   end
+
+  def query_elasticsearch(sensor)
+    IngestMeasurement.search "query":
+                                 {
+
+                                     "match":
+                                         {
+                                             "device_urn": @device_story.device_urn
+                                         }
+
+                                 },
+                             "size": 20,
+                             "aggs":
+                                 {
+                                     "my_buckets":
+                                         {
+                                             "composite":
+                                                 {
+                                                     "sources":
+                                                         [
+                                                             {
+                                                                 "date":
+                                                                     {
+                                                                         "date_histogram":
+                                                                             {
+                                                                                 "field": "service_uploaded",
+                                                                                 "calendar_interval":  "day"
+                                                                             }
+                                                                     }
+
+                                                             }
+                                                         ]
+                                                 },
+                                             "aggregations":
+                                                 {
+                                                     "sensor":
+                                                         {
+                                                             "avg":
+                                                                 {
+                                                                     "field": sensor
+                                                                 }
+                                                         }
+                                                 }
+                                         }
+                                 }
+  end
+
+  def query_elasticsearch_after(sensor, after)
+    IngestMeasurement.search "query":
+                                 {
+
+                                     "match":
+                                         {
+                                             "device_urn": @device_story.device_urn
+                                         }
+
+                                 },
+                             "size": 20,
+                             "aggs":
+                                 {
+                                     "my_buckets":
+                                         {
+                                             "composite":
+                                                 {
+                                                     "sources":
+                                                         [
+                                                             {
+                                                                 "date":
+                                                                     {
+                                                                         "date_histogram":
+                                                                             {
+                                                                                 "field": "service_uploaded",
+                                                                                 "calendar_interval":  "day"
+                                                                             }
+                                                                     }
+
+                                                             }
+                                                         ],
+                                                     "after": { "date": after["date"]}
+                                                 },
+                                             "aggregations":
+                                                 {
+                                                     "sensor":
+                                                         {
+                                                             "avg":
+                                                                 {
+                                                                     "field": sensor
+                                                                 }
+                                                         }
+                                                 }
+                                         }
+                                 }
+  end
+
+
+
+  def get_elasticsearch_hash(sensor, count, after = nil)
+    q = after ? query_elasticsearch_after(sensor, after) : query_elasticsearch(sensor)
+    hash_sensor = {}
+    after_key = q.response["aggregations"]["my_buckets"]["after_key"]
+    q.response["aggregations"]["my_buckets"]["buckets"][0]["sensor"]["value"]
+    q.response["aggregations"]["my_buckets"]["buckets"].each do |aggr|
+      aggr["key"]["date"]
+      date = Time.at(aggr["key"]["date"] / 1000.0).strftime('%Y/%m/%d')
+      #count = aggr["doc_count"]
+      avg_sensor_value = aggr["sensor"]["value"]
+      hash_sensor.merge!(date => avg_sensor_value)
+    end
+    if after_key == nil || count <= 0
+      return hash_sensor
+    else
+      puts "DATE: " + after_key["date"].to_s + count.to_s
+      return get_elasticsearch_hash(sensor, count - 1, after_key).merge!(hash_sensor)
+    end
+  end
 end
