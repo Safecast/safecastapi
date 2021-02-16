@@ -75,7 +75,7 @@ module DeviceStoriesHelper
     end
   end
 
-  def query_elasticsearch(sensor)
+  def query_elasticsearch()
     IngestMeasurement.search "query":
                                  {
                                      "bool": {
@@ -83,7 +83,7 @@ module DeviceStoriesHelper
                                              {
                                                  "range": {
                                                      "service_uploaded": {
-                                                         "gte": "now-4w",
+                                                         "gte": "now-2w",
                                                          "lte": "now"
                                                      }
                                                  }
@@ -121,11 +121,46 @@ module DeviceStoriesHelper
                                                  },
                                              "aggregations":
                                                  {
-                                                     "sensor":
+                                                     "lnd_7318u":
                                                          {
                                                              "avg":
                                                                  {
-                                                                     "field": sensor
+                                                                     "field": "lnd_7318u"
+                                                                 }
+                                                         },
+                                                     "lnd_712u":
+                                                         {
+                                                             "avg":
+                                                                 {
+                                                                     "field": "lnd_712u"
+                                                                 }
+                                                         },
+                                                     "lnd_7128ec":
+                                                         {
+                                                             "avg":
+                                                                 {
+                                                                     "field": "lnd_7128ec"
+                                                                 }
+                                                         },
+                                                     "lnd_7318c":
+                                                         {
+                                                             "avg":
+                                                                 {
+                                                                     "field": "lnd_7318c"
+                                                                 }
+                                                         },
+                                                     "lnd_78017w":
+                                                         {
+                                                             "avg":
+                                                                 {
+                                                                     "field": "lnd_78017w"
+                                                                 }
+                                                         },
+                                                     "lnd_7128c":
+                                                         {
+                                                             "avg":
+                                                                 {
+                                                                     "field": "lnd_7128c"
                                                                  }
                                                          }
                                                  }
@@ -133,7 +168,7 @@ module DeviceStoriesHelper
                                  }
   end
 
-  def query_elasticsearch_after(sensor, after)
+  def query_elasticsearch_after(after)
     IngestMeasurement.search "query":
                                  {
                                      "bool": {
@@ -141,7 +176,7 @@ module DeviceStoriesHelper
                                              {
                                                  "range": {
                                                      "service_uploaded": {
-                                                         "gte": "now-4w",
+                                                         "gte": "now-2w",
                                                          "lte": "now"
                                                      }
                                                  }
@@ -180,11 +215,46 @@ module DeviceStoriesHelper
                                                  },
                                              "aggregations":
                                                  {
-                                                     "sensor":
+                                                     "lnd_7318u":
                                                          {
                                                              "avg":
                                                                  {
-                                                                     "field": sensor
+                                                                     "field": "lnd_7318u"
+                                                                 }
+                                                         },
+                                                     "lnd_712u":
+                                                         {
+                                                             "avg":
+                                                                 {
+                                                                     "field": "lnd_712u"
+                                                                 }
+                                                         },
+                                                     "lnd_7128ec":
+                                                         {
+                                                             "avg":
+                                                                 {
+                                                                     "field": "lnd_7128ec"
+                                                                 }
+                                                         },
+                                                     "lnd_7318c":
+                                                         {
+                                                             "avg":
+                                                                 {
+                                                                     "field": "lnd_7318c"
+                                                                 }
+                                                         },
+                                                     "lnd_78017w":
+                                                         {
+                                                             "avg":
+                                                                 {
+                                                                     "field": "lnd_78017w"
+                                                                 }
+                                                         },
+                                                     "lnd_7128c":
+                                                         {
+                                                             "avg":
+                                                                 {
+                                                                     "field": "lnd_7128c"
                                                                  }
                                                          }
                                                  }
@@ -192,32 +262,51 @@ module DeviceStoriesHelper
                                  }
   end
 
-  def get_elasticsearch_hash(sensor, max_composites, after = nil)
-    q = after ? query_elasticsearch_after(sensor, after) : query_elasticsearch(sensor)
-    hash_sensor = {}
-    return hash_sensor if q.response["aggregations"]["my_buckets"]["buckets"].size < 1
+  def get_elasticsearch_hash(max_composites, after = nil)
+    q = after ? query_elasticsearch_after(after) : query_elasticsearch()
+    all_hashes = []
+    hash_lnd_7318u = {}
+    hash_lnd_712u = {}
+    hash_lnd_7128ec = {}
+    hash_lnd_7318c = {}
+    hash_lnd_78017w = {}
+    hash_lnd_7128c = {}
+    return all_hashes if q.response["aggregations"]["my_buckets"]["buckets"].size < 1
     after_key = q.response["aggregations"]["my_buckets"]["after_key"]
-    q.response["aggregations"]["my_buckets"]["buckets"][0]["sensor"]["value"]
     q.response["aggregations"]["my_buckets"]["buckets"].each do |aggr|
       aggr["key"]["date"]
-      date = Time.at(aggr["key"]["date"] / 1000.0).strftime('%Y/%m/%d %H')
+      date = Time.at(aggr["key"]["date"] / 1000.0).strftime('%Y-%m-%d %H')
       #doc_count = aggr["doc_max_composites"]
-      avg_sensor_value = aggr["sensor"]["value"]
-      hash_sensor.merge!(date => avg_sensor_value)
+     ' lnd_7128ec lnd_7318c lnd_712u lnd_7318u
+        lnd_78017w lnd_7128c'
+      avg_lnd_7318u_value = aggr["lnd_7318u"]["value"]
+      avg_lnd_712u_value = aggr["lnd_712u"]["value"]
+      avg_lnd_7128ec_value = aggr["lnd_7128ec"]["value"]
+      avg_lnd_7318c_value = aggr["lnd_7318c"]["value"]
+      avg_lnd_78017w_value = aggr["lnd_78017w"]["value"]
+      avg_lnd_7128c_value = aggr["lnd_78017w"]["value"]
+      hash_lnd_7318u.merge!(date => avg_lnd_7318u_value)
+      hash_lnd_712u.merge!(date => avg_lnd_712u_value)
+      hash_lnd_7128ec.merge!(date => avg_lnd_7128ec_value)
+      hash_lnd_7318c.merge!(date => avg_lnd_7318c_value)
+      hash_lnd_78017w.merge!(date => avg_lnd_78017w_value)
+      hash_lnd_7128c.merge!(date => avg_lnd_7128c_value)
     end
+    all_hashes.push({"name": "lnd_7128ec", "data": hash_lnd_7128ec})
+    all_hashes.push({"name": "lnd_7318c", "data": hash_lnd_7318c})
+    all_hashes.push({"name": "lnd_712u", "data": hash_lnd_712u})
+    all_hashes.push({"name": "lnd_7318u", "data": hash_lnd_7318u})
+    all_hashes.push({"name": "lnd_78017w", "data": hash_lnd_78017w})
+    all_hashes.push({"name": "lnd_7128c", "data": hash_lnd_7128c})
     if after_key == nil || max_composites <= 0
-      return hash_sensor
+      return all_hashes
     else
       puts "DATE: " + after_key["date"].to_s + max_composites.to_s
-      return get_elasticsearch_hash(sensor, max_composites - 1, after_key).merge!(hash_sensor)
+      return get_elasticsearch_hash(max_composites - 1, after_key) + all_hashes
     end
   end
 
   def query_all_sensors
-    [{"name": "lnd_7318u", "data":  get_elasticsearch_hash("lnd_7318u", 20) },
-     {"name": "lnd_712u", "data":  get_elasticsearch_hash("lnd_712u", 20) },
-     {"name": "lnd_7128ec", "data":  get_elasticsearch_hash("lnd_7128ec", 20) },
-     {"name": "lnd_7318c", "data":  get_elasticsearch_hash("lnd_7318c", 20) },
-     {"name": "lnd_78017w", "data":  get_elasticsearch_hash("lnd_78017w", 20) }]
+    get_elasticsearch_hash(20)
   end
 end

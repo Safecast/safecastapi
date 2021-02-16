@@ -61,8 +61,9 @@ lnd_7128ec lnd_7318c lnd_78017w
         style="flex: 2 2 60%; width: 100%; height: 250px;" frameborder="0">
       </iframe>
     <%- else %>
-      <div class="col-md-7">
-        <%= area_chart tmp, height: "250px", legend: "bottom" %>
+      <div class="col-md-7 text-center" style="margin-top: 15px">
+        CPM
+        <%= area_chart tmp, height: "250px", legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
       </div>
     <%- end %>
   </div>
