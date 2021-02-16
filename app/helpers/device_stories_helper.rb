@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
 module DeviceStoriesHelper
   def grafana_panel(name)
     panels = {
@@ -75,195 +76,195 @@ module DeviceStoriesHelper
     end
   end
 
-  def query_elasticsearch()
+  def query_elasticsearch # rubocop:disable Metrics/MethodLength
     IngestMeasurement.search "query":
                                  {
-                                     "bool": {
-                                         "must": [
-                                             {
-                                                 "range": {
-                                                     "service_uploaded": {
-                                                         "gte": "now-2w",
-                                                         "lte": "now"
-                                                     }
-                                                 }
-                                             },
-                                             {
-                                                 "match": {
-                                                     "device_urn": @device_story.device_urn
-                                                 }
-                                             }
-                                         ]
-                                     }
+                                   "bool": {
+                                     "must": [
+                                       {
+                                         "range": {
+                                           "service_uploaded": {
+                                             "gte": 'now-2w',
+                                             "lte": 'now'
+                                           }
+                                         }
+                                       },
+                                       {
+                                         "match": {
+                                           "device_urn": @device_story.device_urn
+                                         }
+                                       }
+                                     ]
+                                   }
                                  },
                              "size": 0,
                              "aggs":
                                  {
-                                     "my_buckets":
-                                         {
-                                             "composite":
-                                                 {
-                                                     "size": 1000,
-                                                     "sources":
-                                                         [
-                                                             {
-                                                                 "date":
-                                                                     {
-                                                                         "date_histogram":
-                                                                             {
-                                                                                 "field": "when_captured",
-                                                                                 "interval":  "hour"
-                                                                             }
-                                                                     }
+                                   "my_buckets":
+                                       {
+                                         "composite":
+                                               {
+                                                 "size": 1000,
+                                                 "sources":
+                                                       [
+                                                         {
+                                                           "date":
+                                                                 {
+                                                                   "date_histogram":
+                                                                         {
+                                                                           "field": 'when_captured',
+                                                                           "interval": 'hour'
+                                                                         }
+                                                                 }
 
-                                                             }
-                                                         ]
-                                                 },
-                                             "aggregations":
-                                                 {
-                                                     "lnd_7318u":
-                                                         {
-                                                             "avg":
-                                                                 {
-                                                                     "field": "lnd_7318u"
-                                                                 }
-                                                         },
-                                                     "lnd_712u":
-                                                         {
-                                                             "avg":
-                                                                 {
-                                                                     "field": "lnd_712u"
-                                                                 }
-                                                         },
-                                                     "lnd_7128ec":
-                                                         {
-                                                             "avg":
-                                                                 {
-                                                                     "field": "lnd_7128ec"
-                                                                 }
-                                                         },
-                                                     "lnd_7318c":
-                                                         {
-                                                             "avg":
-                                                                 {
-                                                                     "field": "lnd_7318c"
-                                                                 }
-                                                         },
-                                                     "lnd_78017w":
-                                                         {
-                                                             "avg":
-                                                                 {
-                                                                     "field": "lnd_78017w"
-                                                                 }
-                                                         },
-                                                     "lnd_7128c":
-                                                         {
-                                                             "avg":
-                                                                 {
-                                                                     "field": "lnd_7128c"
-                                                                 }
                                                          }
-                                                 }
-                                         }
+                                                       ]
+                                               },
+                                         "aggregations":
+                                               {
+                                                 "lnd_7318u":
+                                                       {
+                                                         "avg":
+                                                               {
+                                                                 "field": 'lnd_7318u'
+                                                               }
+                                                       },
+                                                 "lnd_712u":
+                                                       {
+                                                         "avg":
+                                                               {
+                                                                 "field": 'lnd_712u'
+                                                               }
+                                                       },
+                                                 "lnd_7128ec":
+                                                       {
+                                                         "avg":
+                                                               {
+                                                                 "field": 'lnd_7128ec'
+                                                               }
+                                                       },
+                                                 "lnd_7318c":
+                                                       {
+                                                         "avg":
+                                                               {
+                                                                 "field": 'lnd_7318c'
+                                                               }
+                                                       },
+                                                 "lnd_78017w":
+                                                       {
+                                                         "avg":
+                                                               {
+                                                                 "field": 'lnd_78017w'
+                                                               }
+                                                       },
+                                                 "lnd_7128c":
+                                                       {
+                                                         "avg":
+                                                               {
+                                                                 "field": 'lnd_7128c'
+                                                               }
+                                                       }
+                                               }
+                                       }
                                  }
   end
 
-  def query_elasticsearch_after(after)
+  def query_elasticsearch_after(after) # rubocop:disable Metrics/MethodLength
     IngestMeasurement.search "query":
                                  {
-                                     "bool": {
-                                         "must": [
-                                             {
-                                                 "range": {
-                                                     "service_uploaded": {
-                                                         "gte": "now-2w",
-                                                         "lte": "now"
-                                                     }
-                                                 }
-                                             },
-                                             {
-                                                 "match": {
-                                                     "device_urn": @device_story.device_urn
-                                                 }
-                                             }
-                                         ]
-                                     }
+                                   "bool": {
+                                     "must": [
+                                       {
+                                         "range": {
+                                           "service_uploaded": {
+                                             "gte": 'now-2w',
+                                             "lte": 'now'
+                                           }
+                                         }
+                                       },
+                                       {
+                                         "match": {
+                                           "device_urn": @device_story.device_urn
+                                         }
+                                       }
+                                     ]
+                                   }
                                  },
                              "aggs":
                                  {
-                                     "my_buckets":
-                                         {
-                                             "composite":
-                                                 {
-                                                     "size": 10000,
-                                                     "sources":
-                                                         [
-                                                             {
-                                                                 "date":
-                                                                     {
-                                                                         "date_histogram":
-                                                                             {
-                                                                                 "field": "when_captured",
-                                                                                 "interval":  "hour",
-                                                                                 "format": "H"
-                                                                             }
-                                                                     }
+                                   "my_buckets":
+                                       {
+                                         "composite":
+                                               {
+                                                 "size": 10_000,
+                                                 "sources":
+                                                       [
+                                                         {
+                                                           "date":
+                                                                 {
+                                                                   "date_histogram":
+                                                                         {
+                                                                           "field": 'when_captured',
+                                                                           "interval": 'hour',
+                                                                           "format": 'H'
+                                                                         }
+                                                                 }
 
-                                                             }
-                                                         ],
-                                                     "after": { "date": after["date"] }
-                                                 },
-                                             "aggregations":
-                                                 {
-                                                     "lnd_7318u":
-                                                         {
-                                                             "avg":
-                                                                 {
-                                                                     "field": "lnd_7318u"
-                                                                 }
-                                                         },
-                                                     "lnd_712u":
-                                                         {
-                                                             "avg":
-                                                                 {
-                                                                     "field": "lnd_712u"
-                                                                 }
-                                                         },
-                                                     "lnd_7128ec":
-                                                         {
-                                                             "avg":
-                                                                 {
-                                                                     "field": "lnd_7128ec"
-                                                                 }
-                                                         },
-                                                     "lnd_7318c":
-                                                         {
-                                                             "avg":
-                                                                 {
-                                                                     "field": "lnd_7318c"
-                                                                 }
-                                                         },
-                                                     "lnd_78017w":
-                                                         {
-                                                             "avg":
-                                                                 {
-                                                                     "field": "lnd_78017w"
-                                                                 }
-                                                         },
-                                                     "lnd_7128c":
-                                                         {
-                                                             "avg":
-                                                                 {
-                                                                     "field": "lnd_7128c"
-                                                                 }
                                                          }
-                                                 }
-                                         }
+                                                       ],
+                                                 "after": { "date": after['date'] }
+                                               },
+                                         "aggregations":
+                                               {
+                                                 "lnd_7318u":
+                                                       {
+                                                         "avg":
+                                                               {
+                                                                 "field": 'lnd_7318u'
+                                                               }
+                                                       },
+                                                 "lnd_712u":
+                                                       {
+                                                         "avg":
+                                                               {
+                                                                 "field": 'lnd_712u'
+                                                               }
+                                                       },
+                                                 "lnd_7128ec":
+                                                       {
+                                                         "avg":
+                                                               {
+                                                                 "field": 'lnd_7128ec'
+                                                               }
+                                                       },
+                                                 "lnd_7318c":
+                                                       {
+                                                         "avg":
+                                                               {
+                                                                 "field": 'lnd_7318c'
+                                                               }
+                                                       },
+                                                 "lnd_78017w":
+                                                       {
+                                                         "avg":
+                                                               {
+                                                                 "field": 'lnd_78017w'
+                                                               }
+                                                       },
+                                                 "lnd_7128c":
+                                                       {
+                                                         "avg":
+                                                               {
+                                                                 "field": 'lnd_7128c'
+                                                               }
+                                                       }
+                                               }
+                                       }
                                  }
   end
 
-  def get_elasticsearch_hash(max_composites, after = nil)
-    q = after ? query_elasticsearch_after(after) : query_elasticsearch()
+  def get_elasticsearch_hash(max_composites, after = nil) # rubocop:disable all
+    q = after ? query_elasticsearch_after(after) : query_elasticsearch
     all_hashes = []
     hash_lnd_7318u = {}
     hash_lnd_712u = {}
@@ -271,16 +272,17 @@ module DeviceStoriesHelper
     hash_lnd_7318c = {}
     hash_lnd_78017w = {}
     hash_lnd_7128c = {}
-    return all_hashes if q.response["aggregations"]["my_buckets"]["buckets"].size < 1
-    after_key = q.response["aggregations"]["my_buckets"]["after_key"]
-    q.response["aggregations"]["my_buckets"]["buckets"].each do |aggr|
-      date = Time.at(aggr["key"]["date"] / 1000.0).strftime('%Y-%m-%d %H')
-      avg_lnd_7318u_value = aggr["lnd_7318u"]["value"]
-      avg_lnd_712u_value = aggr["lnd_712u"]["value"]
-      avg_lnd_7128ec_value = aggr["lnd_7128ec"]["value"]
-      avg_lnd_7318c_value = aggr["lnd_7318c"]["value"]
-      avg_lnd_78017w_value = aggr["lnd_78017w"]["value"]
-      avg_lnd_7128c_value = aggr["lnd_78017w"]["value"]
+    return all_hashes if q.response['aggregations']['my_buckets']['buckets'].empty?
+
+    after_key = q.response['aggregations']['my_buckets']['after_key']
+    q.response['aggregations']['my_buckets']['buckets'].each do |aggr|
+      date = Time.at(aggr['key']['date'] / 1000.0).strftime('%Y-%m-%d %H')
+      avg_lnd_7318u_value = aggr['lnd_7318u']['value']
+      avg_lnd_712u_value = aggr['lnd_712u']['value']
+      avg_lnd_7128ec_value = aggr['lnd_7128ec']['value']
+      avg_lnd_7318c_value = aggr['lnd_7318c']['value']
+      avg_lnd_78017w_value = aggr['lnd_78017w']['value']
+      avg_lnd_7128c_value = aggr['lnd_78017w']['value']
       hash_lnd_7318u.merge!(date => avg_lnd_7318u_value)
       hash_lnd_712u.merge!(date => avg_lnd_712u_value)
       hash_lnd_7128ec.merge!(date => avg_lnd_7128ec_value)
@@ -288,16 +290,16 @@ module DeviceStoriesHelper
       hash_lnd_78017w.merge!(date => avg_lnd_78017w_value)
       hash_lnd_7128c.merge!(date => avg_lnd_7128c_value)
     end
-    all_hashes.push({"name": "lnd_7128ec", "data": hash_lnd_7128ec})
-    all_hashes.push({"name": "lnd_7318c", "data": hash_lnd_7318c})
-    all_hashes.push({"name": "lnd_712u", "data": hash_lnd_712u})
-    all_hashes.push({"name": "lnd_7318u", "data": hash_lnd_7318u})
-    all_hashes.push({"name": "lnd_78017w", "data": hash_lnd_78017w})
-    all_hashes.push({"name": "lnd_7128c", "data": hash_lnd_7128c})
-    if after_key == nil || max_composites <= 0
-      return all_hashes
+    all_hashes.push({ "name": 'lnd_7128ec', "data": hash_lnd_7128ec })
+    all_hashes.push({ "name": 'lnd_7318c', "data": hash_lnd_7318c })
+    all_hashes.push({ "name": 'lnd_712u', "data": hash_lnd_712u })
+    all_hashes.push({ "name": 'lnd_7318u', "data": hash_lnd_7318u })
+    all_hashes.push({ "name": 'lnd_78017w', "data": hash_lnd_78017w })
+    all_hashes.push({ "name": 'lnd_7128c', "data": hash_lnd_7128c })
+    if after_key.nil? || max_composites <= 0
+      all_hashes
     else
-      puts "DATE: " + after_key["date"].to_s + max_composites.to_s
+      puts "DATE: #{after_key['date']}#{max_composites}"
       get_elasticsearch_hash(max_composites - 1, after_key) + all_hashes
     end
   end
@@ -306,3 +308,4 @@ module DeviceStoriesHelper
     get_elasticsearch_hash(20)
   end
 end
+# rubocop:enable Metrics/ModuleLength
