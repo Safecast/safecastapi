@@ -274,11 +274,7 @@ module DeviceStoriesHelper
     return all_hashes if q.response["aggregations"]["my_buckets"]["buckets"].size < 1
     after_key = q.response["aggregations"]["my_buckets"]["after_key"]
     q.response["aggregations"]["my_buckets"]["buckets"].each do |aggr|
-      aggr["key"]["date"]
       date = Time.at(aggr["key"]["date"] / 1000.0).strftime('%Y-%m-%d %H')
-      #doc_count = aggr["doc_max_composites"]
-     ' lnd_7128ec lnd_7318c lnd_712u lnd_7318u
-        lnd_78017w lnd_7128c'
       avg_lnd_7318u_value = aggr["lnd_7318u"]["value"]
       avg_lnd_712u_value = aggr["lnd_712u"]["value"]
       avg_lnd_7128ec_value = aggr["lnd_7128ec"]["value"]
@@ -302,7 +298,7 @@ module DeviceStoriesHelper
       return all_hashes
     else
       puts "DATE: " + after_key["date"].to_s + max_composites.to_s
-      return get_elasticsearch_hash(max_composites - 1, after_key) + all_hashes
+      get_elasticsearch_hash(max_composites - 1, after_key) + all_hashes
     end
   end
 

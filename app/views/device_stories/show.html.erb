@@ -1,20 +1,5 @@
 <hr/>
 <%= javascript_include_tag 'application' %>
-
-<br>
-<br>
-<div class="hidden-xs">
-lnd_7318u lnd_712u
-lnd_7128ec lnd_7318c lnd_78017w
-  <hr/>
-<%= tmp = query_all_sensors() %>
-  <%= tmp.size %>
-
-<%= area_chart tmp, legend: "bottom" %>
-
-<%= a = {'06 02 2020' => 50, '07 02 2020' => 50, '01 06 2020' => 250, '01 02 2021' => 100} %>
-<%= line_chart a %>
-</div>
   <%= content_for(:title) do %>
   <%- end -%>
   <div style="margin-left: 10px; text-align: center">
@@ -63,7 +48,7 @@ lnd_7128ec lnd_7318c lnd_78017w
     <%- else %>
       <div class="col-md-7 text-center" style="margin-top: 15px">
         CPM
-        <%= area_chart tmp, height: "250px", legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
+        <%= area_chart query_all_sensors(), height: "250px", legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
       </div>
     <%- end %>
   </div>
