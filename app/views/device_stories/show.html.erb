@@ -48,8 +48,9 @@
     <%- else %>
       <div class="col-md-7 text-center" style="margin-top: 15px">
         CPM
-        <%= area_chart query_all_sensors(), height: "250px", library: {elements: {point: {radius: 1.5}}}, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
+        <%= line_chart get_sensor_data(), height: "250px", library: { chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
       </div>
+      </body>
     <%- end %>
   </div>
   <hr>

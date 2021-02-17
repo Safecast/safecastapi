@@ -15,7 +15,7 @@
 //= require moment
 //= require bootstrap-datetimepicker
 //= require chartkick
-//= require Chart.bundle
+//= require highcharts
 //= require_tree ./application
 //- require_self
 
