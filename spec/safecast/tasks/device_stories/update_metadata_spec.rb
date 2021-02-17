@@ -6,42 +6,34 @@ RSpec.describe Tasks::DeviceStories::UpdateMetadata do
       .to_return(body: file_fixture('device_stories.json').read)
   end
 
-  let!(:device_story) { Fabricate(:device_story, last_location_name: 'Israel', device_urn: 'safecast:114699387') }
+  let!(:device_story) { Fabricate(:device_story, custodian_name: 'Rob', device_urn: 'note:dev:864475041076489') }
 
   describe '.call' do
     subject { described_class.call }
 
     it 'imports new device_stories' do
-      expect { subject }.to change { DeviceStory.count }.by(2)
-      expect(DeviceStory.find_by(device_urn: 'safecast:114699387').attributes)
-        .to include('last_location_name' => 'Hollywood LA CA USA',
-                    'last_values' => '3.7v 31|32cpm 0.6|0.9|1.6ug/m3',
-                    'device_id' => 114_699_387,
-                    'custodian_name' => 'Sean/Jory')
-    end
-
-    it 'imports when_captured as last_seen' do
-      subject
-      expect(DeviceStory.find_by(device_urn: 'safecast:1162749983').last_seen)
-        .to eq(Time.parse('2020-06-11T18:55:14Z'))
+      expect { subject }.to change { DeviceStory.count }.by(1)
+      expect(DeviceStory.find_by(device_urn: 'note:dev:864475041076489').attributes)
+        .to include('device_id' => 1_555_528_602,
+                    'custodian_name' => 'Sean Bonner')
     end
 
     context 'when device_story exists' do
       it 'updates device_story' do
         expect { subject }
-          .to change { device_story.reload.last_location_name }
-          .from('Israel').to('Hollywood LA CA USA')
+          .to change { device_story.reload.custodian_name }
+          .from('Rob').to('Sean Bonner')
       end
     end
 
     context 'when coordinates are missing' do
       it 'skips device_story' do
         expect(Rails).to receive_message_chain(:logger, :warn)
-          .with('Missing points for device_urn[safecast:370900814822]')
+          .with('Missing points for device_urn[note:dev:864475040512211]')
 
         subject
 
-        expect(DeviceStory.find_by(device_urn: 'safecast:370900814822'))
+        expect(DeviceStory.find_by(device_urn: 'note:dev:864475040512211'))
           .to be_nil
       end
     end
