@@ -29,7 +29,7 @@ module Tasks
 
         device.device_id = metadata['device']
         device.last_values = metadata['last_values']
-        device.last_seen = metadata['last_seen']
+        device.last_seen = metadata['last_seen'] || metadata['when_captured']
         device.last_location = "POINT(#{last_lon} #{last_lat})"
         device.last_location_name = metadata['location']
         device.custodian_name = metadata['custodian_name']

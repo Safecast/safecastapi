@@ -20,6 +20,12 @@ RSpec.describe Tasks::DeviceStories::UpdateMetadata do
                     'custodian_name' => 'Sean/Jory')
     end
 
+    it 'imports when_captured as last_seen' do
+      subject
+      expect(DeviceStory.find_by(device_urn: 'safecast:1162749983').last_seen)
+        .to eq(Time.parse('2020-06-11T18:55:14Z'))
+    end
+
     context 'when device_story exists' do
       it 'updates device_story' do
         expect { subject }

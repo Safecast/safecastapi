@@ -45,7 +45,7 @@
     "custodian_contact": "mailto:rob@yr-design.biz",
     "location": "Kittywood Nara Japan",
     "dashboard": "https://grafana.safecast.cc/d/DFSxrOLWk/safecast-device-details?orgId=1&from=now-7d&to=now&refresh=15m&var-device_urn=safecast:1162749983",
-    "last_seen": "2020-06-11T18:55:14Z",
+    "when_captured": "2020-06-11T18:55:14Z",
     "last_lat": 34.4817008972168,
     "last_lon": 136.16183471679688,
     "last_values": "4.2v 46|14cpm",
