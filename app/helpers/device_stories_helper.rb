@@ -85,9 +85,6 @@ module DeviceStoriesHelper
       sensor_exists = false
       q.response['aggregations']['sensor_data']['buckets'].each do |aggr|
         date = Time.at(aggr['key'] / 1000.0).strftime('%Y-%m-%d %H')
-        puts sensor
-        puts aggr[sensor]
-        puts aggr[sensor]['value']
         avg_sensor_value = aggr[sensor]['value']
         if avg_sensor_value then sensor_exists = true end
         hash_sensor.merge!(date => avg_sensor_value)
