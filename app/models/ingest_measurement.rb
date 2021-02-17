@@ -28,7 +28,7 @@ class IngestMeasurement
                      {
                        "query_string": {
                          "analyze_wildcard": true,
-                         "query": 'device_urn:' # {device_urn}""
+                         "query": "device_urn:" + "\"" + _device_urn + "\""
                        }
                      }
                    ]
