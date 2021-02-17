@@ -61,10 +61,11 @@
         style="flex-grow: 1; width: 100%; min-height: 250px; height: auto;" frameborder="0">
       </iframe>
     <%- else %>
-      <iframe
-        src="<%= grafana_iframe(@device_story.device_urn, :map) %>"
-        style="flex-grow: 1; width: 100%; min-height: 250px; height: auto;" frameborder="0">
-      </iframe>
+      <div id="map" style="height: 400px;"></div>
+      <% l = sensor_last_location()%>
+      <script>
+        new Mapkick.Map("map", [{latitude: <%= l["lat"] %>, longitude: <%= l["lon"] %>}]);
+      </script>
     <%- end %>
   </div>
 

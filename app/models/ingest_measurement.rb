@@ -36,7 +36,7 @@ class IngestMeasurement
              "aggs": {
                "sensor_data": {
                  "date_histogram": {
-                   "interval": '6h',
+                   "interval": '12h',
                    "field": '@timestamp',
                    "min_doc_count": 0,
                    "extended_bounds": {
@@ -84,6 +84,14 @@ class IngestMeasurement
                  }
                }
              }
+    end
+
+    def query_last_sensor_location(device_urn)
+      search "query": {
+        "match": { "device_urn": device_urn }
+      },
+             "size": 1,
+             "sort": [{ "@timestamp": { "order": 'desc' } }]
     end
   end
 end

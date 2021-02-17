@@ -22,6 +22,12 @@
     <!--[if lt IE 9]>
     <%= javascript_include_tag 'html5shiv' %>
     <![endif]-->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
+    <script>
+        mapboxgl.accessToken = "<%= ENV['MAPBOXGL_TOKEN'] %>";
+    </script>
+    <script src="mapkick.js"></script>
   </head>
   <body data-spy="scroll" data-target=".doc-nav">
     <div class="container">

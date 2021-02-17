@@ -93,4 +93,8 @@ module DeviceStoriesHelper
     end
     all_hashes
   end
+
+  def sensor_last_location
+    IngestMeasurement.query_last_sensor_location(@device_story.device_urn).response['hits']['hits'][0]['_source']['ingest']['location']
+  end
 end
