@@ -12,7 +12,7 @@ class IngestMeasurement
       search(query: query).results.map(&:_source)
     end
 
-    def query_sensor_data(_device_urn) # rubocop:disable Metrics/MethodLength
+    def query_sensor_data(device_urn) # rubocop:disable Metrics/MethodLength
       search "query":
                  { "bool": {
                    "filter": [
@@ -28,7 +28,7 @@ class IngestMeasurement
                      {
                        "query_string": {
                          "analyze_wildcard": true,
-                         "query": "device_urn:" + "\"" + _device_urn + "\""
+                         "query": "device_urn:" + "\"" + device_urn + "\"" # rubocop:disable all
                        }
                      }
                    ]
