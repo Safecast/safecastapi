@@ -5,7 +5,7 @@
     <h2>
       <%= @device_story.last_location_name %> (<%= @device_story.device_urn %>)
       <%- if  @device_story.last_seen %>
-        <div style="font-size: 15px"> <%= time_ago_in_words(@device_story.last_seen) %> ago</div>
+        <div style="font-size: 15px"> Last seen <%= time_ago_in_words(@device_story.last_seen) %> ago</div>
       <%- end %>
     </h2>
   </div>
@@ -13,25 +13,6 @@
   <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
     <div style="flex: 1 5 40%; width: 100%; margin-top: 25px">
       <table class="table table-hover" style="width: 100%">
-        <thead style="font-size: 13px">
-        <tr>
-          <td colspan="3" style="text-align:center"><%= @device_story.last_seen %></td>
-        </tr>
-        </thead>
-        <tr>
-          <td colspan="2" style="font-size: 12px">CPM</td>
-          <td style="font-size: 15px; text-align:right"> <%= last_cpm_values(@device_story.last_values) %></td>
-        </tr>
-        <tr>
-          <td colspan="2" style="font-size: 12px; white-space: nowrap">Battery Voltage</td>
-          <td style="font-size: 15px; text-align:right"><%= last_battery_value(@device_story.last_values) %>V</td>
-        </tr>
-        <tr>
-          <td style="font-size: 12px; white-space: nowrap"> Air Quality</td>
-          <td colspan="2" style="font-size: 12px; text-align:right"><%= last_air_quality_values(@device_story.last_values) %>
-            <br> ug/m3
-          </td>
-        </tr>
         <tr>
           <td colspan="3">
             <button type="button" style="display: flex; justify-content: center; align-items: center; margin-left: auto; margin-right: auto; font-size: 15px; min-width: 164px; width: 100%"><%= link_to 'More sensor data', grafana_more_data(@device_story.device_urn), target: :_blank %></button>
