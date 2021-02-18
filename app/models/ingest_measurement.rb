@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class IngestMeasurement
+class IngestMeasurement # rubocop:disable Metrics/ClassLength
   extend ActiveModel::Naming
   include Elasticsearch::Model
 
@@ -79,6 +79,21 @@ class IngestMeasurement
                    "lnd7128c": {
                      "avg": {
                        "field": 'lnd7128c'
+                     }
+                   },
+                   "pms_pm10_0": {
+                     "avg": {
+                       "field": 'pms_pm10_0'
+                     }
+                   },
+                   "pms_pm02_5": {
+                     "avg": {
+                       "field": 'pms_pm02_5'
+                     }
+                   },
+                   "pms_pm01_0": {
+                     "avg": {
+                       "field": 'pms_pm01_0'
                      }
                    }
                  }

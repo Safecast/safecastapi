@@ -73,14 +73,20 @@ module DeviceStoriesHelper
     end
   end
 
-  def all_sensor_names
+  def radiation_sensor_names
     %w(lnd_7128ec lnd_7318c lnd_712u lnd_7318u lnd_78017w lnd7318u lnd7128c)
+  end
+
+  def air_sensor_names
+    %w(pms_pm10_0 pms_pm02_5 pms_pm01_0)
   end
 
   def get_sensor_data() # rubocop:disable all
     q = IngestMeasurement.query_sensor_data(@device_story.device_urn)
-    all_hashes = []
-    all_sensor_names.each do |sensor|
+    radiation_sensor_hashes = []
+    air_sensor_hashes = []
+    all_hashes = {}
+    (radiation_sensor_names + air_sensor_names).each do |sensor|
       hash_sensor = {}
       sensor_exists = false
       q.response['aggregations']['sensor_data']['buckets'].each do |aggr|
@@ -89,9 +95,11 @@ module DeviceStoriesHelper
         if avg_sensor_value then sensor_exists = true end
         hash_sensor.merge!(date => avg_sensor_value)
       end
-      if sensor_exists then all_hashes.push({ "name": sensor, "data": hash_sensor }) end
+      if sensor_exists && air_sensor_names.include?(sensor) then air_sensor_hashes.push({ "name": sensor, "data": hash_sensor }) end
+      if sensor_exists && radiation_sensor_names.include?(sensor) then radiation_sensor_hashes.push({ "name": sensor, "data": hash_sensor }) end
     end
-    all_hashes
+    all_hashes.merge!('radiation_sensor' => radiation_sensor_hashes)
+    all_hashes.merge!('air_sensor' => air_sensor_hashes)
   end
 
   def sensor_last_location
