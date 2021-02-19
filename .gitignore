@@ -24,6 +24,7 @@ log/localeapp.yml
 .direnv
 .byebug_history
 
-.elasticbeanstalk/config.yml
-.elasticbeanstalk/app_versions/
-.elasticbeanstalk/saved_configs/
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
