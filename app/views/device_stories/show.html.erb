@@ -15,7 +15,7 @@
 <div class="row text-center" >
   <% sensor_data = get_sensor_data() %>
   <%- if !sensor_data["radiation_sensors"].empty? %>
-    <div class="col-md-6">
+    <div class="col-md-6 col order-1">
       <div class="panel panel-default device-chart">
           <b>CPM</b>
           <%= line_chart sensor_data["radiation_sensors"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
@@ -30,19 +30,6 @@
       </div>
     </div>
   <%- end %>
-  <div class="col-md-6">
-    <div id="map" class="panel panel-default device-chart">
-      <div class="text-center" style="font-size: 15px; margin-bottom: 5px"> <b>Location</b> </div>
-    </div>
-    <% l = sensor_last_location()%>
-    <script>
-        new Mapkick.Map("map",
-            [{latitude: <%= l["lat"] %>,
-                longitude: <%= l["lon"] %>,
-                label: '<%= @device_story.device_urn %>',
-                tooltip: "30 cpm"}]);
-    </script>
-  </div>
   <%- if !sensor_data["bat_voltage"].blank? %>
     <div class="col-md-6">
       <div class="panel panel-default device-chart">
@@ -71,6 +58,19 @@
     <div class="panel panel-default device-chart" style="height: 300px">
       <div class="btn btn-default btn-secondary" style="margin-top: 120px;"><%= link_to 'More sensor data', grafana_more_data(@device_story.device_urn), target: :_blank %></div>
     </div>
+  </div>
+  <div class="col-xs-12">
+    <div id="map" class="panel panel-default device-chart">
+      <div class="text-center" style="font-size: 15px; margin-bottom: 5px"> <b>Location</b> </div>
+    </div>
+    <% l = sensor_last_location()%>
+    <script>
+        new Mapkick.Map("map",
+            [{latitude: <%= l["lat"] %>,
+                longitude: <%= l["lon"] %>,
+                label: '<%= @device_story.device_urn %>',
+                tooltip: "30 cpm"}]);
+    </script>
   </div>
 </div>
 <hr/>
