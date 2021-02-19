@@ -97,19 +97,19 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
                      }
                    },
                    "bat_voltage": {
-                       "avg":{
-                           "field":"bat_voltage"
-                       }
+                     "avg": {
+                       "field": 'bat_voltage'
+                     }
                    },
-                   "temperature":{
-                       "avg":{
-                           "field":"env_temp"
-                       }
+                   "temperature": {
+                     "avg": {
+                       "field": 'env_temp'
+                     }
                    },
-                   "humidity":{
-                       "avg":{
-                           "field":"env_humid"
-                       }
+                   "humidity": {
+                     "avg": {
+                       "field": 'env_humid'
+                     }
                    }
                  }
                }
@@ -123,6 +123,5 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
              "size": 1,
              "sort": [{ "@timestamp": { "order": 'desc' } }]
     end
-
   end
 end

@@ -73,12 +73,13 @@ module DeviceStoriesHelper
     end
   end
 
-  def sensor_names # The names should correspond to the names in the query
-    {'radiation_sensors' => %w[lnd_7128ec lnd_7318c lnd_712u lnd_7318u lnd_78017w lnd7318u lnd7128c],
-     'air_sensors' => %w[pms_pm10_0 pms_pm02_5 pms_pm01_0],
-     'bat_voltage' => ["bat_voltage"],
-    'temperature' => ["temperature"],
-     'humidity' => ["humidity"]}
+  # The names should correspond to the names in the query
+  def sensor_names
+    { 'radiation_sensors' => %w(lnd_7128ec lnd_7318c lnd_712u lnd_7318u lnd_78017w lnd7318u lnd7128c),
+      'air_sensors' => %w(pms_pm10_0 pms_pm02_5 pms_pm01_0),
+      'bat_voltage' => ['bat_voltage'],
+      'temperature' => ['temperature'],
+      'humidity' => ['humidity'] }
   end
 
   def get_sensor_data() # rubocop:disable all
@@ -109,5 +110,4 @@ module DeviceStoriesHelper
   def battery_voltage
     IngestMeasurement.query_battery_voltage(@device_story.device_urn)
   end
-
 end
