@@ -59,7 +59,6 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
 
   config.before(:all) do
-    Rails.cache.clear
     FileUtils.rm_rf Dir[Rails.root.join('tmp/cache/assets/**/*')]
   end
 

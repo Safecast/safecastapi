@@ -2,12 +2,6 @@
 <%= javascript_include_tag 'application' %>
   <%= content_for(:title) do %>
   <%- end -%>
-<div style="margin-left: 10px; text-align: center">
-  <h2>
-    <%= @device_story.last_location_name %> (<%= @device_story.device_urn %>)
-    <%- if  @device_story.last_seen %>
-      <div style="font-size: 15px"> <%= time_ago_in_words(@device_story.last_seen) %> ago</div>
-    <%- end %>
   </h2>
 </div>
 <hr>
