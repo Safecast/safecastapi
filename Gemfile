@@ -7,6 +7,7 @@ gem 'rails', '~> 5.2.4.4'
 gem 'activerecord-postgis-adapter', '~> 5.0'
 gem 'aws-sdk-elasticbeanstalk'
 gem 'aws-sdk-rails'
+gem 'aws-sdk-s3', require: false
 gem 'bootsnap', require: false
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'bootstrap-kaminari-views'
