@@ -95,6 +95,21 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
                      "avg": {
                        "field": 'pms_pm01_0'
                      }
+                   },
+                   "bat_voltage": {
+                       "avg":{
+                           "field":"bat_voltage"
+                       }
+                   },
+                   "temperature":{
+                       "avg":{
+                           "field":"env_temp"
+                       }
+                   },
+                   "humidity":{
+                       "avg":{
+                           "field":"env_humid"
+                       }
                    }
                  }
                }
@@ -108,5 +123,6 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
              "size": 1,
              "sort": [{ "@timestamp": { "order": 'desc' } }]
     end
+
   end
 end
