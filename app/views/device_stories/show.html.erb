@@ -1,71 +1,79 @@
-<hr/>
 <%= javascript_include_tag 'application' %>
   <%= content_for(:title) do %>
   <%- end -%>
+<hr/>
+<div style="margin-left: 10px; text-align: center">
+  <h2>
+    <%= @device_story.last_location_name %> (<%= @device_story.device_urn %>)
+    <%- if  @device_story.last_seen %>
+      <div style="font-size: 15px"> <%= time_ago_in_words(@device_story.last_seen) %> ago</div>
+    <%- end %>
   </h2>
 </div>
 <hr>
-<div class="row">
-  <div class="col-md-5" style="margin-top: 25px">
-    <table class="table table-hover" style="width: 100%">
-      <thead style="font-size: 13px">
-      <tr>
-        <td colspan="3" style="text-align:center"><%= @device_story.last_seen %></td>
-      </tr>
-      </thead>
-      <tr>
-        <td colspan="2" style="font-size: 12px">CPM</td>
-        <td style="font-size: 15px; text-align:right"> <%= last_cpm_values(@device_story.last_values) %></td>
-      </tr>
-      <tr>
-        <td colspan="2" style="font-size: 12px; white-space: nowrap">Battery Voltage</td>
-        <td style="font-size: 15px; text-align:right"><%= last_battery_value(@device_story.last_values) %>V</td>
-      </tr>
-      <tr>
-        <td style="font-size: 12px; white-space: nowrap"> Air Quality</td>
-        <td colspan="2" style="font-size: 12px; text-align:right"><%= last_air_quality_values(@device_story.last_values) %>
-          <br> ug/m3
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">
-          <button type="button" style="display: flex; justify-content: center; align-items: center; margin-left: auto; margin-right: auto; font-size: 15px; min-width: 164px; width: 100%"><%= link_to 'More sensor data', grafana_more_data(@device_story.device_urn), target: :_blank %></button>
-        </td>
-      </tr>
-    </table>
-  </div>
+
+<div class="row text-center" >
   <% sensor_data = get_sensor_data() %>
-  <%- if !sensor_data["radiation_sensor"].empty? %>
-    <div class="col-md-7 text-center" style="margin-top: 15px">
-      CPM
-      <%= line_chart sensor_data["radiation_sensor"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
+  <%- if !sensor_data["radiation_sensors"].empty? %>
+    <div class="col-md-6">
+      <div class="panel panel-default device-chart">
+          <b>CPM</b>
+          <%= line_chart sensor_data["radiation_sensors"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
+      </div>
     </div>
   <%- end %>
-  <%- if !sensor_data["air_sensor"].empty? %>
-    <%- if !sensor_data["radiation_sensor"].empty? %>
-      <div class="col-md-12 text-center" style="margin-top: 15px">
-        Air Quality
-        <%= line_chart sensor_data["air_sensor"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
+  <%- if !sensor_data["air_sensors"].blank? %>
+    <div class="col-md-6">
+      <div class="panel panel-default device-chart">
+        <b>Air Quality</b>
+        <%= line_chart sensor_data["air_sensors"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
       </div>
-    <%- else %>
-      <div class="col-md-7 text-center" style="margin-top: 15px">
-        Air Quality
-        <%= line_chart sensor_data["air_sensor"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
+    </div>
+  <%- end %>
+  <div class="col-md-6">
+    <div id="map" class="panel panel-default device-chart">
+      <div class="text-center" style="font-size: 15px; margin-bottom: 5px"> <b>Location</b> </div>
+    </div>
+    <% l = sensor_last_location()%>
+    <script>
+        new Mapkick.Map("map",
+            [{latitude: <%= l["lat"] %>,
+                longitude: <%= l["lon"] %>,
+                label: '<%= @device_story.device_urn %>',
+                tooltip: "30 cpm"}]);
+    </script>
+  </div>
+  <%- if !sensor_data["bat_voltage"].blank? %>
+    <div class="col-md-6">
+      <div class="panel panel-default device-chart">
+        <b>Battery voltage</b>
+        <%= line_chart sensor_data["bat_voltage"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
       </div>
-    <%- end %>
+    </div>
   <%- end %>
-  <%- if sensor_data["air_sensor"].empty? && sensor_data["radiation_sensor"].empty?%>
-    <div class="col-md-7 text-center" style="color: red">
-      <b>No sensor data found!</b></div>
+  <%- if !sensor_data["temperature"].blank? %>
+    <div class="col-md-6">
+      <div class="panel panel-default device-chart">
+        <b>Temperature</b>
+        <%= line_chart sensor_data["temperature"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
+      </div>
+    </div>
   <%- end %>
+  <%- if !sensor_data["humidity"].blank? %>
+    <div class="col-md-6">
+      <div class="panel panel-default device-chart">
+        <b>Humidity</b>
+        <%= line_chart sensor_data["humidity"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
+      </div>
+    </div>
+  <%- end %>
+  <div class="col-md-6">
+    <div class="panel panel-default device-chart" style="height: 300px">
+      <div class="btn btn-default btn-secondary" style="margin-top: 120px;"><%= link_to 'More sensor data', grafana_more_data(@device_story.device_urn), target: :_blank %></div>
+    </div>
+  </div>
 </div>
-<hr>
-<div id="map" style="height: 400px;"></div>
-<% l = sensor_last_location()%>
-
-<script>
-  new Mapkick.Map("map", [{latitude: <%= l["lat"] %>, longitude: <%= l["lon"] %>}]);
-</script>
+<hr/>
 <div>
   <h2>Comments: <br></h2>
   <table class="table table-striped">
