@@ -78,8 +78,10 @@ module DeviceStoriesHelper
     { 'radiation_sensors' => %w(lnd_7128ec lnd_7318c lnd_712u lnd_7318u lnd_78017w lnd7318u lnd7128c),
       'air_sensors' => %w(pms_pm10_0 pms_pm02_5 pms_pm01_0),
       'bat_voltage' => ['bat_voltage'],
-      'temperature' => ['temperature'],
-      'humidity' => ['humidity'] }
+      'temperature' => %w(temperature_C temperature_F),
+      'humidity' => ['humidity'],
+      'pressure' => ['pressure'],
+      'charging' => ['charging'] }
   end
 
   def get_sensor_data() # rubocop:disable all

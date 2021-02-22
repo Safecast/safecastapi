@@ -20,15 +20,13 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
                        "range": {
                          "@timestamp": {
                            "gte": 'now-8w',
-                           "lte": 'now',
-                           "format": 'epoch_millis'
+                           "lte": 'now'
                          }
                        }
                      },
                      {
-                       "query_string": {
-                         "analyze_wildcard": true,
-                         "query": "device_urn:" + "\"" + device_urn + "\"" # rubocop:disable all
+                       "term": {
+                         "device_urn": device_urn
                        }
                      }
                    ]
@@ -101,7 +99,7 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
                        "field": 'bat_voltage'
                      }
                    },
-                   "temperature": {
+                   "temperature_C": {
                      "avg": {
                        "field": 'env_temp'
                      }
@@ -109,6 +107,24 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
                    "humidity": {
                      "avg": {
                        "field": 'env_humid'
+                     }
+                   },
+                   "pressure": {
+                     "avg": {
+                       "field": 'env_press'
+                     }
+                   },
+                   "temperature_F": {
+                     "avg": {
+                       "field": 'env_temp',
+                       "script": {
+                         "source": '_value*9/5+32'
+                       }
+                     }
+                   },
+                   "charging": {
+                     "avg": {
+                       "field": 'bat_charging'
                      }
                    }
                  }

@@ -12,3 +12,4 @@ exclude_patterns:
 - "**/*.d.ts"
 - "app/assets/javascripts/bgeigie_viewer.js"
 - "app/assets/javascripts/bgeigie_viewer_worker.js"
+- "app/assets/javascripts/application/mapkick.js"

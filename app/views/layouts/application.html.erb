@@ -27,6 +27,7 @@
     <script>
         mapboxgl.accessToken = "<%= ENV['MAPBOXGL_TOKEN'] %>";
     </script>
+    <%= javascript_include_tag :application %>
   </head>
   <body data-spy="scroll" data-target=".doc-nav">
     <div class="container">
@@ -280,7 +281,6 @@
         </div>
       </div>
     </div>
-    <%= javascript_include_tag :application %>
     <%= content_for :additional_javascripts %>
   </body>
 </html>
