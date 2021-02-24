@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module DeviceStoriesHelper
+module DeviceStoriesHelper  # rubocop:disable Metrics/ModuleLength
   def grafana_panel(name)
     panels = {
       cpm: { id: 14, dashboard: '/d/DFSxrOLWk/safecast-device-details' },
