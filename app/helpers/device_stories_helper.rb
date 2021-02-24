@@ -78,7 +78,8 @@ module DeviceStoriesHelper
     { 'radiation_sensors' => %w(lnd_7128ec lnd_7318c lnd_712u lnd_7318u lnd_78017w lnd7318u lnd7128c),
       'air_sensors' => %w(pms_pm10_0 pms_pm02_5 pms_pm01_0),
       'bat_voltage' => ['bat_voltage'],
-      'temperature' => %w(temperature_C temperature_F),
+      'temperature_C' => ['temperature_C'],
+      'temperature_F' => ['temperature_F'],
       'humidity' => ['humidity'],
       'pressure' => ['pressure'],
       'charging' => ['charging'] }
@@ -92,11 +93,11 @@ module DeviceStoriesHelper
       sensor_type.each do |sensor|
         hash_sensor = {}
         sensor_exists = false
-        q.response['aggregations']['sensor_data']['buckets'].each do |aggr|
-          date = Time.at(aggr['key'] / 1000.0).strftime('%Y-%m-%d %H')
-          avg_sensor_value = aggr[sensor]['value']
-          if avg_sensor_value then sensor_exists = true end
-          hash_sensor.merge!(date => avg_sensor_value)
+        q.response['aggregations']['sensor_data']['buckets'].each do |bucket|
+          date = Time.at(bucket['key'] / 1000.0).strftime('%Y-%m-%d %H')
+          sensor_value = bucket[sensor]['value']
+          if sensor_value then sensor_exists = true end
+          hash_sensor.merge!(date => sensor_value)
         end
         if sensor_exists then sensor_type_hashes.push({ "name": sensor, "data": hash_sensor }) end
       end

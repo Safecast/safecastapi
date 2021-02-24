@@ -10,8 +10,24 @@
   </h2>
 </div>
 <hr>
-
 <div class="row text-center" >
+  <div class="col-xs-12">
+    <div id="map" class="panel panel-default device-chart">
+      <div class="text-center" style="font-size: 15px; margin-bottom: 5px"> <b>Location</b> </div>
+      <% l = sensor_last_location()%>
+      <% unless l.blank? || l["lat"].blank? || l["lon"].blank? %>
+        <script>
+            new Mapkick.Map("map",
+                [{latitude: <%= l["lat"] %>,
+                    longitude: <%= l["lon"] %>,
+                    label: '<%= @device_story.device_urn %>',
+                    tooltip: "lat: " + <%= l["lat"] %> + " lon: " + <%= l["lon"] %>}]);
+        </script>
+      <% else %>
+        No location data found.
+      <% end %>
+    </div>
+  </div>
   <% sensor_data = get_sensor_data() %>
   <%- if !sensor_data["radiation_sensors"].empty? %>
     <div class="col-md-6 col order-1">
@@ -37,11 +53,22 @@
       </div>
     </div>
   <%- end %>
-  <%- if !sensor_data["temperature"].blank? %>
+  <%- if !sensor_data["temperature_C"].blank? %>
     <div class="col-md-6">
       <div class="panel panel-default device-chart">
-        <b>Temperature</b>
-        <%= line_chart sensor_data["temperature"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
+        <b style="margin-left: 100px ">Temperature</b>
+        <div class="pull-right" style="margin-right: 20px; margin-top: 2px">
+          °C
+          <label class="switch">
+            <input id="temp-switch" type="checkbox">
+            <span class="slider round"></span>
+          </label>
+          °F
+        </div>
+        <div id="celsius"><%= line_chart sensor_data["temperature_C"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
+        </div>
+        <div id="fahrenheit" class="hidden"><%= line_chart sensor_data["temperature_F"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
+        </div>
       </div>
     </div>
   <%- end %>
@@ -74,20 +101,8 @@
       <%= button_to 'More sensor data', grafana_more_data(@device_story.device_urn), target: :_blank, class: "btn btn-default btn-secondary", style: "margin-top: 120px; color: #6ba5bd" %>
     </div>
   </div>
-  <div class="col-xs-12">
-    <div id="map" class="panel panel-default device-chart">
-      <div class="text-center" style="font-size: 15px; margin-bottom: 5px"> <b>Location</b> </div>
-    </div>
-    <% l = sensor_last_location()%>
-    <script>
-        new Mapkick.Map("map",
-            [{latitude: <%= l["lat"] %>,
-                longitude: <%= l["lon"] %>,
-                label: '<%= @device_story.device_urn %>',
-                tooltip: "lat: " + <%= l["lat"] %> + " lon: " + <%= l["lon"] %>}]);
-    </script>
-  </div>
 </div>
+
 <hr/>
 <div>
   <h2>Comments: <br></h2>

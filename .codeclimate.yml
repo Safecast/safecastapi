@@ -1,3 +1,6 @@
+plugins:
+  rubocop:
+    enabled: true
 exclude_patterns:
 - "config/"
 - "db/"
