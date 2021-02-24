@@ -25,17 +25,5 @@ RSpec.describe Tasks::DeviceStories::UpdateMetadata do
           .from('Rob').to('Sean Bonner')
       end
     end
-
-    context 'when coordinates are missing' do
-      it 'skips device_story' do
-        expect(Rails).to receive_message_chain(:logger, :warn)
-          .with('Missing points for device_urn[note:dev:864475040512211]')
-
-        subject
-
-        expect(DeviceStory.find_by(device_urn: 'note:dev:864475040512211'))
-          .to be_nil
-      end
-    end
   end
 end
