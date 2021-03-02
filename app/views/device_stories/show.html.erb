@@ -30,17 +30,31 @@
   </div>
   <% sensor_data = get_sensor_data() %>
   <%- if !sensor_data["radiation_sensors"].empty? %>
-    <div class="col-md-6 col order-1">
+    <div id="chart-panel" class="col-md-6 col order-1">
       <div class="panel panel-default device-chart">
-          <b>CPM</b>
+          <div class="pull-left hidden-xs hidden-sm" style="color: lightgrey; margin-left: 10px; margin-top: 2px">
+            <label class="switch">
+              <input id="width-switch" type="checkbox">
+              <span class="slider round"></span>
+            </label>
+            <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span>
+          </div>
+          <b style="margin-right: 55px">CPM</b>
           <%= line_chart sensor_data["radiation_sensors"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
       </div>
     </div>
   <%- end %>
   <%- if !sensor_data["air_sensors"].blank? %>
-    <div class="col-md-6">
+    <div id="" class="col-md-6">
       <div class="panel panel-default device-chart">
-        <b>Air Quality</b>
+        <div class="pull-left hidden-xs hidden-sm" style="color: lightgrey; margin-left: 10px; margin-top: 2px">
+          <label class="switch">
+            <input id="width-switch" type="checkbox">
+            <span class="slider round"></span>
+          </label>
+          <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span>
+        </div>
+        <b style="margin-right: 55px">Air Quality</b>
         <%= line_chart sensor_data["air_sensors"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
       </div>
     </div>
@@ -48,7 +62,14 @@
   <%- if !sensor_data["bat_voltage"].blank? %>
     <div class="col-md-6">
       <div class="panel panel-default device-chart">
-        <b>Battery voltage</b>
+        <div class="pull-left hidden-xs hidden-sm" style="color: lightgrey; margin-left: 10px; margin-top: 2px">
+          <label class="switch">
+            <input id="width-switch" type="checkbox">
+            <span class="slider round"></span>
+          </label>
+          <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span>
+        </div>
+        <b style="margin-right: 55px">Battery Voltage</b>
         <%= line_chart sensor_data["bat_voltage"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
       </div>
     </div>
@@ -56,7 +77,14 @@
   <%- if !sensor_data["temperature_C"].blank? %>
     <div class="col-md-6">
       <div class="panel panel-default device-chart">
-        <b style="margin-left: 100px ">Temperature</b>
+        <div class="pull-left  hidden-xs hidden-sm" style="color: lightgrey; margin-left: 10px; margin-top: 2px">
+          <label class="switch">
+            <input id="width-switch" type="checkbox">
+            <span class="slider round"></span>
+          </label>
+          <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span>
+        </div>
+        <b style="margin-left: 25px">Temperature</b>
         <div class="pull-right" style="margin-right: 20px; margin-top: 2px">
           °C
           <label class="switch">
@@ -75,7 +103,14 @@
   <%- if !sensor_data["humidity"].blank? %>
     <div class="col-md-6">
       <div class="panel panel-default device-chart">
-        <b>Humidity</b>
+        <div class="pull-left hidden-xs hidden-sm" style="color: lightgrey; margin-left: 10px; margin-top: 2px">
+          <label class="switch">
+            <input id="width-switch" type="checkbox">
+            <span class="slider round"></span>
+          </label>
+          <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span>
+        </div>
+        <b style="margin-right: 55px">Humidity</b>
         <%= line_chart sensor_data["humidity"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
       </div>
     </div>
@@ -83,7 +118,15 @@
   <%- if !sensor_data["pressure"].blank? %>
     <div class="col-md-6">
       <div class="panel panel-default device-chart">
-        <b>Pressure</b>
+        <div class="pull-left hidden-xs hidden-sm" style="color: lightgrey; margin-left: 10px; margin-top: 2px">
+          <label class="switch">
+            <input id="width-switch" type="checkbox">
+            <span class="slider round"></span>
+          </label>
+          <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+        </div>
+        <b style="margin-right: 55px">Pressure</b>
         <%= line_chart sensor_data["pressure"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
       </div>
     </div>
@@ -91,7 +134,14 @@
   <%- if !sensor_data["charging"].blank? %>
     <div class="col-md-6">
       <div class="panel panel-default device-chart">
-        <b>Charging</b>
+        <div class="pull-left  hidden-xs hidden-sm" style="color: lightgrey; margin-left: 10px; margin-top: 2px">
+          <label class="switch">
+            <input id="width-switch" type="checkbox">
+            <span class="slider round"></span>
+          </label>
+          <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span>       
+        </div>
+        <b style="margin-right: 55px">Charging</b>
         <%= line_chart sensor_data["charging"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
       </div>
     </div>
@@ -102,7 +152,6 @@
     </div>
   </div>
 </div>
-
 <hr/>
 <div>
   <h2>Comments: <br></h2>
@@ -137,6 +186,5 @@
     <% end %>
   <% end %>
 </div>
-
 <div class="spacer"></div>
 <%= current_page_api_example :device_stories_url %>
