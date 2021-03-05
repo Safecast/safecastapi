@@ -1,0 +1,11 @@
+$grid-float-breakpoint: 1000px;
+@import "application/safecast";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import 'bootstrap-datetimepicker';
+
+.status-text {
+  color: #202020;
+  font-size: 13px;
+  font-family: proxima-nova, sans-serif;
+}

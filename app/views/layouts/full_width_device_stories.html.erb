@@ -2,6 +2,7 @@
 
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="shortcut icon" href="/favicon.ico" />
   <title>
     <%- if content_for?(:title) -%>
@@ -27,7 +28,7 @@
 <div class="container-fluid">
       <%= render 'shared/flash', flash: flash %>
       <%= yield %>
-  <footer class="row">
+  <footer style="display: flex">
     <p class="span12"><%= t 'creative_commons_non_commercial' %></p>
     <p class="span12"><%= link_to_switch_locale %></p>
   </footer>

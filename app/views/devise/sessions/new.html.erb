@@ -1,12 +1,12 @@
 <div class="row">
-  <div class="span9">
-    <h2>Sign in</h2>
-
+  <div class="col-md-9">
+    <h1>Sign in</h1>
+    <hr/>
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f| %>
       <%= f.input :email, autofocus: true %>
       <%= f.input :password, as: :password %>
       <% if devise_mapping.rememberable? -%>
-        <%= f.input :remember_me, as: :boolean %>
+        <%= f.input :remember_me, as: :boolean, wrapper_html: { style: 'margin-left: 20px; margin-bottom: 20px' }  %>
       <%- end -%>
 
       <div class="form-actions">

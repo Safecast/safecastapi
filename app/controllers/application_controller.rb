@@ -40,9 +40,7 @@ class ApplicationController < ActionController::Base
     return unless request.format.json?
 
     host = request.env['HTTP_ORIGIN']
-    unless current_user
-      host = 'safecast.org' unless /safecast.org$/ =~ host
-    end
+    host = 'safecast.org' unless current_user || /safecast.org$/ =~ host
     headers['Access-Control-Allow-Origin'] = host
     headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
     headers['Access-Control-Allow-Headers'] = '*, X-Requested-With'

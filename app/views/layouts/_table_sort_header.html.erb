@@ -3,6 +3,6 @@
 
     <%= human_label(model_name, attr_name) %>
 
-    <i class="icon-chevron-<%= direction %> <%= 'muted' unless current_sort_field.to_s == attr_name.to_s %>"></i>
+    <i class="glyphicon glyphicon-chevron-<%= direction %> <%= 'muted' unless current_sort_field.to_s == attr_name.to_s %>"></i>
   <%- end -%>
 </th>

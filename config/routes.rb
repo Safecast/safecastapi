@@ -6,6 +6,9 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   scope '(:locale)', constraints: { locale: /(en-US|ja)/ } do # rubocop:disable Metrics/BlockLength
     get '/radiation_index' => 'radiation_index#radiation_index'
     get '/ingest' => 'ingest#index'
+
+    get '/airnote/:device_urn' => 'device_stories#show_airnote'
+
     root to: 'dashboards#show'
     devise_for :users
     devise_for :admins
@@ -58,7 +61,9 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     resources :users do
       resources :measurements, only: :index
     end
-    resources :device_stories, only: %i(index show)
+    resources :device_stories, only: %i(index show) do
+      resources :device_story_comments
+    end
   end
 
   match '/api/*path' => redirect('/%{path}.%{format}'), :format => true, via: %i(get post put delete)

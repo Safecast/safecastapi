@@ -3,14 +3,16 @@
 module DeviceStoriesHelper
   def grafana_panel(name)
     panels = {
-      cpm: 14,
-      map: 8
+      cpm: { id: 14, dashboard: '/d/DFSxrOLWk/safecast-device-details' },
+      map: { id: 8, dashboard: '/d/DFSxrOLWk/safecast-device-details' },
+      air_quality: { id: 15, dashboard: '/d/7wsttvxGk/safecast-airnote' },
+      air_quality_map: { id: 21, dashboard: '/d/7wsttvxGk/safecast-airnote' }
     }
     panels[name]
   end
 
-  def grafana_url(variant = nil)
-    url = ENV['DEVICE_STORIES_GRAFANA_BASE_URL'] || 'https://grafana.safecast.cc/d/DFSxrOLWk/safecast-device-details'
+  def grafana_url(variant, panel)
+    url = (ENV['DEVICE_STORIES_GRAFANA_BASE_URL'] || 'https://grafana.safecast.cc') + panel[:dashboard]
     uri = URI.parse(url)
     if variant == :solo
       parts = uri.path.split('/')
@@ -21,25 +23,24 @@ module DeviceStoriesHelper
   end
 
   def grafana_more_data(device_urn)
-    url = grafana_url
+    includes_note = device_urn.include? 'note:dev'
+    url = grafana_url(nil, grafana_panel(includes_note ? :air_quality : :cpm))
     args = {
       from: 'now-90d',
       to: 'now',
-      refresh: '15',
       'var-device_urn': device_urn
     }
     url.query = args.to_query
     url.to_s.html_safe
   end
 
-  def grafana_iframe(device_urn, panel_id)
-    url = grafana_url(:solo)
+  def grafana_iframe(device_urn, panel_name)
+    url = grafana_url(:solo, grafana_panel(panel_name))
     args = {
       from: 'now-90d',
       to: 'now',
-      refresh: '15',
       'var-device_urn': device_urn,
-      panelId: panel_id
+      panelId: grafana_panel(panel_name)[:id]
     }
     url.query = args.to_query
     url.to_s.html_safe

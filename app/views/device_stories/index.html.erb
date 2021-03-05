@@ -1,18 +1,27 @@
 <%= content_for(:title) { "Device Stories" } %>
-<div id="btn_fullscr" style="float: right; margin-top: 5px;">
-  <%= render 'button_toggle_view'%>
-</div>
+<div class="row">
+  <div id="btn_fullscr" style="float: right; margin-top: 25px; margin-right: 15px">
+    <%= render 'button_toggle_view'%>
+  </div>
 
-<h2>Device Stories</h2>
-<div class="well" style="padding-bottom: 40px; padding-top: 20px">
-    <div id="counter" style="text-align: center; float: left; margin-top: 10px;">
+  <h2 style="margin-left: 15px">Device Stories</h2>
+</div>
+<hr/>
+<div class="well" style="padding-bottom: 70px; padding-top: 20px;">
+  <div class="col-xs-6 visible-xs visible-sm" style="float: left; margin-top: 25px">
+    <div id="counter">
       <%= render 'counts'%>
     </div>
-  <div style = "float:right">
-    <div id="search_form" style="padding-top: 0px">
+  </div>
+  <div class="col-md-6 hidden-xs hidden-sm" style="float: left; margin-top: 15px">
+    <div id="counter">
+      <%= render 'counts'%>
+    </div>
+  </div>
+  <div class="col-xs-6" style="margin-bottom: 20px;">
+    <div id="search_form" style="float: right;">
       <%= render 'search_form'%>
     </div>
-
   </div>
 </div>
 

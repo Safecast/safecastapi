@@ -2,8 +2,8 @@
 
 <h2><%= t(".users") -%></h2>
 
+<hr/>
 <%= summarize_results(@users) %>
-
 <%= show_filters :user, [:name] %>
 
 <%= filter_modal :users do %>
@@ -38,7 +38,7 @@
       <%- end -%>
     </tbody>
   </table>
-  <%= paginate @users, theme: 'twitter-bootstrap-2' %>
+  <%= paginate @users, theme: 'twitter-bootstrap-3' %>
 <%- end -%>
 <div class="spacer"></div>
 <%= current_page_api_example :users_url %>

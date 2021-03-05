@@ -1,15 +1,13 @@
 <%= content_for(:title) do %>
   <%= t('.devices') %>
 <%- end -%>
-
-<ul class="inline pull-right">
-  <li>
-    <%= link_to t('.add_a_device'), [:new, :device], :class => 'btn' %>
-  </li>
-</ul>
-
-<h2><%= t(".devices") %></h2>
-
+<div class="row">
+  <div class="pull-right" style="margin-top: 25px; margin-right: 15px">
+    <%= link_to t('.add_a_device'), [:new, :device], :class => 'btn btn-default' %>
+  </div>
+  <h2 style="margin-left: 15px"><%= t(".devices") %></h2>
+</div>
+<hr/>
 <%= summarize_results(@devices) %>
 
 <%= show_filters :device, [:manufacturer, :model, :sensor] %>
@@ -23,39 +21,41 @@
 <%- if @devices.empty? -%>
   <%= t('.no_devices') %>
 <%- else -%>
-  <table class="table table-hover" data-provides="rowlink">
-    <thead>
-      <%= table_sort_header(:device, :id) %>
-      <%= table_sort_header(:device, :manufacturer) %>
-      <%= table_sort_header(:device, :model) %>
-      <%= table_sort_header(:device, :sensor) %>
-      <%= table_sort_header(:device, :measurements_count) %>
-    </thead>
-    <tbody>
-      <%- @devices.each do |device| -%>
-        <tr>
-          <td>
-            <%= device.id %>
-          </td>
-          <td>
-            <%= link_to device.manufacturer, device %>
-          </td>
-          <td>
-            <%= device.model %>
-          </td>
-          <td>
-            <%= device.sensor %>
-          </td>
-          <td>
-            <%= link_to [device, :measurements] do %>
-              <%= number_with_delimiter device.measurements_count %>
-            <%- end -%>
-          </td>
-        </tr>
-      <%- end -%>
-    </tbody>
-  </table>
-  <%= paginate @devices, theme: 'twitter-bootstrap-2' -%>
+  <div class="table-responsive">
+    <table class="table table-hover" data-provides="rowlink">
+      <thead>
+        <%= table_sort_header(:device, :id) %>
+        <%= table_sort_header(:device, :manufacturer) %>
+        <%= table_sort_header(:device, :model) %>
+        <%= table_sort_header(:device, :sensor) %>
+        <%= table_sort_header(:device, :measurements_count) %>
+      </thead>
+      <tbody>
+        <%- @devices.each do |device| -%>
+          <tr>
+            <td>
+              <%= device.id %>
+            </td>
+            <td>
+              <%= link_to device.manufacturer, device %>
+            </td>
+            <td>
+              <%= device.model %>
+            </td>
+            <td>
+              <%= device.sensor %>
+            </td>
+            <td>
+              <%= link_to [device, :measurements] do %>
+                <%= number_with_delimiter device.measurements_count %>
+              <%- end -%>
+            </td>
+          </tr>
+        <%- end -%>
+      </tbody>
+    </table>
+  </div>
+  <%= paginate @devices, theme: 'twitter-bootstrap-3' -%>
 <%- end -%>
 <div class="spacer"></div>
 <%= current_page_api_example :devices_url %>

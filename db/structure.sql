@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 11.2 (Debian 11.2-1.pgdg90+1)
--- Dumped by pg_dump version 11.8 (Debian 11.8-1.pgdg100+1)
+-- Dumped by pg_dump version 13.0
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -50,8 +50,6 @@ CREATE TYPE public.measurement_imports_subtype AS ENUM (
 
 
 SET default_tablespace = '';
-
-SET default_with_oids = false;
 
 --
 -- Name: admins; Type: TABLE; Schema: public; Owner: -
@@ -151,6 +149,39 @@ CREATE SEQUENCE public.bgeigie_logs_id_seq
 --
 
 ALTER SEQUENCE public.bgeigie_logs_id_seq OWNED BY public.bgeigie_logs.id;
+
+
+--
+-- Name: comments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comments (
+    id bigint NOT NULL,
+    content text,
+    device_story_id bigint,
+    user_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
 
 
 --
@@ -262,6 +293,39 @@ CREATE SEQUENCE public.device_stories_id_seq
 --
 
 ALTER SEQUENCE public.device_stories_id_seq OWNED BY public.device_stories.id;
+
+
+--
+-- Name: device_story_comments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.device_story_comments (
+    id bigint NOT NULL,
+    content text,
+    device_story_id bigint,
+    user_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: device_story_comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.device_story_comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: device_story_comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.device_story_comments_id_seq OWNED BY public.device_story_comments.id;
 
 
 --
@@ -685,6 +749,13 @@ ALTER TABLE ONLY public.bgeigie_logs ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
+-- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
+
+
+--
 -- Name: configurables id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -703,6 +774,13 @@ ALTER TABLE ONLY public.delayed_jobs ALTER COLUMN id SET DEFAULT nextval('public
 --
 
 ALTER TABLE ONLY public.device_stories ALTER COLUMN id SET DEFAULT nextval('public.device_stories_id_seq'::regclass);
+
+
+--
+-- Name: device_story_comments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.device_story_comments ALTER COLUMN id SET DEFAULT nextval('public.device_story_comments_id_seq'::regclass);
 
 
 --
@@ -793,6 +871,15 @@ ALTER TABLE ONLY public.bgeigie_logs
 
 
 --
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: configurables configurables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 -- Name: configurables configurables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -814,6 +901,14 @@ ALTER TABLE ONLY public.delayed_jobs
 
 ALTER TABLE ONLY public.device_stories
     ADD CONSTRAINT device_stories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: device_story_comments device_story_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.device_story_comments
+    ADD CONSTRAINT device_story_comments_pkey PRIMARY KEY (id);
 
 
 --
@@ -959,6 +1054,20 @@ CREATE UNIQUE INDEX index_bgeigie_logs_on_md5sum ON public.bgeigie_logs USING bt
 
 
 --
+-- Name: index_comments_on_device_story_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comments_on_device_story_id ON public.comments USING btree (device_story_id);
+
+
+--
+-- Name: index_comments_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comments_on_user_id ON public.comments USING btree (user_id);
+
+
+--
 -- Name: index_configurables_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -970,6 +1079,20 @@ CREATE INDEX index_configurables_on_name ON public.configurables USING btree (na
 --
 
 CREATE INDEX index_device_stories_on_device_urn ON public.device_stories USING btree (device_urn);
+
+
+--
+-- Name: index_device_story_comments_on_device_story_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_device_story_comments_on_device_story_id ON public.device_story_comments USING btree (device_story_id);
+
+
+--
+-- Name: index_device_story_comments_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_device_story_comments_on_user_id ON public.device_story_comments USING btree (user_id);
 
 
 --
@@ -1148,10 +1271,42 @@ CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING b
 
 
 --
+-- Name: comments fk_rails_03de2dc08c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT fk_rails_03de2dc08c FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: device_story_comments fk_rails_0d30498751; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.device_story_comments
+    ADD CONSTRAINT fk_rails_0d30498751 FOREIGN KEY (device_story_id) REFERENCES public.device_stories(id);
+
+
+--
+-- Name: device_story_comments fk_rails_3acfd350f1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.device_story_comments
+    ADD CONSTRAINT fk_rails_3acfd350f1 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: comments fk_rails_6ffb993c7a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT fk_rails_6ffb993c7a FOREIGN KEY (device_story_id) REFERENCES public.device_stories(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES
+INSERT INTO public.schema_migrations (version) VALUES
 ('20111123174941'),
 ('20111123190839'),
 ('20111124211843'),
@@ -1234,6 +1389,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200131100913'),
 ('20200524170921'),
 ('20200611191041'),
+('20201201053243'),
+('20201201055207'),
+('20201204004647'),
+('20201207021545'),
+('20201207083958'),
 ('20200906072516');
 
 
