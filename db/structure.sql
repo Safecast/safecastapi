@@ -1252,6 +1252,13 @@ CREATE INDEX index_measurements_on_unit ON public.measurements USING btree (unit
 
 
 --
+-- Name: index_measurements_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_measurements_on_updated_at ON public.measurements USING btree (updated_at);
+
+
+--
 -- Name: index_measurements_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1433,6 +1440,7 @@ INSERT INTO public.schema_migrations (version) VALUES
 ('20200524170921'),
 ('20200611191041'),
 ('20201207083958'),
-('20210217133541');
+('20210217133541'),
+('20200906072516');
 
 
