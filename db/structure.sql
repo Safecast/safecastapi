@@ -880,7 +880,6 @@ ALTER TABLE ONLY public.comments
 
 --
 -- Name: configurables configurables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
--- Name: configurables configurables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.configurables
