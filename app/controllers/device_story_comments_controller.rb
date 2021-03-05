@@ -31,6 +31,7 @@ class DeviceStoryCommentsController < ApplicationController
       if @device_story_comment.save && !@device_story_comment.spam?
         format.html { redirect_to device_story_path(@device_story), notice: 'Comment successfully submitted!' }
       else
+        purge_attached_image_with_error(@device_story_comment)
         flash[:error] = @device_story_comment.errors.full_messages.join(' ')
         format.html { redirect_to device_story_path(@device_story) }
       end
@@ -43,6 +44,7 @@ class DeviceStoryCommentsController < ApplicationController
         format.html { redirect_to device_story_path(@device_story), notice: 'device_story_comment was successfully updated.' }
         format.json { render :show, status: :ok, location: @device_story_comment }
       else
+        purge_attached_image_with_error(@device_story_comment)
         format.html { render :edit }
         format.json { render json: @device_story_comment.errors, status: :unprocessable_entity }
       end
@@ -52,6 +54,7 @@ class DeviceStoryCommentsController < ApplicationController
   def destroy
     return unless user_signed_in? && ((@device_story_comment.user_id == current_user.id) || moderator?(current_user))
 
+    @device_story_comment.image.purge if @device_story_comment.image.attached?
     @device_story_comment.destroy
     respond_to do |format|
       format.html { redirect_to device_story_path(@device_story), notice: 'Comment deleted!' }
@@ -60,12 +63,16 @@ class DeviceStoryCommentsController < ApplicationController
 
   private
 
+  def purge_attached_image_with_error(comment)
+    comment.image.purge if comment.invalid? && comment.errors.key?(:image) && comment.image.attached?
+  end
+
   def set_device_story_comment
     @device_story_comment = @device_story.device_story_comments.find(params[:id])
   end
 
   def device_story_comment_params
-    params.require(:device_story_comment).permit(:content, :device_story_id, :user_id)
+    params.require(:device_story_comment).permit(:content, :device_story_id, :image, :user_id)
   end
 
   def set_device_story

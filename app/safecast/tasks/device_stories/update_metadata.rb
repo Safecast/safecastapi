@@ -15,30 +15,13 @@ module Tasks
 
       private
 
-      # rubocop:disable Metrics/MethodLength
-      # rubocop:disable Metrics/AbcSize
       def find_or_update_device(device_urn, metadata)
-        last_lon, last_lat = metadata.values_at('loc_lon', 'loc_lat')
-
-        if last_lon.blank? || last_lat.blank?
-          Rails.logger.warn "Missing points for device_urn[#{device_urn}]"
-          return
-        end
-
         device = DeviceStory.find_or_initialize_by(device_urn: device_urn)
-
-        device.device_id = metadata['device']
-        device.last_seen = metadata['when_captured']
-        device.last_location = "POINT(#{last_lon} #{last_lat})"
-        device.last_location_name = metadata['location']
-        device.custodian_name = metadata['device_contact_name']
-
+        device.update_from_ttserve(metadata)
         device.save!
       rescue ActiveRecord::RecordInvalid
         Rails.logger.warn "Could not update device metadata for device_urn[#{device_urn}]"
       end
-      # rubocop:enable Metrics/MethodLength
-      # rubocop:enable Metrics/AbcSize
 
       def each_metadata(metadatas)
         metadatas.each do |metadata|
