@@ -12,10 +12,14 @@ RSpec.describe Tasks::DeviceStories::UpdateMetadata do
     subject { described_class.call }
 
     it 'imports new device_stories' do
-      expect { subject }.to change { DeviceStory.count }.by(1)
-      expect(DeviceStory.find_by(device_urn: 'note:dev:864475041076489').attributes)
-        .to include('device_id' => 1_555_528_602,
-                    'custodian_name' => 'Sean Bonner')
+      expect { subject }.to change { DeviceStory.count }.by(2)
+      expect(DeviceStory.find_by(device_urn: 'note:dev:864475041076489'))
+        .to have_attributes(device_id: 1_555_528_602, custodian_name: 'Sean Bonner')
+    end
+
+    it 'imports new device without device_contact_name' do
+      expect { subject }.to change { DeviceStory.count }.by(2)
+      expect(DeviceStory).to be_exist(device_urn: 'note:dev:864475040512211')
     end
 
     context 'when device_story exists' do
