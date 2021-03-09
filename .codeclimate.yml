@@ -17,3 +17,4 @@ exclude_patterns:
 - "app/assets/javascripts/bgeigie_viewer.js"
 - "app/assets/javascripts/bgeigie_viewer_worker.js"
 - "app/assets/javascripts/application/mapkick.js"
+- "app/models/ingest_measurement.rb"
