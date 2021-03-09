@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 11.2 (Debian 11.2-1.pgdg90+1)
--- Dumped by pg_dump version 13.0
+-- Dumped by pg_dump version 11.11 (Debian 11.11-1.pgdg100+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -50,6 +50,76 @@ CREATE TYPE public.measurement_imports_subtype AS ENUM (
 
 
 SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: active_storage_attachments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.active_storage_attachments (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    record_type character varying NOT NULL,
+    record_id bigint NOT NULL,
+    blob_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.active_storage_attachments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.active_storage_attachments_id_seq OWNED BY public.active_storage_attachments.id;
+
+
+--
+-- Name: active_storage_blobs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.active_storage_blobs (
+    id bigint NOT NULL,
+    key character varying NOT NULL,
+    filename character varying NOT NULL,
+    content_type character varying,
+    metadata text,
+    byte_size bigint NOT NULL,
+    checksum character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.active_storage_blobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage_blobs.id;
+
 
 --
 -- Name: admins; Type: TABLE; Schema: public; Owner: -
@@ -149,39 +219,6 @@ CREATE SEQUENCE public.bgeigie_logs_id_seq
 --
 
 ALTER SEQUENCE public.bgeigie_logs_id_seq OWNED BY public.bgeigie_logs.id;
-
-
---
--- Name: comments; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.comments (
-    id bigint NOT NULL,
-    content text,
-    device_story_id bigint,
-    user_id bigint,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.comments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
 
 
 --
@@ -735,6 +772,20 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: active_storage_attachments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_attachments ALTER COLUMN id SET DEFAULT nextval('public.active_storage_attachments_id_seq'::regclass);
+
+
+--
+-- Name: active_storage_blobs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval('public.active_storage_blobs_id_seq'::regclass);
+
+
+--
 -- Name: admins id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -746,13 +797,6 @@ ALTER TABLE ONLY public.admins ALTER COLUMN id SET DEFAULT nextval('public.admin
 --
 
 ALTER TABLE ONLY public.bgeigie_logs ALTER COLUMN id SET DEFAULT nextval('public.bgeigie_logs_id_seq'::regclass);
-
-
---
--- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
 
 
 --
@@ -847,6 +891,22 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
+-- Name: active_storage_attachments active_storage_attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_attachments
+    ADD CONSTRAINT active_storage_attachments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: active_storage_blobs active_storage_blobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_blobs
+    ADD CONSTRAINT active_storage_blobs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: admins admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -868,14 +928,6 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.bgeigie_logs
     ADD CONSTRAINT bgeigie_logs_pkey PRIMARY KEY (id);
-
-
---
--- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comments
-    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
 
 
 --
@@ -1018,6 +1070,27 @@ CREATE INDEX idx_measurements_value_device_id_device_id_not_null ON public.measu
 
 
 --
+-- Name: index_active_storage_attachments_on_blob_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_active_storage_attachments_on_blob_id ON public.active_storage_attachments USING btree (blob_id);
+
+
+--
+-- Name: index_active_storage_attachments_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON public.active_storage_attachments USING btree (record_type, record_id, name, blob_id);
+
+
+--
+-- Name: index_active_storage_blobs_on_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_blobs USING btree (key);
+
+
+--
 -- Name: index_admins_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1050,20 +1123,6 @@ CREATE INDEX index_bgeigie_logs_on_device_serial_id ON public.bgeigie_logs USING
 --
 
 CREATE UNIQUE INDEX index_bgeigie_logs_on_md5sum ON public.bgeigie_logs USING btree (md5sum);
-
-
---
--- Name: index_comments_on_device_story_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_comments_on_device_story_id ON public.comments USING btree (device_story_id);
-
-
---
--- Name: index_comments_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_comments_on_user_id ON public.comments USING btree (user_id);
 
 
 --
@@ -1193,6 +1252,13 @@ CREATE INDEX index_measurements_on_unit ON public.measurements USING btree (unit
 
 
 --
+-- Name: index_measurements_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_measurements_on_updated_at ON public.measurements USING btree (updated_at);
+
+
+--
 -- Name: index_measurements_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1263,14 +1329,6 @@ CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING b
 
 
 --
--- Name: comments fk_rails_03de2dc08c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comments
-    ADD CONSTRAINT fk_rails_03de2dc08c FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
 -- Name: device_story_comments fk_rails_0d30498751; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1287,11 +1345,11 @@ ALTER TABLE ONLY public.device_story_comments
 
 
 --
--- Name: comments fk_rails_6ffb993c7a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.comments
-    ADD CONSTRAINT fk_rails_6ffb993c7a FOREIGN KEY (device_story_id) REFERENCES public.device_stories(id);
+ALTER TABLE ONLY public.active_storage_attachments
+    ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
 
 
 --
@@ -1381,10 +1439,8 @@ INSERT INTO public.schema_migrations (version) VALUES
 ('20200131100913'),
 ('20200524170921'),
 ('20200611191041'),
-('20201201053243'),
-('20201201055207'),
-('20201204004647'),
-('20201207021545'),
-('20201207083958');
+('20201207083958'),
+('20210217133541'),
+('20200906072516');
 
 

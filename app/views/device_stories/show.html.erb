@@ -163,12 +163,18 @@
       <%- @device_story.device_story_comments.each do |comment| %>
         <tr>
           <td>
-            <b><%= link_to comment.user.name , comment.user %></b> <div style="display: inline-block; color: dimgrey; font-size: small">(<%= time_ago_in_words(comment.created_at) %> ago)</div> <br>
-            <%= comment.content %>
-            <%- if user_signed_in? -%>
-              <%- if (comment.user_id == current_user.id) || moderator?(current_user) %>
-                <div style="float:right"> <%= link_to 'Delete', device_story_device_story_comment_path(@device_story, comment), method: :delete %></div>
+            <b><%= link_to comment.user.name, comment.user %></b> <div style="display: inline-block; color: dimgrey; font-size: small">(<%= time_ago_in_words(comment.created_at) %> ago)</div>
+            <p>
+              <%= comment.content %>
+            </p>
+            <%- if comment.image.attached? -%>
+              <hr style="margin: 5px" />
+              <%= link_to(url_for(comment.image)) do %>
+                <%= image_tag comment.image.variant(resize: '160x240'), class: 'img-responsive' %>
               <%- end %>
+            <%- end %>
+            <%- if comment.user_id == current_user&.id || moderator?(current_user) %>
+              <div style="float:right"> <%= link_to 'Delete', device_story_device_story_comment_path(@device_story, comment), method: :delete %></div>
             <%- end %>
           </td>
         </tr>
@@ -183,6 +189,8 @@
       <%= form.label :content, current_user.name %>
       <%= form.text_area :content, :rows => 3, class: "form-control", style: 'width:97%;' %>
       <p><%= form.submit "Submit comment", class: "form-control btn btn-primary", style: "margin-top: 10px; width: 200px;" %></p>
+      <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+      <%= form.file_field :image %>
     <% end %>
   <% end %>
 </div>
