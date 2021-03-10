@@ -41,7 +41,7 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
                      "min": 'now-8w',
                      "max": 'now'
                    },
-                   "format": 'epoch_millis'
+                   "format": 'yyyy-MM-dd HH'
                  },
                  "aggs": {
                    "lnd_7128ec": {
