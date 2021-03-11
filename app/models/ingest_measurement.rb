@@ -34,7 +34,7 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
              "aggs": {
                "sensor_data": {
                  "date_histogram": {
-                   "interval": '12h',
+                   "fixed_interval": '12h',
                    "field": '@timestamp',
                    "min_doc_count": 0,
                    "extended_bounds": {
