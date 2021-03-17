@@ -14,6 +14,8 @@
 //= require bootstrap-rowlink.min
 //= require moment
 //= require bootstrap-datetimepicker
+//= require chartkick
+//= require highcharts
 //= require_tree ./application
 //- require_self
 

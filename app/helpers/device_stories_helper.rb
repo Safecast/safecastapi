@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module DeviceStoriesHelper
+module DeviceStoriesHelper # rubocop:disable Metrics/ModuleLength
   def grafana_panel(name)
     panels = {
       cpm: { id: 14, dashboard: '/d/DFSxrOLWk/safecast-device-details' },
@@ -71,5 +71,46 @@ module DeviceStoriesHelper
     elsif index_u
       last_values[0..index_u - 1]
     end
+  end
+
+  # The names should correspond to the names in the query
+  def sensor_names
+    { 'radiation_sensors' => %w(lnd_7128ec lnd_7318c lnd_712u lnd_7318u lnd_78017w lnd7318u lnd7128c),
+      'air_sensors' => %w(pms_pm10_0 pms_pm02_5 pms_pm01_0),
+      'bat_voltage' => ['bat_voltage'],
+      'temperature_C' => ['temperature_C'],
+      'temperature_F' => ['temperature_F'],
+      'humidity' => ['humidity'],
+      'pressure' => ['pressure'],
+      'charging' => ['charging'] }
+  end
+
+  def get_sensor_data() # rubocop:disable all
+    q = IngestMeasurement.query_sensor_data(@device_story.device_urn)
+    all_hashes = {}
+    sensor_names.values.each do |sensor_type|
+      sensor_type_hashes = []
+      sensor_type.each do |sensor|
+        hash_sensor = {}
+        sensor_exists = false
+        q.response['aggregations']['sensor_data']['buckets'].each do |bucket|
+          date = Time.at(bucket['key'] / 1000.0).strftime('%Y-%m-%d %H')
+          sensor_value = bucket[sensor]['value']
+          if sensor_value then sensor_exists = true end
+          hash_sensor.merge!(date => sensor_value)
+        end
+        if sensor_exists then sensor_type_hashes.push({ "name": sensor, "data": hash_sensor }) end
+      end
+      all_hashes.merge!(sensor_names.key(sensor_type) => sensor_type_hashes)
+    end
+    all_hashes
+  end
+
+  def sensor_last_location
+    IngestMeasurement.query_last_sensor_location(@device_story.device_urn).response['hits']['hits'][0]['_source']['ingest']['location']
+  end
+
+  def battery_voltage
+    IngestMeasurement.query_battery_voltage(@device_story.device_urn)
   end
 end
