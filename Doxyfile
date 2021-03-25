@@ -275,7 +275,7 @@ TCL_SUBST              =
 # members will be omitted, etc.
 # The default value is: NO.
 
-OPTIMIZE_OUTPUT_FOR_C  = YES
+OPTIMIZE_OUTPUT_FOR_C  = NO
 
 # Set the OPTIMIZE_OUTPUT_JAVA tag to YES if your project consists of Java or
 # Python sources only. Doxygen will then generate output that is more tailored
@@ -283,7 +283,7 @@ OPTIMIZE_OUTPUT_FOR_C  = YES
 # qualified scopes will look different, etc.
 # The default value is: NO.
 
-OPTIMIZE_OUTPUT_JAVA   = NO
+OPTIMIZE_OUTPUT_JAVA   = YES
 
 # Set the OPTIMIZE_FOR_FORTRAN tag to YES if your project consists of Fortran
 # sources. Doxygen will then generate output that is tailored for Fortran.
@@ -569,7 +569,7 @@ CASE_SENSE_NAMES       = NO
 # scope will be hidden.
 # The default value is: NO.
 
-HIDE_SCOPE_NAMES       = YES
+HIDE_SCOPE_NAMES       = NO
 
 # If the HIDE_COMPOUND_REFERENCE tag is set to NO (default) then doxygen will
 # append additional text to a page's title, such as Class Reference. If set to
@@ -1543,7 +1543,7 @@ DISABLE_INDEX          = NO
 # The default value is: NO.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-GENERATE_TREEVIEW      = NO
+GENERATE_TREEVIEW      = YES
 
 # The ENUM_VALUES_PER_LINE tag can be used to set the number of enum values that
 # doxygen will group on one line in the generated HTML documentation.

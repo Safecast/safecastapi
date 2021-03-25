@@ -90,28 +90,28 @@ $(document).ready(function(){initNavTree('api__demo_8py_source.html',''); initRe
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">import</span> requests</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">import</span> os</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#abb9742627e1e12eb14eb99a885dcc9c7">    6</a></span>&#160;endpoint = os.environ.get(<span class="stringliteral">&quot;SAFECAST_API&quot;</span>, <span class="stringliteral">&quot;https://api.safecast.org&quot;</span>)</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#a70651ad93f531b836bca3257d615c95e">    7</a></span>&#160;api_key = os.environ.get(<span class="stringliteral">&quot;SAFECAST_API_KEY&quot;</span>)</div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#a736a806236ed8f709ef5c1f31cb3db53">    6</a></span>&#160;endpoint = os.environ.get(<span class="stringliteral">&quot;SAFECAST_API&quot;</span>, <span class="stringliteral">&quot;https://api.safecast.org&quot;</span>)</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#a14a398e08929670f806fdaff1ec9ea15">    7</a></span>&#160;api_key = os.environ.get(<span class="stringliteral">&quot;SAFECAST_API_KEY&quot;</span>)</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keywordflow">if</span> len(sys.argv) != 2:</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#a40a5d58ffa6e88aa578d6683ac413105">   10</a></span>&#160;    print(<span class="stringliteral">&quot;Usage: {} &lt;LOGFILE&gt;&quot;</span>.format(sys.argv[0]), file=sys.stderr)</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#a18d504714bb985854aaa4e2e69d568ad">   10</a></span>&#160;    print(<span class="stringliteral">&quot;Usage: {} &lt;LOGFILE&gt;&quot;</span>.format(sys.argv[0]), file=sys.stderr)</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    sys.exit(1)</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#abde8c54105333e55ee3764719cdacbf0">   13</a></span>&#160;bgeigie_log = sys.argv[1]</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#acb430a2764ca4583db65087d5690534a">   13</a></span>&#160;bgeigie_log = sys.argv[1]</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#a5a7904568e84b35551488ae376e534a0">   15</a></span>&#160;auth_params = {<span class="stringliteral">&#39;api_key&#39;</span>: api_key}</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#ad259908b28569fa8701163e3f5b7707f">   16</a></span>&#160;default_headers = {<span class="stringliteral">&#39;Accept&#39;</span>: <span class="stringliteral">&#39;application/json&#39;</span>}</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#a0e627d7f29adb0c84dca4cb741c58fba">   15</a></span>&#160;auth_params = {<span class="stringliteral">&#39;api_key&#39;</span>: api_key}</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#ab56db1b8f9410f84caab880b7ea7de8f">   16</a></span>&#160;default_headers = {<span class="stringliteral">&#39;Accept&#39;</span>: <span class="stringliteral">&#39;application/json&#39;</span>}</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"># Post the file</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#a463e793bb099048429ed86e475013d0f">   20</a></span>&#160;file_params = {</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#acefa7e5118f4e8b5629c1a1a6fc2f6a2">   20</a></span>&#160;file_params = {</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="stringliteral">&#39;bgeigie_import[source]&#39;</span>: (</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        os.path.basename(bgeigie_log),</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        open(bgeigie_log, <span class="stringliteral">&#39;r&#39;</span>)</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    )</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#a8ab7bcb35ce5bba05608c72da6b4a0d3">   27</a></span>&#160;response = requests.post(</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#a1557567895a24705b664ce644c2138fa">   27</a></span>&#160;response = requests.post(</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="stringliteral">&#39;{}/bgeigie_imports&#39;</span>.format(endpoint),</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    auth_params,</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    files=file_params,</div>
@@ -119,12 +119,12 @@ $(document).ready(function(){initNavTree('api__demo_8py_source.html',''); initRe
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;)</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;response.raise_for_status()</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#ac02d1afe36d79c1f8890317f264ba80a">   35</a></span>&#160;import_id = response.json()[<span class="stringliteral">&#39;id&#39;</span>]</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#a636614ea8b50949c1db08bed4efd1d00">   35</a></span>&#160;import_id = response.json()[<span class="stringliteral">&#39;id&#39;</span>]</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;print(<span class="stringliteral">&quot;Imported {} as ID {}&quot;</span>.format(bgeigie_log, import_id))</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"># Add metadata</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#accda41ff37ed9cdf80af2b83625bf67f">   40</a></span>&#160;import_metadata = {</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="namespaceapi__demo.html#ac669d584d3e91553c87a1d682f272dd1">   40</a></span>&#160;import_metadata = {</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="stringliteral">&#39;bgeigie_import&#39;</span>: {</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="stringliteral">&#39;name&#39;</span>: <span class="stringliteral">&#39;A test file&#39;</span>,</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="stringliteral">&#39;description&#39;</span>: <span class="stringliteral">&#39;A test file&#39;</span>,</div>

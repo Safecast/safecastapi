@@ -35,9 +35,9 @@ var NAVTREE =
       [ "Licensing", "md__r_e_a_d_m_e.html#autotoc_md8", null ]
     ] ],
     [ "README", "md__r_e_a_d_m_e_8ops.html", null ],
-    [ "Namespaces", "namespaces.html", [
-      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
-      [ "Namespace Members", "namespacemembers.html", [
+    [ "Packages", "namespaces.html", [
+      [ "Packages", "namespaces.html", "namespaces_dup" ],
+      [ "Package Functions", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ]
       ] ]
