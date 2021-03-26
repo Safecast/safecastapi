@@ -43,7 +43,9 @@ feature '/measurements', type: :request do
   scenario 'get measurement count (/measurements/count)' do
     result = api_get('/measurements/count.json')
     expect(result.length).to eq(1)
-    expect(result['count']).to eq(2)
+
+    # Test can't assert 2 since switching to estimated row count
+    expect(result['count']).to eq(0)
   end
 
   scenario 'get my measurements (/users/X/measurements)' do

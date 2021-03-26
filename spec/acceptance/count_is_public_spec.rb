@@ -11,6 +11,8 @@ feature 'Publicly viewable measurement count', type: :feature do
 
   scenario 'view http://maps.safecast.org/count' do
     visit('/count')
-    expect(page).to have_content('6 measurements')
+
+    # Test can't assert 6 since switching to estimated row count
+    expect(page).to have_content('0 measurements')
   end
 end

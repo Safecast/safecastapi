@@ -102,10 +102,9 @@ class MeasurementsController < ApplicationController
   end
 
   def count
-    @count = Rails.cache.fetch("measurement/#{Measurement.maximum(:id)}/count") do
-      Measurement.count
-    end
-
+    table_name = Measurement.table_name
+    result = ActiveRecord::Base.connection.execute("SELECT reltuples FROM pg_class WHERE relname = '#{table_name}'")
+    @count = result.first['reltuples'].to_i
     respond_with count: @count
   end
 
