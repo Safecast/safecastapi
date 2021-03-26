@@ -81,19 +81,21 @@ RSpec.describe MeasurementsController, type: :controller do
       Fabricate(:measurement, user: user, value: '100')
       Fabricate(:measurement, user: user, value: '200')
 
-      get :count, format: format
+      get :count, format: count_format
     end
 
     context 'when html' do
-      let(:format) { :html }
+      let(:count_format) { :html }
 
-      it { expect(assigns(:count)).to eq(2) }
+      # Test can't assert 2 since switching to estimated row count
+      it { expect(assigns(:count)).to eq(0) }
     end
 
     context 'when json' do
-      let(:format) { :json }
+      let(:count_format) { :json }
 
-      it { expect(JSON.parse(response.body)).to eq('count' => 2) }
+      # Test can't assert 2 since switching to estimated row count
+      it { expect(JSON.parse(response.body)).to eq('count' => 0) }
     end
   end
 
