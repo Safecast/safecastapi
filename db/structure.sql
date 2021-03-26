@@ -1433,7 +1433,7 @@ ALTER TABLE ONLY public.active_storage_attachments
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES
+INSERT INTO public.schema_migrations (version) VALUES
 ('20111123174941'),
 ('20111123190839'),
 ('20111124211843'),
