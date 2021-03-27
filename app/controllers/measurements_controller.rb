@@ -101,10 +101,17 @@ class MeasurementsController < ApplicationController
     respond_with @measurement
   end
 
+  # Counts all measurements using an estimation technique to handle production sized data sets.
+  # This will tend to return 0 on the small data sets found in test/development.
   def count
     table_name = Measurement.table_name
-    result = ActiveRecord::Base.connection.execute("SELECT reltuples FROM pg_class WHERE relname = '#{table_name}'")
-    @count = result.first['reltuples'].to_i
+    sql = <<-SQL
+      SELECT
+        (reltuples/NULLIF(relpages,0)) * 
+        (pg_relation_size('#{table_name}') / (current_setting('block_size')::integer))
+      FROM pg_class where relname = '#{table_name}';
+    SQL
+    @count = Measurement.count_by_sql(sql)
     respond_with count: @count
   end
 
