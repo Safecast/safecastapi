@@ -33,6 +33,18 @@ services:
       - "127.0.0.1:${SC_API_POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+  aws-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile.aws-cli
+    env_file:
+      # generate this file with aws-vault
+      #
+      #   $ aws-vault exec safecast --no-session -- env | grep --color=no '^AWS_' > aws-cli.env
+      #
+      - aws-cli.env
+    volumes:
+      - .:/aws
 
 volumes:
   elasticsearch-data:

@@ -7,15 +7,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libgeos-dev \
   libproj-dev \
   nodejs \
-  postgresql-client-11 \
-  python3 \
-  python3-pip \
-  python3-setuptools \
-  python3-wheel
+  postgresql-client-11
 
 WORKDIR /src
-ADD Gemfile Gemfile.lock .ruby-version requirements.txt /src/
-RUN LC_ALL=en_US.UTF-8 pip3 install -r requirements.txt
+ADD Gemfile Gemfile.lock .ruby-version /src/
 RUN bundle install --jobs=4 --retry=3
 
 CMD [ "bundle", "exec", "rails", "server", "-b", "0.0.0.0" ]
