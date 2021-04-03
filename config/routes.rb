@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
+  # For details on DSL available within this file, see https://guides.rubyonrails.org/routing.html
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   scope '(:locale)', constraints: { locale: /(en-US|ja)/ } do # rubocop:disable Metrics/BlockLength

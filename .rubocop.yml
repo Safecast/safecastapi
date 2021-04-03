@@ -37,6 +37,7 @@ Metrics/AbcSize:
 # ignore spec files because examples are in block and tend to be long
 Metrics/BlockLength:
   Exclude:
+    - 'config/environments/*.rb'
     - 'spec/**/*.rb'
 
 Layout/LineLength:
