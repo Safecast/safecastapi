@@ -7,7 +7,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libgeos-dev \
   libproj-dev \
   nodejs \
-  postgresql-client-11
+  npm \
+  postgresql-client-11 && \
+  npm install --global yarn
 
 WORKDIR /src
 ADD Gemfile Gemfile.lock .ruby-version /src/

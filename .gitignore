@@ -23,6 +23,7 @@ log/localeapp.yml
 .envrc
 .direnv
 .byebug_history
+/node_modules
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
