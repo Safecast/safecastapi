@@ -1,11 +1,19 @@
   <%= content_for(:title) do %>
   <%- end -%>
 <hr/>
+
+<% sensor_data = get_sensor_data() %>
 <div style="margin-left: 10px; text-align: center">
   <h2>
     <%= @device_story.last_location_name %> (<%= @device_story.device_urn %>)
     <%- if  @device_story.last_seen %>
       <div style="font-size: 15px"> <%= time_ago_in_words(@device_story.last_seen) %> ago</div>
+    <%- end %>
+   <%- if !sensor_data["radiation_sensors"].empty? %>
+            <div style="font-size: 25px"> <%= last_cpm_values(@device_story.last_values) %>CPM</div>
+    <%- end %>
+    <%- if !sensor_data["air_sensors"].blank? %>
+            <div style="font-size: 25px"> <%= last_air_quality_values(@device_story.last_values) %>uSv/H</div>
     <%- end %>
   </h2>
 </div>
@@ -13,7 +21,7 @@
 <div class="row text-center" >
   <div class="col-md-12">
     <div id="map" class="panel panel-default device-chart">
-      <div class="text-center" style="font-size: 15px; margin-bottom: 5px"> <b>Location</b> </div>
+      <div class="text-center" style="font-size: 15px; margin-bottom: 5px"> <b>Location test</b> </div>
       <% l = sensor_last_location()%>
       <% unless l.blank? || l["lat"].blank? || l["lon"].blank? %>
         <script>
@@ -28,7 +36,6 @@
       <% end %>
     </div>
   </div>
-  <% sensor_data = get_sensor_data() %>
   <%- if !sensor_data["radiation_sensors"].empty? %>
     <div id="chart-panel" class="col-md-6 col order-1">
       <div class="panel panel-default device-chart">

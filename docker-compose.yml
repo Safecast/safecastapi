@@ -9,7 +9,7 @@ services:
       - "127.0.0.1:${SC_API_WEB_PORT:-3000}:3000"
     environment:
       DATABASE_HOST: 'postgresql'
-      ELASTICSEARCH_URL: 'http://elasticsearch:9200'
+      ELASTICSEARCH_URL: 'https://reporting-proxy:oel7AFuechoot8ah@40ad140d461d810ac41ed710b5c7a5b6.us-west-2.aws.found.io:9243'
     volumes:
       - .:/src
     depends_on:

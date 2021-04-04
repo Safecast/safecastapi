@@ -113,4 +113,5 @@ module DeviceStoriesHelper # rubocop:disable Metrics/ModuleLength
   def battery_voltage
     IngestMeasurement.query_battery_voltage(@device_story.device_urn)
   end
+
 end
