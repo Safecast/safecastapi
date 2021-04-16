@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 
 ruby '2.6.6'
 
-gem 'rails', '~> 5.2.4.4'
+gem 'rails', '~> 6.0.3.6'
 
-gem 'activerecord-postgis-adapter', '~> 5.0'
+gem 'activerecord-postgis-adapter', '~> 6.0'
 gem 'aws-sdk-elasticbeanstalk'
 gem 'aws-sdk-rails'
 gem 'aws-sdk-s3', require: false
@@ -43,7 +43,7 @@ gem 'momentjs-rails', '>= 2.9.0'
 gem 'newrelic_rpm'
 gem 'pg'
 gem 'puma'
-gem 'rails_admin', '~>1.4.2'
+gem 'rails_admin', '~> 2.0.0'
 gem 'rakismet'
 gem 'responders'
 gem 'sass-rails', '~>5.0'
