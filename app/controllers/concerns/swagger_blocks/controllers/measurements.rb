@@ -17,7 +17,7 @@ module SwaggerBlocks
               schema do
                 key :type, :array
                 items do
-                  key :'$ref', :Measurement
+                  key :$ref, :Measurement
                 end
               end
             end
@@ -38,7 +38,7 @@ module SwaggerBlocks
             response 200 do
               key :description, 'measurement response'
               schema do
-                key :'$ref', :Measurement
+                key :$ref, :Measurement
               end
             end
           end
@@ -53,13 +53,13 @@ module SwaggerBlocks
               key :description, 'Measurement to add'
               key :required, true
               schema do
-                key :'$ref', :MeasurementInput
+                key :$ref, :MeasurementInput
               end
             end
             response 200 do
               key :description, 'measurement response'
               schema do
-                key :'$ref', :Measurement
+                key :$ref, :Measurement
               end
             end
           end

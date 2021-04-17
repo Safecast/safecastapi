@@ -13,118 +13,118 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
     end
 
     def query_sensor_data(device_urn) # rubocop:disable Metrics/MethodLength
-      search "query":
-                 { "bool": {
-                   "filter": [
+      search query:
+                 { bool: {
+                   filter: [
                      {
-                       "range": {
+                       range: {
                          "@timestamp": {
-                           "gte": 'now-8w',
-                           "lte": 'now'
+                           gte: 'now-8w',
+                           lte: 'now'
                          }
                        }
                      },
                      {
-                       "term": {
-                         "device_urn": device_urn
+                       term: {
+                         device_urn: device_urn
                        }
                      }
                    ]
                  } },
-             "aggs": {
-               "sensor_data": {
-                 "date_histogram": {
-                   "fixed_interval": '12h',
-                   "field": '@timestamp',
-                   "min_doc_count": 0,
-                   "extended_bounds": {
-                     "min": 'now-8w',
-                     "max": 'now'
+             aggs: {
+               sensor_data: {
+                 date_histogram: {
+                   fixed_interval: '12h',
+                   field: '@timestamp',
+                   min_doc_count: 0,
+                   extended_bounds: {
+                     min: 'now-8w',
+                     max: 'now'
                    },
-                   "format": 'yyyy-MM-dd HH'
+                   format: 'yyyy-MM-dd HH'
                  },
-                 "aggs": {
-                   "lnd_7128ec": {
-                     "avg": {
-                       "field": 'lnd_7128ec'
+                 aggs: {
+                   lnd_7128ec: {
+                     avg: {
+                       field: 'lnd_7128ec'
                      }
                    },
-                   "lnd_7318c": {
-                     "avg": {
-                       "field": 'lnd_7318c'
+                   lnd_7318c: {
+                     avg: {
+                       field: 'lnd_7318c'
                      }
                    },
-                   "lnd_712u": {
-                     "avg": {
-                       "field": 'lnd_712u'
+                   lnd_712u: {
+                     avg: {
+                       field: 'lnd_712u'
                      }
                    },
-                   "lnd_7318u": {
-                     "avg": {
-                       "field": 'lnd_7318u'
+                   lnd_7318u: {
+                     avg: {
+                       field: 'lnd_7318u'
                      }
                    },
-                   "lnd_78017w": {
-                     "avg": {
-                       "field": 'lnd_78017w'
+                   lnd_78017w: {
+                     avg: {
+                       field: 'lnd_78017w'
                      }
                    },
-                   "lnd7318u": {
-                     "avg": {
-                       "field": 'lnd7318u'
+                   lnd7318u: {
+                     avg: {
+                       field: 'lnd7318u'
                      }
                    },
-                   "lnd7128c": {
-                     "avg": {
-                       "field": 'lnd7128c'
+                   lnd7128c: {
+                     avg: {
+                       field: 'lnd7128c'
                      }
                    },
-                   "pms_pm10_0": { # rubocop:disable Naming/VariableNumber
-                     "avg": {
-                       "field": 'pms_pm10_0'
+                   pms_pm10_0: { # rubocop:disable Naming/VariableNumber
+                     avg: {
+                       field: 'pms_pm10_0'
                      }
                    },
-                   "pms_pm02_5": { # rubocop:disable Naming/VariableNumber
-                     "avg": {
-                       "field": 'pms_pm02_5'
+                   pms_pm02_5: { # rubocop:disable Naming/VariableNumber
+                     avg: {
+                       field: 'pms_pm02_5'
                      }
                    },
-                   "pms_pm01_0": { # rubocop:disable Naming/VariableNumber
-                     "avg": {
-                       "field": 'pms_pm01_0'
+                   pms_pm01_0: { # rubocop:disable Naming/VariableNumber
+                     avg: {
+                       field: 'pms_pm01_0'
                      }
                    },
-                   "bat_voltage": {
-                     "avg": {
-                       "field": 'bat_voltage'
+                   bat_voltage: {
+                     avg: {
+                       field: 'bat_voltage'
                      }
                    },
-                   "temperature_C": {
-                     "avg": {
-                       "field": 'env_temp'
+                   temperature_C: {
+                     avg: {
+                       field: 'env_temp'
                      }
                    },
-                   "humidity": {
-                     "avg": {
-                       "field": 'env_humid'
+                   humidity: {
+                     avg: {
+                       field: 'env_humid'
                      }
                    },
-                   "pressure": {
-                     "avg": {
-                       "field": 'env_press'
+                   pressure: {
+                     avg: {
+                       field: 'env_press'
                      }
                    },
-                   "temperature_F": {
-                     "avg": {
-                       "field": 'env_temp',
-                       "script": {
-                         "source": '_value*9/5+32'
+                   temperature_F: {
+                     avg: {
+                       field: 'env_temp',
+                       script: {
+                         source: '_value*9/5+32'
                        }
                      }
                    },
-                   "charging": {
-                     "avg": {
-                       "field": 'bat_charging'
+                   charging: {
+                     avg: {
+                       field: 'bat_charging'
                      }
                    }
                  }
@@ -133,7 +133,7 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
     end
 
     def query_last_sensor_location(device_urn)
-      search "query": { "match": { "device_urn": device_urn } }, "size": 1, "sort": [{ "@timestamp": { "order": 'desc' } }]
+      search query: { match: { device_urn: device_urn } }, size: 1, sort: [{ "@timestamp": { order: 'desc' } }]
     end
   end
 end
