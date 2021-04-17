@@ -79,17 +79,17 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
                        "field": 'lnd7128c'
                      }
                    },
-                   "pms_pm10_0": {
+                   "pms_pm10_0": { # rubocop:disable Naming/VariableNumber
                      "avg": {
                        "field": 'pms_pm10_0'
                      }
                    },
-                   "pms_pm02_5": {
+                   "pms_pm02_5": { # rubocop:disable Naming/VariableNumber
                      "avg": {
                        "field": 'pms_pm02_5'
                      }
                    },
-                   "pms_pm01_0": {
+                   "pms_pm01_0": { # rubocop:disable Naming/VariableNumber
                      "avg": {
                        "field": 'pms_pm01_0'
                      }
