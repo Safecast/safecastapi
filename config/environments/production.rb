@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+DOMAINS_WITH_CERTIFICATES = %w(safecast.org safecast.cc).freeze
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -46,7 +48,20 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
+
+  config.ssl_options = {
+    redirect: {
+      exclude: proc do |request|
+        # Override for deployed dev environments
+        ENV['SSL_CONFIGURED'] == 'false' ||
+          # Don't redirect API-Gateway requests
+          request.head? || request.format == Mime[:json] ||
+          # Don't redirect domains we don't have certs for
+          !request.domain.in?(DOMAINS_WITH_CERTIFICATES)
+      end
+    }
+  }
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
