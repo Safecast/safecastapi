@@ -12,7 +12,9 @@ module Safecast
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
+    config.action_mailer.delivery_job = 'ActionMailer::MailDeliveryJob' # default 6.0
     config.active_record.belongs_to_required_by_default = false
+    
     config.elastic_apm.active = ENV['ELASTIC_APM_SECRET_TOKEN'].present?
 
     # Settings in config/environments/* take precedence over those specified here.
