@@ -47,7 +47,7 @@
               <span class="sr-only">Toggle navigation</span>
               <span class="glyphicon glyphicon-user"></span>
             </button>
-            <div class="navbar-brand" href="#"> <%= image_tag image_url('h1.png') %></div>
+            <%= link_to image_tag(image_url('h1.png')), root_path, class: 'navbar-brand' %>
           </div>
 
           <div id="profile-navbar" class="navbar-collapse collapse text-center">
