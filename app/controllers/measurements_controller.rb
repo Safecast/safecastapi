@@ -107,7 +107,7 @@ class MeasurementsController < ApplicationController
     table_name = Measurement.table_name
     sql = <<-SQL
       SELECT
-        (reltuples/NULLIF(relpages,0)) * 
+        (reltuples/NULLIF(relpages,0)) *
         (pg_relation_size('#{table_name}') / (current_setting('block_size')::integer))
       FROM pg_class where relname = '#{table_name}';
     SQL
