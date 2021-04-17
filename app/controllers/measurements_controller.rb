@@ -76,7 +76,7 @@ class MeasurementsController < ApplicationController
     @measurement = current_user.measurements.build(measurement_params)
     ActiveRecord::Base.transaction do
       @measurement.save!
-      @measurement.update_attributes!(original_id: @measurement.id)
+      @measurement.update!(original_id: @measurement.id)
     end
     respond_with @measurement
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid

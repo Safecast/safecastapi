@@ -118,7 +118,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
     if bgeigie_import_params[:subtype] == 'Cosmic'
       @bgeigie_import.update_column(:auto_apprv_no_high_cpm, true)
     end
-    @bgeigie_import.update_attributes(bgeigie_import_params)
+    @bgeigie_import.update(bgeigie_import_params)
     @bgeigie_import.update_would_approve
     respond_with @bgeigie_import
   end
