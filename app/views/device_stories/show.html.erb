@@ -28,7 +28,7 @@
       <% end %>
     </div>
   </div>
-  <% sensor_data = get_sensor_data() %>
+  <% sensor_data = sensor_data_by_sensors(IngestMeasurement.query_sensor_data(@device_story.device_urn)) %>
   <%- if !sensor_data["radiation_sensors"].empty? %>
     <div id="chart-panel" class="col-md-6 col order-1">
       <div class="panel panel-default device-chart">

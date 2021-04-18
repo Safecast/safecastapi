@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module DeviceStoriesHelper # rubocop:disable Metrics/ModuleLength
+module DeviceStoriesHelper
   def grafana_panel(name)
     panels = {
       cpm: { id: 14, dashboard: '/d/DFSxrOLWk/safecast-device-details' },
@@ -74,43 +74,38 @@ module DeviceStoriesHelper # rubocop:disable Metrics/ModuleLength
   end
 
   # The names should correspond to the names in the query
-  def sensor_names
-    { 'radiation_sensors' => %w(lnd_7128ec lnd_7318c lnd_712u lnd_7318u lnd_78017w lnd7318u lnd7128c),
-      'air_sensors' => %w(pms_pm10_0 pms_pm02_5 pms_pm01_0),
-      'bat_voltage' => ['bat_voltage'],
-      'temperature_C' => ['temperature_C'],
-      'temperature_F' => ['temperature_F'],
-      'humidity' => ['humidity'],
-      'pressure' => ['pressure'],
-      'charging' => ['charging'] }
+  CATEGORY_SENSOR_NAMES = {
+    'radiation_sensors' => %w(lnd_7128ec lnd_7318c lnd_712u lnd_7318u lnd_78017w lnd7318u lnd7128c),
+    'air_sensors' => %w(pms_pm10_0 pms_pm02_5 pms_pm01_0),
+    'bat_voltage' => ['bat_voltage'],
+    'temperature_C' => ['temperature_C'],
+    'temperature_F' => ['temperature_F'],
+    'humidity' => ['humidity'],
+    'pressure' => ['pressure'],
+    'charging' => ['charging']
+  }.freeze
+
+  def sensor_data_by_sensors(sensor_data)
+    data_by_dates = convert_by_dates(sensor_data.dig('aggregations', 'sensor_data', 'buckets') || [])
+    CATEGORY_SENSOR_NAMES.transform_values do |names|
+      names.each_with_object([]) do |name, arr|
+        arr << { name: name, value: data_by_dates[name] } if data_by_dates.key?(name)
+      end
+    end
   end
 
-  def get_sensor_data() # rubocop:disable all
-    q = IngestMeasurement.query_sensor_data(@device_story.device_urn)
-    all_hashes = {}
-    sensor_names.values.each do |sensor_type|
-      sensor_type_hashes = []
-      sensor_type.each do |sensor|
-        hash_sensor = {}
-        sensor_exists = false
-        q.response['aggregations']['sensor_data']['buckets'].each do |bucket|
-          date = Time.at(bucket['key'] / 1000.0).strftime('%Y-%m-%d %H')
-          sensor_value = bucket[sensor]['value']
-          if sensor_value then sensor_exists = true end
-          hash_sensor.merge!(date => sensor_value)
-        end
-        if sensor_exists then sensor_type_hashes.push({ "name": sensor, "data": hash_sensor }) end
+  def convert_by_dates(buckets)
+    buckets.each_with_object(Hash.new { |h, k| h[k] = {} }) do |bucket, hsh|
+      date = bucket['key_as_string']
+      bucket.except('key', 'key_as_string', 'doc_count').each do |name, data|
+        value = data['value']
+        hsh[name][date] = value if value.present?
       end
-      all_hashes.merge!(sensor_names.key(sensor_type) => sensor_type_hashes)
     end
-    all_hashes
   end
 
   def sensor_last_location
-    IngestMeasurement.query_last_sensor_location(@device_story.device_urn).response['hits']['hits'][0]['_source']['ingest']['location']
-  end
-
-  def battery_voltage
-    IngestMeasurement.query_battery_voltage(@device_story.device_urn)
+    IngestMeasurement.query_last_sensor_location(@device_story.device_urn)
+      .response.hits.hits.first._source.ingest.location.to_hash
   end
 end

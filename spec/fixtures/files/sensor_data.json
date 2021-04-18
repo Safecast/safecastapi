@@ -1,0 +1,6294 @@
+{
+  "took": 498,
+  "timed_out": false,
+  "_shards": {
+    "total": 72,
+    "successful": 72,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 10000,
+      "relation": "gte"
+    },
+    "max_score": 0,
+    "hits": [
+      {
+        "_index": "ingest-measurements-2021-01-12",
+        "_type": "_doc",
+        "_id": "9w12-HYBj2uUTIA-9eK6",
+        "_score": 0,
+        "_source": {
+          "device_urn": "pointcast:10018",
+          "device_class": "pointcast",
+          "device_sn": "POINTCAST #10018",
+          "device": 10018,
+          "when_captured": "2021-01-12T21:18:34Z",
+          "loc_lat": 35.615814,
+          "loc_lon": 139.625711,
+          "loc_alt": 24,
+          "loc_olc": "8Q7XJJ8G+87G",
+          "lnd_7318u": 55,
+          "service_uploaded": "2021-01-12T21:18:33Z",
+          "service_transport": "pointcast:103.67.223.38",
+          "service_handler": "i-0c65ac97805549e0d",
+          "@timestamp": "2021-01-12T21:18:34Z",
+          "ingest": {
+            "location": {
+              "lat": 35.615814,
+              "lon": 139.625711
+            }
+          }
+        }
+      },
+      {
+        "_index": "ingest-measurements-2021-01-12",
+        "_type": "_doc",
+        "_id": "DQF3-HYBA25pVgQMB8Y2",
+        "_score": 0,
+        "_source": {
+          "device_urn": "pointcast:10018",
+          "device_class": "pointcast",
+          "device_sn": "POINTCAST #10018",
+          "device": 10018,
+          "when_captured": "2021-01-12T21:18:38Z",
+          "loc_lat": 35.615814,
+          "loc_lon": 139.625711,
+          "loc_alt": 24,
+          "loc_olc": "8Q7XJJ8G+87G",
+          "lnd_7128ec": 0,
+          "service_uploaded": "2021-01-12T21:18:38Z",
+          "service_transport": "pointcast:103.67.223.38",
+          "service_handler": "i-051cab8ec0fe30bcd",
+          "@timestamp": "2021-01-12T21:18:38Z",
+          "ingest": {
+            "location": {
+              "lat": 35.615814,
+              "lon": 139.625711
+            }
+          }
+        }
+      },
+      {
+        "_index": "ingest-measurements-2021-01-12",
+        "_type": "_doc",
+        "_id": "owF3-HYBA25pVgQMGcY3",
+        "_score": 0,
+        "_source": {
+          "device_urn": "pointcast:10018",
+          "device_class": "pointcast",
+          "device_sn": "POINTCAST #10018",
+          "device": 10018,
+          "when_captured": "2021-01-12T21:18:43Z",
+          "loc_lat": 35.615814,
+          "loc_lon": 139.625711,
+          "loc_alt": 24,
+          "loc_olc": "8Q7XJJ8G+87G",
+          "env_temp": 10.6,
+          "service_uploaded": "2021-01-12T21:18:42Z",
+          "service_transport": "pointcast:103.67.223.38",
+          "service_handler": "i-051a2a353509414f0",
+          "@timestamp": "2021-01-12T21:18:43Z",
+          "ingest": {
+            "location": {
+              "lat": 35.615814,
+              "lon": 139.625711
+            }
+          }
+        }
+      },
+      {
+        "_index": "ingest-measurements-2021-01-12",
+        "_type": "_doc",
+        "_id": "-wF7-HYBA25pVgQMx86H",
+        "_score": 0,
+        "_source": {
+          "device_urn": "pointcast:10018",
+          "device_class": "pointcast",
+          "device_sn": "POINTCAST #10018",
+          "device": 10018,
+          "when_captured": "2021-01-12T21:23:50Z",
+          "loc_lat": 35.615814,
+          "loc_lon": 139.625711,
+          "loc_alt": 24,
+          "loc_olc": "8Q7XJJ8G+87G",
+          "lnd_7318u": 58,
+          "service_uploaded": "2021-01-12T21:23:49Z",
+          "service_transport": "pointcast:103.67.223.40",
+          "service_handler": "i-0c65ac97805549e0d",
+          "@timestamp": "2021-01-12T21:23:50Z",
+          "ingest": {
+            "location": {
+              "lat": 35.615814,
+              "lon": 139.625711
+            }
+          }
+        }
+      },
+      {
+        "_index": "ingest-measurements-2021-01-12",
+        "_type": "_doc",
+        "_id": "MA57-HYBj2uUTIA-2QUR",
+        "_score": 0,
+        "_source": {
+          "device_urn": "pointcast:10018",
+          "device_class": "pointcast",
+          "device_sn": "POINTCAST #10018",
+          "device": 10018,
+          "when_captured": "2021-01-12T21:23:54Z",
+          "loc_lat": 35.615814,
+          "loc_lon": 139.625711,
+          "loc_alt": 24,
+          "loc_olc": "8Q7XJJ8G+87G",
+          "lnd_7128ec": 0,
+          "service_uploaded": "2021-01-12T21:23:54Z",
+          "service_transport": "pointcast:103.67.223.40",
+          "service_handler": "i-051cab8ec0fe30bcd",
+          "@timestamp": "2021-01-12T21:23:54Z",
+          "ingest": {
+            "location": {
+              "lat": 35.615814,
+              "lon": 139.625711
+            }
+          }
+        }
+      },
+      {
+        "_index": "ingest-measurements-2021-01-12",
+        "_type": "_doc",
+        "_id": "qg57-HYBj2uUTIA-6wUm",
+        "_score": 0,
+        "_source": {
+          "device_urn": "pointcast:10018",
+          "device_class": "pointcast",
+          "device_sn": "POINTCAST #10018",
+          "device": 10018,
+          "when_captured": "2021-01-12T21:23:59Z",
+          "loc_lat": 35.615814,
+          "loc_lon": 139.625711,
+          "loc_alt": 24,
+          "loc_olc": "8Q7XJJ8G+87G",
+          "env_temp": 10.6,
+          "service_uploaded": "2021-01-12T21:23:58Z",
+          "service_transport": "pointcast:103.67.223.40",
+          "service_handler": "i-051a2a353509414f0",
+          "@timestamp": "2021-01-12T21:23:59Z",
+          "ingest": {
+            "location": {
+              "lat": 35.615814,
+              "lon": 139.625711
+            }
+          }
+        }
+      },
+      {
+        "_index": "ingest-measurements-2021-01-12",
+        "_type": "_doc",
+        "_id": "QAGA-HYBA25pVgQMmNSv",
+        "_score": 0,
+        "_source": {
+          "device_urn": "pointcast:10018",
+          "device_class": "pointcast",
+          "device_sn": "POINTCAST #10018",
+          "device": 10018,
+          "when_captured": "2021-01-12T21:29:05Z",
+          "loc_lat": 35.615814,
+          "loc_lon": 139.625711,
+          "loc_alt": 24,
+          "loc_olc": "8Q7XJJ8G+87G",
+          "lnd_7318u": 53,
+          "service_uploaded": "2021-01-12T21:29:05Z",
+          "service_transport": "pointcast:103.67.223.7",
+          "service_handler": "i-051cab8ec0fe30bcd",
+          "@timestamp": "2021-01-12T21:29:05Z",
+          "ingest": {
+            "location": {
+              "lat": 35.615814,
+              "lon": 139.625711
+            }
+          }
+        }
+      },
+      {
+        "_index": "ingest-measurements-2021-01-12",
+        "_type": "_doc",
+        "_id": "UA6A-HYBj2uUTIA-qh5T",
+        "_score": 0,
+        "_source": {
+          "device_urn": "pointcast:10018",
+          "device_class": "pointcast",
+          "device_sn": "POINTCAST #10018",
+          "device": 10018,
+          "when_captured": "2021-01-12T21:29:10Z",
+          "loc_lat": 35.615814,
+          "loc_lon": 139.625711,
+          "loc_alt": 24,
+          "loc_olc": "8Q7XJJ8G+87G",
+          "lnd_7128ec": 0,
+          "service_uploaded": "2021-01-12T21:29:10Z",
+          "service_transport": "pointcast:103.67.223.7",
+          "service_handler": "i-051cab8ec0fe30bcd",
+          "@timestamp": "2021-01-12T21:29:10Z",
+          "ingest": {
+            "location": {
+              "lat": 35.615814,
+              "lon": 139.625711
+            }
+          }
+        }
+      },
+      {
+        "_index": "ingest-measurements-2021-01-12",
+        "_type": "_doc",
+        "_id": "XA6A-HYBj2uUTIA-vR5A",
+        "_score": 0,
+        "_source": {
+          "device_urn": "pointcast:10018",
+          "device_class": "pointcast",
+          "device_sn": "POINTCAST #10018",
+          "device": 10018,
+          "when_captured": "2021-01-12T21:29:15Z",
+          "loc_lat": 35.615814,
+          "loc_lon": 139.625711,
+          "loc_alt": 24,
+          "loc_olc": "8Q7XJJ8G+87G",
+          "env_temp": 10.6,
+          "service_uploaded": "2021-01-12T21:29:14Z",
+          "service_transport": "pointcast:103.67.223.7",
+          "service_handler": "i-051a2a353509414f0",
+          "@timestamp": "2021-01-12T21:29:15Z",
+          "ingest": {
+            "location": {
+              "lat": 35.615814,
+              "lon": 139.625711
+            }
+          }
+        }
+      },
+      {
+        "_index": "ingest-measurements-2021-01-12",
+        "_type": "_doc",
+        "_id": "rwGF-HYBA25pVgQMbNwm",
+        "_score": 0,
+        "_source": {
+          "device_urn": "pointcast:10018",
+          "device_class": "pointcast",
+          "device_sn": "POINTCAST #10018",
+          "device": 10018,
+          "when_captured": "2021-01-12T21:34:22Z",
+          "loc_lat": 35.615814,
+          "loc_lon": 139.625711,
+          "loc_alt": 24,
+          "loc_olc": "8Q7XJJ8G+87G",
+          "lnd_7318u": 52,
+          "service_uploaded": "2021-01-12T21:34:21Z",
+          "service_transport": "pointcast:103.67.223.36",
+          "service_handler": "i-051cab8ec0fe30bcd",
+          "@timestamp": "2021-01-12T21:34:22Z",
+          "ingest": {
+            "location": {
+              "lat": 35.615814,
+              "lon": 139.625711
+            }
+          }
+        }
+      }
+    ]
+  },
+  "aggregations": {
+    "sensor_data": {
+      "buckets": [
+        {
+          "key_as_string": "2021-01-12 12",
+          "key": 1610452800000,
+          "doc_count": 231,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 10.694805392971286
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 51.250649707348316
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.05194805194805
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-13 00",
+          "key": 1610496000000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 12.407299368920988
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 54.33313886405777
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.65693430656934
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-13 12",
+          "key": 1610539200000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 12.390441235374002
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 54.3027942236732
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.154411764705884
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-14 00",
+          "key": 1610582400000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 13.002189858986513
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 55.403941746175725
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.8978102189781
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-14 12",
+          "key": 1610625600000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 13.712408824558675
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 56.682335884205614
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.07299270072993
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-15 00",
+          "key": 1610668800000,
+          "doc_count": 410,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 13.710294274722829
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 56.678529694501094
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.02189781021898
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-15 12",
+          "key": 1610712000000,
+          "doc_count": 409,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 13.843065637741645
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 56.91751814793496
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-16 00",
+          "key": 1610755200000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 16.024817592036115
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 60.844671665665004
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.14598540145985
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-16 12",
+          "key": 1610798400000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.471532877344284
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.848759179219705
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.98540145985402
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-17 00",
+          "key": 1610841600000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 14.916911672143375
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 58.85044100985807
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.080882352941174
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-17 12",
+          "key": 1610884800000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 14.22262775114853
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 57.60072995206736
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.07299270072993
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-18 00",
+          "key": 1610928000000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 13.818248052666657
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 56.87284649479998
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.496350364963504
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-18 12",
+          "key": 1610971200000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 13.419853014104506
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 56.15573542538811
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.5514705882353
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-19 00",
+          "key": 1611014400000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 13.421897853377962
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 56.15941613608033
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.18248175182482
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-19 12",
+          "key": 1611057600000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 12.533576645120217
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 54.560437961216394
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.09489051094891
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-20 00",
+          "key": 1611100800000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 12.36691183202407
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 54.260441297643325
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.345588235294116
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-20 12",
+          "key": 1611144000000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 12.372262857256144
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 54.27007314306106
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 52.99270072992701
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-21 00",
+          "key": 1611187200000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 20.75766417231873
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 69.36379551017372
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.36496350364963
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-21 12",
+          "key": 1611230400000,
+          "doc_count": 410,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.601470582625446
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 60.0826470487258
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.18115942028985
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-22 00",
+          "key": 1611273600000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 14.727007350782408
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 58.50861323140833
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.67883211678832
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-22 12",
+          "key": 1611316800000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.559124313131736
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 60.006423763637116
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.00729927007299
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-23 00",
+          "key": 1611360000000,
+          "doc_count": 407,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 16.508955250925094
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 61.71611945166516
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.589928057553955
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-23 12",
+          "key": 1611403200000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 14.014705847291385
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 57.2264705251245
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.49264705882353
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-24 00",
+          "key": 1611446400000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 12.99197073748512
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 55.38554732747321
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.277372262773724
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-24 12",
+          "key": 1611489600000,
+          "doc_count": 412,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 12.867883013982842
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 55.16218942516912
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.28260869565217
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-25 00",
+          "key": 1611532800000,
+          "doc_count": 410,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 13.665185172469528
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 56.597333310445144
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.22142857142857
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-25 12",
+          "key": 1611576000000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 14.139259281864872
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 57.450666707356774
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.28260869565217
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-26 00",
+          "key": 1611619200000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 14.075912329402284
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 57.33664219292411
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.08029197080292
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-26 12",
+          "key": 1611662400000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 14.530147173825432
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 58.15426491288578
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.27205882352941
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-27 00",
+          "key": 1611705600000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 21.295620507567467
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 70.33211691362145
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.57664233576642
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-27 12",
+          "key": 1611748800000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 17.950364969072552
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 64.31065694433059
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-28 00",
+          "key": 1611792000000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 16.01911767090068
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 60.83441180762123
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.55882352941177
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-28 12",
+          "key": 1611835200000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 14.592700700690276
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 58.2668612612425
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.722627737226276
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-29 00",
+          "key": 1611878400000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 14.737226284333389
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 58.5270073118001
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.97810218978102
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-29 12",
+          "key": 1611921600000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 14.325547441078799
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 57.78598539394184
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.59124087591241
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-30 00",
+          "key": 1611964800000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.194117644253899
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.349411759657016
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.419117647058826
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-30 12",
+          "key": 1612008000000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 13.6817518568387
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 56.62715334230966
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.065693430656935
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-31 00",
+          "key": 1612051200000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 13.49343067364101
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 56.28817521255382
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.1021897810219
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-01-31 12",
+          "key": 1612094400000,
+          "doc_count": 409,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 13.376470628906699
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 56.077647132032055
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.175182481751825
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-01 00",
+          "key": 1612137600000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 13.399999990182764
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 56.11999998232898
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.88970588235294
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-01 12",
+          "key": 1612180800000,
+          "doc_count": 405,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 14.711851805227774
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 58.48133324941
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.60740740740741
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-02 00",
+          "key": 1612224000000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.397794204599718
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.71602956827949
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.69117647058823
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-02 12",
+          "key": 1612267200000,
+          "doc_count": 405,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.11259265475803
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.20266677856445
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.65925925925926
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-03 00",
+          "key": 1612310400000,
+          "doc_count": 406,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.717037222120497
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 60.29066699981689
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.05882352941177
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-03 12",
+          "key": 1612353600000,
+          "doc_count": 407,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.308088288587683
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.55455891945783
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.02962962962963
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-04 00",
+          "key": 1612396800000,
+          "doc_count": 405,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.218518645675093
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.39333356221517
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.044444444444444
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-04 12",
+          "key": 1612440000000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.110294173745547
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.198529512741985
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.8014705882353
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-05 00",
+          "key": 1612483200000,
+          "doc_count": 406,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.009558817919563
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.01720587225521
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.044444444444444
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-05 12",
+          "key": 1612526400000,
+          "doc_count": 407,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.279259102432816
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.50266638437907
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.386861313868614
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-06 00",
+          "key": 1612569600000,
+          "doc_count": 412,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 16.881751958471146
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 62.38715352524807
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.130434782608695
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-06 12",
+          "key": 1612612800000,
+          "doc_count": 409,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 16.093382344526404
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 60.96808822014753
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.86131386861314
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-07 00",
+          "key": 1612656000000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 16.85182468386462
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 62.33328443095632
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.21897810218978
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-07 12",
+          "key": 1612699200000,
+          "doc_count": 409,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 16.564444492481375
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 61.81600008646647
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.84172661870504
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-08 00",
+          "key": 1612742400000,
+          "doc_count": 409,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 16.006666564941405
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 60.811999816894534
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.92086330935252
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-08 12",
+          "key": 1612785600000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.063703678272388
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.1146666208903
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.51449275362319
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-09 00",
+          "key": 1612828800000,
+          "doc_count": 413,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 17.59927002008814
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 63.678686036158645
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.064748201438846
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-09 12",
+          "key": 1612872000000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.345255468883654
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.62145984399058
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.37956204379562
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-10 00",
+          "key": 1612915200000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 14.73629637117739
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 58.52533346811931
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.32608695652174
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-10 12",
+          "key": 1612958400000,
+          "doc_count": 409,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 14.863970672383028
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 58.75514721028945
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.46715328467153
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-11 00",
+          "key": 1613001600000,
+          "doc_count": 407,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.137037072358307
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.246666730244954
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.394160583941606
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-11 12",
+          "key": 1613044800000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.289780978738827
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.52160576172989
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 52.98540145985402
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-12 00",
+          "key": 1613088000000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.240145836433355
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.432262505580034
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 52.386861313868614
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-12 12",
+          "key": 1613131200000,
+          "doc_count": 413,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.410218858370817
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.738393945067465
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 52.89928057553957
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-13 00",
+          "key": 1613174400000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 17.399265057900372
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 63.318677104220676
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.61764705882353
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-13 12",
+          "key": 1613217600000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 17.000729957636256
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 62.60131392374525
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.11678832116788
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-14 00",
+          "key": 1613260800000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 17.61897824976566
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 63.71416084957819
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.12408759124087
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-14 12",
+          "key": 1613304000000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 18.306569106387396
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 64.95182439149731
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.715328467153284
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-15 00",
+          "key": 1613347200000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 18.1161769137663
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 64.60911844477934
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.69117647058823
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-15 12",
+          "key": 1613390400000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 17.75182466437347
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 63.95328439587224
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.01459854014598
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-16 00",
+          "key": 1613433600000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 18.73211689413029
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 65.71781040943452
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.10948905109489
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-16 12",
+          "key": 1613476800000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 17.99854015433875
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 64.39737227780977
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.065693430656935
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-17 00",
+          "key": 1613520000000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 19.60955877865062
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 67.29720580157111
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.029411764705884
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-17 12",
+          "key": 1613563200000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 16.833576613099037
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 62.30043790357826
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.02919708029197
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-18 00",
+          "key": 1613606400000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.828467041906649
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 60.49124067543197
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.81021897810219
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-18 12",
+          "key": 1613649600000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.05328465900282
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.09591238620507
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.153284671532845
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-19 00",
+          "key": 1613692800000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.981617717181935
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 60.766911890927474
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.72794117647059
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-19 12",
+          "key": 1613736000000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.370802907178001
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.6674452329204
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.25547445255474
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-20 00",
+          "key": 1613779200000,
+          "doc_count": 405,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 16.966666878594292
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 62.540000381469724
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.94814814814815
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-20 12",
+          "key": 1613822400000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 17.094160943135726
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 62.7694896976443
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.59124087591241
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-21 00",
+          "key": 1613865600000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 18.27956207999348
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 64.90321174398827
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.64963503649635
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-21 12",
+          "key": 1613908800000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 18.813970537746656
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 65.86514696794399
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.8235294117647
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-22 00",
+          "key": 1613952000000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 19.76934300721997
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 67.58481741299595
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.934306569343065
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-22 12",
+          "key": 1613995200000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 20.308759104596437
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 68.5557663882736
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.44525547445255
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-23 00",
+          "key": 1614038400000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 20.28382353221669
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 68.51088235799004
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.786764705882355
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-23 12",
+          "key": 1614081600000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 18.469343087969037
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 65.24481755834425
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.42335766423358
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-24 00",
+          "key": 1614124800000,
+          "doc_count": 406,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 25.117777789080584
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 77.21200002034506
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.5514705882353
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-24 12",
+          "key": 1614168000000,
+          "doc_count": 405,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 18.690370347764755
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 65.64266662597656
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.60740740740741
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-25 00",
+          "key": 1614211200000,
+          "doc_count": 406,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 19.102222329598884
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 66.384000193278
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.4485294117647
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-25 12",
+          "key": 1614254400000,
+          "doc_count": 407,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 20.016176490222705
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 68.02911768240087
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.007407407407406
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-26 00",
+          "key": 1614297600000,
+          "doc_count": 405,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 17.997777825814705
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 64.39600008646647
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 54.074074074074076
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-26 12",
+          "key": 1614340800000,
+          "doc_count": 407,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 16.900000098899557
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 62.4200001780192
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.277372262773724
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-27 00",
+          "key": 1614384000000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 17.274999927071963
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 63.09499986872954
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.11029411764706
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-27 12",
+          "key": 1614427200000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.394160639630616
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.70948915133511
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 52.45255474452555
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-28 00",
+          "key": 1614470400000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.289051132480594
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 59.520292038465065
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 52.722627737226276
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-02-28 12",
+          "key": 1614513600000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 15.608823509777293
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 60.09588231759913
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 52.8235294117647
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-01 00",
+          "key": 1614556800000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 19.874452583981256
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 67.77401465116627
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 52.67883211678832
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-01 12",
+          "key": 1614600000000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 20.135766412219862
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 68.24437954199576
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.284671532846716
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-02 00",
+          "key": 1614643200000,
+          "doc_count": 410,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 19.91911773120656
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 67.8544119161718
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.90510948905109
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-02 12",
+          "key": 1614686400000,
+          "doc_count": 409,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 18.796350339903448
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 65.83343061182622
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.705882352941174
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-03 00",
+          "key": 1614729600000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 24.981021881103516
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 76.96583938598633
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 52.54744525547445
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-03 12",
+          "key": 1614772800000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 19.21911761339973
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 66.59441170411952
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 52.6764705882353
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-04 00",
+          "key": 1614816000000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 18.033576770420492
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 64.46043818675689
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.167883211678834
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-04 12",
+          "key": 1614859200000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 18.144526098766466
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 64.66014697777963
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.21897810218978
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-05 00",
+          "key": 1614902400000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 20.44705897219041
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 68.80470614994273
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.36029411764706
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-05 12",
+          "key": 1614945600000,
+          "doc_count": 405,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 19.754814910888673
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 67.55866683959961
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.13333333333333
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-06 00",
+          "key": 1614988800000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 20.302920097852276
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 68.54525617613409
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.160583941605836
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-06 12",
+          "key": 1615032000000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 20.035766337039696
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 68.06437940667145
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.02189781021898
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-07 00",
+          "key": 1615075200000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 18.926470826653873
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 66.06764748797697
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.25735294117647
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-07 12",
+          "key": 1615118400000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 17.8116788933747
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 64.06102200807446
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 52.99270072992701
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-08 00",
+          "key": 1615161600000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 16.91751828158859
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 62.45153290685946
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 52.97810218978102
+          },
+          "lnd_712u": {
+            ">value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-08 12",
+          "key": 1615204800000,
+          "doc_count": 408,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 16.28823545399834
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 61.318823817197014
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 52.705882352941174
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-09 00",
+          "key": 1615248000000,
+          "doc_count": 411,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 16.79270098331201
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 62.226861769961616
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.043795620437955
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        },
+        {
+          "key_as_string": "2021-03-09 12",
+          "key": 1615291200000,
+          "doc_count": 180,
+          "pms_pm10_0": {
+            "value": null
+          },
+          "charging": {
+            "value": null
+          },
+          "temperature_C": {
+            "value": 17.303332901000978
+          },
+          "pms_pm01_0": {
+            "value": null
+          },
+          "lnd_7318c": {
+            "value": null
+          },
+          "temperature_F": {
+            "value": 63.14599922180176
+          },
+          "pressure": {
+            "value": null
+          },
+          "lnd7128c": {
+            "value": null
+          },
+          "pms_pm02_5": {
+            "value": null
+          },
+          "lnd_78017w": {
+            "value": null
+          },
+          "lnd_7128ec": {
+            "value": 0
+          },
+          "bat_voltage": {
+            "value": null
+          },
+          "humidity": {
+            "value": null
+          },
+          "lnd7318u": {
+            "value": null
+          },
+          "lnd_7318u": {
+            "value": 53.28333333333333
+          },
+          "lnd_712u": {
+            "value": null
+          }
+        }
+      ]
+    }
+  }
+}
