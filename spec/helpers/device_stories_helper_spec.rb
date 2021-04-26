@@ -33,14 +33,14 @@ RSpec.describe DeviceStoriesHelper, type: :helper do
       expect(res).to include(
         'temperature_C' => [{
           name: 'temperature_C',
-          value: include(
+          data: include(
             '2021-03-08 00' => 16.91751828158859,
             '2021-03-08 12' => 16.28823545399834
           )
         }],
         'temperature_F' => [{
           name: 'temperature_F',
-          value: include(
+          data: include(
             '2021-03-08 12' => 61.318823817197014
           )
         }],
