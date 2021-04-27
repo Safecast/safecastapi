@@ -79,7 +79,7 @@ module DeviceStoriesHelper
     data_by_dates = convert_by_dates(sensor_data.dig('aggregations', 'sensor_data', 'buckets') || [])
     CATEGORY_SENSOR_NAMES.transform_values do |names|
       names.each_with_object([]) do |name, arr|
-        arr << { name: name, value: data_by_dates[name] } if data_by_dates.key?(name)
+        arr << { name: name, data: data_by_dates[name] } if data_by_dates.key?(name)
       end
     end
   end
@@ -95,7 +95,8 @@ module DeviceStoriesHelper
   end
 
   def sensor_last_location
-    IngestMeasurement.query_last_sensor_location(@device_story.device_urn)
-      .response.hits.hits.first._source.ingest.location.to_hash
+    res = IngestMeasurement.query_last_sensor_location(@device_story.device_urn)
+    hits = res.response.hits.hits
+    hits.empty? ? {} : hits.first._source.ingest.location&.to_hash
   end
 end
