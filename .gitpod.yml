@@ -1,6 +1,6 @@
 tasks:
-  - command: docker-compose up elasticsearch
-  - command: docker-compose up postgresql
+  - command: touch aws-cli.env; docker-compose up elasticsearch
+  - command: touch aws-cli.env; docker-compose up postgresql
 
 image:
   file: .gitpod.Dockerfile
