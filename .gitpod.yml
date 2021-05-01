@@ -1,0 +1,6 @@
+tasks:
+  - command: docker-compose up elasticsearch
+  - command: docker-compose up postgresql
+
+image:
+  file: .gitpod.Dockerfile
