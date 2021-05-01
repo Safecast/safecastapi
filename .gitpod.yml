@@ -1,3 +1,9 @@
+ports:
+  - port: 5432
+    onOpen: ignore
+  - port: 9200
+    onOpen: ignore
+
 tasks:
   - command: touch aws-cli.env; docker-compose up elasticsearch
   - command: touch aws-cli.env; docker-compose up postgresql
