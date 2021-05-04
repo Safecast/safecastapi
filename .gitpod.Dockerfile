@@ -1,3 +1,3 @@
-FROM gitpod/workspace-full:latest
+FROM gitpod/workspace-postgres:latest
 
-RUN sudo install-packages postgresql-client-12
+RUN sudo install-packages postgis postgresql-12-postgis-3

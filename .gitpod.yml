@@ -5,8 +5,10 @@ ports:
     onOpen: ignore
 
 tasks:
-  - command: touch aws-cli.env; docker-compose up elasticsearch
-  - command: touch aws-cli.env; docker-compose up postgresql
+  - init: touch aws-cli.env
+    command: docker-compose up elasticsearch
+  - init: touch aws-cli.env
+    command: docker-compose up postgresql
 
 image:
   file: .gitpod.Dockerfile
