@@ -12,6 +12,7 @@ ports:
 tasks:
   - init: |
       bundle install --jobs=4 --retry=3
+      createuser -s safecast
       rake db:create
       rake db:schema:load
       RAILS_ENV=test rake db:schema:load
