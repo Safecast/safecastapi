@@ -1,17 +1,21 @@
+image:
+  file: .gitpod.Dockerfile
+
 ports:
+  - port: 3000
+    onOpen: open-preview
   - port: 5432
     onOpen: ignore
   - port: 9200
     onOpen: ignore
 
 tasks:
-  - init: touch aws-cli.env
-    command: docker-compose up elasticsearch
-  - init: touch aws-cli.env
-    command: docker-compose up postgresql
-
-image:
-  file: .gitpod.Dockerfile
+  - init: |
+      bundle install --jobs=4 --retry=3
+      rake db:create
+      rake db:schema:load
+      RAILS_ENV=test rake db:schema:load
+    command: rails server
 
 github:
   prebuilds:
