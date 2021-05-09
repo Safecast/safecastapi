@@ -11,13 +11,14 @@ ports:
 
 tasks:
   - init: |
-      docker-compose up -d postgresql elasticsearch
       bundle install --jobs=4 --retry=3 --path vendor/bundle
+    command: |
+      docker-compose up -d postgresql elasticsearch
       gp await-port 5432
-      rake db:create
-      rake db:schema:load
-      RAILS_ENV=test rake db:schema:load
-    command: rails server
+      bundle exec rake db:create
+      bundle exec rake db:schema:load
+      RAILS_ENV=test bundle exec rake db:schema:load
+      bundle exec rails server
 
 github:
   prebuilds:
