@@ -1,5 +1,12 @@
+
 image:
   file: .gp/Dockerfile
+
+tasks:
+  - init: ./.gp/init
+    command: |
+      ./.gp/setup_db
+      bundle exec rails server
 
 ports:
   - port: 3000
@@ -8,13 +15,11 @@ ports:
     onOpen: ignore
   - port: 9200
     onOpen: ignore
-
-tasks:
-  - init: ./.gp/init
-    command: |
-      ./.gp/setup_db
-      bundle exec rails server
-
+    
 github:
   prebuilds:
     pullRequestsFromForks: true
+
+vscode:
+  extensions:
+    - mhutchie.git-graph
