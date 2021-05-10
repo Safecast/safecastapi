@@ -2,10 +2,10 @@
 
 docker-compose up -d postgresql elasticsearch
 
-RETRIES=30
+RETRIES=20
 until psql -h localhost -U safecast -d safecast -c "select 1" > /dev/null 2>&1 || [ $RETRIES -eq 0 ]; do
   echo "Waiting for postgres server, $((RETRIES--)) remaining attempts..."
-  sleep 1
+  sleep 3
 done
 
 bundle exec rake db:create
