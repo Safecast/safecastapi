@@ -13,31 +13,31 @@ RSpec.describe IngestController, type: :controller do
       [
         {
           device_urn: 'safecast:2651380949',
-          pms_pm02_5: 1.0,
+          pms_pm02_5: 1.0, # rubocop:disable Naming/VariableNumber
           when_captured: '2019-01-25T01:00:00',
           '@timestamp': '2019-01-25T01:00:00Z'
         },
         {
           device_urn: 'safecast:872300871',
-          pms_pm02_5: 1.5,
+          pms_pm02_5: 1.5, # rubocop:disable Naming/VariableNumber
           when_captured: '2019-01-25T01:30:00',
           '@timestamp': '2019-01-25T01:30:00Z'
         },
         {
           device_urn: 'safecast:2651380949',
-          pms_pm02_5: 2.0,
+          pms_pm02_5: 2.0, # rubocop:disable Naming/VariableNumber
           when_captured: '2019-01-25T02:00:00',
           '@timestamp': '2019-01-25T02:00:00Z'
         },
         {
           device_urn: 'safecast:2651380949',
-          pms_pm10_0: 2.1,
+          pms_pm10_0: 2.1, # rubocop:disable Naming/VariableNumber
           when_captured: '2019-01-25T02:00:00',
           '@timestamp': '2019-01-25T02:00:00Z'
         },
         {
           device_urn: 'safecast:2651380949',
-          pms_pm02_5: 3.0,
+          pms_pm02_5: 3.0, # rubocop:disable Naming/VariableNumber
           when_captured: '2019-01-25T03:00:00',
           '@timestamp': '2019-01-25T03:00:00Z'
         }

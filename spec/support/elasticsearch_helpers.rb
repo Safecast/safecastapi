@@ -39,7 +39,7 @@ module ElasticsearchHelpers
               type: 'geo_point',
               ignore_malformed: true
             },
-            pms_std01_0: {
+            pms_std01_0: { # rubocop:disable Naming/VariableNumber
               type: 'float'
             }
           }
