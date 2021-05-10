@@ -1,5 +1,5 @@
 image:
-  file: .gitpod.Dockerfile
+  file: .gp/Dockerfile
 
 ports:
   - port: 3000
@@ -11,13 +11,9 @@ ports:
 
 tasks:
   - init: |
-      bundle install --jobs=4 --retry=3 --path vendor/bundle
+      ./.gp/init
     command: |
-      docker-compose up -d postgresql elasticsearch
-      gp await-port 5432
-      bundle exec rake db:create
-      bundle exec rake db:schema:load
-      RAILS_ENV=test bundle exec rake db:schema:load
+      ./.gp/setup_db
       bundle exec rails server
 
 github:
