@@ -10,8 +10,7 @@ ports:
     onOpen: ignore
 
 tasks:
-  - init: |
-      ./.gp/init
+  - init: ./.gp/init
     command: |
       ./.gp/setup_db
       bundle exec rails server
