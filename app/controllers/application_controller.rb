@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
 
   respond_to :html, :json, :safecast_api_v1_json
 
-  force_ssl if: :ssl_enabled?
-
   before_action :strict_transport_security
   before_action :set_locale
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -71,20 +69,6 @@ class ApplicationController < ActionController::Base
     return unless current_user
 
     ::NewRelic::Agent.add_custom_attributes(user_id: current_user.id)
-  end
-
-  def ssl_enabled?
-    # Override for deployed dev environments
-    return false if ENV['SSL_CONFIGURED'] == 'false'
-
-    # Don't redirect API-Gateway requests
-    return false if request.format.symbol == :json || request.method == 'HEAD'
-
-    # Don't redirect domains we don't have certs for
-    return false unless %w(safecast.org safecast.cc).include? request.domain
-
-    # Only redirect in production mode
-    Rails.env.production?
   end
 
   def strict_transport_security

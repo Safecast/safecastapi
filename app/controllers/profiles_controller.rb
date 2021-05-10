@@ -3,7 +3,7 @@
 class ProfilesController < ApplicationController
   def update
     @user = current_user
-    if @user.update_attributes(profile_params)
+    if @user.update(profile_params)
       redirect_to dashboard_path(locale: @user.default_locale)
     else
       # TODO: fix me, no edit

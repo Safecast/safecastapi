@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.6.6'
 
-gem 'rails', '~> 6.0.3.6'
+gem 'rails', '~> 6.0.3.7'
 
 gem 'activerecord-postgis-adapter', '~> 6.0'
 gem 'aws-sdk-elasticbeanstalk'
@@ -60,6 +60,7 @@ group :development do
   gem 'rubocop', group: :test
   gem 'rubocop-performance', group: :test
   gem 'rubocop-rails', group: :test
+  gem 'rubocop-rspec', group: :test
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end

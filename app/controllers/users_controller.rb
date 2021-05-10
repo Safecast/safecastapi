@@ -17,7 +17,7 @@ class UsersController < ApplicationController
         schema do
           key :type, :array
           items do
-            key :'$ref', :User
+            key :$ref, :User
           end
         end
       end
