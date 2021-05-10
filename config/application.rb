@@ -12,7 +12,9 @@ module Safecast
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
+    config.action_mailer.delivery_job = 'ActionMailer::MailDeliveryJob' # default 6.0
     config.active_record.belongs_to_required_by_default = false
+
     config.elastic_apm.active = ENV['ELASTIC_APM_SECRET_TOKEN'].present?
 
     # Settings in config/environments/* take precedence over those specified here.
@@ -35,10 +37,11 @@ module Safecast
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+    # See https://guides.rubyonrails.org/v6.0.3.6/configuring.html#configuring-i18n
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.enforce_available_locales = true
     config.i18n.default_locale = 'en-US'
-    config.i18n.fallbacks = { 'en-US' => 'en' }
+    config.i18n.fallbacks = [I18n.default_locale, { 'en-US' => 'en' }]
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = 'utf-8'

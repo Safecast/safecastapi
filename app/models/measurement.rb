@@ -99,7 +99,7 @@ class Measurement < ActiveRecord::Base
     new_measurement = dup
     new_measurement.original_id = id unless new_measurement.original_id
 
-    new_measurement.update_attributes(new_params)
+    new_measurement.update(new_params)
 
     transaction do
       new_measurement.save

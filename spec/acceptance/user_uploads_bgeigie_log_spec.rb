@@ -32,7 +32,7 @@ feature 'User uploads bgeigie log', type: :feature do
 
     before do
       bgeigie_import.process
-      bgeigie_import.update_attributes(cities: 'Tokyo', credits: 'Bill', status: 'submitted')
+      bgeigie_import.update(cities: 'Tokyo', credits: 'Bill', status: 'submitted')
     end
 
     scenario 'approving a bGeigie log file' do
