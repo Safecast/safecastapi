@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.configure do
+  if (gitpod_workspace_url = ENV['GITPOD_WORKSPACE_URL'])
+    config.hosts << "3000-#{URI.parse(gitpod_workspace_url).host}"
+  end
+
   config.action_mailer.default_url_options = {
     host: 'localhost',
     port: '3000',

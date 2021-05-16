@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Start DB services
+docker-compose up -d postgresql elasticsearch
+
+# `gp await-port 5432` succeeds too early so instead check `select`
+# before continuing to `db:create`
+RETRIES=20
+until psql -h localhost -U safecast -d safecast -c "select 1" > /dev/null 2>&1 || [ $RETRIES -eq 0 ]; do
+  echo "Waiting for postgres server, $((RETRIES--)) remaining attempts..."
+  sleep 3
+done
+
+# Set up schema
+bundle exec rake db:create
+bundle exec rake db:schema:load
+RAILS_ENV=test bundle exec rake db:schema:load
+
+# Set up data
+bundle exec rake db:bootstrap
+bundle exec rake device_story:update_metadata
