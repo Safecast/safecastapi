@@ -4,15 +4,14 @@
     <%- if content_for?(:current_status) -%>
       <div id="current-status"><%= content_for(:current_status) %></div>
     <%- end -%>
-    <div class="donate-banner">
+    <div class="alert alert-warning alert-dismissible" role="alert">
       <%# display support banner to all users%>
-      <h5> Safecast is powered by community contributors, just like you! Support us by 
-        <a href="https://safecast.org/donate//">DONATING</a>
+      Safecast is powered by community contributors, <strong>just like you!</strong> Support us by 
+        <a href="https://safecast.org/donate/" class="alert-link">DONATING</a>
         or 
-        <a href="https://shop.safecast.org/">SHOPPING IN OUR STORE</a>
-      </h5>
+        <a href="https://shop.safecast.org/" class="alert-link">SHOPPING IN OUR STORE</a>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     </div>
-    <p>
     <div class="row">
       <div class="col-xs-2 text-left">
         <%- if user_signed_in? -%>
