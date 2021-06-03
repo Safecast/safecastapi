@@ -71,8 +71,10 @@ module BgeigieImportsHelper
   end
 
   def ok_remove_tag
+    text_style = 'pull-right'
+    text = block_given? && yield ? 'pass' : 'fail'
     style = 'pull-right'
-    style += block_given? && yield ? ' icon-ok' : ' icon-remove'
-    content_tag(:i, '', class: style)
+    style += block_given? && yield ? ' glyphicon glyphicon-ok' : ' glyphicon glyphicon-remove'
+    content_tag(:i, '', class: style) + content_tag(:div, text, class: text_style)
   end
 end
