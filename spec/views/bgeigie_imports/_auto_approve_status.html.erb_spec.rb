@@ -17,13 +17,13 @@ RSpec.describe 'bgeigie_imports/_auto_approve_status.html.erb', type: :view do
     context 'No zero CPM' do
       let(:auto_apprv_no_zero_cpm) { true }
 
-      it { is_expected.to include('glyphicon glyphicon-ok') }
+      it { is_expected.to include('glyphicon-ok') }
     end
 
     context 'No zero CPM' do
       let(:auto_apprv_no_zero_cpm) { false }
 
-      it { is_expected.to include('glyphicon glyphicon-remove') }
+      it { is_expected.to include('glyphicon-remove') }
     end
   end
 end
