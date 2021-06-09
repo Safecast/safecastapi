@@ -21,8 +21,14 @@ class DeviceStoriesController < ApplicationController
   end
 
   def show
-    @device_story = DeviceStory.find(params[:id])
+    if params.has_key?(:id)
+      @device_story = DeviceStory.find(params[:id])
+    else 
+      @device_story = DeviceStory.find_by!(device_urn: params[:device_urn])
+    end
     respond_with @device_story
+    rescue ActiveRecord::RecordNotFound
+      head :not_found
   end
 
   def show_airnote
