@@ -72,7 +72,8 @@ module DeviceStoriesHelper
     'temperature_F' => ['temperature_F'],
     'humidity' => ['humidity'],
     'pressure' => ['pressure'],
-    'charging' => ['charging']
+    'charging' => ['charging'],
+    'bat_charge' => ['bat_charge']
   }.freeze
 
   def sensor_data_by_sensors(sensor_data)

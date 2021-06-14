@@ -126,6 +126,11 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
                      avg: {
                        field: 'bat_charging'
                      }
+                   },
+                   bat_charge: {
+                     avg: {
+                       field: 'bat_charge'
+                     }
                    }
                  }
                }
