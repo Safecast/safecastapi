@@ -8,7 +8,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     get '/radiation_index' => 'radiation_index#radiation_index'
     get '/ingest' => 'ingest#index'
 
-    get '/airnote/:device_urn' => 'device_stories#show_airnote'
+    get '/airnote/:device_urn' => 'device_stories#show'
 
     root to: 'dashboards#show'
     devise_for :users

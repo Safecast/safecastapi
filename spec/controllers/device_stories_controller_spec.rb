@@ -16,7 +16,7 @@ RSpec.describe DeviceStoriesController, type: :controller do
     let!(:device_story) { Fabricate(:device_story) }
 
     it 'assigns @device_story' do
-      get :show_airnote, params: { device_urn: device_story.device_urn }
+      get :show, params: { device_urn: device_story.device_urn }
 
       expect(assigns(:device_story)).to eq(device_story)
     end
