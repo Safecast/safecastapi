@@ -9,11 +9,14 @@
     <%- end %>
   </h2>
 </div>
+<div id="time_range_select">
+  <%= render 'time_range_select'%>
+</div>
 <hr>
 <div class="row text-center" >
-  <% sensor_data = sensor_data_by_sensors(IngestMeasurement.query_sensor_data(@device_story.device_urn).response.to_h) %>
-  <%- if !sensor_data["radiation_sensors"].blank? %>
-    <div id="" class="col-md-6">
+  <% sensor_data = sensor_data_by_sensors(IngestMeasurement.query_sensor_data(@device_story.device_urn,'now-8w').response.to_h) %>
+  <%- if !sensor_data["radiation_sensors"].empty? %>
+    <div id="chart-panel" class="col-md-6 col order-1">
       <div class="panel panel-default device-chart">
         <div class="pull-left hidden-xs hidden-sm" style="color: lightgrey; margin-left: 10px; margin-top: 2px">
           <label class="switch">
