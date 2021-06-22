@@ -11,6 +11,9 @@
 </div>
 <div id="time_range_select">
   <%= render 'time_range_select'%>
+  <%- if @device_story.time_range == 2 %>
+  <%= render 'time_range_select'%>
+  <%- end %>
 </div>
 <hr>
 <div class="row text-center" >
