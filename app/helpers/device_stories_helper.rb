@@ -104,9 +104,9 @@ module DeviceStoriesHelper
   end
 
   def time_range_selector(time_range_code)
-    if time_range_code == '2'
+    if time_range_code == 2
       'now-26w'
-    elsif time_range_code == '3'
+    elsif time_range_code == 3
       'now-1y'
     else
       'now-8w'
