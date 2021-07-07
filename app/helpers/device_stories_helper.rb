@@ -102,4 +102,14 @@ module DeviceStoriesHelper
     hits = res.response.hits.hits
     hits.empty? ? {} : hits.first._source.ingest.location&.to_hash
   end
+
+  def time_range_selector(time_range_code)
+    if time_range_code == '2'
+      'now-26w'
+    elsif time_range_code == '3'
+      'now-1y'
+    else
+      'now-8w'
+    end
+  end
 end

@@ -27,9 +27,9 @@ class DeviceStoriesController < ApplicationController
                       DeviceStory.find_by!(device_urn: params[:device_urn])
                     end
     if params.key?(:time_range)
-      @device_story.time_range = params[:time_range]
+      @time_range= params[:time_range]
     else
-      @device_story.time_range = 1
+      @time_range = 1
     end
     respond_with @device_story
   rescue ActiveRecord::RecordNotFound
