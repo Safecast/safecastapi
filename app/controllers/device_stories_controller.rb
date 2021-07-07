@@ -26,7 +26,19 @@ class DeviceStoriesController < ApplicationController
                     else
                       DeviceStory.find_by!(device_urn: params[:device_urn])
                     end
-    respond_with @device_story
+    if params.key?(:time_range)
+      puts'has time range'
+      @device_story.time_range = params[:time_range]
+      puts @device_story.time_range
+      respond_to do |format|
+        format.html 
+        format.json { render :show, location: @device_story}
+        format.js { render js: 'window.top.location.reload(true);' }
+      end
+    else
+      puts @device_story.time_range
+      respond_with @device_story
+    end
   rescue ActiveRecord::RecordNotFound
     head :not_found
   end
