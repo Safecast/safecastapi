@@ -3,7 +3,6 @@
 class DeviceStory < ApplicationRecord
   validates :device_urn, uniqueness: true, presence: true
   has_many  :device_story_comments, dependent: :destroy
-  has_one   :time_range
 
   def update_from_ttserve(metadata)
     self.device_id = metadata['device']
