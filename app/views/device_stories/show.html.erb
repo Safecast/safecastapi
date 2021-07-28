@@ -13,21 +13,6 @@
 <div class="row text-center" >
   <% sensor_data = sensor_data_by_sensors(IngestMeasurement.query_sensor_data(@device_story.device_urn).response.to_h) %>
   <%- if !sensor_data["radiation_sensors"].empty? %>
-    <div id="chart-panel" class="col-md-6 col order-1">
-      <div class="panel panel-default device-chart">
-          <div class="pull-left hidden-xs hidden-sm" style="color: lightgrey; margin-left: 10px; margin-top: 2px">
-            <label class="switch">
-              <input id="width-switch" type="checkbox">
-              <span class="slider round"></span>
-            </label>
-            <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span>
-          </div>
-          <b style="margin-right: 55px">CPM</b>
-          <%= line_chart sensor_data["radiation_sensors"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
-      </div>
-    </div>
-  <%- end %>
-  <%- if !sensor_data["radiation_sensors"].empty? %>
     <div class="col-md-6">
       <div class="panel panel-default device-chart">
         <div class="pull-left  hidden-xs hidden-sm" style="color: lightgrey; margin-left: 10px; margin-top: 2px">
@@ -37,16 +22,16 @@
           </label>
           <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span>
         </div>
-        <b style="margin-left: 25px">Radiation</b>
+        <b style="margin-left: 25px">CPM</b>
         <div class="pull-right" style="margin-right: 20px; margin-top: 2px">
-          cpm
+          msv/h
           <label class="switch">
             <input id="rad-switch" type="checkbox">
             <span class="slider round"></span>
           </label>
-          mrem
+          mrem/h
         </div>
-          <div id="cpm"><%= line_chart sensor_data["radiation_sensors"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
+          <div id="msv"><%= line_chart sensor_data["radiation_sensors"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
         </div>
           <div id="mrem" class="hidden"><%= line_chart sensor_data["radiation_mrem"], height: "250px", library: { plotOptions: {series: {lineWidth: 2}}, chart: {zoomType: 'x', panKey: 'shift', panning: true} }, legend: "bottom", colors: ["#7eb26d", "#eab839", "#6ed0e0", "#ef843c", "#e24d42", "#ba43a9"]%>
         </div>

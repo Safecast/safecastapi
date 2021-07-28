@@ -15,13 +15,13 @@ $(document).on('change','#temp-switch',function(){
 $(document).on('change','#rad-switch',function(){
     if(this.checked)
     {
-        $('#cpm').addClass('hidden');
+        $('#msv').addClass('hidden');
         $('#mrem').removeClass('hidden');
     }
     else
     {
         $('#mrem').addClass('hidden');
-        $('#cpm').removeClass('hidden');
+        $('#msv').removeClass('hidden');
     }
     window.dispatchEvent(new Event('resize'))
 });
