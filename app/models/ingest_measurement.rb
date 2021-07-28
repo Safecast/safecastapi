@@ -79,6 +79,62 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
                        field: 'lnd7128c'
                      }
                    },
+                   lnd_7128ec_mrem: {
+                     avg: {
+                       field: 'lnd_7128ec',
+                       script: {
+                         source: '_value/3340'
+                       }
+                     }
+                   },
+                   lnd_7318c_mrem: {
+                     avg: {
+                       field: 'lnd_7318c',
+                       script: {
+                         source: '_value/3340'
+                       }
+                     }
+                   },
+                   lnd_712u_mrem: {
+                     avg: {
+                       field: 'lnd_712u',
+                       script: {
+                         source: '_value/3340'
+                       }
+                     }
+                   },
+                   lnd_7318u_mrem: {
+                     avg: {
+                       field: 'lnd_7318u',
+                       script: {
+                         source: '_value/3340'
+                       }
+                     }
+                   },
+                   lnd_78017w_mrem: {
+                     avg: {
+                       field: 'lnd_78017w',
+                       script: {
+                         source: '_value/3340'
+                       }
+                     }
+                   },
+                   lnd7318u_mrem: {
+                     avg: {
+                       field: 'lnd7318u',
+                       script: {
+                         source: '_value/3340'
+                       }
+                     }
+                   },
+                   lnd7128c_mrem: {
+                     avg: {
+                       field: 'lnd7128c',
+                       script: {
+                         source: '_value/3340'
+                       }
+                     }
+                   },
                    pms_pm10_0: { # rubocop:disable Naming/VariableNumber
                      avg: {
                        field: 'pms_pm10_0'

@@ -12,6 +12,20 @@ $(document).on('change','#temp-switch',function(){
     window.dispatchEvent(new Event('resize'))
 });
 
+$(document).on('change','#rad-switch',function(){
+    if(this.checked)
+    {
+        $('#cpm').addClass('hidden');
+        $('#mrem').removeClass('hidden');
+    }
+    else
+    {
+        $('#mrem').addClass('hidden');
+        $('#cpm').removeClass('hidden');
+    }
+    window.dispatchEvent(new Event('resize'))
+});
+
 $(document).on('change',"[id^='width-switch']",function(){
     if(this.checked)
     {
