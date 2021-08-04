@@ -42,6 +42,8 @@
       </div>
     </div>
   <%- end %>
+  <% k = sensor_last_location()%>
+  <%= k["loc_lat"] %>
   <div class="col-md-6">
     <div id="map" class="panel panel-default device-chart">
       <div class="text-center" style="font-size: 15px; margin-bottom: 5px"> <b>Location</b> </div>
