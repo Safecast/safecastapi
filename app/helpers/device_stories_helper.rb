@@ -67,6 +67,7 @@ module DeviceStoriesHelper
   CATEGORY_SENSOR_NAMES = {
     'radiation_sensors' => %w(lnd_7128ec lnd_7318c lnd_712u lnd_7318u lnd_78017w lnd7318u lnd7128c),
     'radiation_mrem' => %w(lnd_7128ec_mrem lnd_7318c_mrem lnd_712u_mrem lnd_7318u_mrem lnd_78017w_mrem lnd7318u_mrem lnd7128c_mrem),
+    'radiation_μSv' => %w(lnd_7128ec_μSv lnd_7318c_μSv lnd_712u_μSv lnd_7318u_μSv lnd_78017w_μSv lnd7318u_μSv lnd7128c_μSv),
     'air_sensors' => %w(pms_pm10_0 pms_pm02_5 pms_pm01_0),
     'bat_voltage' => ['bat_voltage'],
     'temperature_C' => ['temperature_C'],
