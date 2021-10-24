@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module DeviceStoriesHelper
+module DeviceStoriesHelper # rubocop:disable Metrics/ModuleLength
   def grafana_panel(name)
     panels = {
       cpm: { id: 14, dashboard: '/d/DFSxrOLWk/safecast-device-details' },
@@ -104,9 +104,10 @@ module DeviceStoriesHelper
   end
 
   def time_range_selector(time_range_code)
-    if time_range_code == 2
+    case time_range_code
+    when 2
       'now-26w'
-    elsif time_range_code == 3
+    when 3
       'now-1y'
     else
       'now-8w'

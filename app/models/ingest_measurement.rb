@@ -12,7 +12,7 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
       search(query: query).results.map(&:_source)
     end
 
-    def query_sensor_data(device_urn,time_range) # rubocop:disable Metrics/MethodLength
+    def query_sensor_data(device_urn, time_range) # rubocop:disable Metrics/MethodLength
       search query:
                  { bool: {
                    filter: [
