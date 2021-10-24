@@ -56,7 +56,7 @@ class MeasurementsController < ApplicationController
 
     # In Kaminari page an per_page cannot be overriden
     if request.format != :csv
-      @measurements = @measurements.page(params[:page]).per(params[:per_page])
+      @measurements = @measurements.page(params[:page]).per(params[:per_page]).without_count
     end
 
     respond_with @measurements

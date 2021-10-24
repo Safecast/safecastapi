@@ -94,8 +94,22 @@
         <%- end -%>
       </tbody>
     </table>
+    <nav class="kaminari-pager" role="navigation" aria-label="pager">
+      <%- prev_page = prev_page_path(@measurements) -%>
+      <%- if prev_page -%>
+        <%= link_to_prev_page @measurements, 'Prev', class: 'kaminari-pager__item kaminari-pager__item__prev' %>
+      <%- else -%>
+        <span class="kaminari-pager__item kaminari-pager__item__prev kaminari-pager__item__disabled">Prev</span>
+      <%- end -%>
+      <span class="kaminari-pager__item"><%= @measurements.current_page %></span>
+      <%- next_page = next_page_path(@measurements) -%>
+      <%- if next_page -%>
+        <%= link_to_next_page @measurements, 'Next', class: 'kaminari-pager__item kaminari-pager__item__next' %>
+      <%- else -%>
+        <span class="kaminari-pager__item kaminari-pager__item__next kaminari-pager__item__disabled">Next</span>
+      <%- end -%>
+    </nav>
   </div>
-  <%= paginate @measurements, theme: 'twitter-bootstrap-3' -%>
 <%- end -%>
 
 <div id="filter-modal" class="modal fade" tabindex="-1">
