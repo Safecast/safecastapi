@@ -8,7 +8,8 @@ feature 'Downloading bGeigie imports in KML format', type: :feature do
   scenario 'downloading KML formatted file' do
     visit(bgeigie_import_path(bgeigie_import, locale: 'en-US'))
 
-    click_link 'Download in KML'
+    click_on 'Download'
+    click_on 'KML'
 
     doc = Nokogiri.XML(page.body)
 
