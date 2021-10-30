@@ -135,13 +135,15 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
 
   def kml
     bgeigie_import = BgeigieImport.find(params[:id])
-    # FIXME: Try to use render after updating Rails 4
-    #        See https://github.com/Safecast/safecastapi/pull/287#discussion_r66911137
-    ::Actions::BgeigieImports::Kml.new(
-      bgeigie_import.bgeigie_logs.map(&:decorate)
-    ).execute(self, "#{bgeigie_import.source.filename}.kml")
+    @bgeigie_logs = bgeigie_import.bgeigie_logs.map(&:decorate)
+
+    send_data(
+      render_to_string(template: 'bgeigie_imports/bgeigie_logs', formats: [:kml]),
+      type: Mime[:kml],
+      filename: "#{bgeigie_import.source.filename}.kml"
+    )
   rescue ActiveRecord::RecordNotFound
-    render plain: '404 Not Found', status: :not_found
+    head :not_found
   end
 
   def resolve
