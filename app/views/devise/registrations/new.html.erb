@@ -1,18 +1,42 @@
 <div class="row">
-  <div class="col-md-9">
-
+  <div class="col-sm-12">
     <h1>Sign up</h1>
     <hr/>
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-horizontal' }) do |f| %>
-      <%= f.input :email, required: true %>
-      <%= f.input :name, required: true %>
-      <%= f.input :password, required: true %>
-      <%= f.input :password_confirmation, required: true %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| -%>
+      <div class="form-group">
+        <%= f.label :email -%>
+        <%= f.input_field :email, as: :email, required: true, class: 'form-control input-lg', placeholder: 'Your E-mail' -%>
+      </div>
 
-      <div class="form-actions">
-        <%= f.submit t('sign_up'), class: 'btn btn-primary', style: 'margin-top: 20px' %>
+      <div class="form-group">
+        <%= f.label :name -%>
+        <%= f.input_field :name, required: true, class: 'form-control input-lg', placeholder: 'Your name' -%>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.input_field :password, as: :password, required: true, class: 'form-control input-lg', placeholder: 'Password' -%>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation %>
+        <%= f.input_field :password_confirmation, required: true, class: 'form-control input-lg', placeholder: 'Password confirmation' -%>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <%= f.submit t('sign_up'), class: 'btn btn-primary btn-lg form-control input-lg' -%>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <%= link_to 'Cancel', :root, class: 'btn btn-default btn-lg form-control input-lg' -%>
+          </div>
+        </div>
       </div>
     <% end %>
+
     <%= render 'devise/shared/links' %>
   </div>
 </div>
