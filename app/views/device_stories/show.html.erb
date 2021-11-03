@@ -195,11 +195,20 @@
   </div>
 </div>
 <%- end %>
+
   <div class="col-md-6">
-    <div class="panel panel-default device-chart" style="height: 300px">
-      <%= button_to 'More sensor data', grafana_more_data(@device_story.device_urn), target: :_blank, class: "btn btn-default btn-secondary", style: "margin-top: 120px; color: #6ba5bd" %>
+    <div class="panel panel-default">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <%= link_to 'More Sensor Data', grafana_more_data(@device_story), target: '_blank' %>
+        </li>
+        <li class="list-group-item">
+          <%= link_to 'Global Map', global_map_link_for(@device_story), target: '_blank' %>
+        </li>
+      </ul>
     </div>
   </div>
+  
 </div>
 <hr/>
 <div>

@@ -15,4 +15,8 @@ class DeviceStory < ApplicationRecord
     self.last_location = "POINT(#{last_lon} #{last_lat})"
     self.last_location_name = metadata['location']
   end
+
+  def airnote?
+    device_urn.start_with?('note:dev')
+  end
 end

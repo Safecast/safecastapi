@@ -22,13 +22,12 @@ module DeviceStoriesHelper # rubocop:disable Metrics/ModuleLength
     uri
   end
 
-  def grafana_more_data(device_urn)
-    includes_note = device_urn.include? 'note:dev'
-    url = grafana_url(nil, grafana_panel(includes_note ? :air_quality : :cpm))
+  def grafana_more_data(device_story)
+    url = grafana_url(nil, grafana_panel(device_story.airnote? ? :air_quality : :cpm))
     args = {
       from: 'now-90d',
       to: 'now',
-      'var-device_urn': device_urn
+      'var-device_urn': device_story.device_urn
     }
     url.query = args.to_query
     url.to_s.html_safe
@@ -111,6 +110,14 @@ module DeviceStoriesHelper # rubocop:disable Metrics/ModuleLength
       'now-1y'
     else
       'now-8w'
+    end
+  end
+
+  def global_map_link_for(device_story)
+    if device_story.airnote?
+      'https://grafana.safecast.cc/d/t_Z6DlbGz/safecast-all-airnotes?orgId=1'
+    else
+      'https://grafana.safecast.cc/'
     end
   end
 end
