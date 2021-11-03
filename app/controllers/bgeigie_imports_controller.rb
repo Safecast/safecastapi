@@ -45,7 +45,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
 
   def reject
     @bgeigie_import = BgeigieImport.find(params[:id])
-    @bgeigie_import.reject!(current_user.email)
+    @bgeigie_import.reject!(@bgeigie_import.user == current_user ? '<self>' : current_user.email)
     redirect_to @bgeigie_import
   end
 
