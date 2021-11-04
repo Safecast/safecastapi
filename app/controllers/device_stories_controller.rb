@@ -22,16 +22,7 @@ class DeviceStoriesController < ApplicationController
   end
 
   def show
-    if params.key?(:time_range)
-      @device_story.time_range = params[:time_range]
-      respond_to do |format|
-        format.html
-        format.json { render :show, location: @device_story }
-        format.js { render js: 'window.top.location.reload(true);' }
-      end
-    else
-      respond_with @device_story
-    end
+    respond_with @device_story
   end
 
   def show_airnote

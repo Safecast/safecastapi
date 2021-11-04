@@ -1,3 +1,0 @@
-<%=  form_with model: @device_story, method: :get, id: 'time_range_form' do %>
-    Show data from <%= select_tag :time_range ,options_for_select([["2 Months", 1], ["6 Months",2], ["One Year",3 ]], 1), onchange: "$('#time_range_form').submit();", :style => "width: 85px" %>&nbsp ago.
-<% end %>
