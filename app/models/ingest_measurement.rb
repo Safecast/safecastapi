@@ -79,6 +79,118 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
                        field: 'lnd7128c'
                      }
                    },
+                   lnd_7128ec_μSv: {
+                     avg: {
+                       field: 'lnd_7128ec',
+                       script: {
+                         source: 'Math.round(_value/33.4*1000)/1000.0'
+                       }
+                     }
+                   },
+                   lnd_7318c_μSv: {
+                     avg: {
+                       field: 'lnd_7318c',
+                       script: {
+                         source: 'Math.round(_value/33.4*1000)/1000.0'
+                       }
+                     }
+                   },
+                   lnd_712u_μSv: {
+                     avg: {
+                       field: 'lnd_712u',
+                       script: {
+                         source: 'Math.round(_value/33.4*1000)/1000.0'
+                       }
+                     }
+                   },
+                   lnd_7318u_μSv: {
+                     avg: {
+                       field: 'lnd_7318u',
+                       script: {
+                         source: 'Math.round(_value/33.4*1000)/1000.0'
+                       }
+                     }
+                   },
+                   lnd_78017w_μSv: {
+                     avg: {
+                       field: 'lnd_78017w',
+                       script: {
+                         source: 'Math.round(_value/33.4*1000)/1000.0'
+                       }
+                     }
+                   },
+                   lnd7318u_μSv: {
+                     avg: {
+                       field: 'lnd7318u',
+                       script: {
+                         source: 'Math.round(_value/33.4*1000)/1000.0'
+                       }
+                     }
+                   },
+                   lnd7128c_μSv: {
+                     avg: {
+                       field: 'lnd7128c',
+                       script: {
+                         source: 'Math.round(_value/33.4*1000)/1000'
+                       }
+                     }
+                   },
+                   lnd_7128ec_mrem: {
+                     avg: {
+                       field: 'lnd_7128ec',
+                       script: {
+                         source: 'Math.round(_value/3340.0*10000)/10000.0'
+                       }
+                     }
+                   },
+                   lnd_7318c_mrem: {
+                     avg: {
+                       field: 'lnd_7318c',
+                       script: {
+                         source: 'Math.round(_value/3340.0*10000)/10000.0'
+                       }
+                     }
+                   },
+                   lnd_712u_mrem: {
+                     avg: {
+                       field: 'lnd_712u',
+                       script: {
+                         source: 'Math.round(_value/3340.0*10000)/10000.0'
+                       }
+                     }
+                   },
+                   lnd_7318u_mrem: {
+                     avg: {
+                       field: 'lnd_7318u',
+                       script: {
+                         source: 'Math.round(_value/3340.0*10000)/10000.0'
+                       }
+                     }
+                   },
+                   lnd_78017w_mrem: {
+                     avg: {
+                       field: 'lnd_78017w',
+                       script: {
+                         source: 'Math.round(_value/3340.0*10000)/10000.0'
+                       }
+                     }
+                   },
+                   lnd7318u_mrem: {
+                     avg: {
+                       field: 'lnd7318u',
+                       script: {
+                         source: 'Math.round(_value/3340.0*10000)/10000.0'
+                       }
+                     }
+                   },
+                   lnd7128c_mrem: {
+                     avg: {
+                       field: 'lnd7128c',
+                       script: {
+                         source: 'Math.round(_value/3340.0*10000)/10000'
+                       }
+                     }
+                   },
                    pms_pm10_0: { # rubocop:disable Naming/VariableNumber
                      avg: {
                        field: 'pms_pm10_0'
