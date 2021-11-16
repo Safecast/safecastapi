@@ -23,7 +23,9 @@ jobs:
             - v1-safecastapi-
       - run:
           name: Bundle Install
-          command: bundle install --path vendor/bundle
+          command: |
+            gem install bundler -v 2.2.29
+            bundle install --path vendor/bundle --jobs 2 --retry 3
       - save_cache:
           key: v1-safecastapi-{{ checksum "Gemfile.lock" }}
           paths:
@@ -45,7 +47,7 @@ jobs:
       - run:
           name: Run rubocop
           command: |
-            bundle exec rubocop
+            bundle exec rubocop -P
       - run:
           name: Run assets precompile
           command: |
