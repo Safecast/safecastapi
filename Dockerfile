@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /src
 ADD Gemfile Gemfile.lock .ruby-version /src/
+RUN gem install bundler -v 2.2.29 # Ruby 2.6 running on 64bit Amazon Linux 2/3.3.7
 RUN bundle install --jobs=4 --retry=3
 
 CMD [ "bundle", "exec", "rails", "server", "-b", "0.0.0.0" ]

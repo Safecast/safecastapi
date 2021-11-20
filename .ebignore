@@ -7,7 +7,7 @@
 .DS_Store
 .idea/
 *.iml
-public/uploads/
-public/system/
-tmp/
-log/
+/public/uploads/
+/public/system/
+/tmp/
+/log/

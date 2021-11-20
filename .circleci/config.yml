@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: safecast/api-build:2.6.8
+      - image: safecast/api-build:2.6.8-amazonlinux2
         environment:
           RAILS_ENV: test
           AWS_DEFAULT_REGION: us-west-2
@@ -19,13 +19,15 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-safecastapi-{{ checksum "Gemfile.lock" }}
-            - v1-safecastapi-
+            - v4-safecastapi-{{ checksum "Gemfile.lock" }}
+            - v4-safecastapi-
       - run:
           name: Bundle Install
-          command: bundle install --path vendor/bundle
+          command: |
+            gem install bundler -v 2.2.29
+            bundle install --path vendor/bundle --jobs 2 --retry 3
       - save_cache:
-          key: v1-safecastapi-{{ checksum "Gemfile.lock" }}
+          key: v4-safecastapi-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run:
@@ -45,7 +47,7 @@ jobs:
       - run:
           name: Run rubocop
           command: |
-            bundle exec rubocop
+            bundle exec rubocop -P
       - run:
           name: Run assets precompile
           command: |
