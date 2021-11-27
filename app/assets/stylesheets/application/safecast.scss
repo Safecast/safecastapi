@@ -643,4 +643,34 @@ i.muted {
   padding: 1px;
   text-align: center;
   background: #FFFF00;
-} 
+}
+
+.kaminari-pager {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 0.4rem 1.6rem;
+
+  &__item {
+    letter-spacing:0.1rem;
+
+    &__prev {
+      &::before {
+        content: "<<";
+        margin-right: 0.2rem;
+      }
+    }
+
+    &__next {
+      &::after {
+        content: ">>";
+        margin-left: 0.2rem;
+      }
+    }
+
+    &__disabled {
+      color: #cccccc;
+    }
+  }
+}
