@@ -3,6 +3,8 @@
 # This is mildly silly, but until we address https://github.com/Safecast/safecastapi/issues/726 and https://github.com/Safecast/safecastapi/issues/799
 # we'll continue to get backups at the database layer. If alerts fire regarding DB space or outstanding tasks in the queue, run this to clear everything out.
 
+# Run this from a location that ssh to rt.safecast.org as well as run SQS purge. Probably an administrator's workstation.
+
 set -euo pipefail
 
 # Get the current prd-wek environment and it's queue URL
