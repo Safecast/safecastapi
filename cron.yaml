@@ -8,7 +8,7 @@ cron:
     schedule: "00 02 * * *"
   - name: dump_measurements_ios
     url: /cron
-    schedule: "33 */8 * * *"
+    schedule: "33 */12 * * *"
   - name: imbrogno_export
     url: /cron
     schedule: "00 02 * * 7"
