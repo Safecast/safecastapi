@@ -1,0 +1,5 @@
+name: "CodeQL config"
+
+paths-ignore:
+  - vendor/assets
+  - app/assets/javascripts/bgeigie_viewer.js
