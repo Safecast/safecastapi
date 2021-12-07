@@ -1,0 +1,490 @@
+cs-CZ:
+  My_maps: Moje mapy
+  activerecord:
+    attributes:
+      bgeigie_import:
+        created_at: Nahráno dne
+        measurements_count: "# měření"
+        q: q
+        q_tooltip: Hledat
+        source: Zdroj
+        uploaded_after: Nahráno po
+        uploaded_before: Nahráno před
+        user_id: Uživatel
+      device:
+        manufacturer: Výrobce
+        measurements_count: Počet měření
+        model: Model
+        q: Hledat
+        sensor: Senzor
+        sensors: Senzory
+      measurement:
+        captured_after: Naměřeno po
+        captured_at: "Časová značka"
+        captured_before: Naměřeno před
+        device_id: ID zařízení
+        distance: Vzdálenost
+        latitude: Zeměpisná šířka
+        longitude: Zeměpisná délka
+        measurement_import_id: ID datového importu
+        sensor_id: Senzor
+        since: Od
+        unit: Jednotka
+        until: Do
+        user_id: ID uživatele
+        value: Hodnota
+      user:
+        email: Email
+        measurements_count: Počet měření
+        name: Jméno
+        password: Heslo
+        password_confirmation: Potvrzení hesla
+        remember_me: Zapamatovat
+    errors:
+      messages:
+        record_invalid: Záznam je neplatný
+      models:
+        bgeigie_import:
+          attributes:
+            source:
+              blank: nemůže být prázdné
+        device:
+          attributes:
+            sensors:
+              blank: nemůže být prázdné
+        measurement:
+          attributes:
+            sensor_id:
+              blank: nemůže být prázdné
+            unit:
+              blank: nemůže být prázdné
+            value:
+              blank: nemůže být prázdné
+  admin: Správce
+  api_docs: API dokumenty
+  are_you_sure: Jste si jist? Nelze vrátit zpět.
+  basics: Základy
+  bgeigie_import: Bgeigie import
+  bgeigie_imports: Bgeigie importy
+  bgeigie_states:
+    all: Vše
+    approved: Schváleno
+    error: Chyba
+    pending: "Čeká na vyřízení"
+  cancel: Storno
+  captured_at: změřeno_dne
+  cpm: cpm
+  creative_commons_non_commercial: Creative Commons - Neužívejte komerčně
+  dashboards:
+    show:
+      bgeigie_imports: bGeigie Importy
+      imports_awaiting_approval: Importy čekají na schválení
+      submissions: Předložená data
+  date:
+    abbr_day_names:
+    - Ne
+    - Po
+    - "Út"
+    - St
+    - "Čt"
+    - Pá
+    - So
+    abbr_month_names:
+    - 
+    - Led
+    - "Úno"
+    - Bře
+    - Dub
+    - Kvě
+    - "Čer"
+    - "Čvc"
+    - Srp
+    - Zář
+    - "Říj"
+    - Lis
+    - Pro
+    day_names:
+    - Neděle
+    - Pondělí
+    - "Úterý"
+    - Středa
+    - "Čtvrtek"
+    - Pátek
+    - Sobota
+    formats:
+      default: "%R-%m-%d"
+      long: "%B %d, %Y"
+      short: "%b %d"
+    month_names:
+    - 
+    - Leden
+    - "Únor"
+    - Březen
+    - Duben
+    - Květen
+    - "Červen"
+    - "Červenec"
+    - Srpen
+    - Září
+    - "Říjen"
+    - Listopad
+    - Prosinec
+    order:
+    - :rok
+    - :měsíc
+    - :den
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        few: kolem %{count} hodin
+        one: kolem 1 hodiny
+        other: kolem %{count} hodin
+      about_x_months:
+        few: kolem %{count} měsíců
+        one: kolem 1 měsíce
+        other: kolem %{count} měsíců
+      about_x_years:
+        few: kolem %{count} let
+        one: kolem 1 roku
+        other: kolem %{count} let
+      almost_x_years:
+        few: skoro %{count} roky
+        one: skoro 1 rok
+        other: skoro %{count} let
+      half_a_minute: půl minuty
+      less_than_x_minutes:
+        few: méně než %{count} minuty
+        one: méně než minuta
+        other: méně než %{count} minut
+      less_than_x_seconds:
+        few: méně než %{count} vteřiny
+        one: méně než vteřina
+        other: méně než %{count} vteřiny
+      over_x_years:
+        few: přes %{count} roky
+        one: přes 1 rok
+        other: přes %{count} let
+      x_days:
+        few: "%{count} dny"
+        one: 1 den
+        other: "%{count} dnů"
+      x_minutes:
+        few: "%{count} minuty"
+        one: 1 minuty
+        other: "%{count} minut"
+      x_months:
+        few: "%{count} měsíce"
+        one: 1 měsíc
+        other: "%{count} měsíců"
+      x_seconds:
+        few: "%{count} vteřiny"
+        one: 1 vteřina
+        other: "%{count} vteřin"
+    prompts:
+      day: Den
+      hour: Hodina
+      minute: Minuta
+      month: Měsíc
+      second: Vteřiny
+      year: Rok
+  delete: Smazat
+  devices:
+    index:
+      add_a_device: Přidat zařízení
+      devices: Zařízení
+      manufacturer: Výrobce
+      model: Model
+      no_devices: Nenalezena žádná zařízení
+      sensor: Senzor
+    new:
+      add_new: přidat_nové
+      add_new_device: Přidat nové zařízení
+  devise:
+    registrations:
+      inactive_signed_up: neaktivní registrace
+  edit_bgeigie_log_file: Upravit metadata bGeigie záznamu
+  edit_details_status: edit_details_status
+  edit_your_profile: Upravit vlastní profil
+  email: Email
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: musí být akceptováno
+      blank: nemůže zůstat prázdné
+      confirmation: neodpovídá potvrzení
+      empty: nemůže být prázdné
+      equal_to:
+        few: Musí být rovno %{count}
+        one: Musí být rovno
+        other: Musí být rovno %{count}
+      even: musí být sudý
+      exclusion: je rezervován
+      greater_than:
+        few: musí být větší než %{count}
+        one: musí být větší než %{count}
+        other: musí být větší než %{count}
+      greater_than_or_equal_to:
+        few: musí být větší než nebo rovno %{count}
+        one: musí být větší než nebo rovno %{count}
+        other: musí být větší než nebo rovno %{count}
+      inclusion: není zahrnuto v seznamu
+      invalid: je neplatný
+      less_than:
+        few: musí být menší než nebo rovno %{count}
+        one: musí být menší než nebo rovno %{count}
+        other: musí být menší než nebo rovno %{count}
+      less_than_or_equal_to:
+        few: musí být menší než %{count}
+        one: musí být menší než %{count}
+        other: musí být menší než %{count}
+      not_a_number: není číslo
+      not_an_integer: musí být celé číslo
+      not_saved: Neuloženo
+      odd: musí být lichý
+      record_invalid: 'Ověření selhalo: %{errors}'
+      taken: již se používá
+      too_long:
+        few: je příliš dlouhý (maximum jsou %{count} znaky)
+        one: je příliš dlouhý (maximum je 1 znak)
+        other: je příliš dlouhý (maximum je %{count} znaků)
+      too_short:
+        few: je příliš krátký (minumum jsou %{count} znaky)
+        one: je příliš krátký (minumum je 1 znak)
+        other: je příliš krátký (minumum je %{count} znaků)
+      wrong_length:
+        few: je chybné délky (měly být %{count} znaky)
+        one: je chybné délky (měl být 1 znak)
+        other: je chybné délky (mělo být %{count} znaků)
+    template:
+      body: 'Jsou zde problémy s následujícími poli:'
+      header:
+        few: "%{count} chyby zabránily uložení tohoto %{model}"
+        one: 1 chyba zabránila uložení tohoto %{model}
+        other: "%{count} chyb zabránilo uložení tohoto %{model}"
+  explore_maps_of_your_submissions: Pozkoumat mapy vašich měření
+  file: Soubor
+  file_exists: Tento soubor již existuje
+  filter: Filtr
+  from_here_you_can: Odsud můžete
+  height: Výška
+  hello: Ahoj
+  helpers:
+    select:
+      prompt: Prosím vyberte
+    submit:
+      bgeigie_import:
+        create: Nahrát
+        update: Uložit
+      create: Vytvořit %{model}
+      device:
+        create: Uložit
+        update: Uložit
+      submit: Uložit %{model}
+      update: Aktualizovat %{model}
+  id: ID
+  if_you_have_a_bgeigie: Pokud máte bGeigie
+  imports: Importy
+  imports_awaiting_approval: importy čekající na schválení
+  it_may_take_a_few_minutes_to_process: Zpracování může pár minut trvat.
+  lat: lat
+  layouts:
+    application:
+      api_home: API Domů
+      api_request: API požadavek
+      bgeigie_imports: bGeigie importy
+      change_password: Změnit heslo
+      dashboard: Hlavní panel
+      devices: Zařízení
+      edit_profile: Upravit profil
+      measurements: Měření
+      users: Uživatelé
+      your_profile: Můj profil
+    show_filters:
+      filters: Filtry
+    submit_nav:
+      submit_a_single_measurement: Vložit samostatné měření
+      upload_a_bgeigie_log_file: Nahrát bGeigie log soubor
+    summarize_results:
+      results: výsledky
+  lng: lng
+  manufacturer: Výrobce
+  maps: mapy
+  measured_with: Měřeno s
+  measurements: Měření
+  model: Model
+  my_maps: Moje mapy
+  name: Název
+  newly_uploaded: Nově nahráno
+  no_bgeigie_log_files_have_been_uploaded: "Žádné bGegie log soubory nebyly nahrány"
+  no_devices: "Žádná zařízení"
+  no_maps_found: "Žádné mapy nenalezeny."
+  none_found: Nic nenalezeno.
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%u%n"
+        precision: 2
+        separator: "."
+        significant: false
+        strip_insignificant_zeros: false
+        unit: Kč
+    format:
+      delimiter: ","
+      precision: 3
+      separator: "."
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: Bilion
+          million: Milion
+          quadrillion: Kvadrilion
+          thousand: Tisíc
+          trillion: Trilion
+          unit: jednotka
+      format:
+        delimiter: oddělovač
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            few: Bajty
+            one: Bajt
+            other: Bajtů
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: oddělovač
+    precision:
+      format:
+        delimiter: oddělovač
+  on_date: dne %{date}
+  or: nebo
+  please_note: Prosím berte v potaz
+  previous_label: Předchozí
+  profile: Profil
+  public: Veřejný
+  radiation_type: Typ radiace
+  remember_me: Zapamatovat
+  retrieve_your_api_key: Získat váš API klíč
+  review_your_bgeigie_log_file_submissions: Opravit předložená data z bGeigie
+  save: Uložit
+  sensor: Senzor
+  shared:
+    dashboard_navigation:
+      devices: Zařízení
+      imports: Importy
+      measurements: Měření
+  sign_in: Přihlásit se
+  sign_out: Odhlásit se
+  sign_up: Registrovat se
+  simple_form:
+    buttons:
+      cancel: storno
+      or: nebo
+    creating: Vytvářím...
+    error_notification:
+      default_message: 'Opravte prosím problémy níže:'
+    hints:
+      bgeigie_import:
+        cities: (oddělené čárkou. např. "Praha, Brno")
+        credits: (oddělené čárkou. např. "Sean Bonner, Pieter Franken")
+        height: "(v metrech)"
+    labels:
+      bgeigie_import:
+        cities: Města
+        credits: Autor
+        description: Popis
+        height: Výška senzoru
+        name: Nadpis
+        orientation: Orientace senzoru
+        source: Nahrát soubor
+      user:
+        default_locale: Výchozí jazyk
+        remember_me: Zapamatovat
+    'no': Ne
+    required:
+      html: <abbr title="required">*</abbr>
+      mark: "*"
+      text: vyžadováno
+    updating: Aktualizuji...
+    'yes': Ano
+  submissions: předložená data
+  submit: Předložit
+  submit_a_reading: Předložit měření
+  submit_a_reading_from_your_device: Předložit měření z přístroje
+  submitted: Předloženo
+  support:
+    array:
+      last_word_connector: ", a"
+      two_words_connector: a
+      words_connector: ","
+  surface_type: Typ povrchu
+  time:
+    am: dopol.
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
+    pm: odpol.
+  time_zone: "Časová zóna"
+  unit: Jednotka
+  upload: Nahrát
+  uploaded_by: nahrál/a %{name}
+  user:
+    email: email
+    invalid: neplatný
+    name: jméno
+    new:
+      email: email
+      password: heslo
+      remember_me: zapamatovat
+    password: heslo
+    password_confirmation: potvrzení_hesla
+    remember_me: zapamatovat
+    signed_in: přihlášen
+    signed_out: odhlášen
+    signed_up: zaregistrován
+    unauthenticated: neověřený
+  user_subject: Resetovat instrukce k heslu
+  users:
+    index:
+      number_of_measurements: Počet měření
+      users: Uživatelé
+  usv: "μSv/h"
+  view: Zobrazit
+  view_the_safecast_api_docs: Zobrazit dokumentaci Safecast API
+  view_your_bgeigie_log_uploads: Zobrazit moje nahraná data z bGeigie
+  view_your_submission_history: Zobrazit historii předložených dat
+  welcome_to_the_api_center: Vítejte do Safecast API centra.
+  will_paginate:
+    next_label: Další &#8594;
+    page_entries_info:
+      multi_page: Zobrazuji %{model} %{from} - %{to} z %{count} celkem
+      multi_page_html: Zobrazuji %{model} <b>%{from} - %{to}</b> z <b>%{count}</b> celkem
+      single_page:
+        few: Zobrazuji všechny %{count} %{model}
+        one: Zobrazuji 1 %{model}
+        other: "Žádný %{model} nenalezen"
+      single_page_html:
+        few: Zobrazuji <b>všechny&nbsp;%{count}</b> %{model}
+        one: Zobrazuji <b>1</b> %{model}
+        other: "Žádný %{model} nenalezen"
+    page_gap: "&hellip;"
+    previous_label: "&#8592; Předchozí"
+  you_havent_submitted_any_measurements_yet: Zatím jste nepředložil žádná měření.
+  you_havent_uploaded_any_bgeigie_log_files: Nenahrál jste žádné bGeigie log soubory.
+  your_api_key: Váš API klíč
+  your_maps: Vaše mapy
+  your_measurement: Vaše měření
+  your_measurements: Vaše měření
+  yours: Vaše
