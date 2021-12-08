@@ -1,0 +1,472 @@
+pt:
+  My_maps: Meus Mapas
+  activerecord:
+    attributes:
+      bgeigie_import:
+        created_at: Atualizado em
+        measurements_count: "# de Medidas"
+        q: q
+        q_tooltip: Buscar
+        source: Fonte
+        uploaded_after: Enviado depois de
+        uploaded_before: Enviado antes de
+        user_id: Usuário
+      device:
+        manufacturer: Fabricante
+        measurements_count: Número de Medidas
+        model: Modelo
+        q: Busca
+        sensor: Sensor
+        sensors: Sensores
+      measurement:
+        captured_after: Capturado depois de
+        captured_at: Timestamp
+        captured_before: Capturado Antes de
+        device_id: ID do Dispositivo
+        distance: Distância
+        latitude: Latitude
+        longitude: Longitude
+        measurement_import_id: ID da Importação de Dados
+        sensor_id: Sensor
+        since: Desde
+        unit: Unidade
+        until: Até
+        user_id: ID de Usuário
+        value: Valor
+      user:
+        email: Email
+        measurements_count: Número de Medidas
+        name: Nome
+        password: Senha
+        password_confirmation: Confirmação da Senha
+        remember_me: Lembrar de mim
+    errors:
+      messages:
+        record_invalid: O registro é inválido
+      models:
+        bgeigie_import:
+          attributes:
+            source:
+              blank: não pode ser branco
+        device:
+          attributes:
+            sensors:
+              blank: não pode ser branco
+        measurement:
+          attributes:
+            sensor_id:
+              blank: não pode ser branco
+            unit:
+              blank: não pode ser branco
+            value:
+              blank: não pode ser branco
+  admin: Administrador
+  api_docs: Documentação da API
+  are_you_sure: Você tem certeza? Não há como desfazer.
+  basics: Básico
+  bgeigie_import: Importar Bgeigie
+  bgeigie_imports: Importar bGeigie
+  bgeigie_states:
+    all: 
+    approved: 
+    error: 
+    pending: 
+  cancel: Cancelar
+  captured_at: 
+  cpm: 
+  creative_commons_non_commercial: Creative Commons Não-Comercial
+  dashboards:
+    show:
+      bgeigie_imports: 
+      imports_awaiting_approval: 
+      submissions: Submissões
+  date:
+    abbr_day_names:
+    - Dom
+    - Seg
+    - Ter
+    - Qua
+    - Qui
+    - Sex
+    - Sab
+    abbr_month_names:
+    - 
+    - Jan
+    - Fev
+    - Mar
+    - Abr
+    - Mai
+    - Jun
+    - Jul
+    - Ago
+    - Set
+    - Out
+    - Nov
+    - Dez
+    day_names:
+    - Domingo
+    - Segunda-feira
+    - Terça-feira
+    - Quarta-feira
+    - Quinta-feira
+    - Sexta-feira
+    - Sábado
+    formats:
+      default: "%d/%m/%Y"
+      long: "%d de %B de %Y"
+      short: "%d-%b"
+    month_names:
+    - 
+    - Janeiro
+    - Fevereiro
+    - Março
+    - Abril
+    - Maio
+    - Junho
+    - Julho
+    - Agosto
+    - Setembro
+    - Outubro
+    - Novembro
+    - Dezembro
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: Cerca de 1 hora
+        other: Cerca de %{count} horas
+      about_x_months:
+        one: Cerca de 1 mês
+        other: Cerca de %{count} meses
+      about_x_years:
+        one: Cerca de 1 ano
+        other: Cerca de %{count} anos
+      almost_x_years:
+        one: Quase 1 ano
+        other: Quase %{count} anos
+      half_a_minute: metade de um minuto
+      less_than_x_minutes:
+        one: Menos que um minuto
+        other: Menos que %{count} minutos
+      less_than_x_seconds:
+        one: Menos que 1 segundo
+        other: Menos que %{count} segundos
+      over_x_years:
+        one: Mais de 1 ano
+        other: Mais de %{count} anos
+      x_days:
+        one: 1 dia
+        other: "%{count} dias"
+      x_minutes:
+        one: '1 minuto '
+        other: "%{count} minutos"
+      x_months:
+        one: 1 mês
+        other: "%{count} meses"
+      x_seconds:
+        one: 1 segundo
+        other: "%{count} segundos"
+    prompts:
+      day: Dia
+      hour: Hora
+      minute: Minuto
+      month: Mês
+      second: Segundos
+      year: Ano
+  delete: Apagar
+  devices:
+    index:
+      add_a_device: Adicionar Dispositivo
+      devices: Dispositivos
+      manufacturer: Fabricante
+      model: Modelo
+      no_devices: Nenhum Dispositivo Encontrado
+      sensor: Sensor
+    new:
+      add_new: 
+      add_new_device: Adicionar um Novo Dispositivo
+  devise:
+    registrations:
+      inactive_signed_up: 
+  edit_bgeigie_log_file: Editar meta dados do arquivo de registros bGeigie
+  edit_details_status: 
+  edit_your_profile: Editar seu perfil
+  email: Email
+  errors:
+    format: 
+    messages:
+      accepted: Deve ser Aceito
+      blank: Não pode ser em branco
+      confirmation: Não confere com a confirmação
+      empty: Não pode ser vazio
+      equal_to:
+        one: ''
+        other: Deve ser igual a %{count}
+      even: Deve ser par
+      exclusion: está reservado
+      greater_than:
+        one: ''
+        other: Deve ser maior do que %{count}
+      greater_than_or_equal_to:
+        one: ''
+        other: deve ser maior ou igual a %{count}
+      inclusion: não está incluso na lista
+      invalid: "é inválido"
+      less_than:
+        one: ''
+        other: deve ser menos que %{count}
+      less_than_or_equal_to:
+        one: ''
+        other: deve ser menos ou igual a %{count}
+      not_a_number: não é númerico
+      not_an_integer: deve ser um número inteiro
+      not_saved: Não salvo
+      odd: deve ser ímpar
+      record_invalid: 'Validação falhou: %{errors}'
+      taken: já foi tomado
+      too_long:
+        one: "é muito longo (o máximo é 1 caractere)"
+        other: "é muito longo (o máximo é %{count} caracteres)"
+      too_short:
+        one: "é muito curto (o mínimo é 1 caractere)"
+        other: "é muito curto (o mínimo é %{count} caracteres)"
+      wrong_length:
+        one: está com o comprimento errado (deve ser 1 caracter)
+        other: está com o comprimento errado (devem ser %{count} caracteres)
+    template:
+      body: 'Houveram problemas com os seguintes campos:'
+      header:
+        one: 1 erro não permitiu este %{model} ser salvo
+        other: "%{count} erros não permitiram este %{model} ser salvo"
+  explore_maps_of_your_submissions: Explore mapas das suas submissões
+  file: Arquivo
+  file_exists: Este arquivo já existe
+  filter: Filtro
+  from_here_you_can: Desde aqui você pode
+  height: Altura
+  hello: Olá
+  helpers:
+    select:
+      prompt: Por favor selecione
+    submit:
+      bgeigie_import:
+        create: Enviar
+        update: Salvar
+      create: Criar %{model}
+      device:
+        create: Salvar
+        update: Salvar
+      submit: Save %{model}
+      update: Atualizar %{model}
+  id: ID
+  if_you_have_a_bgeigie: Se você tiver um BGeigie
+  imports: 
+  imports_awaiting_approval: 
+  it_may_take_a_few_minutes_to_process: Pode levar alguns minutos para processar.
+  lat: lat
+  layouts:
+    application:
+      api_home: Nodo raiz da API
+      api_request: Solicitação de API
+      bgeigie_imports: 
+      change_password: Trocar Senha
+      dashboard: Painel de Controle
+      devices: Dispositivos
+      edit_profile: Editar Perfil
+      measurements: Medidas
+      users: Usuários
+      your_profile: Seu Perfil
+    show_filters:
+      filters: Filtros
+    submit_nav:
+      submit_a_single_measurement: Submeter uma medida unitária
+      upload_a_bgeigie_log_file: Enviar um arquivo de registro bGeigie
+    summarize_results:
+      results: resultados
+  lng: ando
+  manufacturer: Fabricante
+  maps: Mapas
+  measured_with: Medido com
+  measurements: Medidas
+  model: Modelo
+  my_maps: Meus mapas
+  name: Nome
+  newly_uploaded: Recentemente Enviado
+  no_bgeigie_log_files_have_been_uploaded: Nenhum arquivo de registro bGeigie foi enviado
+  no_devices: 
+  no_maps_found: Nenhum mapa encontrado.
+  none_found: Nenhum encontrado.
+  number:
+    currency:
+      format:
+        delimiter: 
+        format: 
+        precision: 
+        separator: 
+        significant: false
+        strip_insignificant_zeros: false
+        unit: 
+    format:
+      delimiter: 
+      precision: 
+      separator: 
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: 
+        units:
+          billion: Bilhão
+          million: Milhão
+          quadrillion: Quatrilhão
+          thousand: Milhar
+          trillion: Trilhão
+          unit: 
+      format:
+        delimiter: 
+        precision: 
+        significant: 
+        strip_insignificant_zeros: 
+      storage_units:
+        format: 
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: 
+          kb: 
+          mb: 
+          tb: 
+    percentage:
+      format:
+        delimiter: 
+    precision:
+      format:
+        delimiter: 
+  on_date: em %{date}
+  or: ou
+  please_note: Por favor considere
+  previous_label: Anterior
+  profile: Perfil
+  public: Público
+  radiation_type: Tipo de Radiação
+  remember_me: Lembrar de mim
+  retrieve_your_api_key: Recupere sua chave de API
+  review_your_bgeigie_log_file_submissions: 'Revise os envios do seu arquivo de registros bGeigie '
+  save: Salvar
+  sensor: Sensor
+  shared:
+    dashboard_navigation:
+      devices: Dispositivos
+      imports: 
+      measurements: Medidas
+  sign_in: Acessar
+  sign_out: Sair
+  sign_up: Inscrever-se
+  simple_form:
+    buttons:
+      cancel: Cancelar
+      or: ou
+    creating: Criando...
+    error_notification:
+      default_message: 'Por favor revise os problemas abaixo:'
+    hints:
+      bgeigie_import:
+        cities: '(separados por vírgula, por exemplo: "Dublin, Tokyo")'
+        credits: '(separados por vírgula, por exemplo: "Sean Bonner, Pieter Franken)'
+        height: "(em metros)"
+    labels:
+      bgeigie_import:
+        cities: Cidades
+        credits: Créditos
+        description: Descrição
+        height: Altura do Sensor
+        name: Título
+        orientation: Orientação do Sensor
+        source: Enviar um Arquivo
+      user:
+        default_locale: Localidade Padrão
+        remember_me: 
+    'no': Não
+    required:
+      html: 
+      mark: 
+      text: Requerido
+    updating: Atualizando...
+    'yes': Sim
+  submissions: Submissões
+  submit: Submeter
+  submit_a_reading: Submeter uma Leitura
+  submit_a_reading_from_your_device: Submeter uma leitura do do seu dispositivo
+  submitted: Submetido
+  support:
+    array:
+      last_word_connector: ", e"
+      two_words_connector: e
+      words_connector: 
+  surface_type: Tipo de Superfície
+  time:
+    am: manhã
+    formats:
+      default: 
+      long: 
+      short: 
+    pm: tarde
+  time_zone: Fuso horário
+  unit: Unidade
+  upload: Enviar
+  uploaded_by: Enviado por %{name}
+  user:
+    email: 
+    invalid: 
+    name: 
+    new:
+      email: 
+      password: 
+      remember_me: 
+    password: 
+    password_confirmation: 
+    remember_me: 
+    signed_in: 
+    signed_out: 
+    signed_up: 
+    unauthenticated: 
+  user_subject: Instruções para redefinir instruções
+  users:
+    index:
+      number_of_measurements: Número de Medidas
+      users: Usuários
+  usv: 
+  view: Visualizar
+  view_the_safecast_api_docs: 'Visualizar documentação da API Safecast '
+  view_your_bgeigie_log_uploads: Vizualizar seus envios registros bGeigie
+  view_your_submission_history: Visualizar seu histórico de submissões
+  welcome_to_the_api_center: Bem-vindo a central da API Safecast
+  will_paginate:
+    next_label: Próximos &#8594;
+    page_entries_info:
+      multi_page:
+        one: 'Mostrando %{model} %{from} - %{to} de um total de %{count}  '
+        other: ''
+      multi_page_html:
+        one: 'Mostrando %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> de um total de <b>%{count} </b> '
+        other: ''
+      single_page:
+        one: Mostrando 1 %{model}
+        other: Mostrando todos %{count} %{model}
+      single_page_html:
+        one: Mostrando <b>1</b> %{model}
+        other: Mostrando <b>todos&nbsp;%{count}</b> %{model}
+    page_gap: |
+      &hellip;
+    previous_label: "&#8592; Anterior"
+  you_havent_submitted_any_measurements_yet: Você ainda não submeteu nenhuma medida.
+  you_havent_uploaded_any_bgeigie_log_files: Você não enviou nenhum arquivo de registro bGeigie
+  your_api_key: Sua chave de API
+  your_maps: Seus maps
+  your_measurement: Sua Medida
+  your_measurements: Suas Medidas
+  yours: Suas
