@@ -4,7 +4,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # For details on DSL available within this file, see https://guides.rubyonrails.org/routing.html
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  scope '(:locale)', constraints: { locale: /(en-US|ja)/ } do # rubocop:disable Metrics/BlockLength
+  scope '(:locale)', constraints: { locale: /(cs-CZ|en-US|ja|pt)/ } do # rubocop:disable Metrics/BlockLength
     get '/radiation_index' => 'radiation_index#radiation_index'
     get '/ingest' => 'ingest#index'
 

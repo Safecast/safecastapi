@@ -3,9 +3,13 @@
 module ApplicationHelper
   def link_to_switch_locale
     if I18n.locale == :'en-US'
-      link_to 'JA', locale: 'ja'
+      [
+        link_to('CZ', locale: 'cs-CZ'),
+        link_to('JA', locale: 'ja'),
+        link_to('PT', locale: 'pt')
+      ]
     else
-      link_to 'EN', locale: 'en-US'
+      [link_to('EN', locale: 'en-US')]
     end
   end
 
