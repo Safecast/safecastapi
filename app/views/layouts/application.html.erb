@@ -177,7 +177,11 @@
 
       <footer class="row">
         <p class="col-md-12"><%= t 'creative_commons_non_commercial' %></p>
-        <p class="col-md-12"><%= link_to_switch_locale %></p>
+        <p class="col-md-12">
+          <% link_to_switch_locale.each do |locale| %>
+          || <%= locale %> ||
+          <% end %>
+        </p>
       </footer>
     </div>
 
@@ -233,7 +237,7 @@
                         <%= f.input :email, input_html: { class: 'form-control' } %>
                         <%= f.input :name, input_html: { class: 'form-control' } %>
                         <%= f.input :time_zone, input_html: {  class: 'form-control' } %>
-                        <%= f.input :default_locale, :collection => ['en-US', 'ja'], input_html: {  class: 'form-control' } %>
+                        <%= f.input :default_locale, :collection => ['cs-CZ', 'en-US', 'ja', 'pt'], input_html: {  class: 'form-control' } %>
                         <hr/>
                         <%= f.button :wrapped, :cancel => '#', :cancel_options => {
                           :data => {
