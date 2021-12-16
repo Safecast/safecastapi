@@ -2,15 +2,12 @@
 
 module ApplicationHelper
   def link_to_switch_locale
-    if I18n.locale == :'en-US'
       [
         link_to('CZ', locale: 'cs-CZ'),
         link_to('JA', locale: 'ja'),
-        link_to('PT', locale: 'pt')
+        link_to('PT', locale: 'pt'),
+        link_to('EN', locale: 'en-US')
       ]
-    else
-      [link_to('EN', locale: 'en-US')]
-    end
   end
 
   def current_page_api_example(url)
