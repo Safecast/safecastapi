@@ -5,7 +5,7 @@ window.addEventListener("load", () => {
     const timeRange = el.dataset.timeRange;
     el.addEventListener("click", (e) => {
       e.preventDefault();
-      history.pushState({ time_range: timeRange }, el.innerText, `${url.pathname}?time_range=${timeRange}`);
+      window.location.href = url.pathname + "?time_range=" + timeRange;
     });
   })
 });
