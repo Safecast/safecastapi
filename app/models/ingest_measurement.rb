@@ -12,14 +12,14 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
       search(query: query).results.map(&:_source)
     end
 
-    def query_sensor_data(device_urn) # rubocop:disable Metrics/MethodLength
+    def query_sensor_data(device_urn, time_range) # rubocop:disable Metrics/MethodLength
       search query:
                  { bool: {
                    filter: [
                      {
                        range: {
                          "@timestamp": {
-                           gte: 'now-8w',
+                           gte: time_range,
                            lte: 'now'
                          }
                        }
@@ -38,7 +38,7 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
                    field: '@timestamp',
                    min_doc_count: 0,
                    extended_bounds: {
-                     min: 'now-8w',
+                     min: time_range,
                      max: 'now'
                    },
                    format: 'yyyy-MM-dd HH'

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module DeviceStoriesHelper
+module DeviceStoriesHelper # rubocop:disable Metrics/ModuleLength
   def grafana_panel(name)
     panels = {
       cpm: { id: 14, dashboard: '/d/DFSxrOLWk/safecast-device-details' },
@@ -101,5 +101,16 @@ module DeviceStoriesHelper
     res = IngestMeasurement.query_last_sensor_location(@device_story.device_urn)
     hits = res.response.hits.hits
     hits.empty? ? {} : hits.first._source.ingest.location&.to_hash
+  end
+
+  def time_range_selector(time_range_code)
+    case time_range_code
+    when 2
+      'now-26w'
+    when 3
+      'now-1y'
+    else
+      'now-8w'
+    end
   end
 end

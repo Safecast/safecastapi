@@ -4,6 +4,7 @@ class DeviceStoriesController < ApplicationController
   has_scope :order
 
   before_action :authenticate_user!, only: %i(new create edit update destroy)
+  before_action :fetch_device_story, only: %i(show)
 
   layout :current_layout
 
@@ -21,14 +22,7 @@ class DeviceStoriesController < ApplicationController
   end
 
   def show
-    @device_story = if params.key?(:id)
-                      DeviceStory.find(params[:id])
-                    else
-                      DeviceStory.find_by!(device_urn: params[:device_urn])
-                    end
     respond_with @device_story
-  rescue ActiveRecord::RecordNotFound
-    head :not_found
   end
 
   def show_airnote
@@ -44,6 +38,13 @@ class DeviceStoriesController < ApplicationController
   end
 
   private
+
+  def fetch_device_story
+    condition = params.key?(:id) ? { id: params[:id] } : { device_urn: params[:device_urn] }
+    @device_story = DeviceStory.find_by!(condition)
+  rescue ActiveRecord::RecordNotFound
+    head :not_found
+  end
 
   def current_layout
     if params[:fullscr] == 'true'
