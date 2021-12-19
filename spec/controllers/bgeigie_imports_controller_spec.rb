@@ -193,7 +193,9 @@ RSpec.describe BgeigieImportsController, type: :controller do
     end
 
     context 'when bGeigie import is approved' do
-      let(:bgeigie_import) { Fabricate(:bgeigie_import, user: user, cities: 'Tokyo', credits: 'John Doe', approved: true) }
+      let(:bgeigie_import) do
+        Fabricate(:bgeigie_import, user: user, cities: 'Tokyo', credits: 'John Doe', approved: true)
+      end
 
       context 'when login user is owner of bgeigie import' do
         let(:login_user) { user }
@@ -239,6 +241,24 @@ RSpec.describe BgeigieImportsController, type: :controller do
     end
   end
 
+  describe 'GET #kmz' do
+    let(:bgeigie_import) do
+      Fabricate(:bgeigie_import, cities: 'Tokyo', credits: 'John Doe')
+    end
+
+    before do
+      get :kmz, params: { id: bgeigie_import.id }
+    end
+
+    it { expect(response).to be_ok }
+    it { expect(response.media_type).to eq(Mime[:kmz].to_s) }
+    it 'should use original filename' do
+      disposition = response.headers['Content-Disposition']
+      expect(disposition)
+        .to match(/#{bgeigie_import.source.filename}\.kmz/)
+    end
+  end
+
   # iOS will use PUT method to update bgeigie import
   describe 'PUT #submit' do
     let!(:moderator) { Fabricate(:admin_user) }
@@ -247,7 +267,9 @@ RSpec.describe BgeigieImportsController, type: :controller do
     before do
       ActionMailer::Base.deliveries.clear
 
-      put :submit, params: { id: bgeigie_import.id, api_key: user.authentication_token, file: fixture_file_upload('/bgeigie.log') }
+      put :submit,
+          params: { id: bgeigie_import.id, api_key: user.authentication_token,
+                    file: fixture_file_upload('/bgeigie.log') }
 
       bgeigie_import.reload
     end

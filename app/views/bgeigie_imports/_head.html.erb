@@ -53,14 +53,27 @@
         <%- end -%>
       </div>
 
-      <div class="col-xs-10 text-right">
-        <%= link_to t('.download_in_kml'), kml_bgeigie_import_path(@bgeigie_import), class: 'btn btn-default', style: 'margin-bottom: 5px' %>
-        <%= link_to t(".download_original_file"),
-                    @bgeigie_import.source.url,
-                    :class => 'btn btn-default',
-                    style: 'margin-bottom: 5px'%>
+      <div class="col-xs-10 col-xs-offset-10">
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" id="download-menu" data-toggle="dropdown">
+            <%= t('Download') %>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="download-menu">
+            <li>
+              <%= link_to 'KML', kml_bgeigie_import_path(@bgeigie_import) %>
+            </li>
+            <li>
+              <%= link_to 'KMZ', kmz_bgeigie_import_path(@bgeigie_import) %>
+            </li>
+            <li>
+              <%= link_to t('Original'), @bgeigie_import.source.url, download: '' %>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
+    
     <hr/>
     <div class="row">
       <div class="col-xs-12">

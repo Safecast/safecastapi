@@ -45,6 +45,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
         patch :send_email
         patch :contact_moderator
         get :kml
+        get :kmz
         patch :resolve
       end
     end

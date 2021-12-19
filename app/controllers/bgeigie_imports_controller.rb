@@ -115,9 +115,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
 
   def update
     @bgeigie_import = scope.find(params[:id])
-    if bgeigie_import_params[:subtype] == 'Cosmic'
-      @bgeigie_import.update_column(:auto_apprv_no_high_cpm, true)
-    end
+    @bgeigie_import.update_column(:auto_apprv_no_high_cpm, true) if bgeigie_import_params[:subtype] == 'Cosmic'
     @bgeigie_import.update(bgeigie_import_params)
     @bgeigie_import.update_would_approve
     respond_with @bgeigie_import
@@ -135,13 +133,41 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
 
   def kml
     bgeigie_import = BgeigieImport.find(params[:id])
-    # FIXME: Try to use render after updating Rails 4
-    #        See https://github.com/Safecast/safecastapi/pull/287#discussion_r66911137
-    ::Actions::BgeigieImports::Kml.new(
-      bgeigie_import.bgeigie_logs.map(&:decorate)
-    ).execute(self, "#{bgeigie_import.source.filename}.kml")
+    @bgeigie_logs = bgeigie_import.bgeigie_logs.map(&:decorate)
+
+    send_data(
+      render_to_string(template: 'bgeigie_imports/bgeigie_logs', formats: [:kml]),
+      type: Mime[:kml],
+      filename: "#{bgeigie_import.source.filename}.kml"
+    )
   rescue ActiveRecord::RecordNotFound
-    render plain: '404 Not Found', status: :not_found
+    head :not_found
+  end
+
+  IMAGE_FILES = %w(
+    darkOrange.png
+    darkRed.png
+    green.png
+    grey.png
+    lightGreen.png
+    midgreen.png
+    orange.png
+    red.png
+    white.png
+    yellow.png
+  ).freeze
+
+  def kmz
+    bgeigie_import = BgeigieImport.find(params[:id])
+    kos = create_kmz_output_stream(bgeigie_import)
+
+    send_data(
+      kos.string,
+      type: Mime[:kmz],
+      filename: "#{bgeigie_import.source.filename}.kmz"
+    )
+  rescue ActiveRecord::RecordNotFound
+    head :not_found
   end
 
   def resolve
@@ -163,5 +189,17 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
 
   def bgeigie_import_params
     params.fetch(:bgeigie_import, {}).permit!
+  end
+
+  def create_kmz_output_stream(bgeigie_import)
+    @bgeigie_logs = bgeigie_import.bgeigie_logs.map(&:decorate)
+    Zip::OutputStream.write_buffer(StringIO.new) do |out|
+      out.put_next_entry("#{bgeigie_import.source.filename}.kml")
+      out.write(render_to_string(template: 'bgeigie_imports/bgeigie_logs', formats: [:kmz]))
+      IMAGE_FILES.each do |image_file|
+        out.put_next_entry("images/#{image_file}")
+        out.write(Rails.root.join("public/kml/#{image_file}").binread)
+      end
+    end
   end
 end
