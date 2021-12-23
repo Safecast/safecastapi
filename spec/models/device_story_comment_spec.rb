@@ -9,6 +9,7 @@ RSpec.describe DeviceStoryComment, type: :model do
   describe '#save' do
     let(:comment) { described_class.new(image: upload_file, content: '_content_', user: user, device_story: device_story) }
 
+    # Workaround for ActiveStorage::IntegrityError, see https://github.com/rails/rails/issues/41991
     def file_upload(src, content_type, binary: false)
       path = Rails.root.join(src)
       original_filename = path.basename.to_s
