@@ -10,9 +10,8 @@ RSpec.describe DeviceStoriesHelper, type: :helper do
 
   describe '.grafana_more_data' do
     it 'provides a more details grafana link' do
-      url = helper.grafana_more_data(device_urn)
-      expect(url).to match '12345'
-      expect(url).to match base_url
+      url = helper.grafana_more_data(DeviceStory.new(device_urn: device_urn))
+      expect(url).to match(base_url).and match(Rack::Utils.escape(device_urn))
     end
   end
 
