@@ -282,10 +282,10 @@ RSpec.describe BgeigieImportsController, type: :controller do
   end
 
   describe 'PATCH #reject' do
+    let(:bgeigie_import) { Fabricate(:bgeigie_import, user: user, status: :processed) }
+
     context 'sign in as administrator' do
       context 'processed import without metadata' do
-        let(:bgeigie_import) { Fabricate(:bgeigie_import, status: :processed) }
-
         before do
           sign_in administrator
 
@@ -302,6 +302,22 @@ RSpec.describe BgeigieImportsController, type: :controller do
           expect(bgeigie_import).to be_rejected
           expect(bgeigie_import.rejected_by).to eq(administrator.email)
         end
+      end
+    end
+
+    context 'when rejecting self-uploaded bGeigie import' do
+      before do
+        sign_in user
+
+        patch :reject, params: { id: bgeigie_import.id }
+
+        bgeigie_import.reload
+      end
+
+      it 'should reject import' do
+        expect(response).to redirect_to(assigns(:bgeigie_import))
+        expect(bgeigie_import).to be_rejected
+        expect(bgeigie_import.rejected_by).to eq('<self>')
       end
     end
   end
