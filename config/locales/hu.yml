@@ -1,0 +1,350 @@
+en-US:
+  devices: Eszközök
+  id: ID
+  unit: Egység
+  usv: 'μSv/h'
+  none_found: Nincs találat.
+  sign_in: Bejelentkezés
+  sign_in: Regisztrálás
+  remember_me: Jelszó megjegyzése
+  filter: Szűrő
+  file_exists: A fájl már létezik.
+  are_you_sure: Biztos? A műveletet nem lehet visszafordítani.
+  basics: Alapok
+  cancel: Mégse
+  devices:
+    new:
+      add_new:
+    index:
+      sensor:
+  email: Email
+  height: Magasság
+  height_unit: (méterben)
+  radiation_type: Sugárzás típusa
+  surface_type: Felület típusa
+  or: vagy
+  admin: Admin
+  api_docs: API Dokumentáció
+  creative_commons_non_commercial: Creative Commons nem kereskedelmi
+  date:
+    abbr_day_names:
+    - Vas
+    - Hét
+    - Ked
+    - Sze
+    - Csüt
+    - Pén
+    - Szom
+    abbr_month_names:
+    -
+    - Jan
+    - Feb
+    - Már
+    - Ápr
+    - Máj
+    - Jún
+    - Júl
+    - Aug
+    - Szep
+    - Okt
+    - Nov
+    - Dec
+    day_names:
+    - Vasárnap
+    - Hétfő
+    - Kedd
+    - Szerda
+    - Csütörtök
+    - Péntek
+    - Szombat
+    formats:
+      default: ! '%Y-%m-%d'
+      long: ! '%Y %B %d'
+      short: ! '%b %d'
+    month_names:
+    -
+    - Január
+    - Február
+    - Március
+    - Április
+    - Május
+    - Június
+    - Július
+    - Augusztus
+    - Szeptember
+    - Október
+    - November
+    - December
+    order:
+    - :year
+    - :month
+    - :day
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: 1 órája
+        other: %{count} órája
+      about_x_months:
+        one: 1 hónapja
+        other: %{count} hónapja
+      about_x_years:
+        one: 1 éve
+        other: %{count} éve
+      almost_x_years:
+        one: majdnem 1 éve
+        other: majdnem %{count} éve
+      half_a_minute: fél perce
+      less_than_x_minutes:
+        one: kevesebb mint 1 perce
+        other: kevesebb mint %{count} perce
+      less_than_x_seconds:
+        one: kevesebb mint 1 másodperce
+        other: kevesebb mint %{count} másodperce
+      over_x_years:
+        one: több mint 1 éve
+        other: több mint %{count} éve
+      x_days:
+        one: 1 nap
+        other: ! '%{count} nap'
+      x_minutes:
+        one: 1 perc
+        other: ! '%{count} perc'
+      x_months:
+        one: 1 hónap
+        other: ! '%{count} hónap'
+      x_seconds:
+        one: 1 másodperc
+        other: ! '%{count} másodperc'
+    prompts:
+      day: Nap
+      hour: Óra
+      minute: Perc
+      month: Hónap
+      second: Másodperc
+      year: Év
+  delete: Törlés
+  edit_bgeigie_log_file: bGeigie naplófájl metaadat szerkesztése
+  errors:
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: elfogadása kötelező
+      blank: nem lehet üres
+      confirmation: nem egyezik a megerősítéssel
+      empty: nem lehet üres
+      equal_to: %{count} -nak/nek kell lennie
+      even: párosnak kell lennie
+      exclusion: lefoglalt
+      greater_than: nagyobbnak kell lennie mint %{count}
+      greater_than_or_equal_to: nagyobbnak vagy egyenlőnek kell lennie mint %{count}
+      inclusion: nem szerepel a listán
+      invalid: helytelen
+      less_than: kisebbnek kell lennie mint %{count}
+      less_than_or_equal_to: kisebbnek vagy egyenlőnek kell lennie mint %{count}
+      not_a_number: nem szám
+      not_an_integer: egész számnak kell lennie
+      not_saved: Nincs mentve
+      odd: páratlannak kell lennie
+      record_invalid: ! 'Az érvényesítés sikertelen: %{errors}'
+      taken: már elkészült
+      too_long:
+        one: túl hosszú (maximum 1 karakter)
+        other: túl hosszú (maximum %{count} karakter)
+      too_short:
+        one: túl rövid (minimum 1 karakter)
+        other: túl rövid (minimum %{count} karakter)
+      wrong_length:
+        one: rossz hosszúságú (1 karakter kell hogy legyen)
+        other: rossz hosszúságú (%{count} karakter kell hogy legyen)
+    template:
+      body: ! 'Problémák adódtak a következő mezőknél:'
+      header:
+        one: 1 hiba megakadályozza a %{model} mentését
+        other: ! '%{count} hiba megakadályozza %{model} mentését'
+  explore_maps_of_your_submissions: Böngészen a beadott térképei között
+  file: Fájl
+  from_here_you_can: Innen tudod
+  hello: Helló
+  helpers:
+    select:
+      prompt: Kérjük válasszon
+    submit:
+      create: %{model} létrehozása
+      submit: %{model} beküldése
+      update: %{model} frissítése
+      //
+  if_you_have_a_bgeigie: Amennyiben rendelkezik bGeigie-vel
+  imports_awaiting_approval: jóváhagyásra váró feltöltések
+  it_may_take_a_few_minutes_to_process: A feldolgozás eltarthat pár percig.
+  maps: térképek
+  my_maps: Saját térképek
+  newly_uploaded: Újonnan feltöltve
+  no_maps_found: Nem található térkép.
+  number:
+    currency:
+      format:
+        delimiter: ! ','
+        format: ! '%u%n'
+        precision: 2
+        separator: .
+        significant: false
+        strip_insignificant_zeros: false
+        unit: $
+    format:
+      delimiter: ! ','
+      precision: 3
+      separator: .
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion: Miliárd
+          million: Millió
+          quadrillion: Kvadrillió
+          thousand: Ezer
+          trillion: Billió
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: Bájt
+            other: Bájt
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  please_note: Kérjük vegye figyelembe
+  previous_label: Előző
+  profile: Profil
+  retrieve_your_api_key: API kulcs lekérése
+  review_your_bgeigie_log_file_submissions: feltöltött bGeige naplófájlok átnézése
+  upload_a_bgeigie_log_file: bGeigie naplófájl feltöltése
+  save: Mentés
+  sign_in: Bejelentkezés
+  sign_out: Kijelentkezés
+  sign_up: Regisztrálás
+  submissions: Feltöltések
+  submit: Beküldés
+  submitted: Beküldve
+  submit_a_reading: Olvasmány beküldése
+  submit_a_reading_from_your_device: Olvasmány beküldése az eszközéről
+  support:
+    array:
+      last_word_connector: ! ', és '
+      two_words_connector: ! ' és '
+      words_connector: ! ', '
+  time:
+    am: délelőtt
+    formats:
+      default: ! '%a, %d %b %Y %H:%M:%S %z'
+      long: ! '%B %d, %Y %H:%M'
+      short: ! '%d %b %H:%M'
+    pm: délután
+  upload: Feltöltés
+  uploaded_by: feltöltve %{name} által
+  view_the_safecast_api_docs: Safecast API dokumentáció megtekintése
+  view_your_bgeigie_log_uploads: bGeigie naplófeltöltései megtekintése
+  view_your_submission_history: Feltöltési előzmények megtekintése
+  welcome_to_the_api_center: Üdvözöljük a Safecast API Centerben.
+  you_havent_submitted_any_measurements_yet: Még nem adott be méréseket.
+  you_havent_uploaded_any_bgeigie_log_files: Még nem töltött fel bGeigie naplófájlokat.
+  //
+  your_measurement: Saját mérések
+  yours: Saját
+  imports: Feltöltések
+  lat: szélesség
+  lng: hosszúság
+  your_measurements: Saját mérések
+  edit_your_profile: Profil szerkesztése
+  name: Név
+  time_zone: Időzóna
+  your_api_key: Privát API kulcs
+  on_date: %{date}-kor
+  manufacturer: Gyártó
+  model: Model
+  sensor: Szenzor
+  measured_with: Mérve
+  your_maps: Saját térképek
+  public: Publikus
+  no_bgeigie_log_files_have_been_uploaded: Nincsenek bGeigie naplófájlok feltöltve
+  devise:
+    registrations:
+      reasons: {}
+      inactive_signed_up: ''
+  user:
+    email:
+    password:
+    remember_me:
+    name: ''
+    password_confirmation: ''
+    new:
+      email:
+      password:
+      remember_me:
+    unconfirmed_name: Nem megerősített felhasználó
+  activerecord:
+    attributes:
+      device:
+        sensors: Szenzorok
+        manufacturer: Gyártó
+        model: Model
+        sensor: Szenzor
+      bgeigie_import:
+        source: Forrás
+    errors:
+      messages:
+        record_invalid: Ez a felvétel érvénytelen
+      models:
+        device:
+          attributes:
+            sensors:
+              blank: nem lehet üres
+        measurement:
+          attributes:
+            sensor_id:
+              blank: nem lehet üres
+            unit:
+              blank: nem lehet üres
+            value:
+              blank: nem lehet üres
+        bgeigie_import:
+          attributes:
+            source:
+              blank: nem lehet üres
+  user_subject: Jelszó visszaállítása
+  view: Nézet
+  simple_form:
+    required:
+      html: <abbr title="required">*</abbr>
+      mark: ! '*'
+      text: kötelező
+  bgeigie_import: Bgeigie importálása
+  edit_details_status:
+  layouts:
+    submit_nav:
+      submit_a_single_measurement:
+  no_devices:
+  shared:
+    dashboard_navigation:
+      devices:
+      imports:
+      measurements:
+  dashboards:
+    show:
+      bgeigie_imports:
+      imports_awaiting_approval:
+      submissions:
+  captured_at:
