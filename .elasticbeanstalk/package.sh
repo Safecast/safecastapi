@@ -32,7 +32,9 @@ PACKAGE="${VERSION}.zip"
 
 cp config/database.yml.beanstalk config/database.yml
 
-.elasticbeanstalk/package.py "${PACKAGE}"
+PYTHON_BIN=${PYTHON_BIN:-python}
+
+${PYTHON_BIN} .elasticbeanstalk/package.py "${PACKAGE}"
 
 aws s3 cp --no-progress ".elasticbeanstalk/app_versions/${PACKAGE}" "s3://${S3_BUCKET_NAME}/${EB_APP_NAME}/"
 
