@@ -1,0 +1,9 @@
+version: 2
+updates:
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      day: "monday"
+      interval: "weekly"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
