@@ -1,4 +1,4 @@
-en-US:
+hu:
   devices: Eszközök
   id: ID
   unit: Egység
@@ -83,13 +83,13 @@ en-US:
     distance_in_words:
       about_x_hours:
         one: 1 órája
-        other: %{count} órája
+        other: '%{count} órája'
       about_x_months:
         one: 1 hónapja
-        other: %{count} hónapja
+        other: '%{count} hónapja'
       about_x_years:
         one: 1 éve
-        other: %{count} éve
+        other: '%{count} éve'
       almost_x_years:
         one: majdnem 1 éve
         other: majdnem %{count} éve
@@ -131,7 +131,7 @@ en-US:
       blank: nem lehet üres
       confirmation: nem egyezik a megerősítéssel
       empty: nem lehet üres
-      equal_to: %{count} -nak/nek kell lennie
+      equal_to: '%{count} -nak/nek kell lennie'
       even: párosnak kell lennie
       exclusion: lefoglalt
       greater_than: nagyobbnak kell lennie mint %{count}
@@ -168,10 +168,9 @@ en-US:
     select:
       prompt: Kérjük válasszon
     submit:
-      create: %{model} létrehozása
-      submit: %{model} beküldése
-      update: %{model} frissítése
-      //
+      create: '%{model} létrehozása'
+      submit: '%{model} beküldése'
+      update: '%{model} frissítése'
   if_you_have_a_bgeigie: Amennyiben rendelkezik bGeigie-vel
   imports_awaiting_approval: jóváhagyásra váró feltöltések
   it_may_take_a_few_minutes_to_process: A feldolgozás eltarthat pár percig.
@@ -261,7 +260,6 @@ en-US:
   welcome_to_the_api_center: Üdvözöljük a Safecast API Centerben.
   you_havent_submitted_any_measurements_yet: Még nem adott be méréseket.
   you_havent_uploaded_any_bgeigie_log_files: Még nem töltött fel bGeigie naplófájlokat.
-  //
   your_measurement: Saját mérések
   yours: Saját
   imports: Feltöltések
@@ -272,7 +270,7 @@ en-US:
   name: Név
   time_zone: Időzóna
   your_api_key: Privát API kulcs
-  on_date: %{date}-kor
+  on_date: '%{date}-kor'
   manufacturer: Gyártó
   model: Model
   sensor: Szenzor
