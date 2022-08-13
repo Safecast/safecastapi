@@ -220,8 +220,8 @@ GEM
     formatted-dates (0.1.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    groupdate (5.2.2)
-      activesupport (>= 5)
+    groupdate (6.1.0)
+      activesupport (>= 5.2)
     haml (5.2.1)
       temple (>= 0.8.0)
       tilt
