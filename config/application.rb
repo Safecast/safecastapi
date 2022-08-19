@@ -15,10 +15,6 @@ module Safecast
     config.action_mailer.delivery_job = 'ActionMailer::MailDeliveryJob' # default 6.0
     config.active_record.belongs_to_required_by_default = false
 
-    if config.respond_to?(:elastic_apm)
-      config.elastic_apm.active = ENV['ELASTIC_APM_SECRET_TOKEN'].present?
-    end
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

@@ -1,0 +1,2 @@
+server_url: <%= ENV['ELASTIC_APM_SERVER_URL'] %>
+secret_token: <%= ENV['ELASTIC_APM_SECRET_TOKEN'] %>
