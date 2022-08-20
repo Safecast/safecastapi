@@ -55,7 +55,16 @@ RSpec.describe DeviceStoriesHelper, type: :helper do
       # to request to localhost.
       @old_elasticsearch_url = ENV.delete('ELASTICSEARCH_URL')
       WebMock::Config.instance.allow_localhost = false
-      stub_request(:get, 'http://localhost:9200/ingest-measurements-*/_doc/_search')
+      s = {
+        tagline: 'You Know, for Search',
+        version: {
+          build_flavor: 'default',
+          number: '7.5.1'
+        }
+      }
+      stub_request(:get, 'http://localhost:9200/')
+        .to_return(status: 200, body: s.to_json, headers: { 'Content-Type' => 'application/json' })
+      stub_request(:post, 'http://localhost:9200/ingest-measurements-*/_doc/_search')
         .to_return(status: 200, body: query_last_sensor_location_response, headers: { 'Content-Type': 'application/json' })
 
       assign(:device_story, DeviceStory.new(device_urn: '_device_urn_'))
