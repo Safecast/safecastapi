@@ -11,8 +11,6 @@ RailsAdmin.config do |config| # rubocop:disable Metrics/BlockLength
     redirect_to main_app.root_path unless current_user.try(:moderator)
   end
 
-  config.yell_for_non_accessible_fields = false
-
   # From https://github.com/sferik/rails_admin/wiki/Dashboard-action#disabling-record-count-bars
   config.actions do
     dashboard do
