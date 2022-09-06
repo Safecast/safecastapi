@@ -6,6 +6,8 @@
 RailsAdmin.config do |config| # rubocop:disable Metrics/BlockLength
   config.main_app_name = %w(Safecast Admin)
 
+  config.asset_source = :sprockets
+
   config.current_user_method { current_user }
   config.authorize_with do |_controller|
     redirect_to main_app.root_path unless current_user.try(:moderator)
