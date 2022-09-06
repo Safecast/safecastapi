@@ -46,7 +46,7 @@ gem 'rails_admin', '~> 3.0.0'
 gem 'rakismet'
 gem 'responders'
 gem 'rubyzip', require: 'zip'
-gem 'sass-rails', '~>5.0'
+gem 'sassc-rails'
 gem 'simple_form'
 gem 'swagger-blocks'
 # noinspection RailsParamDefResolve
