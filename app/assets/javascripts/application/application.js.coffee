@@ -1,2 +1,0 @@
-jQuery ->
-  $('.activate-tooltip').tooltip()
