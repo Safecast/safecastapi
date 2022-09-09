@@ -9,14 +9,14 @@
         :id => 'submission'
       } do |f| %>
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-8">
         <h2 style="display: inline-block !important;"><%= t('.contribute_your_measurement') %></h2>
         <hr/>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-4">
-        <%- if @measurement.errors.any? -%>  
+
+    <%- if @measurement.errors.any? -%>
+      <div class="row">
           <div class="alert">
             <ul>
               <%- @measurement.errors.full_messages.each do |message| -%>
@@ -24,64 +24,57 @@
               <%- end -%>
             </ul>
           </div>
-        <%- end -%>
-        <fieldset class="level-reading">
-          <legend>
-            <%= t('basics') %>
-          </legend>
-          <div class="form-group reading">
-            <%= f.label :value, t('.radiation_level'), :class => 'control-label' %>
-            <%= f.text_field :value,
-                  :class => 'form-control digit level',
-                  :value => @measurement.value.presence || '000' %>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :unit, :class => 'control-label' %>
-            <%= f.select :unit, [
-                  ['μSv/h', 'usv'],
-                  [ t('.clicks_per_minute'), 'cpm']
-                ], :selected => 'usv', :id => 'unit', :class => 'form-control' %>
-          </div>
-          
-          <div class="form-group">
-            <%= f.label :captured_at, t(".date_taken"), :class => 'control-label' %>
-            <%= f.text_field :captured_at, :class => 'form-control' %>
-          </div>
-
-
-          <div class="form-group">
-            <%= label_tag :location, t(".location"), :class => 'control-label' %>
-              <%= f.text_area :location_name,
-                    :id => :location,
-                    :style => "height: 50px",
-                    :class => "form-control"
-              %>
-            <p class="help-block"><%= t('.type_address_instructions') %></p>
-          </div>
-        </fieldset>
       </div>
+    <%- end -%>
 
-      <div class="col-md-5 text-center">
-        <div class="map-container">
-          <div class="map-crosshair"></div>
-          <div id="map_canvas" class="map"></div>
-        </div>
-
+    <div class="row">
+      <fieldset>
         <div class="row">
-          <div class="form-group col-md-12">
-            <%= label_tag :latitude, t('.latitude'), :class => 'control-label' %>
-            <%= f.text_field :latitude, :id => 'latitude', :class => 'form-control' %>
+          <div class="col-md-8">
+            <legend><%= t('basics') %></legend>
           </div>
         </div>
-
         <div class="row">
-          <div class="form-group col-md-12">
-            <%= label_tag :longitude, t('.longitude'), :class => 'control-label' %>
-            <%= f.text_field :longitude, :id => 'longitude', :class => 'form-control' %>
+          <div class="col-md-4">
+            <div class="form-group reading">
+              <%= f.label :value, t('.radiation_level'), :class => 'control-label' %>
+              <%= f.text_field :value,
+                    :class => 'form-control digit level',
+                    :value => @measurement.value.presence || '000' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :unit, :class => 'control-label' %>
+              <%= f.select :unit, [
+                    ['μSv/h', 'usv'],
+                    [ t('.clicks_per_minute'), 'cpm']
+                  ], {}, { selected: 'usv', class: 'form-control' } %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :captured_at, t(".date_taken"), class: 'control-label' -%>
+              <%= f.text_field :captured_at, class: 'form-control' -%>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :location_name, t(".location"), class: 'control-label' -%>
+              <%= f.text_area :location_name, class: "form-control", rows: 3 -%>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :latitude, t('.latitude'), class: 'control-label' -%>
+              <%= f.text_field :latitude, class: 'form-control' -%>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :longitude, t('.longitude'), class: 'control-label' -%>
+              <%= f.text_field :longitude, class: 'form-control' -%>
+            </div>
           </div>
         </div>
-      </div>
+      </fieldset>
     </div>
     
     <div class="row">
@@ -91,7 +84,7 @@
         </legend>
         <div class="form-group" style="max-width: 200px;">
           <%= f.label :device_id, t(".device"), :class => 'control-label' %>
-          <%= f.select :device_id, [['', nil]] + Device.all.collect { |d| [d.name, d.id]}, :class => 'form-control' %>
+          <%= f.select :device_id, [['(No Device)', nil]] + Device.all.collect { |d| [d.name, d.id]}, {}, { class: 'form-control' } %>
           <p class="help-block">
             <%= t('.dont_see_device_help') %>
             <%= link_to t('.add_a_new_device'), [:new, :device] %>.
@@ -99,7 +92,7 @@
         </div>
       </fieldset>
 
-      <fieldset class="col-md-4 offset1">
+      <fieldset class="col-md-4">
         <legend>
           <%= t('.environment') %>
         </legend>
@@ -122,12 +115,12 @@
         </div>
       </fieldset>
     </div>
+
     <div class="row">
       <div class="col-md-4">
-        <hr/>
-          <div class="button" style="float:left">
-            <input class="btn btn-primary" type="submit" value="<%= t('submit') %>">
-          </div>
+        <div class="button" style="float:left">
+          <input class="btn btn-primary btn-lg" type="submit" value="<%= t('submit') %>">
+        </div>
       </div>
     </div>
   <%- end -%>
