@@ -76,8 +76,9 @@ class Measurement < ActiveRecord::Base
 
   def self.default
     new(
-      location: 'POINT(140.47335610000005 37.7607226)',
-      location_name: 'Fukushima City Office'
+      captured_at: Time.current.strftime('%d %B %Y, %H:%M:%S'),
+      location: 'POINT(0.0 0.0)',
+      location_name: 'Some place'
     )
   end
 

@@ -68,8 +68,7 @@ class MeasurementsController < ApplicationController
   end
 
   def new
-    @measurement = current_user.measurements.last.try(:dup) || Measurement.default
-    @measurement.captured_at = Time.current.strftime('%d %B %Y, %H:%M:%S')
+    @measurement = Measurement.default
   end
 
   def create
