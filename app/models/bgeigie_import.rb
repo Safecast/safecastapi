@@ -182,9 +182,14 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     return false unless line_items.length >= 13
 
     # check header
-    # rubocop:disable Layout/LineLength
-    return false unless line_items[0].eql?('$BMRDD') || line_items[0].eql?('$BGRDD') || line_items[0].eql?('$BNRDD') || line_items[0].eql?('$BNXRDD') || line_items[0].eql?('$PNTDD')
-    # rubocop:enable Layout/LineLength
+    return false unless [
+      '$BMRDD',
+      '$BGRDD',
+      '$BNRDD',
+      '$BNXRDD',
+      '$PNTDD',
+      '$CZRDD' # Jan's device
+    ].include?(line_items[0])
 
     # check for Valid CPM
     return false unless line_items[6].eql?('A') || line_items[6].eql?('V')
