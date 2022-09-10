@@ -1,5 +1,0 @@
-<%- attr_names.group_by {|p| params[p].present? }.each do |presence, attr_names| -%>
-  <%- next if presence === false -%>
-  <strong><%= t('.filters') %>:</strong>
-  <%= raw attr_names.collect { |attr_name| filter_tag(model_name, attr_name) }.join(', ') -%>
-<%- end -%>
