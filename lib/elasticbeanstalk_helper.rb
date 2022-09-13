@@ -31,7 +31,7 @@ class ElasticBeanstalkHelper
   def selected_environments
     environments = elasticbeanstalk.describe_environments(application_name: application_name).environments
     environment_names = environments.map(&:environment_name)
-    environment_names.select { |n| n =~ /^#{environment_prefix}-#{environment_config}-/ }
+    environment_names.grep { |n| n =~ /^#{environment_prefix}-#{environment_config}-/ }
   end
 
   def current_environment_number
