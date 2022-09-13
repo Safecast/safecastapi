@@ -18,3 +18,343 @@ Style/IfUnlessModifier:
 Style/WordArray:
   Exclude:
     - spec/integration/api/devices_spec.rb
+
+Rails/ActiveRecordCallbacksOrder:
+  Exclude:
+    - app/models/measurement_import.rb
+Rails/ApplicationController:
+  Exclude:
+    - app/controllers/api_docs_controller.rb
+Rails/ApplicationMailer:
+  Exclude:
+    - app/mailers/notifications.rb
+    - app/mailers/reminders.rb
+Rails/ApplicationRecord:
+  Exclude:
+    - app/models/admin.rb
+    - app/models/bgeigie_log.rb
+    - app/models/device.rb
+    - app/models/drive_log.rb
+    - app/models/map.rb
+    - app/models/measurement.rb
+    - app/models/measurement_import.rb
+    - app/models/measurement_import_log.rb
+    - app/models/uploader_contact_history.rb
+    - app/models/user.rb
+Rails/BelongsTo:
+  Exclude:
+    - app/models/device_story_comment.rb
+Rails/Blank:
+  Exclude:
+    - app/models/bgeigie_import.rb
+Rails/ContentTag:
+  Exclude:
+    - app/helpers/bgeigie_imports_helper.rb
+    - app/helpers/measurements_helper.rb
+    - app/helpers/radiation_index_helper.rb
+    - lib/extras/simple_form_extensions.rb
+Rails/CreateTableWithTimestamps:
+  Exclude:
+    - db/migrate/20111213000431_create_maps_measurements.rb
+    - db/migrate/20111214134716_create_measurement_imports.rb
+Rails/DynamicFindBy:
+  Exclude:
+    - spec/models/bgeigie_import_spec.rb
+Rails/FilePath:
+  Exclude:
+    - config/application.rb
+    - config/environments/development.rb
+    - spec/acceptance/user_uploads_bgeigie_log_spec.rb
+    - spec/lib/tasks/pending_imports_reminder.thor_spec.rb
+    - spec/models/measurement_import_spec.rb
+Rails/FindBy:
+  Exclude:
+    - app/models/measurement.rb
+Rails/HasAndBelongsToMany:
+  Exclude:
+    - app/models/measurement.rb
+Rails/HasManyOrHasOneDependent:
+  Exclude:
+    - app/models/device.rb
+    - app/models/drive_import.rb
+    - app/models/measurement_import.rb
+    - app/models/user.rb
+Rails/HelperInstanceVariable:
+  Exclude:
+    - app/helpers/device_stories_helper.rb
+Rails/HttpStatus:
+  Exclude:
+    - app/controllers/application_controller.rb
+    - app/controllers/crons_controller.rb
+Rails/InverseOf:
+  Exclude:
+    - app/models/measurement.rb
+Rails/LexicallyScopedActionFilter:
+  Exclude:
+    - app/controllers/device_stories_controller.rb
+    - app/controllers/device_story_comments_controller.rb
+Rails/LinkToBlank:
+  Exclude:
+    - app/helpers/bgeigie_imports_helper.rb
+Rails/MailerName:
+  Exclude:
+    - app/mailers/notifications.rb
+    - app/mailers/reminders.rb
+Rails/MatchRoute:
+  Exclude:
+    - config/routes.rb
+Rails/Output:
+  Exclude:
+    - app/models/drive_import.rb
+Rails/OutputSafety:
+  Exclude:
+    - app/helpers/device_stories_helper.rb
+    - lib/extras/simple_form_extensions.rb
+Rails/PluckInWhere:
+  Exclude:
+    - lib/tasks/pending_imports_reminder.thor
+Rails/RakeEnvironment:
+  Exclude:
+    - lib/tasks/boostrap.rake
+    - lib/tasks/elasticbeanstalk.rake
+    - lib/tasks/rubocop.rake
+Rails/ReadWriteAttribute:
+  Exclude:
+    - app/models/bgeigie_import.rb
+    - app/models/drive_import.rb
+Rails/ReversibleMigration:
+  Exclude:
+    - db/migrate/20191129022447_remove_default_would_auto_approve.rb
+Rails/SafeNavigation:
+  Exclude:
+    - app/helpers/bgeigie_imports_helper.rb
+Rails/SkipsModelValidations:
+  Exclude:
+    - app/controllers/bgeigie_imports_controller.rb
+    - app/models/bgeigie_import.rb
+    - app/models/drive_import.rb
+    - db/migrate/20130115042245_save_cities_and_credits_as_strings.rb
+    - db/migrate/20130606042505_add_devise_confirmable_to_user.rb
+Rails/SquishedSQLHeredocs:
+  Exclude:
+    - app/controllers/measurements_controller.rb
+    - db/migrate/20160208190731_add_subtype_to_measurement_imports.rb
+    - db/migrate/20160607005457_alter_measurement_imports_subtype_set_not_null.rb
+Rails/TimeZone:
+  Exclude:
+    - db/migrate/20130606042505_add_devise_confirmable_to_user.rb
+    - lib/tasks/boostrap.rake
+    - spec/acceptance/guest_signs_up_spec.rb
+    - spec/fabricators/user_fabricator.rb
+Rails/UniqueValidationWithoutIndex:
+  Exclude:
+    - app/models/device.rb
+    - app/models/device_story.rb
+
+RSpec/BeforeAfterAll:
+  Exclude:
+    - spec/acceptance/user_profile_spec.rb
+    - spec/integration/api/measurements_spec.rb
+    - spec/integration/api/users_spec.rb
+    - spec/spec_helper.rb
+RSpec/Capybara/FeatureMethods:
+  Exclude:
+    - spec/acceptance/count_is_public_spec.rb
+    - spec/acceptance/device_story_airnote_spec.rb
+    - spec/acceptance/guest_signs_up_spec.rb
+    - spec/acceptance/user_creates_a_device_spec.rb
+    - spec/acceptance/user_creates_new_measurement_spec.rb
+    - spec/acceptance/user_downloads_bgeigie_imports_in_kml_spec.rb
+    - spec/acceptance/user_profile_spec.rb
+    - spec/acceptance/user_reset_password_spec.rb
+    - spec/acceptance/user_shows_bgeigie_import_spec.rb
+    - spec/acceptance/user_submits_reading_spec.rb
+    - spec/acceptance/user_tries_to_reset_password_spec.rb
+    - spec/acceptance/user_uploads_bgeigie_log_spec.rb
+    - spec/acceptance/user_views_bgeige_imports_not_approved_spec.rb
+    - spec/acceptance/user_views_bgeige_imports_not_processed_spec.rb
+    - spec/acceptance/user_views_bgeige_imports_spec.rb
+    - spec/acceptance/user_views_their_measurements_spec.rb
+    - spec/integration/api/bgeigie_imports_spec.rb
+    - spec/integration/api/devices_spec.rb
+    - spec/integration/api/measurements_spec.rb
+    - spec/integration/api/users_spec.rb
+RSpec/ContextWording:
+  Exclude:
+    - spec/acceptance/guest_signs_up_spec.rb
+    - spec/acceptance/user_uploads_bgeigie_log_spec.rb
+    - spec/controllers/bgeigie_imports_controller_spec.rb
+    - spec/controllers/ingest_controller_spec.rb
+    - spec/controllers/measurements_controller_spec.rb
+    - spec/controllers/profiles_controller_spec.rb
+    - spec/integration/api/bgeigie_imports_spec.rb
+    - spec/models/bgeigie_import_spec.rb
+    - spec/models/measurement_import_spec.rb
+    - spec/models/measurement_spec.rb
+    - spec/views/bgeigie_imports/_auto_approve_status.html.erb_spec.rb
+    - spec/views/bgeigie_imports/show.html.erb_spec.rb
+RSpec/DescribeMethod:
+  Exclude:
+    - spec/controllers/rails_admin/main_controller_spec.rb
+RSpec/EmptyLineAfterExample:
+  Exclude:
+    - spec/controllers/bgeigie_imports_controller_spec.rb
+    - spec/controllers/measurements_controller_spec.rb
+RSpec/EmptyLineAfterExampleGroup:
+  Exclude:
+    - spec/controllers/device_stories_controller_spec.rb
+RSpec/EmptyLineAfterFinalLet:
+  Exclude:
+    - spec/acceptance/user_profile_spec.rb
+    - spec/models/measurement_spec.rb
+RSpec/EmptyLineAfterHook:
+  Exclude:
+    - spec/integration/api/bgeigie_imports_spec.rb
+    - spec/integration/api/devices_spec.rb
+    - spec/integration/api/users_spec.rb
+    - spec/models/measurement_spec.rb
+    - spec/requests/device_story_comments_controller_spec.rb
+RSpec/EmptyLineAfterSubject:
+  Exclude:
+    - spec/models/measurement_spec.rb
+    - spec/models/user_spec.rb
+RSpec/ExampleLength:
+  Exclude:
+    - spec/acceptance/guest_signs_up_spec.rb
+    - spec/acceptance/user_creates_a_device_spec.rb
+    - spec/acceptance/user_creates_new_measurement_spec.rb
+    - spec/acceptance/user_downloads_bgeigie_imports_in_kml_spec.rb
+    - spec/acceptance/user_profile_spec.rb
+    - spec/acceptance/user_reset_password_spec.rb
+    - spec/acceptance/user_submits_reading_spec.rb
+    - spec/acceptance/user_uploads_bgeigie_log_spec.rb
+    - spec/helpers/device_stories_helper_spec.rb
+    - spec/integration/api/devices_spec.rb
+    - spec/integration/api/measurements_spec.rb
+    - spec/integration/api/users_spec.rb
+    - spec/models/ingest_measurment_spec.rb
+    - spec/requests/device_story_comments_controller_spec.rb
+RSpec/ExampleWording:
+  Exclude:
+    - spec/controllers/bgeigie_imports_controller_spec.rb
+    - spec/controllers/device_story_comments_controller_spec.rb
+    - spec/controllers/ingest_controller_spec.rb
+    - spec/controllers/measurements_controller_spec.rb
+    - spec/controllers/profiles_controller_spec.rb
+    - spec/helpers/measurements_helper_spec.rb
+    - spec/lib/tasks/pending_imports_reminder.thor_spec.rb
+    - spec/models/bgeigie_import_spec.rb
+    - spec/models/bgeigie_log_spec.rb
+    - spec/models/device_story_comment_spec.rb
+    - spec/models/ingest_measurment_spec.rb
+    - spec/models/measurement_import_spec.rb
+RSpec/ExpectChange:
+  Exclude:
+    - spec/requests/device_story_comments_controller_spec.rb
+    - spec/safecast/tasks/device_stories/update_metadata_spec.rb
+RSpec/ExpectInHook:
+  Exclude:
+    - spec/controllers/bgeigie_imports_controller_spec.rb
+RSpec/FilePath:
+  Exclude:
+    - spec/controllers/rails_admin/main_controller_spec.rb
+    - spec/models/ingest_measurment_spec.rb
+RSpec/HookArgument:
+  Exclude:
+    - spec/integration/api/bgeigie_imports_spec.rb
+    - spec/spec_helper.rb
+RSpec/ImplicitExpect:
+  Exclude:
+    - spec/models/device_spec.rb
+    - spec/models/measurement_spec.rb
+    - spec/models/user_spec.rb
+RSpec/InstanceVariable:
+  Exclude:
+    - spec/controllers/crons_controller_spec.rb
+    - spec/controllers/rails_admin/main_controller_spec.rb
+    - spec/helpers/device_stories_helper_spec.rb
+    - spec/integration/api/bgeigie_imports_spec.rb
+    - spec/integration/api/devices_spec.rb
+RSpec/LeadingSubject:
+  Exclude:
+    - spec/controllers/bgeigie_imports_controller_spec.rb
+    - spec/integration/api/bgeigie_imports_spec.rb
+    - spec/mailers/notifications_spec.rb
+    - spec/models/device_spec.rb
+    - spec/models/drive_import_spec.rb
+    - spec/models/drive_log_spec.rb
+    - spec/models/measurement_spec.rb
+    - spec/views/bgeigie_imports/_auto_approve_status.html.erb_spec.rb
+RSpec/LetSetup:
+  Exclude:
+    - spec/acceptance/user_creates_new_measurement_spec.rb
+    - spec/acceptance/user_views_bgeige_imports_not_approved_spec.rb
+    - spec/acceptance/user_views_bgeige_imports_not_processed_spec.rb
+    - spec/controllers/bgeigie_imports_controller_spec.rb
+    - spec/integration/api/measurements_spec.rb
+RSpec/MessageSpies:
+  Exclude:
+    - spec/controllers/bgeigie_imports_controller_spec.rb
+    - spec/mailers/notifications_spec.rb
+RSpec/MultipleDescribes:
+  Exclude:
+    - spec/acceptance/user_submits_reading_spec.rb
+    - spec/integration/api/devices_spec.rb
+    - spec/integration/api/measurements_spec.rb
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/acceptance/user_downloads_bgeigie_imports_in_kml_spec.rb
+    - spec/acceptance/user_profile_spec.rb
+    - spec/acceptance/user_submits_reading_spec.rb
+    - spec/acceptance/user_uploads_bgeigie_log_spec.rb
+    - spec/controllers/bgeigie_imports_controller_spec.rb
+    - spec/controllers/device_story_comments_controller_spec.rb
+    - spec/controllers/ingest_controller_spec.rb
+    - spec/controllers/measurements_controller_spec.rb
+    - spec/controllers/profiles_controller_spec.rb
+    - spec/helpers/device_stories_helper_spec.rb
+    - spec/integration/api/bgeigie_imports_spec.rb
+    - spec/integration/api/devices_spec.rb
+    - spec/integration/api/measurements_spec.rb
+    - spec/integration/api/users_spec.rb
+    - spec/models/bgeigie_import_spec.rb
+    - spec/models/device_story_comment_spec.rb
+    - spec/models/ingest_measurment_spec.rb
+    - spec/models/measurement_import_spec.rb
+    - spec/requests/device_story_comments_controller_spec.rb
+    - spec/safecast/tasks/device_stories/update_metadata_spec.rb
+RSpec/NamedSubject:
+  Exclude:
+    - spec/controllers/bgeigie_imports_controller_spec.rb
+    - spec/safecast/tasks/device_stories/update_metadata_spec.rb
+RSpec/NestedGroups:
+  Exclude:
+    - spec/controllers/bgeigie_imports_controller_spec.rb
+    - spec/models/measurement_spec.rb
+RSpec/NotToNot:
+  Exclude:
+    - spec/acceptance/user_shows_bgeigie_import_spec.rb
+    - spec/controllers/bgeigie_imports/auto_approved_controller_spec.rb
+    - spec/controllers/bgeigie_imports/awaiting_response_controller_spec.rb
+    - spec/controllers/bgeigie_imports/not_approved_controller_spec.rb
+    - spec/controllers/bgeigie_imports/not_processed_controller_spec.rb
+    - spec/controllers/bgeigie_imports/not_submitted_controller_spec.rb
+    - spec/controllers/bgeigie_imports/rejected_import_controller_spec.rb
+    - spec/controllers/bgeigie_imports_controller_spec.rb
+RSpec/Rails/HttpStatus:
+  Exclude:
+    - spec/controllers/crons_controller_spec.rb
+RSpec/RepeatedExampleGroupBody:
+  Exclude:
+    - spec/controllers/rails_admin/main_controller_spec.rb
+RSpec/RepeatedExampleGroupDescription:
+  Exclude:
+    - spec/views/bgeigie_imports/_auto_approve_status.html.erb_spec.rb
+RSpec/StubbedMock:
+  Exclude:
+    - spec/controllers/bgeigie_imports_controller_spec.rb
+    - spec/mailers/notifications_spec.rb
+RSpec/VerifiedDoubles:
+  Exclude:
+    - spec/controllers/bgeigie_imports_controller_spec.rb
+    - spec/mailers/notifications_spec.rb
