@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.configure do
-  if (gitpod_workspace_url = ENV['GITPOD_WORKSPACE_URL'])
+  if (gitpod_workspace_url = ENV.fetch('GITPOD_WORKSPACE_URL', nil))
     config.hosts << "3000-#{URI.parse(gitpod_workspace_url).host}"
   end
 
