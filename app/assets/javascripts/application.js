@@ -9,8 +9,8 @@
 //= require jquery_ujs
 //= require underscore
 //= require bootstrap-sprockets
-//= require bootstrap-datetimepicker
 //= require moment
+//= require bootstrap-datetimepicker
 //= require chartkick
 //= require highcharts
 //= require_tree ./application
