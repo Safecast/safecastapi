@@ -1,28 +1,32 @@
 default: &default
-  adapter: postgis
-  pool: 5
-  timeout: 5000
-  schema_search_path: public,postgis
-  encoding: unicode
   username: safecast
   password:
-  host: <%= ENV.fetch('DATABASE_HOST', 'localhost' ) %>
+  adapter: postgis
+  encoding: unicode
+  host: <%= ENV.fetch('DATABASE_HOST', 'localhost') %>
+  pool: 5
   port: 5432
+  postgis_extension: postgis
+  postgis_schema: postgis
+  schema_search_path: public,postgis
+  su_password: 
+  su_username: safecast
+  timeout: 5000
 
 development:
   <<: *default
-  database: <%= ENV.fetch('DATABASE_NAME_DEVELOPMENT', 'safecast_development' ) %>
-  username: <%= ENV.fetch('DATABASE_POSTGRESQL_USERNAME', 'safecast' ) %>
-  password: <%= ENV.fetch('DATABASE_POSTGRESQL_PASSWORD', '' ) %>
+  database: <%= ENV.fetch('DATABASE_NAME_DEVELOPMENT', 'safecast_development') %>
+  username: <%= ENV.fetch('DATABASE_POSTGRESQL_USERNAME', 'safecast') %>
+  password: <%= ENV.fetch('DATABASE_POSTGRESQL_PASSWORD', '') %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: <%= ENV.fetch('DATABASE_NAME_TEST', 'safecast_test' ) %>
-  username: <%= ENV.fetch('DATABASE_POSTGRESQL_USERNAME', 'safecast' ) %>
-  password: <%= ENV.fetch('DATABASE_POSTGRESQL_PASSWORD', '' ) %>
+  database: <%= ENV.fetch('DATABASE_NAME_TEST', 'safecast_test') %>
+  username: <%= ENV.fetch('DATABASE_POSTGRESQL_USERNAME', 'safecast') %>
+  password: <%= ENV.fetch('DATABASE_POSTGRESQL_PASSWORD', '') %>
 
 production:
   <<: *default
