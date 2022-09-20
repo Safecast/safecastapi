@@ -54,6 +54,10 @@ module Safecast
     config.assets.version = '1.0'
 
     config.active_record.schema_format = :sql
+    config.active_record.yaml_column_permitted_classes = [
+      ActiveSupport::HashWithIndifferentAccess,
+      Symbol
+    ]
 
     config.generators do |g|
       g.test_framework :rspec,
