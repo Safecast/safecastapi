@@ -39,7 +39,7 @@
 
     <%- if @measurement.measurement_import.present? -%>
       <dt><%= t('.measurement.measurement_import') %></dt>
-      <dd title="<%= @measurement.measurement_import %>">
+      <dd title="<%= @measurement.measurement_import.name %>">
         <%= link_to @measurement.measurement_import.name, bgeigie_import_path(@measurement.measurement_import), alt:@measurement.measurement_import.name %>
       </dd>
     <%- end -%>
