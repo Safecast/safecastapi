@@ -19,7 +19,7 @@ gem 'coffee-rails'
 gem 'listen'
 # noinspection RailsParamDefResolve
 gem 'coffee-script-source', platforms: %i(mingw mswin x64_mingw)
-gem 'csv_builder', '~> 2.1.1'
+gem 'csv_builder', '~> 2.1.3'
 gem 'delayed_job', '~> 4.1.3'
 gem 'delayed_job_active_record'
 gem 'devise'
