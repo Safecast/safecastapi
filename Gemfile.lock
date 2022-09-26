@@ -198,7 +198,7 @@ GEM
     erubi (1.11.0)
     excon (0.92.4)
     execjs (2.7.0)
-    fabrication (2.21.1)
+    fabrication (2.30.0)
     faraday (1.10.1)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
