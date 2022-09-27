@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class BgeigieLog < ActiveRecord::Base
+class BgeigieLog < ApplicationRecord
   include MeasurementConcerns
   #
   # Note
