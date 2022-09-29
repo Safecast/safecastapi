@@ -20,6 +20,18 @@ RSpec.describe MeasurementsController, type: :controller do
   end
   let(:existing_measurement) { Fabricate(:measurement, user: user) }
 
+  describe 'GET #index' do
+    context 'when only distance is specified in parameter' do
+      before do
+        get :index, params: { distance: 1 }
+      end
+
+      it 'returns HTTP 200 OK' do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
+
   describe 'POST #create', format: :json do
     before do
       post :create, params: { api_key: api_key, format: :json }.merge(post_params)
