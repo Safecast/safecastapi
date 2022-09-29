@@ -218,40 +218,6 @@ CREATE SEQUENCE public.bgeigie_logs_id_seq
 
 ALTER SEQUENCE public.bgeigie_logs_id_seq OWNED BY public.bgeigie_logs.id;
 
-
---
--- Name: comments; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.comments (
-    id bigint NOT NULL,
-    content text,
-    device_story_id bigint,
-    user_id bigint,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.comments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
-
-
 --
 -- Name: configurables; Type: TABLE; Schema: public; Owner: -
 --
@@ -832,13 +798,6 @@ ALTER TABLE ONLY public.bgeigie_logs ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
-
-
---
 -- Name: configurables id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -970,13 +929,6 @@ ALTER TABLE ONLY public.bgeigie_logs
 
 
 --
--- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comments
-    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
-
-
 --
 -- Name: configurables configurables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
@@ -1170,20 +1122,6 @@ CREATE INDEX index_bgeigie_logs_on_device_serial_id ON public.bgeigie_logs USING
 --
 
 CREATE UNIQUE INDEX index_bgeigie_logs_on_md5sum ON public.bgeigie_logs USING btree (md5sum);
-
-
---
--- Name: index_comments_on_device_story_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_comments_on_device_story_id ON public.comments USING btree (device_story_id);
-
-
---
--- Name: index_comments_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_comments_on_user_id ON public.comments USING btree (user_id);
 
 
 --
@@ -1411,14 +1349,6 @@ ALTER TABLE ONLY public.device_story_comments
 
 ALTER TABLE ONLY public.device_story_comments
     ADD CONSTRAINT fk_rails_3acfd350f1 FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
--- Name: comments fk_rails_6ffb993c7a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comments
-    ADD CONSTRAINT fk_rails_6ffb993c7a FOREIGN KEY (device_story_id) REFERENCES public.device_stories(id);
 
 
 --
