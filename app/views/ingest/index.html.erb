@@ -1,98 +1,81 @@
 <%= content_for(:title) { 'Ingest Export' } %>
 <%-
-  locations = {
-      'central_japan' => 'Central Japan',
-      'fukushima' => 'Fukushima',
-      'washington' => 'Washington',
-      'southern_california' => 'Southern California',
-      'boston' => 'Boston',
-      'san_jose' => 'San Jose'
-  }
-  fields = {
-      'opc_pm01_0' => 'OPC PM 1.0',
-      'opc_pm02_5' => 'OPC PM 2.5',
-      'opc_pm10_0' => 'OPC PM 10.0',
-      'pms_pm01_0' => 'PM 1.0',
-      'pms_pm02_5' => 'PM 2.5',
-      'pms_pm10_0' => 'PM 10.0'
-  }
+  areas = [
+    ['Central Japan', 'central_japan'],
+    ['Fukushima', 'fukushima'],
+    ['Washington', 'washington'],
+    ['Southern California', 'southern_california'],
+    ['Boston', 'boston'],
+    ['San Jose', 'san_jose']
+  ]
+  fields = [
+    ['OPC PM 1.0', 'opc_pm01_0'],
+    ['OPC PM 2.5', 'opc_pm02_5'],
+    ['OPC PM 10.0', 'opc_pm10_0'],
+    ['PM 1.0', 'pms_pm01_0'],
+    ['PM 2.5', 'pms_pm02_5'],
+    ['PM 10.0', 'pms_pm10_0']
+  ]
 -%>
-<h2><%= t('.ingest_export') %></h2>
 
-<hr/>
-<form method="get" class="well text-center" >
-  <div style="display: flex; flex-wrap: wrap; margin-bottom: 10px; justify-content: space-evenly">
-    <div style=" min-width: 200px">
-      <lable>Field: </lable>
-      <select class="form-control" name="field">
-        <%- fields.each do |value, lable| -%>
-          <option value = "<%= value %>"><%= lable %></option>
-        <%- end -%>
-      </select>
+<h2><%= t('.ingest_export') -%></h2>
+<%= form_tag({}, method: :get, class: 'form-horizontal well') do -%>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= label_tag('field', nil, class: 'col-md-3 control-label') -%>
+      <div class="col-md-9">
+        <%= select_tag('field', options_for_select(fields, @field), { class: 'form-control' }) -%>
+      </div>
     </div>
-    <div style="min-width: 200px">
-      Area:
-      <select class="form-control" name ="area">
-      <%- locations.each do |value, lable| -%>
-        <option value = "<%= value %>"><%= lable %></option>
-      <%- end -%>
-      </select>
+    <div class="form-group col-md-6">
+      <%= label_tag('area', nil, class: 'col-md-3 control-label') -%>
+      <div class="col-md-9">
+        <%= select_tag('location', options_for_select(areas, @area), { class: 'form-control' }) -%>
+      </div>
     </div>
   </div>
-  <div style="display: flex; flex-wrap: wrap; margin-bottom: 20px; justify-content: space-evenly">
-    <div style=" min-width: 200px">
-      <lable>Uploaded after: </lable>
-      <input type="datetime-local" class="form-control" name="uploaded_after" value="2018-01-01T00:00">
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= label_tag('uploaded_after', nil, class: 'col-md-3 control-label') -%>
+      <div class="col-md-9">
+        <%= datetime_local_field_tag('uploaded_after', @uploaded_after || 3.month.ago.midnight.strftime('%Y-%m-%mT%H:%M'), class: 'form-control') -%>
+      </div>
     </div>
-    <div style="min-width: 200px">
-      <lable>Uploaded before: </lable>
-      <input type="datetime-local" class="form-control" name="uploaded_before" value="2018-12-31T00:00">
+    <div class="form-group col-md-6">
+      <%= label_tag('uploaded_before', nil, class: 'col-md-3 control-label') -%>
+      <div class="col-md-9">
+        <%= datetime_local_field_tag('uploaded_before', @uploaded_before || Time.current.midnight.strftime('%Y-%m-%mT%H:%M'), class: 'form-control') -%>
+      </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-2 col-md-offset-5">
+      <%= submit_tag('Search', class: 'btn btn-primary') -%>
+    </div>
+  </div>
+<% end -%>
 
-  <input type="submit" value="Search" class = "btn btn-primary">
-
-</form>
-
-<h2>
-  <lable>Data for: <%= params[:uploaded_after] %> - <%= params[:uploaded_before] %> </lable></br>
-  <lable>Field: </lable> <%= fields[params[:field]] ||= '-' %></br>
-  <lable>Location: </lable>  <%= locations[params[:area]] ||= '-'%></h2></br>
-</h2>
-
-<%- if @data.nil? || @data.empty? -%>
+<%- if @data.blank? -%>
   No data
 <%- else -%>
-  <ul class="inline pull-right">
-    <%=link_to( 'CSV Export', params.to_unsafe_h.merge(:format => 'csv'), :class => 'btn btn-default') %>
-  </ul>
+  <div class="inline pull-right">
+    <%= link_to 'CSV Export', url_for({ format: 'csv', params: params.permit(:area, :field, :uploaded_after, :uploaded_before) }), class: 'btn btn-default' %>
+  </div>
 
-  <table  class="table">
+  <table class="table">
     <thead>
       <tr>
-        <th>
-          <%= t('.created_at') %>
-        </th>
-        <th>
-          <%= t('.value_(μg/m^3)') %>
-        </th>
-        <th>
-          <%= t('.device_id') %>
-        </th>
+        <th><%= t('.created_at') %></th>
+        <th><%= t('.value_(μg/m^3)') %></th>
+        <th><%= t('.device_id') %></th>
       </tr>
     </thead>
     <tbody>
       <%- @data.each do |hash|-%>
         <tr>
-          <td>
-            <%= hash[:when_captured] %>
-          </td>
-          <td>
-            <%= hash[:value] %>
-          </td>
-          <td>
-            <%= hash[:device] %>
-          </td>
+          <td><%= hash[:when_captured] %></td>
+          <td><%= hash[:value] %></td>
+          <td><%= hash[:device] %></td>
         </tr>
       <%- end -%>
     </tbody>
