@@ -136,16 +136,6 @@ Rails/SquishedSQLHeredocs:
     - app/controllers/measurements_controller.rb
     - db/migrate/20160208190731_add_subtype_to_measurement_imports.rb
     - db/migrate/20160607005457_alter_measurement_imports_subtype_set_not_null.rb
-Rails/TimeZone:
-  Exclude:
-    - db/migrate/20130606042505_add_devise_confirmable_to_user.rb
-    - lib/tasks/boostrap.rake
-    - spec/acceptance/guest_signs_up_spec.rb
-    - spec/fabricators/user_fabricator.rb
-Rails/UniqueValidationWithoutIndex:
-  Exclude:
-    - app/models/device.rb
-    - app/models/device_story.rb
 
 RSpec/BeforeAfterAll:
   Exclude:
