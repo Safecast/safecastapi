@@ -368,4 +368,19 @@ RSpec.describe BgeigieImportsController, type: :controller do
       expect(bgeigie_import).to have_attributes(status: 'processed')
     end
   end
+
+  describe 'GET #show', format: :json do
+    context 'when specifying non-existing ID' do
+      before do
+        import = Fabricate(:bgeigie_import)
+        import.destroy!
+
+        get :show, params: { id: import.id }, format: :json
+      end
+
+      it 'return HTTP 404 Not Found' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
 end

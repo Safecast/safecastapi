@@ -105,6 +105,8 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
     render(partial: params[:partial]) && return if params[:partial].present?
 
     respond_with @bgeigie_import
+  rescue ActiveRecord::RecordNotFound
+    respond_with({}, status: :not_found)
   end
 
   def create
