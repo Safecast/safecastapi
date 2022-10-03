@@ -26,10 +26,10 @@ class DeviceStoryCommentsController < ApplicationController
     responder_update
   end
 
-  def responder_create
+  def responder_create # rubocop:disable Metrics/AbcSize
     respond_to do |format|
       if @device_story_comment.save && !@device_story_comment.spam?
-        format.html { redirect_to device_story_path(@device_story), notice: 'Comment successfully submitted!' }
+        format.html { redirect_to device_story_path(@device_story), notice: t('.success') }
       else
         purge_attached_image_with_error(@device_story_comment)
         flash[:error] = @device_story_comment.errors.full_messages.join(' ')
@@ -41,7 +41,7 @@ class DeviceStoryCommentsController < ApplicationController
   def responder_update
     respond_to do |format|
       if @device_story_comment.update(device_story_comment_params)
-        format.html { redirect_to device_story_path(@device_story), notice: 'device_story_comment was successfully updated.' }
+        format.html { redirect_to device_story_path(@device_story), notice: t('.success') }
         format.json { render :show, status: :ok, location: @device_story_comment }
       else
         purge_attached_image_with_error(@device_story_comment)
@@ -57,7 +57,7 @@ class DeviceStoryCommentsController < ApplicationController
     @device_story_comment.image.purge if @device_story_comment.image.attached?
     @device_story_comment.destroy
     respond_to do |format|
-      format.html { redirect_to device_story_path(@device_story), notice: 'Comment deleted!' }
+      format.html { redirect_to device_story_path(@device_story), notice: t('.success') }
     end
   end
 

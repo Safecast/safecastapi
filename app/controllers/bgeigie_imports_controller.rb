@@ -128,7 +128,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
     bgeigie_import = scope.where(id: params[:id]).first
 
     return render plain: '404 Not Found', status: :not_found unless bgeigie_import
-    return redirect_to :bgeigie_imports, alert: 'Cannot delete approved bGeigie import' if bgeigie_import.approved?
+    return redirect_to :bgeigie_imports, alert: t('.cannot_delete_approved') if bgeigie_import.approved?
 
     bgeigie_import.destroy
     redirect_to :bgeigie_imports

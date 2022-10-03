@@ -6,6 +6,6 @@ class Reminders < ApplicationMailer
 
   def pending_imports(user)
     @imports = user.bgeigie_imports.pending
-    mail(to: user.email, subject: 'Reminder: Your Safecast bGeigie logs')
+    mail(to: user.email)
   end
 end
