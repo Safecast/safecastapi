@@ -6,7 +6,11 @@ feature 'User Profile', type: :feature do
   let(:user) { Fabricate(:user) }
   before { sign_in(user) }
 
-  after(:all) { I18n.locale = I18n.default_locale }
+  around(:all) do |example|
+    I18n.with_locale(:'en-US') do
+      example.run
+    end
+  end
 
   scenario 'viewing a user profile' do
     expect(page).to have_content(user.authentication_token)
