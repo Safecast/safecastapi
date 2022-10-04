@@ -1,10 +1,14 @@
 window.addEventListener('DOMContentLoaded', function () {
-  $("#open_all").click(function () {
-    var import_url_list = $(this).data('bgeigie');
-    if (import_url_list.length != 0) {
-      for (bgeigie_import_url in import_url_list) {
-        window.open(bgeigie_import_url)
-      }
+  const openAll = document.querySelector('#open_all');
+  if (openAll === null) {
+    return;
+  }
+  openAll.addEventListener('click', function () {
+    const importUrlList = JSON.parse(openAll.dataset.bgeigie || '{}');
+    if (Array.isArray(importUrlList) && importUrlList.length > 0) {
+      importUrlList.forEach(function (url) {
+        window.open(url);
+      });
     } else {
       alert("There are no unmoderated files on this side!");
     }
