@@ -1,2 +1,0 @@
-jQuery ->
-  ($ '.dropdown-toggle').dropdown()
