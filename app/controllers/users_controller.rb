@@ -3,7 +3,10 @@
 class UsersController < ApplicationController
   include Swagger::Blocks
 
-  has_scope :order
+  has_scope :order do |_controller, scope, value|
+    # TODO: Use `nulls_last` Arel method in Rails 6.1
+    scope.order("#{value} NULLS LAST")
+  end
   has_scope :name do |_controller, scope, value|
     scope.by_name(value)
   end
