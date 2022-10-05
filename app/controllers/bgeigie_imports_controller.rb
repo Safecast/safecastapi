@@ -106,7 +106,10 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
 
     respond_with @bgeigie_import
   rescue ActiveRecord::RecordNotFound
-    respond_with({}, status: :not_found)
+    respond_to do |format|
+      format.html { head :not_found }
+      format.json { head :not_found }
+    end
   end
 
   def create
