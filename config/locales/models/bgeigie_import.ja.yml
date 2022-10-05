@@ -1,0 +1,18 @@
+ja:
+  activerecord:
+    attributes:
+      bgeigie_import:
+        approved: 承認済み
+        q: 検索語
+        q_tooltip: 検索
+        uploaded_after: 以降にアップロード
+        uploaded_before: 以前にアップロード
+        created_at: アップロード日時
+        source: ファイル名
+        measurements_count: "測定数 (最大CPM)"
+        user_id: ユーザー
+        by_user_id: ユーザーID
+        by_user_name: ユーザー名
+        rejected_by: Rejected by
+        status: ステータス
+        comment: コメント
