@@ -7,3 +7,10 @@ updates:
       interval: "weekly"
       time: "09:00"
       timezone: "Asia/Tokyo"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      day: "tuesday"
+      interval: "weekly"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
