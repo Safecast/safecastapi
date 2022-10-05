@@ -369,6 +369,21 @@ RSpec.describe BgeigieImportsController, type: :controller do
     end
   end
 
+  describe 'GET #show', format: :html do
+    context 'when specifying non-existing ID' do
+      before do
+        import = Fabricate(:bgeigie_import)
+        import.destroy!
+
+        get :show, params: { id: import.id }
+      end
+
+      it 'return HTTP 404 Not Found' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
   describe 'GET #show', format: :json do
     context 'when specifying non-existing ID' do
       before do
