@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Reminders < ActionMailer::Base
+class Reminders < ApplicationMailer
   default from: 'mailer@safecast.org'
   default_url_options[:locale] = 'en-US'
 

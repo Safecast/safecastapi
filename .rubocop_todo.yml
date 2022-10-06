@@ -25,10 +25,6 @@ Rails/ActiveRecordCallbacksOrder:
 Rails/ApplicationController:
   Exclude:
     - app/controllers/api_docs_controller.rb
-Rails/ApplicationMailer:
-  Exclude:
-    - app/mailers/notifications.rb
-    - app/mailers/reminders.rb
 Rails/ApplicationRecord:
   Exclude:
     - app/models/admin.rb

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Notifications < ActionMailer::Base
+class Notifications < ApplicationMailer
   default from: 'api-notifications@safecast.org'
   default_url_options[:locale] = 'en-US'
 
