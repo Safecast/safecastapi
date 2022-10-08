@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 feature 'User uploads bgeigie log', type: :feature do
+  include ActiveJob::TestHelper
+
   let!(:user) { Fabricate(:user) }
   let!(:moderator) { Fabricate(:user, moderator: true) }
 
@@ -17,11 +19,12 @@ feature 'User uploads bgeigie log', type: :feature do
       expect(page).to have_content('Unprocessed')
       fill_in 'Credits', with: 'Bill'
       fill_in 'Cities', with: 'Dublin'
-      Delayed::Worker.new.work_off
+      perform_enqueued_jobs
       click_button 'Save'
       expect(page).to have_content('Processed')
       click_button 'Submit for Approval'
       expect(page).to have_content('Submitted')
+      perform_enqueued_jobs
       expect(find_email(Notifications::APPROVERS_LIST,
                         with_subject: 'A Safecast import is awaiting approval')).to be_present
     end
@@ -42,7 +45,7 @@ feature 'User uploads bgeigie log', type: :feature do
       click_link 'Submitted'
       click_link File.basename(bgeigie_import.source.filename)
       click_button 'Approve'
-      Delayed::Worker.new.work_off
+      perform_enqueued_jobs
       visit(current_path)
       expect(page).to have_content('Processed')
       expect(find_email(user.email,

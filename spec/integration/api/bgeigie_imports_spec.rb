@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 feature '/bgeigie_imports API endpoint', type: :request do
+  include ActiveJob::TestHelper
+
   before(:each) do
     User.destroy_all
     @user ||= Fabricate(:user,
@@ -27,7 +29,7 @@ feature '/bgeigie_imports API endpoint', type: :request do
 
   context 'after processing' do
     before(:each) do
-      Delayed::Worker.new.work_off
+      perform_enqueued_jobs
       BgeigieImport.find_each(&:finalize!)
     end
     let!(:updated_result) do

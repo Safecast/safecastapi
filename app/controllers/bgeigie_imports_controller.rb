@@ -83,9 +83,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
     if @bgeigie_import.would_auto_approve
       @bgeigie_import.approve!('ZBot Auto Approving System')
     else
-      @bgeigie_import.update_column(:status, 'submitted')
-      @bgeigie_import.update_column(:rejected, 'false')
-      @bgeigie_import.update_column(:rejected_by, nil)
+      @bgeigie_import.update_columns(status: 'submitted', rejected: false, rejected_by: nil)
       Notifications.import_awaiting_approval(@bgeigie_import).deliver_later
     end
     redirect_to @bgeigie_import
@@ -114,7 +112,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
 
   def create
     @bgeigie_import = current_user.bgeigie_imports.build(bgeigie_import_params)
-    @bgeigie_import.process_in_background if @bgeigie_import.save
+    ProcessBgeigieImportJob.perform_later(@bgeigie_import.id) if @bgeigie_import.save
     respond_with @bgeigie_import
   end
 
