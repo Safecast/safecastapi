@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Device < ActiveRecord::Base
+class Device < ApplicationRecord
   has_many :measurements
   # has_and_belongs_to_many :maps
 

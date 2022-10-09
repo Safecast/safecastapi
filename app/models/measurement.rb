@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Measurement < ActiveRecord::Base
+class Measurement < ApplicationRecord
   include MeasurementConcerns
   include SwaggerBlocks::Models::Measurement
 
