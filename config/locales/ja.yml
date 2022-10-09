@@ -301,3 +301,20 @@ ja:
       imports_awaiting_approval: 
       submissions: 
   captured_at: 
+  # controllers
+  application_controller:
+    require_moderator: 'アクセスが拒否されました。'
+  bgeigie_imports:
+    destroy:
+      cannot_delete_approved: "承認済みのインポートは削除できません。"
+  device_story_comments:
+    create:
+      success: "コメントが追加されました。"
+    update:
+      success: "コメントが更新されました。"
+    destroy:
+      success: "コメントが削除されました。"
+  # mailers
+  reminders:
+    pending_imports:
+      subject: "リマインダ: あなたが提出したSafecast bGeigie ログについて"

@@ -14,7 +14,7 @@ class RadiationIndexController < ApplicationController
 
   def read_csv(index)
     require 'csv'
-    @data_path = Rails.root.join('public/system/g20.csv')
+    @data_path = Rails.public_path.join('system/g20.csv')
     @data = []
     CSV.foreach(@data_path, headers: true) do |row|
       @data << row

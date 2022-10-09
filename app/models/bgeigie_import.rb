@@ -9,7 +9,6 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
   # - done
   include BgeigieImportState
 
-  validates :user, presence: true, on: :create
   validates :cities, presence: true, on: :update
   validates :credits, presence: true, on: :update
 

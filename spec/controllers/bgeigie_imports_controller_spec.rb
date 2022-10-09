@@ -204,6 +204,10 @@ RSpec.describe BgeigieImportsController, type: :controller do
         it 'should delete not bgeigie import' do
           expect { BgeigieImport.find(bgeigie_import.id) }.not_to raise_error
         end
+
+        it 'has flash message' do
+          expect(flash[:alert]).to eq('Cannot delete approved bGeigie import')
+        end
       end
     end
   end
