@@ -19,7 +19,7 @@ namespace :db do
       password_confirmation: '111111'
     )
     u.moderator = true
-    u.confirmed_at = Time.now
+    u.confirmed_at = Time.zone.now
     u.save
     puts "Created user #{u.email} with password #{u.password}"
     attrs = {
@@ -27,7 +27,7 @@ namespace :db do
       password: '111111',
       password_confirmation: '111111',
       moderator: false,
-      confirmed_at: Time.now
+      confirmed_at: Time.zone.now
     }
     %w(user1@safecast.org user2@safecast.org).each do |email|
       u = User.create!(attrs.merge(email: email))
