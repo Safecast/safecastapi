@@ -20,4 +20,62 @@ RSpec.describe UsersController, type: :controller do
       end
     end
   end
+
+  describe 'GET #me' do
+    let(:user) { Fabricate(:user, email: 'john_d@example.com') }
+
+    context 'when not sign in' do
+      before do
+        get :me
+      end
+
+      it 'return HTTP 401 Unauthorized' do
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context 'when sign in' do
+      before do
+        sign_in user
+
+        get :me
+      end
+
+      it 'return user info' do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
+
+  describe 'GET #me', format: :json do
+    let(:user) { Fabricate(:user, email: 'john_d@example.com') }
+
+    context 'when not sign in' do
+      before do
+        get :me, format: :json
+      end
+
+      it 'return HTTP 401 Unauthorized' do
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'when sign in' do
+      before do
+        sign_in user
+
+        get :me, format: :json
+      end
+
+      it 'returns HTTP 200 OK' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'return user info' do
+        expect(JSON.parse(response.body)).to include(
+          'authentication_token' => user.authentication_token
+        )
+      end
+    end
+  end
 end
