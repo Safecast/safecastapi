@@ -6,10 +6,8 @@
 # @topic Devices
 #
 class DevicesController < ApplicationController
-  has_scope :order do |_controller, scope, value|
-    # TODO: Use `nulls_last` Arel method in Rails 6.1
-    scope.order("#{value} NULLS LAST")
-  end
+  include HasOrderScope
+
   has_scope :manufacturer do |_controller, scope, value|
     scope.where('manufacturer LIKE ?', "%#{value}%")
   end
