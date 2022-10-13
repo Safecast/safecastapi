@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class BgeigieImportsController < ApplicationController # rubocop:disable Metrics/ClassLength
+  include HasOrderScope
+
   respond_to :html, :json
 
   before_action :authenticate_user!, only: %i(new create edit update destroy)
@@ -14,7 +16,6 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
   has_scope :by_user_id
   has_scope :by_rejected
   has_scope :by_user_name
-  has_scope :order
   has_scope :uploaded_after
   has_scope :uploaded_before
   has_scope :rejected_by

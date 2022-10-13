@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 class DeviceStoriesController < ApplicationController
-  has_scope :order do |_controller, scope, value|
-    # TODO: Use `nulls_last` Arel method in Rails 6.1
-    scope.order("#{value} NULLS LAST")
-  end
+  include HasOrderScope
 
   before_action :authenticate_user!, only: %i(new create edit update destroy)
   before_action :fetch_device_story, only: %i(show)

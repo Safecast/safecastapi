@@ -1,14 +1,10 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  include HasOrderScope
   include Swagger::Blocks
 
   before_action :authenticate_user!, only: %i(me)
-
-  has_scope :order do |_controller, scope, value|
-    # TODO: Use `nulls_last` Arel method in Rails 6.1
-    scope.order("#{value} NULLS LAST")
-  end
 
   has_scope :name do |_controller, scope, value|
     scope.by_name(value)
