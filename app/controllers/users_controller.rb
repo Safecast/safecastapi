@@ -39,8 +39,8 @@ class UsersController < ApplicationController
   def me
     @user = current_user
     respond_to do |format|
-      format.html { render :show }
-      format.json { render json: @user }
+      format.html { redirect_to user_path(@user) }
+      format.json
     end
   end
 end
