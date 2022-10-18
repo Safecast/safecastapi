@@ -42,7 +42,7 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'return user info' do
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status(:found)
       end
     end
   end
@@ -69,12 +69,6 @@ RSpec.describe UsersController, type: :controller do
 
       it 'returns HTTP 200 OK' do
         expect(response).to have_http_status(:ok)
-      end
-
-      it 'return user info' do
-        expect(JSON.parse(response.body)).to include(
-          'authentication_token' => user.authentication_token
-        )
       end
     end
   end
