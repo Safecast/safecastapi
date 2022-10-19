@@ -13,19 +13,7 @@ Rails.application.configure do
   end
 
   config.lograge.custom_options =
-    if defined?(ElasticAPM)
-      lambda do |_event|
-        ElasticAPM.log_ids do |transaction_id, span_id, trace_id|
-          { pid: Process.pid,
-            'span.id': span_id,
-            timestamp: Time.now.utc,
-            'trace.id': trace_id,
-            'transaction.id': transaction_id }
-        end
-      end
-    else
-      lambda do |_event|
-        { pid: Process.pid, timestmap: Time.now.utc }
-      end
+    lambda do |_event|
+      { pid: Process.pid, timestmap: Time.now.utc }
     end
 end
