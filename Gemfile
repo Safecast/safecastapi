@@ -51,10 +51,6 @@ gem 'tzinfo-data', platforms: %i(mingw mswin x64_mingw)
 gem 'uglifier'
 gem 'wdm', platforms: %i(mingw mswin x64_mingw)
 
-group :production do
-  gem 'elastic-apm'
-end
-
 group :development do
   gem 'pry-byebug', group: :test
   gem 'pry-rails'
