@@ -1,13 +1,17 @@
 default: &default
   adapter: postgis
-  pool: 5
-  timeout: 5000
-  schema_search_path: public,postgis
   encoding: unicode
-  username: safecast
-  password:
   host: <%= ENV.fetch('DATABASE_HOST', 'localhost' ) %>
+  password:
+  pool: 5
   port: 5432
+  postgis_extension: postgis
+  postgis_schema: postgis
+  schema_search_path: public,postgis
+  su_username: safecast
+  su_password:
+  timeout: 5000
+  username: safecast
 
 development:
   <<: *default
