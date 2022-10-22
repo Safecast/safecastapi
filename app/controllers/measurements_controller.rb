@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class MeasurementsController < ApplicationController
-  include HasOrderScope
   include SwaggerBlocks::Controllers::Measurements
 
   class << self
@@ -27,6 +26,8 @@ class MeasurementsController < ApplicationController
   has_scope :distance do |controller, scope, _value|
     scope.nearby_to(controller.params[:latitude], controller.params[:longitude], controller.params[:distance])
   end
+  # XXX: Adding "NULLS LAST" slows database query.
+  has_scope :order
   has_scope :original_id do |_controller, scope, value|
     scope.where('original_id = :value OR id = :value', value: value)
   end
