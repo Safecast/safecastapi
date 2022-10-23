@@ -1,10 +1,3 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 11.2 (Debian 11.2-1.pgdg90+1)
--- Dumped by pg_dump version 13.2
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -20,7 +13,14 @@ SET row_security = off;
 -- Name: postgis; Type: SCHEMA; Schema: -; Owner: -
 --
 
-CREATE SCHEMA postgis;
+CREATE SCHEMA IF NOT EXISTS postgis;
+
+
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+-- *not* creating schema, since initdb creates it
 
 
 --
@@ -217,6 +217,7 @@ CREATE SEQUENCE public.bgeigie_logs_id_seq
 --
 
 ALTER SEQUENCE public.bgeigie_logs_id_seq OWNED BY public.bgeigie_logs.id;
+
 
 --
 -- Name: configurables; Type: TABLE; Schema: public; Owner: -
@@ -929,7 +930,6 @@ ALTER TABLE ONLY public.bgeigie_logs
 
 
 --
---
 -- Name: configurables configurables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1328,14 +1328,6 @@ CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING b
 
 
 --
--- Name: comments fk_rails_03de2dc08c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comments
-    ADD CONSTRAINT fk_rails_03de2dc08c FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
 -- Name: device_story_comments fk_rails_0d30498751; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1363,7 +1355,9 @@ ALTER TABLE ONLY public.active_storage_attachments
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO public.schema_migrations (version) VALUES
+SET search_path TO public,postgis;
+
+INSERT INTO "schema_migrations" (version) VALUES
 ('20111123174941'),
 ('20111123190839'),
 ('20111124211843'),

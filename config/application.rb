@@ -57,6 +57,7 @@ module Safecast
     config.active_job.queue_adapter = :delayed_job
 
     config.active_record.schema_format = :sql
+    config.active_record.dump_schemas = :all
     config.active_record.yaml_column_permitted_classes = [
       ActiveSupport::HashWithIndifferentAccess,
       Symbol

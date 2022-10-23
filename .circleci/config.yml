@@ -4,15 +4,15 @@ jobs:
     docker:
       - image: safecast/api-build:2.7.6-amazonlinux2
         environment:
-          RAILS_ENV: test
           AWS_DEFAULT_REGION: us-west-2
           EB_APP_NAME: api
           PYTHON_BIN: python3.8
+          RAILS_ENV: test
       - image: mdillon/postgis:11
         environment:
-          POSTGRES_USER: safecast
           POSTGRES_DB: safecast
           POSTGRES_PASSWORD: ""
+          POSTGRES_USER: safecast
       - image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
         environment:
           discovery.type: single-node
@@ -25,7 +25,6 @@ jobs:
       - run:
           name: Bundle Install
           command: |
-            gem install bundler -v 2.2.29
             bundle install --path vendor/bundle --jobs 2 --retry 3
       - save_cache:
           key: v5-safecastapi-{{ checksum "Gemfile.lock" }}
@@ -38,13 +37,9 @@ jobs:
           name: Wait for elasticsearch
           command: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run:
-          name: Configure database
-          command: cp config/database.yml.ci config/database.yml
-      - run:
           name: Load schema
           command: |
-            psql -h localhost -p 5432 -U safecast safecast -c 'DROP EXTENSION postgis CASCADE'
-            bundle exec rake db:schema:load --trace
+            bundle exec rails db:create db:structure:load
       - run:
           name: Run rubocop
           command: |
@@ -52,7 +47,7 @@ jobs:
       - run:
           name: Run assets precompile
           command: |
-            bundle exec rake assets:precompile
+            bundle exec rails assets:precompile
       - run:
           name: Run rspec
           command: |
