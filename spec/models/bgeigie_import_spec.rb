@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe BgeigieImport, type: :model do
+RSpec.describe BgeigieImport do
   let(:user) { Fabricate(:user) }
 
   describe '#initialize' do

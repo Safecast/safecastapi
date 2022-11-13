@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ProfilesController, type: :controller do
+RSpec.describe ProfilesController do
   let(:user) { Fabricate(:user, email: 'john_d@example.com') }
 
   describe 'PATCH #update' do

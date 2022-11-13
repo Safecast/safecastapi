@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe DeviceStoryComment, type: :model do
+RSpec.describe DeviceStoryComment do
   let(:user) { Fabricate(:user) }
   let(:device_story) { Fabricate(:device_story) }
 

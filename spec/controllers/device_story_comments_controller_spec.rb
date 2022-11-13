@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe DeviceStoryCommentsController, type: :controller do
+RSpec.describe DeviceStoryCommentsController do
   let(:user) { Fabricate(:user) }
   let(:story) { Fabricate(:device_story) }
   let(:image_file) { fixture_file_upload('files/sample.jpeg') }

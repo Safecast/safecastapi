@@ -44,7 +44,7 @@ feature 'User submits a reading while devices exist', type: :feature do
     expect(page).to have_content('456')
     expect(page).to have_content('cpm')
     expect(measurement.value).to eq(456)
-    expect(measurement.device).to eq(nil)
+    expect(measurement.device).to be_nil
   end
 
   scenario 'reading with a device' do

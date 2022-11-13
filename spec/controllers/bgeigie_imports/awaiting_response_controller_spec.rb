@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe BgeigieImports::AwaitingResponseController, type: :controller do
+RSpec.describe BgeigieImports::AwaitingResponseController do
   before do
     sign_in Fabricate(:admin_user)
   end

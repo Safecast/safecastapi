@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Notifications, type: :mailer do
+RSpec.describe Notifications do
   describe '.send_email' do
     let(:import) do
       double('import').tap do |d|

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-feature '/measurements API endpoint', type: :request do
+feature '/measurements API endpoint', type: :request do # rubocop:disable RSpec/Rails/InferredSpecType
   let!(:user) do
     User.first || Fabricate(:user,
                             email: 'paul@rslw.com',
@@ -25,7 +25,7 @@ feature '/measurements API endpoint', type: :request do
   end
 end
 
-feature '/measurements', type: :request do
+feature '/measurements', type: :request do # rubocop:disable RSpec/Rails/InferredSpecType
   before(:all) { Measurement.destroy_all }
 
   let!(:user) { User.first || Fabricate(:user) }

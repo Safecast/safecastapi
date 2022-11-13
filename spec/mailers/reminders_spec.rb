@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Reminders, type: :mailer do
+RSpec.describe Reminders do
   describe '.pending_imports' do
     let(:user) { Fabricate(:user) }
 

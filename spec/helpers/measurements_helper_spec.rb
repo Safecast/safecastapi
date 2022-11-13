@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe MeasurementsHelper, type: :helper do
+RSpec.describe MeasurementsHelper do
   describe '#measurement_nav_li' do
     before do
       allow(helper).to receive(:[]).with(:unit).and_return('all')
