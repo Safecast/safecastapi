@@ -34,8 +34,9 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
     scope.by_subtype(value.split(',').map(&:strip).reject(&:blank?))
   end
 
-  def new
-    @bgeigie_import = BgeigieImport.new
+  def index
+    @bgeigie_imports = apply_scopes(BgeigieImport).page(params[:page])
+    respond_with @bgeigie_imports
   end
 
   def approve
@@ -90,15 +91,6 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
     redirect_to @bgeigie_import
   end
 
-  def edit
-    @bgeigie_import = current_user.bgeigie_imports.find(params[:id])
-  end
-
-  def index
-    @bgeigie_imports = apply_scopes(BgeigieImport).page(params[:page])
-    respond_with @bgeigie_imports
-  end
-
   def show
     @bgeigie_import = BgeigieImport.find(params[:id])
     render(partial: params[:partial]) && return if params[:partial].present?
@@ -109,6 +101,14 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
       format.html { head :not_found }
       format.json { head :not_found }
     end
+  end
+
+  def new
+    @bgeigie_import = BgeigieImport.new
+  end
+
+  def edit
+    @bgeigie_import = current_user.bgeigie_imports.find(params[:id])
   end
 
   def create

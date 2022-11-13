@@ -19,10 +19,6 @@ class DevicesController < ApplicationController
   end
   before_action :authenticate_user!, only: :create
 
-  def new
-    @device = Device.new
-  end
-
   def index
     @devices = apply_scopes(Device).page(params[:page])
     respond_with @devices
@@ -31,6 +27,10 @@ class DevicesController < ApplicationController
   def show
     @device = Device.find(params[:id])
     respond_with @device
+  end
+
+  def new
+    @device = Device.new
   end
 
   def create
