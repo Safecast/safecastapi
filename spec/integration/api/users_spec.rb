@@ -16,8 +16,8 @@ feature '/api/users API endpoint', type: :request do # rubocop:disable RSpec/Rai
     })
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['email']).to eq('kevin@rkn.la')
-    expect(result['id']).not_to eq(nil)
+    expect(result['id']).not_to be_nil
     has_auth = result.include?('authentication_token')
-    expect(has_auth).to eq(true)
+    expect(has_auth).to be(true)
   end
 end

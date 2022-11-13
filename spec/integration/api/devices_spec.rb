@@ -23,7 +23,7 @@ feature '/devices API endpoint', type: :request do # rubocop:disable RSpec/Rails
     expect(result['sensor']).to eq('LND-7317')
 
     id_created = result.include?('id')
-    expect(id_created).to eq(true)
+    expect(id_created).to be(true)
   end
 
   scenario 'empty post' do
