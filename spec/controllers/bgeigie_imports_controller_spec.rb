@@ -110,7 +110,7 @@ RSpec.describe BgeigieImportsController do
     context 'without subtype' do
       let(:post_params) { { bgeigie_import: bgeigie_import_params } }
 
-      it { expect(response.status).to eq(201) }
+      it { expect(response).to have_http_status(:created) }
       it { expect(assigns(:bgeigie_import)).to be_persisted }
       it 'should set subtype of import to "None"' do
         expect(assigns(:bgeigie_import).subtype).to eq('None')
@@ -122,7 +122,7 @@ RSpec.describe BgeigieImportsController do
         { bgeigie_import: bgeigie_import_params.merge(subtype: 'Drive') }
       end
 
-      it { expect(response.status).to eq(201) }
+      it { expect(response).to have_http_status(:created) }
       it { expect(assigns(:bgeigie_import)).to be_persisted }
       it 'should set subtype of import to "None"' do
         expect(assigns(:bgeigie_import).subtype).to eq('Drive')
@@ -134,7 +134,7 @@ RSpec.describe BgeigieImportsController do
         { bgeigie_import: bgeigie_import_params.merge(subtype: '') }
       end
 
-      it { expect(response.status).to eq(201) }
+      it { expect(response).to have_http_status(:created) }
       it { expect(assigns(:bgeigie_import)).to be_persisted }
       it 'should set subtype of import to "None"' do
         expect(assigns(:bgeigie_import).subtype).to eq('None')

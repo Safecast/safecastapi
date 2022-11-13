@@ -19,7 +19,7 @@ RSpec.describe DeviceStoryCommentsController do
       comment_params = { content: 'This is a test!', user_id: user.id }
       expect { post device_story_device_story_comments_path(device_story_id: device_story.id), params: { device_story_comment: comment_params } }
         .to change { DeviceStoryComment.count }.by(1)
-      expect(response.status).to eq 302
+      expect(response).to have_http_status(:found)
       expect(WebMock).to have_requested(:post, addressable)
     end
 
@@ -29,7 +29,7 @@ RSpec.describe DeviceStoryCommentsController do
         .to change { DeviceStoryComment.count }.by(0)
 
       expect { post '/device_stories/1/device_story_comments', params: { device_story_comment: comment_params } }.to change { DeviceStoryComment.count }.by(0)
-      expect(response.status).to eq 302
+      expect(response).to have_http_status(:found)
       expect(WebMock).not_to have_requested(:post, addressable)
     end
   end
@@ -40,7 +40,7 @@ RSpec.describe DeviceStoryCommentsController do
     it 'deletes comment' do
       delete device_story_device_story_comment_path(device_story_id: device_story.id, id: device_story_comment.id)
       expect { device_story_comment.reload }.to raise_error(ActiveRecord::RecordNotFound)
-      expect(response.status).to eq 302
+      expect(response).to have_http_status(:found)
     end
   end
 end

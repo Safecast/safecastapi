@@ -40,7 +40,7 @@ RSpec.describe MeasurementsController do
     context 'valid data' do
       let(:post_params) { { measurement: valid_data } }
 
-      it { expect(response.status).to eq(201) }
+      it { expect(response).to have_http_status(:created) }
       it { expect(user.reload.measurements.count).to eq(1) }
       it 'should have values in post data' do
         measurement = user.reload.measurements.first
@@ -51,7 +51,7 @@ RSpec.describe MeasurementsController do
     context 'empty data' do
       let(:post_params) { {} }
 
-      it { expect(response.status).to eq(422) }
+      it { expect(response).to have_http_status(:unprocessable_entity) }
       it { expect(user.reload.measurements.count).to eq(0) }
     end
 
@@ -64,7 +64,7 @@ RSpec.describe MeasurementsController do
         }
       end
 
-      it { expect(response.status).to eq(422) }
+      it { expect(response).to have_http_status(:unprocessable_entity) }
       it 'should not create new measurement' do
         expect(user.reload.measurements.count).to eq(1)
       end
@@ -83,7 +83,7 @@ RSpec.describe MeasurementsController do
         post :create, params: { api_key: api_key, format: :json }.merge(post_params)
       end
 
-      it { expect(response.status).to eq(201) }
+      it { expect(response).to have_http_status(:created) }
       it { expect(user.reload.measurements.count).to eq(1) }
     end
   end
