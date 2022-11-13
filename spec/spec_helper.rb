@@ -58,6 +58,8 @@ RSpec.configure do |config|
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
 
+  config.infer_spec_type_from_file_location!
+
   config.before(:all) do
     FileUtils.rm_rf Dir[Rails.root.join('tmp/cache/assets/**/*')]
   end

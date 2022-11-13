@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe DeviceStoriesHelper, type: :helper do
+RSpec.describe DeviceStoriesHelper do
   device_urn = 'local:12345'
   base_url = 'http://grafana.127.0.0.1.xip.io/d/DFSxrOLWk/safecast-device-details'
 

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe 'bgeigie_imports/_auto_approve_status.html.erb', type: :view do
+RSpec.describe 'bgeigie_imports/_auto_approve_status.html.erb' do
   context 'Zero CPM Status' do
     let(:bgeigie_import) { Fabricate(:bgeigie_import, auto_apprv_no_zero_cpm: auto_apprv_no_zero_cpm) }
 

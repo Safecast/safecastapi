@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe DeviceStoriesController, type: :controller do
+RSpec.describe DeviceStoriesController do
   describe 'GET #index' do
     let!(:device_stories) { Fabricate.times(4, :device_story) }
 

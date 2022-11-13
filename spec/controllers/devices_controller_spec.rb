@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe DevicesController, type: :controller do
+RSpec.describe DevicesController do
   describe 'GET #index' do
     let!(:devices) do
       [1, 2, 3].map do |i|

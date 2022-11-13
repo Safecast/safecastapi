@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # XXX: Currently, this spec is for checking rails_admin gem installation.
-RSpec.describe RailsAdmin::MainController, 'login as admin', type: :controller do
+RSpec.describe RailsAdmin::MainController, 'login as admin', type: :controller do # rubocop:disable RSpec/Rails/InferredSpecType
   routes { RailsAdmin::Engine.routes }
 
   before do
