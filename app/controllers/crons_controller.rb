@@ -23,7 +23,7 @@ class CronsController < ApplicationController
   end
 
   def configured_job_names
-    YAML.load_file(CRON_DEFINITIONS)['cron'].map { |d| d['name'] }
+    YAML.load_file(CRON_DEFINITIONS)['cron'].pluck('name')
   end
 
   def taskname
