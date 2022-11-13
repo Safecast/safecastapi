@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe DeviceStoryCommentsController, type: :request do
+RSpec.describe DeviceStoryCommentsController do
   let(:user) { Fabricate(:user) }
   let(:device_story) { Fabricate(:device_story, last_location_name: 'Israel', device_urn: 'safecast:114699387') }
 

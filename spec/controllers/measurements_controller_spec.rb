@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe MeasurementsController, type: :controller do
+RSpec.describe MeasurementsController do
   let(:user) { Fabricate(:user) }
   let(:api_key) { user.authentication_token }
   let(:valid_data) do

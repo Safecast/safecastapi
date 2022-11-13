@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-feature '/bgeigie_imports API endpoint', type: :request do
+feature '/bgeigie_imports API endpoint', type: :request do # rubocop:disable RSpec/Rails/InferredSpecType
   include ActiveJob::TestHelper
 
   before(:each) do

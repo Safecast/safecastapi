@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe BgeigieImportsController, type: :controller do
+RSpec.describe BgeigieImportsController do
   let(:user) { Fabricate(:user) }
   let(:administrator) { Fabricate(:admin_user) }
 

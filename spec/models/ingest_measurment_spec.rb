@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe IngestMeasurement, type: :model do
+RSpec.describe IngestMeasurement do
   include ElasticsearchHelpers
 
   describe '#data_for_device' do

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-feature '/devices API endpoint', type: :request do
+feature '/devices API endpoint', type: :request do # rubocop:disable RSpec/Rails/InferredSpecType
   before do
     @user = Fabricate(:user, email: 'paul@rslw.com', name: 'Paul Campbell')
   end
@@ -40,7 +40,7 @@ feature '/devices API endpoint', type: :request do
   end
 end
 
-feature '/devices with existing devices', type: :request do
+feature '/devices with existing devices', type: :request do # rubocop:disable RSpec/Rails/InferredSpecType
   before do
     @user = Fabricate(:user, email: 'paul@rslw.com', name: 'Paul Campbell')
     @first_device = Fabricate(:device, manufacturer: 'Safecast',

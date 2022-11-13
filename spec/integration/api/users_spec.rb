@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-feature '/api/users API endpoint', type: :request do
+feature '/api/users API endpoint', type: :request do # rubocop:disable RSpec/Rails/InferredSpecType
   before(:all) { User.destroy_all }
   before do
     Fabricate(:user, email: 'paul@rslw.com', name: 'Paul Campbell')

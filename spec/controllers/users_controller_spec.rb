@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe UsersController, type: :controller do
+RSpec.describe UsersController do
   describe 'GET #index' do
     let!(:users) { Fabricate.times(3, :user) }
 

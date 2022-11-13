@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe BgeigieImports::AutoApprovedController, type: :controller do
+RSpec.describe BgeigieImports::AutoApprovedController do
   describe 'GET #index' do
     context 'when logging in as administrator' do
       before do
