@@ -26,11 +26,11 @@ RSpec.describe UsersController, type: :controller do
 
     context 'when not sign in' do
       before do
-        get :me, params: { locale: 'en-US' }
+        get :me
       end
 
       it 'return HTTP 401 Unauthorized' do
-        expect(response).to redirect_to(new_user_session_path(locale: 'en-US'))
+        expect(response).to redirect_to(new_user_session_path(locale: nil))
       end
     end
 
