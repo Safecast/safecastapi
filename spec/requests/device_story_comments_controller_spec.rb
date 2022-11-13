@@ -26,9 +26,9 @@ RSpec.describe DeviceStoryCommentsController do
     it 'creates invalid comment' do
       comment_params = { content: 'a' * 1_001, user_id: user.id }
       expect { post device_story_device_story_comments_path(device_story_id: device_story.id), params: { device_story_comment: comment_params } }
-        .to change { DeviceStoryComment.count }.by(0)
+        .not_to change(DeviceStoryComment, :count)
 
-      expect { post '/device_stories/1/device_story_comments', params: { device_story_comment: comment_params } }.to change { DeviceStoryComment.count }.by(0)
+      expect { post '/device_stories/1/device_story_comments', params: { device_story_comment: comment_params } }.not_to change(DeviceStoryComment, :count)
       expect(response).to have_http_status(:found)
       expect(WebMock).not_to have_requested(:post, addressable)
     end
