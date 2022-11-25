@@ -27,19 +27,17 @@ RUN curl -sSL -o /tmp/dockerize.tgz https://github.com/jwilder/dockerize/release
   tar -xzf /tmp/dockerize.tgz -C /usr/local/bin && \
   rm /tmp/dockerize.tgz
 
-RUN curl -sSL -o /tmp/ruby-2.7.6.tar.gz https://cache.ruby-lang.org/pub/ruby/2.7/ruby-2.7.6.tar.gz \
-  && tar -xzf /tmp/ruby-2.7.6.tar.gz \
-  && cd ruby-2.7.6 \
+RUN curl -sSL -o /tmp/ruby-2.7.8.tar.gz https://cache.ruby-lang.org/pub/ruby/2.7/ruby-2.7.8.tar.gz \
+  && tar -xzf /tmp/ruby-2.7.8.tar.gz \
+  && cd ruby-2.7.8 \
   && ./configure \
   && make -j4 \
   && make install \
   && cd .. \
-  && rm -rf ruby-2.7.6 /tmp/ruby-2.7.6.tar.gz
+  && rm -rf ruby-2.7.8 /tmp/ruby-2.7.8.tar.gz
 
-RUN curl -sLO https://rpm.nodesource.com/setup_14.x && \
-  bash setup_14.x && \
-  rm setup_14.x && \
-  yum install -y nodejs
+RUN yum install https://rpm.nodesource.com/pub_16.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm -y && \
+  yum install nodejs -y --setopt=nodesource-nodejs.module_hotfixes=1
 
 RUN curl -sLO https://dl.yarnpkg.com/rpm/yarn.repo && \
   mv yarn.repo /etc/yum.repos.d/ && \
