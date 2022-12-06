@@ -3,6 +3,17 @@
 RSpec.describe BgeigieImport do
   let(:user) { Fabricate(:user) }
 
+  describe '.filter_by_text_fields' do
+    context 'with ActiveRecord::Relation' do
+      let(:relation) { described_class.order(:created_at) }
+
+      it 'should not raise error' do
+        expect { relation.filter_by_text_fields('_text_') }
+          .not_to raise_error
+      end
+    end
+  end
+
   describe '#initialize' do
     it 'should set subtype to "None" by default' do
       expect(described_class.new.subtype).to eq('None')

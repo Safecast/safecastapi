@@ -9,7 +9,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
   before_action :require_moderator, only: %i(approve fixdrive send_email resolve)
 
   has_scope :q do |_controller, scope, value|
-    scope.filter(value)
+    scope.filter_by_text_fields(value)
   end
 
   has_scope :by_status
