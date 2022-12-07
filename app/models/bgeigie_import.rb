@@ -33,7 +33,7 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     measurements_added
   )
 
-  def self.filter(query)
+  def self.filter_by_text_fields(query)
     where("lower(name) LIKE :query
            OR lower(source) LIKE :query
            OR lower(description) LIKE :query
