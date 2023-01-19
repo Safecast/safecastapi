@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.7.6'
 
-gem 'rails', '~> 6.0.6'
+gem 'rails', '~> 6.0.6.1'
 
 gem 'activerecord-postgis-adapter', '~> 6.0'
 gem 'aws-sdk-elasticbeanstalk'
@@ -45,6 +45,7 @@ gem 'responders'
 gem 'rubyzip', require: 'zip'
 gem 'sassc-rails'
 gem 'simple_form'
+gem 'sprockets', '~> 3.7.2', '< 4'
 gem 'swagger-blocks'
 # noinspection RailsParamDefResolve
 gem 'tzinfo-data', platforms: %i(mingw mswin x64_mingw)
