@@ -45,7 +45,7 @@ gem 'responders'
 gem 'rubyzip', require: 'zip'
 gem 'sassc-rails'
 gem 'simple_form'
-gem 'sprockets', '~> 3.7.2', '< 4'
+gem 'sprockets', '~> 4.2.0'
 gem 'swagger-blocks'
 # noinspection RailsParamDefResolve
 gem 'tzinfo-data', platforms: %i(mingw mswin x64_mingw)
