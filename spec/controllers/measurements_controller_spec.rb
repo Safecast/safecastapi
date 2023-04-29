@@ -107,7 +107,7 @@ RSpec.describe MeasurementsController do
       let(:count_format) { :json }
 
       # Test can't assert 2 since switching to estimated row count
-      it { expect(JSON.parse(response.body)).to eq('count' => 0) }
+      it { expect(response.parsed_body).to eq('count' => 0) }
     end
   end
 
