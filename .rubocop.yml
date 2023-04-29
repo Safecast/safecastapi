@@ -296,3 +296,15 @@ Naming/VariableName:
 # This cop checks schema in db/schema.rb, but ours is empty.
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
+
+Rails/ThreeStateBooleanColumn:
+  Exclude:
+    - db/migrate/20120307130803_add_approved_to_measurement_import.rb
+    - db/migrate/20120307150105_add_moderator_to_user.rb
+    - db/migrate/20160531111906_add_rejected_to_bgeigie_imports.rb
+    - db/migrate/20191017054450_add_would_auto_approve_to_measurement_imports.rb
+    - db/migrate/20191022080113_add_cpm_equals_zero_to_measurement_imports.rb
+    - db/migrate/20191025034816_add_auto_approve_rules_to_measruement_imports.rb
+    - db/migrate/20191025034816_add_auto_approve_rules_to_measruement_imports.rb
+    - db/migrate/20191025034816_add_auto_approve_rules_to_measruement_imports.rb
+    - db/migrate/20191025034816_add_auto_approve_rules_to_measruement_imports.rb
