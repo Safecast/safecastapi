@@ -7,7 +7,7 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
   index_name 'ingest-measurements-*'
   document_type '_doc'
 
-  class << self
+  class << self # rubocop:disable Metrics/ClassLength
     def data_for(query)
       search(query: query).results.map(&:_source)
     end
