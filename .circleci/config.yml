@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: safecast/api-build:2.7.6-amazonlinux2
+      - image: safecast/api-build:3.0.6-amazonlinux2
         environment:
           AWS_DEFAULT_REGION: us-west-2
           EB_APP_NAME: api
@@ -20,14 +20,14 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v5-safecastapi-{{ checksum "Gemfile.lock" }}
-            - v5-safecastapi-
+            - v6-safecastapi-{{ checksum "Gemfile.lock" }}
+            - v6-safecastapi-
       - run:
           name: Bundle Install
           command: |
             bundle install --path vendor/bundle --jobs 2 --retry 3
       - save_cache:
-          key: v5-safecastapi-{{ checksum "Gemfile.lock" }}
+          key: v6-safecastapi-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run:
