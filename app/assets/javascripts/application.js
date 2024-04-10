@@ -6,12 +6,9 @@
 //
 //= require json2
 //= require jquery
-//= require jquery-ui
 //= require jquery_ujs
 //= require underscore
 //= require bootstrap-sprockets
-//= require bootstrap-datetimepicker.min
-//= require bootstrap-rowlink.min
 //= require moment
 //= require bootstrap-datetimepicker
 //= require chartkick

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe IngestController, type: :controller do
+RSpec.describe IngestController do
   include ElasticsearchHelpers
 
   describe 'GET #index' do

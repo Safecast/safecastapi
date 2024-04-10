@@ -6,7 +6,8 @@
 # @topic Devices
 #
 class DevicesController < ApplicationController
-  has_scope :order
+  include HasOrderScope
+
   has_scope :manufacturer do |_controller, scope, value|
     scope.where('manufacturer LIKE ?', "%#{value}%")
   end
@@ -18,10 +19,6 @@ class DevicesController < ApplicationController
   end
   before_action :authenticate_user!, only: :create
 
-  def new
-    @device = Device.new
-  end
-
   def index
     @devices = apply_scopes(Device).page(params[:page])
     respond_with @devices
@@ -30,6 +27,10 @@ class DevicesController < ApplicationController
   def show
     @device = Device.find(params[:id])
     respond_with @device
+  end
+
+  def new
+    @device = Device.new
   end
 
   def create

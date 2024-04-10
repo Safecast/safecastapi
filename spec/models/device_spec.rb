@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Device, type: :model do
+RSpec.describe Device do
   let(:device) do
     Fabricate(:device, manufacturer: 'Safecast',
                        model: 'iGeigie',

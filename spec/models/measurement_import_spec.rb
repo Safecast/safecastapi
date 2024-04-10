@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe MeasurementImport, type: :model do
+RSpec.describe MeasurementImport do
   let(:source) { Rails.root.join('spec', 'fixtures', 'bgeigie0.log').open(File::RDONLY) }
 
   context 'validations' do

@@ -7,7 +7,7 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
   index_name 'ingest-measurements-*'
   document_type '_doc'
 
-  class << self
+  class << self # rubocop:disable Metrics/ClassLength
     def data_for(query)
       search(query: query).results.map(&:_source)
     end
@@ -18,7 +18,7 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
                    filter: [
                      {
                        range: {
-                         "@timestamp": {
+                         '@timestamp': {
                            gte: time_range,
                            lte: 'now'
                          }
@@ -250,7 +250,7 @@ class IngestMeasurement # rubocop:disable Metrics/ClassLength
     end
 
     def query_last_sensor_location(device_urn)
-      search query: { match: { device_urn: device_urn } }, size: 1, sort: [{ "@timestamp": { order: 'desc' } }]
+      search query: { match: { device_urn: device_urn } }, size: 1, sort: [{ '@timestamp': { order: 'desc' } }]
     end
   end
 end

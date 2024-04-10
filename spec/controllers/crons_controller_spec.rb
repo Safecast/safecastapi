@@ -4,7 +4,7 @@
 
 require 'spec_helper'
 
-RSpec.describe CronsController, type: :controller do
+RSpec.describe CronsController do
   describe 'GET #create' do
     before do
       @request.env['REMOTE_ADDR'] = '127.0.0.1'

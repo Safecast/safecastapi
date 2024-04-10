@@ -46,7 +46,7 @@ RSpec.configure do |config|
   config.mock_with :rspec
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.fixture_path = Rails.root.join('spec/fixtures')
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -58,6 +58,8 @@ RSpec.configure do |config|
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
 
+  config.infer_spec_type_from_file_location!
+
   config.before(:all) do
     FileUtils.rm_rf Dir[Rails.root.join('tmp/cache/assets/**/*')]
   end
@@ -65,7 +67,7 @@ RSpec.configure do |config|
   config.after(:all) do
     FileUtils.rm_f Rails.root.join('tmp/capybara/*')
     FileUtils.rm_rf Dir[Rails.root.join('tmp/cache/assets/**/*')]
-    FileUtils.rm_rf Dir[Rails.root.join('public/uploads/**/*')]
+    FileUtils.rm_rf Dir[Rails.public_path.join('uploads/**/*')]
   end
 
   config.before(:suite) do

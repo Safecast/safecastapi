@@ -14,10 +14,7 @@ module Safecast
     config.load_defaults 5.2
     config.action_mailer.delivery_job = 'ActionMailer::MailDeliveryJob' # default 6.0
     config.active_record.belongs_to_required_by_default = false
-
-    if config.respond_to?(:elastic_apm)
-      config.elastic_apm.active = ENV['ELASTIC_APM_SECRET_TOKEN'].present?
-    end
+    config.autoloader = :zeitwerk
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -57,7 +54,14 @@ module Safecast
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    config.active_job.queue_adapter = :delayed_job
+
     config.active_record.schema_format = :sql
+    config.active_record.dump_schemas = :all
+    config.active_record.yaml_column_permitted_classes = [
+      ActiveSupport::HashWithIndifferentAccess,
+      Symbol
+    ]
 
     config.generators do |g|
       g.test_framework :rspec,

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DeviceStoriesController < ApplicationController
-  has_scope :order
+  include HasOrderScope
 
   before_action :authenticate_user!, only: %i(new create edit update destroy)
   before_action :fetch_device_story, only: %i(show)

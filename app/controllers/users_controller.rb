@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  include HasOrderScope
   include Swagger::Blocks
 
-  has_scope :order
+  before_action :authenticate_user!, only: %i(me)
+
   has_scope :name do |_controller, scope, value|
     scope.by_name(value)
   end
@@ -32,5 +34,13 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     respond_with @user
+  end
+
+  def me
+    @user = current_user
+    respond_to do |format|
+      format.html { redirect_to user_path(@user) }
+      format.json
+    end
   end
 end

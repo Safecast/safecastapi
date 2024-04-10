@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe BgeigieImportsController, type: :controller do
+RSpec.describe BgeigieImportsController do
   let(:user) { Fabricate(:user) }
   let(:administrator) { Fabricate(:admin_user) }
 
@@ -110,7 +110,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
     context 'without subtype' do
       let(:post_params) { { bgeigie_import: bgeigie_import_params } }
 
-      it { expect(response.status).to eq(201) }
+      it { expect(response).to have_http_status(:created) }
       it { expect(assigns(:bgeigie_import)).to be_persisted }
       it 'should set subtype of import to "None"' do
         expect(assigns(:bgeigie_import).subtype).to eq('None')
@@ -122,7 +122,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
         { bgeigie_import: bgeigie_import_params.merge(subtype: 'Drive') }
       end
 
-      it { expect(response.status).to eq(201) }
+      it { expect(response).to have_http_status(:created) }
       it { expect(assigns(:bgeigie_import)).to be_persisted }
       it 'should set subtype of import to "None"' do
         expect(assigns(:bgeigie_import).subtype).to eq('Drive')
@@ -134,7 +134,7 @@ RSpec.describe BgeigieImportsController, type: :controller do
         { bgeigie_import: bgeigie_import_params.merge(subtype: '') }
       end
 
-      it { expect(response.status).to eq(201) }
+      it { expect(response).to have_http_status(:created) }
       it { expect(assigns(:bgeigie_import)).to be_persisted }
       it 'should set subtype of import to "None"' do
         expect(assigns(:bgeigie_import).subtype).to eq('None')
@@ -203,6 +203,10 @@ RSpec.describe BgeigieImportsController, type: :controller do
         it { expect(response).to redirect_to(bgeigie_imports_path) }
         it 'should delete not bgeigie import' do
           expect { BgeigieImport.find(bgeigie_import.id) }.not_to raise_error
+        end
+
+        it 'has flash message' do
+          expect(flash[:alert]).to eq('Cannot delete approved bGeigie import')
         end
       end
     end
@@ -366,6 +370,36 @@ RSpec.describe BgeigieImportsController, type: :controller do
       expect(response).to redirect_to(assigns(:bgeigie_import))
       # should put import's status to previous status
       expect(bgeigie_import).to have_attributes(status: 'processed')
+    end
+  end
+
+  describe 'GET #show', format: :html do
+    context 'when specifying non-existing ID' do
+      before do
+        import = Fabricate(:bgeigie_import)
+        import.destroy!
+
+        get :show, params: { id: import.id }
+      end
+
+      it 'return HTTP 404 Not Found' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
+  describe 'GET #show', format: :json do
+    context 'when specifying non-existing ID' do
+      before do
+        import = Fabricate(:bgeigie_import)
+        import.destroy!
+
+        get :show, params: { id: import.id }, format: :json
+      end
+
+      it 'return HTTP 404 Not Found' do
+        expect(response).to have_http_status(:not_found)
+      end
     end
   end
 end

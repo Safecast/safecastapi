@@ -346,3 +346,20 @@ en-US:
       imports_awaiting_approval:
       submissions:
   captured_at:
+  # controllers
+  application_controller:
+    require_moderator: 'access_denied'
+  bgeigie_imports:
+    destroy:
+      cannot_delete_approved: "Cannot delete approved bGeigie import"
+  device_story_comments:
+    create:
+      success: "Comment successfully submitted!"
+    update:
+      success: "device_story_comment was successfully updated."
+    destroy:
+      success: "Comment deleted!"
+  # mailers
+  reminders:
+    pending_imports:
+      subject: "Reminder: Your Safecast bGeigie logs"

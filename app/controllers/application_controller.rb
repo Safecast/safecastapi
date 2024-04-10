@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
   def require_moderator
     return if current_user&.moderator?
 
-    redirect_to root_path, alert: 'access_denied'
+    redirect_to root_path, alert: t('application_controller.require_moderator')
   end
 
   def set_locale

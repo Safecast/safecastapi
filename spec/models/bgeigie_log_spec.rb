@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe BgeigieLog, type: :model do
+RSpec.describe BgeigieLog do
   let(:bgeigie_log) { Fabricate(:bgeigie_log, cpm: 33) }
 
   describe '#location' do

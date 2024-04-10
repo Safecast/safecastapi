@@ -62,6 +62,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     end
     resources :users do
       resources :measurements, only: :index
+      get :me, on: :collection
     end
     resources :device_stories, only: %i(index show) do
       resources :device_story_comments

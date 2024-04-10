@@ -1,6 +1,0 @@
-test:
-  adapter: postgis
-  host: localhost
-  database: safecast
-  username: safecast
-  schema_search_path: "public,postgis"

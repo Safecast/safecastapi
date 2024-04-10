@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-feature '/devices API endpoint', type: :request do
+feature '/devices API endpoint', type: :request do # rubocop:disable RSpec/Rails/InferredSpecType
   before do
     @user = Fabricate(:user, email: 'paul@rslw.com', name: 'Paul Campbell')
   end
@@ -23,7 +23,7 @@ feature '/devices API endpoint', type: :request do
     expect(result['sensor']).to eq('LND-7317')
 
     id_created = result.include?('id')
-    expect(id_created).to eq(true)
+    expect(id_created).to be(true)
   end
 
   scenario 'empty post' do
@@ -40,7 +40,7 @@ feature '/devices API endpoint', type: :request do
   end
 end
 
-feature '/devices with existing devices', type: :request do
+feature '/devices with existing devices', type: :request do # rubocop:disable RSpec/Rails/InferredSpecType
   before do
     @user = Fabricate(:user, email: 'paul@rslw.com', name: 'Paul Campbell')
     @first_device = Fabricate(:device, manufacturer: 'Safecast',
@@ -76,9 +76,9 @@ feature '/devices with existing devices', type: :request do
   scenario 'lookup all devices' do
     result = api_get('/devices', headers: { 'HTTP_ACCEPT' => 'application/json' })
     expect(result.length).to eq(3)
-    expect(result.map { |obj| obj['manufacturer'] }).to eq(%w(Safecast Medcom Safecast))
-    expect(result.map { |obj| obj['model'] }).to eq(%w(bGeigie Inspector iGeigie))
-    expect(result.map { |obj| obj['sensor'] }).to eq(['LND-7317', 'LND-712', 'LND-712'])
+    expect(result.pluck('manufacturer')).to eq(%w(Safecast Medcom Safecast))
+    expect(result.pluck('model')).to eq(%w(bGeigie Inspector iGeigie))
+    expect(result.pluck('sensor')).to eq(['LND-7317', 'LND-712', 'LND-712'])
   end
 
   scenario 'lookup all Safecast devices' do
@@ -88,9 +88,9 @@ feature '/devices with existing devices', type: :request do
                      },
                      headers: { 'HTTP_ACCEPT' => 'application/json' })
     expect(result.length).to eq(2)
-    expect(result.map { |obj| obj['manufacturer'] }).to eq(%w(Safecast Safecast))
-    expect(result.map { |obj| obj['model'] }).to eq(%w(bGeigie iGeigie))
-    expect(result.map { |obj| obj['sensor'] }).to eq(['LND-7317', 'LND-712'])
+    expect(result.pluck('manufacturer')).to eq(%w(Safecast Safecast))
+    expect(result.pluck('model')).to eq(%w(bGeigie iGeigie))
+    expect(result.pluck('sensor')).to eq(['LND-7317', 'LND-712'])
   end
 
   scenario 'lookup a particular device' do

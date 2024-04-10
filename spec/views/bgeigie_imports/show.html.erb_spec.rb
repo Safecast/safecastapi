@@ -2,10 +2,14 @@
 
 require 'spec_helper'
 
-RSpec.describe 'bgeigie_imports/show.html.erb', type: :view do
+RSpec.describe 'bgeigie_imports/show.html.erb' do
   before do
     controller.default_url_options[:locale] = 'en-US'
     stub_template('layouts/_current_page_api_example.html.erb' => '')
+  end
+
+  after do
+    controller.default_url_options[:locale] = nil
   end
 
   context 'When BgeigieImport status is awaiting_response' do

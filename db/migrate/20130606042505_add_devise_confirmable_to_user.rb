@@ -7,7 +7,7 @@ class AddDeviseConfirmableToUser < ActiveRecord::Migration
 
     add_index :users, :confirmation_token
 
-    User.update_all confirmed_at: Time.now
+    User.update_all confirmed_at: Time.zone.now
   end
 
   def down

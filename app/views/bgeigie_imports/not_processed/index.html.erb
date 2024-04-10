@@ -1,0 +1,41 @@
+<%- content_for(:title) { t('.bgeigie_imports') } %>
+
+<h2><%= t('.not_processed') %></h2>
+<hr>
+<%- if @bgeigie_imports.empty? -%>
+  <%= t('none_found') %>
+<%- else -%>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <th>ID</th>
+        <th>Created At</th>
+        <th>User ID</th>
+        <th>Source</th>
+        <th>Maximum CPM</th>
+        <th>Status Details</th>
+      </thead>
+
+      <tbody>
+        <%- @bgeigie_imports.each do |bgeigie_import| -%>
+          <tr>
+            <td><%= bgeigie_import.id %></td>
+            <td><%= bgeigie_import.created_at_formatted %></td>
+            <td><%= link_to bgeigie_import.user.name, bgeigie_import.user %></td>
+            <td><%= link_to File.basename(bgeigie_import.source.filename), bgeigie_import %></td>
+            <td><%= bgeigie_import.maximum_cpm %></td>
+            <td>
+              <ul>
+                <%- status_details(bgeigie_import).each do |s| -%>
+                  <li><%= s %></li>
+                <%- end -%>
+              </ul>
+            </td>
+          </tr>
+        <%- end -%>
+      </tbody>
+    </table>
+  </div>
+
+  <%= paginate @bgeigie_imports, theme: 'twitter-bootstrap-3' %>
+<%- end -%>

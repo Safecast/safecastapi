@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Measurement, type: :model do
+RSpec.describe Measurement do
   context 'setting location' do
     let(:measurement) do
       Fabricate(:measurement, location: 'POINT(12.001 14.002)')

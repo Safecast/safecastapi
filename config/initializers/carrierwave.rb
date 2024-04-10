@@ -18,8 +18,8 @@ CarrierWave.configure do |config| # rubocop:disable Metrics/BlockLength
 
     config.fog_credentials = if ENV.key? 'AWS_ACCESS_KEY_ID'
                                { provider: 'AWS',
-                                 aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-                                 aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+                                 aws_access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID', nil),
+                                 aws_secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY', nil),
                                  region: bucket_region }
                              else
                                { provider: 'AWS',

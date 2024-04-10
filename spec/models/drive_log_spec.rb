@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe DriveLog, type: :model do
+RSpec.describe DriveLog do
   let(:drive_log) { described_class.create }
 
   describe '#update_md5sum' do

@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 
 class BgeigieImportsController < ApplicationController # rubocop:disable Metrics/ClassLength
+  include HasOrderScope
+
   respond_to :html, :json
 
   before_action :authenticate_user!, only: %i(new create edit update destroy)
   before_action :require_moderator, only: %i(approve fixdrive send_email resolve)
 
   has_scope :q do |_controller, scope, value|
-    scope.filter(value)
+    scope.filter_by_text_fields(value)
   end
 
   has_scope :by_status
   has_scope :by_user_id
   has_scope :by_rejected
   has_scope :by_user_name
-  has_scope :order
   has_scope :uploaded_after
   has_scope :uploaded_before
   has_scope :rejected_by
@@ -33,8 +34,9 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
     scope.by_subtype(value.split(',').map(&:strip).reject(&:blank?))
   end
 
-  def new
-    @bgeigie_import = BgeigieImport.new
+  def index
+    @bgeigie_imports = apply_scopes(BgeigieImport).page(params[:page])
+    respond_with @bgeigie_imports
   end
 
   def approve
@@ -83,21 +85,10 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
     if @bgeigie_import.would_auto_approve
       @bgeigie_import.approve!('ZBot Auto Approving System')
     else
-      @bgeigie_import.update_column(:status, 'submitted')
-      @bgeigie_import.update_column(:rejected, 'false')
-      @bgeigie_import.update_column(:rejected_by, nil)
+      @bgeigie_import.update_columns(status: 'submitted', rejected: false, rejected_by: nil)
       Notifications.import_awaiting_approval(@bgeigie_import).deliver_later
     end
     redirect_to @bgeigie_import
-  end
-
-  def edit
-    @bgeigie_import = current_user.bgeigie_imports.find(params[:id])
-  end
-
-  def index
-    @bgeigie_imports = apply_scopes(BgeigieImport).page(params[:page])
-    respond_with @bgeigie_imports
   end
 
   def show
@@ -105,11 +96,24 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
     render(partial: params[:partial]) && return if params[:partial].present?
 
     respond_with @bgeigie_import
+  rescue ActiveRecord::RecordNotFound
+    respond_to do |format|
+      format.html { head :not_found }
+      format.json { head :not_found }
+    end
+  end
+
+  def new
+    @bgeigie_import = BgeigieImport.new
+  end
+
+  def edit
+    @bgeigie_import = current_user.bgeigie_imports.find(params[:id])
   end
 
   def create
     @bgeigie_import = current_user.bgeigie_imports.build(bgeigie_import_params)
-    @bgeigie_import.process_in_background if @bgeigie_import.save
+    ProcessBgeigieImportJob.perform_later(@bgeigie_import.id) if @bgeigie_import.save
     respond_with @bgeigie_import
   end
 
@@ -125,7 +129,7 @@ class BgeigieImportsController < ApplicationController # rubocop:disable Metrics
     bgeigie_import = scope.where(id: params[:id]).first
 
     return render plain: '404 Not Found', status: :not_found unless bgeigie_import
-    return redirect_to :bgeigie_imports, alert: 'Cannot delete approved bGeigie import' if bgeigie_import.approved?
+    return redirect_to :bgeigie_imports, alert: t('.cannot_delete_approved') if bgeigie_import.approved?
 
     bgeigie_import.destroy
     redirect_to :bgeigie_imports

@@ -10,7 +10,8 @@ cd ../public/system
 
 psql -f "${CRON_DIR}/dump_measurements.sql"
 
-tar -czf measurements.tar.gz measurements-out.csv
+tar -czf measurements-out.tar.gz measurements-out.csv
 mv measurements-out.csv measurements.csv
+mv measurements-out.tar.gz measurements.tar.gz
 
 # Now this is available as https://api.safecast.org/system/measurements.tar.gz

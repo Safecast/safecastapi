@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-FinalizeBgeigieImportJob = Struct.new(:bgeigie_import_id) do
-  def perform
+class FinalizeBgeigieImportJob < ApplicationJob
+  def perform(bgeigie_import_id)
     BgeigieImport.find(bgeigie_import_id).finalize!
   end
 end

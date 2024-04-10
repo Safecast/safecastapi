@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe BgeigieImports::NotSubmittedController, type: :controller do
+RSpec.describe BgeigieImports::NotSubmittedController do
   before do
     sign_in Fabricate(:admin_user)
   end

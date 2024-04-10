@@ -23,6 +23,8 @@ common: &default_settings
 
   # Logging level for log/newrelic_agent.log
   log_level: info
+error_collector:
+  ignore_errors: "ActionController::RoutingError,ActionDispatch::Http::MimeNegotiation::InvalidType"
 
 
 # Environment-specific settings are in this section.

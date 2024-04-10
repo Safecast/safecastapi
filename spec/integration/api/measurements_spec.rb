@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-feature '/measurements API endpoint', type: :request do
+feature '/measurements API endpoint', type: :request do # rubocop:disable RSpec/Rails/InferredSpecType
   let!(:user) do
     User.first || Fabricate(:user,
                             email: 'paul@rslw.com',
@@ -25,7 +25,7 @@ feature '/measurements API endpoint', type: :request do
   end
 end
 
-feature '/measurements', type: :request do
+feature '/measurements', type: :request do # rubocop:disable RSpec/Rails/InferredSpecType
   before(:all) { Measurement.destroy_all }
 
   let!(:user) { User.first || Fabricate(:user) }
@@ -37,7 +37,7 @@ feature '/measurements', type: :request do
   scenario 'all measurements (/measurements)' do
     result = api_get('/measurements.json')
     expect(result.length).to eq(2)
-    expect(result.map { |obj| obj['value'] }).to eq([10, 12])
+    expect(result.pluck('value')).to eq([10, 12])
   end
 
   scenario 'get measurement count (/measurements/count)' do
@@ -69,7 +69,7 @@ feature '/measurements', type: :request do
     result = api_get("/measurements.json?original_id=#{second_measurement.id}")
     expect(result.length).to eq(2)
     result.sort_by! { |obj| obj['value'] }
-    expect(result.map { |obj| obj['value'] }).to eq([12, 15])
+    expect(result.pluck('value')).to eq([12, 15])
 
     # withHistory defaults to false, returns latest value
     result = api_get("/measurements/#{second_measurement.id}.json")

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Measurement < ActiveRecord::Base
+class Measurement < ApplicationRecord
   include MeasurementConcerns
   include SwaggerBlocks::Models::Measurement
 
@@ -24,7 +24,7 @@ class Measurement < ActiveRecord::Base
   end
 
   def self.nearby_to(lat, lng, distance)
-    return scoped unless lat.present? && lng.present? && distance.present?
+    return all unless lat.present? && lng.present? && distance.present?
 
     where("ST_DWithin(location, ST_GeogFromText('POINT (#{lng.to_f} #{lat.to_f})'), ?)", distance.to_i)
   end
@@ -76,8 +76,9 @@ class Measurement < ActiveRecord::Base
 
   def self.default
     new(
-      location: 'POINT(140.47335610000005 37.7607226)',
-      location_name: 'Fukushima City Office'
+      captured_at: Time.current.strftime('%d %B %Y, %H:%M:%S'),
+      location: 'POINT(0.0 0.0)',
+      location_name: 'Some place'
     )
   end
 

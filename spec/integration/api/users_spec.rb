@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-feature '/api/users API endpoint', type: :request do
+feature '/api/users API endpoint', type: :request do # rubocop:disable RSpec/Rails/InferredSpecType
   before(:all) { User.destroy_all }
   before do
     Fabricate(:user, email: 'paul@rslw.com', name: 'Paul Campbell')
@@ -16,8 +16,8 @@ feature '/api/users API endpoint', type: :request do
     })
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['email']).to eq('kevin@rkn.la')
-    expect(result['id']).not_to eq(nil)
+    expect(result['id']).not_to be_nil
     has_auth = result.include?('authentication_token')
-    expect(has_auth).to eq(true)
+    expect(has_auth).to be(true)
   end
 end

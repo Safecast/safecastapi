@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MeasurementImport < ActiveRecord::Base
+class MeasurementImport < ApplicationRecord
   validates :source, presence: true, on: :create
   validate :uniqueness_of_md5sum
   has_many :measurement_import_logs

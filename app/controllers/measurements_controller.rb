@@ -26,6 +26,7 @@ class MeasurementsController < ApplicationController
   has_scope :distance do |controller, scope, _value|
     scope.nearby_to(controller.params[:latitude], controller.params[:longitude], controller.params[:distance])
   end
+  # XXX: Adding "NULLS LAST" slows database query.
   has_scope :order
   has_scope :original_id do |_controller, scope, value|
     scope.where('original_id = :value OR id = :value', value: value)
@@ -68,8 +69,7 @@ class MeasurementsController < ApplicationController
   end
 
   def new
-    @measurement = current_user.measurements.last.try(:dup) || Measurement.default
-    @measurement.captured_at = Time.current.strftime('%d %B %Y, %H:%M:%S')
+    @measurement = Measurement.default
   end
 
   def create
