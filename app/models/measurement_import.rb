@@ -9,8 +9,8 @@ class MeasurementImport < ApplicationRecord
   format_dates :timestamps, format: '%Y/%m/%d %H:%M %z'
   mount_uploader :source, FileUploader
 
-  before_validation :set_md5sum, on: :create
   after_initialize :set_default_values
+  before_validation :set_md5sum, on: :create
 
   AVAILABLE_SUBTYPES = %w(None Drive Surface Cosmic).freeze
 

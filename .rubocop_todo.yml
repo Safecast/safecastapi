@@ -19,9 +19,6 @@ Style/WordArray:
   Exclude:
     - spec/integration/api/devices_spec.rb
 
-Rails/ActiveRecordCallbacksOrder:
-  Exclude:
-    - app/models/measurement_import.rb
 Rails/ApplicationController:
   Exclude:
     - app/controllers/api_docs_controller.rb
