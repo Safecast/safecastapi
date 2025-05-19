@@ -16,8 +16,7 @@ RSpec.describe CronsController do
             1 ?        S      0:00 bash ./dump_measurements
           STRING
         )
-      allow(controller).to receive(:system) # Not to run cron jobs
-      allow($?).to receive(:success?).and_return(true) # rubocop:disable Style/SpecialGlobalVars
+      allow(controller).to receive(:system).and_return(true) # Not to run cron jobs
     end
 
     describe 'when task exists' do
