@@ -86,3 +86,6 @@ gem 'logger', '~> 1.7'
 gem 'mutex_m', '~> 0.3.0'
 gem 'ostruct', '~> 0.6.1'
 gem 'reline', '~> 0.6.1'
+
+gem 'drb', '~> 2.2'
+gem 'psych', '~> 3.3'

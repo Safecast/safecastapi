@@ -192,6 +192,7 @@ GEM
       activesupport (>= 5.0)
       request_store (>= 1.0)
       ruby2_keywords
+    drb (2.2.1)
     elasticsearch (7.17.1)
       elasticsearch-api (= 7.17.1)
       elasticsearch-transport (= 7.17.1)
@@ -371,9 +372,7 @@ GEM
       pry (>= 0.13, < 0.15)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    psych (5.2.6)
-      date
-      stringio
+    psych (3.3.4)
     public_suffix (5.0.1)
     puma (6.4.0)
       nio4r (~> 2.0)
@@ -423,8 +422,7 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rdoc (6.13.1)
-      psych (>= 4.0.0)
+    rdoc (6.3.4.1)
     regexp_parser (2.10.0)
     reline (0.6.1)
       io-console (~> 0.5)
@@ -520,7 +518,6 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     ssrf_filter (1.1.1)
-    stringio (3.1.7)
     swagger-blocks (3.0.0)
     thor (1.2.1)
     thread_safe (0.3.6)
@@ -585,6 +582,7 @@ DEPENDENCIES
   devise-token_authenticatable
   dotenv-rails
   draper
+  drb (~> 2.2)
   elasticsearch-model
   email_spec
   fabrication
@@ -608,6 +606,7 @@ DEPENDENCIES
   pg
   pry-byebug
   pry-rails
+  psych (~> 3.3)
   puma
   rails (~> 6.0.6.1)
   rails-controller-testing

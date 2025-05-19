@@ -8,9 +8,6 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# Configure YAML to enable aliases
-YAML.load_file = ->(file) { Psych.load(file, aliases: true) }
-
 module Safecast
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
