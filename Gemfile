@@ -88,4 +88,4 @@ gem 'ostruct', '~> 0.6.1'
 gem 'reline', '~> 0.6.1'
 
 gem 'drb', '~> 2.2'
-gem 'psych', '~> 3.3'
+gem 'psych', '~> 3.3' # to allow aliases in app config yaml
