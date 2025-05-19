@@ -10,6 +10,8 @@ class DeviceStoryComment < ApplicationRecord
   validate :image_size
   validate :image_format
 
+  VALID_IMAGE_TYPES = [Mime[:bmp], Mime[:jpeg], Mime[:gif], Mime[:png]].freeze
+
   private
 
   def image_size
@@ -18,8 +20,6 @@ class DeviceStoryComment < ApplicationRecord
 
     errors.add(:image, 'is too large (maximum is 10MB)')
   end
-
-  VALID_IMAGE_TYPES = [Mime[:bmp], Mime[:jpeg], Mime[:gif], Mime[:png]].freeze
 
   def image_format
     return unless image.attached?

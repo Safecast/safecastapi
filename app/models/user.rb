@@ -45,10 +45,10 @@ class User < ApplicationRecord
   end
 
   def serializable_hash(options = {})
-    super options.merge(
+    super(options.merge(
       only: %i(id name email authentication_token),
       methods: %i(first_name last_name)
-    )
+    ))
   end
 
   def to_builder
