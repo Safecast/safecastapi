@@ -73,6 +73,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'rspec-its'
   gem 'rspec_junit_formatter'
+  gem 'rspec-mocks', '~> 3.13.2' # Avoids https://github.com/rspec/rspec-mocks/issues/1446
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'webmock'
