@@ -6,7 +6,7 @@ feature 'User Profile', type: :feature do
   let(:user) { Fabricate(:user) }
   before { sign_in(user) }
 
-  around(:all) do |example|
+  around do |example|
     I18n.with_locale(:'en-US') do
       example.run
     end
