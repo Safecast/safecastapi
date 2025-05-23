@@ -8,7 +8,8 @@ RUN yum install -y \
   openssl-devel \
   zlib-devel \
   nodejs-npm \
-  xorg-x11-server-Xvfb
+  xorg-x11-server-Xvfb \
+  git
 
 # RUN /usr/bin/amazon-linux-extras install -y \
 #   postgresql11 \
@@ -64,5 +65,17 @@ RUN chmod +x /docker-entrypoint.sh
 # RUN /usr/bin/sed -i -e "s/^# %wheel/%wheel/" /etc/sudoers
 
 # USER circleci
+
+# TODO move these to top dockerfile area
+RUN yum install -y \
+  postgresql-devel \
+  g++ \
+  xz \
+  postgresql17 \
+  python3 \
+  python3-pip \
+  python3-setuptools
+
+RUN pip install awsebcli
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
