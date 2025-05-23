@@ -3,6 +3,7 @@
 .env
 .envrc
 .circleci/
+.bundle/
 .codeclimate.yml
 .DS_Store
 .idea/
