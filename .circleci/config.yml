@@ -8,7 +8,7 @@ jobs:
           EB_APP_NAME: api
           # PYTHON_BIN: python3.8
           RAILS_ENV: test
-      - image: safecast/postgres:17
+      - image: mdillon/postgis:11
         environment:
           POSTGRES_DB: safecast
           POSTGRES_PASSWORD: ""
