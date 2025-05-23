@@ -7,13 +7,10 @@
 #     - AWS_DEFAULT_REGION
 #     - S3_BUCKET_NAME
 #     - EB_APP_NAME
-#
-#   Provided by CI
 #     - BRANCH_NAME
 #     - BUILD_NUMBER
+#     - DESCRIPTION
 #
-# Usage: .elasticbeanstalk/package.sh APP
-# Ex: .elasticbeanstalk/package.sh ${SEMAPHORE_PROJECT_NAME}
 
 set -euxo pipefail
 
