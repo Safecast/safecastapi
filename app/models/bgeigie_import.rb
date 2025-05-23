@@ -200,21 +200,9 @@ class BgeigieImport < MeasurementImport # rubocop:disable Metrics/ClassLength
     return false unless date
 
     # check for properly formatted floats
-    lat = begin
-      Float(line_items[7])
-    rescue ArgumentError
-      nil
-    end
-    lon = begin
-      Float(line_items[9])
-    rescue ArgumentError
-      nil
-    end
-    alt = begin
-      Float(line_items[11])
-    rescue ArgumentError
-      nil
-    end
+    lat = Float(line_items[7], exception: false)
+    lon = Float(line_items[9], exception: false)
+    alt = Float(line_items[11], exception: false)
     return false unless lat && lon && alt
 
     # check for proper N/S and E/W

@@ -67,10 +67,10 @@ module ApplicationHelper
     }
   end
 
-  def filter_modal(name, &block)
+  def filter_modal(name, &)
     render partial: 'layouts/filter_modal', locals: {
       name: name,
-      form: capture(&block)
+      form: capture(&)
     }
   end
 

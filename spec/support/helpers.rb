@@ -18,13 +18,13 @@ module Helpers
     user
   end
 
-  def api_get(*args)
-    get(*args)
+  def api_get(path, params: {}, headers: {})
+    get path, params: params, headers: headers
     ActiveSupport::JSON.decode(response.body)
   end
 
-  def api_post(*args)
-    post(*args)
+  def api_post(path, params: {}, headers: {})
+    post path, params: params, headers: headers
     ActiveSupport::JSON.decode(response.body)
   end
 end

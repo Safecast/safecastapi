@@ -7,7 +7,7 @@ class ElasticBeanstalkHelper
 
   def initialize(application_name, environment_prefix, environment_config = nil)
     if environment_config.nil?
-      environment_config = (ENV['AWS_EB_CFG'] || 'dev')
+      environment_config = ENV['AWS_EB_CFG'] || 'dev'
     end
 
     @application_name = application_name

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.7.6'
+ruby '3.4.2'
 
 gem 'rails', '~> 6.0.6.1'
 
@@ -53,6 +53,7 @@ gem 'uglifier'
 gem 'wdm', platforms: %i(mingw mswin x64_mingw)
 
 group :development do
+  gem 'irb', '~> 1.15'
   gem 'pry-byebug', group: :test
   gem 'pry-rails'
   gem 'rubocop', group: :test
@@ -72,7 +73,20 @@ group :test do
   gem 'rails-controller-testing'
   gem 'rspec-its'
   gem 'rspec_junit_formatter'
+  gem 'rspec-mocks', '~> 3.13.2' # Avoids https://github.com/rspec/rspec-mocks/issues/1446
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'webmock'
 end
+
+gem 'base64', '~> 0.2.0'
+gem 'benchmark', '~> 0.4.0'
+gem 'bigdecimal', '~> 3.1'
+gem 'csv', '~> 3.3'
+gem 'logger', '~> 1.7'
+gem 'mutex_m', '~> 0.3.0'
+gem 'ostruct', '~> 0.6.1'
+gem 'reline', '~> 0.6.1'
+
+gem 'drb', '~> 2.2'
+gem 'psych', '~> 3.3' # to allow aliases in app config yaml

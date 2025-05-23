@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module WrappedButton
-  def wrapped_button(*args, &block) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def wrapped_button(*args, &) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     template.content_tag :div, class: 'form-actions' do
       options = args.extract_options!
       loading = object.new_record? ? I18n.t('simple_form.creating') : I18n.t('simple_form.updating')
@@ -12,9 +12,9 @@ module WrappedButton
       if cancel
         cancel_options = options.delete(:cancel_options)
         cancel_link = template.link_to(I18n.t('simple_form.buttons.cancel'), cancel, cancel_options)
-        "#{submit(*args, &block)} #{I18n.t('simple_form.buttons.or')} #{cancel_link}".html_safe
+        "#{submit(*args, &)} #{I18n.t('simple_form.buttons.or')} #{cancel_link}".html_safe
       else
-        submit(*args, &block)
+        submit(*args, &)
       end
     end
   end
