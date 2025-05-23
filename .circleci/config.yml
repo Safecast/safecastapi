@@ -25,7 +25,8 @@ jobs:
       - run:
           name: Bundle Install
           command: |
-            bundle install --path vendor/bundle --jobs 2 --retry 3
+            bundle config set path 'vendor/bundle'
+            bundle install --jobs 2 --retry 3
       - save_cache:
           key: v5-safecastapi-{{ checksum "Gemfile.lock" }}
           paths:
@@ -61,4 +62,4 @@ jobs:
       - run:
           name: Create application version
           command: |
-            ./.elasticbeanstalk/package.sh
+            /root/.local/bin/eb appversion --create --label "${VERSION}" --message "${CLEAN_DESCRIPTION}"
