@@ -19,18 +19,18 @@ RSpec.describe CronsController do
       allow(controller).to receive(:system).and_return(true) # Not to run cron jobs
     end
 
-    describe 'when task exists' do
-      before do
-        allow(controller).to receive(:taskname).and_return('dump_clean')
-      end
+    # TODO: fix flakiness
+    # describe 'when task exists' do
+    #   before do
+    #     allow(controller).to receive(:taskname).and_return('dump_clean')
+    #   end
 
-      # TODO: this is flakey
-      # it 'returns HTTP 200 OK' do
-      #   get :create
+    #   it 'returns HTTP 200 OK' do
+    #     get :create
 
-      #   expect(response).to have_http_status(200)
-      # end
-    end
+    #     expect(response).to have_http_status(200)
+    #   end
+    # end
 
     describe 'when task exists but try to run same job' do
       before do
