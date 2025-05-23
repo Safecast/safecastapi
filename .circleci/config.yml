@@ -62,4 +62,4 @@ jobs:
       - run:
           name: Create application version
           command: |
-            eb appversion --create --label "${VERSION}" --message "${CLEAN_DESCRIPTION}"
+            ./.elasticbeanstalk/package.sh
